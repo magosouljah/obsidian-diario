@@ -1,12 +1,12 @@
 
 # listas
 FUNK
-
+miller y ariana
 
 
 
 # canciones por grabar
-miller y ariana
+
 dopamina
 complexion
 sweet
