@@ -2,12 +2,12 @@
 # listas
 FUNK
 miller y ariana
-
+conexion
 
 
 # canciones por grabar
 dopamina
-conexion
+
 sweet
 my type
 loli pop
