@@ -9,9 +9,10 @@ conexion
 dopamina
 
 sweet
-my type
 loli pop
 "?"
+my type
+
 
 # beats
 dopamina
