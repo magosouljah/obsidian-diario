@@ -1,6 +1,6 @@
 # BeatGaler — Plan maestro para terminar y publicar Web, Windows y macOS
 
-### i
+### ignorar*
 ```powershell
 # Limpia y compacta manualmente la base interna de Git
 git gc
