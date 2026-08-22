@@ -10,7 +10,7 @@ ESTE ES EL CONTEXTO
    
 ### Repos:
 plan: https://github.com/magosouljah/obsidian-diario
-beatgaler:
+beatgaler: https://github.com/magosouljah/BeatGaler
 
 **Versión del plan:** 1.0  
 **Fecha de auditoría:** 22 de agosto de 2026, `America/Mexico_City`  
