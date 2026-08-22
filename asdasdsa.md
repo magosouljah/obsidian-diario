@@ -1,25 +1,24 @@
 
 # listas
 FUNK
-miller y ariana
-conexion
+
+
 
 
 # canciones por grabar
+miller y ariana
 dopamina
-
+complexion
 sweet
+my type
 loli pop
 "?"
-my type
-
 
 # beats
 dopamina
-conexion
 lolipop
 "?"
-
+conexion
 
 
 
