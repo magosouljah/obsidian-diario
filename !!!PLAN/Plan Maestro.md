@@ -5,12 +5,12 @@
 git gc
 ```
 
-```poweshell
+```powershell
 # Baja cambios de GitHub usando rebase
 git pull --rebase origin main
 ```
 
-```
+```power
 # Sube tus cambios locales
 git push origin main
 
