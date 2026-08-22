@@ -1,7 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # BeatGaler — Plan maestro para terminar y publicar Web, Windows y macOS
 
 ( : )
+=======
+# BeatGaler — Plan maestro para terminar y publicar Web, Windows y macOS
+
+(:
+>>>>>>> c7d6a07 (sync: 2026-08-22 22:03:53)
 
 ESTE ES EL CONTEXTO
 
@@ -1524,6 +1530,7 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 ## Registro de avances
 
 - **2026-08-22 — Sistema de seguimiento del Plan Maestro.** Se añade el bloque `Estado vivo del plan`, la convención visual de estados (`[ ]`, `[ 🟡 ]`, `[ ⚠️ ]`, `[ 🔴 ]`, `[ ⏸️ ]`, `[x]`) y este registro cronológico. No se modifica el alcance técnico del plan.
+<<<<<<< HEAD
 =======
 # BeatGaler — Plan maestro para terminar y publicar Web, Windows y macOS
 
@@ -3051,3 +3058,5 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 
 - **2026-08-22 — Sistema de seguimiento del Plan Maestro.** Se añade el bloque `Estado vivo del plan`, la convención visual de estados (`[ ]`, `[ 🟡 ]`, `[ ⚠️ ]`, `[ 🔴 ]`, `[ ⏸️ ]`, `[x]`) y este registro cronológico. No se modifica el alcance técnico del plan.
 >>>>>>> 8efeb0b (sync: 2026-08-22 22:03:16)
+=======
+>>>>>>> c7d6a07 (sync: 2026-08-22 22:03:53)
