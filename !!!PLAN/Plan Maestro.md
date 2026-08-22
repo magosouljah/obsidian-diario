@@ -8,7 +8,7 @@ REGLAS DE ORO:
 3. NO OLVIDES ANOTAR CADA AVANCE
    
    
-Repos:
+## # Repos:
 plan: https://github.com/magosouljah/obsidian-diario
 beatgaler:
 
