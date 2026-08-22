@@ -1,6 +1,8 @@
 # BeatGaler — Plan maestro para terminar y publicar Web, Windows y macOS
 
 ESTE ES EL CONTEXTO
+
+
 1. LEELO TODO
 2. SIGUELO ESTRICTAMENTE
 3. NO OLVIDES ANOTAR CADA AVANCE
