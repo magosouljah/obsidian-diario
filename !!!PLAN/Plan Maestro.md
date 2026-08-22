@@ -3,7 +3,7 @@
 ESTE ES EL CONTEXTO
 1. LEELO TODO
 2. SIGUELO ESTRICTAMENTE
-3. NO OLVIDES ANOTAR AVANCES:
+3. NO OLVIDES ANOTAR CADA AVANCE
 
 **Versión del plan:** 1.0  
 **Fecha de auditoría:** 22 de agosto de 2026, `America/Mexico_City`  
