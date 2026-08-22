@@ -10,10 +10,9 @@ git gc
 git pull --rebase origin main
 ```
 
-```power
+```powershell
 # Sube tus cambios locales
 git push origin main
-
 ```
 
 ESTE ES EL CONTEXTO
