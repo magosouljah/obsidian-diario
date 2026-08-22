@@ -9,6 +9,27 @@ ESTE ES EL CONTEXTO
 **Ruta conservadora si una persona concentra la ejecución:** 30 de octubre de 2026  
 **Alcance:** lanzamiento público directo desde la web, con aplicación Web y descargas firmadas para Windows y macOS.
 
+## Estado vivo del plan
+
+- **Fase actual:** Fase 0 — Contener, decidir y crear una sola línea de release.
+- **Día/tarea actual:** Día 0 — Tarea 0.1 — Congelar evidencia.
+- **Estado general:** 🔴 `NO-GO` para lanzamiento público; ejecución del plan todavía al inicio.
+- **Último avance:** se convirtió el Plan Maestro en documento vivo de seguimiento y fuente autoritativa del trabajo.
+- **Próximo paso:** ejecutar y documentar la Tarea 0.1 contra los SHAs auditados actuales.
+- **Bloqueos actuales:** confirmaciones externas y gates indicados en el propio plan; ningún bloqueo adicional registrado en esta capa de seguimiento.
+- **Últimos commits BeatGaler revisados:** Cloud `131df88753c812c0fdf440a5558fff46b2a83f57`; Web `e79728642839493326df706aba993a4cde2bdc02`.
+
+### Estados de seguimiento
+
+- [ ] Pendiente.
+- [ 🟡 ] En progreso.
+- [ ⚠️ ] Terminado técnicamente, pero falta evidencia o gate.
+- [ 🔴 ] Bloqueado.
+- [ ⏸️ ] Pausado.
+- [x] Terminado y con evidencia/gate satisfecho.
+
+Cuando una tarea cambie de estado, se actualiza aquí y en su checkbox original. Los estados con emoji son marcadores visuales de seguimiento; `[x]` se reserva para trabajo realmente terminado y sustentado por la evidencia exigida por el plan.
+
 ## Veredicto ejecutivo
 
 BeatGaler tiene una base de producto real y valiosa: biblioteca, importación y Review, edición, reproducción, Trash, sincronización cloud, modo offline desktop, YouTube, actualizador firmado por Tauri y un conjunto de pruebas que ya detecta varias regresiones. Sin embargo, las dos ramas auditadas no forman todavía una versión publicable y el estado actual es **NO-GO** para un lanzamiento público, pagado o simultáneo en Web, Windows y macOS.
@@ -1486,3 +1507,7 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 - [ ] Capacidad demostrada; no una cantidad arbitraria de bots.
 - [ ] Dos betas, soft launch y soak sin P0/P1.
 - [ ] Go/no-go firmado y BeatGaler publicado con rollback listo.
+
+## Registro de avances
+
+- **2026-08-22 — Sistema de seguimiento del Plan Maestro.** Se añade el bloque `Estado vivo del plan`, la convención visual de estados (`[ ]`, `[ 🟡 ]`, `[ ⚠️ ]`, `[ 🔴 ]`, `[ ⏸️ ]`, `[x]`) y este registro cronológico. No se modifica el alcance técnico del plan.
