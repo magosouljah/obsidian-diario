@@ -1,6 +1,6 @@
 # BeatGaler — Plan maestro para terminar y publicar Web, Windows y macOS
 
-c:
+(:
 
 ESTE ES EL CONTEXTO
 
