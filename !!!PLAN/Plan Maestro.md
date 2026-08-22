@@ -5,7 +5,7 @@
 git gc
 ```
 
-```
+```poweshell
 # Baja cambios de GitHub usando rebase
 git pull --rebase origin main
 ```
