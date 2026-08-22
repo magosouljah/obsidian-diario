@@ -38,10 +38,10 @@ beatgaler: https://github.com/magosouljah/BeatGaler
 ## Estado vivo del plan
 
 - **Fase actual:** Fase 0 — Contener, decidir y crear una sola línea de release.
-- **Día/tarea actual:** Día 0 — Tarea 0.2 — Convertir el 4 de septiembre en checkpoint interno.
-- **Estado general:** 🔴 `NO-GO` para lanzamiento público; Tarea 0.1 cerrada y Tarea 0.2 pendiente.
-- **Último avance:** Tarea 0.1 completada: se creó `docs/RELEASE-LEDGER.md` en BeatGaler, rama `galer-cloud-v0.7.4`, y se congeló el baseline auditado con estado `NO-GO`.
-- **Próximo paso:** ejecutar la Tarea 0.2: formalizar el checkpoint interno del 4 de septiembre, autoridad de stop-release y backlog P0/P1.
+- **Día/tarea actual:** Día 1 — Tarea 1.1 — Cerrar decisiones de negocio.
+- **Estado general:** 🔴 `NO-GO` para lanzamiento público; Día 0 completado y backlog P0/P1 operativo.
+- **Último avance:** Tarea 0.2 completada: el 4 de septiembre de 2026 quedó formalizado como checkpoint interno sin cobros ni usuarios reales; el RO tiene autoridad de stop-release y se creó el backlog maestro P0/P1 en BeatGaler Issue #3.
+- **Próximo paso:** ejecutar la Tarea 1.1: cerrar decisiones de negocio para lanzamiento, monetización y distribución.
 - **Bloqueos actuales:** confirmaciones externas y gates indicados en el propio plan; ningún bloqueo adicional registrado en esta capa de seguimiento.
 - **Últimos commits BeatGaler revisados:** Cloud `131df88753c812c0fdf440a5558fff46b2a83f57`; Web `e79728642839493326df706aba993a4cde2bdc02`.
 
@@ -476,12 +476,19 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 **Tarea 0.2 [P0 · RO] — Convertir el 4 de septiembre en checkpoint interno.**
 
-- [ ] Comunicar que no habrá cobros ni usuarios reales en ese hito.
-- [ ] Definir quién tiene autoridad de parar el release.
-- [ ] Abrir backlog P0/P1 con un owner y evidencia de salida por item.
+- [x] Comunicar que no habrá cobros ni usuarios reales en ese hito.
+- [x] Definir quién tiene autoridad de parar el release.
+- [x] Abrir backlog P0/P1 con un owner y evidencia de salida por item.
+
+**Decisión de gobernanza de 0.2:**
+- El **4 de septiembre de 2026** es checkpoint interno; no es fecha de lanzamiento público.
+- En ese hito no se aceptan cobros ni usuarios reales de producción.
+- El **Release Owner (RO)** tiene autoridad final para detener el release.
+- Cualquier P0/P1 abierto o fallido bloquea el release aunque exista presión de calendario.
+- Backlog operativo: [BeatGaler Issue #3 — P0/P1 Launch Backlog](https://github.com/magosouljah/BeatGaler/issues/3).
 
 **Dependencias:** ninguna.  
-**Evidencia:** SHAs, auditorías y ledger firmados por RO.  
+**Evidencia:** SHAs, auditorías, release ledger y backlog P0/P1.  
 **Gate de salida:** alcance y regla “0 P0/P1” aceptados; nadie presenta el 4 de septiembre como fecha pública.
 
 ### Día 1 — 24 de agosto — Charter de producto y decisiones externas
@@ -1538,3 +1545,4 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 
 - **2026-08-22 — Sistema de seguimiento del Plan Maestro.** Se añade el bloque `Estado vivo del plan`, la convención visual de estados (`[ ]`, `[ 🟡 ]`, `[ ⚠️ ]`, `[ 🔴 ]`, `[ ⏸️ ]`, `[x]`) y este registro cronológico. No se modifica el alcance técnico del plan.
 - **2026-08-22 — Tarea 0.1 completada: congelar evidencia.** Se creó `docs/RELEASE-LEDGER.md` en `magosouljah/BeatGaler`, rama `galer-cloud-v0.7.4`, con los SHAs auditados Cloud `131df88753c812c0fdf440a5558fff46b2a83f57` y Web `e79728642839493326df706aba993a4cde2bdc02`, conteos de builds/pruebas, warnings, vulnerabilidades y límites aún no verificados. El estado permanece `NO-GO`, no se creó tag público y la evidencia quedó en el commit BeatGaler `712331a60ef5e04ca4c57fcb5c52ad13e2ea279b`. La siguiente tarea activa es 0.2.
+- **2026-08-22 — Tarea 0.2 completada: checkpoint interno y backlog P0/P1.** Se formalizó el 4 de septiembre de 2026 como checkpoint interno sin cobros ni usuarios reales de producción. El RO queda como autoridad final de stop-release y la regla `0 P0/P1` sigue siendo obligatoria. Se creó el backlog maestro operativo en `magosouljah/BeatGaler` como Issue #3 (`[RELEASE] BeatGaler 1.0 — P0/P1 Launch Backlog`), con los 12 P0 y 11 P1 del plan, owner por rol y evidencia de salida por item. Día 0 queda completado y la siguiente tarea activa es 1.1.
