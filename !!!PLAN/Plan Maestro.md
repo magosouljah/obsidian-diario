@@ -1,5 +1,7 @@
 # BeatGaler — Plan maestro para terminar y publicar Web, Windows y macOS
 
+ESTE ES EL CONTEXTO
+
 **Versión del plan:** 1.0  
 **Fecha de auditoría:** 22 de agosto de 2026, `America/Mexico_City`  
 **Hito original:** 4 de septiembre de 2026  
