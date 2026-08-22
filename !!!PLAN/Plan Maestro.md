@@ -38,10 +38,10 @@ beatgaler: https://github.com/magosouljah/BeatGaler
 ## Estado vivo del plan
 
 - **Fase actual:** Fase 0 — Contener, decidir y crear una sola línea de release.
-- **Día/tarea actual:** Día 0 — Tarea 0.1 — Congelar evidencia.
-- **Estado general:** 🔴 `NO-GO` para lanzamiento público; ejecución del plan todavía al inicio.
-- **Último avance:** se convirtió el Plan Maestro en documento vivo de seguimiento y fuente autoritativa del trabajo.
-- **Próximo paso:** ejecutar y documentar la Tarea 0.1 contra los SHAs auditados actuales.
+- **Día/tarea actual:** Día 0 — Tarea 0.2 — Convertir el 4 de septiembre en checkpoint interno.
+- **Estado general:** 🔴 `NO-GO` para lanzamiento público; Tarea 0.1 cerrada y Tarea 0.2 pendiente.
+- **Último avance:** Tarea 0.1 completada: se creó `docs/RELEASE-LEDGER.md` en BeatGaler, rama `galer-cloud-v0.7.4`, y se congeló el baseline auditado con estado `NO-GO`.
+- **Próximo paso:** ejecutar la Tarea 0.2: formalizar el checkpoint interno del 4 de septiembre, autoridad de stop-release y backlog P0/P1.
 - **Bloqueos actuales:** confirmaciones externas y gates indicados en el propio plan; ningún bloqueo adicional registrado en esta capa de seguimiento.
 - **Últimos commits BeatGaler revisados:** Cloud `131df88753c812c0fdf440a5558fff46b2a83f57`; Web `e79728642839493326df706aba993a4cde2bdc02`.
 
@@ -470,9 +470,9 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 **Tarea 0.1 [P0 · RO/QA] — Congelar evidencia.**
 
-- [ ] Registrar las dos ramas y SHAs auditados en el release ledger.
-- [ ] Guardar conteos de pruebas, warnings, vulnerabilidades y límites no verificados.
-- [ ] Etiquetar el estado actual `NO-GO`; no crear un tag de release público.
+- [x] Registrar las dos ramas y SHAs auditados en el release ledger.
+- [x] Guardar conteos de pruebas, warnings, vulnerabilidades y límites no verificados.
+- [x] Etiquetar el estado actual `NO-GO`; no crear un tag de release público.
 
 **Tarea 0.2 [P0 · RO] — Convertir el 4 de septiembre en checkpoint interno.**
 
@@ -1516,7 +1516,7 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 - [Tauri — Windows code signing](https://tauri.app/distribute/sign/windows/): la firma del instalador/publisher es distinta de la firma del updater y evita una experiencia de descarga no confiable.
 - [Tauri — macOS code signing](https://v2.tauri.app/distribute/sign/macos/) y [Apple — notarizing macOS software](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution): Developer ID, hardened runtime, notarización, stapling y Gatekeeper para distribución directa.
 - [Stripe — Checkout subscriptions](https://docs.stripe.com/payments/checkout/build-subscriptions), [webhooks](https://docs.stripe.com/webhooks?lang=node), [subscription webhooks](https://docs.stripe.com/billing/subscriptions/webhooks?locale=en-GB) e [idempotency](https://docs.stripe.com/api/idempotent_requests): el redirect no es fuente de verdad; eventos firmados, duplicados y reintentos deben manejarse server-side.
-- [OWASP — Session Management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html), [Forgot Password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html), [XSS](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html), [CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) y [HTTP Headers](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html): base del gate de sesión/navegador.
+- [OWASP — Session Management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html), [Forgot Password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html), [XSS](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html), [CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Request_Forgery_Prevention_Cheat_Sheet.html) y [HTTP Headers](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html): base del gate de sesión/navegador.
 - [Cloudflare Pages — Git integration](https://developers.cloudflare.com/pages/get-started/git-integration/), [custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/) y [rollbacks](https://developers.cloudflare.com/pages/configuration/rollbacks/): opción propuesta, no cuenta confirmada.
 - [Railway — PostgreSQL](https://docs.railway.com/databases/postgresql) y [backups/restores](https://docs.railway.com/guides/postgres-backups-restores): opción propuesta; backup y restore probado siguen siendo responsabilidades separadas.
 
@@ -1537,3 +1537,4 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 ## Registro de avances
 
 - **2026-08-22 — Sistema de seguimiento del Plan Maestro.** Se añade el bloque `Estado vivo del plan`, la convención visual de estados (`[ ]`, `[ 🟡 ]`, `[ ⚠️ ]`, `[ 🔴 ]`, `[ ⏸️ ]`, `[x]`) y este registro cronológico. No se modifica el alcance técnico del plan.
+- **2026-08-22 — Tarea 0.1 completada: congelar evidencia.** Se creó `docs/RELEASE-LEDGER.md` en `magosouljah/BeatGaler`, rama `galer-cloud-v0.7.4`, con los SHAs auditados Cloud `131df88753c812c0fdf440a5558fff46b2a83f57` y Web `e79728642839493326df706aba993a4cde2bdc02`, conteos de builds/pruebas, warnings, vulnerabilidades y límites aún no verificados. El estado permanece `NO-GO`, no se creó tag público y la evidencia quedó en el commit BeatGaler `712331a60ef5e04ca4c57fcb5c52ad13e2ea279b`. La siguiente tarea activa es 0.2.
