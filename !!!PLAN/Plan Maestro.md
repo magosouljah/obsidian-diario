@@ -1,5 +1,7 @@
 # BeatGaler — Plan maestro para terminar y publicar Web, Windows y macOS
 
+
+
 ESTE ES EL CONTEXTO
 
 ### REGLAS DE ORO:
