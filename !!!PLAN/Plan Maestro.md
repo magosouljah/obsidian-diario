@@ -1,6 +1,6 @@
 # BeatGaler — Plan maestro para terminar y publicar Web, Windows y macOS
 
-ESTE ES EL CONTEXTO LEELO TODO, SIGUELO ESTRICTAMENTE Y NO OLVIDES ANOTAR AVANCE:
+ESTE ES EL CONTEXTO LEELO TODO, SIGUELO ESTRICTAMENTE Y NO OLVIDES ANOTAR AVANCES:
 
 **Versión del plan:** 1.0  
 **Fecha de auditoría:** 22 de agosto de 2026, `America/Mexico_City`  
