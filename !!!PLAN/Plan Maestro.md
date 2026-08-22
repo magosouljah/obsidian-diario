@@ -8,8 +8,9 @@ git gc
 ```
 # Baja cambios de GitHub usando rebase
 git pull --rebase origin main
+```
 
-
+```
 # Sube tus cambios locales
 git push origin main
 
