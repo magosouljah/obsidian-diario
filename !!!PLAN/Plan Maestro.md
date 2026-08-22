@@ -6,6 +6,11 @@ REGLAS DE ORO:
 1. LEELO TODO
 2. SIGUELO ESTRICTAMENTE
 3. NO OLVIDES ANOTAR CADA AVANCE
+   
+   
+Repos:
+1. https://github.com/magosouljah/obsidian-diario
+   
 
 **Versión del plan:** 1.0  
 **Fecha de auditoría:** 22 de agosto de 2026, `America/Mexico_City`  
