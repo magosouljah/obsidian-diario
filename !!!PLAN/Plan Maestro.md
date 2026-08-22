@@ -9,7 +9,7 @@ REGLAS DE ORO:
    
    
 Repos:
-1. https://github.com/magosouljah/obsidian-diario
+plan https://github.com/magosouljah/obsidian-diario
    
 
 **Versión del plan:** 1.0  
