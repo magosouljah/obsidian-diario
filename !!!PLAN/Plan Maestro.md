@@ -38,12 +38,12 @@ beatgaler: https://github.com/magosouljah/BeatGaler
 ## Estado vivo del plan
 
 - **Fase actual:** Fase 0 — Contener, decidir y crear una sola línea de release.
-- **Día/tarea actual:** Día 2 — Tarea 2.1 — Retirar exposición inmediata; Tarea 1.2 continúa en paralelo `[ 🟡 ]`.
-- **Estado general:** 🔴 `NO-GO` para lanzamiento público; contención HTTP de 2.1 implementada técnicamente, pendiente de evidencia runtime para cerrar el gate.
-- **Último avance:** Tarea 2.1 recibió una capa de contención antes de las rutas legacy: autenticación antes de Multer, ownership tras parseo, límite efectivo de archivo de 1.99 GB, rate/concurrency limits, `410` de `/library/upsert` antes de multipart y registro público cerrado por defecto en producción. Se añadió regresión automatizada, todavía sin ejecución certificada.
-- **Próximo paso:** ejecutar `test:containment` y smoke negativo `401/403/413/429`; si pasa, cerrar 2.1 y continuar 2.2. En paralelo siguen dominio/Apple Developer de 1.2.
-- **Bloqueos actuales:** falta evidencia runtime de 2.1; dominio, Apple Developer, Authenticode y revisiones externas de 1.2 siguen pendientes. Además queda abierta una regresión reportada de tiempo de carga inicial de la librería para 12.1.
-- **Últimos commits BeatGaler revisados:** Cloud `0c344c635fc52af948e0bfc9bb4eff8435d0954b`; Web `e79728642839493326df706aba993a4cde2bdc02`.
+- **Día/tarea actual:** Día 2 — Tarea 2.2 — Tratar el estado rastreado como incidente potencial; Tarea 1.2 continúa en paralelo `[ 🟡 ]`.
+- **Estado general:** 🔴 `NO-GO` para lanzamiento público; Tarea 2.1 cerrada con evidencia runtime y Tarea 2.2 en progreso tras retirar del HEAD información operacional rastreada.
+- **Último avance:** `npm run test:containment` produjo `PASS regression-http-containment`, cerrando 2.1. En 2.2 se retiraron del HEAD el backup operativo y configuraciones reales/locales de bots, se sanitizó la plantilla pública y se reforzó `.gitignore`; no se reescribió todavía el historial antiguo.
+- **Próximo paso:** revisar de nuevo en unos días si la historia Git antigua conserva exposición relevante y decidir entonces si amerita purga; mientras tanto continuar con el siguiente trabajo no destructivo del plan. En paralelo siguen dominio/Apple Developer de 1.2.
+- **Bloqueos actuales:** el historial Git antiguo de la información operacional todavía no ha sido purgado; dominio, Apple Developer, Authenticode y revisiones externas de 1.2 siguen pendientes. Además queda abierta la regresión de tiempo de carga inicial de la librería para 12.1.
+- **Últimos commits BeatGaler revisados:** Cloud `626efe933cb61130d5f7d20bcdd398f53b61d434`; Web `e79728642839493326df706aba993a4cde2bdc02`.
 
 ### Estados de seguimiento
 
@@ -539,9 +539,9 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 **Tarea 2.1 [P0 · BE/OP] — Retirar exposición inmediata.**
 
-- [ ⚠️ ] Deshabilitar o autenticar antes de Multer todas las rutas legacy de media/metadata.
-- [ ⚠️ ] Limitar cuerpo, archivo, concurrencia y frecuencia en edge y aplicación.
-- [ ⚠️ ] Desactivar registro público hasta tener abuse controls y verificación.
+- [x] Deshabilitar o autenticar antes de Multer todas las rutas legacy de media/metadata.
+- [x] Limitar cuerpo, archivo, concurrencia y frecuencia en edge y aplicación.
+- [x] Desactivar registro público hasta tener abuse controls y verificación.
 
 **Estado técnico de 2.1:**
 - Se añadió `cloud-server/http-containment.js` y `cloud-server/server.js` quedó como bootstrap de seguridad; la lógica previa completa se preserva sin modificación en `cloud-server/server-core.js` (mismo blob auditado del servidor anterior).
@@ -550,17 +550,22 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 - El máximo técnico efectivo por archivo es **1.99 GB decimal = 1,990,000,000 bytes**. Se rechaza anticipadamente por `Content-Length` cuando sea posible y nuevamente por tamaño real del archivo tras multipart, para cubrir requests chunked.
 - Se añadieron rate limit y concurrencia limitada antes de recibir archivos; defaults actuales: 30 intentos de upload/minuto por sesión y 2 uploads concurrentes, configurables por entorno.
 - En `NODE_ENV=production`, `/auth/register` queda cerrado salvo habilitación explícita mediante `BEATGALER_PUBLIC_REGISTRATION=1`; desarrollo local permanece utilizable.
-- Se añadió `scripts/regression-http-containment.mjs` y `npm run test:containment`. **No se marca `[x]` hasta ejecutar y conservar evidencia de 401/403/413/429 y confirmar que no se crea temporal en el 401.**
+- Evidencia runtime: `npm run test:containment` ejecutado el 22 de agosto de 2026 produjo **`PASS regression-http-containment`**, cubriendo la regresión negativa prevista para la contención HTTP. Tarea 2.1 cerrada.
 
 **Tarea 2.2 [P0 · BE/RO] — Tratar el estado rastreado como incidente potencial.**
 
-- [ ] Determinar en privado si IDs/bots/vaults son reales, sintéticos o revocados.
-- [ ] Rotar/reaprovisionar lo afectado si es real; conservar evidencia de cadena de custodia.
-- [ ] Purgar historia bajo procedimiento aprobado y añadir secret/data scan.
+- [x] Determinar en privado si IDs/bots/vaults son reales, sintéticos o revocados. **Resultado:** se encontró información operacional concreta en archivos rastreados; se trata como potencialmente real y no como fixture sintético.
+- [ 🟡 ] Retirar del HEAD la información operacional y mantener configuración real fuera de Git. **Hecho:** se eliminaron `transport-pool-state.backup.json`, `transport-bots.json` y `transport-bots.local.json`; el backend usa ahora `transport-bots.local.json` privado o `TRANSPORT_BOTS_FILE`, y `transport-bots.example.json` quedó sanitizado.
+- [ 🟡 ] Revisar de nuevo la exposición del historial Git en unos días y decidir si amerita purga. No se añade scanner permanente por ahora; la historia antigua no se declara limpia hasta esa revisión.
+
+**Decisiones de seguridad de 2.2:**
+- No se rota ni revoca ningún token por esta limpieza del HEAD porque no se confirmó un token en claro comprometido.
+- La **revocación sí será una capacidad de seguridad obligatoria**, pero su implementación/operación completa se incorpora antes de escalar la flota hacia ~80 bots; puede adelantarse si aparece evidencia de credencial comprometida.
+- El HEAD actual debe contener únicamente plantillas sanitizadas; configuraciones reales/locales quedan ignoradas por Git.
 
 **Dependencias:** acceso de owners a infraestructura.  
-**Evidencia:** pruebas negativas 401/403/413/429 y acta de incidente sin reproducir identificadores.  
-**Gate de salida:** ninguna ruta mutante/carga opera sin identidad autenticada y el incidente tiene resolución explícita.
+**Evidencia:** `PASS regression-http-containment`; diff Cloud hasta `626efe933cb61130d5f7d20bcdd398f53b61d434`; revisión futura del historial sin reproducir identificadores.  
+**Gate de salida:** ninguna ruta mutante/carga opera sin identidad autenticada y el incidente tiene resolución explícita, incluida decisión sobre el historial antiguo.
 
 ### Día 3 — 26 de agosto — Integración de ramas
 
@@ -656,6 +661,7 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 - [ ] Emitir capacidades cortas limitadas por usuario, vault, operación y objeto.
 - [ ] Rotar/revocar al terminar lease, logout, password change, delete o incidente.
+- [ ] Implementar y validar revocación operativa antes de escalar la flota hacia ~80 bots; no forzar revocaciones durante las pruebas actuales salvo compromiso confirmado.
 - [ ] Añadir ceilings por bot/tenant y deny-by-default.
 
 **Tarea 7.2 [P0 · QA/Security reviewer] — Validar aislamiento.**
@@ -1499,6 +1505,7 @@ Si una sola persona cubre `R` y `A`, se requiere un reviewer externo para securi
 | Herramientas dev vulnerables comprometen build | Media | Alto | audit critical/high o action mutable | upgrade/pin/scan/SBOM y runner protegido | OP/QA |
 | P0 aparece durante beta/soft launch | Media | Crítico | data/security/payment anomaly | stop, kill switch, incident, rollback, nueva RC | Incident owner |
 | Regresión de carga inicial de la librería | Alta | Alto | espera perceptiblemente mayor que tras la optimización previa | instrumentar cold/warm startup por fases, comparar commits y fijar budget de aparición/hydration | FE/BE/QA |
+| Estado operacional sensible permanece en historia Git antigua | Media | Alto | revisión de commits viejos vuelve a encontrar IDs/leases/config real | mantener HEAD sanitizado, reauditar en unos días y decidir purga controlada antes del gate de seguridad | BE/RO |
 
 ## Caminos de contingencia
 
@@ -1583,4 +1590,5 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 - **2026-08-22 — Tarea 0.2 completada: checkpoint interno y backlog P0/P1.** Se formalizó el 4 de septiembre de 2026 como checkpoint interno sin cobros ni usuarios reales de producción. El RO queda como autoridad final de stop-release y la regla `0 P0/P1` sigue siendo obligatoria. Se creó el backlog maestro operativo en `magosouljah/BeatGaler` como Issue #3 (`[RELEASE] BeatGaler 1.0 — P0/P1 Launch Backlog`), con los 12 P0 y 11 P1 del plan, owner por rol y evidencia de salida por item. Día 0 queda completado y la siguiente tarea activa es 1.1.
 - **2026-08-22 — Tarea 1.1 completada: decisiones de negocio.** El RO define que BeatGaler v1 será siempre comercial/pagada y jamás tendrá fallback free-only; si billing no supera los gates, v1 se retrasa. Official Beta y promociones usarán suscripciones/entitlements reales regalados mediante códigos o grants. Se fijan mercados iniciales México, EE. UU., Canadá, UE y Reino Unido; edad mínima 18+; monedas iniciales MXN/USD/CAD/EUR/GBP; refund comercial base de 14 días sujeto a derechos legales superiores y controles antiabuso razonables; operación inicial desde México bajo la estructura fiscal individual válida más simple, a validar antes de cobros; y distribución directa Web + Windows `.exe` mediante NSIS + macOS DMG. La siguiente tarea activa es 1.2.
 - **2026-08-22 — Tarea 1.2 iniciada: dependencias con lead time.** Se confirma que todavía no existe dominio ni alta Apple Developer; GitHub Releases permanece como canal previsto; email de soporte y status page dependen del dominio. Se confirma objetivo de soporte macOS Intel + Apple Silicon y disponibilidad de testers. Quedan pendientes Authenticode, revisión legal, revisión independiente de seguridad y reserva/validación de la matriz física. La tarea permanece `[ 🟡 ]`; las prioridades externas inmediatas son adquirir dominio y comenzar Apple Developer.
-- **2026-08-22 — Tarea 2.1 implementada técnicamente; gate pendiente.** En BeatGaler `galer-cloud-v0.7.4` se añadió contención HTTP para autenticar antes de Multer, validar ownership, limitar uploads por tamaño/rate/concurrencia, retirar `/library/upsert` antes de multipart y cerrar registro público por defecto en producción. El límite técnico efectivo queda fijado en **1.99 GB (1,990,000,000 bytes)**. Se añadió `scripts/regression-http-containment.mjs` y el comando `npm run test:containment`; hasta ejecutar y guardar evidencia `401/403/413/429`, 2.1 permanece `[ ⚠️ ]`. También se registra como regresión funcional para Tarea 12.1 que la librería volvió a tardar en aparecer después de haber alcanzado previamente una carga rápida; debe medirse y recuperarse ese rendimiento antes de release.
+- **2026-08-22 — Tarea 2.1 completada con evidencia.** En BeatGaler `galer-cloud-v0.7.4` se añadió contención HTTP para autenticar antes de Multer, validar ownership, limitar uploads por tamaño/rate/concurrencia, retirar `/library/upsert` antes de multipart y cerrar registro público por defecto en producción. El límite técnico efectivo queda fijado en **1.99 GB (1,990,000,000 bytes)**. `npm run test:containment` produjo **`PASS regression-http-containment`**, por lo que 2.1 queda `[x]`. La regresión de carga inicial de la librería permanece registrada para Tarea 12.1.
+- **2026-08-22 — Tarea 2.2 en progreso: saneamiento del estado operacional rastreado.** Se confirmó que el repo contenía información operacional concreta y se retiraron del HEAD `transport-pool-state.backup.json`, `transport-bots.json` y `transport-bots.local.json`. `transport-pool.js` ahora usa configuración privada local o `TRANSPORT_BOTS_FILE`; `transport-bots.example.json` quedó sanitizado y `.gitignore` bloquea variantes reales/runtime. No se añadió scanner permanente y no se reescribió todavía la historia Git. Se acuerda reauditar la exposición del historial en unos días y decidir entonces si amerita purga. No se rotaron ni revocaron tokens por no existir evidencia de token en claro; la capacidad de revocación queda como requisito de seguridad antes de escalar la flota hacia ~80 bots, o antes si aparece compromiso confirmado. Cloud verificado hasta `626efe933cb61130d5f7d20bcdd398f53b61d434`.
