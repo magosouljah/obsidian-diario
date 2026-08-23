@@ -38,12 +38,12 @@ beatgaler: https://github.com/magosouljah/BeatGaler
 ## Estado vivo del plan
 
 - **Fase actual:** Fase 0 — Contener, decidir y crear una sola línea de release.
-- **Día/tarea actual:** Día 1 — Tarea 1.2 — Reservar dependencias con lead time.
-- **Estado general:** 🔴 `NO-GO` para lanzamiento público; Tarea 1.2 en progreso con dependencias externas todavía sin reservar.
-- **Último avance:** Tarea 1.2 iniciada: no hay dominio ni Apple Developer todavía; se confirma intención de soportar macOS Intel + Apple Silicon y disponibilidad de testers. GitHub Releases continúa como canal previsto de artefactos.
-- **Próximo paso:** resolver primero dominio/DNS y alta de Apple Developer; después email de soporte/status, Authenticode y reserva de revisión legal/seguridad.
-- **Bloqueos actuales:** dominio, Apple Developer, Authenticode, revisión legal y revisión independiente de seguridad siguen pendientes; el soporte Intel + Apple Silicon exige prueba física de ambas arquitecturas antes de v1.
-- **Últimos commits BeatGaler revisados:** Cloud `131df88753c812c0fdf440a5558fff46b2a83f57`; Web `e79728642839493326df706aba993a4cde2bdc02`.
+- **Día/tarea actual:** Día 2 — Tarea 2.1 — Retirar exposición inmediata; Tarea 1.2 continúa en paralelo `[ 🟡 ]`.
+- **Estado general:** 🔴 `NO-GO` para lanzamiento público; contención HTTP de 2.1 implementada técnicamente, pendiente de evidencia runtime para cerrar el gate.
+- **Último avance:** Tarea 2.1 recibió una capa de contención antes de las rutas legacy: autenticación antes de Multer, ownership tras parseo, límite efectivo de archivo de 1.99 GB, rate/concurrency limits, `410` de `/library/upsert` antes de multipart y registro público cerrado por defecto en producción. Se añadió regresión automatizada, todavía sin ejecución certificada.
+- **Próximo paso:** ejecutar `test:containment` y smoke negativo `401/403/413/429`; si pasa, cerrar 2.1 y continuar 2.2. En paralelo siguen dominio/Apple Developer de 1.2.
+- **Bloqueos actuales:** falta evidencia runtime de 2.1; dominio, Apple Developer, Authenticode y revisiones externas de 1.2 siguen pendientes. Además queda abierta una regresión reportada de tiempo de carga inicial de la librería para 12.1.
+- **Últimos commits BeatGaler revisados:** Cloud `0c344c635fc52af948e0bfc9bb4eff8435d0954b`; Web `e79728642839493326df706aba993a4cde2bdc02`.
 
 ### Estados de seguimiento
 
@@ -539,9 +539,18 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 **Tarea 2.1 [P0 · BE/OP] — Retirar exposición inmediata.**
 
-- [ ] Deshabilitar o autenticar antes de Multer todas las rutas legacy de media/metadata.
-- [ ] Limitar cuerpo, archivo, concurrencia y frecuencia en edge y aplicación.
-- [ ] Desactivar registro público hasta tener abuse controls y verificación.
+- [ ⚠️ ] Deshabilitar o autenticar antes de Multer todas las rutas legacy de media/metadata.
+- [ ⚠️ ] Limitar cuerpo, archivo, concurrencia y frecuencia en edge y aplicación.
+- [ ⚠️ ] Desactivar registro público hasta tener abuse controls y verificación.
+
+**Estado técnico de 2.1:**
+- Se añadió `cloud-server/http-containment.js` y `cloud-server/server.js` quedó como bootstrap de seguridad; la lógica previa completa se preserva sin modificación en `cloud-server/server-core.js` (mismo blob auditado del servidor anterior).
+- `/metadata/artwork`, `/beats/upload`, `/projects/upload` y `/cloud-files/upload` exigen una sesión válida **antes** de ejecutar Multer. Después del multipart se verifica ownership server-side de la instalación y se rechaza un `beatgalerUserId` que intente contradecir el header autenticado.
+- `/metadata/upsert` y `/library/artwork` reciben el mismo gate de sesión/ownership; `/library/upsert` responde `410` antes de ejecutar Multer.
+- El máximo técnico efectivo por archivo es **1.99 GB decimal = 1,990,000,000 bytes**. Se rechaza anticipadamente por `Content-Length` cuando sea posible y nuevamente por tamaño real del archivo tras multipart, para cubrir requests chunked.
+- Se añadieron rate limit y concurrencia limitada antes de recibir archivos; defaults actuales: 30 intentos de upload/minuto por sesión y 2 uploads concurrentes, configurables por entorno.
+- En `NODE_ENV=production`, `/auth/register` queda cerrado salvo habilitación explícita mediante `BEATGALER_PUBLIC_REGISTRATION=1`; desarrollo local permanece utilizable.
+- Se añadió `scripts/regression-http-containment.mjs` y `npm run test:containment`. **No se marca `[x]` hasta ejecutar y conservar evidencia de 401/403/413/429 y confirmar que no se crea temporal en el 401.**
 
 **Tarea 2.2 [P0 · BE/RO] — Tratar el estado rastreado como incidente potencial.**
 
@@ -633,7 +642,7 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 - [ ] Rate limit por IP/cuenta/tenant, delays progresivos y límites de upload/concurrencia.
 - [ ] Mover scrypt síncrono fuera del event loop o usar implementación asíncrona controlada.
-- [ ] Probar credential stuffing, IDs ajenos, bodies inválidos, 2 GB y race conditions sin ejecutar cargas destructivas.
+- [ ] Probar credential stuffing, IDs ajenos, bodies inválidos, **1.99 GB exactos + justo por encima del límite** y race conditions sin ejecutar cargas destructivas.
 
 **Dependencias:** ADR de Día 5.  
 **Evidencia:** matriz 401/403/413/429 y pruebas cross-tenant.  
@@ -753,6 +762,9 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 - [ ] Aprovisionar índice vacío atómicamente en control plane.
 - [ ] Separar empty, no-results, offline, auth y cloud failure.
 - [ ] Añadir thumbnails/lazy artwork, paginación o ventana y presupuesto de memoria.
+- [ ] **Corregir regresión de rendimiento reportada por el owner:** la librería llegó a aparecer rápidamente tras una optimización previa y posteriormente volvió a aumentar el tiempo de espera. Instrumentar startup por fases (cache/render, auth/session, index, hydration/artwork), comparar cold/warm start y restaurar el comportamiento rápido sin sacrificar consistencia.
+
+**Observación activa de rendimiento 12.1:** no asumir que el tiempo actual es aceptable solo porque la librería termina cargando. Debe existir medición antes/después y un presupuesto de startup acordado; el objetivo es recuperar la sensación de aparición rápida que ya se consiguió previamente.
 
 **Tarea 12.2 [P1/P2 · FE/DL] — Rediseñar biblioteca.**
 
@@ -1486,6 +1498,7 @@ Si una sola persona cubre `R` y `A`, se requiere un reviewer externo para securi
 | Solo developer se convierte en cuello de botella | Alta | Alto | gates sin reviewer y tareas paralelas atrasadas | fecha 30 Oct, external reviewers, WIP limit | RO |
 | Herramientas dev vulnerables comprometen build | Media | Alto | audit critical/high o action mutable | upgrade/pin/scan/SBOM y runner protegido | OP/QA |
 | P0 aparece durante beta/soft launch | Media | Crítico | data/security/payment anomaly | stop, kill switch, incident, rollback, nueva RC | Incident owner |
+| Regresión de carga inicial de la librería | Alta | Alto | espera perceptiblemente mayor que tras la optimización previa | instrumentar cold/warm startup por fases, comparar commits y fijar budget de aparición/hydration | FE/BE/QA |
 
 ## Caminos de contingencia
 
@@ -1570,3 +1583,4 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 - **2026-08-22 — Tarea 0.2 completada: checkpoint interno y backlog P0/P1.** Se formalizó el 4 de septiembre de 2026 como checkpoint interno sin cobros ni usuarios reales de producción. El RO queda como autoridad final de stop-release y la regla `0 P0/P1` sigue siendo obligatoria. Se creó el backlog maestro operativo en `magosouljah/BeatGaler` como Issue #3 (`[RELEASE] BeatGaler 1.0 — P0/P1 Launch Backlog`), con los 12 P0 y 11 P1 del plan, owner por rol y evidencia de salida por item. Día 0 queda completado y la siguiente tarea activa es 1.1.
 - **2026-08-22 — Tarea 1.1 completada: decisiones de negocio.** El RO define que BeatGaler v1 será siempre comercial/pagada y jamás tendrá fallback free-only; si billing no supera los gates, v1 se retrasa. Official Beta y promociones usarán suscripciones/entitlements reales regalados mediante códigos o grants. Se fijan mercados iniciales México, EE. UU., Canadá, UE y Reino Unido; edad mínima 18+; monedas iniciales MXN/USD/CAD/EUR/GBP; refund comercial base de 14 días sujeto a derechos legales superiores y controles antiabuso razonables; operación inicial desde México bajo la estructura fiscal individual válida más simple, a validar antes de cobros; y distribución directa Web + Windows `.exe` mediante NSIS + macOS DMG. La siguiente tarea activa es 1.2.
 - **2026-08-22 — Tarea 1.2 iniciada: dependencias con lead time.** Se confirma que todavía no existe dominio ni alta Apple Developer; GitHub Releases permanece como canal previsto; email de soporte y status page dependen del dominio. Se confirma objetivo de soporte macOS Intel + Apple Silicon y disponibilidad de testers. Quedan pendientes Authenticode, revisión legal, revisión independiente de seguridad y reserva/validación de la matriz física. La tarea permanece `[ 🟡 ]`; las prioridades externas inmediatas son adquirir dominio y comenzar Apple Developer.
+- **2026-08-22 — Tarea 2.1 implementada técnicamente; gate pendiente.** En BeatGaler `galer-cloud-v0.7.4` se añadió contención HTTP para autenticar antes de Multer, validar ownership, limitar uploads por tamaño/rate/concurrencia, retirar `/library/upsert` antes de multipart y cerrar registro público por defecto en producción. El límite técnico efectivo queda fijado en **1.99 GB (1,990,000,000 bytes)**. Se añadió `scripts/regression-http-containment.mjs` y el comando `npm run test:containment`; hasta ejecutar y guardar evidencia `401/403/413/429`, 2.1 permanece `[ ⚠️ ]`. También se registra como regresión funcional para Tarea 12.1 que la librería volvió a tardar en aparecer después de haber alcanzado previamente una carga rápida; debe medirse y recuperarse ese rendimiento antes de release.
