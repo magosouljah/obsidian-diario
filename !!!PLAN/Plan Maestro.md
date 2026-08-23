@@ -38,11 +38,11 @@ beatgaler: https://github.com/magosouljah/BeatGaler
 ## Estado vivo del plan
 
 - **Fase actual:** Fase 0 — Contener, decidir y crear una sola línea de release.
-- **Día/tarea actual:** Día 1 — Tarea 1.1 — Cerrar decisiones de negocio.
-- **Estado general:** 🔴 `NO-GO` para lanzamiento público; Día 0 completado y backlog P0/P1 operativo.
-- **Último avance:** Tarea 0.2 completada: el 4 de septiembre de 2026 quedó formalizado como checkpoint interno sin cobros ni usuarios reales; el RO tiene autoridad de stop-release y se creó el backlog maestro P0/P1 en BeatGaler Issue #3.
-- **Próximo paso:** ejecutar la Tarea 1.1: cerrar decisiones de negocio para lanzamiento, monetización y distribución.
-- **Bloqueos actuales:** confirmaciones externas y gates indicados en el propio plan; ningún bloqueo adicional registrado en esta capa de seguimiento.
+- **Día/tarea actual:** Día 1 — Tarea 1.2 — Reservar dependencias con lead time.
+- **Estado general:** 🔴 `NO-GO` para lanzamiento público; Tarea 1.1 cerrada y dependencias externas de 1.2 pendientes.
+- **Último avance:** Tarea 1.1 completada: v1 será siempre comercial/pagada; la beta oficial usará suscripciones reales regaladas mediante códigos/promociones; se fijaron mercados, edad mínima, monedas iniciales, refund base, estructura fiscal inicial y distribución directa.
+- **Próximo paso:** ejecutar la Tarea 1.2: confirmar dominio/DNS, GitHub Releases, soporte/status, certificados de firma, revisiones externas, hardware y testers.
+- **Bloqueos actuales:** estructura fiscal/legal pendiente de validación antes de cobros; Stripe live, impuestos, certificados y demás dependencias externas siguen sujetos a evidencia y gates posteriores.
 - **Últimos commits BeatGaler revisados:** Cloud `131df88753c812c0fdf440a5558fff46b2a83f57`; Web `e79728642839493326df706aba993a4cde2bdc02`.
 
 ### Estados de seguimiento
@@ -75,6 +75,7 @@ Reglas inmutables del plan:
 2. Ninguna plataforma se declara soportada sin instalación y flujo crítico en equipo limpio.
 3. Ningún pago se acepta sin reconciliación, reembolso y entitlement server-side demostrados.
 4. Ninguna evidencia externa se marca como lista sin propietario, fecha y enlace verificable.
+5. **BeatGaler v1 nunca se publica como free-only.** Si billing no supera sus gates, v1 se retrasa. Betas y promociones pueden otorgar suscripciones reales sin costo mediante códigos o grants temporales.
 
 ## Evidencia y alcance
 
@@ -406,7 +407,7 @@ El baseline de release agrupa actualmente **12 P0, 11 P1, 7 P2 y 4 P3**. Son gru
 6. Sesión/CSP/CDN/localhost y límite XSS endurecidos.
 7. Exportación y eliminación de cuenta/datos reales.
 8. Investigación y remediación del estado operativo rastreado.
-9. Billing completo si se acepta dinero; de lo contrario alcance free-only explícito.
+9. Billing completo antes de publicar v1; si billing no supera sus gates, v1 se retrasa. No existe fallback free-only para v1.
 10. Privacy, Terms, refund y consentimiento verdaderos/versionados.
 11. Developer ID + notarización + stapling macOS.
 12. Authenticode + timestamp Windows.
@@ -497,9 +498,20 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 **Tarea 1.1 [P0 · RO/LF] — Cerrar decisiones de negocio.**
 
-- [ ] Elegir lanzamiento pagado completo o preview free-only; este plan recomienda pagado solo si Stripe pasa todos los gates.
-- [ ] Confirmar entidad legal, países iniciales, edad mínima, currency, impuestos y política de refund.
-- [ ] Confirmar distribución directa Web/NSIS/DMG; stores quedan post-lanzamiento salvo decisión explícita.
+- [x] Elegir lanzamiento pagado completo o preview free-only: **v1 siempre será comercial/pagada y nunca free-only**. Si Stripe/billing no supera todos los gates, v1 se retrasa. La Official Beta puede entregar planes reales gratuitamente mediante códigos/promociones/grants temporales.
+- [x] Confirmar entidad legal, países iniciales, edad mínima, currency, impuestos y política de refund.
+- [x] Confirmar distribución directa Web/NSIS/DMG; stores quedan post-lanzamiento salvo decisión explícita.
+
+**Decisiones de negocio de 1.1:**
+- **Modelo comercial:** los planes existen desde el inicio. No se crea un modo free-only para v1. Los accesos regalados son entitlements completos del plan otorgado durante un periodo definido.
+- **Promociones/autocobro:** un plan regalado conserva exactamente las capacidades del plan. Si el usuario inicia una suscripción con renovación automática, el cobro al terminar el periodo gratis solo puede activarse si antes aceptó claramente el precio, la fecha del primer cobro y la renovación automática.
+- **Mercados iniciales:** México, Estados Unidos, Canadá, Unión Europea y Reino Unido.
+- **Edad mínima:** 18 años.
+- **Monedas iniciales:** MXN, USD, CAD, EUR y GBP. La arquitectura podrá ampliar monedas después sin multiplicar lógica de producto.
+- **Refund comercial base:** solicitud dentro de los primeros 14 días de la compra inicial, con controles antiabuso razonables y sin dificultar artificialmente el ejercicio de derechos; prevalecen los derechos obligatorios superiores de la jurisdicción aplicable.
+- **Estructura inicial:** operar inicialmente desde México bajo la estructura fiscal/legal individual más simple que resulte válida (objetivo actual: persona física con actividad empresarial), sujeto a validación con contador/asesor antes de aceptar cobros reales. Crear una sociedad queda como decisión futura si aporta valor operativo, patrimonial, de inversión o contratación.
+- **Impuestos:** todavía no se consideran implementados; cálculo, registro y obligaciones por mercado son gate de billing/legal antes de v1.
+- **Distribución v1:** Web pública + instalador Windows `.exe` generado con NSIS + macOS DMG, distribuidos directamente por BeatGaler. Microsoft Store y Mac App Store quedan fuera de v1 salvo decisión posterior.
 
 **Tarea 1.2 [P1 · RO/LF] — Reservar dependencias con lead time.**
 
@@ -690,7 +702,7 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 **Tarea 10.2 [P0 · RO/Security reviewer] — Decidir alpha.**
 
 - [ ] Revisar gates D2–D10, P0 nuevos y evidencia independiente.
-- [ ] Si pasa: 3–5 usuarios internos, datos sintéticos, invitación, sin pagos.
+- [ ] Si pasa: 3–5 usuarios internos, datos sintéticos, invitación, sin pagos; cualquier acceso de plan se concede como suscripción/entitlement real regalado, no como plan free-only.
 - [ ] Si falla: demo local; comunicar deslizamiento sin ampliar alcance.
 
 **Dependencias:** Días 2–9.  
@@ -831,13 +843,13 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 **Resultado:** compra sandbox crea estado comercial verificable, no un cambio DEV.
 
-**Tarea 17.1 [P0 si pagado · BE/LF] — Catálogo y checkout.**
+**Tarea 17.1 [P0 · BE/LF] — Catálogo y checkout.**
 
 - [ ] Definir productos/precios/trial/currency/tax y mapearlos a IDs internos estables.
 - [ ] Checkout Session server-side; customer linkage y success/cancel URLs sin confiar en query params.
 - [ ] Idempotency keys en mutaciones Stripe y sin precios decididos por cliente.
 
-**Tarea 17.2 [P0 si pagado · BE/QA] — Webhook seguro.**
+**Tarea 17.2 [P0 · BE/QA] — Webhook seguro.**
 
 - [ ] Verificar firma sobre raw body, guardar event ID y procesar asíncrono/reintentable.
 - [ ] Manejar duplicados, desorden, timeout y eventos desconocidos.
@@ -845,7 +857,7 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 **Dependencias:** cuenta/productos Stripe confirmados y entorno staging.  
 **Evidencia:** matriz sandbox, replay/duplicate test y ledger consistente.  
-**Gate de salida:** la UI nunca concede plan por redirect; solo estado server-side reconciliado.
+**Gate de salida:** la UI nunca concede plan por redirect; solo estado server-side reconciliado. Si falla este gate, v1 se retrasa.
 
 ### Día 18 — 16 de septiembre — Entitlements, portal y reconciliación
 
@@ -857,7 +869,7 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 - [ ] Transacción o reserva evita carreras; errores incluyen uso, límite y acción posible.
 - [ ] Billing Portal/cancelación y estado `active/trialing/past_due/canceled` en Settings.
 
-**Tarea 18.2 [P0 si pagado · LF/BE/QA] — Dinero y ledger.**
+**Tarea 18.2 [P0 · LF/BE/QA] — Dinero y ledger.**
 
 - [ ] Job de reconciliación Stripe↔BeatGaler y cola de excepciones con owner.
 - [ ] Probar 3DS, rechazo, pago tardío, renewal failed, cancel, upgrade/downgrade y refund.
@@ -865,7 +877,7 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 **Dependencias:** Día 17.  
 **Evidencia:** 100% de escenarios de billing esperados reconciliados en sandbox.  
-**Gate de salida:** no existe pago sin plan correcto ni plan pagado sin evento/ledger justificable.
+**Gate de salida:** no existe pago sin plan correcto ni plan pagado sin evento/ledger justificable; v1 no tiene fallback free-only.
 
 ### Día 19 — 17 de septiembre — Dominio, identidad, legal y soporte
 
@@ -1354,7 +1366,7 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 - [ ] Quotas se aplican atómicamente en endpoints, no solo UI.
 - [ ] 3DS, rechazo, renewal failure, cancel, upgrade/downgrade y refund pasan.
 - [ ] Compra real controlada y refund quedan reconciliados a cero.
-- [ ] Si cualquier punto falla, el release no cobra; “free-only” requiere copy y scope propios.
+- [ ] Si cualquier punto falla, v1 se retrasa; BeatGaler v1 no tiene fallback free-only.
 
 ### Windows
 
@@ -1475,8 +1487,8 @@ Si una sola persona cubre `R` y `A`, se requiere un reviewer externo para securi
 
 ### Si Stripe no está listo el 18 de septiembre
 
-- Opción A: mover el lanzamiento pagado.
-- Opción B: preview pública free-only con pricing/CTA/copy retirados y quotas coherentes.
+- Mover el lanzamiento v1; BeatGaler v1 no se convierte en free-only.
+- Las betas/promociones pueden continuar otorgando suscripciones reales mediante códigos o grants, siempre sin producir cobros no consentidos.
 - No existe opción de cobrar y conciliar manualmente.
 
 ### Si firma Windows o macOS no está lista el 23 de septiembre
@@ -1511,7 +1523,7 @@ Antes de marcar GO, el owner debe aportar evidencia fechada sobre:
 - Apple Developer ID y Authenticode: custodia, expiración, timestamp y clean-device results;
 - private key del updater, match con public key, backup, rotation y kill switch;
 - Stripe live, productos/precios/tax/refunds/disputes/webhooks/reconciliation y owner financiero;
-- entidad, marca, jurisdicciones, edad, Privacy/Terms/refund/DPA/subprocesadores y licencias;
+- estructura fiscal/legal de operación en México, jurisdicciones iniciales, edad 18+, Privacy/Terms/refund/DPA/subprocesadores y licencias;
 - soporte, security/abuse contact, cobertura y autoridad de recuperación;
 - ownership/políticas Telegram, storage/rate limits, concurrencia esperada y drills;
 - OS/arquitecturas/DAWs/navegadores realmente soportados y hardware disponible.
@@ -1535,7 +1547,7 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 - [ ] macOS Developer ID/notarizado/stapled y probado.
 - [ ] Datos migrados, respaldados y restaurados.
 - [ ] Cuentas recuperables, exportables y eliminables.
-- [ ] Pagos y quotas reconciliados, o alcance free-only verdadero.
+- [ ] Pagos, promociones y quotas reconciliados; v1 nunca usa fallback free-only.
 - [ ] Dominio, legal, soporte, status y monitoreo activos.
 - [ ] Capacidad demostrada; no una cantidad arbitraria de bots.
 - [ ] Dos betas, soft launch y soak sin P0/P1.
@@ -1546,3 +1558,4 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 - **2026-08-22 — Sistema de seguimiento del Plan Maestro.** Se añade el bloque `Estado vivo del plan`, la convención visual de estados (`[ ]`, `[ 🟡 ]`, `[ ⚠️ ]`, `[ 🔴 ]`, `[ ⏸️ ]`, `[x]`) y este registro cronológico. No se modifica el alcance técnico del plan.
 - **2026-08-22 — Tarea 0.1 completada: congelar evidencia.** Se creó `docs/RELEASE-LEDGER.md` en `magosouljah/BeatGaler`, rama `galer-cloud-v0.7.4`, con los SHAs auditados Cloud `131df88753c812c0fdf440a5558fff46b2a83f57` y Web `e79728642839493326df706aba993a4cde2bdc02`, conteos de builds/pruebas, warnings, vulnerabilidades y límites aún no verificados. El estado permanece `NO-GO`, no se creó tag público y la evidencia quedó en el commit BeatGaler `712331a60ef5e04ca4c57fcb5c52ad13e2ea279b`. La siguiente tarea activa es 0.2.
 - **2026-08-22 — Tarea 0.2 completada: checkpoint interno y backlog P0/P1.** Se formalizó el 4 de septiembre de 2026 como checkpoint interno sin cobros ni usuarios reales de producción. El RO queda como autoridad final de stop-release y la regla `0 P0/P1` sigue siendo obligatoria. Se creó el backlog maestro operativo en `magosouljah/BeatGaler` como Issue #3 (`[RELEASE] BeatGaler 1.0 — P0/P1 Launch Backlog`), con los 12 P0 y 11 P1 del plan, owner por rol y evidencia de salida por item. Día 0 queda completado y la siguiente tarea activa es 1.1.
+- **2026-08-22 — Tarea 1.1 completada: decisiones de negocio.** El RO define que BeatGaler v1 será siempre comercial/pagada y jamás tendrá fallback free-only; si billing no supera los gates, v1 se retrasa. Official Beta y promociones usarán suscripciones/entitlements reales regalados mediante códigos o grants. Se fijan mercados iniciales México, EE. UU., Canadá, UE y Reino Unido; edad mínima 18+; monedas iniciales MXN/USD/CAD/EUR/GBP; refund comercial base de 14 días sujeto a derechos legales superiores y controles antiabuso razonables; operación inicial desde México bajo la estructura fiscal individual válida más simple, a validar antes de cobros; y distribución directa Web + Windows `.exe` mediante NSIS + macOS DMG. La siguiente tarea activa es 1.2.
