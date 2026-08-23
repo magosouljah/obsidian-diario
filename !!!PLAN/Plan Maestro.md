@@ -39,10 +39,10 @@ beatgaler: https://github.com/magosouljah/BeatGaler
 
 - **Fase actual:** Fase 0 — Contener, decidir y crear una sola línea de release.
 - **Día/tarea actual:** Día 1 — Tarea 1.2 — Reservar dependencias con lead time.
-- **Estado general:** 🔴 `NO-GO` para lanzamiento público; Tarea 1.1 cerrada y dependencias externas de 1.2 pendientes.
-- **Último avance:** Tarea 1.1 completada: v1 será siempre comercial/pagada; la beta oficial usará suscripciones reales regaladas mediante códigos/promociones; se fijaron mercados, edad mínima, monedas iniciales, refund base, estructura fiscal inicial y distribución directa.
-- **Próximo paso:** ejecutar la Tarea 1.2: confirmar dominio/DNS, GitHub Releases, soporte/status, certificados de firma, revisiones externas, hardware y testers.
-- **Bloqueos actuales:** estructura fiscal/legal pendiente de validación antes de cobros; Stripe live, impuestos, certificados y demás dependencias externas siguen sujetos a evidencia y gates posteriores.
+- **Estado general:** 🔴 `NO-GO` para lanzamiento público; Tarea 1.2 en progreso con dependencias externas todavía sin reservar.
+- **Último avance:** Tarea 1.2 iniciada: no hay dominio ni Apple Developer todavía; se confirma intención de soportar macOS Intel + Apple Silicon y disponibilidad de testers. GitHub Releases continúa como canal previsto de artefactos.
+- **Próximo paso:** resolver primero dominio/DNS y alta de Apple Developer; después email de soporte/status, Authenticode y reserva de revisión legal/seguridad.
+- **Bloqueos actuales:** dominio, Apple Developer, Authenticode, revisión legal y revisión independiente de seguridad siguen pendientes; el soporte Intel + Apple Silicon exige prueba física de ambas arquitecturas antes de v1.
 - **Últimos commits BeatGaler revisados:** Cloud `131df88753c812c0fdf440a5558fff46b2a83f57`; Web `e79728642839493326df706aba993a4cde2bdc02`.
 
 ### Estados de seguimiento
@@ -515,9 +515,19 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 **Tarea 1.2 [P1 · RO/LF] — Reservar dependencias con lead time.**
 
-- [ ] Confirmar dominio y ownership de DNS, GitHub Releases, email de soporte y status page.
-- [ ] Iniciar/confirmar Apple Developer ID, notarización y servicio/certificado Authenticode con timestamp.
-- [ ] Reservar revisión legal, seguridad independiente, hardware físico y 12–20 testers.
+- [ 🟡 ] Confirmar dominio y ownership de DNS, GitHub Releases, email de soporte y status page. **Estado:** no hay dominio todavía; GitHub Releases queda como canal previsto; email de soporte y status page se configuran después de adquirir el dominio.
+- [ 🟡 ] Iniciar/confirmar Apple Developer ID, notarización y servicio/certificado Authenticode con timestamp. **Estado:** Apple Developer aún no está contratado y Authenticode sigue pendiente.
+- [ 🟡 ] Reservar revisión legal, seguridad independiente, hardware físico y 12–20 testers. **Estado:** hay disponibilidad de testers; revisión legal/seguridad y la matriz física final siguen pendientes de reserva.
+
+**Decisiones/estado de reservas de 1.2:**
+- **Dominio/DNS:** pendiente. Prioridad externa inmediata junto con Apple Developer.
+- **GitHub Releases:** se conserva como canal previsto de artefactos/release.
+- **Email de soporte + status page:** pendientes del dominio definitivo.
+- **Apple Developer:** pendiente de alta; necesario para Developer ID, notarización y stapling de macOS.
+- **macOS soportado:** objetivo de v1 = **Apple Silicon + Intel**. Ambas arquitecturas deben pasar pruebas físicas antes de anunciar soporte.
+- **Windows Authenticode:** pendiente de seleccionar/contratar servicio o certificado con timestamp.
+- **Testers:** disponibilidad humana confirmada; la selección formal de 12–20 y su cobertura por plataforma/dispositivo se hará antes de beta.
+- **Legal y seguridad independiente:** pendientes de reservar; no se consideran completadas por revisión interna.
 
 **Dependencias:** Día 0.  
 **Evidencia:** decision log y comprobantes de disponibilidad, nunca secretos.  
@@ -1559,3 +1569,4 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 - **2026-08-22 — Tarea 0.1 completada: congelar evidencia.** Se creó `docs/RELEASE-LEDGER.md` en `magosouljah/BeatGaler`, rama `galer-cloud-v0.7.4`, con los SHAs auditados Cloud `131df88753c812c0fdf440a5558fff46b2a83f57` y Web `e79728642839493326df706aba993a4cde2bdc02`, conteos de builds/pruebas, warnings, vulnerabilidades y límites aún no verificados. El estado permanece `NO-GO`, no se creó tag público y la evidencia quedó en el commit BeatGaler `712331a60ef5e04ca4c57fcb5c52ad13e2ea279b`. La siguiente tarea activa es 0.2.
 - **2026-08-22 — Tarea 0.2 completada: checkpoint interno y backlog P0/P1.** Se formalizó el 4 de septiembre de 2026 como checkpoint interno sin cobros ni usuarios reales de producción. El RO queda como autoridad final de stop-release y la regla `0 P0/P1` sigue siendo obligatoria. Se creó el backlog maestro operativo en `magosouljah/BeatGaler` como Issue #3 (`[RELEASE] BeatGaler 1.0 — P0/P1 Launch Backlog`), con los 12 P0 y 11 P1 del plan, owner por rol y evidencia de salida por item. Día 0 queda completado y la siguiente tarea activa es 1.1.
 - **2026-08-22 — Tarea 1.1 completada: decisiones de negocio.** El RO define que BeatGaler v1 será siempre comercial/pagada y jamás tendrá fallback free-only; si billing no supera los gates, v1 se retrasa. Official Beta y promociones usarán suscripciones/entitlements reales regalados mediante códigos o grants. Se fijan mercados iniciales México, EE. UU., Canadá, UE y Reino Unido; edad mínima 18+; monedas iniciales MXN/USD/CAD/EUR/GBP; refund comercial base de 14 días sujeto a derechos legales superiores y controles antiabuso razonables; operación inicial desde México bajo la estructura fiscal individual válida más simple, a validar antes de cobros; y distribución directa Web + Windows `.exe` mediante NSIS + macOS DMG. La siguiente tarea activa es 1.2.
+- **2026-08-22 — Tarea 1.2 iniciada: dependencias con lead time.** Se confirma que todavía no existe dominio ni alta Apple Developer; GitHub Releases permanece como canal previsto; email de soporte y status page dependen del dominio. Se confirma objetivo de soporte macOS Intel + Apple Silicon y disponibilidad de testers. Quedan pendientes Authenticode, revisión legal, revisión independiente de seguridad y reserva/validación de la matriz física. La tarea permanece `[ 🟡 ]`; las prioridades externas inmediatas son adquirir dominio y comenzar Apple Developer.
