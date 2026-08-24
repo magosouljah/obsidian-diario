@@ -38,12 +38,12 @@ beatgaler: https://github.com/magosouljah/BeatGaler
 ## Estado vivo del plan
 
 - **Fase actual:** Fase 0 — Contener, decidir y crear una sola línea de release.
-- **Día/tarea actual:** Día 2 — Tarea 2.2 — Tratar el estado rastreado como incidente potencial; Tarea 1.2 continúa en paralelo `[ 🟡 ]`.
-- **Estado general:** 🔴 `NO-GO` para lanzamiento público; Tarea 2.1 cerrada con evidencia runtime y Tarea 2.2 en progreso tras retirar del HEAD información operacional rastreada.
-- **Último avance:** `npm run test:containment` produjo `PASS regression-http-containment`, cerrando 2.1. En 2.2 se retiraron del HEAD el backup operativo y configuraciones reales/locales de bots, se sanitizó la plantilla pública y se reforzó `.gitignore`; no se reescribió todavía el historial antiguo.
-- **Próximo paso:** revisar de nuevo en unos días si la historia Git antigua conserva exposición relevante y decidir entonces si amerita purga; mientras tanto continuar con el siguiente trabajo no destructivo del plan. En paralelo siguen dominio/Apple Developer de 1.2.
+- **Día/tarea actual:** Día 3 — Tarea 3.2 — Probar contrato de plataforma; Tarea 1.2 y 2.2 continúan en paralelo según sus gates.
+- **Estado general:** 🔴 `NO-GO` para lanzamiento público; Tarea 3.1 cerrada con rama integrada/protegida y CI cross-platform verde; Tarea 2.2 continúa en progreso por la revisión futura del historial antiguo.
+- **Último avance:** Tarea 3.1 cerrada: integración Web/Desktop convergió en `integration-v0.8.0-alpha.1` (`4662a109...`), versión `0.8.0-alpha.1`, árbol público limpiado, rama protegida y CI #63 verde en Windows + macOS Intel + Apple Silicon.
+- **Próximo paso:** ejecutar Tarea 3.2: validar el contrato de plataforma en la convergencia, añadir el guard Web-no-Tauri/Desktop-capabilities y consolidar la matriz de capacidades como fuente única. En paralelo siguen 1.2 y la reauditoría diferida de 2.2.
 - **Bloqueos actuales:** el historial Git antiguo de la información operacional todavía no ha sido purgado; dominio, Apple Developer, Authenticode y revisiones externas de 1.2 siguen pendientes. Además queda abierta la regresión de tiempo de carga inicial de la librería para 12.1.
-- **Últimos commits BeatGaler revisados:** Cloud `626efe933cb61130d5f7d20bcdd398f53b61d434`; Web `e79728642839493326df706aba993a4cde2bdc02`.
+- **Últimos commits BeatGaler revisados:** integración `4662a109bcc769774e33fe53182088c605846002`; base Cloud `626efe933cb61130d5f7d20bcdd398f53b61d434`; Web fuente `e79728642839493326df706aba993a4cde2bdc02`.
 
 ### Estados de seguimiento
 
@@ -573,9 +573,11 @@ Cada evidencia se guarda con: gate, versión/SHA, entorno, fecha/hora, ejecutor,
 
 **Tarea 3.1 [P1 · RO/DE/FE] — Construir la base integrada.**
 
-- [ ] Crear la rama protegida desde Cloud `131df887...` y fijar versión `0.8.0-alpha.1`.
-- [ ] Portar Web por capacidades; resolver App, Drawer, library state y test de integración conscientemente.
-- [ ] Eliminar backups/dumps/binlogs y contenido impropio del árbol público sin borrar evidencia necesaria del incidente.
+- [x] Crear la rama protegida y fijar versión `0.8.0-alpha.1`. El SHA del plan `131df887...` quedó obsoleto; la base real usada fue Cloud `626efe933cb61130d5f7d20bcdd398f53b61d434`.
+- [x] Portar Web por capacidades; resolver App, Drawer, library state y test de integración conscientemente.
+- [x] Eliminar backups/dumps/binlogs y contenido impropio del árbol público sin borrar evidencia necesaria del incidente.
+
+**Evidencia 3.1:** rama `integration-v0.8.0-alpha.1`, HEAD `4662a109bcc769774e33fe53182088c605846002`, versión `0.8.0-alpha.1`, GitHub `protected: true`, PR #4 de integración y CI `Test - Desktop Portability` run #63 PASS en Windows, macOS arm64 y macOS x86_64.
 
 **Tarea 3.2 [P1 · QA] — Probar contrato de plataforma.**
 
@@ -1592,3 +1594,4 @@ Hasta entonces su estado es **`needs owner confirmation`**, nunca “listo”.
 - **2026-08-22 — Tarea 1.2 iniciada: dependencias con lead time.** Se confirma que todavía no existe dominio ni alta Apple Developer; GitHub Releases permanece como canal previsto; email de soporte y status page dependen del dominio. Se confirma objetivo de soporte macOS Intel + Apple Silicon y disponibilidad de testers. Quedan pendientes Authenticode, revisión legal, revisión independiente de seguridad y reserva/validación de la matriz física. La tarea permanece `[ 🟡 ]`; las prioridades externas inmediatas son adquirir dominio y comenzar Apple Developer.
 - **2026-08-22 — Tarea 2.1 completada con evidencia.** En BeatGaler `galer-cloud-v0.7.4` se añadió contención HTTP para autenticar antes de Multer, validar ownership, limitar uploads por tamaño/rate/concurrencia, retirar `/library/upsert` antes de multipart y cerrar registro público por defecto en producción. El límite técnico efectivo queda fijado en **1.99 GB (1,990,000,000 bytes)**. `npm run test:containment` produjo **`PASS regression-http-containment`**, por lo que 2.1 queda `[x]`. La regresión de carga inicial de la librería permanece registrada para Tarea 12.1.
 - **2026-08-22 — Tarea 2.2 en progreso: saneamiento del estado operacional rastreado.** Se confirmó que el repo contenía información operacional concreta y se retiraron del HEAD `transport-pool-state.backup.json`, `transport-bots.json` y `transport-bots.local.json`. `transport-pool.js` ahora usa configuración privada local o `TRANSPORT_BOTS_FILE`; `transport-bots.example.json` quedó sanitizado y `.gitignore` bloquea variantes reales/runtime. No se añadió scanner permanente y no se reescribió todavía la historia Git. Se acuerda reauditar la exposición del historial en unos días y decidir entonces si amerita purga. No se rotaron ni revocaron tokens por no existir evidencia de token en claro; la capacidad de revocación queda como requisito de seguridad antes de escalar la flota hacia ~80 bots, o antes si aparece compromiso confirmado. Cloud verificado hasta `626efe933cb61130d5f7d20bcdd398f53b61d434`.
+- **2026-08-23 — Tarea 3.1 completada: base integrada Web/Desktop.** Se creó `integration-v0.8.0-alpha.1` desde la base Cloud real `626efe933cb61130d5f7d20bcdd398f53b61d434`, se portó Web por capacidades sin merge ciego, se reconciliaron conscientemente `App.tsx`, `Drawer.tsx`, `libraryStateManager.ts` y tests compartidos, se añadió el transporte Web y su backend cifrado, se conservaron los fixes Desktop/macOS, se fijó `0.8.0-alpha.1` y se retiraron backups/binlogs/templates/temporales impropios del árbol público. El HEAD final validado es `4662a109bcc769774e33fe53182088c605846002`; `Test - Desktop Portability` run #63 pasó en Windows, macOS arm64 y macOS x86_64; la rama quedó protegida (`protected: true`). La siguiente tarea activa es 3.2.
