@@ -1,7 +1,7 @@
 name: Close Task 3.1 in Plan
 
 on:
-  issues:
+  pull_request:
     types: [opened]
 
 permissions:
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   close:
-    if: startsWith(github.event.issue.title, '[PLAN-TRIGGER] Close Task 3.1')
+    if: startsWith(github.event.pull_request.title, '[PLAN-TRIGGER] Close Task 3.1')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
