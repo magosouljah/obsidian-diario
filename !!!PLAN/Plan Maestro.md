@@ -15,7 +15,7 @@ git pull --rebase origin main
 ```
 
 ```powershell
-# Sube tus cambios locales a GitHub
+# Sube tus cambios locales
 git push origin main
 ```
 
@@ -110,7 +110,7 @@ Cuando una tarea cambie de estado, se actualiza aquí y en su checkbox original.
 | `Fase 5 - Betas y RC.md` | Fase 5 | Días 26–30 |
 | `Fase 6 - Lanzamiento.md` | Fase 6 | Días 31–35 |
 | `Fase 7 - Estabilización.md` | Fase 7 | Días 36–41 |
-| `Gates - Publicación y contingencias.md` | gates, go/no-go, riesgos o contingencias | condiciones obligatorias, métricas, RACI, riesgos, contingencias y criterios |
+| `Gates - Publicación y contingencias.md` | gates, go-no-go, riesgos o contingencias | condiciones obligatorias, métricas, RACI, riesgos, contingencias y criterios |
 | `Registro de avances.md` | al cerrar/actualizar trabajo | historial cronológico de evidencia |
 
 ## Fuente de verdad y precedencia
