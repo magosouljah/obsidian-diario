@@ -1,18 +1,15 @@
 name: Close Task 3.1 in Plan
 
-# Triggered through PR so GitHub emits a normal push to main.
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - .github/workflows/close-task-3-1.yml
+  issues:
+    types: [opened]
 
 permissions:
   contents: write
 
 jobs:
   close:
+    if: startsWith(github.event.issue.title, '[PLAN-TRIGGER] Close Task 3.1')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,13 +23,31 @@ jobs:
           from pathlib import Path
           p = Path('!!!PLAN/Plan Maestro.md')
           t = p.read_text()
-          t = t.replace('**Tarea 3.1 [P1 · RO/DE/FE] — Construir la base integrada.**\n\n- [ ] Crear la rama protegida desde Cloud `131df887...` y fijar versión `0.8.0-alpha.1`.\n- [ ] Portar Web por capacidades; resolver App, Drawer, library state y test de integración conscientemente.\n- [ ] Eliminar backups/dumps/binlogs y contenido impropio del árbol público sin borrar evidencia necesaria del incidente.', '**Tarea 3.1 [P1 · RO/DE/FE] — Construir la base integrada.**\n\n- [x] Crear la rama protegida desde Cloud `131df887...` y fijar versión `0.8.0-alpha.1`. Base real usada: Cloud `626efe933cb61130d5f7d20bcdd398f53b61d434`.\n- [x] Portar Web por capacidades; resolver App, Drawer, library state y test de integración conscientemente.\n- [x] Eliminar backups/dumps/binlogs y contenido impropio del árbol público sin borrar evidencia necesaria del incidente.\n\n**Evidencia 3.1:** rama `integration-v0.8.0-alpha.1`, HEAD `4662a109bcc769774e33fe53182088c605846002`, versión `0.8.0-alpha.1`, GitHub `protected: true`, CI `Test - Desktop Portability` run #63 PASS en Windows, macOS arm64 y macOS x86_64.')
-          t = t.replace('- **Día/tarea actual:** Día 2 — Tarea 2.2 — Tratar el estado rastreado como incidente potencial; Tarea 1.2 continúa en paralelo `[ 🟡 ]`.', '- **Día/tarea actual:** Día 3 — Tarea 3.2 — Probar contrato de plataforma; Tarea 1.2 y 2.2 continúan en paralelo según sus gates.')
-          t = t.replace('- **Último avance:** `npm run test:containment` produjo `PASS regression-http-containment`, cerrando 2.1. En 2.2 se retiraron del HEAD el backup operativo y configuraciones reales/locales de bots, se sanitizó la plantilla pública y se reforzó `.gitignore`; no se reescribió todavía el historial antiguo.', '- **Último avance:** Tarea 3.1 cerrada: integración Web/Desktop convergió en `integration-v0.8.0-alpha.1` (`4662a109...`), versión `0.8.0-alpha.1`, árbol público limpiado, rama protegida y CI #63 verde en Windows + macOS Intel + Apple Silicon.')
-          t = t.replace('- **Próximo paso:** revisar de nuevo en unos días si la historia Git antigua conserva exposición relevante y decidir entonces si amerita purga; mientras tanto continuar con el siguiente trabajo no destructivo del plan. En paralelo siguen dominio/Apple Developer de 1.2.', '- **Próximo paso:** ejecutar Tarea 3.2: validar el contrato de plataforma en la convergencia, añadir el guard Web-no-Tauri/Desktop-capabilities y consolidar la matriz de capacidades como fuente única. En paralelo siguen 1.2 y la reauditoría diferida de 2.2.')
+          old_task = '''**Tarea 3.1 [P1 · RO/DE/FE] — Construir la base integrada.**
+
+- [ ] Crear la rama protegida desde Cloud `131df887...` y fijar versión `0.8.0-alpha.1`.
+- [ ] Portar Web por capacidades; resolver App, Drawer, library state y test de integración conscientemente.
+- [ ] Eliminar backups/dumps/binlogs y contenido impropio del árbol público sin borrar evidencia necesaria del incidente.'''
+          new_task = '''**Tarea 3.1 [P1 · RO/DE/FE] — Construir la base integrada.**
+
+- [x] Crear la rama protegida y fijar versión `0.8.0-alpha.1`. El SHA del plan `131df887...` quedó obsoleto; la base real usada fue Cloud `626efe933cb61130d5f7d20bcdd398f53b61d434`.
+- [x] Portar Web por capacidades; resolver App, Drawer, library state y test de integración conscientemente.
+- [x] Eliminar backups/dumps/binlogs y contenido impropio del árbol público sin borrar evidencia necesaria del incidente.
+
+**Evidencia 3.1:** rama `integration-v0.8.0-alpha.1`, HEAD `4662a109bcc769774e33fe53182088c605846002`, versión `0.8.0-alpha.1`, GitHub `protected: true`, PR #4 de integración y CI `Test - Desktop Portability` run #63 PASS en Windows, macOS arm64 y macOS x86_64.'''
+          if old_task not in t:
+              raise SystemExit('Task 3.1 block no longer matches expected source; refusing silent edit')
+          t = t.replace(old_task, new_task, 1)
+          t = t.replace('- **Día/tarea actual:** Día 2 — Tarea 2.2 — Tratar el estado rastreado como incidente potencial; Tarea 1.2 continúa en paralelo `[ 🟡 ]`.', '- **Día/tarea actual:** Día 3 — Tarea 3.2 — Probar contrato de plataforma; Tarea 1.2 y 2.2 continúan en paralelo según sus gates.', 1)
+          t = t.replace('- **Último avance:** `npm run test:containment` produjo `PASS regression-http-containment`, cerrando 2.1. En 2.2 se retiraron del HEAD el backup operativo y configuraciones reales/locales de bots, se sanitizó la plantilla pública y se reforzó `.gitignore`; no se reescribió todavía el historial antiguo.', '- **Último avance:** Tarea 3.1 cerrada: integración Web/Desktop convergió en `integration-v0.8.0-alpha.1` (`4662a109...`), versión `0.8.0-alpha.1`, árbol público limpiado, rama protegida y CI #63 verde en Windows + macOS Intel + Apple Silicon.', 1)
+          t = t.replace('- **Próximo paso:** revisar de nuevo en unos días si la historia Git antigua conserva exposición relevante y decidir entonces si amerita purga; mientras tanto continuar con el siguiente trabajo no destructivo del plan. En paralelo siguen dominio/Apple Developer de 1.2.', '- **Próximo paso:** ejecutar Tarea 3.2: validar el contrato de plataforma en la convergencia, añadir el guard Web-no-Tauri/Desktop-capabilities y consolidar la matriz de capacidades como fuente única. En paralelo siguen 1.2 y la reauditoría diferida de 2.2.', 1)
+          t = t.replace('- **Últimos commits BeatGaler revisados:** Cloud `626efe933cb61130d5f7d20bcdd398f53b61d434`; Web `e79728642839493326df706aba993a4cde2bdc02`.', '- **Últimos commits BeatGaler revisados:** integración `4662a109bcc769774e33fe53182088c605846002`; base Cloud `626efe933cb61130d5f7d20bcdd398f53b61d434`; Web fuente `e79728642839493326df706aba993a4cde2bdc02`.', 1)
+          progress = '- **2026-08-23 — Tarea 3.1 completada: base integrada Web/Desktop.** Se creó `integration-v0.8.0-alpha.1` desde la base Cloud real `626efe933cb61130d5f7d20bcdd398f53b61d434`, se portó Web por capacidades sin merge ciego, se reconciliaron conscientemente `App.tsx`, `Drawer.tsx`, `libraryStateManager.ts` y tests compartidos, se añadió el transporte Web y su backend cifrado, se conservaron los fixes Desktop/macOS, se fijó `0.8.0-alpha.1` y se retiraron backups/binlogs/templates/temporales impropios del árbol público. El HEAD final validado es `4662a109bcc769774e33fe53182088c605846002`; `Test - Desktop Portability` run #63 pasó en Windows, macOS arm64 y macOS x86_64; la rama quedó protegida (`protected: true`). La siguiente tarea activa es 3.2.'
+          if progress not in t:
+              t = t.rstrip() + '\n' + progress + '\n'
           p.write_text(t)
           PY
-          rm -f .github/workflows/close-task-3-1.yml
+          rm -f .github/workflows/close-task-3-1.yml .github/plan-close-3-1-trigger.txt
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
