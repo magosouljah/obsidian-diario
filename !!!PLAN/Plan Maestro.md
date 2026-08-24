@@ -31,16 +31,15 @@ git push origin main
    - este archivo: `Estado vivo del plan`;
    - la tarea/checklist dentro de su archivo de fase;
    - `Registro de avances.md` con evidencia fechada.
-8. Si una tarea enlaza un módulo especializado, leer ese módulo antes de implementarla.
-9. Si una tarea afecta publicación/go-no-go, leer también `Gates - Publicación y contingencias.md`.
-10. No cambiar comportamiento de producto no relacionado para “aprovechar” una tarea.
+8. Si una tarea afecta publicación/go-no-go, leer también `Gates - Publicación y contingencias.md`.
+9. No cambiar comportamiento de producto no relacionado para “aprovechar” una tarea.
 
 ## Repos
 
 - Plan: https://github.com/magosouljah/obsidian-diario
 - BeatGaler: https://github.com/magosouljah/BeatGaler
 
-**Versión del plan:** 1.1  
+**Versión del plan:** 1.2  
 **Fecha de auditoría base:** 22 de agosto de 2026, `America/Mexico_City`  
 **Última reorganización:** 23 de agosto de 2026, `America/Mexico_City`  
 **Hito original:** 4 de septiembre de 2026  
@@ -87,13 +86,12 @@ Cuando una tarea cambie de estado, se actualiza aquí y en su checkbox original.
 1. Leer **este archivo completo**.
 2. Abrir el archivo indicado como **fase actual** y leerlo completo.
 3. Localizar la tarea exacta, sus dependencias, evidencia y gate de salida.
-4. Si hay enlace `Módulo`, leer únicamente ese módulo especializado.
-5. Si la decisión toca release/publicación, abrir `Gates - Publicación y contingencias.md`.
-6. Hacer auditoría read-only del código/estado real.
-7. Explicar cambio exacto y razón antes de modificar.
-8. Ejecutar cambio mínimo.
-9. Ejecutar suites afectadas y revisar CI.
-10. Solo con evidencia: actualizar fase + este estado vivo + `Registro de avances.md`.
+4. Si la decisión toca release/publicación, abrir `Gates - Publicación y contingencias.md`.
+5. Hacer auditoría read-only del código/estado real.
+6. Explicar cambio exacto y razón antes de modificar.
+7. Ejecutar cambio mínimo.
+8. Ejecutar suites afectadas y revisar CI.
+9. Solo con evidencia: actualizar fase + este estado vivo + `Registro de avances.md`.
 
 ## Mapa de archivos del plan
 
@@ -103,7 +101,7 @@ Cuando una tarea cambie de estado, se actualiza aquí y en su checkbox original.
 | `00 - Contexto global y criterios.md` | cuando una decisión necesita contexto global/auditoría/diseño/prioridad | veredicto, evidencia, fechas, inventario, diseño, prioridades y roles |
 | `Fase 0 - Contención e integración.md` | mientras Fase 0 esté activa | Días 0–5, incluida integración/CI/ADR |
 | `Fase 1 - Seguridad cuentas y datos.md` | Fase 1 | Días 6–10 |
-| `Fase 2 - Web y UX.md` | Fase 2 | Días 11–15 + Tarea 15.3 YouTube Web |
+| `Fase 2 - Web y UX.md` | Fase 2 | Días 11–15, incluido el plan completo de YouTube Web en Tarea 15.3 |
 | `Fase 3 - Producción pagos y operación.md` | Fase 3 | Días 16–20 |
 | `Fase 4 - Desktop y release chain.md` | Fase 4 | Días 21–25 |
 | `Fase 5 - Betas y RC.md` | Fase 5 | Días 26–30 |
@@ -111,7 +109,6 @@ Cuando una tarea cambie de estado, se actualiza aquí y en su checkbox original.
 | `Fase 7 - Estabilización.md` | Fase 7 | Días 36–41 |
 | `Gates - Publicación y contingencias.md` | gates, go/no-go, riesgos o contingencias | condiciones obligatorias, métricas, RACI, riesgos, contingencias y criterios |
 | `Registro de avances.md` | al cerrar/actualizar trabajo | historial cronológico de evidencia |
-| `Modulos/YouTube Web.md` | al trabajar YouTube Web o su arquitectura | contrato/arquitectura Web sin Tauri y evidencia relacionada |
 
 ## Fuente de verdad y precedencia
 
@@ -120,7 +117,6 @@ Si dos textos parecen contradecirse, aplicar este orden:
 1. Reglas inmutables y `Estado vivo` de `Plan Maestro.md`.
 2. Gate/checklist de la fase activa.
 3. `Gates - Publicación y contingencias.md` para condiciones de publicación.
-4. Módulo especializado enlazado por la tarea.
-5. `00 - Contexto global y criterios.md` como contexto histórico/estático.
+4. `00 - Contexto global y criterios.md` como contexto histórico/estático.
 
 Ningún archivo secundario puede rebajar un gate del principal. Una nueva decisión de producto debe actualizar primero el principal y después los archivos afectados.

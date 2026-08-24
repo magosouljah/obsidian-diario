@@ -90,7 +90,7 @@
 
 ## Día 15 — 11 de septiembre — Settings, Trash, accesibilidad y YouTube Web
 
-**Resultado:** configuración y recuperación tienen estados completos y lenguaje veraz; YouTube deja de ser una capacidad exclusiva de Desktop en el objetivo de producto.
+**Resultado:** configuración y recuperación tienen estados completos y lenguaje veraz; YouTube deja de ser una capacidad exclusiva de Desktop en la implementación Web.
 
 ### Tarea 15.1 [P1 · FE/DL] — SettingsShell
 
@@ -108,20 +108,67 @@
 **Evidencia:** auditoría AA, keyboard script y screenshot set por plataforma.  
 **Gate de salida:** 0 defecto crítico de teclado/lectura/contraste en flujos de lanzamiento.
 
-### Tarea 15.3 [P1 · FE/BE/QA] — Portar YouTube a Web sin Tauri
+### Tarea 15.3 [P1 · FE/BE/QA] — Implementar YouTube Web sin Tauri
 
-**Regla de producto:** YouTube debe existir en Desktop y Web. El `false` actual de `WEB_FOUNDATION_CAPABILITIES.youtubePublishing` es estado temporal, no exclusión permanente.
+**Regla de producto:** YouTube debe existir en Desktop y Web. El `false` actual de `WEB_FOUNDATION_CAPABILITIES.youtubePublishing` es estado temporal, no una exclusión permanente. Esta tarea contiene el plan completo de implementación Web; no existe un documento/módulo separado.
 
-**Módulo obligatorio al trabajar esta tarea:** [`Modulos/YouTube Web.md`](./Modulos/YouTube%20Web.md).
+#### A. Contrato compartido y capabilities
 
-- [ ] Extraer un contrato compartido de YouTube; Desktop conserva Tauri/Rust detrás de su adaptador.
-- [ ] Implementar backend Web para OAuth/estado/upload/schedule/progreso/retry/cancel/disconnect con secretos server-side.
-- [ ] Implementar adaptador Web sin Tauri, sin helper local y sin dependencia de BeatGaler Desktop.
-- [ ] Reutilizar UI compartida de selección, visual, metadata/presets, visibilidad/schedule, conexión y job/progreso.
-- [ ] Añadir pruebas DOM/integration/backend/E2E que demuestren que YouTube Web funciona y nunca invoca Tauri.
-- [ ] Mantener regresiones Desktop verdes para Direct, Offline y YouTube durante toda la migración.
-- [ ] Cambiar `WEB_FOUNDATION_CAPABILITIES.youtubePublishing` a `true` solo después de que el flujo Web pase sus gates.
+- [ ] Definir una interfaz compartida para channel status, connect, disconnect, upload, schedule, cancel, retry y progress.
+- [ ] Retirar de la UI compartida cualquier dependencia directa de `src/lib/tauri.ts` para operaciones YouTube.
+- [ ] Mantener `src/platform/capabilities.ts` como fuente de disponibilidad visible.
+- [ ] No cambiar `WEB_FOUNDATION_CAPABILITIES.youtubePublishing` a `true` hasta que el flujo Web real de esta tarea pase su gate.
 
-**Dependencias:** auth/OAuth Web seguro, backend durable, upload/job infrastructure y contrato de plataforma compartido.  
-**Evidencia:** tests Web + backend + E2E, OAuth real de staging, upload real controlado, progreso/cancel/retry y CI cross-platform verde.  
-**Gate de salida:** Web puede completar el flujo YouTube de principio a fin sin Tauri ni Desktop helper, mientras Desktop conserva Direct/Offline/YouTube sin regresiones.
+#### B. Desktop adapter — conservar lo que ya funciona
+
+- [ ] Encapsular las funciones Tauri/Rust actuales detrás del contrato compartido sin reescribir comportamiento innecesariamente.
+- [ ] Mantener Desktop Direct, Offline y YouTube verdes durante cada corte.
+- [ ] Conservar los flujos actuales de channel status/connect/disconnect/upload/schedule/cancel/progress salvo cambio exigido por el contrato común.
+
+#### C. Backend YouTube para Web
+
+- [ ] Implementar OAuth server-side con `state` validado, callbacks/orígenes controlados y ningún client secret o refresh token expuesto al navegador.
+- [ ] Guardar secretos/tokens de provider cifrados en la persistencia durable definida por Fase 1.
+- [ ] Crear endpoints tenant-scoped para channel status, connect/disconnect, creación de job, schedule, progress, cancel y retry.
+- [ ] Hacer idempotente la creación de jobs/uploads y reconciliar estado para evitar duplicados tras retry/refresh.
+- [ ] Preparar el punto de enforcement de entitlement/quota; la política comercial final de límites YouTube se conecta obligatoriamente en Tarea 18.1 antes del release.
+
+#### D. Web adapter puro
+
+- [ ] Implementar el contrato usando únicamente HTTP/Web APIs seguras.
+- [ ] Prohibido `invoke`, `@tauri-apps/*`, localhost helper o dependencia de que BeatGaler Desktop esté instalado.
+- [ ] Manejar OAuth popup/redirect, popup bloqueado, cancelación, retry, expiración y reconexión.
+- [ ] Mantener errores humanos y sin secretos/terminología interna de infraestructura.
+
+#### E. Job/upload Web
+
+- [ ] Implementar upload/job sin cargar archivos grandes completos en RAM cuando exista estrategia streaming/chunked segura.
+- [ ] Progreso durable y recuperable después de refresh cuando el backend tenga un job activo.
+- [ ] Cancel/retry bounded y estado final inequívoco.
+- [ ] Schedule con timezone explícito y validación server-side.
+
+#### F. UI compartida
+
+- [ ] Reutilizar/adaptar el flujo existente: selección de beats → Visual/crop → Metadata/Presets → Visibilidad/Schedule → conexión/canal → Job/progreso/recovery.
+- [ ] La diferencia Desktop/Web vive en adaptadores/capabilities, no en dos wizards independientes.
+- [ ] Mantener estados empty/loading/error/retry/cancel accesibles y responsive.
+
+#### G. Tests y evidencia de Fase 2
+
+- [ ] Unit: contrato/capabilities y validaciones YouTube.
+- [ ] DOM: cualquier intento de YouTube Web de invocar Tauri hace FAIL.
+- [ ] Integration: UI → Web adapter → backend mock/controlado y Desktop adapter sin regresión.
+- [ ] Backend: tenant isolation, OAuth state, token secrecy, idempotencia, schedule, cancel y retry.
+- [ ] E2E staging/controlado: conectar canal → seleccionar beat → configurar metadata/visual/visibilidad → iniciar upload → observar progreso → resultado; incluir cancel/retry/disconnect.
+- [ ] CI cross-platform: Desktop Direct/Offline/YouTube continúa verde en Windows + macOS arm64 + macOS x86_64.
+
+**Dependencias de entrada:** Tarea 3.2 cerrada; Fase 1 debe haber dejado auth/session y persistencia durable aptas para OAuth/provider secrets.  
+**Evidencia de salida de Fase 2:** tests Unit/DOM/Integration/Backend + E2E de staging/controlado + CI Desktop cross-platform verde.  
+**Gate de salida de Tarea 15.3:** Web completa de principio a fin un upload YouTube controlado sin Tauri ni Desktop helper, con secretos server-side y job durable; Desktop conserva Direct/Offline/YouTube. Solo entonces `WEB_FOUNDATION_CAPABILITIES.youtubePublishing = true`.
+
+#### Gates posteriores que NO bloquean la implementación de Fase 2 pero sí bloquean v1
+
+- **Tarea 16.1:** callbacks, secretos y entorno YouTube deben existir correctamente en staging/producción separados.
+- **Tarea 18.1:** quotas/entitlements YouTube se aplican server-side para Desktop y Web antes de reservar trabajo.
+- **Tarea 25.1:** YouTube entra en la matriz cross-platform/browser por capability.
+- **Gates de publicación:** el flujo YouTube Web real, limits por plan y pruebas de release deben seguir verdes; que 15.3 esté `[x]` no sustituye esos gates posteriores.
