@@ -1,5 +1,6 @@
 name: Close Task 3.1 in Plan
 
+# Triggered through PR so GitHub emits a normal push to main.
 on:
   push:
     branches:
