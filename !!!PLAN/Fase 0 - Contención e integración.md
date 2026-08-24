@@ -194,23 +194,24 @@
 
 ### Tarea 5.1 [P0 · BE/Security reviewer] — Aprobar límites de confianza
 
-- [ 🟡 ] Sustituir credenciales Telegram en cliente por acceso temporal seguro sin romper el data plane directo. **Decisión de diseño en progreso:** Galer Cloud nunca será relay de archivos. La candidata es MTProto con temporary authorization keys de bot renovables y RAM-only; falta prototipo y revisión.
+- [ 🟡 ] Sustituir credenciales Telegram en cliente por acceso temporal seguro sin romper el data plane directo. **Decisión de diseño en progreso:** Galer Cloud nunca será relay de archivos. La candidata es MTProto con temporary authorization keys de bot renovables y RAM-only; el split permanent-side/temp-side sigue siendo hipótesis hasta prototipo real.
 - [ ] Eliminar discovery inseguro de `127.0.0.1:4000`; fijar origen remoto o autenticar criptográficamente el servicio local.
 - [ ] Vendorizar parser ID3; definir CSP, headers, CORS, cookie/CSRF y scopes Tauri mínimos.
 
 **Estado/evidencia 5.1 — en progreso, NO aprobado:**
-- Auditoría read-only confirmó que Desktop recibe actualmente `bot_token`/credenciales Direct y Web descifra un credential envelope que termina exponiendo esas credenciales en el browser; además existe discovery de `127.0.0.1:4000`, parser ID3 remoto y hardening Web/Tauri pendiente.
+- Auditoría read-only confirmó que Desktop recibe actualmente `bot_token`, `telegram_api_id` y `telegram_api_hash`; el helper local consume el token. Web genera una clave RSA, recibe un credential envelope, lo descifra dentro del navegador y reconstruye `bot_token`, `telegram_api_id` y `telegram_api_hash`. El worker Web usa `@mtcute/web` para transferir directamente con Telegram; Galer no debe convertirse en relay para corregir la credencial.
+- También siguen pendientes discovery de `127.0.0.1:4000`, parser ID3 cargado desde CDN y hardening Web/Tauri.
 - Restricción arquitectónica inmutable: **MP3/WAV/artwork/samples/PROJECT ZIP viajan dispositivo ↔ Telegram directamente; Galer Cloud controla autorización/asignación pero nunca transporta los bytes como relay.**
-- PR BeatGaler #11 `security: define Task 5.1 trust boundaries`, rama `task-5.1-trust-boundaries`, head `5cdcfcecccea63a31adc5eaf66416929c0fbb95a`.
-- Evidencia creada: `docs/ADR-0051-TRUST-BOUNDARIES.md`, `docs/THREAT-MODEL-0051.md`, `docs/MIGRATION-0051-ROLLBACK.md`.
-- Candidata principal: temporary authorization keys MTProto para bots, renovadas antes de expirar y conservadas solo en RAM; Telegram documenta `auth.bindTempAuthKey` y `auth.dropTempAuthKeys` para bots.
-- Defensa adicional: membership del transport bot limitada a vaults necesarios y baseline de permisos mínimo. BeatGaler necesita pin/index management, por lo que el derecho mínimo de pin puede permanecer en baseline si el prototipo demuestra que es imprescindible.
-- Permisos delicados se elevan únicamente cuando Telegram realmente los exige, mediante **privilege leases** cortas + watchdog; no habrá promote/demote por chunk ni por acción normal innecesaria.
-- Telegram Bot API documenta que un bot puede borrar sus propios mensajes salientes en grupos/supergrupos sin `can_delete_messages`; el prototipo MTProto debe confirmar ese comportamiento antes de decidir si delete normal necesita elevación.
-- Escalabilidad es gate: medir membership/permission churn, `FLOOD_WAIT`/rate behavior, bot compartido cross-vault y admission control; nunca aumentar blast radius para ganar throughput.
-- Pruebas obligatorias antes de implementación sensible: temp key bot, renovación transparente, expiración anticipada, upload directo **1.9 GB**, operación larga cruzando renovación, pin con mínimo privilegio, delete propio, crash/watchdog, cross-tenant/cross-vault y rollback sin pérdida.
-- CI PR #103 (`32755046082`) iniciado sobre el cambio documental; no se considera PASS hasta obtener veredicto final.
-- **No se cambió** transporte, auth runtime, Bot API, Offline, YouTube, UI, CSP, CORS, cookies, permisos Tauri ni parser ID3. No se rotó/revocó ningún bot token real.
+- PR BeatGaler #11 `security: define Task 5.1 trust boundaries`, rama `task-5.1-trust-boundaries`. Head inicial auditado `5cdcfcecccea63a31adc5eaf66416929c0fbb95a`; CI #103 (`32755046082`) terminó PASS 6/6. La documentación fue actualizada posteriormente hasta `bb162c01c80e21a264c4022c9c682a90c14fbb98` para incorporar la decisión sobre permisos y el primer corte M0; ese head requiere CI nuevo antes de considerarse validado.
+- Evidencia de diseño: `docs/ADR-0051-TRUST-BOUNDARIES.md`, `docs/THREAT-MODEL-0051.md`, `docs/MIGRATION-0051-ROLLBACK.md`.
+- La especificación oficial de Telegram confirma una separación protocolariamente plausible: el `encrypted_message` de binding se cifra con la permanent auth key, mientras `auth.bindTempAuthKey` se invoca usando la temporary auth key. Telegram no documenta una API de “delegación remota”; por tanto el split servidor/cliente sigue siendo hipótesis hasta prueba end-to-end.
+- PR #12 `test(security): probe Telegram admin-rights churn`, rama `task-5.1-permission-churn-probe`, head `2b8904880dfeaa57b970674a79abcb181161af0a`; CI #105 (`32758345390`) PASS 6/6.
+- Resultado empírico #12: primera corrida = 80 cambios exitosos a 5 s, 2.5 s, 1 s y 500 ms, sin `FLOOD_WAIT`; segunda corrida poco después a 250 ms = Telegram devolvió `FLOOD_WAIT 533s` después de 20 cambios de esa corrida y la restauración automática inmediata también recibió `FLOOD`. La actividad acumulada puede haber contribuido, así que **no se afirma que “el límite es 20”**.
+- Decisión derivada: permission churn frecuente queda **fuera de la arquitectura principal 5.1**. No habrá `operación -> grant delete -> borrar -> revoke delete`, promote/demote por chunk ni privilege leases dependientes de restore inmediato.
+- Defensa adicional: temporary credentials, membership limitada, aislamiento entre tenants, sesiones cortas y permisos baseline mínimos/estables. `pin_messages` puede permanecer baseline si INDEX lo exige; `delete_messages` puede necesitar baseline si un transport bot debe borrar mensajes creados por **otro** transport bot. Delete propio y delete cross-bot se deben probar por separado.
+- M0 empieza aislado y sin tocar producción. Primer incremento: vector sintético que demuestre la construcción controlada del binding sin entregar permanent auth al cliente ni recibir la temp key completa. Después debe ejecutarse el bind real dispositivo -> Telegram, una operación MTProto directa, renovación, operación larga, **1.9 GB**, Windows/macOS/Web pura y cross-vault/shared-bot.
+- Escalabilidad sigue siendo gate: medir membership changes, temp-key bindings/renewals, `FLOOD_WAIT` y admission control. Compartir transport bot entre tenants no se aprueba hasta demostrar aislamiento aceptable.
+- **No se cambió** transporte runtime, Bot API productivo, Offline, YouTube, Pinterest, UI, token rotation/revoke, vaults reales, datos, CSP, CORS, cookies, permisos Tauri ni parser ID3.
 
 ### Tarea 5.2 [P0 · BE/OP] — Aprobar arquitectura de datos
 
