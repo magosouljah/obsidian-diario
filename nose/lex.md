@@ -6,11 +6,14 @@ conexion
 sweet
 loli pop
 my type
+"?"
+dopamina
+
 
 
 # canciones por grabar
-dopamina
-"?"
+
+
 
 # beats
 dopamina
