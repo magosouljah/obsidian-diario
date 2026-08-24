@@ -169,13 +169,24 @@
 
 ### Tarea 4.2 [P2 · BE/DE] — Cerrar supply chain conocida
 
-- [ ] Actualizar Vitest/Vite/WebdriverIO/transitivas hasta cero critical/high o excepción temporal aprobada y fechada.
-- [ ] Añadir npm/Cargo advisories, license scan, secret scan, SBOM y checksums.
-- [ ] Verificar binarios Node/FFmpeg/Bot API por digest y registrar procedencia.
+- [x] Actualizar Vitest/Vite/WebdriverIO/transitivas hasta cero critical/high o excepción temporal aprobada y fechada.
+- [x] Añadir npm/Cargo advisories, license scan, secret scan, SBOM y checksums.
+- [x] Verificar binarios Node/FFmpeg/Bot API por digest y registrar procedencia.
+
+**Evidencia 4.2:**
+- PR BeatGaler #10 `security: enforce Task 4.2 supply chain gate`; head final `902e4edf6f6f5d28f0f98922d5f22cc623c92f3d`.
+- Dependencias frontend/test actualizadas y `npm audit --audit-level=high` pasa sin critical/high; RustSec `cargo audit` pasa; licencias npm/Cargo se verifican por scripts dedicados.
+- Gitleaks `8.30.1` se ejecuta HEAD-only con binario descargado y checksum fijado; no quedan hallazgos en el gate final.
+- `cargo-cyclonedx 0.5.9` y `npm sbom` generan SBOM CycloneDX; el artefacto `supply-chain-evidence` incluye reportes, SBOMs, checksums de lockfiles y `runtime-sources.json`.
+- Actions externas de CI/build/release quedan verificadas por SHA completo; Node, FFmpeg y Bot API registran fuente/pin y verificaciones de digest en los workflows correspondientes.
+- CI PR run #100 (`32702389575`) PASS 6/6: Web/shared, Supply chain, Windows, macOS arm64, macOS x86_64 y `Required CI`.
+- Artefacto `supply-chain-evidence` id `9511091432`, digest `sha256:d3b38c3be14ec01f0c283522049732a4e300588d8f0a9c588ec30221e0222419`.
+- PR #10 mergeado en `integration-v0.8.0-alpha.1`; merge commit `f6d1f998bd63589ec2ddad7ee4d5818e9b85f016`.
+- El merge sintético aprobado por CI (`2eb539e40d1f076ae8f9c6dcec1a6762ae8ca5e1`) y el merge real comparten exactamente el árbol `9a7000f3f3a1840ebae0310ac3df6b827561f2c5`, por lo que el contenido integrado es el mismo que pasó los gates.
 
 **Dependencias:** rama integrada.  
 **Evidencia:** required checks en PR de prueba, reportes fechados y SBOM.  
-**Gate de salida:** no existe bypass informal; cualquier excepción tiene owner, compensación y expiración.
+**Gate de salida:** no existe bypass informal; cualquier excepción tiene owner, compensación y expiración. **SATISFECHO; no se usó excepción temporal.**
 
 ## Día 5 — 28 de agosto — ADR de confianza y checkpoint de arquitectura
 
