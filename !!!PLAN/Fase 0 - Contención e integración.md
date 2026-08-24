@@ -194,9 +194,23 @@
 
 ### Tarea 5.1 [P0 · BE/Security reviewer] — Aprobar límites de confianza
 
-- [ ] Sustituir credenciales Telegram en cliente por proxy/capability short-lived, tenant-scoped y revocable.
+- [ 🟡 ] Sustituir credenciales Telegram en cliente por acceso temporal seguro sin romper el data plane directo. **Decisión de diseño en progreso:** Galer Cloud nunca será relay de archivos. La candidata es MTProto con temporary authorization keys de bot renovables y RAM-only; falta prototipo y revisión.
 - [ ] Eliminar discovery inseguro de `127.0.0.1:4000`; fijar origen remoto o autenticar criptográficamente el servicio local.
 - [ ] Vendorizar parser ID3; definir CSP, headers, CORS, cookie/CSRF y scopes Tauri mínimos.
+
+**Estado/evidencia 5.1 — en progreso, NO aprobado:**
+- Auditoría read-only confirmó que Desktop recibe actualmente `bot_token`/credenciales Direct y Web descifra un credential envelope que termina exponiendo esas credenciales en el browser; además existe discovery de `127.0.0.1:4000`, parser ID3 remoto y hardening Web/Tauri pendiente.
+- Restricción arquitectónica inmutable: **MP3/WAV/artwork/samples/PROJECT ZIP viajan dispositivo ↔ Telegram directamente; Galer Cloud controla autorización/asignación pero nunca transporta los bytes como relay.**
+- PR BeatGaler #11 `security: define Task 5.1 trust boundaries`, rama `task-5.1-trust-boundaries`, head `5cdcfcecccea63a31adc5eaf66416929c0fbb95a`.
+- Evidencia creada: `docs/ADR-0051-TRUST-BOUNDARIES.md`, `docs/THREAT-MODEL-0051.md`, `docs/MIGRATION-0051-ROLLBACK.md`.
+- Candidata principal: temporary authorization keys MTProto para bots, renovadas antes de expirar y conservadas solo en RAM; Telegram documenta `auth.bindTempAuthKey` y `auth.dropTempAuthKeys` para bots.
+- Defensa adicional: membership del transport bot limitada a vaults necesarios y baseline de permisos mínimo. BeatGaler necesita pin/index management, por lo que el derecho mínimo de pin puede permanecer en baseline si el prototipo demuestra que es imprescindible.
+- Permisos delicados se elevan únicamente cuando Telegram realmente los exige, mediante **privilege leases** cortas + watchdog; no habrá promote/demote por chunk ni por acción normal innecesaria.
+- Telegram Bot API documenta que un bot puede borrar sus propios mensajes salientes en grupos/supergrupos sin `can_delete_messages`; el prototipo MTProto debe confirmar ese comportamiento antes de decidir si delete normal necesita elevación.
+- Escalabilidad es gate: medir membership/permission churn, `FLOOD_WAIT`/rate behavior, bot compartido cross-vault y admission control; nunca aumentar blast radius para ganar throughput.
+- Pruebas obligatorias antes de implementación sensible: temp key bot, renovación transparente, expiración anticipada, upload directo **1.9 GB**, operación larga cruzando renovación, pin con mínimo privilegio, delete propio, crash/watchdog, cross-tenant/cross-vault y rollback sin pérdida.
+- CI PR #103 (`32755046082`) iniciado sobre el cambio documental; no se considera PASS hasta obtener veredicto final.
+- **No se cambió** transporte, auth runtime, Bot API, Offline, YouTube, UI, CSP, CORS, cookies, permisos Tauri ni parser ID3. No se rotó/revocó ningún bot token real.
 
 ### Tarea 5.2 [P0 · BE/OP] — Aprobar arquitectura de datos
 
