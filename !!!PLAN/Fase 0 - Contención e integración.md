@@ -147,11 +147,25 @@
 
 ### Tarea 4.1 [P2 · QA/OP] — Crear pipeline obligatorio
 
-- [ ] Web build + browser smoke; frontend/shared; backend; Rust; regresiones; portabilidad y packaging estático.
-- [ ] Fijar Node/Rust/actions; usar lockfiles; cachear sin ocultar checks.
-- [ ] Bloquear merge si falla una suite o si versiones/manifiestos divergen.
+- [x] Web build + browser smoke; frontend/shared; backend; Rust; regresiones; portabilidad y packaging estático.
+- [x] Fijar Node/Rust/actions; usar lockfiles; cachear sin ocultar checks.
+- [x] Bloquear merge si falla una suite o si versiones/manifiestos divergen.
 
-**Estado de entrada a 4.1:** existe `Test - Desktop Portability` y ya ejecuta gran parte de typecheck/TS/DOM/integration/backend/regresiones/Rust en Windows + macOS arm64 + x86_64. 4.1 no se marca completa hasta cubrir exactamente el gate descrito arriba y configurarlo como required check sin bypass informal.
+**Evidencia 4.1:**
+- `Test - Desktop Portability` incorpora `Web + shared gate`, Windows, macOS arm64, macOS x86_64 y un agregador estable `Required CI`.
+- Web ejecuta build real (`tsc + vite build --mode web`) y smoke de la app compilada en Chrome headless; el target Web se alinea a ES2020 por el uso real de `BigInt`, sin alterar los targets Desktop.
+- El gate shared ejecuta `version:check`, typecheck, unit TS, DOM, integration, backend, regresiones y packaging/portabilidad estático.
+- Node queda fijado en `22.23.2`; Rust en `1.98.0`; Actions relevantes quedan fijadas por SHA completo; npm usa `npm ci` y Cargo usa `--locked`.
+- Windows falla cerrado si `Cargo.lock` se regenera y conserva el artefacto de diagnóstico; macOS conserva sus guards/placeholder ordering y compila el grafo locked en ambas arquitecturas.
+- El workflow corre en PR y también en push a `integration-v0.8.0-alpha.1`.
+- PR BeatGaler #9 `ci: enforce Task 4.1 required pipeline`.
+- Commits de trabajo: `e86ab19a7f3eef3a7036a50f8cb083add94c2292`, `a4f58943f222ef8f6a5c85a3e72142353fdf0a72` y `71a559dc4cdcb8e16159c709a7c2d0f64e61e5a0`.
+- CI PR run #68 PASS 5/5: Web/shared, Windows, macOS arm64, macOS x86_64 y `Required CI`.
+- PR #9 mergeado en `integration-v0.8.0-alpha.1`; merge commit `c7894ad3c2b3e296e3d2939d73953b159e48852f`.
+- CI post-merge run #70 PASS 5/5, incluido `Required CI`.
+- Ruleset confirmado: PR obligatorio, `Required CI` como único status check requerido, rama actualizada antes de merge y `Required approvals = 0` por existir un solo maintainer.
+
+**Gate de salida 4.1:** cualquier fallo de Web/shared, Windows o cualquiera de los dos Mac hace fallar `Required CI`, y GitHub bloquea el merge. **SATISFECHO.**
 
 ### Tarea 4.2 [P2 · BE/DE] — Cerrar supply chain conocida
 

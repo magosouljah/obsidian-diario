@@ -50,15 +50,16 @@ git push origin main
 ## Estado vivo del plan
 
 - **Fase actual:** Fase 0 — Contener, decidir y crear una sola línea de release.
-- **Día/tarea actual:** Día 4 — Tarea 4.1 — Crear pipeline obligatorio; Tarea 1.2 y 2.2 continúan en paralelo según sus gates.
-- **Estado general:** 🔴 `NO-GO` para lanzamiento público. Tarea 3.2 queda cerrada con contrato Web/Desktop probado; siguen abiertos P0/P1 posteriores y dependencias externas.
-- **Último avance:** Tarea 3.2 completada. PR BeatGaler #8 integró el contrato de plataforma en `integration-v0.8.0-alpha.1`: el test de capabilities ahora sí corre, Desktop conserva Direct/Offline/YouTube, Web falla si intenta invocar Tauri y la matriz compartida explicita `youtubePublishing`. YouTube Web queda como objetivo obligatorio posterior, no como exclusión permanente.
-- **Próximo paso principal:** Tarea 4.1 — convertir el pipeline existente en gate obligatorio completo para Web build/browser smoke, frontend/shared, backend, Rust, regresiones, portabilidad y packaging estático.
+- **Día/tarea actual:** Día 4 — Tarea 4.2 — Cerrar supply chain conocida; Tarea 1.2 y 2.2 continúan en paralelo según sus gates.
+- **Estado general:** 🔴 `NO-GO` para lanzamiento público. Tarea 4.1 queda cerrada con un pipeline obligatorio reproducible y `Required CI` protegido; siguen abiertos P0/P1 posteriores y dependencias externas.
+- **Último avance:** Tarea 4.1 completada. PR BeatGaler #9 integró el pipeline requerido en `integration-v0.8.0-alpha.1`: Web build real + Chrome smoke, frontend/shared/backend/regresiones/packaging, Rust nativo en Windows + macOS arm64 + x86_64, Node/Rust/actions fijados, lockfiles obligatorios, `version:check` y agregador estable `Required CI`. El ruleset exige `Required CI`, exige rama actualizada antes de merge y mantiene `Required approvals = 0` por ser un repo de un solo maintainer.
+- **Próximo paso principal:** Tarea 4.2 — cerrar supply chain conocida: vulnerabilidades critical/high o excepciones fechadas, advisories/licencias/secret scan/SBOM/checksums y procedencia/digest de runtimes.
 - **Trabajo paralelo vigente:** Tarea 1.2 (dominio, Apple Developer, Authenticode, revisiones/hardware) y reauditoría diferida de Tarea 2.2.
 - **Bloqueos actuales:** historial Git antiguo de información operacional aún pendiente de decisión de purga; dominio, Apple Developer, Authenticode y revisiones externas de 1.2 pendientes; regresión de tiempo de carga inicial de librería registrada para 12.1.
-- **BeatGaler integración:** rama `integration-v0.8.0-alpha.1`; merge 3.2 `32a38c490a53650a0e9d6435c50cd009ef1b5123`; versión `0.8.0-alpha.1`.
-- **Evidencia 3.2:** PR #8; commit de trabajo `818214889ef3c6f97a262a91046f7df0e4f723fe`; CI PR #64 PASS Windows + macOS arm64 + macOS x86_64; CI post-merge #65 PASS requerido antes de este cierre.
-- **Regla GitHub de integración:** el repositorio tiene un solo maintainer. `Required approvals` se mantiene en **0** para evitar un bloqueo imposible por auto-review; PR + CI/checks siguen siendo la protección técnica. Esto **no elimina** los reviewers independientes exigidos más adelante por gates de security/legal/firma/release.
+- **BeatGaler integración:** rama `integration-v0.8.0-alpha.1`; merge 4.1 `c7894ad3c2b3e296e3d2939d73953b159e48852f`; versión `0.8.0-alpha.1`.
+- **Evidencia 3.2:** PR #8; commit de trabajo `818214889ef3c6f97a262a91046f7df0e4f723fe`; CI PR #64 PASS Windows + macOS arm64 + macOS x86_64; merge `32a38c490a53650a0e9d6435c50cd009ef1b5123`; CI post-merge #65 PASS.
+- **Evidencia 4.1:** PR #9; commits de trabajo `e86ab19a7f3eef3a7036a50f8cb083add94c2292`, `a4f58943f222ef8f6a5c85a3e72142353fdf0a72` y `71a559dc4cdcb8e16159c709a7c2d0f64e61e5a0`; CI PR #68 PASS 5/5 incluido `Required CI`; merge `c7894ad3c2b3e296e3d2939d73953b159e48852f`; CI post-merge #70 PASS 5/5 incluido `Required CI`.
+- **Regla GitHub de integración:** PR obligatorio; `Required CI` es el único status check requerido y agrega Web/shared + Windows + macOS arm64/x86_64; la rama debe estar actualizada antes de merge; `Required approvals = 0` porque existe un solo maintainer. Esto **no elimina** los reviewers independientes exigidos más adelante por gates de security/legal/firma/release.
 
 ### Estados de seguimiento
 
