@@ -1,6 +1,6 @@
 # Tarea 5.1 — Delete cross-bot y cleanup Direct
 
-**Estado:** M0-F reciente probado; cleanup físico cross-bot >48 h diferido como deuda futura de GC de baja prioridad.  
+**Estado:** M0-F reciente probado; cleanup físico cross-bot >48 h diferido como deuda futura de GC de baja prioridad; shared-bot fallback aceptado explícitamente por el RO.  
 **Fecha:** 2026-08-25, `America/Mexico_City`.  
 **Tarea propietaria:** Fase 0, Tarea 5.1 — límites de confianza Direct.  
 **No cierra 5.1:** ningún checkbox pasa a `[x]` por esta nota.
@@ -163,12 +163,13 @@ La reducción de blast radius debe venir de:
 
 - temporary auth;
 - membership acotada;
-- aislamiento tenant/vault;
+- binding server-side tenant/vault/session;
 - sesiones/leases acotadas;
 - permisos baseline mínimos;
-- admission control;
+- capacidad sobrada del pool;
+- observabilidad y admission control;
 
-no de permission churn por operación.
+no de permission churn por operación ni de asumir un scope criptográfico por vault que la identidad compartida no promete.
 
 ## 7. Relación con temporary auth
 
@@ -183,6 +184,8 @@ transport bot actual
 + delete_messages baseline
 -> operaciones normales MTProto directas
 ```
+
+La temporary auth representa la **identidad del transport bot**. BeatGaler no basará su seguridad en asumir que esa identidad queda criptográficamente scoped a un solo vault cuando el bot esté compartido.
 
 Los bytes de archivos siguen:
 
@@ -207,17 +210,30 @@ La persistencia durable y reconciliación de esta deuda pertenece a **Tarea 5.2*
 
 ## 9. Qué queda pendiente dentro de 5.1
 
-La parte delete propio/cross-bot **ya no es el siguiente subgate**. El siguiente subgate principal es:
+La parte delete propio/cross-bot **ya no es el siguiente subgate**.
+
+También se retira como requisito la idea de demostrar aislamiento criptográfico cross-vault cuando una misma identidad de transporte esté compartida. La política final del RO para el pool es:
 
 ```text
-aislamiento cross-vault/shared-bot
+1. Mientras haya bots libres, cada vault activo recibe preferentemente un bot distinto.
+2. La flota se dimensiona para tener más bots que vaults activos.
+3. Si no queda ningún bot libre, shared-bot sigue permitido como fallback excepcional.
+4. El reparto sigue siendo justo por carga: todos reciben 1 vault antes de que alguno reciba un 2.º, luego todos 2 antes de un 3.º, etc.
+5. El riesgo residual cross-vault del shared-bot fallback queda explícitamente aceptado por el RO.
+6. El fallback debe mantenerse raro, corto y observable; no se presenta como aislamiento demostrado.
 ```
 
-Debe probar que un mismo transport bot que tenga membership en varios vaults no pueda usar una sesión/tenant para operar el vault equivocado.
+Por tanto, el siguiente subgate principal es:
+
+```text
+escalabilidad/admission control + comportamiento del pool
+bajo exclusividad preferida + shared-bot fallback
+```
+
+Debe definir/probar capacidad, saturación, bots libres, shared leases, reparto justo, observabilidad y comportamiento cuando el pool llegue a cero bots libres.
 
 Después siguen:
 
-- escalabilidad/admission control;
 - decidir si expiración server-side/natural sigue siendo requisito;
 - migración del runtime productivo sin credenciales compartidas;
 - discovery/hardening restante;
@@ -229,6 +245,8 @@ Después siguen:
 
 No usar como arquitectura final:
 
+- exclusividad obligatoria permanente `1 bot = 1 vault` como requisito de seguridad/capacidad;
+- un probe cuyo PASS dependa de demostrar scope criptográfico por vault para una identidad shared-bot;
 - MASTER borrando rutinariamente toda media reemplazada;
 - traer de vuelta al bot autor viejo para cleanup normal;
 - grant/revoke `delete_messages` por Replace;
@@ -251,6 +269,12 @@ over_48h_delete_proven=false
 over_48h_cleanup_blocks_task_5_1=false
 index_is_authority=true
 garbage_journal_deferred_to_task_5_2=true
+preferred_one_bot_per_active_vault=true
+shared_bot_fallback_allowed_when_pool_full=true
+shared_bot_cross_vault_residual_risk_accepted=true
+cryptographic_per_vault_scope_required=false
+fair_load_rounds_preserved=true
+next_subgate=pool_scalability_and_admission_control
 production_runtime_changed=false
 task_5_1_closed=false
 ```
