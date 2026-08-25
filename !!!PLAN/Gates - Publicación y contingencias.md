@@ -20,7 +20,7 @@
 - [ ] Identidad tenant deriva de sesión; autorización y límites preceden a upload/Telegram.
 - [ ] Sesión Web, CSP, headers, CORS/CSRF y origen API aprobados; parser ID3 local/pinned.
 - [ ] Local API desktop no puede ser suplantada por otro proceso.
-- [ ] Cross-tenant, replay, expiry, SSRF, rate limit y abuso tienen pruebas negativas.
+- [ ] Cross-tenant de control-plane/session substitution, replay, expiry, SSRF, rate limit y abuso tienen pruebas negativas. **Excepción arquitectónica explícita:** cuando no existe ningún bot libre, el RO permite shared-bot como fallback de capacidad; una temporary auth de esa identidad no se considera criptográficamente scoped a un único vault y el riesgo residual cross-vault queda aceptado/documentado. No se puede presentar este fallback como aislamiento demostrado.
 - [ ] Incidente de estado rastreado cerrado y secrets/data scan limpio.
 
 ### Web
@@ -70,7 +70,7 @@
 - [ ] Staging y producción tienen datos, endpoints, secretos y aprobaciones aislados.
 - [ ] Logs redactados, dashboards, alertas, on-call, status, soporte y runbooks activos.
 - [ ] Deploy rollback, data restore, bot/master/API/DB/Stripe/Telegram failure drills pasan.
-- [ ] Capacity envelope al 2× del pico propuesto pasa sin fuga tenant; admission/waitlist disponible.
+- [ ] Capacity envelope al 2× del pico propuesto pasa; el pool demuestra que **exclusividad por vault es el camino normal** y que shared-bot solo aparece como fallback cuando no quedan bots libres, con reparto justo, observabilidad y admission/waitlist disponible.
 - [ ] Dos betas; mínimo 12 testers en Beta 1 y testers nuevos en Beta 2.
 - [ ] Soft launch 8 h + soak 24 h sin P0/P1 ni pago/dato pendiente.
 
@@ -93,7 +93,7 @@ Los siguientes valores son **targets propuestos** para aprobar por RO/owners; no
 
 ### Seguridad e integridad
 
-- 0 P0/P1 conocidos y 0 fuga cross-tenant en pruebas adversariales/carga.
+- 0 P0/P1 conocidos y 0 acceso cross-tenant **no autorizado por las reglas del control-plane** en pruebas adversariales/carga. El shared-bot fallback aprobado por RO es una excepción de arquitectura explícita y no cuenta como aislamiento criptográfico por vault; cualquier acceso cruzado fuera de esa asignación explícita sigue siendo fallo.
 - 0 secreto de infraestructura en cliente, artefactos, repo o logs.
 - 100% de rutas mutantes con auth/tenant/ownership y negative tests.
 - 100% de compras, refunds y cambios de entitlement reconciliados.
@@ -112,7 +112,7 @@ Los siguientes valores son **targets propuestos** para aprobar por RO/owners; no
 - Core Web Vitals propuestos en p75: LCP ≤2.5 s, INP ≤200 ms, CLS ≤0.1 en escenarios medidos.
 - Error rate de requests core <1% y disponibilidad de soak ≥99.9%, excluyendo fallas deliberadas documentadas.
 - RPO propuesto ≤24 h y RTO propuesto ≤2 h, sustituidos por targets más estrictos si legal/negocio lo exige.
-- Load test al 2× del pico esperado durante 60 min, sin corrupción, fuga o cola ilimitada.
+- Load test al 2× del pico esperado durante 60 min, sin corrupción, fuga no autorizada o cola ilimitada.
 
 ### Release y soporte
 
@@ -153,7 +153,7 @@ Si una sola persona cubre `R` y `A`, se requiere un reviewer externo para securi
 | Migración JSON→Postgres pierde/duplica | Media | Crítico | dry-run difiere/rollback falla | snapshot/idempotencia/quarantine | BE/OP |
 | Merge rompe Cloud/Web | Alta | Alto | contrato/capability falla | integrar por slices/bisectar | FE/DE/QA |
 | Billing diverge Stripe | Media | Crítico | ledger ≠ Stripe | idempotencia/reconciliation/pause | BE/Finance |
-| Bot/master se satura/cruza tenant | Media | Crítico | queue/lease/error sube | admission/ceiling/waitlist/revoke | BE/OP |
+| Bot/master se satura o shared-bot aparece con demasiada frecuencia | Media | Crítico | bots libres=0, shared leases/queue/error suben | sobredimensionar pool, exclusividad preferida, reparto justo, telemetría, admission/waitlist y capacidad de revoke de seguridad | BE/OP |
 | Safari/iPhone consume RAM | Alta | Alto | memory/crash archivo grande | streaming/límites/copy soporte | FE/QA |
 | Firma/notarización rompe runtimes | Media | Alto | codesign/notary/app falla | orden firma/entitlements/clean device | DE |
 | Legal/copy no coincide | Media | Crítico | claim falso/placeholder | revisión post-implementación | LF/RO |
@@ -191,8 +191,9 @@ Si una sola persona cubre `R` y `A`, se requiere un reviewer externo para securi
 
 ### Si capacidad Telegram es insuficiente
 
-- Activar waitlist/admission, limitar uploads/sesiones y escalar tras medir.
-- No multiplicar bots compartidos sin probar aislamiento/rotation.
+- Mantener **exclusividad por vault como preferencia**, añadir bots y usar admission/waitlist para que `bots libres = 0` sea excepcional.
+- Si todos los bots están ocupados, el shared-bot fallback aprobado por RO puede asignar vaults adicionales siguiendo reparto justo por carga; debe quedar medido/observable y reducirse de nuevo cuando exista capacidad.
+- No afirmar que temporary auth compartida queda aislada criptográficamente por vault. El riesgo residual cross-vault de ese fallback está aceptado explícitamente; cualquier cruce fuera de las asignaciones autorizadas sigue siendo incidente.
 
 ### Si YouTube Web no supera su gate antes del release
 
