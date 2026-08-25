@@ -1,339 +1,258 @@
 # Tarea 5.1 — Delete cross-bot y cleanup Direct
 
-**Estado:** decisión/evidencia documental; prueba live cross-bot pendiente.  
+**Estado:** M0-F reciente probado; cleanup físico cross-bot >48 h diferido como deuda futura de GC de baja prioridad.  
 **Fecha:** 2026-08-25, `America/Mexico_City`.  
 **Tarea propietaria:** Fase 0, Tarea 5.1 — límites de confianza Direct.  
 **No cierra 5.1:** ningún checkbox pasa a `[x]` por esta nota.
 
-> Objetivo de esta nota: conservar en un solo lugar la arquitectura que BeatGaler ya había diseñado parcialmente y evitar volver a confundir el rol de MASTER, Bot API y transport bots durante reemplazos de media.
+> Objetivo de esta nota: conservar la arquitectura y evidencia de cleanup Direct sin volver a convertir MASTER en worker por archivo ni hacer del cleanup físico histórico un requisito de corrección del producto.
 
-## 1. Problema real que debe resolver BeatGaler
+## 1. Problema real
 
-BeatGaler usa un pool de **transport bots**. Un vault puede haber sido atendido por distintos transport bots a lo largo del tiempo, aunque en una sesión dada exista un transport bot actual.
+BeatGaler usa un pool de transport bots. Un vault puede haber sido atendido por distintos transport bots a lo largo del tiempo, por lo que puede contener media creada por bots anteriores.
 
-Por tanto, dentro de un mismo vault pueden coexistir mensajes de media creados por transport bots de sesiones anteriores. Un MASTER/MP3 que hoy debe reemplazarse puede haber sido enviado por otro transport bot y puede tener mucho más de 48 horas.
-
-Caso obligatorio:
+La corrección funcional de Replace/Delete **no puede depender de borrar primero el mensaje físico viejo**. El orden autoritativo es:
 
 ```text
-Sesión vieja
-Bot A -> vault -> MASTER viejo, message_id=100
-
-pasan días/semanas
-
-Sesión actual
-Bot B -> mismo vault -> reemplaza MASTER
+nuevo asset -> nuevo INDEX confirmado -> asset viejo queda obsoleto -> cleanup oportunista
 ```
 
-Bot B debe poder dejar el MASTER nuevo como autoridad y eliminar el mensaje 100 aunque:
+Si el cleanup físico falla, el INDEX nuevo sigue siendo la autoridad y el asset viejo no reaparece en BeatGaler.
 
-- Bot B no sea su autor;
-- Bot A ya no sea el bot de la sesión;
-- el mensaje tenga más de 48 horas;
-- MASTER no ejecute el borrado rutinario.
+## 2. Evidencia M0-F ya obtenida
 
-## 2. Lo que aprendimos de Telegram
+### 2.1 Miembro normal: delete propio sí, cross-bot no
 
-### 2.1 Bot API NO sirve como mecanismo correcto para cleanup histórico
-
-La Bot API documenta para `deleteMessage` que un mensaje solo puede borrarse si fue enviado hace menos de 48 horas. `deleteMessages` hereda las limitaciones de `deleteMessage`.
-
-Referencias oficiales:
-
-- https://core.telegram.org/bots/api#deletemessage
-- https://core.telegram.org/bots/api#deletemessages
-
-Conclusión BeatGaler:
-
-**Bot API puede seguir siendo útil donde corresponda, pero no puede ser la dependencia de corrección para borrar media obsoleta histórica.** Un Replace no puede asumir que el asset sustituido tiene menos de 48 horas.
-
-### 2.2 MTProto sí tiene el primitivo que necesitamos
-
-Telegram expone `channels.deleteMessages` para borrar mensajes de un channel/supergroup. La documentación oficial indica que **users y bots pueden usar este método**, exige ser admin cuando corresponda y no documenta el límite de 48 horas de Bot API.
-
-Referencia oficial:
-
-- https://core.telegram.org/method/channels.deleteMessages
-
-El método trabaja con:
+El probe negativo aislado confirmó:
 
 ```text
-channel/supergroup + message IDs
+own_delete_without_admin_proven=true
+cross_bot_delete_without_admin_denied=true
+bot_a_admin=false
+bot_b_admin=false
+permission_churn_used=false
+production_runtime_changed=false
 ```
 
-No necesita que el bot autor original siga siendo el transport bot activo.
+Conclusión: un transport bot miembro normal puede borrar su propio mensaje, pero no debe esperarse que borre el de otro bot.
 
-### 2.3 `delete_messages` cubre el caso Bot B -> mensaje de Bot A
+CI normal #180 (`32831177470`) terminó PASS.
 
-`chatAdminRights.delete_messages` permite al admin borrar también mensajes de otros admins en el channel/supergroup.
+### 2.2 Vault privado + admin estable: cross-bot reciente sí
 
-Referencia oficial:
+En el rerun final del workflow M0-F `32877055196`, job `97900929779`:
 
-- https://core.telegram.org/constructor/chatAdminRights
+1. Lorenzo inició su sesión MTProto antes de pertenecer al vault.
+2. Después fue añadido al vault privado como admin con `delete_messages`.
+3. La **misma sesión MTProto** aprendió el peer/access hash privado.
+4. Federico creó un mensaje reciente.
+5. Lorenzo ejecutó `channels.deleteMessages` y lo borró.
 
-Esto encaja con el caso BeatGaler:
+Evidencia:
 
 ```text
-Bot A creó el mensaje viejo
-Bot B es el transport bot actual
-Bot B tiene delete_messages baseline
-Bot B usa channels.deleteMessages(vault, [old_message_id])
+cross_bot_delete_mtproto_proven=true
+mtproto_session_started_before_vault_membership=true
+private_peer_learned_by_same_mtproto_session=true
+current_transport_identity_is_bot_a=true
+message_author_is_bot_b=true
+delete_messages_baseline_required=true
+mtproto_channels_delete_messages_used=true
+public_vault_required=false
+master_per_file_cleanup_used=false
+production_runtime_changed=false
+token_rotation_or_revoke=false
 ```
 
-## 3. BeatGaler YA tenía la mitad importante implementada
+Esto prueba que un vault **no necesita ser público** y que MASTER no necesita entregar un access hash ni ejecutar el delete rutinario por archivo.
 
-En el baseline Cloud auditado `626efe933cb61130d5f7d20bcdd398f53b61d434`, `cloud-server/direct-transport-control.js` ya hace que MASTER invite y promueva al transport bot con derechos de data plane estables:
+## 3. Evidencia >48 h y decisión del RO
+
+Se ejecutó un probe sobre un mensaje real que el RO garantizó como:
+
+- mayor a 48 horas;
+- creado por otro bot;
+- seguro de borrar.
+
+Workflow `32880457856`, job `97908382881`.
+
+El transport bot actual llegó correctamente hasta:
 
 ```text
-deleteMessages: true
-pinMessages: true
-other: true
+channels.deleteMessages
 ```
 
-El comentario del propio código dice que esos derechos existen para que el transport bot mantenga el índice único y elimine media reemplazada.
+pero Telegram respondió:
 
-Por tanto, **la idea original no era que MASTER cargara con todos los deletes de media**. MASTER ya preparaba al transport bot para hacer ese trabajo.
+```text
+MESSAGE_DELETE_FORBIDDEN
+```
 
-Lo que quedó mal/incompleto en el runtime posterior fue la ruta concreta de borrado: el helper de Desktop terminó dependiendo de Bot API para eliminar media obsoleta, y Bot API choca con el límite de 48 horas.
+Por tanto:
+
+```text
+over_48h_proven=false
+```
+
+### Decisión vigente
+
+El RO decidió que **el borrado físico cross-bot >48 h es un problema futuro de baja prioridad y NO bloquea Tarea 5.1**.
+
+La corrección del producto depende del INDEX autoritativo, no de que todos los objetos físicos obsoletos desaparezcan inmediatamente del storage subyacente.
+
+La deuda física se resolverá después mediante reconciliación/garbage journal/GC, enlazada con Tarea 5.2.
 
 ## 4. División correcta de responsabilidades
 
 ### MASTER / control plane
 
-MASTER debe encargarse de operaciones administrativas/control plane necesarias, por ejemplo:
+MASTER puede encargarse de:
 
 - resolver/asignar vault;
-- introducir el transport bot cuando la lease lo requiera;
-- conceder los **permisos baseline mínimos y estables** necesarios;
-- administrar membership/roles cuando realmente cambie la lease;
+- introducir/promover transport bots cuando cambie membership/lease;
+- conceder permisos baseline mínimos y estables;
 - recovery administrativo excepcional.
 
-MASTER **NO debe ser el worker central de cleanup de MP3/WAV/artwork/project de todas las sesiones**.
+MASTER **no** debe ser worker central de cleanup de media por archivo.
 
 ### Transport bot actual / data plane
 
-El transport bot actual debe ejecutar las operaciones normales de la sesión contra su vault, incluyendo:
+Durante una sesión normal puede encargarse de:
 
 - upload directo;
-- operaciones de INDEX que le correspondan;
-- delete de media obsoleta propia;
-- **delete cross-bot de media obsoleta creada por transport bots anteriores**, mediante MTProto cuando Bot API no sea suficiente.
+- operaciones de INDEX;
+- delete propio;
+- delete cross-bot cuando Telegram lo permita y tenga `delete_messages` baseline;
+- registrar/emitir deuda de cleanup cuando el delete físico no sea posible.
 
-Esto distribuye el trabajo por sesión/bot en vez de concentrarlo en MASTER.
-
-## 5. Flujo correcto de Replace
-
-Orden de seguridad obligatorio:
+## 5. Flujo definitivo de Replace/Delete
 
 ```text
-1. Bot B sube el nuevo MASTER/media directamente a Telegram.
-2. BeatGaler obtiene y persiste los IDs nuevos.
-3. BeatGaler construye/publica el INDEX nuevo.
-4. El INDEX nuevo queda confirmado como autoridad.
-5. BeatGaler calcula referencias obsoletas = INDEX anterior - INDEX nuevo.
-6. Bot B, usando su identidad MTProto y delete_messages baseline,
-   llama channels.deleteMessages(vault, obsolete_message_ids).
-7. Si cleanup falla, el INDEX nuevo NO se revierte: queda deuda de cleanup para retry.
+1. Subir nueva media directamente.
+2. Obtener/persistir IDs nuevos.
+3. Construir/publicar INDEX nuevo.
+4. Confirmar INDEX nuevo como autoridad.
+5. Calcular referencias obsoletas = INDEX anterior - INDEX nuevo.
+6. Intentar cleanup físico post-commit con el transport bot actual.
+7. Si cleanup falla: mantener INDEX nuevo, registrar deuda y continuar.
 ```
 
-Nunca hacer:
+Nunca:
 
 ```text
-borrar asset viejo -> luego intentar publicar INDEX nuevo
+borrar viejo -> después intentar confirmar nuevo INDEX
 ```
 
-porque un fallo intermedio podría dejar pérdida real.
+porque un fallo intermedio podría causar pérdida real.
 
-## 6. Regla de permisos: estable, no churn
+## 6. Permisos: baseline estable, no churn
 
-Tarea 5.1 ya probó que cambios administrativos frecuentes pueden disparar `FLOOD_WAIT`, incluso impidiendo una restauración inmediata del permiso.
+La Tarea 5.1 ya probó que churn administrativo frecuente puede disparar `FLOOD_WAIT` e incluso impedir restauración inmediata.
 
-Por eso queda fuera de la arquitectura:
+Queda fuera:
 
 ```text
 grant delete -> borrar -> revoke delete
 ```
 
-También queda fuera promote/demote por cada operación o chunk.
+También queda fuera promote/demote por cada operación/chunk.
 
-Si la prueba live confirma que `delete_messages` es necesario para cross-bot —la documentación oficial indica que sí es el derecho adecuado— debe quedar como **baseline mínimo estable** mientras el transport bot sea admin del vault durante su lease/membership.
+M0-F confirmó que `delete_messages` es necesario para cross-bot reciente; por tanto puede permanecer como **baseline mínimo estable** mientras el transport bot sea admin del vault durante su membership/lease.
 
-La reducción de blast radius se obtiene con:
+La reducción de blast radius debe venir de:
 
 - temporary auth;
 - membership acotada;
 - aislamiento tenant/vault;
-- sesión/lease acotada;
+- sesiones/leases acotadas;
 - permisos baseline mínimos;
 - admission control;
 
-no con permission churn por operación.
+no de permission churn por operación.
 
-## 7. Relación con temporary auth de 5.1
+## 7. Relación con temporary auth
 
-M0-B2 ya demostró que una identidad bot puede ejecutar RPC MTProto directo usando la frontera temporary-auth propuesta sin entregar permanent bot credentials al cliente.
+M0-B2/M0-E1/M0-E2 ya demostraron que la identidad bot puede operar por MTProto directo sin entregar permanent auth/token/API hash al cliente en el modelo temporal propuesto.
 
-Por tanto, el target productivo no debe reintroducir `bot_token`, API hash o permanent auth key en el cliente solo para poder borrar.
-
-La operación final a demostrar es conceptualmente:
+Target:
 
 ```text
 transport bot actual
 + temporary auth válida
 + membership del vault
 + delete_messages baseline
--> channels.deleteMessages(old_message_ids)
+-> operaciones normales MTProto directas
 ```
 
-Los bytes de los archivos siguen siendo:
+Los bytes de archivos siguen:
 
 ```text
-dispositivo <-> Telegram
+dispositivo <-> storage subyacente
 ```
 
-Galer Cloud no se convierte en relay.
+Galer Cloud no se convierte en relay de archivos.
 
-## 8. Escalabilidad
+## 8. Garbage journal / GC futuro
 
-La arquitectura buscada es horizontal:
+Si el INDEX nuevo ya es autoritativo y falla el cleanup:
 
-```text
-sesión A -> transport bot asignado -> cleanup de su vault
-sesión B -> transport bot asignado -> cleanup de su vault
-sesión C -> transport bot asignado -> cleanup de su vault
-```
-
-MASTER no debe procesar todos los deletes rutinarios de todas las sesiones.
-
-MASTER sigue siendo control plane. Los transport bots ejecutan el trabajo normal del data plane.
-
-Antes de producción deben medirse:
-
-- deletes por bot/vault;
-- `FLOOD_WAIT`/rate behavior de RPCs necesarios;
-- joins/leaves administrativos;
-- número de vaults/bots concurrentes;
-- cola/admission control;
-- aislamiento cuando un transport bot pueda pertenecer a más de un vault.
-
-## 9. Cleanup debt / garbage journal
-
-Si el INDEX nuevo ya quedó autoritativo y Telegram rechaza temporalmente el delete de uno o más mensajes viejos:
-
-- no revertir el INDEX;
+- no revertir INDEX;
 - no volver a presentar el asset viejo como actual;
 - registrar `vault + message_id + asset/beat + reason + attempts + next_retry` sin secretos;
-- reintentar de forma acotada/backoff;
-- permitir que un transport bot futuro autorizado para ese vault liquide esa deuda;
-- hacer la operación idempotente: `already absent` cuenta como cleanup satisfecho.
+- hacer retries acotados/backoff cuando tenga sentido;
+- tratar `already absent` como éxito idempotente;
+- permitir mantenimiento/GC posterior sin bloquear la UX normal.
 
-La persistencia durable/reconciliación de esta deuda debe enlazarse con **Tarea 5.2**, que ya exige definir reconciliación Telegram/INDEX y garbage journal.
+La persistencia durable y reconciliación de esta deuda pertenece a **Tarea 5.2**, que ya exige reconciliación INDEX/storage + garbage journal.
 
-## 10. Prueba live obligatoria antes de declarar esto resuelto
+## 9. Qué queda pendiente dentro de 5.1
 
-Crear un probe aislado de 5.1, sin tocar primero el runtime productivo.
-
-### Caso mínimo positivo
+La parte delete propio/cross-bot **ya no es el siguiente subgate**. El siguiente subgate principal es:
 
 ```text
-1. Bot A crea un mensaje de prueba en un vault de prueba.
-2. El mensaje debe ser realmente viejo (>48 h) o usarse evidencia equivalente que demuestre la frontera; preferencia: >48 h real.
-3. Bot B pasa a ser el transport bot actual y queda admin con delete_messages.
-4. Bot B usa MTProto channels.deleteMessages para borrar el mensaje de Bot A.
-5. Verificar realmente que el mensaje desapareció.
+aislamiento cross-vault/shared-bot
 ```
 
-Debe registrarse explícitamente:
+Debe probar que un mismo transport bot que tenga membership en varios vaults no pueda usar una sesión/tenant para operar el vault equivocado.
 
-```text
-cross_bot_delete_proven=true
-over_48h_delete_proven=true
-current_transport_performed_delete=true
-master_performed_media_delete=false
-old_transport_required=false
-bot_api_required_for_cleanup=false
-```
+Después siguen:
 
-### Negativos obligatorios
+- escalabilidad/admission control;
+- decidir si expiración server-side/natural sigue siendo requisito;
+- migración del runtime productivo sin credenciales compartidas;
+- discovery/hardening restante;
+- revisión independiente requerida por el gate global.
 
-- sin `delete_messages`, el cross-bot delete debe fallar cerrado;
-- un usuario/sesión no puede cambiar `vault/chat_id` y borrar en otro tenant;
-- si el mismo transport bot pertenece a varios vaults, autorización BeatGaler debe impedir usar una sesión para operar el vault incorrecto;
-- IDs inválidos/ya borrados deben ser idempotentes y no producir corrupción;
-- ningún secreto permanente debe aparecer en cliente/logs/artefactos.
+**No iniciar Tarea 5.2 todavía.**
 
-### Repetición bajo arquitectura final
-
-Después del probe aislado, repetir con temporary auth y luego en:
-
-- Windows;
-- macOS;
-- Web pura.
-
-Solo entonces puede cerrarse la parte delete propio/cross-bot de Tarea 5.1.
-
-## 11. Qué NO debemos volver a implementar
+## 10. Qué NO volver a implementar
 
 No usar como arquitectura final:
 
-- MASTER borrando rutinariamente toda media reemplazada de todos los usuarios;
-- Bot API como única ruta de cleanup de mensajes históricos;
-- traer de vuelta al bot autor viejo para borrar su mensaje;
-- grant/revoke `delete_messages` por cada Replace;
+- MASTER borrando rutinariamente toda media reemplazada;
+- traer de vuelta al bot autor viejo para cleanup normal;
+- grant/revoke `delete_messages` por Replace;
+- hacer público un vault para resolver peers;
 - relay de archivos por Galer Cloud;
-- delete destructivo antes de confirmar el INDEX nuevo;
-- declarar solucionado solo porque un mensaje reciente (<48 h) pudo borrarse.
+- delete destructivo antes de confirmar INDEX nuevo;
+- bloquear Replace/Delete porque un objeto físico obsoleto >48 h no pudo borrarse.
 
-## 12. Relación con el parche experimental v0.7.4
-
-El parche experimental de la rama `fix-v0.7.4-runtime-master-audit`/PR #22 que hace cleanup post-commit mediante MASTER **no representa la arquitectura objetivo de 5.1**.
-
-Puede haber servido para confirmar el problema y explorar seguridad post-commit, pero no debe convertirse por accidente en la implementación definitiva de cleanup cross-bot.
-
-La parte útil que debe conservarse conceptualmente es:
+## 11. Estado de evidencia vigente
 
 ```text
-INDEX nuevo primero -> delete destructivo después
-```
-
-La identidad que ejecuta el delete normal debe ser el **transport bot actual**, no MASTER.
-
-## 13. Dónde debe reflejarse cuando avancemos
-
-Esta nota es la referencia de recuperación completa. Además, el protocolo obligatorio del Plan Maestro exige actualizar estos tres lugares con cada avance real:
-
-1. `!!!PLAN/Plan Maestro.md`
-   - `Estado vivo del plan`;
-   - próximo subgate/bloqueos/evidencia 5.1.
-2. `!!!PLAN/Fase 0 - Contención e integración.md`
-   - Tarea 5.1;
-   - evidencia de delete propio/cross-bot y decisión final de baseline rights.
-3. `!!!PLAN/Registro de avances.md`
-   - entrada fechada con PR/SHA/workflow/resultados exactos.
-
-Además, en el repo BeatGaler deben mantenerse alineados:
-
-- `docs/ADR-0051-TRUST-BOUNDARIES.md`;
-- `docs/THREAT-MODEL-0051.md`, especialmente TM-11 y matriz de privilegios;
-- `docs/MIGRATION-0051-ROLLBACK.md` para rollout/rollback/cleanup debt;
-- Tarea 5.2 cuando se concrete el garbage journal durable.
-
-`!!!PLAN/Plan Maestro 2208 copy DONT TOUCH .md` **no se modifica**.
-
-## 14. Estado de evidencia al crear esta nota
-
-```text
-telegram_bot_api_48h_limit_documented=true
-mtproto_channels_delete_messages_available_to_bots=true
-mtproto_delete_messages_admin_right_documented=true
-existing_transport_admin_permission_path=true
-permission_churn_rejected_by_plan=true
-cross_bot_live_proven=false
-over_48h_live_proven=false
-temporary_auth_cross_bot_delete_proven=false
-master_required_for_routine_cleanup=false
-bot_api_sufficient_for_historical_cleanup=false
+own_delete_without_admin_proven=true
+cross_bot_delete_without_admin_denied=true
+cross_bot_recent_mtproto_proven=true
+private_peer_learned_by_same_mtproto_session=true
+public_vault_required=false
+delete_messages_baseline_required=true
+master_per_file_cleanup_used=false
+over_48h_delete_proven=false
+over_48h_cleanup_blocks_task_5_1=false
+index_is_authority=true
+garbage_journal_deferred_to_task_5_2=true
+production_runtime_changed=false
 task_5_1_closed=false
 ```
 
-Hasta tener la prueba live y los negativos correspondientes, esta arquitectura queda **diseño respaldado por documentación + código histórico, pero NO evidencia funcional completa**.
+`!!!PLAN/Plan Maestro 2208 copy DONT TOUCH .md` **no se modifica**.
