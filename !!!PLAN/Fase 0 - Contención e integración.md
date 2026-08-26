@@ -217,11 +217,18 @@
 
 ### Tarea 5.2 [P0 · BE/OP] — Aprobar arquitectura de datos
 
-- [ ] Aprobar una persistencia transaccional durable con migrations, constraints, backup/restore y rollback como requisito de producción.
-- [ ] **DECISION propuesta:** usar PostgreSQL para cuentas, sesiones, providers, MFA, entitlements, jobs y auditoría; confirmar esta elección en el ADR antes de implementar.
-- [ ] Definir cifrado de secretos, migraciones, backup, RPO/RTO propuestos y rollback.
-- [ ] Definir reconciliación Telegram/index y garbage journal.
+- [ 🟡 ] Aprobar una persistencia transaccional durable con migrations, constraints, backup/restore y rollback como requisito de producción. **Arquitectura aprobada por RO el 25 de agosto de 2026; implementación todavía no iniciada.**
+- [ 🟡 ] **DECISIÓN APROBADA:** PostgreSQL será la autoridad durable del control-plane para cuentas, sesiones, providers, MFA, entitlements, jobs, auditoría y estado Direct/reconciliación/garbage que deba sobrevivir reinicios. El INDEX fijado conserva la autoridad lógica de la biblioteca.
+- [ 🟡 ] Definir cifrado de secretos, migraciones, backup, RPO/RTO propuestos y rollback. **Definido en draft PR #29:** envelope encryption para secretos recuperables con KEK/master fuera de PostgreSQL; objetivo inicial RPO <=15 min y RTO <=2 h; migración idempotente con snapshot, dry-run, freeze corto, final delta y rollback post-cutover sin pérdida.
+- [ 🟡 ] Definir reconciliación Telegram/index y garbage journal. **Definido en draft PR #29:** INDEX gana ante discrepancias; cleanup físico es post-commit durable; fallos como `MESSAGE_DELETE_FORBIDDEN` nunca revierten INDEX ni resucitan assets; orphan uploads y cleanup fallido entran a journal/reconciliación durable.
+
+**Estado/evidencia 5.2 — EN PROGRESO:**
+- Auditoría read-only confirmó que PostgreSQL todavía no existe en el runtime; cuentas/auth/providers/MFA/entitlements y otros metadatos siguen en JSON, varios jobs/estados son memoria-only y no existe hoy un garbage journal durable general.
+- El RO aprobó formalmente la arquitectura propuesta en esta sesión: PostgreSQL para control-plane durable, pinned INDEX como única autoridad lógica de biblioteca, cifrado envelope + secret manager/KMS externo, RPO <=15 min / RTO <=2 h, migración idempotente sin dual-write indefinido y cleanup que nunca revierte un commit lógico.
+- Draft PR BeatGaler #29 `docs(data): approve Task 5.2 durable architecture`, rama `task-5.2-data-architecture-docs`, head `ab071808a3dcfe5ce29fa5833d8b37cdfd0159b9`, añade exclusivamente `ADR-0052-DURABLE-DATA-ARCHITECTURE.md`, `THREAT-MODEL-0052-DATA-PERSISTENCE.md` y `MIGRATION-0052-POSTGRES-ROLLBACK.md`.
+- No se tocó código productivo, temporary auth, data plane, shared-bot/fairness/max-4/waitlist, permission churn, token rotation/revoke, UI ni tareas posteriores.
+- **Pendiente antes de cerrar 5.2:** revisión del PR/CI, integrar la evidencia documental y después implementar/probar las piezas sensibles exigidas por los gates de datos; no marcar `[x]` todavía.
 
 **Dependencias:** contención terminada.  
-**Evidencia:** ADRs revisados, threat model y plan de migración con rollback.  
-**Gate de salida:** no empieza la implementación sensible sin una arquitectura aprobada y pruebas adversariales definidas.
+**Evidencia:** ADRs revisados, threat model y plan de migración con rollback; draft PR #29 constituye la evidencia documental inicial, todavía no integrada.  
+**Gate de salida:** no empieza la implementación sensible sin una arquitectura aprobada y pruebas adversariales definidas. **Arquitectura y pruebas adversariales ya definidas/aprobadas; 5.2 permanece `[ 🟡 ]` hasta revisión/CI/integración y evidencia posterior exigida por los gates.**
