@@ -31,7 +31,7 @@ AAA y BBB **no tienen especialidad fija**. ATLAS puede usar cualquiera para cód
 - resolver conflictos entre resultados usando código, tests, runtime y gates, nunca por mayoría;
 - comprobar CI y evidencias antes de aceptar un avance;
 - mantener sincronizados `Plan Maestro.md`, la fase activa y `Registro de avances.md` cuando un avance real cambie estado/evidencia;
-- consultar el **BeatGaler Issue #41 — AI Coordination Inbox** al comenzar o retomar una oleada multi-cuenta;
+- consultar el **BeatGaler Issue #41 — AI Coordination Inbox — handoff to ATLAS** al comenzar o retomar una oleada multi-cuenta;
 - nunca marcar `[x]` sin la evidencia exigida.
 
 **Invocación:** `Eres ATLAS. Lee !!!PLAN y continúa.`
