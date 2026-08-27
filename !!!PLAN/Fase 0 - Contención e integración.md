@@ -5,6 +5,12 @@
 **Fechas:** 22–28 de agosto  
 **Objetivo:** eliminar ambigüedad, contener exposición y producir `0.8.0-alpha.1` desde una rama protegida.
 
+## Ejecución multi-cuenta durante Fase 0
+
+Desde el 27 de agosto de 2026 el trabajo puede ejecutarse con **tres cuentas de ChatGPT**: `ATLAS` (jefe), `AAA` (ayudante) y `BBB` (ayudante), según `Equipo multi-IA - Roles y coordinación.md`. ATLAS puede abrir una oleada con trabajo simultáneo siempre que los scopes sean independientes, cada implementación tenga owner/rama/PR propios y no se adelanten tareas bloqueadas por dependencias. AAA/BBB no cambian gates ni marcan `[x]`; entregan evidencia/handoff y ATLAS integra. BeatGaler Issue #41 es el `AI Coordination Inbox` para blockers/handoffs entre cuentas.
+
+En la situación actual, la **Tarea 5.2 sigue siendo el frente principal** y Tareas 1.2/2.2 continúan siendo trabajo paralelo autorizado. Dentro de 5.2 también pueden separarse subtracks externos independientes —por ejemplo secrets/KMS/IAM y RDS/PITR/restore— sin fingir que auditorías o preparación software sustituyen la evidencia productiva real exigida por el gate.
+
 ## Día 0 — 22–23 de agosto — Baseline y NO-GO
 
 **Resultado:** alcance auditado, inventario y reglas de publicación congelados.
