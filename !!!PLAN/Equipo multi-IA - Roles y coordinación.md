@@ -30,6 +30,8 @@
 - resolver contradicciones entre reviews usando evidencia real;
 - verificar tests/CI antes de declarar avance;
 - mantener sincronizados `Plan Maestro.md`, la fase activa y `Registro de avances.md` cuando corresponda;
+- leer el **AI Review Inbox de BeatGaler (Issue #41)** al retomar trabajo multi-IA y procesar cualquier finding pendiente;
+- registrar en ese Issue cualquier `AI-HANDOFF` que el usuario traiga desde un modelo sin permisos de escritura;
 - nunca marcar `[x]` sin la evidencia exigida.
 
 **No debe:** aceptar automáticamente una observación de otra IA, saltar dependencias/gates ni usar consenso de modelos como sustituto de pruebas.
@@ -48,7 +50,8 @@
 - cuestionar decisiones de ATLAS cuando exista fundamento técnico;
 - clasificar findings como `BLOCKER`, `IMPORTANT` o `MINOR`;
 - distinguir hechos comprobados de hipótesis;
-- dejar sus findings en GitHub cuando el flujo lo permita para que otro chat pueda retomarlos.
+- dejar sus findings en GitHub cuando el flujo lo permita para que otro chat pueda retomarlos;
+- si no tiene permisos para escribir en GitHub, emitir obligatoriamente un bloque compacto `AI-HANDOFF` listo para que el usuario o ATLAS lo registre en Issue #41.
 
 **Por defecto no implementa** el mismo cambio que está revisando. Primero revisa; ATLAS decide/integrará los findings válidos salvo que el usuario le asigne explícitamente una implementación.
 
@@ -66,7 +69,7 @@
 - seguridad/auth/datos;
 - revisión de un PR importante antes de release.
 
-**Responsabilidades:** revisar el estado real, detectar fallos que ATLAS/ARGOS puedan haber pasado por alto y registrar findings concretos y accionables. No debe rehacer todo el proyecto ni ampliar el scope sin evidencia.
+**Responsabilidades:** revisar el estado real, detectar fallos que ATLAS/ARGOS puedan haber pasado por alto y registrar findings concretos y accionables. **VIGÍA siempre debe dejar un handoff persistible de lo que encuentre:** comentario en el PR/Issue #41 si dispone de escritura; si su entorno es read-only, debe terminar con un bloque `AI-HANDOFF` que contenga severidad, PR/SHA, hallazgo, evidencia y acción sugerida. No debe rehacer todo el proyecto ni ampliar el scope sin evidencia.
 
 **Invocación corta:** `Eres VIGÍA. Lee !!!PLAN y revisa lo que corresponda.`
 
@@ -83,7 +86,7 @@
 - revisión mecánica de diffs;
 - segunda opinión cuando VIGÍA no tenga tokens disponibles.
 
-**Responsabilidades:** producir findings concretos, verificables y acotados. No debe inventar contexto ausente ni convertir una revisión pequeña en un rediseño.
+**Responsabilidades:** producir findings concretos, verificables y acotados. Si no puede escribir en GitHub, debe emitir un bloque `AI-HANDOFF` listo para Issue #41. No debe inventar contexto ausente ni convertir una revisión pequeña en un rediseño.
 
 **Invocación corta:** `Eres RASTREADOR. Lee !!!PLAN y revisa lo que corresponda.`
 
@@ -99,18 +102,60 @@
 
 VIGÍA y RASTREADOR se **rotan según tokens disponibles**. No existe obligación de gastar ambos en una misma tarea. ARGOS tampoco se invoca mecánicamente para cambios triviales.
 
+## Canal canónico de findings — BeatGaler Issue #41
+
+**Canal:** `magosouljah/BeatGaler` → **Issue #41 — `AI Review Inbox — handoff to ATLAS`**.
+
+Este Issue es el buzón compartido entre chats/modelos. Evita usar `!!!PLAN` como borrador crudo de reviews y evita depender de que todos los modelos tengan permisos de escritura.
+
+### Dónde escribe cada revisor
+
+1. Si el finding pertenece a un PR y el revisor puede escribir, se comenta preferentemente en ese PR.
+2. Si es transversal, no existe PR abierto o conviene un handoff común, se registra en Issue #41.
+3. Si el modelo **no puede escribir en GitHub**, debe producir un bloque `AI-HANDOFF`; el usuario puede pegarlo en Issue #41 o entregarlo a ATLAS.
+4. Si ATLAS recibe un `AI-HANDOFF` todavía no persistido, **ATLAS lo registra primero en Issue #41** y después lo procesa.
+
+### Formato obligatorio de `AI-HANDOFF`
+
+```text
+AI-HANDOFF
+ROLE: ARGOS | VIGÍA | RASTREADOR
+SEVERITY: BLOCKER | IMPORTANT | MINOR
+TASK/PR: <tarea, PR y/o SHA>
+FINDING: <qué se encontró>
+EVIDENCE: <prueba verificable o referencia>
+SUGGESTED_ACTION: <acción concreta>
+END AI-HANDOFF
+```
+
+Si no hay findings, el revisor debe indicar explícitamente `NO FINDINGS` y el alcance exacto que revisó; no inventar observaciones para llenar el formato.
+
+### Ciclo de vida del finding
+
+- `OPEN`: acaba de llegar y aún no fue contrastado por ATLAS.
+- `ACCEPTED`: ATLAS verificó el finding contra código/plan/tests y es válido.
+- `REJECTED`: ATLAS verificó que es incorrecto/no aplica y deja razón/evidencia.
+- `RESOLVED`: el finding aceptado ya fue corregido o mitigado y existe evidencia.
+
+Un finding de una IA **nunca cambia por sí solo el estado de una tarea ni satisface un gate**. Solo después de contrastarlo ATLAS actualiza, cuando corresponda, `Plan Maestro.md` + fase activa + `Registro de avances.md`.
+
+### Incidente que originó este canal — VIGÍA / PR #40
+
+El 27 de agosto de 2026 VIGÍA detectó correctamente que `!!!PLAN` había quedado detrás del repo real: `Plan Maestro.md` seguía mostrando PR #39 / merge `1a5cc387aef431cd5f5115ad537f55e80856fb08` como último avance mientras `integration-v0.8.0-alpha.1` ya apuntaba al merge de **PR #40**, `f997415c794c74ee1b86ef593476dba3587eeca1`. El finding se verificó contra GitHub y quedó registrado como primer item de Issue #41. PR #40 prepara el provider de AWS Secrets Manager y conserva 5.2 en `[ 🟡 ] / NO-GO`: no sustituye RDS/KMS/Secrets Manager productivos, PITR/restore/RPO/RTO ni cutover/rollback reales.
+
 ## Protocolo entre chats
 
 1. El usuario asigna identidad: `Eres ATLAS/ARGOS/VIGÍA/RASTREADOR. Lee !!!PLAN...`.
 2. La IA lee `Plan Maestro.md` completo y sigue su protocolo de lectura vigente.
-3. Verifica GitHub antes de afirmar el estado del código, PR, CI o evidencia.
-4. Trabaja únicamente dentro del rol y scope asignados.
-5. Lo que otro agente necesite conocer se registra de forma compacta en GitHub o `!!!PLAN`, no mediante transcripciones enormes entre chats.
-6. Para implementación: Issue/tarea → rama → commits → PR → CI.
-7. Para review: PR/diff → findings `BLOCKER`/`IMPORTANT`/`MINOR` → GitHub cuando sea posible.
-8. ATLAS contrasta los findings con código, plan y pruebas; corrige los válidos y rechaza explícitamente los incorrectos con razón.
-9. Ningún modelo puede declarar un gate satisfecho solo porque otra IA lo dijo.
-10. El estado final se decide por evidencia reproducible y por las reglas del Plan Maestro.
+3. Lee este archivo para conocer su rol. ATLAS consulta también Issue #41 antes de continuar trabajo multi-IA.
+4. Verifica GitHub antes de afirmar el estado del código, PR, CI o evidencia.
+5. Trabaja únicamente dentro del rol y scope asignados.
+6. Lo que otro agente necesite conocer se registra de forma compacta en GitHub o `!!!PLAN`, no mediante transcripciones enormes entre chats.
+7. Para implementación: Issue/tarea → rama → commits → PR → CI.
+8. Para review: PR/diff → findings `BLOCKER`/`IMPORTANT`/`MINOR` → PR o Issue #41; si no hay escritura, `AI-HANDOFF`.
+9. ATLAS contrasta los findings con código, plan y pruebas; acepta, rechaza o resuelve con razón/evidencia.
+10. Ningún modelo puede declarar un gate satisfecho solo porque otra IA lo dijo.
+11. El estado final se decide por evidencia reproducible y por las reglas del Plan Maestro.
 
 ## Formato mínimo de handoff
 
