@@ -1,11 +1,25 @@
 # Fase 4 — Artefactos desktop confiables y release chain
 
-> Antes de trabajar aquí: leer completo [`Plan Maestro.md`](./Plan%20Maestro.md).
+> Leer `Plan Maestro.md`. Bajo el modelo ROMPECABEZAS, preparación/auditoría independiente de esta fase puede empezar antes de Fase 1/2/3 si no requiere prerequisitos todavía inexistentes.
 
-**Fechas:** 21–25 de septiembre  
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-## Día 21 — 21 de septiembre — Manifest e identidad únicos
+## Estado paralelo actual
+
+**BBB — READ ONLY / F4 21.1 readiness audit:** `[ 🟡 ]`  
+Baseline de producto para auditoría: `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`.
+
+Scope inmediato:
+- inventariar VERSION/npm/Cargo/Tauri/Settings;
+- endpoints/channels/capabilities por plataforma;
+- runtimes/resources Windows/macOS y digests ya existentes;
+- identificar divergencias exactas que impedirían un manifest único desde un mismo SHA.
+
+Fuera de scope: elegir bundle ID final, cambiar archivos, firmar, notarizar, generar release o ejecutar 22/23/24. Este audit **no marca 21.1 `[x]`**; prepara el slice reutilizable.
+
+---
+
+## Día 21 — Manifest e identidad únicos
 
 **Resultado:** Web, backend y desktop comparten versión, endpoints y matriz de capabilities.
 
@@ -21,86 +35,68 @@
 - [ ] Probar instalación limpia y datos corruptos/incompletos con recovery seguro.
 - [ ] Generar artefactos de staging desde el mismo SHA.
 
-**Dependencias:** release branch y app identity del Día 19.  
+**Dependencias de cierre:** release branch y app identity final.  
 **Evidencia:** manifest diff, version check y upgrade test.  
 **Gate de salida:** no hay versión/endpoints divergentes ni runtime omitido.
 
-## Día 22 — 22 de septiembre — Windows firmado
-
-**Resultado:** instalador y binarios Windows tienen publisher verificable.
+## Día 22 — Windows firmado
 
 ### Tarea 22.1 [P0 · DE/OP] — Authenticode
-
 - [ ] Integrar certificado/servicio de firma sin exponer private key.
 - [ ] Firmar binarios e instalador NSIS con timestamp; verificar cadena tras descarga.
 - [ ] Conservar firma Tauri de updater como capa separada.
 
 ### Tarea 22.2 [P1 · QA/DE] — Matriz limpia
-
 - [ ] Instalación/upgrade/uninstall como usuario estándar y UAC esperado.
 - [ ] SmartScreen/antivirus, paths no ASCII/largos, offline/poor network y sleep/wake.
-- [ ] DAWs y versiones Windows declaradas por product owner; updater válido e inválido.
+- [ ] DAWs/versiones Windows declaradas; updater válido e inválido.
 
-**Dependencias:** certificado disponible y manifest Día 21.  
-**Evidencia:** `signtool verify`, timestamp, screenshots/logs clean-machine.  
-**Gate de salida:** Windows no muestra publisher desconocido y core flows pasan tras instalar.
+**Dependencias reales:** certificado disponible + manifest apto.  
+**Gate:** Windows no muestra publisher desconocido y core flows pasan tras instalar.
 
-## Día 23 — 23 de septiembre — macOS firmado y notarizado
-
-**Resultado:** DMG/app aceptados por Gatekeeper en Intel y Apple Silicon soportados.
+## Día 23 — macOS firmado y notarizado
 
 ### Tarea 23.1 [P0 · DE/OP] — Developer ID
-
-- [ ] Revisar entitlements/hardened runtime y firmar nested binaries en orden correcto.
-- [ ] Enviar con `notarytool`, esperar Accepted, staple ticket a app/DMG y verificar offline.
-- [ ] Custodiar/rotar certificado y credenciales mediante secretos de entorno protegido.
+- [ ] Entitlements/hardened runtime y firma nested binaries correcta.
+- [ ] `notarytool` Accepted + staple + verificación offline.
+- [ ] Custodia/rotación de credenciales en entorno protegido.
 
 ### Tarea 23.2 [P1 · QA/DE] — Matriz física
+- [ ] Descarga/cuenta limpia/Gatekeeper/Finder/first run.
+- [ ] Intel + Apple Silicon, macOS mínimo 12 y versiones declaradas.
+- [ ] DAWs, updater y preservación app-data.
 
-- [ ] Instalar desde descarga en cuenta limpia, verificar Gatekeeper/Finder y first run.
-- [ ] Intel + Apple Silicon, macOS mínimo 12 y versiones declaradas; sleep/wake/firewall/disk pressure.
-- [ ] DAWs declarados, updater válido/inválido y preservación de app-data.
+**Dependencias reales:** membership/certificado + binarios universales.  
+**Gate:** artefacto notarizado/stapled y core flows pasan en ambas arquitecturas prometidas.
 
-**Dependencias:** membership/certificado y binarios universales.  
-**Evidencia:** codesign/notary/stapler/spctl y logs físicos.  
-**Gate de salida:** artefacto notarizado/stapled y core flows pasan en ambas arquitecturas prometidas.
+## Día 24 — Updater, procedencia y rollback
 
-## Día 24 — 24 de septiembre — Updater, procedencia y rollback
+### Tarea 24.1 [P0/P1 · DE/OP]
+- [ ] Tag protegido resuelve exactamente al SHA consumido.
+- [ ] Checksums, SBOM y provenance; sin selección arbitraria/`--clobber` final.
+- [ ] Canales internal/beta/stable, rings, minimum version y kill switch.
 
-**Resultado:** una mala versión puede detenerse o revertirse sin sobrescribir evidencia.
-
-### Tarea 24.1 [P0/P1 · DE/OP] — Cadena inmutable
-
-- [ ] Tag protegido debe resolver exactamente al SHA de los runs consumidos.
-- [ ] Checksums, SBOM y provenance por artefacto; eliminar selección arbitraria y `--clobber` final.
-- [ ] Canales internal/beta/stable, porcentaje/rings, minimum version y kill switch.
-
-### Tarea 24.2 [P1 · QA/DE] — Lifecycle updater
-
-- [ ] Update desde N-1, cancelación, red cortada, disco lleno, firma inválida y manifest alterado.
-- [ ] Reinicio/recovery y rollback a la versión compatible anterior.
-- [ ] Ensayar retiro de `latest.json`/artefacto malo y comunicación de incidente.
+### Tarea 24.2 [P1 · QA/DE]
+- [ ] Update N-1, cancelación, red cortada, disco lleno, firma/manifest inválido.
+- [ ] Reinicio/recovery y rollback a versión compatible.
+- [ ] Ensayar retiro de artefacto malo y comunicación.
 
 **Dependencias:** artefactos firmados.  
-**Evidencia:** release ledger, attestation y rollback rehearsal.  
-**Gate de salida:** tag→SHA→artefacto es demostrable y rollback cumple runbook.
+**Gate:** tag→SHA→artefacto demostrable y rollback cumple runbook.
 
-## Día 25 — 25 de septiembre — Matriz cross-platform y freeze estructural
+## Día 25 — Matriz cross-platform y freeze estructural
 
-**Resultado:** candidato beta conserva funciones y el rediseño deja de cambiar estructura.
-
-### Tarea 25.1 [P1 · QA/FE/DE] — Suite completa
-
-- [ ] Web Chrome/Safari/Firefox/iPhone; Windows y macOS físicos; cuenta limpia y upgrade.
+### Tarea 25.1 [P1 · QA/FE/DE]
+- [ ] Web Chrome/Safari/Firefox/iPhone; Windows/macOS físicos; limpia + upgrade.
 - [ ] Auth/import/Review/playback/edit/Trash/offline/YouTube/updater/billing por capability.
-- [ ] Comparar datos al refresh/restart y confirmar cero llamadas de plataforma inválida.
+- [ ] Refresh/restart y cero llamadas de plataforma inválida.
 
-### Tarea 25.2 [P1/P2 · DL/RO] — Design freeze
-
+### Tarea 25.2 [P1/P2 · DL/RO]
 - [ ] Aprobar tokens, navegación, library, drawer, player, settings y wizard.
-- [ ] Registrar P2/P3 restantes; solo a11y/copy/error/regresión entra antes de RC.
+- [ ] Registrar P2/P3; solo a11y/copy/error/regresión entra antes de RC.
 - [ ] Preparar guion beta, formulario y criterios P0/P1/P2.
 
-**Dependencias:** Fases 2–4.  
-**Evidencia:** matriz firmada, snapshots y backlog triage.  
-**Gate de salida:** beta candidate `0.9.0-beta.1`, 0 P0 conocido y ningún P1 core conocido.
+**Dependencias de cierre:** Fases 2–4 suficientemente integradas.  
+**Gate:** beta candidate `0.9.0-beta.1`, 0 P0 conocido y ningún P1 core conocido.
+
+**Regla:** preparación/auditoría puede adelantarse; firma/notarización/release/beta solo ocurren con prerequisitos reales.
