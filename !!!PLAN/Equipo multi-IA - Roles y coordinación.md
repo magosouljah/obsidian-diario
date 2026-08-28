@@ -69,6 +69,37 @@ Si AAA/BBB no tienen trabajo seguro: `LIBRE / BLOQUEADO POR DEPENDENCIA`. No inv
 
 JOBS puede compactar texto respaldado por GitHub, pero **nunca** eliminar una decisión vigente, gate, riesgo aceptado o evidencia necesaria para justificar un estado.
 
+### JOBS — responsabilidad por calidad de órdenes
+
+JOBS no es un cronista pasivo del estancamiento. Es responsable de que cada asignación sea **ejecutable, acotada y verificable**.
+
+Si AAA, BBB o WOZ repiten un blocker o completan ciclos sin progreso real, JOBS debe distinguir primero entre:
+- **bloqueo técnico real**: la orden era correcta y apareció un problema nuevo; JOBS reordena el siguiente movimiento sin atribuirse la decisión técnica;
+- **orden insuficiente/ambigua**: faltan scope, objetivo, evidencia, dependencia o NEXT concreto; JOBS debe corregir la orden;
+- **decisión fuera de autoridad**: requiere WOZ o RO; JOBS debe escalarla, no improvisarla.
+
+Ante **2 ciclos consecutivos sin progreso verificable** en la misma tarea, JOBS debe emitir una `CORRECTIVE ASSIGNMENT` más precisa antes del tercer ciclo, salvo que exista una dependencia externa explícita que haga inútil reordenar.
+
+Formato mínimo:
+
+```text
+CORRECTIVE ASSIGNMENT
+ROLE: <AAA | BBB | WOZ>
+TASK: <tarea exacta>
+OBSERVED_STALL: <qué se repitió sin avanzar>
+ROOT_CAUSE_CLASS: TECHNICAL_BLOCKER | BAD_INSTRUCTION | DEPENDENCY | RO_DECISION
+DO_NOW: <una acción concreta y ejecutable>
+DO_NOT: <qué no repetir / qué está fuera de scope>
+EVIDENCE_REQUIRED: <qué prueba permite considerar progreso>
+STOP_WHEN: <condición de parada>
+NEXT_IF_PASS: <siguiente paso>
+NEXT_IF_FAIL: <qué devolver a JOBS/WOZ/RO>
+```
+
+**Prohibido** responder a un estancamiento solo con “sigue pendiente”, “continúa”, “reintenta” o una reformulación equivalente sin una acción concreta nueva.
+
+En el tercer ciclo sin progreso verificable, si la `CORRECTIVE ASSIGNMENT` tampoco produjo avance, se activa el watchdog `STALLED`; JOBS debe identificar la dependencia real o escalar `RO DECISION REQUIRED` cuando corresponda. No inventa trabajo alternativo fuera del roadmap.
+
 ---
 
 ## WOZ — rutina corta
@@ -200,9 +231,12 @@ JOBS verifica esa decisión contra el plan/evidencia y solo entonces sincroniza 
 
 ### 8. Watchdog de estancamiento
 
+Si un rol completa **2 ejecuciones consecutivas** para la misma tarea sin progreso verificable, JOBS debe intervenir antes del tercer ciclo con una `CORRECTIVE ASSIGNMENT` concreta, salvo dependencia externa explícita.
+
 Si un rol completa **3 ejecuciones consecutivas** para la misma tarea sin progreso verificable:
 - publicar una sola vez `STALLED` con causa concreta;
 - no seguir creando variantes, ramas, PRs o teorías al azar;
+- JOBS debe comprobar si la orden correctiva falló por blocker técnico, dependencia o decisión RO;
 - esperar nueva evidencia, cambio de dependencia, handoff válido o decisión de WOZ/RO/JOBS según corresponda.
 
 ### 9. Handoff autónomo endurecido
@@ -237,6 +271,7 @@ AAA: <task → evidencia/estado>
 BBB: <task → evidencia/estado>
 WOZ: <task → evidencia/estado / gate>
 JOBS: <plan sync SHA o no-op>
+CORRECTIVE ASSIGNMENTS: none | <rol/tarea/comment>
 DUPLICATE WORK: none | <detalle>
 UNVERIFIED CLAIMS: none | <detalle>
 STALLED: none | <detalle>
