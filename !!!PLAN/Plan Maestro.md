@@ -21,9 +21,10 @@ Reglas:
 ## Estado vivo
 
 - **Release público:** 🔴 `NO-GO`.
-- **Integración estable:** `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`, versión `0.8.0-alpha.1`.
+- **Integración estable:** `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`, versión `0.8.0-alpha.1`.
 - **D6:** `[x] / PASS` — WOZ Issue #41 `5455677550`; Required CI #363 `33194215450` SUCCESS; compile #128 `33194215442` SUCCESS; D6 cross-process #4 `33194215463` SUCCESS.
-- **D7:** `[ 🟡 ] / PENDING`.
+- **D7:** `[x] / PASS` — WOZ Issue #41 `5457172823`; PR #46 merge `e25c60429e453d7b8cb8ef294d89a01ef7511103`; exact tested head `6477fa6f6c4f04813acbbe5dbd43302347072adb`; D7 `33205320953`, D6 cross-process `33205320957`, temp-auth compile `33205321000` y Required CI #402 `33205320950` SUCCESS.
+- **D8:** `[ 🟡 ] / PENDING` — activo bajo WOZ full owner.
 - **5.1:** `[x]`.
 - **5.2:** `[x]` — WOZ/RO `5448976400`; no repetir drills aceptados salvo invalidación.
 - **2.2:** `[ 🟡 ]` tail externo no bloqueante.
@@ -31,31 +32,28 @@ Reglas:
 
 ## OWNERS FIJOS — AHORA
 
-### WOZ — F1 / D7 / 7.1 — FULL OWNER
+### WOZ — F1 / D8 / 8.1+8.2 — FULL OWNER
 
-PR #46 `woz/task-7.1-direct-capabilities` @ `bd62525a0b1701e00c2b4652b4a7a67699c8adab`, draft/open.
+Baseline de entrada: `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
 
-Evidencia exact-head ya verde:
-- D7 capability #16 `33201030543` SUCCESS;
-- D6 cross-process #26 `33201030559` SUCCESS;
-- temp-auth compile #148 `33201030554` SUCCESS;
-- Required CI #385 `33201030567` SUCCESS.
+D7 está cerrado; PR #46 está mergeado y no debe reabrirse sin nueva evidencia material.
 
-WOZ conserva ownership hasta cerrar D7. Debe:
-1. consumir como casos de prueba los findings AAA `5456406567` y BBB `5456351308`;
-2. reproducir/aceptar/rechazar técnicamente los findings pendientes;
-3. implementar el delta mínimo correcto;
-4. mantener/añadir sus propios tests para scope, replay, expiry/skew, response redaction, closed lease/quarantine, revoke y ceilings;
-5. ejecutar tests/CI exact-head;
-6. integrar cuando corresponda y publicar `GATE D7` estructurado.
+WOZ conserva ownership de **todo D8** hasta cerrarlo. Orden de trabajo inmediato:
+1. preflight/duplicate-check de D8 sobre el baseline exacto;
+2. comenzar por **8.1 — sesión y seguridad de sesión**: cookie HttpOnly/Secure/SameSite o equivalente, CSRF explícito, distinguir 401/expiry de offline/timeout, session inventory, revoke-one/revoke-all y rotación sensible;
+3. ejecutar tests/CI exact-head aplicables y corregir regresiones de su propia área;
+4. continuar dentro del mismo ownership con **8.2 — ciclo de cuenta**: verification/reset one-shot/expiry/anti-enumeración, MFA recovery/reauth/notifications, export/delete + revocation/provider cleanup/retention/receipt;
+5. publicar `GATE D8` estructurado solo cuando el requisito literal esté demostrado.
 
-**No depende de que AAA vuelva a PR #45 ni de que BBB vuelva a revisar PR #46.** PR #45 y los handoffs previos quedan como evidencia/input histórico para WOZ. No debilitar assertions materiales solo para obtener verde.
+Si un subitem de 8.2 depende de provider/legal/credencial/decisión RO no verificable, aislarlo como `RO DECISION REQUIRED` o `BLOCKED` y continuar trabajo D8 independiente. No inventar decisiones ni saltar automáticamente a D9.
 
-Gate D7: **0 secretos de infraestructura en cliente y 0 operaciones fuera del scope concedido**.
+Gate D8: **usuario puede verificar, recuperar, exportar y borrar sin intervención manual insegura**.
 
 ### AAA — F2 / 11.1 Design Foundations — FULL OWNER
 
-AAA se queda en **11.1** hasta cerrarla; no vuelve automáticamente a 7.2.
+AAA se queda en **11.1** hasta cierre explícito; no vuelve automáticamente a 7.2.
+
+PR #47 `aaa/f2-11.1-design-foundations` @ `ddad3124cc3d1577d76d9965b55189a2cfb88383` está **OPEN / no mergeado**. El slice asignado tiene handoff DONE y Required CI #392 `33202493998` SUCCESS, pero **11.1 global no recibe `[x]` todavía** hasta integración/secuenciación verificable.
 
 Scope:
 - tokens, tipografía, iconos, focus, buttons, fields, feedback, Dialog, reduced motion;
@@ -71,15 +69,9 @@ Fuera de scope: APIs de cuenta F1/D8, MFA/reset backend, data plane, YouTube.
 
 BBB se queda en **21.1** hasta cerrarla; no vuelve automáticamente a D7.
 
-Scope:
-- inventariar y unificar VERSION/npm/Cargo/Tauri/Settings donde sea técnicamente seguro;
-- endpoint/channel/capability sources;
-- runtimes/resources Windows/macOS y digests;
-- corregir divergencias de manifest dentro de 21.1;
-- añadir/verificar tests/checks de consistencia y CI aplicable;
-- entregar evidencia de un único manifest coherente desde un SHA.
+Audit READ ONLY `5456640788` sobre `23bded948c4377b28fc48a72378816968d4cd413` dejó REUSE fuerte y cinco gaps: bundle ID final sin decisión; updater endpoint duplicado; channel/feed sin fuente canónica; FFmpeg omitido del packaging Windows; manifest tooling no fijado al mismo SHA de artefactos.
 
-**RO DECISION REQUIRED:** el bundle ID final no lo inventa BBB. Si falta esa decisión, aísla solo ese subitem y continúa todo lo demás de 21.1.
+BBB debe continuar 21.1 dentro de su área, reutilizando version/provenance/shared-SHA ya verdes y corrigiendo solo gaps técnicamente autorizados. **RO DECISION REQUIRED:** el bundle ID final no lo inventa BBB. Endpoint/channel semantics que requieran decisión de producto/arquitectura se escalan sin bloquear el resto seguro de 21.1.
 
 Fuera de scope: 21.2 upgrade matrix, signing, notarization, release, certificados/credenciales.
 
@@ -112,9 +104,11 @@ Reutilizar cuando satisfaga literalmente: PostgreSQL autoridad, migrations/versi
 
 ## WOZ NEXT
 
-PRIMARY: continuar PR #46 como owner completo de D7; absorber y cerrar técnicamente los findings pendientes con tests/CI propios y gate estructurado.  
-AAA: F2 / 11.1 hasta cierre.  
-BBB: F4 / 21.1 hasta cierre.  
-PLAN_HEALTH: CLEAN — fixed-area ownership active.
+PRIMARY: **F1 / D8 / 8.1 — sesión y seguridad de sesión**, sobre `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.  
+DO_NOW: preflight REUSE/GAP + duplicate-check; implementar solo requisitos literales de 8.1; tests/CI exact-head; mantener ownership de D8 y continuar luego 8.2 sin hopping.  
+DO_NOT: reabrir D7 sin nueva evidencia; iniciar D9 por conveniencia; inventar decisiones provider/legal/credenciales; rebajar Gate D8.  
+AAA: F2 / 11.1 continúa owner; PR #47 open, slice DONE/CI verde, cierre global pendiente de integración/secuenciación.  
+BBB: F4 / 21.1 continúa owner; audit FINDING activo y bundle ID = `RO DECISION REQUIRED`.  
+PLAN_HEALTH: CLEAN — D7 closed; D8 active; fixed-area ownership active.
 
 **Principio:** varios agentes construyen distintas piezas del producto en paralelo; cada uno termina y prueba su propia pieza en vez de pasársela continuamente a otro.
