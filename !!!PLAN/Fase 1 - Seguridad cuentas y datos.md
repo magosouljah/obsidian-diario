@@ -3,7 +3,7 @@
 > Leer `Plan Maestro.md`. Fase 1 mantiene sus gates y ownership fijo: **WOZ es dueño completo de D8** hasta cerrarlo.
 
 **Estado:** `[ 🟡 ]` — D8 activo.  
-**Integración estable:** `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.  
+**Integración estable:** `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.  
 **Release público:** 🔴 `NO-GO`.
 
 ## D6 — `[x] PASS`
@@ -26,14 +26,10 @@
 - D7 capability run `33205320953` SUCCESS.
 - D6 cross-process run `33205320957` SUCCESS.
 - Productive Temp Auth Compile `33205321000` SUCCESS.
-- Required CI #402 `33205320950` SUCCESS: Web/shared, PostgreSQL recovery, Supply Chain/HEAD secret scan, Windows, macOS arm64 y macOS x86_64 verdes.
-- Findings AAA `5456406567` cerrados dentro de PR #46: expiry/skew parity, fail-closed response redaction y live lease/quarantine coupling.
-- Findings BBB `5456351308` + revoke-order posterior cerrados: canonical revoke targeting, durable fail-closed y revoke pre-mutation.
+- Required CI #402 `33205320950` SUCCESS.
 - WOZ gate transaction Issue #41 `5457172823`: `GATE D7 / PASS`.
 
-Gate D7 cerrado: **0 secretos de infraestructura en cliente y 0 operaciones fuera del scope concedido** dentro del contrato aceptado.
-
-No reabrir D7 sin nueva evidencia material.
+Gate D7 cerrado. No reabrir sin nueva evidencia material.
 
 ---
 
@@ -41,36 +37,61 @@ No reabrir D7 sin nueva evidencia material.
 
 **Gate D8:** usuario puede verificar, recuperar, exportar y borrar sin intervención manual insegura.
 
-Baseline de entrada y baseline canónico verificado por JOBS: `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
+Baseline canónico vivo: `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
 
-### 8.1 — sesión y seguridad de sesión — `[ 🟡 ]` READY_FOR_WOZ_INTEGRATION / CIERRE PENDIENTE
-- [ ] Cookie HttpOnly/Secure/SameSite o equivalente; CSRF explícito.
-- [ ] Distinguir 401/expiry de offline/timeout.
-- [ ] Session inventory, revoke-one/revoke-all, rotación sensible.
-- [ ] Preflight REUSE/GAP + duplicate-check antes de crear artefacto.
-- [ ] Tests/CI exact-head aplicables y regresiones de la propia área verdes.
+### 8.1 — sesión y seguridad de sesión — `[x] DONE / INTEGRATED`
+- [x] Cookie HttpOnly/Secure/SameSite o equivalente; CSRF explícito.
+- [x] Distinguir 401/expiry de offline/timeout.
+- [x] Session inventory, revoke-one/revoke-all, rotación sensible.
+- [x] Preflight REUSE/GAP + duplicate-check antes de crear artefacto.
+- [x] Tests/CI exact-head aplicables y regresiones de la propia área verdes.
 
-**Artifact canónico:** PR #49 `woz/task-8.1-session-security` @ `f8ae2d1dedf0b4f977b4aedcaef5ac4ea83acdff` — **OPEN / no mergeado / no draft**.
+**Artifact canónico:** PR #49 `woz/task-8.1-session-security` exact tested head `f8ae2d1dedf0b4f977b4aedcaef5ac4ea83acdff`.
 
-**Preflight JOBS 2026-08-28:**
-- comparación contra integración `e25c604...`: `ahead_by=7`, `behind_by=0`; el head sí deriva del baseline canónico actual;
-- Required CI / Test Desktop Portability #406 `33208687131` = SUCCESS; D6 #46 `33208687050` = SUCCESS; D7 `33208687027` = SUCCESS; Productive Temp Auth Compile #159 = SUCCESS sobre el exact head verificado;
-- el PR declara explícitamente que **no** reclama `GATE D8 PASS`; 8.2 permanece pendiente bajo WOZ;
-- no se localizó un handoff estructurado de WOZ para #49 en Issue #41 al preflight de JOBS. Eso no invalida el código/CI ya verificable, pero impide que JOBS invente una transacción de cierre del owner.
+**Evidencia de cierre:**
+- Required CI / Test Desktop Portability #406 `33208687131` SUCCESS;
+- D6 `33208687050` SUCCESS;
+- D7 `33208687027` SUCCESS;
+- Productive Temp Auth Compile #159 SUCCESS;
+- PR #49 merged;
+- merge a integración `14002b29c5101232c0ca8f8b85d808c8214975fb`;
+- WOZ structured handoff Issue #41 `5458273984` = `STATUS: DONE`.
 
-**STOP/PENDING de 8.1:** JOBS no integra código BeatGaler. WOZ, como owner/integrador autorizado de D8, debe hacer el recheck final de head/CI, integrar #49 por el flujo técnico autorizado y publicar evidencia/handoff estructurado de 8.1. Solo entonces JOBS puede cerrar 8.1 documentalmente.
+8.1 queda cerrado. Esto **no** convierte por sí solo D8 en PASS.
 
-### 8.2 — ciclo de cuenta — WOZ SAME OWNER / NEXT INMEDIATO TRAS 8.1
-- [ ] Email verification/reset one-shot/expiry/anti-enumeración.
-- [ ] MFA recovery + reauth + notifications.
-- [ ] Export/delete + revocation/provider cleanup/retention/receipt.
-- [ ] Tests/CI exact-head aplicables.
+### 8.2 — ciclo de cuenta — `[ 🟡 ] TECHNICAL CANDIDATE / REVALIDACIÓN + DECISIONES PENDIENTES`
 
-Si provider/legal/credenciales o una decisión RO bloquean un subitem de 8.2, marcar solo ese subitem `RO DECISION REQUIRED` / `BLOCKED` y continuar el resto independiente de D8. WOZ no salta automáticamente a D9.
+**Artifact canónico:** PR #52 `woz/task-8.2-account-lifecycle` @ `ef0d6b142a92cdb88b2a3111e144ba6a9f15df9c` — OPEN / no mergeado / non-draft.
 
-### Gate D8 — `PENDING`
+Cobertura técnica verificada del candidate:
+- [x] Motor hash-only de email verification/reset, one-shot, expiry y anti-enumeración.
+- [x] MFA recovery codes hash-only/one-shot, reauth session-bound y security notifications.
+- [x] Export con reauth y exclusión de secretos.
+- [x] Delete con reauth, revocación de sesiones/capabilities, cleanup provider/local metadata y deletion receipt.
+- [x] Fail-closed si falta política explícita de retención.
+- [x] Tests unitarios de lifecycle incluidos en Required CI del candidate.
 
-No PASS hasta evidencia exact-head suficiente de **8.1 + 8.2** y transacción estructurada de WOZ. Integrar/cerrar 8.1 por sí solo **no** convierte D8 en PASS.
+**CI del candidate `ef0d6b...`:** Required CI / Test Desktop Portability run `33216990412` = SUCCESS; checks aplicables observados verdes sobre ese exact head.
+
+**Pero NO cerrar 8.2 todavía:** PR #52 fue construido sobre integración `14002b29...`; mientras corría/terminaba su evidencia, PR #47 fue integrado y la rama canónica avanzó a `489d81b...`. Por tanto el candidate debe incorporar el baseline vivo, resolver cualquier interacción dentro del ownership WOZ y repetir exact-head CI antes de integración.
+
+**Dependencias explícitas todavía no resueltas para el Gate D8:**
+- **Email delivery/provider/templates:** `BLOCKED / PROVIDER DECISION REQUIRED`. El engine/notifier boundary existe, pero no hay provider/template productivo aprobado en repo/plan.
+- **Retention duration:** `RO / LEGAL DECISION REQUIRED`. El delete falla cerrado si no se configura `BEATGALER_ACCOUNT_TOMBSTONE_RETENTION_DAYS`; no inventar duración.
+- **Provider-only sensitive reauth:** `PROVIDER DECISION REQUIRED`. Password-backed está implementado; OAuth/provider-only permanece fail-closed con `PROVIDER_REAUTH_REQUIRED` hasta contrato aprobado.
+
+**WOZ NEXT:** continuar en el mismo PR #52, refresh/revalidar contra `489d81b...`, CI exact-head, integrar el cierre técnico 8.2 y publicar handoff. Mantener Gate D8 `PENDING` mientras las decisiones anteriores no estén resueltas/aceptadas.
+
+### Gate D8 — `[ 🟡 ] PENDING`
+
+No PASS hasta:
+1. 8.1 + 8.2 integrados y demostrados sobre baseline canónico;
+2. provider/templates de verification/reset resueltos/aceptados;
+3. retención definida por autoridad aplicable;
+4. provider-only reauth resuelto/aceptado;
+5. transacción estructurada WOZ `GATE D8`.
+
+No saltar a D9 mientras D8 permanezca así.
 
 ---
 
