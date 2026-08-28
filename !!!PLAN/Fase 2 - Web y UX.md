@@ -4,10 +4,13 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
+**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.  
+**Estado F2:** trabajo independiente permitido; no se declara Fase 2 globalmente cerrada/activa por un solo slice.
+
 ## Owner actual
 
-**AAA — F2 / 11.1 Design Foundations: FULL OWNER hasta cierre.**  
-Baseline inicial: `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`.
+**AAA — F2 / 11.1 Design Foundations: FULL OWNER hasta cierre explícito.**  
+Baseline del artifact actual: `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`.
 
 AAA hace el ciclo completo de 11.1:
 - preflight/duplicate-check;
@@ -17,7 +20,7 @@ AAA hace el ciclo completo de 11.1:
 - build y CI exact-head;
 - handoff con evidencia.
 
-**No existe interrupt rule hacia D7/PR #45.** AAA no vuelve automáticamente a 7.2; WOZ absorbió el cierre D7.
+**No existe interrupt rule hacia D7/PR #45.** D7 ya está `[x]/PASS`; AAA no vuelve automáticamente a 7.2.
 
 Fuera de scope de AAA 11.1: APIs F1/D8, MFA/reset backend semantics, data plane, YouTube.
 
@@ -25,14 +28,30 @@ Fuera de scope de AAA 11.1: APIs F1/D8, MFA/reset backend semantics, data plane,
 
 ## Día 11 — Foundations y AccountGate
 
-### Tarea 11.1 [P1 · FE/DL] — `[ 🟡 ]` AAA FULL OWNER
-- [ ] Tokens, tipografía, iconos, focus, buttons, fields, feedback, Dialog y reduced motion.
-- [ ] Documentar estados; retirar duplicación inline empezando por AccountGate.
-- [ ] Corregir autofill, contraste, loading y layout 390–430 px.
-- [ ] Tests DOM/a11y afectados.
-- [ ] Build/CI aplicable verde sobre exact head.
+### Tarea 11.1 [P1 · FE/DL] — `[ 🟡 ]` AAA FULL OWNER / CANDIDATE DONE, INTEGRACIÓN PENDIENTE
 
-**Cierre 11.1:** evidencia completa del owner; no depende de que AAA sea llamado a otra fase.
+Artifact: PR #47 `aaa/f2-11.1-design-foundations` @ `ddad3124cc3d1577d76d9965b55189a2cfb88383` — **OPEN / no mergeado**.
+
+Handoff AAA `5456682762`: `DONE — INDEPENDENT SLICE ONLY`. Exact-head Required CI #392 `33202493998` = COMPLETED / SUCCESS; D6 cross-process #33 `33202493855` = SUCCESS. Diff declarado contra su baseline: 7 files de foundations/AccountGate/tests/docs.
+
+Cobertura del candidate:
+- tokens, tipografía, focus, button/field/feedback/icon/Dialog/loading foundations;
+- dark browser autofill + reduced motion global;
+- AccountGate signed-out/loading con labels/autocomplete/alerts y layout safe-area 390–430;
+- contrast assertions WCAG AA;
+- DOM/a11y tests afectados;
+- `docs/DESIGN-FOUNDATIONS-11.1.md`.
+
+**No marcar 11.1 `[x]` todavía:** el propio handoff limita el DONE al slice independiente; PR #47 sigue abierto/no integrado y la secuenciación sobre la integración actual `e25c604...` no está cerrada.
+
+Checklist literal:
+- [ ] Tokens, tipografía, iconos, focus, buttons, fields, feedback, Dialog y reduced motion — implementado en candidate, cierre global pendiente.
+- [ ] Documentar estados; retirar duplicación inline empezando por AccountGate — implementado en candidate, cierre global pendiente.
+- [ ] Corregir autofill, contraste, loading y layout 390–430 px — implementado en candidate, cierre global pendiente.
+- [ ] Tests DOM/a11y afectados — verdes en candidate, cierre global pendiente.
+- [ ] Build/CI aplicable verde sobre exact head — #392 SUCCESS en candidate; integración actual aún no verificada con este delta.
+
+**NEXT_WITHIN_AREA AAA:** mantener PR #47 como artifact canónico, resolver integración/secuenciación sin duplicarlo y producir evidencia sobre el head que corresponda antes de pedir cierre global 11.1.
 
 ### Tarea 11.2 [P1 · FE/QA] — Auth UI completa
 - [ ] Login/register/MFA/verify/reset/recovery/error/offline.
