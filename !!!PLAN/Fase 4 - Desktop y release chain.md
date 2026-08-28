@@ -1,37 +1,46 @@
 # Fase 4 — Artefactos desktop confiables y release chain
 
-> Leer `Plan Maestro.md`. Bajo el modelo ROMPECABEZAS, preparación/auditoría independiente de esta fase puede empezar antes de Fase 1/2/3 si no requiere prerequisitos todavía inexistentes.
+> Leer `Plan Maestro.md`. Bajo el modelo ROMPECABEZAS, 21.1 puede avanzar en paralelo si no requiere prerequisitos todavía inexistentes.
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-## Estado paralelo
+## Owner actual
 
-**BBB — F4 / 21.1 readiness audit:** `READY_IF_BLOCKED`  
-BBB tiene primero un re-review D7 disponible sobre PR #46 @ `bd62525a0b1701e00c2b4652b4a7a67699c8adab`. Al entregar ese handoff, si no existe otro delta crítico D7 listo, pasa automáticamente a este audit READ ONLY.
+**BBB — F4 / 21.1 Release Manifest: FULL OWNER hasta cierre.**
 
-Scope del audit standby:
-- inventariar VERSION/npm/Cargo/Tauri/Settings;
-- endpoints/channels/capabilities por plataforma;
-- runtimes/resources Windows/macOS y digests ya existentes;
-- identificar divergencias exactas que impedirían un manifest único desde un mismo SHA.
+BBB hace el ciclo completo de 21.1:
+- preflight/duplicate-check;
+- audit de fuentes actuales;
+- implementación de normalización dentro de 21.1 cuando sea técnicamente segura;
+- corrección de sus propias regresiones;
+- tests/checks de consistencia;
+- build/CI aplicable;
+- handoff con evidencia.
 
-Fuera de scope: elegir bundle ID final, cambiar archivos, firmar, notarizar, generar release o ejecutar 22/23/24. El audit no marca 21.1 `[x]`.
+**No vuelve automáticamente a D7/PR #46.** WOZ absorbió el cierre D7.
+
+`RO DECISION REQUIRED`: BBB no inventa bundle ID final. Si esa decisión falta, aísla ese único subitem y continúa todo lo demás de 21.1.
+
+Fuera de scope: 21.2, firma Windows, notarización macOS, certificados/credenciales, release/beta.
 
 ---
 
 ## Día 21 — Manifest e identidad únicos
 
-### 21.1 [P1 · DE/RO]
-- [ ] Fijar bundle ID final antes de migrar app-data/updater.
-- [ ] Unificar VERSION/npm/Cargo/Tauri/Settings, endpoint y channel.
-- [ ] Incluir runtimes Windows presentes en Cloud y recursos universales macOS con digests.
+### 21.1 [P1 · DE/RO] — `[ 🟡 ]` BBB FULL OWNER
+- [ ] Inventariar VERSION/npm/Cargo/Tauri/Settings y escoger una fuente coherente de versión sin cambiar semántica de producto.
+- [ ] Unificar versión/endpoints/channel/capabilities donde existan divergencias reales.
+- [ ] Incluir/verificar runtimes Windows presentes en Cloud y recursos universales macOS con digests.
+- [ ] Añadir checks/tests que fallen si las fuentes vuelven a divergir.
+- [ ] Ejecutar build/CI aplicable sobre exact head.
+- [ ] Bundle ID final: `RO DECISION REQUIRED` si todavía no existe decisión verificable.
+
+**Gate 21.1:** no hay versión/endpoints divergentes ni runtime omitido; lo que dependa literalmente del bundle ID final no se marca `[x]` hasta decisión RO.
 
 ### 21.2 [P1 · DE/QA]
 - [ ] Upgrade desde 0.7.4 preservando settings/SQLite/offline/cache.
 - [ ] Instalación limpia + datos corruptos/incompletos con recovery.
 - [ ] Artefactos staging desde mismo SHA.
-
-**Gate:** no versión/endpoints divergentes ni runtime omitido.
 
 ## Día 22 — Windows firmado
 
@@ -89,4 +98,4 @@ Fuera de scope: elegir bundle ID final, cambiar archivos, firmar, notarizar, gen
 
 **Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido.
 
-**Regla:** prep/audit puede adelantarse; firma/notarización/release/beta solo con prerequisitos reales.
+**Regla:** 21.1 sí puede adelantarse y ser propiedad completa de BBB; firma/notarización/release/beta siguen bloqueadas por sus prerequisitos reales.
