@@ -61,7 +61,7 @@ Checklist literal:
 - [ ] Instalación limpia + datos corruptos/incompletos con recovery.
 - [ ] Artefactos staging desde mismo SHA.
 
-**Asignación vigente:** Issue #41 `5458118907`/último handoff RO-BBB: 21.2 asignado a BBB con estrategia dependency-safe mientras #48/21.1 no esté integrado. El trabajo útil permitido ahora es preflight, duplicate-check, matriz/casos y reutilización verificable; la validación final que dependa del release manifest canónico debe esperar a la integración de 21.1.
+**Asignación vigente:** Issue #41 `5458104890`/último handoff RO-BBB: 21.2 asignado a BBB con estrategia dependency-safe mientras #48/21.1 no esté integrado. El trabajo útil permitido ahora es preflight, duplicate-check, matriz/casos y reutilización verificable; la validación final que dependa del release manifest canónico debe esperar a la integración de 21.1.
 
 **BBB NEXT:** continuar 21.2 Upgrade Matrix dentro de ese límite; en paralelo, cooperar con el flujo autorizado para que #48 incorpore el baseline posterior a #49, revalide exact-head y pueda integrarse. No declarar 21.1 ni 21.2 `[x]` por anticipado.
 
