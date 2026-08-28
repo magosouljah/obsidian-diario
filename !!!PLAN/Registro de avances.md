@@ -32,7 +32,7 @@
 - **PR #37.** Cutover fail-closed/staging sealed/READY atómico; merge `edad9e324132fa086ef729ef4faec574661578a9`.
 - **PR #39.** Keyring versionado + rotación transaccional; merge `1a5cc387aef431cd5f5115ad537f55e80856fb08`.
 - **PR #40.** AWS Secrets Manager software boundary; merge `f997415c794c74ee1b86ef593476dba3587eeca1`.
-- **PR #42.** Base64 canónico estricto; merge `a968122127c584b5557b25e70a21eb64f75b3c0e`; post-merge Required CI verde.
+- **PR #42.** Base64 canónico estricto; merge histórico previo al rewrite `a968122127c584b5557b25e70a21eb64f75b3c0e`; post-merge Required CI verde.
 
 ## 2026-08-27 / UTC 2026-08-28 — WAVE 2/3
 
@@ -47,17 +47,32 @@
 ## 2026-08-28 — cierre y simplificación operativa
 
 - **5.2 `[x]` — CERRADA.** WOZ/RO publicó síntesis global en Issue #41 comment `5448976400`: 4/4 aceptados, sin blocker real nuevo. No repetir restore/cutover/migrations/durability restart/key rotation para 5.2 sin evidencia nueva.
-- **2.2 GO técnico.** El mismo veredicto WOZ/RO autorizó purga histórica selectiva/coordinada con write freeze, inventario refs, fresh mirror + filter-repo selectivo, verificación pre/post, cleanup GitHub-side y Required CI. 2.2 sigue `[ 🟡 ]` hasta terminarlo.
-- **`!!!PLAN` compactado por JOBS.** Se reemplaza la lectura enciclopédica por camino operativo corto: `Plan Maestro` → fase activa → avances relevantes → Issue #41; Gates/Contexto/fases futuras solo bajo demanda. Se compactan `Plan Maestro`, `Fase 0`, `Equipo multi-IA` y este Registro sin rebajar gates ni tocar el archivo histórico protegido.
+- **2.2 GO técnico.** El mismo veredicto WOZ/RO autorizó purga histórica selectiva/coordinada con write freeze, inventario refs, fresh mirror + filter-repo selectivo, verificación pre/post, cleanup GitHub-side y Required CI. 2.2 siguió `[ 🟡 ]` hasta terminar su cierre.
+- **`!!!PLAN` compactado por JOBS.** Se reemplazó la lectura enciclopédica por camino operativo corto: `Plan Maestro` → fase activa → avances relevantes → Issue #41; Gates/Contexto/fases futuras solo bajo demanda. Se compactaron `Plan Maestro`, `Fase 0`, `Equipo multi-IA` y este Registro sin rebajar gates ni tocar el archivo histórico protegido.
+
+## 2026-08-28 — post-rewrite y activación de Fase 1
+
+- **Baseline post-rewrite verificado.** `integration-v0.8.0-alpha.1` apunta a `b9c2317297ff3c0f7a6246ac97517fa978f6caea`.
+- **Required CI post-rewrite PASS.** `Test - Desktop Portability` run **#314** (`33148873459`) terminó `SUCCESS` sobre `b9c2317297ff3c0f7a6246ac97517fa978f6caea`.
+- **2.2 `[ 🟡 ]` — tail externo no bloqueante / pendiente de cierre administrativo.** Decisión RO vigente: el trabajo técnico necesario para avanzar terminó. Quedan únicamente (1) limpieza server-side por GitHub Support y (2) verificación final de inaccesibilidad de refs/commits históricos. **No marcar 2.2 `[x]`** hasta recibir ambas evidencias.
+- **Excepción de dependencia aprobada por RO.** El tail externo de 2.2 no bloquea Fase 1. 1.2 permanece como carril externo de release. Esta decisión no reduce ningún gate de publicación.
+- **Fase 1 `[ 🟡 ]` — ACTIVA.** Día 6 queda activado inmediatamente; release público sigue 🔴 `NO-GO`.
+- **Orden obligatorio Fase 1.** `6.1 ∥ 6.2 → D6 → 7.1 ∥ 7.2 → D7 → 8.1 ∥ 8.2 → D8 → 9.1 ∥ 9.2 → D9 → 10.1 → 10.2`. No iniciar un Día posterior antes de aprobar el gate anterior.
+- **Día 6 / F1-A.** WOZ PRIMARY = 6.1 + integración/cierre técnico del Día 6; AAA = 6.2 abuse controls + suite adversarial; BBB = review independiente READ ONLY de 6.1; JOBS = coordinación/plan/`WOZ NEXT`.
+- **Gate D6.** Requiere identidad user/installation/tenant derivada de sesión validada, auth+authz+límites antes de trabajo costoso, ownership por objeto, matriz 401/403/413/429, pruebas cross-tenant y cero acceso/mutación cross-tenant en suite adversarial.
+- **Después de D6 PASS.** AAA → 7.2; BBB → review independiente de 7.1; WOZ → 7.1 + integración. Hasta entonces 7.x permanece bloqueado.
+- **REUSE-FIRST 9.x/10.x.** Cada requirement se mapeará primero contra evidencia aceptada de Fase 0/5.2: PostgreSQL autoridad productiva, migrations/versionado, importer/rollback, durabilidad, PITR restore, RPO ~7 min, RTO 3643 s, keyring multiversión y observabilidad/ownership. No repetir restore/cutover/migrations/durability restart/key rotation solo para recrear evidencia.
 
 ---
 
 ## Estado al cierre de esta entrada
 
-- Fase 0: `[ 🟡 ]`.
+- Fase 0: `[ 🟡 ]` residual/administrativa; trabajo técnico de avance concluido.
 - 5.1: `[x]`.
 - 5.2: `[x]`.
-- 2.2: `[ 🟡 ]` P0 / **WOZ NEXT**.
-- 1.2: `[ 🟡 ]` P1 paralelo.
+- 2.2: `[ 🟡 ]` — **tail externo no bloqueante / pendiente de cierre administrativo**.
+- 1.2: `[ 🟡 ]` P1 externo de release.
+- Fase 1: `[ 🟡 ]` **ACTIVA — Día 6**.
+- D6: `PENDING`.
 - Release público: 🔴 `NO-GO`.
-- Fase 1: todavía bloqueada.
+- WOZ NEXT: 6.1 + integración con 6.2 en paralelo.
