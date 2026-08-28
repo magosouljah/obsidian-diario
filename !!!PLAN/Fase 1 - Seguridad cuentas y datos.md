@@ -1,86 +1,100 @@
 # Fase 1 — Seguridad, cuentas y datos durables
 
-> Leer `Plan Maestro.md`. Desde la decisión RO del 2026-08-28, esta fase conserva sus gates de aceptación pero **ya no monopoliza a todos los agentes**: trabajo independiente de otras fases puede avanzar en paralelo.
+> Leer `Plan Maestro.md`. Esta fase conserva gates de aceptación pero no monopoliza agentes: trabajo independiente cross-phase avanza cuando una dependencia crítica bloquea a un rol.
 
 **Estado:** `[ 🟡 ]` — CRITICAL PATH.  
 **Critical gate:** **D7 — Data plane seguro**.  
-**Integración:** `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`.  
+**Integración estable:** `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`.  
 **Release público:** 🔴 `NO-GO`.
 
-## Semántica operativa nueva
+## Semántica
 
-La secuencia `D6 → D7 → D8 → D9 → D10` sigue definiendo **qué puede cerrarse/aceptarse dentro de Fase 1**. Ya no significa que todos deban esperar para empezar trabajo futuro independiente.
-
-- Un slice que dependa de D7 espera D7.
-- Un slice que no dependa de D7 puede avanzar si JOBS lo asigna.
-- Nada se marca `[x]` antes de cumplir su evidencia literal.
-- WOZ decide integración técnica; JOBS decide prioridad/owner/topología.
-- D9/D10 son `REUSE-FIRST`: no repetir drills ya aceptados solo para recrear evidencia.
+`D6 → D7 → D8 → D9 → D10` define cierre/aceptación dentro de F1. Un slice independiente de otra fase puede avanzar antes. Nada se marca `[x]` sin evidencia literal. WOZ decide integración técnica; JOBS prioridades/owners/topología.
 
 ---
 
 ## D6 — `[x] PASS`
 
-**6.1 / PR #43:** integrado en `23bded948c4377b28fc48a72378816968d4cd413`; session-bound authz + ownership + coordinación PostgreSQL cross-process.  
-**6.2 / PR #44:** integrado en `9dd76a9d43e72c2295667a3661ce5a1cff7a4826`; abuse controls + KDF asíncrono.  
-**Exact-head:** compile #128 `33194215442` SUCCESS; D6 cross-process #4 `33194215463` SUCCESS; Required CI #363 `33194215450` SUCCESS.  
-**Gate transaction:** WOZ Issue #41 `5455677550` = PASS.
+- 6.1 / PR #43 integrado `23bded948c4377b28fc48a72378816968d4cd413`.
+- 6.2 / PR #44 integrado `9dd76a9d43e72c2295667a3661ce5a1cff7a4826`.
+- compile #128 `33194215442` SUCCESS; cross-process #4 `33194215463` SUCCESS; Required CI #363 `33194215450` SUCCESS.
+- WOZ gate transaction Issue #41 `5455677550` PASS.
 
 ---
 
-## D7 — ACTIVO — Data plane seguro
+## D7 — ACTIVO
 
-**Resultado requerido:** navegador/desktop no reciben identidad de infraestructura compartida y solo operan con capabilities acotadas.
+**Resultado:** cliente sin secretos de infraestructura y operaciones solo dentro de capability concedida.
 
-### 7.1 [P0 · BE] — `[ 🟡 ]` WOZ PRIMARY
+### 7.1 [P0 · BE] — `[ 🟡 ]` WOZ / PR #46
 
-- [ ] Capabilities cortas limitadas por usuario, vault, operación y objeto.
-- [ ] Allowlist / deny-by-default.
-- [ ] Lifecycle revoke: lease end, logout, password change, delete, incident.
-- [ ] Revocación operativa inmediata control-side sin depender de rotación destructiva shared-bot.
-- [ ] Ceilings por bot/tenant.
+**PR:** `woz/task-7.1-direct-capabilities` @ `bd62525a0b1701e00c2b4652b4a7a67699c8adab`, draft/open.
 
-**BBB finding `5455758175`:** cuatro gaps reproducibles: scope/deny-by-default, lifecycle revoke, ceilings y revocación inmediata. Reuse de auth/session/lease/temp-auth confirmado.
+Implementado/candidato según PR:
+- capability corta scope user/tenant/installation/session/vault/operation/object;
+- deny-by-default allowlist + object IDs explícitos;
+- lifecycle one-shot + revoke/expire;
+- PostgreSQL store/migration `0005_direct_capabilities.sql`;
+- tenant ceiling + bot ceiling;
+- authorize-before-data-plane Web/Desktop;
+- canonical scope compare.
 
-**WOZ NEXT:** reproducir/aceptar/rechazar técnicamente findings y producir delta mínimo verificable. Mantener política shared-bot aceptada.
+**BBB review anterior `5456351308` sobre head `7e7bac...`:** materialmente acepta scope/deny-by-default/ceilings, pero halló 2 blockers revoke-wiring:
+1. revoke target podía estrecharse por installation del body en eventos sensibles;
+2. revoke podía fallar abierto ante error del store.
 
-### 7.2 [P0 · QA/Security] — `[ 🟡 ]` AAA / DEPENDENT SLICE
+**PR #46 current head `bd62525...` declara delta específico para esos dos blockers:** canonical server-side revoke target + revoke completo por auth-session en account events + `503 DIRECT_CAPABILITY_REVOKE_FAILED` fail-closed + failure injection. **BBB debe re-review este exact head; aún no está aceptado por BBB.**
 
-- [ ] Capability A contra vault/objeto B.
-- [ ] Replay, expiry, clock skew, sesión cerrada, bot quarantined.
-- [ ] Bundles/workers/logs/memoria serializada sin credenciales permanentes.
+**Exact-head checks `bd62525...`:**
+- D7 capability #16 / `33201030543` SUCCESS;
+- D6 cross-process #26 / `33201030559` SUCCESS;
+- temp-auth compile #148 / `33201030554` SUCCESS;
+- Required CI #385 / `33201030567` = `IN_PROGRESS` al último preflight JOBS.
 
-**PR #45:** `aaa/task-7.2-transport-isolation-adversarial` @ `1d923c467922231df157bdc42f9aad62405d34ea`; Required CI #364 `33195699165` SUCCESS.
+### 7.2 [P0 · QA/Security] — `[ 🟡 ]` AAA / PR #45
 
-**AAA finding `5455777574`:** boundary productivo no universalmente fail-closed en algunos early-return/fallback; no hay fuga observada actual, sí gap reproducible de hardening. PR #45 añade guards/tests y no corrige producción.
+**PR:** `aaa/task-7.2-transport-isolation-adversarial` @ `e29368b4eeaf1641c4f3b9083b166f067bdd6182`.
 
-**Estado de asignación:** la parte restante de 7.2 espera contrato real 7.1. Mientras tanto AAA trabaja el slice independiente **F2 / 11.1 Design foundations** asignado por JOBS. PR #45 queda preservado para retorno.
+Handoff AAA `5456406567` sobre WOZ head `7e7bac...`:
+- D7 run #14 `33200605498` FAILURE únicamente en adversarial AAA;
+- WOZ unit/PostgreSQL contracts SUCCESS;
+- client secret-isolation SUCCESS;
+- object substitution + replay PASS;
+- explicit session revoke PASS;
+- D6 cross-process #24 `33200605530` SUCCESS.
 
-### BBB D7 review
+Findings reproducibles pendientes:
+1. expiry/clock-skew inconsistente entre memory store y PostgreSQL;
+2. response boundary no universalmente fail-closed en `ok:false` y no-refresh fallback;
+3. ACTIVE capability no queda demostrablemente invalidada por lease expiry/bot quarantine.
 
-Handoff inicial consumido. BBB no reaudita el mismo head. Re-review D7 se reactiva cuando exista nuevo delta WOZ; mientras tanto BBB trabaja **F4 / 21.1 Release manifest readiness audit READ ONLY**.
+AAA no modifica producción ni debilita assertions. Debe volver a retargetear el PR #45 existente cuando WOZ publique un head que responda a estos findings.
+
+**Mientras espera ese delta WOZ:** AAA trabaja F2 / 11.1 Design foundations en un artefacto separado desde integración estable; no crea otro PR 7.2.
+
+### BBB — NEXT inmediato
+
+Re-review READ ONLY únicamente de los 2 revoke-wiring blockers sobre PR #46 @ `bd62525...`. Entregar PASS/FINDING con evidencia exacta. Si termina y no existe otro delta D7 listo, pasa a F4 / 21.1 readiness audit hasta que JOBS lo reactive.
 
 ### Gate D7 — `PENDING`
 
-Cierre: **0 secretos de infraestructura en cliente y 0 operaciones fuera del scope concedido**. D7 pendiente bloquea cierre D7 y slices técnicamente dependientes; no bloquea trabajo cross-phase independiente.
+Cierre: **0 secretos de infraestructura en cliente y 0 operaciones fuera del scope**. No PASS mientras existan findings AAA/BBB materiales, CI exact-head pendiente o falta gate transaction WOZ.
 
 ---
 
 ## D8 — Sesión y ciclo de cuenta
 
-**Resultado:** sesiones Web endurecidas y cuentas recuperables/controlables.
-
-### 8.1 [P0/P1 · BE/FE]
-- [ ] Cookie HttpOnly/Secure/SameSite o equivalente revisado; CSRF explícito.
+### 8.1
+- [ ] Cookie HttpOnly/Secure/SameSite o equivalente; CSRF explícito.
 - [ ] Distinguir 401/expiry de offline/timeout.
-- [ ] Session inventory, revoke-one/revoke-all y rotación tras eventos sensibles.
+- [ ] Session inventory, revoke-one/revoke-all, rotación sensible.
 
-### 8.2 [P1 · BE/FE/LF]
-- [ ] Email verification; forgot/reset one-shot/expiry; anti-enumeración.
-- [ ] MFA recovery codes; reauth para email/password/delete; notificaciones.
-- [ ] Export/delete con revocación, provider cleanup, retención/tombstone y recibo.
+### 8.2
+- [ ] Email verification/reset one-shot/expiry/anti-enumeration.
+- [ ] MFA recovery + reauth + notifications.
+- [ ] Export/delete + revocation/provider cleanup/retention/receipt.
 
-**Regla nueva:** JOBS puede adelantar slices de 8.x que no dependan materialmente del contrato D7. No inventar proveedor/credencial/política; si falta decisión real → `RO DECISION REQUIRED` solo para ese checkbox.
+JOBS puede adelantar slices que no dependan materialmente de D7. Falta proveedor/credencial/política → aislar `RO DECISION REQUIRED`, no inventar.
 
 ### Gate D8
 Usuario puede verificar, recuperar, exportar y borrar sin intervención manual insegura.
@@ -89,57 +103,30 @@ Usuario puede verificar, recuperar, exportar y borrar sin intervención manual i
 
 ## D9 — PostgreSQL/migración reversible — REUSE-FIRST
 
-**Resultado:** ningún JSON actúa como autoridad productiva.
+- [ ] migrations/constraints/indexes/transacciones;
+- [ ] importer dry-run/checksums/idempotencia/quarantine/reporte;
+- [ ] MFA/OAuth protegidos + hashes sesión no reversibles;
+- [ ] staging/conteos/checks + rollback sin pérdida + corrupción fail-closed.
 
-### 9.1
-- [ ] Migrations versionadas, constraints, índices y transacciones.
-- [ ] Importador JSON dry-run/checksums/idempotencia/quarantine/reporte.
-- [ ] MFA/OAuth protegidos; hashes de sesión no reversibles.
-
-### 9.2
-- [ ] Snapshot/migración staging/conteos/checks funcionales.
-- [ ] Fallo a mitad + rollback sin pérdida.
-- [ ] Corrupción fail-closed.
-
-**Evidencia reutilizable:** PostgreSQL autoridad productiva; PRs #29–#42; migrations/constraints; importer idempotente; rollback/current-PG; durability restart; barrera fail-closed.
-
-**JOBS puede preparar ya** la matriz administrativa `REQUISITO | EVIDENCIA 5.2 | REUSE/GAP`; WOZ decide equivalencia técnica antes de marcar cualquier checkbox.
+Evidencia reusable: PostgreSQL autoridad, PRs #29–#42, importer, rollback/current-PG, durability restart, fail-closed. JOBS puede preparar matriz `REQUISITO | EVIDENCIA | REUSE/GAP`; WOZ decide equivalencia técnica.
 
 ### Gate D9
-Migración repetible/reversible y ningún JSON como autoridad productiva.
+Migración repetible/reversible; ningún JSON autoridad productiva.
 
 ---
 
-## D10 — Restore y alpha interna — REUSE-FIRST
+## D10 — Restore y alpha — REUSE-FIRST
 
 ### 10.1
-- [ ] Backup cifrado Postgres/config y estrategia índice/media.
-- [ ] Restore aislado + RPO/RTO + core flows.
-- [ ] Acceso, retention, off-provider copy y alerta backup fallido.
+- [ ] backup cifrado/config/media strategy;
+- [ ] restore aislado + RPO/RTO + core flows;
+- [ ] access/retention/off-provider copy/backup alert.
 
-Reusar si satisface literalmente: PITR restore aislado, RPO ~7 min, RTO `3643 s`, keyring multiversión, alarmas/on-call, rotation operator y rollback authority.
+Reusar literalmente: PITR restore, RPO ~7 min, RTO `3643 s`, keyring multiversión, alarmas/on-call/rotation/rollback authority.
 
 ### 10.2
-- [ ] Revisar gates D2–D10, P0 nuevos y evidencia independiente.
-- [ ] Si pasa: alpha interna 3–5 usuarios, sintético, invite-only, sin pagos; entitlement real regalado.
-- [ ] Si falla: demo local; comunicar deslizamiento sin ampliar alcance.
+- [ ] revisar gates D2–D10/P0/evidencia independiente;
+- [ ] si pasa: alpha interna 3–5 usuarios sintéticos, invite-only, sin pagos;
+- [ ] si falla: demo local/deslizamiento sin scope creep.
 
-RO toma decisión final de alpha. Cerrar F1 no autoriza lanzamiento público.
-
----
-
-## Evidencia 5.2 reusable
-
-| Requirement | Evidencia aceptada |
-|---|---|
-| PostgreSQL autoridad | productiva, cierre 5.2 |
-| Migrations/versionado | PRs #29–#42 |
-| Importer/rollback | idempotencia + rollback/current-PG |
-| Durability | restart + barrier fail-closed |
-| PITR restore | restore aislado representativo |
-| RPO | ~7 min |
-| RTO | 3643 s |
-| Keyring | activa 2, versiones 1/2, lectura v1 |
-| Observabilidad/ownership | alarmas RDS + on-call/rotation/rollback authority |
-
-**Criterio:** solo REUSE literal permite cierre; similitud temática no basta.
+RO decide alpha final. Cerrar F1 no autoriza release público.
