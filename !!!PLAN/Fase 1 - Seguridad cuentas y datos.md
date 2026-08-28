@@ -41,16 +41,26 @@ No reabrir D7 sin nueva evidencia material.
 
 **Gate D8:** usuario puede verificar, recuperar, exportar y borrar sin intervención manual insegura.
 
-Baseline de entrada: `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
+Baseline de entrada y baseline canónico verificado por JOBS: `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
 
-### 8.1 — sesión y seguridad de sesión — PRIMARY WOZ NEXT
+### 8.1 — sesión y seguridad de sesión — `[ 🟡 ]` READY_FOR_WOZ_INTEGRATION / CIERRE PENDIENTE
 - [ ] Cookie HttpOnly/Secure/SameSite o equivalente; CSRF explícito.
 - [ ] Distinguir 401/expiry de offline/timeout.
 - [ ] Session inventory, revoke-one/revoke-all, rotación sensible.
 - [ ] Preflight REUSE/GAP + duplicate-check antes de crear artefacto.
 - [ ] Tests/CI exact-head aplicables y regresiones de la propia área verdes.
 
-### 8.2 — ciclo de cuenta — WOZ SAME OWNER
+**Artifact canónico:** PR #49 `woz/task-8.1-session-security` @ `f8ae2d1dedf0b4f977b4aedcaef5ac4ea83acdff` — **OPEN / no mergeado / no draft**.
+
+**Preflight JOBS 2026-08-28:**
+- comparación contra integración `e25c604...`: `ahead_by=7`, `behind_by=0`; el head sí deriva del baseline canónico actual;
+- Required CI / Test Desktop Portability #406 `33208687131` = SUCCESS; D6 #46 `33208687050` = SUCCESS; D7 `33208687027` = SUCCESS; Productive Temp Auth Compile #159 = SUCCESS sobre el exact head verificado;
+- el PR declara explícitamente que **no** reclama `GATE D8 PASS`; 8.2 permanece pendiente bajo WOZ;
+- no se localizó un handoff estructurado de WOZ para #49 en Issue #41 al preflight de JOBS. Eso no invalida el código/CI ya verificable, pero impide que JOBS invente una transacción de cierre del owner.
+
+**STOP/PENDING de 8.1:** JOBS no integra código BeatGaler. WOZ, como owner/integrador autorizado de D8, debe hacer el recheck final de head/CI, integrar #49 por el flujo técnico autorizado y publicar evidencia/handoff estructurado de 8.1. Solo entonces JOBS puede cerrar 8.1 documentalmente.
+
+### 8.2 — ciclo de cuenta — WOZ SAME OWNER / NEXT INMEDIATO TRAS 8.1
 - [ ] Email verification/reset one-shot/expiry/anti-enumeración.
 - [ ] MFA recovery + reauth + notifications.
 - [ ] Export/delete + revocation/provider cleanup/retention/receipt.
@@ -60,7 +70,7 @@ Si provider/legal/credenciales o una decisión RO bloquean un subitem de 8.2, ma
 
 ### Gate D8 — `PENDING`
 
-No PASS hasta evidencia exact-head suficiente y transacción estructurada de WOZ.
+No PASS hasta evidencia exact-head suficiente de **8.1 + 8.2** y transacción estructurada de WOZ. Integrar/cerrar 8.1 por sí solo **no** convierte D8 en PASS.
 
 ---
 
