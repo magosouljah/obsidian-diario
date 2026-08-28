@@ -29,51 +29,75 @@ Reglas:
 
 ## Estado vivo
 
-- **Critical path:** Fase 1 / Día 7 / Gate D7 — Data plane seguro.
+- **Critical path:** Fase 1 / Gate D7 — Data plane seguro.
 - **Release público:** 🔴 `NO-GO`.
-- **Integración:** `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`, versión `0.8.0-alpha.1`.
+- **Integración estable:** `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`, versión `0.8.0-alpha.1`.
 - **D6:** `[x] / PASS` — WOZ Issue #41 `5455677550`; Required CI #363 `33194215450` SUCCESS; compile #128 `33194215442` SUCCESS; D6 cross-process #4 `33194215463` SUCCESS.
 - **D7:** `[ 🟡 ] / PENDING`.
-- **BBB 7.1:** finding `5455758175`: gaps en capability/deny-by-default, lifecycle revoke, ceilings bot/tenant y revocación inmediata control-side.
-- **AAA 7.2 parcial:** PR #45 @ `1d923c467922231df157bdc42f9aad62405d34ea`; Required CI #364 `33195699165` SUCCESS; finding boundary fail-closed `5455777574`. No cierra 7.2/D7.
+
+### WOZ 7.1 actual
+- PR #46 `woz/task-7.1-direct-capabilities` @ `bd62525a0b1701e00c2b4652b4a7a67699c8adab`, draft/open.
+- D7 capability #16 `33201030543` SUCCESS.
+- D6 cross-process #26 `33201030559` SUCCESS.
+- temp-auth compile #148 `33201030554` SUCCESS.
+- Required CI #385 `33201030567` = `IN_PROGRESS` al último preflight JOBS.
+- PR #46 declara corregidos los dos revoke-wiring blockers del BBB handoff `5456351308`; **BBB re-review exact-head pendiente**.
+
+### AAA 7.2 actual
+- PR #45 `aaa/task-7.2-transport-isolation-adversarial` @ `e29368b4eeaf1641c4f3b9083b166f067bdd6182`.
+- Handoff `5456406567`: D7 run #14 `33200605498` FAILURE únicamente por adversarial AAA; unit/PostgreSQL scope/replay = SUCCESS; object substitution/replay/explicit session revoke pasan.
+- Findings reproducibles aún pendientes de delta WOZ:
+  1. contrato expiry/clock-skew inconsistente memory vs PostgreSQL;
+  2. response redaction no universalmente fail-closed en `ok:false` y no-refresh fallback;
+  3. capability ACTIVE no queda demostrablemente invalidada por lease expiry / bot quarantine.
+- AAA no debe debilitar assertions para volver CI verde.
+
 - **5.1:** `[x]`.
 - **5.2:** `[x]` — cierre WOZ/RO `5448976400`; no repetir drills aceptados salvo invalidación.
 - **2.2:** `[ 🟡 ]` tail externo no bloqueante.
 - **1.2:** `[ 🟡 ]` release externo; Apple Developer `PENDING — DEFERRED`.
 
-# LANES SIMULTÁNEAS
+# LANES SIMULTÁNEAS — AHORA
 
 ## LANE A — WOZ / CRITICAL
 **F1 / 7.1 — `[ 🟡 ] PRIMARY`**
 
-Resolver técnicamente el delta mínimo de D7: capability corta scope `user/vault/operation/object`, allowlist/deny-by-default, lifecycle revoke, revocación inmediata control-side, ceilings bot/tenant y el finding fail-closed AAA si lo reproduce/acepta. Mantener la política shared-bot aceptada. Salida: PR/head exacto + tests/CI + handoff.
+1. Consumir AAA `5456406567` y reproducir/aceptar/rechazar F1–F3.
+2. Si acepta, hacer el delta mínimo en PR #46; no ampliar a 8.x.
+3. Mantener scope/deny-by-default/revoke/ceilings ya construido y política shared-bot aceptada.
+4. No mergear ni declarar D7 PASS con AAA/BBB pendientes o Required CI exact-head no verde.
 
-## LANE B — AAA / PARALLEL BUILD
-**F2 / 11.1 Design foundations — `READY_TO_WORK`**
+## LANE B — AAA / PARALLEL BUILD WHILE BLOCKED
+**F2 / 11.1 Design foundations — `[ 🟡 ] ACTIVE PARALLEL`**
 
-Mientras la parte restante de 7.2 espera contrato 7.1, AAA trabaja un slice frontend independiente:
+AAA está bloqueado para repetir 7.2 hasta que WOZ produzca un nuevo head que responda a F1–F3. Durante ese bloqueo trabaja un slice independiente desde la integración estable:
 - tokens, tipografía, focus, buttons, fields, feedback, Dialog, reduced motion;
 - AccountGate visual: autofill, contraste, loading y layout 390–430;
 - retirar duplicación visual inline solo donde el foundation la sustituya limpiamente;
-- tests/DOM/a11y afectados.
+- tests DOM/a11y afectados.
 
-**Fuera de scope:** APIs Día 8, MFA/reset backend, data plane, YouTube. PR #45 queda intacto. Cuando WOZ publique delta 7.1, JOBS decide el checkpoint/retorno de AAA a 7.2.
+**Fuera de scope:** APIs Día 8, MFA/reset backend, data plane, YouTube.  
+**Artefacto nuevo permitido tras duplicate-check:** `aaa/f2-11.1-design-foundations` desde `23bded948...`.  
+**Interrupt rule:** cuando WOZ publique nuevo 7.1 head para F1–F3, AAA deja 11.1 en checkpoint limpio y vuelve a retargetear el PR #45 existente; no crea otro PR 7.2.
 
-## LANE C — BBB / PARALLEL AUDIT
-**F4 / 21.1 Release manifest readiness — `READY_TO_WORK / READ ONLY`**
+## LANE C — BBB / D7 RE-REVIEW NOW, THEN F4
+**Immediate:** F1 / 7.1 PR #46 exact head `bd62525...` — READ ONLY re-review únicamente de los dos revoke-wiring blockers `5456351308`.
 
-Auditar VERSION/npm/Cargo/Tauri/Settings, endpoints/channels/capabilities, runtimes/resources Windows/macOS y divergencias que impedirían un manifest único desde un SHA. Entregar `REUSE | GAP | DEPENDENCY | NEXT` con evidencia.
+- comprobar canonical server-side revoke target;
+- comprobar fail-closed/durable revoke ante store failure;
+- verificar tests HTTP/failure injection pertinentes;
+- no reabrir scope ya aceptado sin delta reproducible.
 
-**Fuera de scope:** elegir bundle ID final, modificar código/config, firmar/notarizar/generar release.
+**After handoff:** si WOZ aún no publica otro delta D7, BBB salta automáticamente a **F4 / 21.1 Release manifest readiness audit READ ONLY**: version sources, endpoints/channels/capabilities, runtimes/resources y divergencias. No elige bundle ID ni modifica archivos.
 
 ## LANE D — JOBS
-Mantener grafo, mover agentes cuando cambian dependencias, preparar administrativamente REUSE de D9/D10, procesar handoffs y mantener `WOZ NEXT` en el cuello real.
+Mantener grafo, mover agentes cuando cambian dependencias, preparar administrativamente REUSE D9/D10, procesar handoffs y mantener `WOZ NEXT` en el cuello real.
 
 ## Gates bajo el modelo nuevo
 
-- **D7:** exige 0 secretos de infraestructura en cliente y 0 operaciones fuera del scope. Bloquea cierre D7 y trabajo que dependa técnicamente de ese contrato; **no** bloquea slices independientes de otras fases.
-- **D8/D9/D10:** conservan sus requisitos de aceptación; slices independientes pueden preconstruirse/auditarse antes, nunca marcarse `[x]` por adelantado.
-- Fases 2–7 conservan sus gates. No se simulan pagos, producción, firma, betas, soak o lanzamiento antes de sus prerequisitos reales.
+- **D7:** exige 0 secretos de infraestructura en cliente y 0 operaciones fuera del scope. Bloquea cierre D7 y trabajo dependiente; no bloquea slices independientes.
+- **D8/D9/D10:** conservan aceptación; slices independientes pueden preconstruirse/auditarse antes, nunca `[x]` por adelantado.
+- Fases 2–7 conservan sus gates. No se simulan pagos, producción, firma, betas, soak o lanzamiento antes de prerequisitos reales.
 
 ## REUSE-FIRST F1 D9/D10
 
@@ -94,19 +118,19 @@ Reutilizar cuando satisfaga literalmente: PostgreSQL autoridad, migrations/versi
 
 - **F0:** residual/administrativa.
 - **F1:** CRITICAL PATH D7.
-- **F2:** PARALLEL BUILD permitido por slices independientes; AAA → 11.1.
-- **F3:** análisis/prep permitido cuando no requiera staging/pagos/credenciales aún inexistentes.
-- **F4:** PARALLEL AUDIT/PREP permitido; BBB → 21.1 readiness.
-- **F5:** preparación/harness permitido; betas/load real requieren candidato/monitoring.
-- **F6:** runbooks/checklists permitidos; soft launch/publicación requieren RC/gates.
-- **F7:** planificación permitida; operación real requiere lanzamiento/datos.
+- **F2:** PARALLEL BUILD por slices independientes; AAA → 11.1 mientras bloqueado por WOZ.
+- **F3:** análisis/prep si no requiere staging/pagos/credenciales inexistentes.
+- **F4:** PARALLEL AUDIT/PREP; BBB → 21.1 cuando termine re-review D7 y quede sin delta crítico.
+- **F5:** preparación/harness; betas/load real requieren candidato/monitoring.
+- **F6:** runbooks/checklists; soft launch/publicación requieren RC/gates.
+- **F7:** planificación; operación real requiere lanzamiento/datos.
 
 ## WOZ NEXT
 
-PRIMARY: F1 / 7.1.  
-READY_FROM_AAA: PR #45 + CI #364 + boundary finding.  
-READY_FROM_BBB: 7.1 gap review `5455758175`.  
-PARALLEL: AAA → F2/11.1; BBB → F4/21.1 audit.  
+PRIMARY: PR #46 — responder AAA F1–F3 y cerrar exact-head CI/reviews.  
+READY_FROM_AAA: PR #45 @ `e29368...`, handoff `5456406567`.  
+READY_FROM_BBB: handoff `5456351308`; exact-head re-review `bd62525...` pendiente.  
+PARALLEL: AAA → F2/11.1 mientras bloqueado; BBB → F4/21.1 después de su re-review si queda sin delta.  
 PLAN_HEALTH: CLEAN — dependency-graph model active.
 
 **Principio:** ningún agente espera por un número de Día si existe una pieza independiente, útil y verificable que pueda construir.
