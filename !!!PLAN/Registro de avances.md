@@ -63,11 +63,16 @@
 - **PR #43 / 6.1 integrado.** Merge `23bded948c4377b28fc48a72378816968d4cd413`; session-bound authorization, ownership, PostgreSQL cross-process claim coordination y compatibilidad conjunta 6.1/6.2.
 - **Head pre-merge final #43:** `5cfec64d756caf73ad3d57f4bb943e7adaabf6bd`; compile + D6 cross-process + Required CI = `SUCCESS`.
 - **Head integrado actual:** `23bded948c4377b28fc48a72378816968d4cd413`.
-- **Integración exact-head checks:** compile #128 (`33194215442`) `SUCCESS`; D6 cross-process #4 (`33194215463`) `SUCCESS`; Required CI #363 (`33194215450`) sigue `IN_PROGRESS`, con Web/shared, PostgreSQL/recovery y supply-chain ya verdes.
-- **D6:** `[ ⚠️ ]` implementación integrada, **Gate todavía `PENDING`** hasta cierre de #363 + decisión estructurada WOZ. JOBS no autoacepta.
-- **AAA/BBB NOW:** `LIBRE / BLOQUEADO POR D6`; no reabrir trabajo aceptado sin delta nuevo.
-- **Fast lane preasignado:** D6 PASS → WOZ 7.1 / AAA 7.2 / BBB review 7.1; D7 PASS → WOZ 8.1 / AAA 8.2 / BBB review; D8 PASS → D9 REUSE-FIRST; D9 PASS → 10.1 REUSE-FIRST; después 10.2 decisión alpha.
-- **REUSE-FIRST reforzado 9/10.** JOBS prepara matrices, WOZ decide equivalencia técnica/GAP, AAA prueba gaps, BBB revisa independencia. Prohibido repetir drills ya aceptados solo para recrear evidencia.
+- **Integración exact-head checks:** compile #128 (`33194215442`) `SUCCESS`; D6 cross-process #4 (`33194215463`) `SUCCESS`; Required CI #363 (`33194215450`) finalmente `SUCCESS`.
+- **D6 `[x] / PASS`.** WOZ publicó gate transaction estructurada en Issue #41 comment `5455677550`; 6 requisitos PASS, blockers none. Día 7 quedó técnicamente desbloqueado.
+
+## 2026-08-28 — Día 7 activado / primeros handoffs
+
+- **BBB / 7.1 — FINDING READ ONLY.** Handoff `5455758175` sobre base `23bded9...`: reuse confirmado, pero gaps literales en capability/deny-by-default, lifecycle revoke, ceilings bot/tenant y revocación inmediata control-side. No branch/PR; D7 no decidido.
+- **AAA / 7.2 — PR #45 parcial.** `aaa/task-7.2-transport-isolation-adversarial` @ `1d923c467922231df157bdc42f9aad62405d34ea`; Required CI #364 (`33195699165`) = `SUCCESS`.
+- **AAA finding de boundary.** Handoff `5455777574`: `transformSession()`/fallbacks de transport no redaccionan de forma universal antes de early return; no fuga observada actual, pero gap fail-closed reproducible. PR #45 añade guards/tests y **no** corrige producción ni cierra 7.2/D7.
+- **D7 `[ 🟡 ] / PENDING`.** WOZ 7.1 es PRIMARY; debe consumir findings, producir delta técnico verificable e integrar antes de que AAA complete matriz dependiente y BBB haga re-review.
+- **JOBS sync.** Plan Maestro + Fase 1 + Registro actualizados a Día 7; no 8.x antes de `GATE D7 PASS` estructurado.
 
 ---
 
@@ -78,7 +83,8 @@
 - 5.2: `[x]`.
 - 2.2: `[ 🟡 ]` tail externo no bloqueante.
 - 1.2: `[ 🟡 ]` P1 externo de release.
-- Fase 1: `[ 🟡 ]` **ACTIVA — Día 6 CLOSEOUT**.
-- D6: `PENDING` por Required CI #363 + gate transaction WOZ.
+- Fase 1: `[ 🟡 ]` **ACTIVA — Día 7**.
+- D6: `[x] / PASS`.
+- D7: `PENDING`.
 - Release público: 🔴 `NO-GO`.
-- WOZ NEXT: cerrar D6 transaction; si PASS, iniciar 7.1 inmediatamente.
+- WOZ NEXT: 7.1 PRIMARY — resolver gaps/finding reproducibles, producir PR/head + tests/CI; después AAA completa 7.2 y BBB re-review.
