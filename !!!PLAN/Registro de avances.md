@@ -40,87 +40,96 @@
 
 ## 2026-08-28 — D7 / CLOSED
 
-- WOZ PR #46 `woz/task-7.1-direct-capabilities` final tested head `6477fa6f6c4f04813acbbe5dbd43302347072adb`.
+- WOZ PR #46 final tested head `6477fa6f6c4f04813acbbe5dbd43302347072adb`.
 - PR #46 merge a integración: `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
-- Branch `integration-v0.8.0-alpha.1` verificado en `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
-- D7 `33205320953` SUCCESS; D6 cross-process `33205320957` SUCCESS; temp-auth compile `33205321000` SUCCESS; Required CI #402 `33205320950` SUCCESS en Web/shared, PostgreSQL recovery, Supply Chain/HEAD secret scan, Windows, macOS arm64 y x86_64.
-- AAA findings `5456406567` consumidos/cerrados por WOZ: expiry/skew parity, fail-closed response redaction, live lease/quarantine coupling.
-- BBB findings `5456351308` + revoke-order posterior consumidos/cerrados por WOZ: canonical revoke target, durable fail-closed, pre-mutation revoke.
+- D7 `33205320953` SUCCESS; D6 `33205320957` SUCCESS; temp-auth compile `33205321000` SUCCESS; Required CI #402 `33205320950` SUCCESS.
 - D7 `[x] / PASS`: WOZ gate transaction `5457172823`.
 - Architecture note: PASS aplica a capability mediation BeatGaler bajo Direct/shared-bot aceptado; no afirma primitive provider-native object-scoped.
 
-## 2026-08-28 — F2 / 11.1 AAA
+## 2026-08-28 — DECISIÓN RO / ROMPECABEZAS + OWNER FIJO
 
-- PR #47 `aaa/f2-11.1-design-foundations` @ `ddad3124cc3d1577d76d9965b55189a2cfb88383` = OPEN / no mergeado.
-- Handoff AAA `5456682762`: `DONE — INDEPENDENT SLICE ONLY`.
-- Required CI #392 `33202493998` SUCCESS; D6 #33 `33202493855` SUCCESS.
-- Candidate cubre tokens/primitives/focus/Dialog/reduced motion, AccountGate autofill/contrast/loading/390–430, docs y DOM/a11y tests en 7 files.
-- 11.1 global permanece `[ 🟡 ]`: no `[x]` hasta integración/secuenciación verificable sobre el estado actual.
+- Trabajo cross-phase permitido por dependencia real.
+- Cada owner conserva su área hasta cierre o reasignación explícita.
+- Findings se consumen como input por el owner; no hopping automático.
+- Owner hace self-test + exact-head CI.
+- JOBS coordina/actualiza `!!!PLAN`; no código BeatGaler ni merges técnicos.
 
-## 2026-08-28 — F4 / 21.1 BBB — audit inicial
+## 2026-08-28 — JOBS preflight anterior / WAVE #47 #50 #48 #49
 
-- Handoff BBB `5456640788`: audit READ ONLY / FINDING sobre base `23bded948c4377b28fc48a72378816968d4cd413`.
-- REUSE inicial: versión/name sources alineados, runtime pins/provenance, macOS universales, Windows Node/Bot API, common capabilities y release same-SHA checks.
-- GAPS iniciales: bundle ID, updater endpoint, channel/feed, Windows FFmpeg y same-SHA manifest tooling. Este bloque queda como historia de entrada; fue superado por el candidate #48 descrito abajo.
+Baseline entonces: `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
 
-## 2026-08-28 — DECISIÓN RO / ROMPECABEZAS
+- #49 / WOZ / 8.1 era candidate directamente encima del baseline con Required CI #406 verde; se secuenció primero.
+- #47 / AAA / 11.1 y #50 / 12.2 estaban divergidos; dependencia obligatoria #47 → #50.
+- #48 / BBB / 21.1 estaba técnico completo pero OPEN/DRAFT; BBB ya reasignado a 21.2 por `5458104890`.
+- Ningún checkbox se adelantó en ese preflight.
 
-RO elimina la restricción “todos en el mismo Día”. Trabajo cross-phase permitido por dependencia real. JOBS puede organizar owners/fases/prioridades sin rebajar gates.
+## 2026-08-28 — WOZ 8.1 / PR #49 — CLOSED
 
-## 2026-08-28 — DECISIÓN RO / OWNER FIJO + SELF-TEST
+- PR #49 `woz/task-8.1-session-security` exact tested head `f8ae2d1dedf0b4f977b4aedcaef5ac4ea83acdff`.
+- Required CI #406 / `33208687131` SUCCESS; D6 `33208687050` SUCCESS; D7 `33208687027` SUCCESS; temp-auth compile #159 SUCCESS.
+- Integrado como `14002b29c5101232c0ca8f8b85d808c8214975fb`.
+- WOZ structured handoff Issue #41 `5458273984` = `STATUS: DONE`.
+- 8.1 `[x]`. Gate D8 siguió `[ 🟡 ] / PENDING` porque 8.2 faltaba.
 
-RO precisa el modelo:
-- **WOZ** terminó F1/D7 y, tras Gate D7 PASS, JOBS lo reasigna explícitamente a **F1 / D8 / 8.1+8.2** hasta cierre D8.
-- Owners pueden cambiar solo por reasignación explícita JOBS/RO; GitHub/Issue más reciente prevalece sobre texto stale del plan.
-- Findings de otros agentes se usan como input/casos de prueba por el owner actual.
-- No hopping automático al aparecer/desaparecer dependencias.
-- Si un owner queda bloqueado, conserva ownership y reporta blocker; JOBS solo reasigna mediante decisión explícita.
-- Revisión independiente adicional se conserva únicamente cuando JOBS/RO o un gate posterior la exige literalmente.
+## 2026-08-28 — AAA 11.1 / PR #47 — CLOSED
 
-## 2026-08-28 — JOBS preflight factual / WAVE #47 #50 #48 #49
+- AAA reutilizó PR #47 después de #49; no artifact duplicado.
+- Refreshed exact head `fdc6463e6b81efedc547c97595529d28e0ba2d83` sobre `14002b29...`.
+- Resolución preservó la seguridad Web de #49 en `AccountGate`/tests y reaplicó únicamente foundations UI/a11y.
+- Required CI #429 `33216364174` SUCCESS; D6 #68 `33216364104` SUCCESS; D7 #39 `33216364074` SUCCESS.
+- PR #47 integrado como merge `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
+- 11.1 `[x] / DONE / INTEGRATED`.
 
-Baseline canónico revalidado: `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
+## 2026-08-28 — WOZ 8.2 / PR #52 — TECHNICAL CANDIDATE, NO CIERRE GLOBAL
 
-### WOZ / PR #49 / F1 D8 8.1
-- PR #49 `woz/task-8.1-session-security` @ `f8ae2d1dedf0b4f977b4aedcaef5ac4ea83acdff` = OPEN / no mergeado / no draft / mergeable al preflight.
-- Compare desde baseline canónico: `ahead_by=7`, `behind_by=0`; es el único candidate de esta wave verificado directamente encima de `e25c604...`.
-- Exact-head Required CI/Test Desktop Portability #406 `33208687131` SUCCESS; D6 #46 `33208687050` SUCCESS; D7 `33208687027` SUCCESS; Productive Temp Auth Compile #159 SUCCESS.
-- El PR cubre sesión/CSRF/inventory/revocation/rotation y distingue 401/expiry de network loss; explícitamente **no reclama D8 PASS** porque 8.2 sigue pendiente.
-- No se localizó handoff estructurado WOZ de #49 en Issue #41 durante el preflight. Estado documental de 8.1 = `[ 🟡 ] / READY_FOR_WOZ_INTEGRATION`, no `[x]`.
-- WOZ NEXT: recheck final, integrar #49 por flujo autorizado, publicar handoff 8.1 y continuar 8.2 dentro del mismo ownership. D8 permanece `PENDING`.
+- PR #52 `woz/task-8.2-account-lifecycle` @ `ef0d6b142a92cdb88b2a3111e144ba6a9f15df9c` = OPEN / no mergeado / non-draft.
+- Candidate implementa verification/reset hash-only one-shot/expiry/anti-enumeración; MFA recovery; reauth; notifications; export secret-free; delete/cleanup/receipt; revocación fail-closed.
+- Required CI / Test Desktop Portability `33216990412` = SUCCESS sobre ese exact head.
+- Candidate fue construido sobre `14002b29...`; integración ya avanzó a `489d81b...` por #47. Por tanto requiere refresh/revalidación exact-head antes de integración.
+- Gate D8 además conserva tres dependencias explícitas: provider/templates de email, duración de retención y provider-only sensitive reauth.
+- Estado: 8.2 `[ 🟡 ]`; D8 `[ 🟡 ] / PENDING`; WOZ conserva FULL OWNER y no salta D9.
 
-### AAA / PR #47 → PR #50 / F2
-- #47 @ `ddad3124...`: OPEN/no mergeado/no draft; handoff `5456682762` DONE independent slice; Required CI #392 SUCCESS. Contra `e25c604...`: `diverged`, `behind_by=49`.
-- #49 y #47 comparten `src/components/AccountGate.tsx` y `tests/component-dom/accountGateWeb.test.tsx`; por evidence-before-claim, #47 debe revalidarse después de la integración #49.
-- #50 @ `258017f...`: OPEN/no mergeado/no draft; handoff `5458081273` DONE; Required CI #416 SUCCESS; base PR = rama #47. Contra `e25c604...`: `diverged`, `behind_by=49`.
-- Dependencia obligatoria: **#47 debe integrarse antes de #50**. Si cambia cualquiera de sus heads para incorporar integración vigente, se exige CI exact-head nuevo antes del cierre.
-- Owner actual AAA = F2/12.2 por reasignación RO registrada en #50/handoff. 11.1 y 12.2 siguen `[ 🟡 ]` hasta integración verificable.
-- AAA NEXT tras cerrar/integrar #47 y #50: 11.2 solo si D8/8.2 ya habilitó sus APIs; con el estado actual, la alternativa F2 independiente ya planificada es **12.1 Bootstrap y load**.
+## 2026-08-28 — AAA 12.2 / PR #50 — SLICE DONE, INTEGRACIÓN PENDIENTE
 
-### BBB / PR #48 / F4 21.1 → 21.2
-- PR #48 `bbb/f4-21.1-release-manifest` @ `a3ba448e9ded04f73ee77a3556809dcf72e707f5` = OPEN / DRAFT / no mergeado / mergeable al preflight.
-- Handoff BBB `5457967950` = `READY_FOR_INTEGRATION / COMPLETE_TECHNICAL`; decisión RO usada por el candidate: nombre `Galer`, bundle ID `com.beatgaler.app`; Required CI #412 `33212138329` y matrices aplicables SUCCESS.
-- Contra `e25c604...`: `diverged`, `behind_by=49`; #48 y #49 comparten `package.json`. El CI actual no prueba todavía la combinación post-#49.
-- 21.1 permanece `[ 🟡 ]`: requiere incorporar baseline posterior a #49, estado apto para integración por flujo autorizado, CI exact-head y merge canónico antes de `[x]`.
-- RO reasignó explícitamente BBB a **21.2 Upgrade Matrix** en Issue #41 `5458104890`, `STATUS: ASSIGNED / PRECHECK`, mientras #48 siga no integrado. BBB puede hacer trabajo dependency-safe, pero no falsear 21.1 cerrado.
+- PR #50 `aaa/f2-12.2-library` @ `258017fbd03e2a8edf0a93f7af2c7acb7ddf1a7c` = OPEN / no mergeado / non-draft.
+- Handoff/PR declara slice técnico completo; Required CI #416 `33213031905` SUCCESS; D6 `33213031958` SUCCESS sobre el stack anterior.
+- #47 ya no está pendiente: quedó integrado como `489d81b...`.
+- Por evidence-before-claim, #50 debe actualizarse/revalidarse contra la integración canónica que ya contiene #47 y contra movimientos previos de la secuencia JOBS antes de `[x]`.
+- AAA permanece FULL OWNER F2/12.2. No artifact duplicado.
 
-### Decisión JOBS de secuencia
-1. #49 primero por WOZ/integrador autorizado.
-2. #47 después de incorporar/revalidar baseline post-#49.
-3. #50 únicamente después de #47 integrado y con revalidación sobre la integración que ya lo contenga.
-4. #48 incorporar/revalidar baseline post-#49 y luego integrar; su refresh puede correr en paralelo con la cadena F2 si no rompe mutex técnico.
-5. JOBS **no ejecuta merges de código BeatGaler**; solo secuencia, exige evidencia, sincroniza `!!!PLAN` y publica handoffs.
+## 2026-08-28 — BBB 21.1+21.2 / PR #51 — EN CURSO
 
-No se marcó ningún checkbox nuevo por esta wave. Release público continúa 🔴 `NO-GO`.
+- BBB consolidó manifest 21.1 + Upgrade Matrix 21.2 en PR #51 `bbb/task-21.2-upgrade-matrix`.
+- PR #51 = OPEN / DRAFT; head observado `f70f17ea41cd26bd833bf7ee91949a3e4d752d4e`.
+- El artifact cubre preservación 0.7.4 settings/SQLite/offline/cache, recovery, NSIS bridge y staging same-SHA.
+- Required CI del head actual estaba QUEUED al último preflight; D6 del mismo head aparecía SUCCESS.
+- Integración canónica se movió a `489d81b...`; el propio contrato de #51 exige fresh union + CI si baseline cambia.
+- 21.1 y 21.2 permanecen `[ 🟡 ]`.
+
+## 2026-08-28 — JOBS sync post-AAA/WOZ
+
+**Baseline canónico:** `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
+
+Decisión de secuencia para minimizar revalidación inútil:
+1. WOZ continúa **#52 / 8.2**: refresh contra `489d81b...`, exact-head CI, integración técnica, handoff. D8 puede seguir PENDING por decisiones externas.
+2. AAA continúa **#50 / 12.2** después del movimiento de integración #52: refresh final, exact-head CI, integración.
+3. BBB continúa **#51 / 21.1+21.2** en paralelo, pero integración final requiere baseline vigente + exact-head evidence.
+
+RO / provider / legal pendientes para cerrar D8:
+- provider/templates de email verification/reset;
+- retención/tombstone explícita para account deletion;
+- provider-only/OAuth-only sensitive reauth.
+
+No se marca 8.2, 12.2, 21.1 ni 21.2 `[x]` todavía. `Plan Maestro 2208 copy DONT TOUCH .md` permanece untouched. Release público sigue 🔴 `NO-GO`.
 
 ---
 
 ## Estado actual
 
-- Integración estable: `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
-- WOZ: **F1/D8 full owner**; #49/8.1 ready para integración WOZ, después 8.2; D8 `[ 🟡 ] / PENDING`.
-- AAA: **F2/12.2 owner actual**; #47→#50 pendientes de refresh/revalidación/integración; ambos sin `[x]`.
-- BBB: **F4/21.2 FULL OWNER / PRECHECK** por `5458104890`; #48/21.1 técnico completo pero OPEN/DRAFT/no integrado; 21.1 sin `[x]`.
+- Integración estable: `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
+- WOZ: **F1/D8/8.2 FULL OWNER**; #49/8.1 `[x]`; #52 técnico verde histórico pero refresh/revalidación + decisiones externas pendientes; D8 `[ 🟡 ]`.
+- AAA: **F2/12.2 FULL OWNER**; #47/11.1 `[x]`; #50 slice done pero integración/revalidación pendiente.
+- BBB: **F4/21.2 FULL OWNER**; #51 combinado 21.1+21.2 OPEN/DRAFT/en CI; sin `[x]`.
 - JOBS: coordinación/plan/handoffs; no código BeatGaler ni merges técnicos.
 - D6: `[x] / PASS`.
 - D7: `[x] / PASS`.
