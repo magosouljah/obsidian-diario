@@ -8,10 +8,15 @@
 |---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates, `WOZ NEXT` |
 | **WOZ** | F1 / D8 / 8.1+8.2 | implementación, fixes, tests, CI, integración y gate técnico de D8 |
-| **AAA** | F2 / 11.1 | implementación, tests, CI y evidencia completa de Design Foundations |
-| **BBB** | F4 / 21.1 | manifest/release-chain slice 21.1, tests/checks/CI y evidencia de su área |
+| **AAA** | F2 / 12.2 | artifact Biblioteca #50 y cadena de integración #47 → #50; tests/CI/evidencia de su área |
+| **BBB** | F4 / 21.2 | Upgrade Matrix; precheck dependency-safe mientras #48/21.1 no esté integrado |
 
 RO conserva alcance de producto, riesgo aceptado y go/no-go. JOBS puede reorganizar el roadmap, pero **un cambio de owner es una decisión explícita**, no un salto automático por dependencia.
+
+Cambios de owner vigentes verificados en GitHub:
+- AAA: 11.1 → 12.2 por instrucción RO registrada en PR #50/handoff AAA; 11.1 conserva cierre/integración pendiente y sigue siendo dependencia de #50.
+- BBB: 21.1 → 21.2 por instrucción RO explícita, Issue #41 comentario `5458104890`; 21.2 está `ASSIGNED / PRECHECK` mientras #48 siga OPEN/DRAFT/no integrado.
+- WOZ: sin cambio; continúa FULL OWNER de D8 completo, 8.1 → 8.2.
 
 ## Modelo ROMPECABEZAS CON OWNER FIJO
 
@@ -46,7 +51,7 @@ No hace falta repetir estado si puede recuperarse del plan/GitHub.
 7. reasignar solo con decisión explícita;
 8. entregar `WOZ NEXT` centrado en el cuello técnico.
 
-JOBS no toca producto/infra ni decide la solución técnica de WOZ.
+JOBS no toca producto/infra ni decide la solución técnica de WOZ. En particular, JOBS **no mergea código BeatGaler** cuando esa integración pertenece al owner/integrador técnico; JOBS secuencia, exige evidencia y sincroniza el plan.
 
 ## Owner — paquete mínimo
 
@@ -165,9 +170,9 @@ NEXT_WITHIN_AREA: <acción>
 
 ```text
 NIGHT SHIFT LEDGER
-WOZ: F1/D8 → <estado/evidencia>
-AAA: F2/11.1 → <estado/evidencia>
-BBB: F4/21.1 → <estado/evidencia>
+WOZ: F1/D8/8.1→8.2 → <estado/evidencia>
+AAA: F2/12.2 + chain #47→#50 → <estado/evidencia>
+BBB: F4/21.2 precheck; #48 integration dependency → <estado/evidencia>
 JOBS: <plan sync/no-op>
 OWNER_CHANGES: none | <explícitos>
 DUPLICATE_WORK: none | ...
@@ -177,9 +182,16 @@ STALLED: none | ...
 
 ## Estado vigente
 
-- **WOZ:** F1 / D8 / 8.1+8.2 hasta cierre D8. PRIMARY actual: 8.1.
-- **AAA:** F2 / 11.1 hasta cierre 11.1; PR #47 open, slice DONE con CI exact-head, cierre global pendiente.
-- **BBB:** F4 / 21.1 hasta cierre 21.1; audit FINDING activo, bundle ID final `RO DECISION REQUIRED`.
-- **JOBS:** coordinación, sin hopping automático.
+- **WOZ:** F1 / D8 / 8.1+8.2 hasta cierre D8. #49 head `f8ae2d1...` está sobre baseline `e25c604...`, CI exact-head verde y OPEN/no mergeado; WOZ debe integrar/cerrar 8.1 por flujo autorizado y pasar a 8.2 sin declarar D8 PASS antes de tiempo.
+- **AAA:** F2 / 12.2 owner actual; #47 y #50 están OPEN/no mergeados. #47→#50 es dependencia obligatoria y ambos requieren revalidación frente a integración vigente antes de cierre. AAA NEXT tras ambos cierres: 11.2 solo si D8/8.2 ya desbloqueó sus APIs; si no, 12.1.
+- **BBB:** F4 / 21.2 FULL OWNER / PRECHECK por `5458104890`; #48/21.1 está técnicamente completo pero OPEN/DRAFT/divergido y 21.1 no recibe `[x]` hasta integración verificable.
+- **JOBS:** coordinación, secuenciación y plan; sin hopping automático y sin código BeatGaler.
+
+## Secuencia de integración vigente
+
+1. **#49 / WOZ / 8.1 primero:** es el único candidate de esta wave con `behind_by=0` respecto de `e25c604...`; después de integración, 8.2 sigue inmediatamente bajo WOZ.
+2. **#47 antes de #50:** #47 comparte AccountGate/tests con #49 y debe incorporar el nuevo baseline + CI exact-head; #50 permanece detrás de #47 y no puede adelantarse.
+3. **#48:** debe incorporar la integración posterior a #49, salir de estado Draft por el flujo autorizado, revalidar exact-head e integrarse antes de cerrar 21.1. Su refresh puede coordinarse en paralelo con la cadena F2 cuando no rompa mutex/dependencias.
+4. Cualquier cambio de head invalida el uso del CI anterior como prueba de esa nueva combinación hasta nuevo CI exact-head.
 
 **Principio:** tres constructores trabajan tres piezas distintas; cada uno termina y prueba la suya.
