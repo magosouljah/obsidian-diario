@@ -38,14 +38,31 @@
 - compile #128 `33194215442` SUCCESS; D6 cross-process #4 `33194215463` SUCCESS; Required CI #363 `33194215450` SUCCESS.
 - D6 `[x] / PASS`: WOZ `5455677550`.
 
-## 2026-08-28 — D7 / PR #46 + PR #45
+## 2026-08-28 — D7 / CLOSED
 
-- WOZ PR #46 `woz/task-7.1-direct-capabilities` @ `bd62525a0b1701e00c2b4652b4a7a67699c8adab`, draft/open.
-- Candidate: scoped capability, deny-by-default, one-shot lifecycle, PostgreSQL store, ceilings, authorize-before-data-plane y revoke fail-closed.
-- Exact-head PR #46: D7 #16 `33201030543` SUCCESS; D6 #26 `33201030559` SUCCESS; compile #148 `33201030554` SUCCESS; Required CI #385 `33201030567` SUCCESS.
-- BBB `5456351308` dejó 2 findings revoke-wiring sobre head anterior; current PR #46 declara delta para ambos.
-- AAA PR #45 `e29368b4eeaf1641c4f3b9083b166f067bdd6182`; handoff `5456406567` dejó findings expiry/skew, fail-closed response redaction y lease/quarantine lifecycle.
-- D7 sigue `[ 🟡 ] / PENDING` hasta cierre técnico/gate WOZ.
+- WOZ PR #46 `woz/task-7.1-direct-capabilities` final tested head `6477fa6f6c4f04813acbbe5dbd43302347072adb`.
+- PR #46 merge a integración: `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
+- Branch `integration-v0.8.0-alpha.1` verificado en `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
+- D7 `33205320953` SUCCESS; D6 cross-process `33205320957` SUCCESS; temp-auth compile `33205321000` SUCCESS; Required CI #402 `33205320950` SUCCESS en Web/shared, PostgreSQL recovery, Supply Chain/HEAD secret scan, Windows, macOS arm64 y x86_64.
+- AAA findings `5456406567` consumidos/cerrados por WOZ: expiry/skew parity, fail-closed response redaction, live lease/quarantine coupling.
+- BBB findings `5456351308` + revoke-order posterior consumidos/cerrados por WOZ: canonical revoke target, durable fail-closed, pre-mutation revoke.
+- D7 `[x] / PASS`: WOZ gate transaction `5457172823`.
+- Architecture note: PASS aplica a capability mediation BeatGaler bajo Direct/shared-bot aceptado; no afirma primitive provider-native object-scoped.
+
+## 2026-08-28 — F2 / 11.1 AAA
+
+- PR #47 `aaa/f2-11.1-design-foundations` @ `ddad3124cc3d1577d76d9965b55189a2cfb88383` = OPEN / no mergeado.
+- Handoff AAA `5456682762`: `DONE — INDEPENDENT SLICE ONLY`.
+- Required CI #392 `33202493998` SUCCESS; D6 #33 `33202493855` SUCCESS.
+- Candidate cubre tokens/primitives/focus/Dialog/reduced motion, AccountGate autofill/contrast/loading/390–430, docs y DOM/a11y tests en 7 files.
+- 11.1 global permanece `[ 🟡 ]`: no `[x]` hasta integración/secuenciación verificable sobre el estado actual.
+
+## 2026-08-28 — F4 / 21.1 BBB
+
+- Handoff BBB `5456640788`: audit READ ONLY / FINDING sobre base `23bded948c4377b28fc48a72378816968d4cd413`.
+- REUSE: versión/name sources alineados, runtime pins/provenance, macOS universales, Windows Node/Bot API, common capabilities y release same-SHA checks.
+- GAPS: G1 bundle ID final = `RO DECISION REQUIRED`; G2 updater endpoint duplicado; G3 channel/feed sin fuente canónica; G4 Windows packaging omite FFmpeg; G5 manifest tooling no demostrado desde mismo SHA de artifacts.
+- 21.1 permanece `[ 🟡 ]`; BBB conserva full ownership y debe implementar/probar los gaps autorizados sin entrar a 21.2/signing/notarization/release.
 
 ## 2026-08-28 — DECISIÓN RO / ROMPECABEZAS
 
@@ -54,32 +71,27 @@ RO elimina la restricción “todos en el mismo Día”. Trabajo cross-phase per
 ## 2026-08-28 — DECISIÓN RO / OWNER FIJO + SELF-TEST
 
 RO precisa el modelo:
-- **WOZ se queda en F1 / D7** y hace todo el ciclo técnico de esa área: implementación, fixes, pruebas, CI, integración y gate.
+- **WOZ** terminó F1/D7 y, tras Gate D7 PASS, JOBS lo reasigna explícitamente a **F1 / D8 / 8.1+8.2** hasta cierre D8.
 - **AAA se queda en F2 / 11.1** hasta cerrarla; implementa y prueba su propia pieza. No vuelve automáticamente a 7.2.
 - **BBB se queda en F4 / 21.1** hasta cerrarla; implementa/audita y prueba su propia pieza. No vuelve automáticamente a D7.
-- Findings AAA/BBB previos de D7 pasan a ser input/casos de prueba que WOZ debe reproducir y cerrar dentro de su propia área.
+- Findings de otros agentes se usan como input/casos de prueba por el owner actual.
 - No hopping automático al aparecer/desaparecer dependencias.
 - Si un owner queda bloqueado, conserva ownership y reporta blocker; JOBS solo reasigna mediante decisión explícita.
 - Revisión independiente adicional se conserva únicamente cuando JOBS/RO o un gate posterior la exige literalmente.
-
-Commits de sincronización:
-- Plan Maestro `747ff3a57162a3b5212331ef6eaa42cd4136789f`.
-- Equipo multi-IA `1f2b6a480eea40024b5fc9bf386e4f9c28780daf`.
-- Fase 1 `72303b5c80ab8d62104f9417a156bf374468ef85`.
-- Fase 2 `ddb633b79c603f82dbc69fee3fdb10aebb447a59`.
-- Fase 4 `1cb4a7b62c99fae6deb13c85817a4e03070d8a46`.
 
 ---
 
 ## Estado actual
 
-- WOZ: F1/D7 full owner.
-- AAA: F2/11.1 full owner.
-- BBB: F4/21.1 full owner.
+- Integración estable: `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
+- WOZ: **F1/D8 full owner**; PRIMARY 8.1.
+- AAA: F2/11.1 full owner; PR #47 OPEN, candidate DONE/CI verde, cierre global pendiente.
+- BBB: F4/21.1 full owner; audit FINDING activo; bundle ID `RO DECISION REQUIRED`.
 - JOBS: coordinación; no hopping automático.
 - D6: `[x] / PASS`.
-- D7: `PENDING`.
+- D7: `[x] / PASS`.
+- D8: `[ 🟡 ] / PENDING`.
 - 5.1/5.2: `[x]`.
 - 2.2/1.2: tails externos `[ 🟡 ]`.
 - Release público: 🔴 `NO-GO`.
-- WOZ NEXT: cerrar D7 dentro de PR #46 absorbiendo findings pendientes y dejando tests/CI propios + gate estructurado.
+- WOZ NEXT: **8.1 — sesión y seguridad de sesión** sobre `e25c604...`; preflight REUSE/GAP + duplicate-check, requisitos literales, tests/CI exact-head, luego 8.2 dentro del mismo ownership.
