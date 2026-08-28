@@ -5,7 +5,7 @@
 **Objetivo operativo vigente:** cerrar los P0 de confianza y alcanzar un alpha interno restaurable lo más rápido posible mediante el paralelismo permitido, **sin cambiar orden, dependencias, gates ni alcance**.
 
 **Estado:** `[ 🟡 ]` — ACTIVA por decisión RO del 28 de agosto de 2026.  
-**Día activo:** **Día 6 — CLOSEOUT**.  
+**Día activo:** **Día 7 — Data plane seguro**.  
 **Integración actual:** `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`.  
 **Release público:** 🔴 `NO-GO`.
 
@@ -20,7 +20,7 @@
 
 ---
 
-## Día 6 — CLOSEOUT — Autorización tenant y abuso
+## Día 6 — CERRADO — Autorización tenant y abuso
 
 **Resultado:** cada operación usa identidad derivada del servidor y límites previos al trabajo costoso.
 
@@ -28,65 +28,72 @@
 
 - **6.2 / PR #44:** integrado en `9dd76a9d43e72c2295667a3661ce5a1cff7a4826`; abuse controls + KDF asíncrono; `scryptSync` eliminado del request path.
 - **6.1 / PR #43:** integrado en `23bded948c4377b28fc48a72378816968d4cd413`; session-bound authz + ownership + coordinación PostgreSQL cross-process + compatibilidad conjunta con 6.2.
-- Head final pre-merge #43 `5cfec64d756caf73ad3d57f4bb943e7adaabf6bd`: compile, D6 cross-process y Required CI = `SUCCESS`.
-- Head integrado `23bded9...`: compile run #128 (`33194215442`) = `SUCCESS`; D6 cross-process #4 (`33194215463`) = `SUCCESS`; Required CI #363 (`33194215450`) sigue `IN_PROGRESS`.
+- Exact integrated head `23bded9...`: compile #128 (`33194215442`) = `SUCCESS`; D6 cross-process #4 (`33194215463`) = `SUCCESS`; Required CI #363 (`33194215450`) = `SUCCESS`.
+- **WOZ Gate Transaction:** Issue #41 comment `5455677550` = `GATE D6 / PASS`.
 
-### Tarea 6.1 [P0 · BE] — `[ ⚠️ ]` integrada; gate pendiente
+### Tarea 6.1 [P0 · BE] — `[x]`
 
-- [⚠️] Derivar user/installation/tenant solo de sesión validada; ignorar IDs de cuerpo para autorización.
-- [⚠️] Autenticar y autorizar antes de trabajo costoso.
-- [⚠️] Ownership por objeto + eliminación/contención de legacy aplicable.
+- [x] Derivar user/installation/tenant solo de sesión validada; ignorar IDs de cuerpo para autorización.
+- [x] Autenticar y autorizar antes de trabajo costoso.
+- [x] Ownership por objeto + eliminación/contención de legacy aplicable.
 
-### Tarea 6.2 [P0 · BE/QA] — `[ ⚠️ ]` integrada; gate pendiente
+### Tarea 6.2 [P0 · BE/QA] — `[x]`
 
-- [⚠️] Rate limit por IP/cuenta/tenant, delays progresivos y límites upload/concurrencia.
-- [⚠️] KDF de password asíncrono/controlado fuera del bloqueo síncrono del request path.
-- [⚠️] Credential stuffing, IDs ajenos, bodies inválidos, 1.99 GB exactos/+1 y race/concurrency sin carga destructiva.
+- [x] Rate limit por IP/cuenta/tenant, delays progresivos y límites upload/concurrencia.
+- [x] KDF de password asíncrono/controlado fuera del bloqueo síncrono del request path.
+- [x] Credential stuffing, IDs ajenos, bodies inválidos, 1.99 GB exactos/+1 y race/concurrency sin carga destructiva.
 
-### Gate D6
+### Gate D6 — `[x] PASS`
 
-- [⚠️] identidad `user / installation / tenant` derivada de sesión validada;
-- [⚠️] auth + autorización + límites antes de trabajo costoso;
-- [⚠️] ownership por objeto;
-- [⚠️] matriz `401 / 403 / 413 / 429`;
-- [⚠️] pruebas cross-tenant;
-- [⚠️] cero acceso o mutación cross-tenant en suite adversarial.
+- [x] identidad `user / installation / tenant` derivada de sesión validada;
+- [x] auth + autorización + límites antes de trabajo costoso;
+- [x] ownership por objeto;
+- [x] matriz `401 / 403 / 413 / 429`;
+- [x] pruebas cross-tenant;
+- [x] cero acceso o mutación cross-tenant en suite adversarial.
 
-**Gate D6:** `PENDING` solo por cierre de Required CI #363 + decisión estructurada WOZ. JOBS no lo autoacepta.
-
-### Asignación NOW
-
-- **WOZ — PRIMARY:** comprobar #363; `SUCCESS` → publicar `GATE D6 PASS` estructurado. `FAIL` → corregir solo regresión atribuible D6 y repetir evidencia.
-- **AAA:** `LIBRE / BLOQUEADO POR D6`; no reabrir #44 sin delta/finding nuevo.
-- **BBB:** `LIBRE / BLOQUEADO POR D6`; no reauditar #43 sin delta nuevo.
-- **JOBS:** sincronizar PASS y activar Día 7 inmediatamente cuando WOZ lo publique.
+**Gate D6:** `PASS` estructurado por WOZ sobre exact integrated head `23bded948c4377b28fc48a72378816968d4cd413`.
 
 ---
 
-## Día 7 — AUTO-UNLOCK tras D6 PASS — Data plane seguro
+## Día 7 — ACTIVO — Data plane seguro
 
 **Resultado:** navegador/desktop no reciben identidad Telegram compartida y solo operan con capabilities acotadas.
 
-### 7.1 [P0 · BE] — WOZ PRIMARY
+### 7.1 [P0 · BE] — `[ 🟡 ]` WOZ PRIMARY
 
 - [ ] Capacidades cortas limitadas por usuario, vault, operación y objeto.
 - [ ] Rotación/revocación al terminar lease, logout, password change, delete o incidente.
 - [ ] Revocación operativa validada antes de escalar flota; no forzar revocaciones peligrosas sin compromiso confirmado.
 - [ ] Ceilings por bot/tenant + deny-by-default.
 
-### 7.2 [P0 · QA/Security] — AAA
+**BBB review independiente / base `23bded9...`:** handoff Issue #41 `5455758175`, `STATUS: FINDING`. Reuse confirmado en auth/session/lease/temporary-auth, pero 7.1 todavía tiene cuatro gaps reproducibles:
+1. capability/deny-by-default incompleto; operation kind libre y sin scope inmutable `user/vault/operation/object`;
+2. lifecycle revoke no conectado a logout/password change/delete/incidente;
+3. ceilings bot/tenant no demostrados;
+4. revocación inmediata de una capability ya emitida no demostrada sin depender de rotación peligrosa shared-bot.
+
+**Asignación WOZ:** reproducir/aceptar/rechazar técnicamente findings y producir el delta mínimo 7.1. Mantener shared-bot policy aceptada; no usar rotación destructiva como prueba.
+
+### 7.2 [P0 · QA/Security] — `[ 🟡 ]` AAA
 
 - [ ] Capability A contra vault/objeto B.
 - [ ] Replay, expiración, clock skew, sesión cerrada y bot quarantined.
 - [ ] Bundles/workers/logs/memoria serializada sin bot token/API hash.
 
+**AAA parcial / PR #45:** `aaa/task-7.2-transport-isolation-adversarial` @ `1d923c467922231df157bdc42f9aad62405d34ea`; Required CI #364 (`33195699165`) = `SUCCESS`.
+
+PR #45 cubre la porción independiente de aislamiento/guards y **no** implementa capability 7.1 ni cierra 7.2. Handoff Issue #41 `5455777574` reporta finding de boundary productivo no totalmente fail-closed: ciertos `ok:false`/fallback sin refresh pueden retornar body antes de redacción permanente. No hay evidencia de fuga observada actual; sí es un gap de hardening para D7 que WOZ debe reproducir/decidir y corregir si corresponde.
+
+**AAA NEXT:** cuando exista el contrato real 7.1 y el delta productivo del boundary, verificar el fix y completar A→B/replay/expiry-clock-skew/closed-session/quarantined-bot contra la implementación real. No inventar interfaz ni crear PR duplicado.
+
 ### BBB
 
-Review independiente READ ONLY de 7.1. Finding reproducible → Issue #41/PR; no duplicar implementación.
+`LIBRE / BLOQUEADO POR DELTA 7.1`. Re-review READ ONLY solo sobre nuevo head/PR WOZ y limitado a findings previos + scope/revoke/ceilings/deny-by-default.
 
-### Gate D7
+### Gate D7 — `PENDING`
 
-**0 secretos de infraestructura en cliente y 0 operaciones fuera del scope.** WOZ integra y publica gate estructurado.
+**0 secretos de infraestructura en cliente y 0 operaciones fuera del scope.** WOZ integra y publica gate estructurado. Hasta `PASS`, no iniciar 8.x.
 
 ---
 
