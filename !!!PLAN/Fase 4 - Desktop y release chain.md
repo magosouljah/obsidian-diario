@@ -8,76 +8,62 @@
 
 ## Owner actual
 
-**BBB — F4 / 21.1 Release Manifest: FULL OWNER hasta cierre.**
+**BBB — F4 / 21.2 Upgrade Matrix: FULL OWNER / PRECHECK por instrucción RO explícita 2026-08-28.**
 
-BBB hace el ciclo completo de 21.1:
-- preflight/duplicate-check;
-- audit de fuentes actuales;
-- implementación de normalización dentro de 21.1 cuando sea técnicamente segura;
-- corrección de sus propias regresiones;
-- tests/checks de consistencia;
-- build/CI aplicable;
-- handoff con evidencia.
+El cambio 21.1 → 21.2 no convierte 21.1 en cerrado: PR #48 sigue OPEN/DRAFT y no integrado. BBB puede hacer precheck dependency-safe de 21.2 y preparar casos sobre el contrato existente, pero ningún resultado de 21.2 sustituye la integración verificable de 21.1.
 
-**No vuelve automáticamente a D7/PR #46.** D7 ya está `[x]/PASS` y WOZ avanzó a D8.
+**No vuelve automáticamente a D7/PR #46.** D7 ya está `[x]/PASS` y WOZ está en D8.
 
-`RO DECISION REQUIRED`: BBB no inventa bundle ID final. Si esa decisión falta, aísla ese único subitem y continúa todo lo demás de 21.1.
-
-Fuera de scope: 21.2, firma Windows, notarización macOS, certificados/credenciales, release/beta.
+Fuera de scope de 21.2: signing Windows, notarización macOS, certificados/credenciales, release/beta pública, Día 24.
 
 ---
 
 ## Día 21 — Manifest e identidad únicos
 
-### 21.1 [P1 · DE/RO] — `[ 🟡 ]` BBB FULL OWNER / FINDING ACTIVO
+### 21.1 [P1 · DE/RO] — `[ 🟡 ]` COMPLETE_TECHNICAL / INTEGRACIÓN PENDIENTE
 
-Audit BBB Issue #41 `5456640788`, base revisada `23bded948c4377b28fc48a72378816968d4cd413`: **READ ONLY / FINDING**. No cierre ni `[x]`.
+Artifact canónico: PR #48 `bbb/f4-21.1-release-manifest` @ `a3ba448e9ded04f73ee77a3556809dcf72e707f5` — **OPEN / DRAFT / no mergeado**.
 
-#### REUSE verificado
-- VERSION `0.8.0-alpha.1` y package/package-lock/Cargo/Tauri/Settings ya alineados mediante `scripts/version.mjs`.
-- Node `22.23.2`, Rust `1.98.0` y runtime source pins existen.
-- Runtime provenance registra SHA/gitSha/bytes y workflows emiten SHA256SUMS.
-- macOS ya tiene FFmpeg/Node/Bot API universales con verificaciones y provenance.
-- Windows ya stagea/verifica Node + Bot API y digests instalados.
-- Tauri capability declaration no diverge Windows/macOS.
-- Release workflow ya exige Windows/macOS desde el mismo `head_sha`, VERSION/tag coherentes y genera un `latest.json` común.
+Handoff BBB Issue #41 `5457967950`: `READY_FOR_INTEGRATION / COMPLETE_TECHNICAL`.
 
-#### GAP verificado
-1. **G1 — bundle ID final:** `vtm.beatgaler.playground` sigue presente; decisión final = `RO DECISION REQUIRED`.
-2. **G2 — updater endpoint:** duplicado entre `tauri.conf.json`, compile-time `BEATGALER_UPDATER_ENDPOINT` y workflows; falta fuente canónica/drift guard.
-3. **G3 — channel/feed:** beta/stable existe en semántica de versión, pero no como invariant del updater/feed; falta fuente canónica de channel/ring.
-4. **G4 — Windows FFmpeg:** runtime requerido por producción no está incluido/verificado en packaging Windows equivalente a macOS.
-5. **G5 — manifest tooling SHA:** `release-desktop-updater.yml` verifica que builds Windows/macOS compartan SHA, pero el generator `scripts/updater-manifest.mjs` no queda demostrado desde ese mismo SHA.
+#### Evidencia del candidate #48
+- RO resolvió identidad visible/final para este slice: nombre `Galer`; bundle ID `com.beatgaler.app`.
+- VERSION y fuentes package/Cargo/Tauri/Settings normalizadas mediante fuente canónica y drift guards.
+- updater endpoint/channel/feed normalizados con fuente de manifest consistente.
+- Windows FFmpeg incluido/pinneado con digest, installer/runtime provenance y guards equivalentes.
+- Windows/macOS release artifacts, provenance y manifest tooling quedan amarrados al mismo source SHA dentro del candidate.
+- D6 y D7 aplicables verdes; Required CI #412 `33212138329` = SUCCESS; Web/shared, PostgreSQL recovery, Windows, macOS arm64/x86_64 y supply-chain verdes según handoff exact-head.
 
-#### DEPENDENCIES
-- G1 requiere decisión RO/DE; BBB no la inventa.
-- G2/G3 que requieran escoger semántica pública de endpoint/channel se escalan a DE/WOZ/RO; BBB puede continuar normalización segura que no tome esa decisión.
-- Signing/notarization/certs/publication/D24 siguen fuera de scope.
-- `wdio:default` no es divergencia 21.1, pero política final de permisos debe decidirse antes de release público.
+El audit anterior `5456640788` queda como evidencia histórica de gaps de entrada, **no** como estado vivo: G1–G5 fueron tratados en el candidate #48 y la decisión RO de bundle ID ya existe.
 
-#### NEXT_WITHIN_AREA BBB
-- continuar 21.1 sin duplicar artifact;
-- resolver G2/G3 solo hasta donde exista decisión verificable;
-- stage/package Windows FFmpeg + provenance/digest/executability guard;
-- fijar/assert release manifest tooling al mismo SHA de artifacts;
-- añadir drift/consistency tests y CI exact-head;
-- aislar G1 como `RO DECISION REQUIRED` si sigue sin decisión;
-- entregar evidencia; no marcar 21.1 `[x]` desde el audit.
+#### Preflight JOBS 2026-08-28
+
+- PR #48 continúa `OPEN / DRAFT / no mergeado` aunque su handoff técnico sea verde.
+- Comparación de #48 contra integración canónica `e25c604...`: `diverged`, `behind_by=49`; su merge-base sigue en `23bded948...`.
+- #48 y PR #49 tocan `package.json`; por tanto el CI verde del head `a3ba448...` no prueba la combinación posterior a D8/8.1.
+
+#### STOP/PENDING 21.1
+
+**No marcar 21.1 `[x]` todavía.** Antes del cierre debe existir evidencia verificable de un artifact #48 actualizado contra la integración vigente después de #49, estado de PR apto para integración por el flujo autorizado, CI exact-head aplicable verde e integración canónica demostrable. JOBS no decide el método técnico para refrescar el branch ni mergea código BeatGaler.
 
 Checklist literal:
-- [ ] Inventariar VERSION/npm/Cargo/Tauri/Settings y escoger una fuente coherente de versión sin cambiar semántica de producto — REUSE verificado; cierre global pendiente.
-- [ ] Unificar versión/endpoints/channel/capabilities donde existan divergencias reales — gaps G2/G3 abiertos.
-- [ ] Incluir/verificar runtimes Windows presentes en Cloud y recursos universales macOS con digests — G4 abierto.
-- [ ] Añadir checks/tests que fallen si las fuentes vuelven a divergir — pendiente de delta.
-- [ ] Ejecutar build/CI aplicable sobre exact head — pendiente de delta.
-- [ ] Bundle ID final: `RO DECISION REQUIRED`.
+- [ ] Inventariar VERSION/npm/Cargo/Tauri/Settings y escoger una fuente coherente de versión sin cambiar semántica de producto — cubierto en candidate; cierre post-integración pendiente.
+- [ ] Unificar versión/endpoints/channel/capabilities donde existan divergencias reales — cubierto en candidate; revalidación post-baseline pendiente.
+- [ ] Incluir/verificar runtimes Windows presentes en Cloud y recursos universales macOS con digests — cubierto en candidate; revalidación post-baseline pendiente.
+- [ ] Añadir checks/tests que fallen si las fuentes vuelven a divergir — cubierto en candidate; revalidación post-baseline pendiente.
+- [ ] Ejecutar build/CI aplicable sobre exact head — #412 SUCCESS en candidate; falta exact-head tras incorporar integración vigente si cambia el head.
+- [ ] Bundle ID final — decisión RO existente: `com.beatgaler.app`; cierre global pendiente de integración.
 
-**Gate 21.1:** no hay versión/endpoints divergentes ni runtime omitido; lo que dependa literalmente del bundle ID final no se marca `[x]` hasta decisión RO.
+**Gate 21.1:** no hay versión/endpoints divergentes ni runtime omitido; no se considera satisfecho globalmente hasta integración verificable del candidate actualizado.
 
-### 21.2 [P1 · DE/QA]
+### 21.2 [P1 · DE/QA] — `[ 🟡 ]` BBB FULL OWNER / PRECHECK ACTIVO
 - [ ] Upgrade desde 0.7.4 preservando settings/SQLite/offline/cache.
 - [ ] Instalación limpia + datos corruptos/incompletos con recovery.
 - [ ] Artefactos staging desde mismo SHA.
+
+**Asignación vigente:** Issue #41 `5458118907`/último handoff RO-BBB: 21.2 asignado a BBB con estrategia dependency-safe mientras #48/21.1 no esté integrado. El trabajo útil permitido ahora es preflight, duplicate-check, matriz/casos y reutilización verificable; la validación final que dependa del release manifest canónico debe esperar a la integración de 21.1.
+
+**BBB NEXT:** continuar 21.2 Upgrade Matrix dentro de ese límite; en paralelo, cooperar con el flujo autorizado para que #48 incorpore el baseline posterior a #49, revalide exact-head y pueda integrarse. No declarar 21.1 ni 21.2 `[x]` por anticipado.
 
 ## Día 22 — Windows firmado
 
@@ -135,4 +121,4 @@ Checklist literal:
 
 **Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido.
 
-**Regla:** 21.1 sí puede adelantarse y ser propiedad completa de BBB; firma/notarización/release/beta siguen bloqueadas por sus prerequisitos reales.
+**Regla:** 21.1 puede adelantarse y ya tiene candidate técnico completo; 21.2 puede hacer trabajo dependency-safe bajo BBB; firma/notarización/release/beta siguen bloqueadas por sus prerequisitos reales.
