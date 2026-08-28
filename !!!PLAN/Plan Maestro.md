@@ -45,25 +45,28 @@ JOBS hace auditoría completa de `!!!PLAN` solo al **cambiar de fase**, detectar
 
 ## Estado vivo — AHORA
 
-- **Fase activa:** Fase 0 — Contención e integración.
+- **Fase activa:** **Fase 1 — Seguridad, cuentas y datos durables**.
+- **Día activo:** **Día 6 — Autorización tenant y abuso**.
 - **Release público:** 🔴 `NO-GO`.
-- **BeatGaler:** `integration-v0.8.0-alpha.1` @ `a968122127c584b5557b25e70a21eb64f75b3c0e`, versión `0.8.0-alpha.1`.
+- **BeatGaler:** `integration-v0.8.0-alpha.1` @ `b9c2317297ff3c0f7a6246ac97517fa978f6caea`, versión `0.8.0-alpha.1`.
+- **Required CI post-rewrite:** run **#314** (`33148873459`) = `SUCCESS` sobre `b9c2317297ff3c0f7a6246ac97517fa978f6caea`.
 - **Tarea 5.1:** `[x]`.
 - **Tarea 5.2:** `[x]` — **CERRADA por síntesis WOZ/RO** en Issue #41 comment `5448976400`. Los 4/4 criterios WAVE 3 quedaron aceptados. No repetir restore/cutover/migrations/durability restart/key rotation para 5.2 salvo evidencia nueva que invalide el resultado.
-- **Tarea 2.2:** `[ 🟡 ]` **P0 / foco técnico inmediato**. WOZ/RO aprobó `GO` para purga histórica **selectiva y coordinada**; falta ejecución destructiva + cleanup GitHub-side + verificación post-purge.
-- **Tarea 1.2:** `[ 🟡 ]` **P1 / paralelo externo**. Release governance, dominio/DNS/support/status, Authenticode, revisión legal/seguridad independiente y matriz física/testers siguen pendientes. Apple Developer = `PENDING — DEFERRED`.
-- **Fase 1:** bloqueada hasta cerrar los gates restantes de Fase 0.
+- **Tarea 2.2:** `[ 🟡 ]` — **tail externo no bloqueante / pendiente de cierre administrativo**. El trabajo técnico necesario para avanzar ya terminó; quedan exclusivamente (1) limpieza server-side por GitHub Support y (2) verificación final de inaccesibilidad de refs/commits históricos. **No marcar `[x]`** hasta tener ambas evidencias. Por decisión explícita del RO, este tail **NO bloquea Fase 1**.
+- **Tarea 1.2:** `[ 🟡 ]` **P1 / paralelo externo de release**. Release governance, dominio/DNS/support/status, Authenticode, revisión legal/seguridad independiente y matriz física/testers siguen pendientes. Apple Developer = `PENDING — DEFERRED`. No bloquea la ejecución interna de Fase 1; sí conserva sus gates de release.
+- **Fase 0:** trabajo técnico necesario para avanzar concluido; conserva pendientes administrativos/externos sin declararse `[x]` mientras 2.2/1.2 sigan abiertos.
+- **Decisión RO vigente:** Fase 1 queda autorizada desde ahora; esto **no** altera el `NO-GO` de publicación.
 
-### Fase 0 — tablero
+### Fase 0 — tablero residual
 
 | Tarea | Estado |
 |---|---|
 | 0.1 Congelar evidencia | [x] |
 | 0.2 Checkpoint interno / NO-GO | [x] |
 | 1.1 Decisiones de negocio | [x] |
-| 1.2 Dependencias externas de release | [ 🟡 ] P1 |
+| 1.2 Dependencias externas de release | [ 🟡 ] P1 / externo |
 | 2.1 Contención inmediata | [x] |
-| 2.2 Historial Git / incidente | [ 🟡 ] P0 |
+| 2.2 Historial Git / incidente | [ 🟡 ] tail externo no bloqueante |
 | 3.1 Base integrada | [x] |
 | 3.2 Contrato plataforma | [x] |
 | 4.1 Required CI | [x] |
@@ -73,15 +76,67 @@ JOBS hace auditoría completa de `!!!PLAN` solo al **cambiar de fase**, detectar
 
 ---
 
-## NEXT — orden de ejecución
+## Fase 1 — orden obligatorio de ejecución
 
-### 1. WOZ — Tarea 2.2 `[ 🟡 ]` P0
-Ejecutar la purga histórica selectiva autorizada respetando el procedimiento de Fase 0. No convertirla en rewrite genérico y no revocar credenciales solo por la evidencia actual.
+`6.1 ∥ 6.2` → **Gate D6** → `7.1 ∥ 7.2` → **Gate D7** → `8.1 ∥ 8.2` → **Gate D8** → `9.1 ∥ 9.2` → **Gate D9** → `10.1` → `10.2`.
 
-**Salida:** historial sensible identificado ya no alcanzable, cleanup GitHub-side realizado cuando aplique, fresh-clone verification + Required CI verdes.
+**Regla:** el paralelismo existe únicamente dentro del mismo Día. **No iniciar un Día posterior antes de que WOZ/RO acepte el gate anterior.**
 
-### 2. RO/JOBS — Tarea 1.2 `[ 🟡 ]` P1 en paralelo
-Cerrar dependencias que realmente bloquean release, sin distraer a WOZ del P0:
+### AHORA — Día 6 / WAVE F1-A
+
+- **WOZ — PRIMARY:** 6.1 — Unificar middleware de autorización; integrar compatibilidad con 6.2 y decidir técnicamente el cierre de Día 6.
+- **AAA:** 6.2 — Abuse controls + suite adversarial.
+- **BBB:** 6.1 — auditoría/review independiente del authorization boundary, inicialmente **READ ONLY**.
+- **JOBS:** coordinar handoffs, mantener `!!!PLAN` y entregar `WOZ NEXT`.
+
+### Gate D6 requerido
+
+- identidad `user / installation / tenant` derivada de sesión validada;
+- auth + autorización + límites antes de trabajo costoso;
+- ownership por objeto;
+- matriz `401 / 403 / 413 / 429`;
+- pruebas cross-tenant;
+- **cero acceso o mutación cross-tenant** en suite adversarial.
+
+**Hasta D6 PASS:** no iniciar 7.1 ni 7.2.
+
+**Después de D6 PASS:** AAA → 7.2; BBB → review independiente de 7.1; WOZ → 7.1 + integración.
+
+---
+
+## REUSE-FIRST obligatorio para 9.x y 10.x
+
+Antes de ordenar trabajo nuevo, mapear cada requisito contra evidencia válida ya aceptada en Fase 0 / 5.2.
+
+Reutilizar cuando satisfaga **exactamente** el requirement:
+- PostgreSQL como autoridad productiva;
+- migrations/versionado/constraints;
+- importer/idempotencia/rollback;
+- durabilidad;
+- PITR restore representativo;
+- RPO ~7 min;
+- RTO `3643 s`;
+- keyring multiversión;
+- observabilidad/ownership.
+
+**No repetir** restore, cutover, migrations, durability restart ni key rotation únicamente para recrear evidencia ya aceptada. Solo un `GAP` literal genera trabajo nuevo.
+
+---
+
+## Tail de Fase 0 que sigue abierto sin bloquear Fase 1
+
+### 2.2 `[ 🟡 ]` — cierre administrativo externo
+
+Pendiente únicamente:
+1. GitHub Support completa limpieza server-side de referencias/caches históricas aplicables.
+2. Fresh verification final demuestra inaccesibilidad de refs/commits históricos afectados.
+3. Solo entonces JOBS puede sincronizar 2.2 a `[x]` con evidencia.
+
+El post-rewrite baseline `b9c2317297ff3c0f7a6246ac97517fa978f6caea` y Required CI #314 `SUCCESS` son la base técnica vigente de Fase 1.
+
+### 1.2 `[ 🟡 ]` — release externo
+
+Seguir en paralelo sin distraer Día 6:
 - corregir governance/provenance del canal público de releases;
 - dominio/DNS/support/status;
 - Windows Authenticode;
@@ -89,7 +144,8 @@ Cerrar dependencias que realmente bloquean release, sin distraer a WOZ del P0:
 - matriz anónima 12–20 testers / hardware físico;
 - Apple Developer sigue diferido hasta reactivación explícita.
 
-### 3. Security follow-up antes de release
+### Security follow-up antes de release
+
 Rotar el OAuth client secret que fue visible al operador durante troubleshooting de WAVE 3. Su valor **no** debe registrarse en GitHub/`!!!PLAN`.
 
 ---
@@ -111,8 +167,8 @@ PRs #29–#42 + WAVE 3:
 
 ## Bloqueos de release que siguen vivos
 
-No son el trabajo principal de hoy, pero **no deben olvidarse**:
-- 2.2 historial Git;
+No bloquean por sí mismos la ejecución interna de Día 6, pero **sí bloquean publicación cuando aplique**:
+- 2.2 hasta cierre administrativo final;
 - 1.2 release governance/dependencias externas;
 - OAuth secret rotation de seguimiento;
 - deuda GPL `telegram@2.26.22` → `@cryptography/aes@0.1.1`;
@@ -155,7 +211,8 @@ Detalles solo cuando hagan falta: `Equipo multi-IA - Roles y coordinación.md`.
 
 ## Mapa de fases
 
-- **Fase 0:** ACTIVA — faltan 2.2 y 1.2.
-- **Fases 1–7:** no leer ni ejecutar todavía salvo dependencia explícita. Se activan una por una.
+- **Fase 0:** `[ 🟡 ]` residual/administrativa; trabajo técnico necesario para avanzar concluido. 2.2 conserva tail externo no bloqueante y 1.2 conserva dependencias de release.
+- **Fase 1:** **ACTIVA — Día 6**.
+- **Fases 2–7:** no ejecutar todavía. Se activan una por una después de sus dependencias/gates.
 
 **Principio de velocidad:** si una información no cambia prioridad, dependencia, gate, riesgo aceptado, evidencia o NEXT, no pertenece al camino operativo del Plan Maestro.
