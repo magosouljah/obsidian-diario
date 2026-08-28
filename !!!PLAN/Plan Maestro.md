@@ -38,6 +38,7 @@ JOBS hace auditoría completa de `!!!PLAN` solo al **cambiar de fase**, detectar
 6. No duplicar logs/diffs extensos en `!!!PLAN`; usar PR, Actions e Issue #41 como evidencia detallada.
 7. Ningún P0/P1 abierto al publicar.
 8. JOBS solo modifica `!!!PLAN`; WOZ decide/ejecuta código, arquitectura e infraestructura.
+9. En ejecuciones automáticas/turno nocturno aplica obligatoriamente `Equipo multi-IA - Roles y coordinación.md` → **Modo autónomo / turno nocturno**: preflight factual, idempotencia, evidence-before-claim, STOP conditions, gate transaction y watchdog de 3 ciclos sin progreso.
 
 **Precedencia si hay conflicto:** Estado/reglas de este Plan → gate/checklist de fase activa → Gates → Contexto. GitHub/runtime decide los hechos técnicos actuales.
 
@@ -48,6 +49,7 @@ JOBS hace auditoría completa de `!!!PLAN` solo al **cambiar de fase**, detectar
 - **Fase activa:** **Fase 1 — Seguridad, cuentas y datos durables**.
 - **Día activo:** **Día 6 — Autorización tenant y abuso**.
 - **Release público:** 🔴 `NO-GO`.
+- **Modo autónomo nocturno:** **ACTIVO** para los roles configurados por el RO, bajo el protocolo endurecido de `Equipo multi-IA - Roles y coordinación.md`. No altera roadmap, gates ni autoridad de roles.
 - **BeatGaler:** `integration-v0.8.0-alpha.1` @ `b9c2317297ff3c0f7a6246ac97517fa978f6caea`, versión `0.8.0-alpha.1`.
 - **Required CI post-rewrite:** run **#314** (`33148873459`) = `SUCCESS` sobre `b9c2317297ff3c0f7a6246ac97517fa978f6caea`.
 - **Tarea 5.1:** `[x]`.
@@ -198,6 +200,7 @@ No bloquean por sí mismos la ejecución interna de Día 6, pero **sí bloquean 
 - **WOZ:** jefe técnico e integrador; decide arquitectura, implementación, infraestructura y aceptación técnica.
 - **AAA / BBB:** paquetes independientes; no cambian gates ni marcan tareas `[x]` por sí solos.
 - **Issue #41:** coordinación/handoffs/blockers. No duplicar allí ni aquí datos secretos.
+- **Modo autónomo:** los cuatro roles deben obedecer preflight factual, idempotencia, evidence-before-claim, STOP conditions, gate transaction y watchdog definidos en `Equipo multi-IA - Roles y coordinación.md`.
 
 Detalles solo cuando hagan falta: `Equipo multi-IA - Roles y coordinación.md`.
 
