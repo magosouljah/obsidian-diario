@@ -7,7 +7,7 @@
 | Rol | Owner actual | Responsabilidad |
 |---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates, `WOZ NEXT` |
-| **WOZ** | F1 / D7 / 7.1 | implementación, fixes, tests, CI, integración y gate técnico de su área |
+| **WOZ** | F1 / D8 / 8.1+8.2 | implementación, fixes, tests, CI, integración y gate técnico de D8 |
 | **AAA** | F2 / 11.1 | implementación, tests, CI y evidencia completa de Design Foundations |
 | **BBB** | F4 / 21.1 | manifest/release-chain slice 21.1, tests/checks/CI y evidencia de su área |
 
@@ -165,7 +165,7 @@ NEXT_WITHIN_AREA: <acción>
 
 ```text
 NIGHT SHIFT LEDGER
-WOZ: F1/D7 → <estado/evidencia>
+WOZ: F1/D8 → <estado/evidencia>
 AAA: F2/11.1 → <estado/evidencia>
 BBB: F4/21.1 → <estado/evidencia>
 JOBS: <plan sync/no-op>
@@ -177,9 +177,9 @@ STALLED: none | ...
 
 ## Estado vigente
 
-- **WOZ:** F1 / D7 / 7.1 hasta cierre D7.
-- **AAA:** F2 / 11.1 hasta cierre 11.1.
-- **BBB:** F4 / 21.1 hasta cierre 21.1.
+- **WOZ:** F1 / D8 / 8.1+8.2 hasta cierre D8. PRIMARY actual: 8.1.
+- **AAA:** F2 / 11.1 hasta cierre 11.1; PR #47 open, slice DONE con CI exact-head, cierre global pendiente.
+- **BBB:** F4 / 21.1 hasta cierre 21.1; audit FINDING activo, bundle ID final `RO DECISION REQUIRED`.
 - **JOBS:** coordinación, sin hopping automático.
 
 **Principio:** tres constructores trabajan tres piezas distintas; cada uno termina y prueba la suya.
