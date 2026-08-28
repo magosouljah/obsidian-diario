@@ -40,50 +40,46 @@
 
 ## 2026-08-28 — D7 / PR #46 + PR #45
 
-- **WOZ PR #46** `woz/task-7.1-direct-capabilities` current candidate `bd62525a0b1701e00c2b4652b4a7a67699c8adab`, draft/open.
-- Candidate incluye scoped capability, deny-by-default, one-shot lifecycle, PostgreSQL store, ceilings y authorize-before-data-plane.
-- **BBB handoff `5456351308`** sobre head anterior `7e7bac...`: acepta materialmente scope/deny/ceilings pero encontró 2 revoke-wiring blockers: canonical revoke targeting y fail-closed durable revoke.
-- PR #46 current head declara delta específico para ambos blockers; BBB exact-head re-review pendiente.
-- PR #46 exact-head: D7 #16 `33201030543` SUCCESS; D6 #26 `33201030559` SUCCESS; compile #148 `33201030554` SUCCESS; Required CI #385 `33201030567` IN_PROGRESS al último preflight.
-- **AAA PR #45** current head `e29368b4eeaf1641c4f3b9083b166f067bdd6182`; handoff `5456406567`.
-- AAA D7 #14 `33200605498` falla solo en adversarial AAA; unit/PostgreSQL capability contracts, client isolation, object substitution/replay y explicit session revoke pasan.
-- Findings AAA pendientes: memory/PostgreSQL expiry-skew inconsistente; fail-closed response redaction incompleta; ACTIVE capability no invalidada demostrablemente por lease expiry/bot quarantine.
-- D7 sigue `[ 🟡 ] / PENDING`.
+- WOZ PR #46 `woz/task-7.1-direct-capabilities` @ `bd62525a0b1701e00c2b4652b4a7a67699c8adab`, draft/open.
+- Candidate: scoped capability, deny-by-default, one-shot lifecycle, PostgreSQL store, ceilings, authorize-before-data-plane y revoke fail-closed.
+- Exact-head PR #46: D7 #16 `33201030543` SUCCESS; D6 #26 `33201030559` SUCCESS; compile #148 `33201030554` SUCCESS; Required CI #385 `33201030567` SUCCESS.
+- BBB `5456351308` dejó 2 findings revoke-wiring sobre head anterior; current PR #46 declara delta para ambos.
+- AAA PR #45 `e29368b4eeaf1641c4f3b9083b166f067bdd6182`; handoff `5456406567` dejó findings expiry/skew, fail-closed response redaction y lease/quarantine lifecycle.
+- D7 sigue `[ 🟡 ] / PENDING` hasta cierre técnico/gate WOZ.
 
-## 2026-08-28 — DECISIÓN RO / MODELO ROMPECABEZAS
+## 2026-08-28 — DECISIÓN RO / ROMPECABEZAS
 
-RO elimina la restricción artificial “todos avanzan Día por Día”. Desde ahora:
-- trabajo por dependencia real, incluso cross-phase;
-- JOBS puede reordenar fases/tareas/owners/slices/paralelismo;
-- gates controlan cierre/promoción de lo dependiente, no todo inicio futuro;
-- agentes construyen piezas distintas; revisión independiente sigue separada;
-- rol bloqueado → JOBS lo mueve a slice independiente útil si existe;
-- WOZ conserva decisión técnica/integración; RO conserva producto/riesgo/go-no-go.
+RO elimina la restricción “todos en el mismo Día”. Trabajo cross-phase permitido por dependencia real. JOBS puede organizar owners/fases/prioridades sin rebajar gates.
 
-Commits de transición:
-- Plan Maestro inicial: `7aa798884bb7d8e6eb6105985884e1578a107250`; sync live posterior `4fb0c61f83bcfae4047ab2ce1e7392e7df8bc732`.
-- Equipo multi-IA: `5418cdf1c6858d6056a0d0c938d161c012b9bdaf`.
-- Fase 1: inicial `3e89f8a9ea91e2db3bbc18e2001427b728ff9b59`; sync live `17e3c93eb58e94bf411df7ac87b2fa8a2d5934d0`.
-- Fase 2: `7bcdacea9d304bdbbb1e15b2a894304c32891a0e`.
-- Fase 4: `3f757f6c66cdf8348e8c75467cb604bd4e31779f`.
+## 2026-08-28 — DECISIÓN RO / OWNER FIJO + SELF-TEST
 
-### Lanes actuales
+RO precisa el modelo:
+- **WOZ se queda en F1 / D7** y hace todo el ciclo técnico de esa área: implementación, fixes, pruebas, CI, integración y gate.
+- **AAA se queda en F2 / 11.1** hasta cerrarla; implementa y prueba su propia pieza. No vuelve automáticamente a 7.2.
+- **BBB se queda en F4 / 21.1** hasta cerrarla; implementa/audita y prueba su propia pieza. No vuelve automáticamente a D7.
+- Findings AAA/BBB previos de D7 pasan a ser input/casos de prueba que WOZ debe reproducir y cerrar dentro de su propia área.
+- No hopping automático al aparecer/desaparecer dependencias.
+- Si un owner queda bloqueado, conserva ownership y reporta blocker; JOBS solo reasigna mediante decisión explícita.
+- Revisión independiente adicional se conserva únicamente cuando JOBS/RO o un gate posterior la exige literalmente.
 
-- **WOZ:** F1/7.1 PR #46 → responder findings AAA y cerrar CI/reviews exact-head.
-- **AAA:** bloqueado para repetir 7.2 hasta nuevo delta WOZ → trabaja F2/11.1 Design foundations en paralelo; al nuevo head vuelve al PR #45 existente.
-- **BBB:** primero re-review D7 exact-head `bd62525...`; si termina y no hay otro delta crítico, salta F4/21.1 readiness audit READ ONLY.
-- **JOBS:** grafo/handoffs/REUSE D9-D10.
+Commits de sincronización:
+- Plan Maestro `747ff3a57162a3b5212331ef6eaa42cd4136789f`.
+- Equipo multi-IA `1f2b6a480eea40024b5fc9bf386e4f9c28780daf`.
+- Fase 1 `72303b5c80ab8d62104f9417a156bf374468ef85`.
+- Fase 2 `ddb633b79c603f82dbc69fee3fdb10aebb447a59`.
+- Fase 4 `1cb4a7b62c99fae6deb13c85817a4e03070d8a46`.
 
 ---
 
 ## Estado actual
 
-- F1: `[ 🟡 ]` CRITICAL PATH D7.
-- F2: parallel build activo por bloqueo AAA.
-- F4: audit standby tras re-review BBB.
+- WOZ: F1/D7 full owner.
+- AAA: F2/11.1 full owner.
+- BBB: F4/21.1 full owner.
+- JOBS: coordinación; no hopping automático.
 - D6: `[x] / PASS`.
 - D7: `PENDING`.
 - 5.1/5.2: `[x]`.
 - 2.2/1.2: tails externos `[ 🟡 ]`.
 - Release público: 🔴 `NO-GO`.
-- WOZ NEXT: PR #46 responder AAA F1–F3; no merge/gate hasta CI + re-reviews/evidencia.
+- WOZ NEXT: cerrar D7 dentro de PR #46 absorbiendo findings pendientes y dejando tests/CI propios + gate estructurado.
