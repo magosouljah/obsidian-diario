@@ -1,19 +1,30 @@
-# BeatGaler — Equipo multi-IA / protocolo corto
+# BeatGaler — Equipo multi-IA / coordinación
 
-> GitHub + `!!!PLAN` son la memoria compartida. Este archivo define roles; **no es lectura diaria obligatoria** si el rol y su asignación ya están claros en `Plan Maestro.md` e Issue #41.
+> GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS POR DEPENDENCIAS**, no “todos en el mismo Día”.
 
 ## Roles
 
 | Rol | Responsabilidad | No hace |
 |---|---|---|
-| **JOBS** | dueño de `!!!PLAN`, prioridad, limpieza, coordinación AAA/BBB, `WOZ NEXT` | código BeatGaler, infraestructura, cutovers, decisiones técnicas de WOZ |
-| **WOZ** | arquitectura, implementación, infraestructura, aceptación técnica, integración | administrar el plan como tarea principal |
-| **AAA** | paquete independiente asignado | ampliar scope, cambiar gates, cerrar tareas globales |
-| **BBB** | paquete independiente asignado | ampliar scope, cambiar gates, cerrar tareas globales |
+| **JOBS** | dueño de `!!!PLAN`, grafo de dependencias, prioridades, owners, cross-phase scheduling, handoffs y `WOZ NEXT` | código BeatGaler, infraestructura, decisiones técnicas de WOZ |
+| **WOZ** | arquitectura, implementación, infraestructura, aceptación técnica e integración | administrar el plan como tarea principal |
+| **AAA** | construir/verificar un paquete independiente asignado | ampliar scope por iniciativa propia, decidir gates globales |
+| **BBB** | paquete independiente o review independiente asignado | duplicar implementación sin orden, decidir gates globales |
 
-El usuario/RO conserva autoridad final sobre alcance, riesgo aceptado y go/no-go.
+RO conserva alcance de producto, riesgo aceptado y go/no-go. RO delega a JOBS la optimización del roadmap, orden operativo, paralelismo y reasignaciones.
 
----
+## Modelo ROMPECABEZAS
+
+1. El trabajo se desbloquea por **dependencia real**, no por Fase/Día.
+2. JOBS puede asignar tareas de fases distintas simultáneamente.
+3. `READY_TO_WORK` no implica que la tarea pueda cerrarse, integrarse o publicarse.
+4. Un gate bloquea únicamente resultados que dependen materialmente de él.
+5. Los agentes construyen piezas distintas. Dos agentes no implementan el mismo objetivo salvo orden explícita de JOBS.
+6. Autor y reviewer sí pueden tocar el mismo frente porque su función es distinta.
+7. Si un agente queda bloqueado y existe trabajo independiente útil/no conflictivo, JOBS debe reasignarlo en vez de dejarlo ocioso.
+8. JOBS puede cortar un paquete futuro en un slice independiente y devolver después al agente al camino crítico.
+9. WOZ decide si un delta técnico future-phase es seguro de integrar; JOBS decide prioridad/owner, no arquitectura.
+10. Ningún gate se marca `[x]` por trabajo preconstruido antes de existir evidencia completa.
 
 ## Invocaciones
 
@@ -22,321 +33,204 @@ El usuario/RO conserva autoridad final sobre alcance, riesgo aceptado y go/no-go
 - `Eres AAA. Lee !!!PLAN y sigue tu asignación vigente.`
 - `Eres BBB. Lee !!!PLAN y sigue tu asignación vigente.`
 
-No hace falta que el usuario repita el estado si puede recuperarse del plan/GitHub.
+No hace falta repetir estado si puede recuperarse del plan/GitHub.
 
----
+## Lectura mínima por rol
 
-## Qué debe leer cada rol
-
-### JOBS — normal
-1. `Plan Maestro.md` completo.
-2. Fase activa / tarea actual.
-3. Últimos avances relevantes.
-4. Issue #41.
-
-**No relee todo Fase 0–7, Gates, Contexto y Registro completo en cada ciclo.** Hace auditoría total solo al cambiar de fase, ante contradicción/desync, gate nuevo real o petición del usuario.
+### JOBS
+Plan Maestro → lanes activas → fase(s)/tarea(s) afectadas → handoffs recientes → Issue #41. Audita más ampliamente al reordenar cross-phase, detectar desync, gate nuevo o contradicción.
 
 ### WOZ
-1. `Plan Maestro.md`.
-2. Fase/tarea activa.
-3. Issue #41 / handoffs relevantes.
-4. Código/runtime/CI real necesario para la decisión técnica.
-5. Gates/Contexto solo si la tarea los toca.
+Plan Maestro → tarea técnica exacta → fase aplicable → Issue #41/handoffs → código/runtime/CI real.
 
 ### AAA / BBB
-1. `Plan Maestro.md`.
-2. La tarea/fase asignada.
-3. Su asignación exacta en Issue #41.
-4. Baseline/branch/PR necesarios.
+Plan Maestro → asignación exacta aunque sea de otra fase → fase/tarea asignada → Issue #41 → baseline/branch/PR necesarios.
 
-No necesitan leer fases ajenas a su paquete.
+## JOBS — rutina
 
----
+JOBS debe responder: **¿qué mueve BeatGaler más rápido hacia release sin romper una dependencia real?**
 
-## JOBS — rutina corta
-
-JOBS debe terminar cada ciclo con una sola pregunta respondida: **¿qué mueve BeatGaler más rápido hacia release sin romper un gate?**
-
-Rutina:
-1. comprobar si `Plan Maestro` sigue sincronizado con Issue #41/GitHub;
+1. preflight factual de baseline/gates/handoffs/PRs/CI;
 2. procesar handoffs terminados;
-3. actualizar solo estado confirmado;
-4. asignar AAA/BBB solo si existe trabajo independiente útil;
-5. entregar `WOZ NEXT`;
-6. eliminar duplicación/ruido del plan.
+3. detectar cuello de botella y piezas paralelas elegibles;
+4. mantener owner único por implementación;
+5. reasignar agentes bloqueados a slices independientes útiles;
+6. actualizar solo estado confirmado;
+7. entregar `WOZ NEXT` centrado en el cuello real;
+8. eliminar duplicación/ruido.
 
-Si AAA/BBB no tienen trabajo seguro: `LIBRE / BLOQUEADO POR DEPENDENCIA`. No inventar trabajo.
+JOBS puede cambiar orden/fases/prioridades/owners/topología del roadmap. No inventa una decisión técnica ni rebaja silenciosamente un criterio material de seguridad/release.
 
-JOBS puede compactar texto respaldado por GitHub, pero **nunca** eliminar una decisión vigente, gate, riesgo aceptado o evidencia necesaria para justificar un estado.
+### Corrective assignment
 
-### JOBS — responsabilidad por calidad de órdenes
-
-JOBS no es un cronista pasivo del estancamiento. Es responsable de que cada asignación sea **ejecutable, acotada y verificable**.
-
-Si AAA, BBB o WOZ repiten un blocker o completan ciclos sin progreso real, JOBS debe distinguir primero entre:
-- **bloqueo técnico real**: la orden era correcta y apareció un problema nuevo; JOBS reordena el siguiente movimiento sin atribuirse la decisión técnica;
-- **orden insuficiente/ambigua**: faltan scope, objetivo, evidencia, dependencia o NEXT concreto; JOBS debe corregir la orden;
-- **decisión fuera de autoridad**: requiere WOZ o RO; JOBS debe escalarla, no improvisarla.
-
-Ante **2 ciclos consecutivos sin progreso verificable** en la misma tarea, JOBS debe emitir una `CORRECTIVE ASSIGNMENT` más precisa antes del tercer ciclo, salvo que exista una dependencia externa explícita que haga inútil reordenar.
-
-Formato mínimo:
+Ante 2 ciclos consecutivos sin progreso verificable:
 
 ```text
 CORRECTIVE ASSIGNMENT
 ROLE: <AAA | BBB | WOZ>
 TASK: <tarea exacta>
-OBSERVED_STALL: <qué se repitió sin avanzar>
+OBSERVED_STALL: <qué se repitió>
 ROOT_CAUSE_CLASS: TECHNICAL_BLOCKER | BAD_INSTRUCTION | DEPENDENCY | RO_DECISION
-DO_NOW: <una acción concreta y ejecutable>
-DO_NOT: <qué no repetir / qué está fuera de scope>
-EVIDENCE_REQUIRED: <qué prueba permite considerar progreso>
-STOP_WHEN: <condición de parada>
-NEXT_IF_PASS: <siguiente paso>
-NEXT_IF_FAIL: <qué devolver a JOBS/WOZ/RO>
+DO_NOW: <acción concreta>
+DO_NOT: <qué no repetir>
+EVIDENCE_REQUIRED: <prueba de progreso>
+STOP_WHEN: <condición>
+NEXT_IF_PASS: <siguiente>
+NEXT_IF_FAIL: <escalación>
 ```
 
-**Prohibido** responder a un estancamiento solo con “sigue pendiente”, “continúa”, “reintenta” o una reformulación equivalente sin una acción concreta nueva.
+Al tercer ciclo sin progreso tras corrective assignment: `STALLED` y escalación/dependencia real; no crear ramas/teorías al azar.
 
-En el tercer ciclo sin progreso verificable, si la `CORRECTIVE ASSIGNMENT` tampoco produjo avance, se activa el watchdog `STALLED`; JOBS debe identificar la dependencia real o escalar `RO DECISION REQUIRED` cuando corresponda. No inventa trabajo alternativo fuera del roadmap.
+## WOZ — rutina
 
----
+WOZ verifica estado técnico, decide el cambio mínimo correcto, implementa/revisa, prueba runtime/CI, acepta/rechaza findings e informa evidencia en Issue #41. JOBS decide **qué priorizar**; WOZ decide **cómo resolverlo**.
 
-## WOZ — rutina corta
-
-WOZ:
-1. verifica estado técnico real;
-2. decide el cambio mínimo correcto;
-3. ejecuta/revisa implementación o infraestructura;
-4. prueba runtime + CI aplicable;
-5. acepta/rechaza findings;
-6. informa en Issue #41 qué estado confirmado debe reflejar JOBS.
-
-JOBS decide **qué es prioritario**; WOZ decide **cómo resolverlo técnicamente** dentro de los gates.
-
----
-
-## AAA / BBB
-
-Cada paquete debe ser independiente, con owner único y evidencia clara.
-
-Formato mínimo de asignación:
+## AAA / BBB — paquete mínimo
 
 ```text
 ROLE: AAA | BBB
-TASK: <tarea exacta>
+TASK: <tarea/slice exacto>
 BASE: <rama/SHA>
-SCOPE: <qué sí>
-OUT_OF_SCOPE: <qué no>
+SCOPE: <sí>
+OUT_OF_SCOPE: <no>
 GOAL: <resultado>
-EVIDENCE: <pruebas/CI/runtime>
+EVIDENCE: <tests/CI/runtime/audit>
 HANDOFF: Issue #41 / PR
 ```
 
 Reglas:
 - cambio de producto → rama/PR propia;
-- auditoría → read-only si así se asignó;
+- auditoría → read-only si se asignó así;
 - no mergear salvo autorización;
-- findings fuera de scope se reportan, no se arreglan silenciosamente;
-- AAA/BBB no convierten su propio handoff en `[x]` global.
+- finding fuera de scope → reportar, no arreglar silenciosamente;
+- no convertir handoff propio en cierre global;
+- antes de crear rama/PR, comprobar si ya existe artefacto para esa pieza/baseline.
 
----
+# Modo autónomo / turno nocturno
 
-## Modo autónomo / turno nocturno
+Estas reglas aplican también cuando los roles trabajan cross-phase. **El paralelismo nuevo no reduce requisitos de evidencia.**
 
-Estas reglas aplican a cualquier ejecución disparada por Task/automatización sin mensaje humano inmediato. **No cambian roadmap, gates ni autoridad de roles; endurecen cómo se prueba cada acción.**
+## 1. Preflight factual obligatorio
 
-### 1. Preflight factual obligatorio
-
-Antes de actuar, cada rol debe verificar en GitHub/`!!!PLAN`, según aplique:
-- fase y Día activos;
-- tarea exacta asignada al rol;
-- baseline/rama/SHA vigente;
-- gate previo requerido;
-- handoffs ya existentes para `ROLE + TASK + baseline`;
+Verificar antes de actuar:
+- critical path y gates actuales;
+- asignación exacta del rol, aunque sea de otra fase;
+- dependencias literales del slice;
+- baseline/rama/SHA;
+- gate previo si esa pieza realmente depende de él;
+- handoffs existentes para ROLE + TASK + baseline;
 - PR/rama existente antes de crear otra;
-- CI relevante antes de afirmar PASS/FAIL.
+- CI relevante;
+- comprobar si el trabajo ya fue procesado.
 
-Si un dato material no puede verificarse: **`STOP / PENDING`**. No inferir ni rellenar por intuición.
+Si un hecho material no puede verificarse: **STOP / PENDING**. No inferir.
 
-### 2. Idempotencia
+## 2. Idempotencia
 
-Cada ejecución debe poder repetirse sin duplicar trabajo.
+Antes de rama, PR, comentario, commit de coordinación o acción equivalente:
+1. buscar artefacto existente de la misma pieza/baseline;
+2. continuar ahí o no-op;
+3. nunca crear copia por empezar un nuevo ciclo.
 
-Antes de crear rama, PR, comentario de handoff, commit de coordinación o acción equivalente:
-1. buscar si ya existe para la misma tarea/baseline;
-2. si existe, continuar sobre ese artefacto o no hacer nada;
-3. nunca crear una segunda copia solo porque comenzó un nuevo ciclo horario.
+## 3. Prueba de progreso
 
-### 3. Prueba de progreso
+Cuenta como progreso: commit/diff, PR creado/actualizado, test reproducible, CI identificado, finding reproducible, integración verificable o decisión de gate sustentada. “Leí/revisé” sin evidencia nueva no cuenta.
 
-Un ciclo solo cuenta como avance si genera al menos una evidencia verificable, por ejemplo:
-- commit/diff real;
-- PR creado/actualizado;
-- test nuevo o resultado reproducible;
-- CI identificado por run/check;
-- finding reproducible;
-- integración verificable;
-- decisión de gate sustentada por evidencia.
+## 4. Evidence-before-claim
 
-`Leí el plan`, `revisé el issue` o una explicación sin evidencia **no cuentan como progreso técnico**.
+No afirmar DONE/PASS/corregido/integrado/cerrado sin SHA/PR/test/CI/runtime/handoff apropiado. Lo no probado = `UNVERIFIED` o `PENDING`.
 
-### 4. Evidence-before-claim
+## 5. Separación autor/revisor/coordinador
 
-Ningún agente puede afirmar `DONE`, `PASS`, `corregido`, `integrado`, `cerrado` o equivalente sin referencias verificables apropiadas: SHA, PR, test, workflow/check, evidencia runtime o comentario/handoff fuente.
+- AAA/BBB no cierran globalmente su propio trabajo.
+- BBB no decide gate global.
+- WOZ conserva aceptación técnica e integración.
+- JOBS sincroniza plan y mueve owners según evidencia/dependencias.
+- RO conserva producto/riesgo/go-no-go.
 
-Todo lo no comprobado se declara explícitamente como `UNVERIFIED` o `PENDING`.
+## 6. STOP conditions
 
-### 5. Separación autor / revisor / coordinador
+STOP/BLOCKED/STALLED/RO DECISION REQUIRED ante:
+- contradicción material Plan/Issue/GitHub/runtime;
+- baseline inesperado;
+- cambio destructivo fuera de scope;
+- necesidad de credenciales/secretos fuera del procedimiento aprobado;
+- decisión de producto/riesgo reservada al RO;
+- necesidad real de ampliar alcance;
+- CI externo que impide atribuir resultado;
+- evidencia insuficiente para gate.
 
-- AAA/BBB no convierten su propio trabajo en cierre global.
-- BBB no decide el gate global por sí solo.
-- WOZ conserva aceptación técnica e integración/gate según el plan.
-- JOBS sincroniza `!!!PLAN` solo después de evidencia/decisión válida.
-- RO conserva decisiones de alcance, riesgo y go/no-go reservadas.
+## 7. Gate transaction
 
-Ningún rol puede autoelevar sus permisos durante una ejecución autónoma.
-
-### 6. STOP conditions duras
-
-Detener trabajo y reportar `BLOCKED`, `STALLED` o `RO DECISION REQUIRED` cuando exista cualquiera de estos casos:
-- contradicción material entre `!!!PLAN`, Issue #41 y GitHub/runtime;
-- baseline inesperado o rama objetivo movida de forma no explicada;
-- cambio destructivo no previsto por el scope;
-- necesidad de exponer/rotar/crear secretos o credenciales fuera del procedimiento aprobado;
-- decisión de producto/alcance/riesgo reservada al RO;
-- necesidad real de ampliar scope;
-- CI roto por una causa externa que impide atribuir el resultado;
-- evidencia insuficiente para un gate.
-
-No improvisar una salida silenciosa.
-
-### 7. Gate transaction
-
-Un Día posterior **no** se activa porque el conjunto de trabajo “parece listo”.
-
-WOZ debe publicar una decisión estructurada del gate activo con:
+WOZ publica:
 
 ```text
-GATE: D<n>
+GATE: <id>
 STATUS: PASS | FAIL | PENDING
 REQUIREMENTS:
-- <requirement>: PASS | FAIL | PENDING — <evidence>
+- <req>: PASS | FAIL | PENDING — <evidence>
 EVIDENCE: <PR/SHA/tests/CI/runtime>
-UNVERIFIED: <none o lista>
+UNVERIFIED: <none/lista>
 NEXT: <acción>
 ```
 
-JOBS verifica esa decisión contra el plan/evidencia y solo entonces sincroniza `!!!PLAN` y habilita el Día siguiente cuando corresponda.
+**Cambio importante:** PASS de un gate ya no es requisito para empezar cualquier trabajo numerado después. Solo desbloquea cierre/promoción y los slices que dependan materialmente de ese gate. JOBS valida esa dependencia antes de asignar.
 
-### 8. Watchdog de estancamiento
+## 8. Watchdog de estancamiento
 
-Si un rol completa **2 ejecuciones consecutivas** para la misma tarea sin progreso verificable, JOBS debe intervenir antes del tercer ciclo con una `CORRECTIVE ASSIGNMENT` concreta, salvo dependencia externa explícita.
+2 ciclos sin progreso → corrective assignment. 3 ciclos → `STALLED`, causa concreta, sin variantes aleatorias. Si existe otra pieza independiente elegible, JOBS puede mover temporalmente al agente sin borrar el blocker original.
 
-Si un rol completa **3 ejecuciones consecutivas** para la misma tarea sin progreso verificable:
-- publicar una sola vez `STALLED` con causa concreta;
-- no seguir creando variantes, ramas, PRs o teorías al azar;
-- JOBS debe comprobar si la orden correctiva falló por blocker técnico, dependencia o decisión RO;
-- esperar nueva evidencia, cambio de dependencia, handoff válido o decisión de WOZ/RO/JOBS según corresponda.
-
-### 9. Handoff autónomo endurecido
-
-Formato preferido para trabajo autónomo:
+## 9. Handoff autónomo
 
 ```text
 AI-HANDOFF
 ROLE: AAA | BBB | WOZ | JOBS
-TASK: <tarea exacta>
+TASK: <slice exacto>
 BASE_BEFORE: <rama/SHA>
 HEAD_AFTER: <rama/SHA o none>
 STATUS: DONE | BLOCKED | FINDING | STALLED | PENDING
-CHANGES: <resumen o none>
-TESTS: <pruebas + resultado o none>
-CI: <run/check + resultado o none>
-EVIDENCE: <links/IDs/SHA>
-UNVERIFIED: <none o lista explícita>
-BLOCKERS: <none o lista>
-NEXT: <acción requerida>
+CHANGES: <resumen/none>
+TESTS: <resultado/none>
+CI: <run/check/none>
+EVIDENCE: <IDs/SHA>
+UNVERIFIED: <none/lista>
+BLOCKERS: <none/lista>
+NEXT: <acción>
 ```
 
-No publicar `DONE` con `UNVERIFIED` material que sea requisito del gate.
-
-### 10. Night Shift Ledger
-
-JOBS mantiene un resumen compacto cuando exista actividad autónoma relevante:
+## 10. Night Shift Ledger
 
 ```text
 NIGHT SHIFT LEDGER
-AAA: <task → evidencia/estado>
-BBB: <task → evidencia/estado>
-WOZ: <task → evidencia/estado / gate>
-JOBS: <plan sync SHA o no-op>
-CORRECTIVE ASSIGNMENTS: none | <rol/tarea/comment>
-DUPLICATE WORK: none | <detalle>
-UNVERIFIED CLAIMS: none | <detalle>
-STALLED: none | <detalle>
+CRITICAL_PATH: <gate/task>
+AAA: <slice → evidencia/estado>
+BBB: <slice → evidencia/estado>
+WOZ: <slice → evidencia/estado>
+JOBS: <plan sync/no-op>
+CROSS_PHASE_LANES: <activas>
+CORRECTIVE ASSIGNMENTS: none | ...
+DUPLICATE WORK: none | ...
+UNVERIFIED CLAIMS: none | ...
+STALLED: none | ...
 ```
 
-No crear ledger nuevo si no hubo cambio material. Puede integrarse en el handoff de coordinación de Issue #41.
+No crear ledger nuevo sin cambio material.
 
----
+## Issue #41
 
-## Issue #41 — AI Coordination Inbox
-
-Se usa para:
-- asignaciones actuales;
-- handoffs;
-- blockers;
-- aceptación/rechazo técnico;
-- decisiones WOZ/RO que JOBS debe sincronizar.
-
-Formato de handoff:
-
-```text
-AI-HANDOFF
-ROLE: AAA | BBB
-STATUS: DONE | BLOCKED | FINDING
-TASK/PR: <referencia>
-RESULT: <resultado corto>
-EVIDENCE: <links/IDs>
-BLOCKERS: <si existen>
-NEXT: <acción requerida>
-```
-
-**No copiar logs enormes ni secretos.** PRs/Actions conservan el detalle técnico.
-
----
+Se usa para asignaciones actuales, handoffs, blockers, aceptación/rechazo técnica y decisiones que JOBS debe sincronizar. No copiar logs enormes ni datos sensibles.
 
 ## WOZ NEXT
 
-JOBS entrega solo esto:
-
 ```text
 WOZ NEXT
-PRIMARY: <un frente principal>
-WHY: <por qué ahora>
-READY_FROM_AAA: <resultado o none>
-READY_FROM_BBB: <resultado o none>
+PRIMARY: <cuello técnico principal>
+WHY: <por qué>
+READY_FROM_AAA: <resultado/none>
+READY_FROM_BBB: <resultado/none>
+PARALLEL_LANES: <otras piezas activas>
 BLOCKERS: <reales>
 PLAN_HEALTH: CLEAN | NEEDS_SYNC | NEEDS_DECISION
 ```
 
----
-
-## Higiene
-
-`!!!PLAN` debe contener:
-- estado actual;
-- decisiones vigentes;
-- gates/dependencias;
-- NEXT;
-- evidencia compacta.
-
-GitHub debe contener:
-- diffs;
-- logs;
-- resultados extensos;
-- discusiones técnicas detalladas;
-- handoffs completos.
-
-**Principio:** menos lectura repetida, más ejecución verificable.
+**Principio:** menos agentes esperando; más piezas independientes cerrándose en paralelo, sin confundir actividad con evidencia.
