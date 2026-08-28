@@ -4,59 +4,45 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.  
-**Estado F2:** trabajo independiente permitido; no se declara Fase 2 globalmente cerrada/activa por un solo slice.
+**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.  
+**Estado F2:** trabajo independiente permitido; no se declara Fase 2 globalmente cerrada por un solo slice.
 
 ## Owner actual
 
-**AAA — F2 / 12.2 Biblioteca: FULL OWNER del artifact actual hasta integración/secuenciación o reasignación explícita.**  
-La reasignación 11.1 → 12.2 está respaldada por la instrucción RO registrada en PR #50/handoff AAA. PR #47 sigue siendo dependencia canónica de #50 y no se considera cerrado globalmente por ese cambio de owner.
+**AAA — F2 / 12.2 Biblioteca: FULL OWNER del artifact actual hasta integración/secuenciación o reasignación explícita.**
 
-Artifacts canónicos existentes:
-- PR #47 `aaa/f2-11.1-design-foundations` @ `ddad3124cc3d1577d76d9965b55189a2cfb88383`;
-- PR #50 `aaa/f2-12.2-library` @ `258017fbd03e2a8edf0a93f7af2c7acb7ddf1a7c`, apilado sobre #47.
-
-AAA no crea artifacts duplicados. El ciclo pendiente es incorporar la integración canónica vigente por el método técnico autorizado, corregir regresiones propias, repetir CI exact-head y entregar handoff cuando cambie el head.
-
-Fuera de scope de AAA en estos artifacts: APIs F1/D8, MFA/reset backend semantics, data plane, YouTube.
+11.1 ya fue integrado y cerrado. AAA conserva ownership de 12.2 / PR #50; no crea artifact duplicado. Fuera de scope: APIs F1/D8, MFA/reset backend semantics, data plane, YouTube.
 
 ---
 
 ## Día 11 — Foundations y AccountGate
 
-### Tarea 11.1 [P1 · FE/DL] — `[ 🟡 ]` CANDIDATE DONE / INTEGRACIÓN PENDIENTE
+### Tarea 11.1 [P1 · FE/DL] — `[x] DONE / INTEGRATED`
 
-Artifact: PR #47 `aaa/f2-11.1-design-foundations` @ `ddad3124cc3d1577d76d9965b55189a2cfb88383` — **OPEN / no mergeado / no draft**.
+Artifact: PR #47 `aaa/f2-11.1-design-foundations` refreshed exact head `fdc6463e6b81efedc547c97595529d28e0ba2d83`.
 
-Handoff AAA `5456682762`: `DONE — INDEPENDENT SLICE ONLY`. Exact-head Required CI #392 `33202493998` = COMPLETED / SUCCESS; D6 cross-process #33 `33202493855` = SUCCESS. Diff declarado contra su baseline: 7 files de foundations/AccountGate/tests/docs.
+Después de integrar PR #49 / D8.1, AAA reutilizó #47, incorporó el baseline post-#49 y resolvió el overlap material de `AccountGate.tsx` + test DOM preservando como autoridad la seguridad de sesión de #49. El delta de 11.1 permaneció limitado a UI/a11y foundations.
 
-Cobertura del candidate:
-- tokens, tipografía, focus, button/field/feedback/icon/Dialog/loading foundations;
-- dark browser autofill + reduced motion global;
-- AccountGate signed-out/loading con labels/autocomplete/alerts y layout safe-area 390–430;
-- contrast assertions WCAG AA;
-- DOM/a11y tests afectados;
-- `docs/DESIGN-FOUNDATIONS-11.1.md`.
-
-**Preflight JOBS 2026-08-28:** #47 ya no está sobre el baseline canónico actual: comparación desde `e25c604...` = `diverged`, `behind_by=49`. Además #47 y PR #49 modifican `src/components/AccountGate.tsx` y `tests/component-dom/accountGateWeb.test.tsx`. Por tanto el CI verde de `ddad3124...` no prueba todavía la combinación post-D8/8.1.
-
-**No marcar 11.1 `[x]`:** el artifact debe incorporar el baseline canónico posterior a la integración autorizada de #49, resolver cualquier interacción dentro del ownership técnico correspondiente y obtener CI exact-head verde antes de integración. JOBS no prescribe rebase/merge/cherry-pick ni modifica código.
+Evidencia exact-head:
+- Required CI #429 / run `33216364174` — SUCCESS;
+- D6 #68 / `33216364104` — SUCCESS;
+- D7 #39 / `33216364074` — SUCCESS;
+- merge a `integration-v0.8.0-alpha.1`: `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
 
 Checklist literal:
-- [ ] Tokens, tipografía, iconos, focus, buttons, fields, feedback, Dialog y reduced motion — implementado en candidate, cierre global pendiente.
-- [ ] Documentar estados; retirar duplicación inline empezando por AccountGate — implementado en candidate, cierre global pendiente.
-- [ ] Corregir autofill, contraste, loading y layout 390–430 px — implementado en candidate, cierre global pendiente.
-- [ ] Tests DOM/a11y afectados — verdes en candidate, revalidación post-baseline pendiente.
-- [ ] Build/CI aplicable verde sobre exact head — #392 SUCCESS en candidate; falta exact-head del artifact actualizado sobre integración vigente.
-
-**SECUENCIA OBLIGATORIA:** `#47` debe quedar integrado y verificable **antes** de procesar el cierre/integración de `#50`.
+- [x] Tokens, tipografía, iconos, focus, buttons, fields, feedback, Dialog y reduced motion.
+- [x] Documentar estados; retirar duplicación inline empezando por AccountGate.
+- [x] Corregir autofill, contraste, loading y layout 390–430 px.
+- [x] Tests DOM/a11y afectados.
+- [x] Build/CI aplicable verde sobre exact head e integración verificable.
 
 ### Tarea 11.2 [P1 · FE/QA] — Auth UI completa
 - [ ] Login/register/MFA/verify/reset/recovery/error/offline.
 - [ ] OAuth popup/redirect, blocked/cancel/retry.
 - [ ] Tests teclado, lector, zoom, móvil y errores de red.
 
-**Dependencias de cierre:** APIs de cuenta aplicables de Fase 1. En el preflight actual D8/8.2 sigue pendiente, incluyendo MFA recovery/reauth/verification/reset lifecycle; por eso **11.2 completa no es AAA NEXT dependency-safe todavía**.  
+**Dependencias de cierre:** APIs de cuenta aplicables de Fase 1. D8/8.2 sigue `[ 🟡 ] / PENDING` y conserva decisiones de provider/retención/provider-only reauth, por lo que **11.2 completa todavía no es AAA NEXT dependency-safe**.
+
 **Gate:** variantes de cuenta alcanzables, legibles y recuperables.
 
 ## Día 12 — Library, cards y primera cuenta Web
@@ -67,22 +53,25 @@ Checklist literal:
 - [ ] Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.
 - [ ] Instrumentar startup por fases, comparar cold/warm y corregir regresión de carga inicial reportada.
 
-**AAA NEXT condicional:** cuando #47 y #50 estén integrados/cerrados con evidencia, si D8/8.2 sigue pendiente, JOBS reasigna AAA a **12.1** como siguiente slice F2 ya planificado que permite trabajo útil independiente. Si para entonces 8.2 ya está cerrado, JOBS reevalúa 11.2 antes de iniciar 12.1; no hay hopping automático.
+**AAA NEXT condicional:** después de integrar/cerrar 12.2, si D8 sigue pendiente, JOBS reasigna AAA explícitamente a **12.1** como siguiente slice F2 independiente. Si D8 ya cerró para entonces, JOBS reevalúa 11.2 antes de iniciar 12.1.
 
-### 12.2 [P1/P2 · FE/DL] — Biblioteca — `[ 🟡 ]` CANDIDATE DONE / DEPENDE DE #47
-- [ ] Header/search/sort/tags/selection accesibles.
-- [ ] Card con jerarquía fija y estados sin salto.
-- [ ] Grid 390/768/1024/desktop; touch no depende de hover.
+### 12.2 [P1/P2 · FE/DL] — Biblioteca — `[ 🟡 ] CANDIDATE DONE / INTEGRACIÓN PENDIENTE`
+- [ ] Header/search/sort/tags/selection accesibles — implementado en candidate; cierre global pendiente.
+- [ ] Card con jerarquía fija y estados sin salto — implementado en candidate; cierre global pendiente.
+- [ ] Grid 390/768/1024/desktop; touch no depende de hover — implementado en candidate; cierre global pendiente.
 
-Artifact: PR #50 `aaa/f2-12.2-library` @ `258017fbd03e2a8edf0a93f7af2c7acb7ddf1a7c` — **OPEN / no mergeado / no draft**; base PR = rama #47.
+Artifact canónico: PR #50 `aaa/f2-12.2-library` @ `258017fbd03e2a8edf0a93f7af2c7acb7ddf1a7c` — **OPEN / no mergeado / non-draft**.
 
-Handoff AAA `5458081273`: `DONE`; exact 12.2 delta = 4 files. Required CI #416 `33213031905` = SUCCESS; D6 cross-process #56 `33213031958` = SUCCESS.
+El candidate original fue intencionalmente apilado sobre la rama #47 y tiene Required CI #416 `33213031905` SUCCESS + D6 `33213031958` SUCCESS. Sin embargo #47 fue después refreshed e integrado como `489d81b...`; el head #50 actual no constituye todavía evidencia exacta de la combinación canónica viva.
 
-**Preflight JOBS 2026-08-28:** #50 está intencionalmente apilado sobre #47 y, comparado con integración `e25c604...`, también está `diverged`, `behind_by=49`. El CI verde demuestra el stack #47→#50 en su head actual, no la combinación con la integración canónica posterior.
+**No marcar 12.2 `[x]`:**
+1. conservar/reutilizar PR #50;
+2. seguir la secuencia JOBS para evitar refresh doble mientras WOZ mueve D8.2;
+3. incorporar el baseline canónico que ya contenga los cambios previos autorizados;
+4. repetir CI exact-head si cambia el head;
+5. integrar por flujo autorizado y solo entonces cerrar 12.2.
 
-**No marcar 12.2 `[x]`:** primero #47 debe quedar integrado; después #50 debe quedar basado/validado contra la integración que ya contenga #47, repetir CI exact-head si cambia el head y solo entonces integrarse por el flujo autorizado.
-
-**Dependencias de cierre:** data plane + foundations.  
+**Dependencias de cierre:** data plane + foundations. Foundations 11.1 ya está cerrado; falta integración verificable del slice 12.2.  
 **Gate:** registro → empty gallery → Add Beat sin Desktop previo.
 
 ## Día 13 — Import, Review y bulk edit
