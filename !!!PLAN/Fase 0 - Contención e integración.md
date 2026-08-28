@@ -4,7 +4,10 @@
 
 **Objetivo:** dejar una sola línea integrada, segura y recuperable para continuar a Fase 1.
 
-**Estado:** `[ 🟡 ]` — falta cerrar **2.2 P0** y **1.2 P1**. 5.1 y 5.2 están `[x]`.
+**Estado:** `[ 🟡 ]` residual/administrativo — **el trabajo técnico necesario para avanzar terminó y el RO autorizó Fase 1**. 5.1 y 5.2 están `[x]`. 2.2 conserva únicamente un **tail externo no bloqueante / pendiente de cierre administrativo**; 1.2 conserva dependencias externas de release. Fase 0 no se marca `[x]` mientras esos cierres sigan pendientes.
+
+**Baseline técnico post-rewrite vigente:** `integration-v0.8.0-alpha.1` @ `b9c2317297ff3c0f7a6246ac97517fa978f6caea`.  
+**Required CI post-rewrite:** run **#314** (`33148873459`) = `SUCCESS` sobre ese SHA.
 
 ---
 
@@ -15,9 +18,9 @@
 | 0.1 Congelar evidencia | [x] | baseline + NO-GO registrados |
 | 0.2 Checkpoint interno | [x] | 4 Sep no es release público; RO puede parar |
 | 1.1 Negocio | [x] | alcance comercial/distribución decidido |
-| 1.2 Dependencias externas | [ 🟡 ] P1 | release governance + dominio/firma/reviews/test matrix |
+| 1.2 Dependencias externas | [ 🟡 ] P1 / externo | release governance + dominio/firma/reviews/test matrix |
 | 2.1 Contención inmediata | [x] | auth/ownership/límites antes de carga |
-| 2.2 Historial Git | [ 🟡 ] P0 | purga selectiva + cleanup + verificación |
+| 2.2 Historial Git | [ 🟡 ] tail externo no bloqueante | GitHub Support + verificación final de inaccesibilidad |
 | 3.1 Integración | [x] | `integration-v0.8.0-alpha.1` |
 | 3.2 Contrato plataforma | [x] | Web sin Tauri; capacidades compartidas |
 | 4.1 Required CI | [x] | merge bloqueado por CI requerido |
@@ -46,31 +49,37 @@
 
 **Finding vigente:** `magosouljah/galer` ya tiene releases alpha públicas, pero la auditoría BBB encontró governance insuficiente: alphas observadas no prerelease/immutable, `galer:main` sin protección y tag público no ligado directamente al SHA fuente BeatGaler. Preservar evidencia; no borrar releases casualmente.
 
-**Gate 1.2:** ninguna dependencia launch-critical queda sin owner/plan/evidencia o deferral explícito aceptado. **NO SATISFECHO.**
+**Gate 1.2:** ninguna dependencia launch-critical queda sin owner/plan/evidencia o deferral explícito aceptado. **NO SATISFECHO.** Sigue bloqueando release cuando aplique, pero por decisión RO **no bloquea la ejecución interna de Fase 1**.
 
 ---
 
-## 2.2 `[ 🟡 ]` P0 — Resolver exposición histórica
+## 2.2 `[ 🟡 ]` — Resolver exposición histórica
 
 ### Confirmado
 - HEAD actual está sanitizado.
 - Configuración real/local queda fuera de Git.
-- AAA WAVE 2 confirmó **metadatos operacionales** todavía alcanzables en historia pública.
-- No se confirmó plaintext credential; esta evidencia **no autoriza revoke/rotation por sí sola**.
-- WOZ/RO dio **GO** a purga histórica **selectiva y coordinada** en Issue #41 comment `5448976400`.
+- AAA WAVE 2 confirmó metadatos operacionales alcanzables en la historia pública pre-rewrite; no confirmó plaintext credential y esa evidencia no autorizó revoke/rotation por sí sola.
+- WOZ/RO autorizó la purga histórica selectiva/coordinada en Issue #41 comment `5448976400`.
+- El trabajo técnico de rewrite necesario para avanzar ya fue ejecutado según la decisión RO vigente.
+- Baseline post-rewrite: `b9c2317297ff3c0f7a6246ac97517fa978f6caea`.
+- Required CI post-rewrite run #314 = `SUCCESS`.
 
-### Procedimiento obligatorio antes/durante el rewrite
-- [ ] Freeze de escrituras al repo.
-- [ ] Inventario completo `public ref → SHA` y revisión de refs task/tmp obsoletas.
-- [ ] Fresh mirror + `git-filter-repo` selectivo sobre los tres paths históricos privados ya identificados y los identificadores históricos exactos del example antiguo.
-- [ ] Verificación pre-push de paths/valores/historia completa + equivalencia del árbol actual.
-- [ ] Excepción temporal de force-push solo donde sea imprescindible; restaurar protecciones inmediatamente.
-- [ ] Cleanup GitHub-side de cache/PR refs / Support cuando aplique.
-- [ ] Fresh clone post-purge + búsqueda histórica negativa + `Required CI` verde.
+### Trabajo técnico de la purga — completado para habilitar avance
+- [x] Freeze/inventario y coordinación de refs necesarios para el rewrite.
+- [x] Fresh mirror + rewrite selectivo del alcance aprobado.
+- [x] Verificación técnica pre/post necesaria para fijar el nuevo baseline.
+- [x] Excepción de force-push limitada al rewrite y retorno a línea post-rewrite.
+- [x] Required CI post-rewrite verde: run #314 sobre `b9c2317297ff3c0f7a6246ac97517fa978f6caea`.
 
-**No hacer:** rewrite genérico, borrar evidencia innecesariamente, rotar/revocar credenciales sin evidencia adicional.
+### Tail externo no bloqueante / pendiente de cierre administrativo
+- [ ] **GitHub Support completa limpieza server-side** de caches/PR refs/referencias históricas aplicables.
+- [ ] **Verificación final independiente/fresh** confirma inaccesibilidad de los refs/commits históricos afectados después de la limpieza server-side.
 
-**Gate 2.2:** exposición histórica identificada resuelta y verificada post-purge. **NO SATISFECHO.**
+**Regla de cierre:** 2.2 **permanece `[ 🟡 ]`** hasta recibir evidencia de ambos puntos anteriores. No convertirla en `[x]` solo porque el rewrite y CI ya terminaron.
+
+**Decisión RO vigente:** este tail externo **NO bloquea Fase 1**. La excepción es únicamente de dependencia de avance interno; **no** equivale a cierre de 2.2 ni a GO de publicación.
+
+**No hacer:** rewrite genérico adicional, borrar evidencia innecesariamente, rotar/revocar credenciales sin evidencia adicional, o repetir la purga solo para recrear evidencia.
 
 ---
 
@@ -120,11 +129,13 @@ El detalle completo histórico puede recuperarse del Git history de este archivo
 
 ---
 
-## Gate de salida de Fase 0
+## Estado de salida / handoff a Fase 1
 
-Fase 0 cambia a `[x]` únicamente cuando:
-- [ ] **2.2 `[x]`**;
-- [ ] **1.2 `[x]`**;
-- [ ] no aparece un nuevo P0/P1 de Fase 0 que invalide el avance.
+Fase 0 **no se declara `[x]` administrativamente** mientras 2.2 y 1.2 sigan abiertos. Sin embargo, por decisión explícita del RO:
+- el trabajo técnico necesario para avanzar está terminado;
+- 2.2 conserva exclusivamente un tail externo no bloqueante;
+- 1.2 sigue como carril externo de release;
+- Fase 1 queda autorizada y activa sobre `b9c2317297ff3c0f7a6246ac97517fa978f6caea` con Required CI #314 `SUCCESS`;
+- release público permanece 🔴 `NO-GO`.
 
-Hasta entonces: **NO iniciar Fase 1 como frente principal.**
+**Handoff activo:** Fase 1 / Día 6. No usar los tails externos de Fase 0 para adelantar o saltar gates D6–D10.
