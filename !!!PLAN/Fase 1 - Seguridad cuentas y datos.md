@@ -1,9 +1,9 @@
 # Fase 1 — Seguridad, cuentas y datos durables
 
-> Leer `Plan Maestro.md`. Fase 1 mantiene sus gates, pero el ownership actual es fijo: **WOZ es dueño completo de D7** hasta cerrarlo.
+> Leer `Plan Maestro.md`. Fase 1 mantiene sus gates y ownership fijo: **WOZ es dueño completo de D8** hasta cerrarlo.
 
-**Estado:** `[ 🟡 ]` — D7 activo.  
-**Integración estable:** `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`.  
+**Estado:** `[ 🟡 ]` — D8 activo.  
+**Integración estable:** `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.  
 **Release público:** 🔴 `NO-GO`.
 
 ## D6 — `[x] PASS`
@@ -15,78 +15,52 @@
 
 ---
 
-## D7 — ACTIVO — WOZ FULL OWNER
+## D7 — `[x] PASS`
 
 **Resultado:** cliente sin secretos de infraestructura y operaciones solo dentro de capability concedida.
 
-### 7.1 / 7.2 — consolidado bajo WOZ para cierre D7
+### 7.1 / 7.2 — cerrado por WOZ
 
-PR principal: **#46** `woz/task-7.1-direct-capabilities` @ `bd62525a0b1701e00c2b4652b4a7a67699c8adab`, draft/open.
+- PR #46 `woz/task-7.1-direct-capabilities` exact tested head `6477fa6f6c4f04813acbbe5dbd43302347072adb`.
+- Merge a integración: `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
+- D7 capability run `33205320953` SUCCESS.
+- D6 cross-process run `33205320957` SUCCESS.
+- Productive Temp Auth Compile `33205321000` SUCCESS.
+- Required CI #402 `33205320950` SUCCESS: Web/shared, PostgreSQL recovery, Supply Chain/HEAD secret scan, Windows, macOS arm64 y macOS x86_64 verdes.
+- Findings AAA `5456406567` cerrados dentro de PR #46: expiry/skew parity, fail-closed response redaction y live lease/quarantine coupling.
+- Findings BBB `5456351308` + revoke-order posterior cerrados: canonical revoke targeting, durable fail-closed y revoke pre-mutation.
+- WOZ gate transaction Issue #41 `5457172823`: `GATE D7 / PASS`.
 
-Candidate actual incluye:
-- capability corta scope user/tenant/installation/session/vault/operation/object;
-- deny-by-default allowlist + object IDs explícitos;
-- lifecycle one-shot + revoke/expire;
-- PostgreSQL store/migration `0005_direct_capabilities.sql`;
-- tenant ceiling + bot ceiling;
-- authorize-before-data-plane Web/Desktop;
-- canonical scope compare;
-- canonical server-side revoke target;
-- account/session revoke completo;
-- fail-closed `503 DIRECT_CAPABILITY_REVOKE_FAILED` ante durable revoke failure.
+Gate D7 cerrado: **0 secretos de infraestructura en cliente y 0 operaciones fuera del scope concedido** dentro del contrato aceptado.
 
-Exact-head `bd62525...`:
-- D7 capability #16 `33201030543` SUCCESS;
-- D6 cross-process #26 `33201030559` SUCCESS;
-- temp-auth compile #148 `33201030554` SUCCESS;
-- Required CI #385 `33201030567` SUCCESS.
-
-### Findings históricos que WOZ debe absorber como tests propios
-
-**BBB `5456351308`:**
-1. canonical server-side revoke targeting;
-2. fail-closed/durable revoke cuando capability-store revoke falla.
-
-El current head de PR #46 declara delta para ambos. **No se requiere que BBB vuelva a D7**; WOZ debe mantener pruebas que demuestren su cierre.
-
-**AAA `5456406567` / PR #45 `e29368...`:**
-1. expiry/clock-skew inconsistente memory vs PostgreSQL;
-2. response redaction no universalmente fail-closed en `ok:false` y no-refresh fallback;
-3. ACTIVE capability no invalidada demostrablemente por lease expiry/bot quarantine.
-
-PR #45 queda como evidencia/adversarial input histórico. **AAA no vuelve automáticamente a 7.2.** WOZ reproduce esos casos dentro de PR #46 o artefacto técnico de su área, corrige lo aceptado y deja tests/CI propios verdes.
-
-### Responsabilidad WOZ para cerrar D7
-
-- reproducir/aceptar/rechazar cada finding material con evidencia;
-- implementar solo el delta necesario;
-- mantener tests de scope A→B, replay, expiry/skew, closed session/lease, quarantine, response redaction, revoke y ceilings;
-- verificar que ningún client artifact recibe secretos de infraestructura;
-- ejecutar CI exact-head aplicable;
-- integrar técnicamente cuando proceda;
-- publicar gate estructurado.
-
-### Gate D7 — `PENDING`
-
-Requisito: **0 secretos de infraestructura en cliente y 0 operaciones fuera del scope concedido**.
-
-No PASS hasta que WOZ demuestre los requisitos con evidencia exact-head y publique la transacción del gate.
+No reabrir D7 sin nueva evidencia material.
 
 ---
 
-## D8 — Sesión y ciclo de cuenta
+## D8 — ACTIVO — WOZ FULL OWNER
 
-### 8.1
+**Gate D8:** usuario puede verificar, recuperar, exportar y borrar sin intervención manual insegura.
+
+Baseline de entrada: `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
+
+### 8.1 — sesión y seguridad de sesión — PRIMARY WOZ NEXT
 - [ ] Cookie HttpOnly/Secure/SameSite o equivalente; CSRF explícito.
 - [ ] Distinguir 401/expiry de offline/timeout.
 - [ ] Session inventory, revoke-one/revoke-all, rotación sensible.
+- [ ] Preflight REUSE/GAP + duplicate-check antes de crear artefacto.
+- [ ] Tests/CI exact-head aplicables y regresiones de la propia área verdes.
 
-### 8.2
+### 8.2 — ciclo de cuenta — WOZ SAME OWNER
 - [ ] Email verification/reset one-shot/expiry/anti-enumeración.
 - [ ] MFA recovery + reauth + notifications.
 - [ ] Export/delete + revocation/provider cleanup/retention/receipt.
+- [ ] Tests/CI exact-head aplicables.
 
-**Gate D8:** usuario puede verificar, recuperar, exportar y borrar sin intervención manual insegura.
+Si provider/legal/credenciales o una decisión RO bloquean un subitem de 8.2, marcar solo ese subitem `RO DECISION REQUIRED` / `BLOCKED` y continuar el resto independiente de D8. WOZ no salta automáticamente a D9.
+
+### Gate D8 — `PENDING`
+
+No PASS hasta evidencia exact-head suficiente y transacción estructurada de WOZ.
 
 ---
 
