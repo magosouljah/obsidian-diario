@@ -1,30 +1,38 @@
 # Fase 2 — Flujos Web completos y rediseño de alto impacto
 
-> Leer `Plan Maestro.md`. Bajo el modelo ROMPECABEZAS, slices frontend independientes pueden avanzar antes de cerrar Fase 1 si no dependen materialmente de sus APIs pendientes.
+> Leer `Plan Maestro.md`. Bajo el modelo ROMPECABEZAS, slices frontend independientes pueden avanzar antes de cerrar Fase 1 si no dependen materialmente de APIs pendientes.
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-## Estado paralelo actual
+## Owner actual
 
-**AAA — F2 / 11.1 Design foundations slice:** `[ 🟡 ] READY_TO_WORK`  
-Baseline de producto: `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`.
+**AAA — F2 / 11.1 Design Foundations: FULL OWNER hasta cierre.**  
+Baseline inicial: `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`.
 
-Scope inmediato independiente:
-- tokens, tipografía, focus, buttons, fields, feedback, Dialog y reduced motion;
-- autofill, contraste, loading y layout 390–430 en AccountGate;
-- retirar duplicación visual inline únicamente donde el foundation nuevo la sustituya limpiamente;
-- tests DOM/a11y de primitives afectados.
+AAA hace el ciclo completo de 11.1:
+- preflight/duplicate-check;
+- implementación;
+- corrección de regresiones propias;
+- tests DOM/a11y/unit aplicables;
+- build y CI exact-head;
+- handoff con evidencia.
 
-Fuera de scope: APIs Día 8, MFA/reset backend, data plane, YouTube. Este slice no marca 11.1 `[x]` hasta evidencia completa y review/integración aplicables. AAA conserva PR #45 de 7.2 intacto para retorno cuando WOZ publique contrato 7.1.
+**No existe interrupt rule hacia D7/PR #45.** AAA no vuelve automáticamente a 7.2; WOZ absorbió el cierre D7.
+
+Fuera de scope de AAA 11.1: APIs F1/D8, MFA/reset backend semantics, data plane, YouTube.
 
 ---
 
 ## Día 11 — Foundations y AccountGate
 
-### Tarea 11.1 [P1 · FE/DL] — Design foundations
+### Tarea 11.1 [P1 · FE/DL] — `[ 🟡 ]` AAA FULL OWNER
 - [ ] Tokens, tipografía, iconos, focus, buttons, fields, feedback, Dialog y reduced motion.
 - [ ] Documentar estados; retirar duplicación inline empezando por AccountGate.
 - [ ] Corregir autofill, contraste, loading y layout 390–430 px.
+- [ ] Tests DOM/a11y afectados.
+- [ ] Build/CI aplicable verde sobre exact head.
+
+**Cierre 11.1:** evidencia completa del owner; no depende de que AAA sea llamado a otra fase.
 
 ### Tarea 11.2 [P1 · FE/QA] — Auth UI completa
 - [ ] Login/register/MFA/verify/reset/recovery/error/offline.
@@ -143,5 +151,3 @@ Fuera de scope: APIs Día 8, MFA/reset backend, data plane, YouTube. Este slice 
 - 18.1: quotas/entitlements server-side.
 - 25.1: matriz cross-platform/browser.
 - Gates de publicación permanecen obligatorios.
-
-**Regla:** el nuevo paralelismo permite construir foundations y otros slices sin dependencia; no permite fingir que auth/provider/producción ya existen.
