@@ -40,18 +40,14 @@ Hace auditoría completa solo al cambiar de fase, detectar contradicción/desync
 ## Estado vivo — AHORA
 
 - **Fase activa:** **Fase 1 — Seguridad, cuentas y datos durables**.
-- **Día activo:** **Día 6 — CLOSEOUT de autorización tenant y abuso**.
+- **Día activo:** **Día 7 — Data plane seguro**.
 - **Release público:** 🔴 `NO-GO`.
 - **BeatGaler / integración actual:** `integration-v0.8.0-alpha.1` @ `23bded948c4377b28fc48a72378816968d4cd413`, versión `0.8.0-alpha.1`.
-- **D6 implementación integrada:**
-  - PR #44 / 6.2 integrado en `9dd76a9d43e72c2295667a3661ce5a1cff7a4826`: abuse controls + KDF asíncrono; sin `scryptSync` en request path.
-  - PR #43 / 6.1 integrado en `23bded948c4377b28fc48a72378816968d4cd413`: autorización session-bound + ownership + coordinación PostgreSQL cross-process + compatibilidad final con 6.2.
-  - Head final pre-merge #43 `5cfec64d756caf73ad3d57f4bb943e7adaabf6bd`: compile, D6 cross-process y Required CI = `SUCCESS`.
-- **Checks del head ya integrado `23bded9...`:**
-  - compile run #128 (`33194215442`) = `SUCCESS`;
-  - D6 cross-process run #4 (`33194215463`) = `SUCCESS`;
-  - Required CI / Desktop Portability run #363 (`33194215450`) = **IN_PROGRESS**; Web/shared, PostgreSQL/recovery y supply-chain ya `SUCCESS`; runners nativos siguen ejecutándose.
-- **Gate D6:** `PENDING` únicamente hasta que Required CI #363 cierre y WOZ publique la transacción estructurada del gate. **JOBS no autoacepta el gate.**
+- **Gate D6:** `[x] / PASS` — WOZ Issue #41 comment `5455677550`; exact integrated-head Required CI #363 (`33194215450`) = `SUCCESS`, compile #128 (`33194215442`) = `SUCCESS`, D6 cross-process #4 (`33194215463`) = `SUCCESS`.
+- **Día 7 evidencia inicial:**
+  - **BBB / 7.1 review READ ONLY:** finding reproducible con 4 gaps literales: capability/deny-by-default incompleto; lifecycle revoke no conectado a eventos de cuenta; ceilings bot/tenant no demostrados; revocación inmediata de capability emitida no demostrada. Handoff Issue #41 `5455758175`.
+  - **AAA / 7.2 parcial:** PR #45 `aaa/task-7.2-transport-isolation-adversarial` @ `1d923c467922231df157bdc42f9aad62405d34ea`; Required CI #364 (`33195699165`) = `SUCCESS`. Añade guards/pruebas independientes y reporta finding fail-closed del boundary productivo; **no corrige por sí solo el boundary ni cierra 7.2/D7**. Handoff `5455777574`.
+- **Gate D7:** `PENDING`; no existe cierre técnico ni PR 7.1 integrado.
 - **5.1:** `[x]`.
 - **5.2:** `[x]` — cierre WOZ/RO Issue #41 comment `5448976400`; no repetir evidencia aceptada salvo invalidación nueva.
 - **2.2:** `[ 🟡 ]` tail externo no bloqueante: GitHub Support + verificación final de inaccesibilidad. No marcar `[x]` sin ambas evidencias.
@@ -65,20 +61,12 @@ Hace auditoría completa solo al cambiar de fase, detectar contradicción/desync
 
 **Regla de velocidad:** preparar asignaciones por adelantado, pero **no ejecutar un Día posterior antes del PASS estructurado del gate anterior**. En cuanto WOZ publica PASS válido, JOBS sincroniza y el siguiente Día arranca sin pedir permiso adicional.
 
-### AHORA — WAVE F1-D6 CLOSEOUT
+### AHORA — WAVE F1-D7
 
-- **WOZ — PRIMARY:** vigilar Required CI #363 sobre `23bded9...`; si termina `SUCCESS`, publicar `GATE: D6 / STATUS: PASS` con evidencia exacta. Si falla, resolver únicamente la regresión atribuible dentro de scope D6 y repetir evidencia.
-- **AAA:** `LIBRE / BLOQUEADO POR D6`. No reabrir 6.2 ya integrado. Al D6 PASS → **7.2**.
-- **BBB:** `LIBRE / BLOQUEADO POR D6`. No reauditar 6.1 sin delta nuevo. Al D6 PASS → **review independiente de 7.1**.
-- **JOBS:** mantener `!!!PLAN`; en cuanto exista D6 PASS válido, activar Día 7 y publicar `WOZ NEXT` sin ciclo de espera adicional.
-
-### AUTO-UNLOCK — Día 7
-
-Al D6 PASS:
-- **WOZ:** 7.1 — capabilities cortas, scope user/vault/op/object, revocación/rotación, ceilings, deny-by-default; integración y decisión D7.
-- **AAA:** 7.2 — ataque de aislamiento: A vs B, replay, expiry, clock skew, sesión cerrada, bot quarantined, scans de bundles/workers/logs/memoria serializada.
-- **BBB:** review independiente READ ONLY de 7.1; findings reproducibles, sin duplicar implementación.
-- **JOBS:** coordina handoffs y exige gate D7 estructurado.
+- **WOZ — PRIMARY / 7.1:** consumir los findings reproducibles de BBB y AAA; decidir técnicamente el delta mínimo correcto para capabilities cortas con scope `user/vault/operation/object`, deny-by-default, lifecycle revoke, ceilings bot/tenant y revocación operativa control-side. Corregir el boundary fail-closed de respuestas si reproduce/acepta el finding AAA. Integrar y probar sin cambiar la política shared-bot aceptada ni usar rotaciones destructivas para demostrar aislamiento.
+- **AAA — 7.2:** PR #45 tiene CI verde y cubre solo la parte independiente. No declarar DONE. Tras existir contrato real 7.1 / fix del boundary, verificar el fix y completar matriz A→B, replay, expiry/clock skew, sesión cerrada y bot quarantined sobre el contrato real; continuar sobre artefacto existente cuando aplique, sin duplicar PR.
+- **BBB:** handoff 7.1 consumido. `LIBRE / BLOQUEADO POR DELTA 7.1`; re-review READ ONLY únicamente cuando WOZ produzca nuevo head/PR, limitado a scope/revoke/ceilings/deny-by-default y findings previos.
+- **JOBS:** mantener Día 7 sincronizado, procesar nuevos handoffs y exigir `GATE D7` estructurado; no autoaceptar el gate.
 
 ### AUTO-UNLOCK — Día 8
 
@@ -110,16 +98,20 @@ Al D9 PASS:
 
 ---
 
-## Gate D6 requerido
+## Gate D6 — CERRADO
 
-- identidad `user / installation / tenant` derivada de sesión validada;
-- auth + autorización + límites antes de trabajo costoso;
-- ownership por objeto;
-- matriz `401 / 403 / 413 / 429`;
-- pruebas cross-tenant;
-- **cero acceso o mutación cross-tenant** en suite adversarial.
+- [x] identidad `user / installation / tenant` derivada de sesión validada;
+- [x] auth + autorización + límites antes de trabajo costoso;
+- [x] ownership por objeto;
+- [x] matriz `401 / 403 / 413 / 429`;
+- [x] pruebas cross-tenant;
+- [x] **cero acceso o mutación cross-tenant** en suite adversarial.
 
-**Hasta D6 PASS estructurado:** no iniciar 7.x.
+**Decisión:** `PASS` estructurado por WOZ en Issue #41 comment `5455677550` sobre exact integrated head `23bded948c4377b28fc48a72378816968d4cd413`.
+
+## Gate D7 — ACTIVO
+
+Requisito de salida: **0 secretos de infraestructura en cliente y 0 operaciones fuera del scope concedido**. Hasta PASS estructurado WOZ: no iniciar 8.x.
 
 ---
 
@@ -184,7 +176,9 @@ No bloquea la ejecución interna de Fase 1, pero sí publicación cuando aplique
 ## Mapa de fases
 
 - **Fase 0:** `[ 🟡 ]` residual/administrativa; trabajo técnico necesario para avanzar concluido.
-- **Fase 1:** **ACTIVA — Día 6 CLOSEOUT**.
+- **Fase 1:** **ACTIVA — Día 7**.
 - **Fases 2–7:** no ejecutar todavía.
+
+**WOZ NEXT:** 7.1 PRIMARY — resolver gaps/finding D7 reproducibles, producir PR/head verificable y cerrar solo con tests/CI + gate estructurado.
 
 **Principio de velocidad:** si una información no cambia prioridad, dependencia, gate, riesgo aceptado, evidencia o NEXT, no pertenece al camino operativo.
