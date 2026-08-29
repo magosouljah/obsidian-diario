@@ -7,34 +7,45 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-012`
+- `ASSIGNMENT_ID: NIGHT-WOZ-013`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F3 / 16.2 — integrate SAME PR #61; then READ-ONLY 17.1 readiness if merge succeeds`
-- `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 58a6bf61441f08bf68aa63673c0d5f2994b220d9`
+- `AREA: F3 / 16.2 — refresh + exact-head CI + integrate SAME PR #61`
+- `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`
 - `REUSE_PR: #61 / woz/night-16.2-promotion-contract`
 - `KNOWN_CANDIDATE_HEAD: aef1cd0b1a26be327e561f344d63dae5d8def7ef`
-- `JOBS_PRECHECK: exact-head D6 33266547956 SUCCESS; temp-auth 33266548019 SUCCESS; D7 33266548050 SUCCESS; Test - Desktop Portability 33266547963 SUCCESS; Upgrade 21.2 Staging skipped/no aplicable.`
+- `STALE_EVIDENCE: prior exact-head CI on aef1cd0... is historical only after #60 moved integration; repository rules already rejected using it for merge.`
 
 ### Orden JOBS
 
-1. Preflight factual + race-check GitHub vivo; REUSE-FIRST exclusivamente SAME #61 para 16.2.
-2. BBB corre antes en cadencia. Si integration sigue `58a6bf614...` y head `aef1cd0...`, usa CI exact-head verde y merge protegido expected-head.
-3. Si integration cambió por #60 u otro owner, refresca la MISMA #61 sobre baseline vivo, preservando exclusivamente los 3 archivos F3, y exige CI aplicable nuevo.
-4. Tras merge verificable, declarar solo `16.2 SOFTWARE DONE / EXTERNAL TAIL`; no fingir staging/prod físicos, provider resources, DNS/TLS o deploy/rollback real.
-5. Solo si #61 queda integrado con evidencia y queda tiempo: READ-ONLY REUSE-FIRST audit de 17.1 (qué existe vs gaps de Stripe products/prices/Checkout/idempotency). No crear Stripe resources, costo ni implementación 17.1 en 012.
-6. No tocar F2/F4 ni infraestructura real. Handoff en este markdown + Issue #41 y STOP.
+1. Preflight factual + race-check contra GitHub vivo, Plan Maestro, F3, Registro, roles, protocolo, este ledger e Issue #41. GitHub manda.
+2. REUSE-FIRST exclusivamente SAME #61. No cerrar/reabrir duplicado, no nueva PR semánticamente equivalente.
+3. Refrescar la branch existente sobre `7de7b57a...` preservando **solo** el delta F3/16.2. El compare previo ya demostró que el movimiento #60 fue solo tres paths F4 sin overlap semántico; vuelve a comprobarlo antes de mutar.
+4. Si el connector no ofrece update-branch/rebase directo, puede usarse una reconstrucción Git-data mínima/merge-union de la **misma branch** únicamente si preserva exactamente el delta de #61 y los dos parents son verificables. No reconstruyas product code a mano ni abras otra PR.
+5. Tras cualquier refresh material, exige CI aplicable **nuevo sobre el exact head nuevo**. El verde de `aef1cd0...` no autoriza la combinación post-#60.
+6. Cuando CI aplicable esté verde, relee integration y PR; protected merge con expected-head solo si race-check sigue limpio. Después reread de integration + merge parents.
+7. Tras merge, declarar únicamente `16.2 SOFTWARE DONE / EXTERNAL TAIL`. No afirmar staging/production físicos, provider resources, DNS/TLS productivo, deploy/rollback real.
+8. No iniciar Stripe/D17, F2, F4, infraestructura real ni costo en esta asignación.
+9. Si el refresh legítimo es imposible con herramientas disponibles, reporta `BLOCKED_TOOLING` con la operación exacta faltante; no rebajes Required CI ni uses el green viejo.
+10. Handoff en este markdown + Issue #41 y STOP.
 
 ## RESULTADO DEL TURNO ANTERIOR
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-011`  
-`TURN_STATUS: PENDING`  
-`RESULT: SAME #61 fue refrescada sobre baseline 58a6bf614... a head aef1cd0b1a26be327e561f344d63dae5d8def7ef preservando 3-file delta F3. El turno terminó con CI pendiente; GitHub posterior confirma todos los gates aplicables SUCCESS.`  
-`EVIDENCE_NEW_BY_JOBS: runs 33266547956/48019/48050/47963 SUCCESS; #61 OPEN/Ready/mergeable; no merge todavía.`
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-012`  
+`TURN_STATUS: PENDING_CI_REFRESH`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`  
+`HEAD_AFTER: woz/night-16.2-promotion-contract @ aef1cd0b1a26be327e561f344d63dae5d8def7ef (sin refresh post-#60)`  
+`PR: #61 OPEN / Ready / mergeable`  
+`CHANGES: ninguna a product code. WOZ detectó correctamente baseline movement por #60 y no usó CI viejo como autorización.`  
+`TESTS/CI: prior Required CI verde es evidencia histórica; protected merge fue rechazado con Required status check expected después del cambio de base.`  
+`EVIDENCE: live integration 7de7b57a...; #61 head aef1cd0...; compare sin overlap material F3/F4; Issue #41 comment 5464188400.`  
+`UNVERIFIED: refreshed head sobre 7de7b57a..., exact-head CI nuevo, merge SHA, deploy real.`  
+`BLOCKERS: refresh de misma branch + CI nuevo requerido; ningún gate puede rebajarse.`
 
 ## HISTORIAL
 
-- `NIGHT-WOZ-012`: ASSIGNED — integrar SAME #61; luego solo audit read-only 17.1 si mergea.
-- `NIGHT-WOZ-011`: PENDING — #61 refreshed a `aef1cd0...`; CI luego verde.
+- `NIGHT-WOZ-013`: ASSIGNED — refresh SAME #61 sobre `7de7b57a...`, CI exact-head nuevo y merge protegido si procede.
+- `NIGHT-WOZ-012`: PENDING_CI_REFRESH — merge rechazado correctamente tras movimiento #60; verde viejo no reutilizable para merge.
+- `NIGHT-WOZ-011`: PENDING — #61 refreshed a `aef1cd0...`; CI luego verde para ese baseline.
 - `NIGHT-WOZ-010`: PENDING — #61 candidate software 16.2.
 - `NIGHT-WOZ-009`: PENDING_EXTERNAL — #59 merged `be9e58c...`; physical separation external.
 - `NIGHT-WOZ-008`: PENDING_CI.
