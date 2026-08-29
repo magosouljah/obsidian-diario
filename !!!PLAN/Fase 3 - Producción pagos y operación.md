@@ -4,17 +4,15 @@
 
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-**Estado nocturno CYCLE 017:** baseline vivo `integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`. F3 sigue siendo uno de los mayores bloques abiertos de F0–F4.
+**Estado nocturno CYCLE 017 FINAL:** baseline vivo `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.
 
 ## Owner actual
 
-**WOZ — F3 / 17.1 SAME PR #65 exact-head green race-check/integration — `NIGHT-WOZ-017`.**
+**WOZ — F3 / 17.2 webhook integrity/idempotency/retry software-only — `NIGHT-WOZ-018`.**
 
-PR #59 quedó **MERGED / DONE** en su slice software como `be9e58c9edc0bb40742e0b91e3f2ebe771ace502`; no satisface separación física staging/prod.
+PR #59 quedó **MERGED / DONE** en su slice software como `be9e58c9...`; separación física staging/prod sigue externa. PR #61 quedó **MERGED** como `55e0d875...`; 16.2 permanece SOFTWARE DONE / EXTERNAL TAIL.
 
-PR #61 quedó **CLOSED / MERGED** como `55e0d8759ec03b23fa8e4f1f35304922dffeb992`; 16.2 permanece SOFTWARE DONE / EXTERNAL TAIL.
-
-PR #65 `woz/night-17.1-checkout-contract` sigue OPEN/Ready/mergeable sobre base `b114111caf...`, head exacto `e65538640581f3f986748968db1f4dfb069c2579`. Evidencia exact-head: F3 17.1 `33276769749` SUCCESS; Desktop Portability `33276769684` SUCCESS; D6 `33276769695` SUCCESS; D7 `33276769698` SUCCESS; temp-auth `33276769702` SUCCESS; Upgrade `33276769715` SKIPPED/no aplicable. Todavía NO está integrado; `NIGHT-WOZ-017` procesa exclusivamente race-check/merge.
+PR #65 quedó **CLOSED / MERGED** como `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`, parents `b114111caf... + e655386405...`. Exact-head previo: F3 17.1 `33276769749`, Desktop Portability `33276769684`, D6 `33276769695`, D7 `33276769698`, temp-auth `33276769702` = SUCCESS; Upgrade skipped/no aplicable.
 
 ## Día 16 — Staging y producción reproducibles
 
@@ -32,19 +30,19 @@ Integrado por #61 como `55e0d875...`: promoción dependency-safe PR→preview→
 
 ## Día 17 — Stripe Checkout y webhooks
 
-### 17.1 — `[ 🟡 ] SOFTWARE CANDIDATE GREEN / NOT INTEGRATED` — WOZ `NIGHT-WOZ-017`
-- [ ] productos/precios/trial/currency/tax e IDs internos estables;
-- [ ] Checkout Session server-side;
-- [ ] idempotency keys y precios no decididos por cliente.
+### 17.1 — `[x] SOFTWARE DONE / INTEGRATED`
+- [x] IDs internos/catalog contract server-owned en software.
+- [x] Checkout Session abstraction server-side.
+- [x] idempotency key y rechazo de precio/plan/currency/trial controlado por cliente.
 
-**Estado factual:** candidate #65 está exact-head verde pero no mergeado. Solo después de merge verificable puede promoverse este slice a `SOFTWARE DONE / INTEGRATED`. Eso no prueba Stripe productivo, credenciales reales ni decisiones comerciales reales.
+**Evidencia:** PR #65 head `e65538640581f3f986748968db1f4dfb069c2579`, exact-head CI verde, merge `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`. El cierre es **software**: no prueba cuenta Stripe productiva, credenciales, products/prices reales ni decisiones comerciales reales.
 
-### 17.2
-- [ ] firma webhook raw-body;
-- [ ] event ID durable + async/retry;
-- [ ] duplicados/desorden/timeouts/eventos relevantes.
+### 17.2 — `[ 🟡 ] ASSIGNED` — WOZ `NIGHT-WOZ-018`
+- [ ] firma webhook sobre raw-body antes de parse/mutate;
+- [ ] event ID durable/idempotente + async/retry/failure state;
+- [ ] duplicados/desorden/timeouts/eventos relevantes con semántica segura.
 
-**Gate:** la UI nunca concede plan por redirect; solo estado server-side reconciliado. 17.2 no empieza dentro de `NIGHT-WOZ-017`; requiere nuevo Assignment ID tras 17.1 integrado.
+**Gate:** la UI nunca concede plan por redirect; solo estado server-side reconciliado. `NIGHT-WOZ-018` es software-only, REUSE-FIRST y no autoriza recursos/credenciales Stripe reales.
 
 ## Día 18 — Entitlements, portal y reconciliación
 
