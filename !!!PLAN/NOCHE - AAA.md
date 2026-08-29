@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-AAA-013`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F2 / 12.1 — atomic empty-index vertical slice; backend/control-plane scope explicitly authorized`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`
 - `REUSE_LINEAGE: aaa/night-12.1-atomic-empty-index; reuse existing branch if safely refreshable, otherwise no duplicate semantic candidate`
@@ -27,24 +27,25 @@
 8. OUT OF SCOPE: pagination/window/memory, cold/warm residual, D13–D15, F3/F4, infraestructura real/release.
 9. Handoff en este markdown + Issue #41 y STOP.
 
-## RESULTADO DEL TURNO ANTERIOR
+## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-012`  
-`TURN_STATUS: BLOCKED`  
-`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 58a6bf61441f08bf68aa63673c0d5f2994b220d9`  
-`HEAD_AFTER: aaa/night-12.1-atomic-empty-index @ 58a6bf61441f08bf68aa63673c0d5f2994b220d9 (sin cambios)`  
-`PR: none`  
-`CHANGES: ninguno. Auditoría factual demostró que getLibraryIndex requiere pinned index existente y replaceLibraryIndex exige get+expectedMessageId; client-only send+pin tendría race y no satisface atomic/idempotent/fail-closed.`  
-`TESTS: no ejecutados; no hubo delta legítimo.`  
-`CI: N/A.`  
-`EVIDENCE: src/features/cloud/webTransport.worker.ts + webGalerCloudTransport; Issue #41 comment 5464047651.`  
-`UNVERIFIED: primitive equivalente fuera de la lineage frontend; implementación backend; tests/CI/PR.`  
-`BLOCKERS: resuelto a nivel de ownership por JOBS-012: AAA recibe scope backend/control-plane mínimo en 013.`  
-`RECOMMENDATION_TO_JOBS: mantener 12.1 abierto hasta evidencia real.`
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-013`  
+`TURN_STATUS: PENDING`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`  
+`HEAD_AFTER: aaa/night-12.1-atomic-empty-index @ 86ea14ad04357d86d4140f17621bd3a835435350`  
+`PR: #64 — OPEN / Ready; base 7de7b57a508b3cf05cbded81501fbd3da63922a3; exact head 86ea14ad04357d86d4140f17621bd3a835435350; NOT MERGED.`  
+`CHANGES: REUSE-FIRST sobre la misma lineage. Se reutilizaron PostgreSQL advisory locks ya integrados y el helper server-side existente commitIndexCopyOnWrite. Se añadió autoridad mínima /transport/index/ensure, serializada por vault, idempotente y fail-closed cuando PostgreSQL no está disponible; resultado created|existing ligado al pointer ganador. Web solo cae al bootstrap cuando el pinned INDEX realmente falta. Se añadieron tests focales para carrera de dos callers, retry/idempotencia, existing no-overwrite, provider failure y fallo al persistir el pointer con cleanup del candidate.`  
+`TESTS: cloud-server/tests/atomic-library-index.test.cjs añadido con los casos obligatorios; ejecución final todavía NO verificada y por tanto no se reclama PASS.`  
+`CI: exact head 86ea14ad04357d86d4140f17621bd3a835435350 — D6 run 33271187067 IN_PROGRESS; D7 run 33271187071 IN_PROGRESS; Productive Temp Auth Compile run 33271187063 IN_PROGRESS; Test - Desktop Portability / Required CI run 33271187072 QUEUED; Upgrade 21.2 Staging run 33271187110 SKIPPED por paths. No merge mientras CI aplicable no esté verde.`  
+`EVIDENCE: duplicate-check backend-wide encontró primitives inferiores reutilizables, no un ensure/create-if-absent completo equivalente; branch existente fue fast-forward no-force al baseline vivo; compare branch vs integration = ahead 5 / behind 0 / merge-base exacto 7de7b57a...; PR #64 contiene únicamente 5 files / 280 additions / 1 deletion del slice; Issue #41 JOBS comment 5464310344 autoriza NIGHT-AAA-013 y scope backend/control-plane.`  
+`UNVERIFIED: ejecución de los tests añadidos; conclusión final de CI exact-head; mergeability final después de que GitHub termine de calcular checks; comportamiento productivo real del provider; cleanup en un fallo provider intermedio después de enviar pero antes de retornar; cobertura explícita de que el wrapper de autorización HTTP siempre fija req.beatgalerAuthorizedInstallationId para esta nueva ruta. No integración reclamada.`  
+`BLOCKERS: CI exact-head incompleto. Hasta que termine verde y se cierre el race-check no existe autorización factual para merge.`  
+`RECOMMENDATION_TO_JOBS: mantener 12.1 abierto y reutilizar SAME PR #64 / SAME lineage en el siguiente Assignment ID si CI termina; primero procesar resultados exact-head y cualquier finding sobre auth/partial-provider cleanup, corregir en el mismo PR si aplica, y solo entonces race-check + protected merge. No abrir candidate duplicado ni declarar 12.1 completo.`  
+`TURN_FINISHED_AT: 2026-08-29T13:34:01-06:00`
 
 ## HISTORIAL
 
-- `NIGHT-AAA-013`: ASSIGNED — atomic empty-index vertical slice con control-plane/backend explícitamente autorizado.
+- `NIGHT-AAA-013`: PENDING — PR #64 @ `86ea14ad...`; atomic bootstrap candidate implementado; exact-head CI incompleto; no merge.
 - `NIGHT-AAA-012`: BLOCKED — Web-only no posee create-if-absent/CAS; client send+pin no es atomicidad.
 - `NIGHT-AAA-011`: DONE — #58 merged `58a6bf614...`; slice A integrado.
 - `NIGHT-AAA-010`: PENDING — SAME #58 refreshed; CI verde.
