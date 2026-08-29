@@ -8,10 +8,11 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-015`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F3 / 17.1 — Stripe Checkout server-side software-only`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`
-- `REUSE_PR: none known after duplicate-check`
+- `LIVE_BASE_USED: integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`
+- `PR: #65 / woz/night-17.1-checkout-contract`
 
 ### Orden JOBS
 
@@ -25,7 +26,25 @@
 8. OUT OF SCOPE: Stripe real/provider credentials, 17.2 completo, D18–D20, F2/F4, infraestructura pagada, DNS/legal, physical staging/prod.
 9. Handoff en este markdown + Issue #41 y STOP.
 
-## RESULTADO DEL TURNO MÁS RECIENTE — NIGHT-WOZ-014
+## RESULTADO DEL TURNO MÁS RECIENTE — NIGHT-WOZ-015
+
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-015`  
+`TURN_STATUS: PENDING_CI`  
+`GATE: F3/17.1 SOFTWARE CANDIDATE / NOT INTEGRATED`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`  
+`HEAD_AFTER: woz/night-17.1-checkout-contract @ 584b5cf3bcdb21463e577da89825b3cd51fe2704`  
+`PR: #65 OPEN / Ready / mergeable=true; base_sha b114111cafb29b4aa50cdce014059c66a75bddf2; NOT MERGED.`  
+`CHANGES: added cloud-server/billing-checkout.js, cloud-server/tests/billing-checkout.test.cjs and .github/workflows/f3-17.1-checkout-contract.yml. Reused existing PLAN_CATALOG IDs; stable internal price IDs are server-owned. Commercial provider price/currency/trial/tax remain mandatory server configuration, not invented product defaults. Client-controlled plan/price/currency/trial/tax/metadata is rejected; idempotency key is bound to authenticated user + product + request id; provider failures fail closed; Checkout response explicitly grants no entitlement.`  
+`TESTS: deterministic focal suite covers valid request; price/plan/currency/trial/amount tampering; retry/idempotency; identity-bound idempotency; unsupported product/currency; provider timeout/error; authenticated-user metadata/reference binding.`  
+`CI: exact-head F3 - 17.1 Checkout Contract run 33276146755 SUCCESS; D6 33276146691 SUCCESS; D7 33276146719 SUCCESS; temp-auth 33276146693 SUCCESS; Upgrade 21.2 run 33276146690 SKIPPED by paths; Test - Desktop Portability / Required CI run 33276146715 still IN_PROGRESS at STOP.`  
+`EVIDENCE_REUSED: existing cloud-server/plans.js PLAN_CATALOG for paid_entry/highest_paid identities; no Stripe/Checkout implementation found by precise duplicate-check; 16.2 evidence untouched.`  
+`EVIDENCE_NEW: PR #65 exact head 584b5cf3...; focal CI 33276146755 SUCCESS; D6/D7/temp-auth exact-head SUCCESS.`  
+`UNVERIFIED: Required CI 33276146715 final conclusion; productive Stripe account/products/prices/credentials; actual currency/trial/tax commercial decisions; real Checkout Session/provider call; webhooks/17.2; entitlement reconciliation; physical staging/prod.`  
+`BLOCKERS: only exact-head Required CI 33276146715 still running for this candidate. No product decision was invented; productive billing remains external/RO/provider work.`  
+`RECOMMENDATION_TO_JOBS: keep SAME PR #65. If Required CI 33276146715 closes SUCCESS and integration has not moved, issue owner race-check/merge assignment or explicitly allow integration; if baseline moves, refresh SAME #65 and require fresh applicable exact-head CI. Keep 17.2 separate.`  
+`TURN_FINISHED_AT: 2026-08-29T15:29-06:00`
+
+## RESULTADO DEL TURNO ANTERIOR — NIGHT-WOZ-014
 
 `LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-014`  
 `TURN_STATUS: DONE`  
@@ -40,6 +59,7 @@
 
 ## HISTORIAL
 
+- `NIGHT-WOZ-015`: PENDING_CI — PR #65 candidate 17.1 @ `584b5cf3...`; focal/D6/D7/temp-auth green; Required CI running.
 - `NIGHT-WOZ-014`: DONE — SAME #61 merged `55e0d875...`; 16.2 SOFTWARE DONE / EXTERNAL TAIL.
 - `NIGHT-WOZ-013`: PENDING_CI — refreshed to `d254b294...`; CI later green.
 - `NIGHT-WOZ-012`: PENDING_CI_REFRESH.
