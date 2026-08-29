@@ -4,16 +4,16 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 020:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto; D13–D15 no cerrados.
+**Baseline vivo CYCLE 021:** `integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto solo por residual cold/warm + taxonomy/state; D13–D15 no cerrados.
 
 ## Owner actual
 
-**AAA — F2 / 12.1 SAME #66 race-check + integration — `NIGHT-AAA-020` (ASSIGNED).**
+**AAA — F2 / 12.1 residual cold/warm + taxonomy/state — `NIGHT-AAA-021` (ASSIGNED).**
 
 PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9` y cerró slice A: lazy artwork + taxonomía mínima de startup + timing/tests. Atomic empty-index quedó **DONE / INTEGRATED** por PR #64 como `b114111cafb29b4aa50cdce014059c66a75bddf2`.
 
-PR #66 `aaa/night-12.1-pagination-windowing` está OPEN sobre base `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`, head `86f9659b0341107496332ada546312611e40ddaa`. El candidate contiene:
+PR #66 `aaa/night-12.1-pagination-windowing` quedó **CLOSED / MERGED** como `712b49b6689a31a47902dbe95e98622d001dab40`. El candidate probado e integrado contiene:
 - first-load/materialización bounded;
 - `WebLibraryWindowConsumer` current/next/previous/refresh + acceso por offset;
 - refresh seguro tras shrink;
@@ -21,15 +21,19 @@ PR #66 `aaa/night-12.1-pagination-windowing` está OPEN sobre base `ed6aab7e9646
 - continuidad sintética de 10,321 beats sin duplicados/omisiones y sin artwork eager;
 - wiring React productivo por cursor `bgPage`, con Previous/Next reales y sin reconstruir un `Beat[]` global.
 
-Evidencia exact-head observada sobre `86f9659b...`:
+Evidencia exact-head de #66:
 - Required CI / Desktop Portability `33278321854` — SUCCESS;
 - D6 `33278321859` — SUCCESS;
 - D7 `33278321867` — SUCCESS;
-- Upgrade 21.2 — SKIPPED/no aplicable.
+- merge verificado `712b49b6689a31a47902dbe95e98622d001dab40`.
 
-Gap inmediato: **transacción race-check + merge de SAME #66**. No marcar pagination/window/memory como integrado hasta merge SHA verificable. Después siguen residuales de 12.1: cold/warm cuantificado y cualquier taxonomy residual no demostrado por evidencia separada.
+Residuales literales de 12.1:
+- **cold/warm cuantificado** del startup Web;
+- cualquier separación de taxonomy/state `empty / no-results / offline / auth / cloud failure` que todavía no esté demostrada por evidencia existente.
 
-CI-FALLBACK para `NIGHT-AAA-020`: `NONE`; no se autoriza D13–D15 ni otro slice frontend mientras #66 siga activo.
+`NIGHT-AAA-021` debe hacer REUSE-FIRST, cerrar solo esos residuales y no abrir D13–D15 automáticamente.
+
+CI-FALLBACK para `NIGHT-AAA-021`: `NONE`.
 
 ## Día 11 — Foundations y AccountGate
 
@@ -41,12 +45,12 @@ PR #54 merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 — `[ 🟡 ] IN PROGRESS / SAME #66` — AAA `NIGHT-AAA-020`
+### 12.1 — `[ 🟡 ] IN PROGRESS / RESIDUAL` — AAA `NIGHT-AAA-021`
 
 - [x] **Índice vacío atómico en control plane.** PR #64 integrado.
-- [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Slice A integrada en #58; residual abierto donde no esté probado.
-- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado. #66 tiene candidate exact-head verde con navegación bounded productiva; falta merge verificable.
-- [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing integrado en #58; cold/warm cuantificado/residual sigue abierto.
+- [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Slice A integrada en #58; cerrar residual solo donde falta evidencia literal.
+- [x] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado; bounded pagination/window/memory + navegación productiva integrado por #66.
+- [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing integrado en #58; falta cuantificación cold/warm verificable.
 
 ### 12.2 — `[x] DONE / INTEGRATED`
 PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
