@@ -1,36 +1,34 @@
 # BeatGaler — Equipo multi-IA / coordinación
 
-> GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**.
+> GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership
+## Roles y ownership actual
 
 | Rol | Owner actual | Responsabilidad |
 |---|---|---|
-| **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates, `WOZ NEXT` |
-| **WOZ** | sin asignación activa | D8 cerrado; espera asignación explícita antes de D9 u otro trabajo |
-| **AAA** | sin asignación activa | 12.2 cerrado; espera asignación explícita antes de 11.2/12.1/15.1 u otro slice |
-| **BBB** | F4 / 21.2 | PR #51 camino combinado 21.1+21.2; refresh, exact-head evidence e integración de su área |
+| **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra |
+| **AAA** | F2 / 12.1 | Bootstrap/load Web bajo `NIGHT-AAA-007`; misma rama/candidate lineage |
+| **BBB** | F4 / 24.2 | PR #57 updater recovery/rollback bajo `NIGHT-BBB-007` |
+| **WOZ** | F3 / 16.1 | entornos/runtime-operability dependency-safe bajo `NIGHT-WOZ-007` |
 
-RO conserva alcance de producto, riesgo aceptado y go/no-go. JOBS puede reorganizar el roadmap, pero **un cambio de owner es una decisión explícita**, no un salto automático por dependencia.
+RO conserva alcance de producto, riesgo aceptado, decisiones/credenciales externas y go/no-go público. JOBS puede reorganizar el roadmap, pero **un cambio de owner es una decisión explícita**, no un salto automático por dependencia.
 
-Estado de owner verificado:
-- WOZ: D8 cerrado/PASS por Issue #41 `5460381842`; no inicia D9 automáticamente.
-- AAA: 12.2 cerrado/integrado; handoff `5460303449` dice `NEXT_WITHIN_AREA: none`; no auto-inicia 11.2, 12.1 ni 15.1.
-- BBB: continúa FULL OWNER de 21.2 por Issue #41 `5458104890`; PR #51 es el camino combinado 21.1+21.2 y necesita refresh contra baseline vivo.
+**Baseline canónico al CYCLE 006:** `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
+
+Cambio explícito vigente: WOZ dejó F1/D10.1 después de integrar PR #56 porque ese gate quedó únicamente `PENDING_EXTERNAL_PROOF` por copia real off-provider/off-account. JOBS lo reasignó a F3/16.1; nadie técnico comparte ownership simultáneo de D10.1.
 
 ## Modelo ROMPECABEZAS CON OWNER FIJO
 
 1. Se puede trabajar cross-phase cuando las dependencias reales lo permiten.
-2. Cada implementación tiene **un owner estable**.
+2. Cada implementación/pieza material tiene **un owner estable** por ciclo.
 3. El owner hace el ciclo completo de su pieza: preflight → implementación/audit → tests → fixes → CI → handoff.
-4. Si aparecen findings de otro agente, el owner los consume como input y los reproduce/cierra dentro de su propia área.
-5. No se devuelve automáticamente una pieza al autor del finding.
-6. No hay `interrupt rule` ni hopping automático entre tareas.
-7. Si un owner queda bloqueado, reporta `BLOCKED` y sigue siendo owner; JOBS decide explícitamente si reasigna.
-8. Revisión independiente adicional se crea solo por orden JOBS/RO o por un gate que literalmente la requiera.
-9. `READY_TO_WORK` no implica `READY_TO_CLOSE` ni `READY_TO_RELEASE`.
-10. Ningún gate se marca `[x]` sin evidencia verificable.
-11. **Dependency-ready no equivale a assigned.** Cerrar un gate puede desbloquear tareas, pero nadie las inicia sin owner explícito.
+4. Findings de otro agente son input; no transfieren ownership automáticamente.
+5. No hay `interrupt rule` ni hopping automático entre tareas.
+6. Si un owner queda bloqueado, reporta `BLOCKED`; JOBS decide explícitamente si reasigna.
+7. Revisión independiente adicional existe solo por orden JOBS/RO o gate literal.
+8. `READY_TO_WORK` ≠ `READY_TO_CLOSE` ≠ `READY_TO_RELEASE`.
+9. Ningún gate se marca `[x]` sin evidencia verificable.
+10. **Dependency-ready no equivale a assigned.**
 
 ## Invocaciones
 
@@ -39,27 +37,27 @@ Estado de owner verificado:
 - `Eres AAA. Lee !!!PLAN y continúa tu área asignada.`
 - `Eres BBB. Lee !!!PLAN y continúa tu área asignada.`
 
-Si WOZ/AAA aparece sin asignación activa, debe hacer preflight y STOP/WAIT, no escoger por sí mismo la siguiente tarea.
+Si un worker no tiene asignación activa explícita en su markdown nocturno, debe hacer preflight y `STOP / WAIT_FOR_ASSIGNMENT`, no escoger trabajo por sí mismo.
 
 ## JOBS — rutina
 
-1. preflight factual de baseline/gates/handoffs/PRs/CI;
-2. comprobar que cada owner sigue dentro de su área;
-3. procesar handoffs y findings;
-4. mantener scope claro y evitar duplicación;
-5. actualizar estado confirmado en Plan/fase/Registro;
-6. escalar blocker real sin mover al agente automáticamente;
-7. reasignar solo con decisión explícita;
-8. entregar `WOZ NEXT` centrado en el cuello técnico o declarar `NO ACTIVE ASSIGNMENT` si todavía no existe una asignación autorizada.
+1. Preflight factual de baseline/gates/handoffs/PRs/CI.
+2. Leer el resultado más reciente de AAA/BBB/WOZ e Issue #41.
+3. Procesar DONE/PASS/integraciones solo con evidencia aplicable.
+4. Mantener scope claro y evitar duplicación/overlap.
+5. Actualizar estado confirmado en Plan/fases/Registro.
+6. Recalcular camino crítico F0–F4 desde cero.
+7. Reasignar explícitamente cuando el retorno global sea mayor.
+8. Escalar blockers externos sin falsear PASS.
 
-JOBS no toca producto/infra ni decide la solución técnica de WOZ. En particular, JOBS **no mergea código BeatGaler** cuando esa integración pertenece al owner/integrador técnico; JOBS secuencia, exige evidencia y sincroniza el plan.
+JOBS no toca producto/infra ni mergea código BeatGaler cuando la integración pertenece al owner técnico.
 
 ## Owner — paquete mínimo
 
 ```text
 ROLE: WOZ | AAA | BBB
-AREA: <área fija>
-TASK: <tarea exacta dentro del área>
+AREA: <área fija del Assignment ID>
+TASK: <tarea exacta>
 BASE: <rama/SHA>
 SCOPE: <sí>
 OUT_OF_SCOPE: <no>
@@ -67,62 +65,60 @@ CHANGES: <implementación/audit>
 TESTS: <pruebas propias>
 CI: <runs/checks>
 EVIDENCE: <SHA/PR/runtime>
+UNVERIFIED: <lista>
 BLOCKERS: <none/lista>
-NEXT_WITHIN_AREA: <siguiente paso del mismo owner>
+NEXT_WITHIN_AREA: <siguiente paso>
 ```
 
 Reglas:
-- cambio de producto → rama/PR propia;
-- antes de crear artefacto, duplicate-check;
+- cambio de producto → rama/PR propia o artifact existente reutilizado;
+- duplicate-check antes de crear artefacto;
 - el owner corrige sus regresiones y añade pruebas de aceptación de su área;
-- findings fuera de scope se reportan; JOBS decide si pertenecen al owner o a otra área;
+- findings fuera de scope se reportan; JOBS decide owner;
 - no mergear/cerrar globalmente sin autoridad aplicable;
-- no marcar `[x]` solo porque los tests propios estén verdes si falta un requisito literal del gate.
+- tests propios no bastan si falta requisito literal del gate.
 
 # Modo autónomo / turno nocturno
 
 ## 1. Preflight factual obligatorio
 
 Verificar:
-- área fija del rol;
-- tarea exacta vigente dentro de esa área;
+- área/tarea exacta vigente en `NOCHE - <ROL>.md`;
 - baseline/rama/SHA;
+- Plan Maestro + fase aplicable + Registro + Issue #41 reciente;
 - dependencias literales;
 - PR/rama existente antes de crear otra;
-- últimos findings/handoffs que afecten esa área;
+- últimos findings/handoffs;
 - CI relevante;
-- si el trabajo ya fue procesado.
+- si el Assignment ID ya fue procesado.
 
-Dato material no verificable → **STOP / PENDING**.
+Dato material no verificable → **STOP / PENDING**. Ausencia de asignación activa → **STOP / WAIT_FOR_ASSIGNMENT**.
 
-Si el rol no tiene tarea activa explícita → **STOP / WAIT_FOR_ASSIGNMENT**. No seleccionar automáticamente la primera tarea dependency-ready.
-
-## 2. Idempotencia
+## 2. Idempotencia / REUSE-FIRST
 
 Antes de rama/PR/comentario/commit:
-1. buscar artefacto existente de la misma pieza/baseline;
+1. buscar artefacto/evidencia existente de la misma pieza/baseline;
 2. continuar ahí o no-op;
-3. nunca crear copia por nuevo ciclo.
+3. nunca crear copia por nuevo ciclo;
+4. no repetir drill/CI productivo solo para recrear evidencia aceptada.
 
-## 3. Evidence-before-claim
+## 3. Evidence-before-claim / exact-head
 
-No afirmar DONE/PASS/corregido/integrado/cerrado sin SHA/PR/test/CI/runtime/handoff. Lo no probado = `UNVERIFIED` o `PENDING`.
+No afirmar DONE/PASS/corregido/integrado/cerrado sin SHA/PR/test/CI/runtime/handoff aplicable.
+
+Si cambia el head o la combinación material con integración, el verde anterior no prueba la combinación nueva: refresh + CI exact-head aplicable antes de merge/claim.
+
+Lo no probado = `UNVERIFIED` o `PENDING`.
 
 ## 4. Owner self-test
 
-El owner es responsable de:
-- unit/integration/DOM/runtime que correspondan;
-- regresiones descubiertas durante su trabajo;
-- CI exact-head aplicable;
-- reproducir dentro de su área findings previos que materialmente bloqueen su gate.
-
-Los tests propios no eliminan revisiones independientes obligatorias de release/security cuando un gate posterior las exija.
+El owner es responsable de unit/integration/DOM/runtime que correspondan, regresiones de su cambio y CI exact-head aplicable. Revisiones independientes obligatorias posteriores no desaparecen por self-test.
 
 ## 5. STOP conditions
 
 STOP/BLOCKED/STALLED/RO DECISION REQUIRED ante:
 - contradicción material Plan/Issue/GitHub/runtime;
-- baseline inesperado;
+- baseline inesperado que invalida evidencia;
 - cambio destructivo fuera de scope;
 - secretos/credenciales fuera de procedimiento;
 - decisión reservada al RO;
@@ -135,11 +131,9 @@ STOP/BLOCKED/STALLED/RO DECISION REQUIRED ante:
 
 ## 6. Corrective assignment
 
-2 ciclos sin progreso → JOBS precisa la orden dentro de la misma área. 3 ciclos → `STALLED`. Reasignación solo si JOBS/RO lo decide explícitamente.
+2 ciclos sin progreso → JOBS precisa la orden dentro de la misma área. 3 ciclos sin progreso → `STALLED`. Reasignación solo si JOBS/RO lo decide explícitamente. Progreso parcial real reinicia la evaluación de estancamiento, pero no sustituye evidencia de cierre.
 
 ## 7. Gate transaction
-
-WOZ publica cuando aplique:
 
 ```text
 GATE: <id>
@@ -168,41 +162,29 @@ EVIDENCE: <IDs/SHA>
 UNVERIFIED: <none/lista>
 BLOCKERS: <none/lista>
 NEXT_WITHIN_AREA: <acción>
+END AI-HANDOFF
 ```
 
-## Night Shift Ledger
+## Night Shift Ledger — CYCLE 006
 
 ```text
-NIGHT SHIFT LEDGER
-WOZ: D8 CLOSED / no active assignment → WAIT_FOR_ASSIGNMENT
-AAA: 12.2 CLOSED / no active assignment → WAIT_FOR_ASSIGNMENT
-BBB: F4/21.2 + PR #51 → <estado/evidencia>
-JOBS: <plan sync/no-op/reassignment explicit>
-OWNER_CHANGES: none | <explícitos>
-DUPLICATE_WORK: none | ...
-UNVERIFIED_CLAIMS: none | ...
-STALLED: none | ...
+JOBS: CYCLE 006 complete; baseline f0d65aa...; assignments 007 issued
+AAA: F2/12.1 -> NIGHT-AAA-007; d7cc93f progress, exact-head evidence pending
+BBB: F4/24.2 -> NIGHT-BBB-007; PR #57 historical CI green, refresh required after #56
+WOZ: explicit owner change F1/D10.1 -> F3/16.1 -> NIGHT-WOZ-007
+D10.1: PENDING_EXTERNAL_PROOF only; no technical worker overlap
+DUPLICATE_WORK: none
+UNVERIFIED_CLAIMS: none promoted to PASS
+RELEASE: NO-GO
 ```
 
 ## Estado vigente
 
-- **Baseline canónico:** `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.
-- **WOZ:** D8 `[x] / PASS`. #49/8.1, #52/8.2 y #53/resoluciones RO integrados. Sin nueva asignación activa. D9 está dependency-ready pero unassigned.
-- **AAA:** 11.1 y 12.2 `[x] / DONE / INTEGRATED`. PR #50 merge `39e894c...`; sin nueva asignación activa. 11.2 y 12.1 están dependency-ready; F2/15.1 “Vaciar Trash” queda queued, todos sin owner hasta decisión JOBS/RO.
-- **BBB:** F4 / 21.2 FULL OWNER. PR #51 sigue OPEN/DRAFT. Head histórico `e9fc4e68...` tuvo Required CI + Upgrade Staging + D6/D7 verdes sobre base `c25ec6a...`, pero integración avanzó a `6c4499d...`; fresh union + exact-head evidence requerida. Process blocker registrado en Issue #41 `5460283021`.
-- **JOBS:** coordinación, secuenciación y plan; sin hopping automático y sin código BeatGaler.
+- **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
+- **F1:** D6–D9 PASS; D10.1 artifact integrado por #56, gate external-only; D10.2 RO.
+- **F2:** 11.1/11.2/12.2 cerrados; AAA full owner de 12.1 bajo `NIGHT-AAA-007`.
+- **F3:** WOZ full owner del slice 16.1 bajo `NIGHT-WOZ-007`; no nueva infra/costo sin RO.
+- **F4:** 21.1/21.2/24.1 cerrados; BBB full owner de #57/24.2 bajo `NIGHT-BBB-007`; D22/D23 externos.
+- **JOBS:** coordinación/plan; sin producto/infra.
 
-## Secuencia de integración vigente
-
-Completado:
-1. #49 / 8.1 — **DONE / INTEGRATED** `14002b29...`.
-2. #47 / 11.1 — **DONE / INTEGRATED** `489d81b...`.
-3. #52 / 8.2 — **DONE / INTEGRATED** `c25ec6a...`.
-4. #50 / 12.2 — **DONE / INTEGRATED** `39e894c...`.
-5. #53 / D8 RO resolutions — **DONE / INTEGRATED** `6c4499d...`; Gate D8 PASS.
-
-Pendiente:
-6. #51 / 21.1+21.2 — BBB conserva owner; refresh contra `6c4499d...`, exact-head Required CI + Upgrade Staging + D6/D7, ready-state válido e integración verificable.
-7. Cualquier cambio material de head/combinación invalida el uso del CI anterior como prueba de la nueva combinación hasta nuevo CI exact-head.
-
-**Principio:** cada constructor termina y prueba su pieza; cuando termina, espera una nueva asignación en vez de saltar solo a otra tarea.
+**Principio:** cada constructor termina y prueba su pieza; al terminar espera una nueva asignación en vez de saltar solo a otra tarea.
