@@ -16,50 +16,50 @@ Reglas:
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-015
+## Estado vivo — NIGHT-JOBS-016
 
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable:** `integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`, merge verificable de PR #64 sobre parents `55e0d875... + 3e7fd0a0...`.
 - **F0:** trabajo técnico interno cerrado; 1.2 y 2.2 conservan tails externos/administrativos. No consumir workers técnicos en duplicados.
 - **F1:** D6/D7/D8/D9 PASS. D10.1 `PENDING_EXTERNAL_PROOF` por copia real off-provider/off-account + read/checksum. D10.2 requiere decisión RO. No repetir drills aceptados.
 - **F2 / 11.1:** `[x]` PR #47. **11.2:** `[x]` PR #54. **12.2:** `[x]` PR #50.
-- **F2 / 12.1:** `[ 🟡 ] IN PROGRESS`. Slice A integrada por #58. Atomic empty-index quedó **DONE / INTEGRATED** por PR #64 como `b114111caf...`, Required CI `33272883660` SUCCESS. Residual prioritario: paged/bounded library contract + consumer windowing + measurable memory evidence; `NIGHT-AAA-016` asignado. Cold/warm residual sigue después.
-- **F3 / 16.1:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — PR #59 integrado; separación física staging/prod sigue externa.
-- **F3 / 16.2:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — PR #61 integrado como `55e0d875...`; deploy/staging/rollback reales siguen externos.
-- **F3 / 17.1:** PR #65 `woz/night-17.1-checkout-contract @ 584b5cf3...` OPEN/Ready/mergeable sobre base `b114111caf...`. Focal 17.1, D6, D7 y temp-auth SUCCESS; Required CI `33276146715` sigue IN_PROGRESS. No merge todavía.
-- **F4 / 21.1+21.2:** `[x]` PR #51. **24.1:** `[x]` PR #55. **24.2:** `[x]` PR #57.
-- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. SAME #63 está OPEN/Ready/mergeable sobre base `b114111caf...`, head `8768856ff8ea15c7fa164e4b433abccf02852fb1`. F4 Matrix/D6/D7 ya SUCCESS; Windows Import `33276125806` IN_PROGRESS y Desktop Portability `33276125736` PENDING. `windows/import` sigue `NOT_COVERED` hasta PASS literal.
+- **F2 / 12.1:** `[ 🟡 ] IN PROGRESS`. Slice A #58 integrada y atomic empty-index #64 integrado como `b114111caf...`. Residual prioritario: bounded/paged library contract + consumer windowing + evidencia medible de no-global-buffer; `NIGHT-AAA-017`. Cold/warm residual sigue después.
+- **F3 / 16.1:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — #59 integrado; separación física staging/prod sigue externa.
+- **F3 / 16.2:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — #61 integrado como `55e0d875...`; deploy/staging/rollback reales siguen externos.
+- **F3 / 17.1:** `[ 🟡 ] SOFTWARE CANDIDATE GREEN / NOT INTEGRATED`. PR #65 head exacto `e65538640581f3f986748968db1f4dfb069c2579`, base `b114111caf...`, OPEN/Ready/mergeable. Exact-head: F3 `33276769749`, Required CI/Desktop Portability `33276769684`, D6 `33276769695`, D7 `33276769698`, temp-auth `33276769702` = SUCCESS; Upgrade `33276769715` SKIPPED/no aplicable. `NIGHT-WOZ-016` = owner race-check/merge; no 17.2 todavía.
+- **F4 / 21.1+21.2:** `[x]` #51. **24.1:** `[x]` #55. **24.2:** `[x]` #57.
+- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. SAME #63 head `8768856ff8ea15c7fa164e4b433abccf02852fb1`, base `b114111caf...`, OPEN/Ready/mergeable. F4 Matrix `33276125761`, D6 `33276125754`, D7 `33276125735`, Desktop Portability `33276125736` SUCCESS. Windows Import `33276125806` FAILURE después de prepare PASS por runner bootstrap: EdgeDriver mismatch, `tauri-driver` missing y WDIO sin browser/session. `windows/import` sigue `NOT_COVERED`; `NIGHT-BBB-016` corrige solo ese tooling/harness.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 - **2.2:** `[ 🟡 ]` tail externo. **1.2:** `[ 🟡 ]` release externo; Apple Developer `PENDING — DEFERRED`.
 
-## OWNERS — CYCLE 015
+## OWNERS — CYCLE 016
 
-### AAA — `NIGHT-AAA-016` — F2 / 12.1 paged library contract + consumer windowing
-#64 ya fue integrado. Implementar un bounded/paged data contract real que evite full-library/global `Beat[]`, coordinar consumers/windowing y producir evidencia medible large-library. No D13–D15.
+### AAA — `NIGHT-AAA-017` — F2 / 12.1 bounded pagination/window/memory
+Assignment 016 quedó superseded before execution únicamente para emitir el nuevo ID del ciclo. El área se conserva por fresh critical-path recalculation: sigue siendo el blocker interno prioritario de F2. No D13–D15.
 
-### BBB — `NIGHT-BBB-015` — F4 / 25.1 SAME #63 corrective
-Sigue vigente mientras exact-head Windows Import/CI terminan. No nuevo Assignment ID hasta procesar ese resultado. `AUTOMATED_PASS` solo con PASS literal + applicable CI green + race-check.
+### BBB — `NIGHT-BBB-016` — F4 / 25.1 SAME #63 runner bootstrap
+SAME #63; reparar únicamente EdgeDriver/Tauri Driver/session bootstrap y exigir fresh functional PASS exact-head. No product fix F2/F3 ni segundo slice.
 
-### WOZ — `NIGHT-WOZ-015` — F3 / 17.1 SAME #65 candidate
-Sigue vigente mientras Required CI `33276146715` termina. No nuevo Assignment ID hasta procesar el resultado. Sin Stripe real/credenciales/costo.
+### WOZ — `NIGHT-WOZ-016` — F3 / 17.1 SAME #65 integration transaction
+Exact-head ya verde. Race-check/merge solo si head/base siguen exactos y compatibles. Tras merge declarar únicamente 17.1 SOFTWARE DONE/INTEGRATED; 17.2 requiere ID nuevo.
 
 ### JOBS
-Mantiene prioridades, `!!!PLAN`, handoffs y gates. No mergea código BeatGaler ni modifica infraestructura.
+Mantiene prioridades, `!!!PLAN`, handoffs y gates. No modifica código BeatGaler ni infraestructura.
 
-## Camino crítico global — recalculado desde cero CYCLE 015
+## Camino crítico global — recalculado desde cero CYCLE 016
 
-1. **F2 / 12.1 pagination/window/memory:** atomic bootstrap ya integrado; este residual es el siguiente blocker interno de F2.
-2. **F3 / 17.1 #65:** candidate software existe; falta Required CI + race-check/merge.
-3. **F4 / 25.1 #63:** correction/refresco hechos; falta Windows Import functional PASS + Required CI.
-4. **F0/F1:** continúan external/RO tails; no repetir trabajo técnico aceptado.
+1. **F3 / 17.1 #65:** candidato exact-head verde; cierre inmediato depende solo de race-check/merge del owner.
+2. **F2 / 12.1 pagination/window/memory:** mayor blocker interno restante de F2; no hay candidato aún.
+3. **F4 / 25.1 #63:** functional gate rojo por bootstrap/tooling concreto; arreglo acotado puede convertir `windows/import` en evidencia real.
+4. **F0/F1:** tails externos/RO; no repetir trabajo técnico ya aceptado.
 
 ## Secuencia de integración verificada
 
 #47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; #58 → `58a6bf614...`; #60 → `7de7b57a...`; #61 → `55e0d875...`; #64 → `b114111cafb29b4aa50cdce014059c66a75bddf2`.
 
 Candidates vivos:
-- #63 @ `8768856f...` — OPEN/Ready/mergeable, base `b114111c...`; functional/Required CI aún no cerrados.
-- #65 @ `584b5cf3...` — OPEN/Ready/mergeable, base `b114111c...`; focal/D6/D7/temp-auth green, Required CI en progreso.
+- #63 @ `8768856f...` — OPEN/Ready/mergeable, base `b114111c...`; Windows Import red por runner bootstrap; demás applicable exact-head CI green.
+- #65 @ `e6553864...` — OPEN/Ready/mergeable, base `b114111c...`; todos los applicable exact-head gates observados green.
 
 ## Invariantes
 
@@ -74,7 +74,7 @@ Candidates vivos:
 
 ## NEXT
 
-**AAA:** `NIGHT-AAA-016` paged library contract + consumer windowing + large-library evidence.  
-**BBB:** mantener `NIGHT-BBB-015` hasta cierre factual de CI de #63.  
-**WOZ:** mantener `NIGHT-WOZ-015` hasta cierre factual de Required CI de #65.  
-**PLAN_HEALTH:** sincronizado a GitHub vivo CYCLE 015; GitHub prevalece si cambia después de este commit.
+**AAA:** `NIGHT-AAA-017` bounded pagination/window/memory.  
+**BBB:** `NIGHT-BBB-016` SAME #63 runner bootstrap → fresh Windows Import PASS.  
+**WOZ:** `NIGHT-WOZ-016` SAME #65 exact-head green race-check/merge.  
+**PLAN_HEALTH:** sincronizado a GitHub vivo CYCLE 016; GitHub prevalece si cambia después de este commit.
