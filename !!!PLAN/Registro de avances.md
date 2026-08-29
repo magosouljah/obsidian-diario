@@ -192,16 +192,28 @@ Ese estado queda como ledger histórico y fue superado por los cierres siguiente
 - F3 D16–D20 sigue siendo el mayor volumen abierto; WOZ debe moverse explícitamente a F3 cuando D10.1 quede external-only integrado.
 - Release público permanece 🔴 `NO-GO`; ningún gate externo fue rebajado.
 
+## 2026-08-29 — Turno nocturno CYCLE 006
+
+**Baseline canónico:** `integration-v0.8.0-alpha.1` @ `f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
+
+- F1/D10.1: PR #56 exact tested head `0abe39e096d10d992764a2d24874e46529109a70` quedó **DONE / INTEGRATED** como merge `f0d65aa66988e3e1a026e237b65c65a56b098aa9`. Strategy config+index+media y backup-failure condition/routing están integrados; restore/RPO/RTO/core/access/retention permanecen PASS REUSED. Gate completo sigue `[ 🟡 ] / PENDING_EXTERNAL_PROOF` únicamente por copia real fuera del primary provider/account failure domain + read/checksum verification. WOZ no repite drills.
+- F2/12.1: `NIGHT-AAA-006` avanzó `aaa/night-12.1-bootstrap-load` a `d7cc93f9c4318be7f993bd033483c4e7f1834a55` con taxonomy mínima, startup timing y tests sobre lazy artwork; ejecución real/CI/PR siguen UNVERIFIED. `NIGHT-AAA-007` exige candidate verificable en la misma lineage.
+- F4/24.2: PR #57 head histórico `5c74c0948c43d53b2f8d075cd66ba70c953da3c5` tiene Test - Desktop Portability `33252718637`, D6 `33252718614` y D7 `33252718625` SUCCESS; Upgrade Staging `33252718609` SKIPPED/no aplica. Como fue probado contra `672e133...` y #56 movió baseline a `f0d65aa...`, no se marca DONE; `NIGHT-BBB-007` debe refrescar la misma PR + nuevo exact-head CI + merge protegido si PASS.
+- Owner change explícito: WOZ deja F1 técnico external-only y pasa a F3/16.1 bajo `NIGHT-WOZ-007`. Primer objetivo: agotar health/readiness/dependency checks, graceful shutdown, timeouts/proxy trust y separación contractual de entornos REUSE-FIRST, sin nueva infraestructura/costo no autorizado.
+- Asignaciones activas: `NIGHT-AAA-007`, `NIGHT-BBB-007`, `NIGHT-WOZ-007`; no overlap material.
+- Issue #41: JOBS handoff CYCLE 006 `5462589883`.
+- Release público permanece 🔴 `NO-GO`; F0/1.2, F0/2.2, D10.1 off-provider y D22/D23 siguen externos donde corresponde. Ningún gate fue rebajado.
+
 ---
 
 ## Estado actual
 
-- Integración estable: `integration-v0.8.0-alpha.1` @ `672e133bc9cb8a47a29d4b34e13fc535290e5681`.
-- WOZ: **F1/D10.1** bajo `NIGHT-WOZ-006`; D8/D9 `[x] / PASS`; D10.1 `[ 🟡 ]`, reducido a off-provider proof + integración #56.
-- AAA: **F2/12.1** bajo `NIGHT-AAA-006`; 11.1/11.2/12.2 `[x]`; 12.1 `[ 🟡 ]` con progreso parcial `51232744...`.
-- BBB: **F4/24.2** bajo `NIGHT-BBB-006`; 21.1/21.2/24.1 `[x] / DONE / INTEGRATED`.
+- Integración estable: `integration-v0.8.0-alpha.1` @ `f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
+- WOZ: **F3/16.1** bajo `NIGHT-WOZ-007`; D10.1 queda external-only `[ 🟡 ]` por off-provider proof.
+- AAA: **F2/12.1** bajo `NIGHT-AAA-007`; 11.1/11.2/12.2 `[x]`; 12.1 `[ 🟡 ]` con branch `d7cc93f...` aún sin CI/PR verificable.
+- BBB: **F4/24.2** bajo `NIGHT-BBB-007`; PR #57 candidate histórico verde pero requiere refresh exact-head contra `f0d65aa...`.
 - JOBS: coordinación/plan/handoffs; no código BeatGaler ni merges técnicos.
 - 5.1/5.2: `[x]`.
 - 2.2/1.2: tails externos `[ 🟡 ]`.
-- F3: D16–D20 abiertos; mayor volumen restante.
+- F3: 16.1 activo; D16–D20 siguen siendo el mayor volumen restante.
 - Release público: 🔴 `NO-GO`.
