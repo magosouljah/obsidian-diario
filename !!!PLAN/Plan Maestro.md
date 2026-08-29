@@ -16,56 +16,55 @@ Reglas:
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-020
+## Estado vivo — NIGHT-JOBS-021
 
 - **Release público:** 🔴 `NO-GO`.
-- **Integración estable:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`; GitHub vivo sigue apuntando al merge #65.
+- **Integración estable:** `integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`; merge verificado de PR #66.
 - **F0:** trabajo técnico interno cerrado; 1.2 y 2.2 conservan tails externos/administrativos.
 - **F1:** D6/D7/D8/D9 PASS. D10.1 `PENDING_EXTERNAL_PROOF` por copia real off-provider/off-account + read/checksum. D10.2 requiere decisión RO.
 - **F2 / 11.1:** `[x]` #47. **11.2:** `[x]` #54. **12.2:** `[x]` #50.
-- **F2 / 12.1:** `[ 🟡 ] IN PROGRESS`. #58 y #64 integrados. SAME PR #66 está OPEN sobre base `ed6aab7e...`, head `86f9659b0341107496332ada546312611e40ddaa`. El candidate ya contiene navegación React Previous/Next por cursor bounded sin materializar un `Beat[]` global; conserva continuidad sintética 10,321 beats, lazy artwork y materialización bounded. Required CI/Desktop Portability `33278321854`, D6 `33278321859` y D7 `33278321867` terminaron SUCCESS sobre exact head. Falta race-check + integración; después siguen abiertos cold/warm cuantificado y cualquier residual de taxonomy no demostrado. `NIGHT-AAA-020` está ASSIGNED para esa transacción.
+- **F2 / 12.1:** `[ 🟡 ] IN PROGRESS`. #58 y #64 integrados. PR #66 quedó CLOSED/MERGED como `712b49b6689a31a47902dbe95e98622d001dab40`; quedan únicamente cold/warm cuantificado y cualquier residual de taxonomy/state no demostrado. `NIGHT-AAA-021` ASSIGNED para cerrar esos residuales con REUSE-FIRST.
 - **F3 / 16.1:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — #59 integrado; separación física staging/prod externa.
 - **F3 / 16.2:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — #61 integrado; deploy/staging/rollback reales externos.
 - **F3 / 17.1:** `[x] SOFTWARE DONE / INTEGRATED` — #65 merge `ed6aab7e...`; no prueba Stripe productivo.
-- **F3 / 17.2:** `[ 🟡 ] CANDIDATE / REQUIRED CI RED`. SAME PR #67 está OPEN sobre base `ed6aab7e...`, head `22550152e9960c5dad328711b3a8b150301a8c4f`. Focal 17.2 `33278423859`, D6 `33278423854`, D7 `33278423851` y temp-auth `33278423880` están SUCCESS, pero Required CI/Desktop Portability `33278423879` terminó FAILURE porque `PostgreSQL live integration + recovery gate` falló en restored-state verification después de dump/encrypt/restore. `NIGHT-WOZ-019` está ASSIGNED para corrective mínimo SAME #67; no 18.x.
+- **F3 / 17.2:** `[ 🟡 ] CANDIDATE / REFRESH REQUIRED`. SAME PR #67 sigue OPEN/Ready, head `8a5341114e00f373bd88553f3f95be53a153b6b8`. El corrective mínimo del stale recovery ledger quedó probado en ese exact head: F3 17.2 `33280134623`, D6 `33280134598`, D7 `33280134660`, temp-auth `33280134648` y Required CI/Desktop Portability `33280134630` terminaron SUCCESS. Pero esa combinación fue creada contra el baseline anterior `ed6aab7e...`; después #66 movió integration a `712b49b...`. `NIGHT-WOZ-020` ASSIGNED para refresh SAME #67 + fresh exact-head CI + merge solo si verde.
 - **F4 / 21.1+21.2:** `[x]` #51. **24.1:** `[x]` #55. **24.2:** `[x]` #57.
-- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. SAME #63 sigue OPEN/Ready sobre base `ed6aab7e...`, head `ea00d85d7946da8a27fe336bf738afb9a4bd72d0`. F4 Matrix `33277733635`, D6 `33277733621`, D7 `33277733651` y Desktop Portability/Required CI `33277733647` están SUCCESS; Windows Import `33277733650` terminó FAILURE. El job `99167313710` pasó setup/exact checkout/official Tauri+Edge bootstrap y falló dentro de `Run existing Windows import E2E harness`; por tanto `windows/import` continúa `NOT_COVERED`. `NIGHT-BBB-019` está ASSIGNED para corrective mínimo SAME #63.
+- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. SAME #63 sigue OPEN/Ready, head `ea00d85d7946da8a27fe336bf738afb9a4bd72d0`, pero quedó stale frente a `712b49b...`. El failure Windows Import se redujo factual a WDIO session creation `DevToolsActivePort file doesn't exist` después de bootstrap oficial y antes de cualquier import assertion; `windows/import` sigue `NOT_COVERED`. `NIGHT-BBB-020` ASSIGNED para refresh SAME #63 + corrective F4 mínimo + PASS literal/fresh CI.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 - **2.2:** `[ 🟡 ]` tail externo. **1.2:** `[ 🟡 ]` release externo; Apple Developer `PENDING — DEFERRED`.
 
-## OWNERS — CYCLE 020
+## OWNERS — CYCLE 021
 
-### AAA — `NIGHT-AAA-020` — F2 / 12.1 SAME #66
-PRIMARY vigente: race-check exact head/base + focused evidence y protected merge de SAME #66 si la combinación sigue válida. Reclamar solo pagination/window/memory + navegación productiva demostrada.  
+### AAA — `NIGHT-AAA-021` — F2 / 12.1 residual
+PRIMARY: REUSE-FIRST sobre #58/#66; cuantificar cold/warm y cerrar únicamente taxonomy/state residual con evidencia literal. Si requiere cambios, una sola rama/PR F2 mínima; no D13–D15.  
 CI-FALLBACK: `NONE`.
 
-### BBB — `NIGHT-BBB-019` — F4 / 25.1 SAME #63
-PRIMARY vigente: inspeccionar failure real del Windows Import, aplicar corrective mínimo solo si pertenece a F4, obtener PASS literal + fresh exact-head CI y merge solo si todos los gates aplicables quedan verdes.  
+### BBB — `NIGHT-BBB-020` — F4 / 25.1 SAME #63
+PRIMARY: refresh SAME #63 onto `712b49b...`, corrective mínimo de runner/session guiado por `DevToolsActivePort`, Windows Import literal PASS + fresh applicable exact-head CI, merge solo si race-check verde.  
 CI-FALLBACK: `NONE`.
 
-### WOZ — `NIGHT-WOZ-019` — F3 / 17.2 SAME #67
-PRIMARY vigente: diagnosticar restored-state mismatch del recovery gate, corregir lo mínimo sin debilitar invariantes D9/D10, focal tests + fresh Required CI y merge solo con race-check verde.  
+### WOZ — `NIGHT-WOZ-020` — F3 / 17.2 SAME #67
+PRIMARY: refresh SAME #67 onto `712b49b...`; preservar corrective `listMigrations()` y recovery invariants; fresh exact-head CI; merge solo si todo queda verde.  
 CI-FALLBACK: `NONE`.
 
 ### JOBS
 Mantiene prioridades, `!!!PLAN`, handoffs y gates. No modifica código BeatGaler ni infraestructura.
 
-## Camino crítico global — recalculado CYCLE 020
+## Camino crítico global — recalculado CYCLE 021
 
-1. **F2 / 12.1 / #66:** cerrar transacción de integración del candidate exact-head verde; luego reducir residual cold/warm/taxonomy con evidencia.
-2. **F3 / 17.2 / #67:** corregir restored-state verification sin debilitar recovery; integrar únicamente con Required CI verde.
-3. **F4 / 25.1 / #63:** lograr Windows Import PASS literal y cierre de SAME lineage; `NOT_COVERED` no se promociona antes.
+1. **F3 / 17.2 / #67:** ya tiene corrective y CI verde en combinación vieja; refresh/fresh exact-head es la transacción crítica más corta hacia cierre 17.2.
+2. **F4 / 25.1 / #63:** refresh + corregir session bootstrap hasta Windows Import literal PASS; no promover `NOT_COVERED` antes.
+3. **F2 / 12.1:** cerrar residual cold/warm + taxonomy/state; pagination/window/memory productivo ya integrado por #66.
 4. **F0/F1:** blockers externos/RO; no repetir drills técnicos ya aceptados.
-5. Después: reevaluar D13–D15, F3 18–20 y F4 25.2 + D22/D23 externos. F5 no se abre por calendario.
+5. Después: D13–D15, F3 18–20 y F4 25.2 + D22/D23 externos. F5 no se abre por calendario.
 
 ## Secuencia de integración verificada
 
-#47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; #58 → `58a6bf614...`; #60 → `7de7b57a...`; #61 → `55e0d875...`; #64 → `b114111caf...`; #65 → `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.
+#47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; #58 → `58a6bf614...`; #60 → `7de7b57a...`; #61 → `55e0d875...`; #64 → `b114111caf...`; #65 → `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`; #66 → `712b49b6689a31a47902dbe95e98622d001dab40`.
 
 Candidates vivos:
-- #66 @ `86f9659b...` — OPEN; base `ed6aab7e...`; exact-head applicable CI verde; falta race-check/merge.
-- #63 @ `ea00d85d...` — OPEN; base `ed6aab7e...`; Required CI general verde, Windows Import rojo; no AUTOMATED_PASS.
-- #67 @ `22550152...` — OPEN; base `ed6aab7e...`; focal/D6/D7/temp-auth verdes, Required CI rojo por PostgreSQL recovery verification.
+- #67 @ `8a534111...` — OPEN; old-base exact-head CI all green; refresh onto `712b49b...` required before merge.
+- #63 @ `ea00d85d...` — OPEN; stale versus live integration; Windows Import still not literal PASS.
 
 ## Invariantes
 
@@ -80,8 +79,8 @@ Candidates vivos:
 
 ## NEXT
 
-**AAA:** ejecutar una sola vez `NIGHT-AAA-020`; no superseder mientras siga ASSIGNED sin resultado.  
-**BBB:** ejecutar una sola vez `NIGHT-BBB-019`; no superseder mientras siga ASSIGNED sin resultado.  
-**WOZ:** ejecutar una sola vez `NIGHT-WOZ-019`; no superseder mientras siga ASSIGNED sin resultado.  
-**JOBS:** siguiente ciclo procesa resultados reales; si una integración mueve baseline, obliga refresh/fresh exact-head a los candidates restantes.  
-**PLAN_HEALTH:** sincronizado al estado GitHub observado en CYCLE 020; GitHub vivo prevalece si cambia después.
+**AAA:** ejecutar una sola vez `NIGHT-AAA-021`.  
+**BBB:** ejecutar una sola vez `NIGHT-BBB-020`.  
+**WOZ:** ejecutar una sola vez `NIGHT-WOZ-020`.  
+**JOBS:** siguiente ciclo procesa resultados reales; cualquier merge que mueva baseline obliga race revalidation/fresh exact-head a los candidates restantes cuando la combinación cambie materialmente.  
+**PLAN_HEALTH:** sincronizado al estado GitHub observado en CYCLE 021; GitHub vivo prevalece si cambia después.
