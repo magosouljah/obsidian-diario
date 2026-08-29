@@ -1,23 +1,21 @@
 # Fase 2 — Flujos Web completos y rediseño de alto impacto
 
-> Leer `Plan Maestro.md`. Bajo el modelo ROMPECABEZAS, slices frontend independientes pueden avanzar cuando sus dependencias reales están satisfechas, pero el siguiente owner/task se asigna explícitamente.
+> Leer `Plan Maestro.md`. Bajo ROMPECABEZAS, slices frontend independientes pueden avanzar cuando sus dependencias reales están satisfechas, pero el owner/task se asigna explícitamente.
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `f0d65aa66988e3e1a026e237b65c65a56b098aa9`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto y está asignado a AAA bajo `NIGHT-AAA-007`.
+**Integración estable al preflight JOBS CYCLE 007:** `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto. PR #58 ya existe y tiene Required CI exact-head verde, pero aún no está integrado.
 
 ## Owner actual
 
-**AAA — F2 / 12.1 Bootstrap y load — FULL OWNER para este slice.**
+**AAA — F2 / 12.1 — FULL OWNER — `NIGHT-AAA-008`.**
 
-- 11.1 / PR #47: cerrado e integrado.
-- 11.2 / PR #54: cerrado e integrado.
-- 12.2 / PR #50: cerrado e integrado.
-- `NIGHT-AAA-005` produjo commit `51232744a6cd4bc2af67de901e09beb70c91f4fc` en `aaa/night-12.1-bootstrap-load`: `webLibrary.ts` dejó de hidratar eager todo artwork antes de devolver la biblioteca; `assets.artwork` permanece para resolución on-demand.
-- `NIGHT-AAA-006` avanzó la misma rama hasta `d7cc93f9c4318be7f993bd033483c4e7f1834a55`: añadió taxonomy mínima `ready/empty/no-results/offline/auth-failure/cloud-failure`, timing reproducible `durationMs/beatCount/state` alrededor del metadata startup boundary y tests que exigen cero eager artwork downloads.
-- La ejecución real de esos tests y CI exact-head siguen **UNVERIFIED**; no existe PR todavía y no hay blocker externo demostrado.
-- `NIGHT-AAA-007` cierra el candidate exact-head sobre la misma rama/lineage. Atomic empty-index permanece como sub-slice posterior de 12.1.
+- PR #58 `aaa/night-12.1-bootstrap-load` está OPEN/Ready/mergeable=true.
+- Exact head: `d7cc93f9c4318be7f993bd033483c4e7f1834a55`; base `f0d65aa...`.
+- Required CI `33254699647` = SUCCESS sobre exact head.
+- #58 cubre el **slice A**: lazy artwork + taxonomy mínima + startup timing/tests. No cierra atomic empty-index, pagination/window/memory ni cold/warm residual.
+- `NIGHT-AAA-008`: race-check + merge protegido si la combinación sigue válida; después comenzar únicamente atomic empty-index como siguiente sub-slice. No abrir duplicate de #58.
 
 ---
 
@@ -35,27 +33,26 @@ PR #47 exact head `fdc6463e6b81efedc547c97595529d28e0ba2d83`; Required CI `33216
 
 ### Tarea 11.2 [P1 · FE/QA] — Auth UI completa — `[x] DONE / INTEGRATED`
 
-PR #54 exact tested head `e5aefa9fb6bda8a3f0e44c15ec7ae13084502ab5` sobre base `6c4499d124a64d138e791ea4abf0091766dde7e9`.
+PR #54 exact tested head `e5aefa9fb6bda8a3f0e44c15ec7ae13084502ab5`; Required CI `33239731204` SUCCESS; merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
 
 - [x] Login/register/MFA/verify/reset/recovery/error/offline.
 - [x] OAuth popup/redirect, blocked/cancel/retry.
 - [x] Tests/acceptance Web/DOM y a11y afectada; D6/D7 sin regresión.
 
-Evidencia: Required CI `33239731204` SUCCESS; D6 #94 SUCCESS; D7 #69 SUCCESS; merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`; Issue #41 `5461257322` DONE.
-
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 [P1 · BE/FE] — Bootstrap y load — `ASSIGNED / IN PROGRESS` — AAA `NIGHT-AAA-007`
-- [ ] Índice vacío atómico en control plane.
-- [ 🟡 ] Separar empty/no-results/offline/auth/cloud failure. **Implementado en rama hasta `d7cc93f...`; ejecución/tests/CI todavía no verificados.**
-- [ 🟡 ] Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria. **Progreso:** commit `51232744...` retira eager artwork hydration del initial Web library load; falta evidencia de paginación/ventana/memory budget y tests ejecutados.
-- [ 🟡 ] Instrumentar startup por fases, comparar cold/warm y corregir regresión de carga inicial reportada. **Progreso:** `d7cc93f...` añade timing reproducible alrededor del metadata startup boundary; falta ejecución verificable, surface diagnóstico mínima si resulta necesaria y comparación cold/warm cuantificada.
+### 12.1 [P1 · BE/FE] — Bootstrap y load — `IN PROGRESS` — AAA `NIGHT-AAA-008`
 
-**Estado factual actual:** existe progreso real en la rama, pero no hay PR ni CI exact-head para `d7cc93f...`. `NIGHT-AAA-007` debe ejecutar/corregir tests, refrescar contra baseline vivo `f0d65aa...` si hace falta, producir/reutilizar un único PR y obtener evidencia exact-head. No se marca ningún requisito PASS por código no ejecutado. Atomic empty-index queda requisito posterior y no se satisface por taxonomy/artwork/timing.
+- [ ] **Índice vacío atómico en control plane.** Siguiente sub-slice explícito después de integrar #58; aún no PASS.
+- [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Implementado en #58 candidate; Required CI verde; aún no integrado.
+- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork está en #58 candidate; pagination/window/memory siguen abiertos.
+- [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing está en #58 candidate; cold/warm cuantificado y residual tuning siguen abiertos.
+
+**Regla:** integrar #58 no convierte 12.1 completo en `[x]`. Evidence-before-claim por subrequisito.
 
 ### 12.2 [P1/P2 · FE/DL] — Biblioteca — `[x] DONE / INTEGRATED`
 
-PR #50 exact tested head `b7a31d686a361f559783b5dc7cb8bebc5aa04e8e`; Required CI `33233250213`, D6 `33233250229`, D7 `33233250210`, compile `33233250206` SUCCESS; merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`; Issue #41 `5460303449` DONE.
+PR #50 exact tested head `b7a31d686a361f559783b5dc7cb8bebc5aa04e8e`; Required CI `33233250213`, D6 `33233250229`, D7 `33233250210`, compile `33233250206` SUCCESS; merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
 
 - [x] Header/search/sort/tags/selection accesibles.
 - [x] Card con jerarquía fija y estados sin salto.
@@ -95,7 +92,7 @@ PR #50 exact tested head `b7a31d686a361f559783b5dc7cb8bebc5aa04e8e`; Required CI
 - [ ] SettingsShell desktop/móvil; Account/Plan/Preferences/Trash/legal.
 - [ ] State machines reales para catálogo/cache/Trash/updater.
 - [ ] Acciones peligrosas separadas, confirmadas y con reauth.
-- [ ] **Follow-up RO de D8:** acción visible **“Vaciar Trash”** con borrado permanente, confirmación fuerte y recent reauth.
+- [ ] **Follow-up RO de D8:** acción visible “Vaciar Trash” con borrado permanente, confirmación fuerte y recent reauth.
 
 ### 15.2 [P2 · QA/DL]
 - [ ] Dialog/focus restoration/live regions/labels/contraste/zoom/reduced motion.
