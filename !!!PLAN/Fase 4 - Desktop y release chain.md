@@ -4,7 +4,7 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 017:** `integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`.
+**Integración estable CYCLE 017 FINAL:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.
 
 ## Owner actual
 
@@ -12,7 +12,7 @@
 
 21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. #60 integró la matriz dependency-safe de 25.1, pero 25.1 completo sigue abierto.
 
-PR #63 `bbb/task-25.1-windows-import @ 8768856ff8ea15c7fa164e4b433abccf02852fb1` sigue OPEN/Ready/mergeable sobre base viva `b114111caf...`. Exact-head F4 Matrix `33276125761`, D6 `33276125754`, D7 `33276125735` y Desktop Portability `33276125736` = SUCCESS. Windows Import `33276125806` = **FAILURE** después de prepare PASS: Edge `151.0.4129.101` con msedgedriver mismatch/unknown, `tauri-driver not found` y WDIO sin browser/session. `windows/import` permanece `NOT_COVERED`. `NIGHT-BBB-017` corrige solo ese tooling/harness mínimo; no product fix F2/F3.
+PR #63 `bbb/task-25.1-windows-import @ 8768856ff8ea15c7fa164e4b433abccf02852fb1` estaba OPEN/Ready/mergeable con F4 Matrix/D6/D7/Desktop Portability SUCCESS y Windows Import `33276125806` FAILURE después de prepare PASS por EdgeDriver/Tauri Driver/WDIO bootstrap. Su base `b114111caf...` quedó stale tras merge #65; `NIGHT-BBB-017` exige refresh SAME #63 sobre `ed6aab7e...`, fix mínimo y fresh functional/exact-head evidence. `windows/import` permanece `NOT_COVERED`.
 
 ## Día 21 — Manifest e identidad únicos
 
@@ -50,7 +50,7 @@ PR #63 `bbb/task-25.1-windows-import @ 8768856ff8ea15c7fa164e4b433abccf02852fb1`
 
 **Estado:** Apple Developer/certificados siguen externos/deferred.
 
-## Día 24 — Updater/procedancia/rollback
+## Día 24 — Updater/procedencia/rollback
 
 ### 24.1 — `[x] DONE / INTEGRATED`
 #55 exact tested head `ba83c87dab8a56163601e913f7764c7f8682b7a6`; Required CI `33248059804`, F4 Release Controls `33248059891`, D6 `33248059823`, D7 `33248059990` SUCCESS; merge `672e133bc9cb8a47a29d4b34e13fc535290e5681`.
@@ -66,17 +66,14 @@ Esto no cierra D22/D23 ni autoriza release público.
 
 #60 integró la matriz como `7de7b57a508b3cf05cbded81501fbd3da63922a3`. Conserva `NOT_COVERED`, `PENDING_EXTERNAL` y `PRODUCT_FINDING` honestos.
 
-SAME #63 intenta cerrar únicamente Windows/import reutilizando `test:e2e:import`. Estado factual:
+SAME #63 intenta cerrar únicamente Windows/import reutilizando `test:e2e:import`. Estado pre-refresh:
 - head `8768856ff8ea15c7fa164e4b433abccf02852fb1`;
-- base `b114111cafb29b4aa50cdce014059c66a75bddf2`;
-- F4 Matrix `33276125761` SUCCESS;
-- D6 `33276125754` SUCCESS;
-- D7 `33276125735` SUCCESS;
-- Desktop Portability `33276125736` SUCCESS;
+- old base `b114111caf...` → stale vs live `ed6aab7e...`;
+- F4 Matrix `33276125761`, D6 `33276125754`, D7 `33276125735`, Desktop Portability `33276125736` SUCCESS;
 - Windows Import `33276125806` **FAILURE** por driver/session bootstrap;
 - no merge/no promotion a `AUTOMATED_PASS`.
 
-`NIGHT-BBB-017` debe reparar solo EdgeDriver/Tauri Driver/WDIO session bootstrap, reutilizar la configuración existente y exigir Windows Import functional PASS + applicable fresh exact-head CI. Si aparece bug producto, registrar `PRODUCT_FINDING` y no robar implementación.
+`NIGHT-BBB-017` debe refresh SAME lineage, reparar solo EdgeDriver/Tauri Driver/WDIO session bootstrap y exigir Windows Import functional PASS + applicable fresh exact-head CI. Si aparece bug producto, registrar `PRODUCT_FINDING` y no robar implementación.
 
 Persisten, entre otros: journeys core no demostrados cross-platform, iPhone runner/hardware externo, YouTube/billing donde la matriz marque gap y signing/notarization externos.
 
