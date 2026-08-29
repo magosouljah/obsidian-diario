@@ -33,20 +33,23 @@ Signing Windows, notarización macOS, compra/manejo de certificados, release pú
 
 ## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-003`  
-`TURN_STATUS: DONE`  
-`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 3560dc844fbe6a56b5c2a29008a629f05a9125ce`  
-`HEAD_AFTER: integration-v0.8.0-alpha.1 @ 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`  
-`PR: #51 CLOSED/MERGED; exact tested head 0fd9bee8117ca92fb9f713f0d55089f5707a2917; merge SHA 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858. #48 CLOSED/MERGED as superseded.`  
-`CI: exact head 0fd9bee... — D7 33243436937 SUCCESS; D6 33243436890 SUCCESS; Required CI 33243436894 SUCCESS; Upgrade 21.2 Staging 33243436914 SUCCESS.`  
-`EVIDENCE: race-check matched base 3560dc8... + head 0fd9bee...; merge tree equals tested head tree; integrated manifest/upgrade matrix verified; Issue #41 handoff 5461557463.`  
-`BLOCKERS: none para NIGHT-BBB-003.`  
-`RECOMMENDATION_TO_JOBS: synchronize 21.1+21.2 and assign next F4 slice.`  
-`TURN_FINISHED_AT: 2026-08-29T03:30-06:00`
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-004`  
+`TURN_STATUS: PENDING`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`  
+`HEAD_AFTER: candidate bbb/task-24.1-release-controls @ ba83c87dab8a56163601e913f7764c7f8682b7a6; integration sigue @ 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`  
+`PR: #55 OPEN / Ready / mergeable=true; base_sha 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858; head_sha ba83c87dab8a56163601e913f7764c7f8682b7a6; NO MERGED por Required CI aún in_progress.`  
+`CHANGES: REUSE-FIRST conservó binding de release/tag al RELEASE_SOURCE_SHA consumido, provenance runtime y SHA256 existentes. Gap técnico 24.1 cerrado en un solo candidate: release/release-controls.json define alpha/beta/stable, rings únicos, minimum versions, publicationEnabled=false y kill switch global engaged; scripts/release-controls.mjs valida y aplica fail-closed; F4 - Release Controls prueba el bloqueo exact-head; release-desktop-updater consume release_channel/policy antes de publicación y genera/adjunta SBOM SPDX dentro de SHA256SUMS. No release público, no stable/latest, no signing/notarization.`  
+`TESTS: F4 - Release Controls run 33248059891 SUCCESS sobre exact head ba83c87...; prueba explícita confirma que la policy comprometida bloquea publicación. D6 run 33248059823 SUCCESS; D7 run 33248059990 SUCCESS. Upgrade 21.2 Staging run 33248059805 SKIPPED por paths/no necesidad de rerun productivo.`  
+`CI: exact head ba83c87dab8a56163601e913f7764c7f8682b7a6 — F4 Release Controls SUCCESS; D6 SUCCESS; D7 SUCCESS; Test - Desktop Portability / Required CI run 33248059804 IN_PROGRESS al cierre. No se rebajó ningún gate y no se hizo merge con CI incompleto.`  
+`EVIDENCE: PR #51 fue revalidada en GitHub real como CLOSED/MERGED, no asumida Ready; integración race-check sigue exactamente en 5b05ca8...; #55 base/head exactos y mergeable=true; duplicate-check no encontró PR 24.1 paralelo; workflow release existente ya probaba Windows/macOS desde el mismo source SHA, checkout exacto, provenance gitSha y checksums, reutilizados sin repetir drills costosos; Issue #41 reciente no contiene handoff BBB posterior a NIGHT-BBB-003.`  
+`UNVERIFIED: resultado final de Required CI 33248059804; ejecución real del workflow de release con publicación (deliberadamente bloqueada por kill switch); certificados Windows, notarización macOS, credenciales y release público — fuera de scope. SBOM se añadió al pipeline y su generación queda sujeta al gate CI/release correspondiente; no se afirma publicación.`  
+`BLOCKERS: Required CI 33248059804 aún in_progress. No blocker técnico adicional detectado dentro de 24.1. Signing/notarization/publicación siguen externos y fuera de este assignment.`  
+`RECOMMENDATION_TO_JOBS: cuando Required CI 33248059804 cierre SUCCESS, emitir Assignment ID explícito para revalidar exact-head/base y mergear #55 sin rerun ceremonial; si falla, asignar corrección del mismo PR/head family. No iniciar 24.2/25.x automáticamente.`  
+`TURN_FINISHED_AT: 2026-08-29T04:34-06:00`
 
 ## HISTORIAL
 
-- `NIGHT-BBB-004`: ASSIGNED — F4/24.1 REUSE-FIRST sobre `5b05ca8...`; provenance/channels/release controls sin signing externo.
+- `NIGHT-BBB-004`: PENDING — PR #55 Ready/mergeable @ `ba83c87...`; F4/D6/D7 verdes, Required CI `33248059804` aún en progreso; no merge; release controls fail-closed + SBOM/provenance candidate listo.
 - `NIGHT-BBB-003`: DONE — #51 integrado como `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`; exact-head CI verde; #48 superseded/merged; Issue #41 `5461557463`.
 - `NIGHT-BBB-002`: PENDING — baseline cambió por #54; #51 refrescada a `0fd9bee...` y nueva tanda exact-head lanzada.
 - `NIGHT-BBB-001`: superseded before worker execution.
