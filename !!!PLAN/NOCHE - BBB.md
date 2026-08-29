@@ -11,19 +11,29 @@ Cerrar F4 sin invadir otras áreas. Un turno = una asignación JOBS. BBB no se a
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-005`
-- `ASSIGNMENT_STATUS: DONE`
-- `AREA: F4 / 24.1 — integrar candidate verificado`
-- `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`
-- `CANDIDATE: PR #55 / bbb/task-24.1-release-controls @ ba83c87dab8a56163601e913f7764c7f8682b7a6`
+- `ASSIGNMENT_ID: NIGHT-BBB-006`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F4 / 24.2 — updater recovery / rollback`
+- `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`
+- `CONTEXT: NIGHT-BBB-005 cerró e integró 24.1 mediante PR #55. D22/D23 siguen externos; 24.2 es dependency-safe y distinto de AAA/WOZ.`
 
-### Orden JOBS procesada
+### Orden JOBS
 
-Preflight factual + duplicate-check + race-check exact-head/base. PR #55 fue integrada únicamente después de confirmar GitHub real: OPEN, Ready (`draft=false`), mergeable, base/head exactos y los cuatro checks aplicables verdes sobre el mismo head. No se rerun CI ceremonial y no se inició 24.2/25.x.
+1. Preflight factual completo: Plan Maestro + F4 + Registro + roles + protocolo + este archivo + Issue #41 reciente + GitHub real.
+2. REUSE-FIRST sobre updater, upgrade matrix, release-controls, tests/workflows existentes. Duplicate-check antes de nueva rama/PR.
+3. Ejecuta 24.2 únicamente:
+   - update N-1 y fallos de red/disco/firma/manifest con comportamiento seguro;
+   - recovery/rollback verificable;
+   - mecanismo/runbook para retirar artefacto malo y comunicar sin publicar release real.
+4. No inventes signing/notarization/certificados. Los fallos de firma pueden probarse con fixtures/validación existente, no con credenciales falsas.
+5. Preserva 24.1 integrado: channels/rings/minimum version/kill switch y provenance.
+6. Candidate mínimo + tests aplicables + CI exact-head. No publicar stable/latest ni mutar releases públicos.
+7. Si algún requisito literal depende de certificado/credencial externa, separa exactamente ese blocker y completa lo dependency-safe.
+8. Actualiza solo este markdown con DONE/BLOCKED/PENDING/STALLED y STOP.
 
-### Fuera de scope preservado
+### Fuera de scope
 
-Signing Windows, notarización macOS, certificados, release público, F1/F2/F3, 24.2/25.x y cualquier `!!!PLAN` salvo este markdown nocturno.
+D22/D23 signing/notarization reales; 25.x; F1/F2/F3; release público; cualquier `!!!PLAN` salvo este markdown.
 
 ## RESULTADO DEL TURNO
 
@@ -33,19 +43,17 @@ Signing Windows, notarización macOS, certificados, release público, F1/F2/F3, 
 `HEAD_AFTER: integration-v0.8.0-alpha.1 @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`  
 `BRANCH_HEAD: bbb/task-24.1-release-controls @ ba83c87dab8a56163601e913f7764c7f8682b7a6`  
 `PR: #55 CLOSED/MERGED; merge SHA 672e133bc9cb8a47a29d4b34e13fc535290e5681`  
-`CHANGES: integrated F4/24.1 release controls; alpha/beta/stable rings + minimum versions; publication fail-closed; global kill switch engaged; source dependency SPDX SBOM; SHA/provenance/checksum binding retained in desktop release workflow.`  
+`CHANGES: 24.1 release controls integrado; rings/minimum versions, fail-closed publication, kill switch, SPDX SBOM y SHA/provenance/checksum binding.`  
 `TESTS: F4 Release Controls 33248059891 SUCCESS; D6 33248059823 SUCCESS; D7 33248059990 SUCCESS.`  
-`CI: Required CI / Test - Desktop Portability 33248059804 COMPLETED / SUCCESS on exact head ba83c87dab8a56163601e913f7764c7f8682b7a6.`  
-`EVIDENCE: immediate pre-merge race-check kept integration at 5b05ca845... and PR #55 OPEN/Ready/mergeable with base 5b05ca845... + head ba83c87...; merge used expected head ba83c87...; resulting integration 672e133... has parents 5b05ca845... + ba83c87... and tree 90caa2979bdb4cf4d185d2b6dd8f21e830b01472; integrated release/release-controls.json keeps all publicationEnabled=false and killSwitch.engaged=true; release workflow binds Windows/macOS build runs to one source SHA, pins checkout to that SHA, generates SPDX SBOM, verifies provenance/checksums and enforces release-controls before public release step.`  
-`UNVERIFIED: signing Windows; macOS notarization; certificates/credentials; any public release execution; 24.2/25.x.`  
-`BLOCKERS: none for this Assignment ID. External signing/notarization gates remain outside scope and unchanged.`  
-`RECOMMENDATION_TO_JOBS: mark 24.1 integrated based on merge 672e133bc9cb8a47a29d4b34e13fc535290e5681 and exact-head CI above; preserve D22/D23 external blockers. Assign any next BBB work only with a new Assignment ID; do not infer 24.2/25.x DONE.`  
-`TURN_FINISHED_AT: 2026-08-29T05:30-06:00`
+`CI: Required CI 33248059804 SUCCESS on exact head ba83c87...`  
+`BLOCKERS: none para 24.1; signing/notarization siguen externos.`  
+`STOP: sí.`
 
 ## HISTORIAL
 
-- `NIGHT-BBB-005`: DONE — PR #55 exact-head `ba83c87...` merged as `672e133bc9cb8a47a29d4b34e13fc535290e5681`; Required CI/F4/D6/D7 green.
-- `NIGHT-BBB-004`: PENDING — PR #55 Ready/mergeable; F4/D6/D7 green; Required CI later verified SUCCESS by JOBS.
-- `NIGHT-BBB-003`: DONE — #51 merged `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`; Issue #41 `5461557463`.
-- `NIGHT-BBB-002`: PENDING — #51 refreshed after baseline move.
-- `NIGHT-BBB-001`: superseded before execution.
+- `NIGHT-BBB-006`: ASSIGNED — F4/24.2 updater recovery/rollback, REUSE-FIRST.
+- `NIGHT-BBB-005`: DONE — PR #55 head `ba83c87...` merged as `672e133...`; exact-head checks green.
+- `NIGHT-BBB-004`: PENDING — PR #55 ready; CI luego verde.
+- `NIGHT-BBB-003`: DONE — #51 merged `5b05ca845...`.
+- `NIGHT-BBB-002`: PENDING — #51 refreshed.
+- `NIGHT-BBB-001`: superseded.
