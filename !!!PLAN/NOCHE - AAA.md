@@ -44,9 +44,44 @@
 `RECOMMENDATION_TO_JOBS: procesar 86f9659b...; si CI falla, mantener SAME #66 y emitir corrective mínimo guiado por log. Si todo queda verde, autorizar siguiente turno AAA SAME #66 para race-check/merge o procesar integración según flujo de owner, sin reabrir implementación.`  
 `TURN_FINISHED_AT: 2026-08-29T16:20-06:00`
 
+## WAIT_FOR_ASSIGNMENT — después de NIGHT-AAA-019
+
+`TURN_STATUS: WAIT_FOR_ASSIGNMENT`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-019`  
+`CURRENT_ASSIGNMENT_ID: NIGHT-AAA-019 — ya procesado; no existe ID nuevo.`
+
+### PRIMARY
+
+`STATUS: NOT_EXECUTED_DUPLICATE_GUARD`  
+`BASELINE: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`  
+`BRANCH/HEAD: aaa/night-12.1-pagination-windowing @ 86f9659b0341107496332ada546312611e40ddaa`  
+`PR: #66 OPEN / mergeable=true`  
+`CHANGES: none — NIGHT-AAA-019 ya tiene resultado final completo y no se reabre sin Assignment ID nuevo.`  
+`TESTS: no repetidos.`  
+`CI: exact head 86f9659b... ahora muestra Desktop Portability #527 / 33278321854 SUCCESS; D6 #151 / 33278321859 SUCCESS; D7 #137 / 33278321867 SUCCESS; Upgrade 21.2 #55 SKIPPED.`  
+`EVIDENCIA: GitHub vivo confirma #66 head 86f9659b... sobre base ed6aab7e... y los checks anteriores completados en verde.`  
+`UNVERIFIED: race-check actual contra integration y merge SHA; no se procesan porque no hay Assignment ID nuevo.`  
+`BLOCKERS: autoridad/idempotencia — JOBS debe emitir una asignación nueva si quiere que AAA race-checkee o integre #66.`
+
+### CI-FALLBACK
+
+`STATUS: NOT_AUTHORIZED`  
+`BRANCH/HEAD: n/a`  
+`PR: n/a`  
+`CHANGES: none`  
+`TESTS: none`  
+`EVIDENCIA: la asignación vigente ya procesada no contiene un CI-FALLBACK para un nuevo turno.`  
+`UNVERIFIED: n/a`  
+`BLOCKERS: falta Assignment ID nuevo + fallback explícito si JOBS desea habilitarlo.`  
+`STOP_ALCANZADO: sí — duplicate guard / WAIT_FOR_ASSIGNMENT.`
+
+`RECOMMENDATION_TO_JOBS: emitir NIGHT-AAA-020 si AAA debe hacer race-check/merge de SAME #66 ahora que el exact-head CI terminó verde; incluir CI-FALLBACK explícito si se desea trabajo paralelo durante una espera externa.`  
+`TURN_FINISHED_AT: 2026-08-29T16:37-06:00`
+
 ## HISTORIAL
 
-- `NIGHT-AAA-019`: PENDING — SAME #66 @ `86f9659b...`; production React cursor Previous/Next montado; focused tests añadidos; fresh exact-head CI todavía in progress.
+- `WAIT_FOR_ASSIGNMENT after NIGHT-AAA-019`: no ID nuevo; CI de #66 ahora verde, pero no se reentra a assignment procesado sin nueva orden JOBS.
+- `NIGHT-AAA-019`: PENDING — SAME #66 @ `86f9659b...`; production React cursor Previous/Next montado; focused tests añadidos; fresh exact-head CI todavía in progress al cierre original.
 - `NIGHT-AAA-018`: PENDING — SAME #66 refreshed onto `ed6aab7e...`; bounded next/previous/refresh consumer + 10k continuity evidence committed at `2d9a9ae8...`; production React next/previous invocation todavía abierta entonces.
 - `NIGHT-AAA-017`: PENDING — PR #66 @ `c9b5cd95...`; bounded page primitive + 10k+ test added; consumer windowing incomplete.
 - `NIGHT-AAA-016`: SUPERSEDED_BY_JOBS; work reused under #66 lineage.
