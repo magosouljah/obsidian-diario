@@ -2,68 +2,36 @@
 
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** BBB — worker nocturno.  
-**Área inicial:** F4 — Desktop / packaging / release chain.  
+**Área:** F4 — Desktop / packaging / release chain.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.
 
 ## META DE BBB ESTA NOCHE
 
-Cerrar la mayor cantidad posible de F4 sin invadir otras áreas, empezando por el camino combinado 21.1+21.2 y devolviendo el control a JOBS al finalizar cada turno.
-
-BBB **no se autoasigna** la siguiente tarea. Un turno = una asignación JOBS.
+Cerrar F4 sin invadir otras áreas. Un turno = una asignación JOBS. BBB no se autoasigna trabajo.
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-001`
+- `ASSIGNMENT_ID: NIGHT-BBB-002`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F4 / 21.1 + 21.2`
+- `AREA: F4 / cierre 21.1 + 21.2`
 - `TARGET_ARTIFACT: PR #51`
 - `KNOWN_HEAD_AT_ASSIGNMENT: 362d69811da112c3b73f68c2e736455b05ed5dc4`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 6c4499d124a64d138e791ea4abf0091766dde7e9`
 
 ### Orden JOBS
 
-1. Haz preflight factual completo. Revalida PR #51, integration, Issue #41 y CI exact-head.
-2. Reutiliza exclusivamente PR #51; no abras PR alterno para evitar el Draft.
-3. Si #51 ya está **Ready** y head/base siguen correspondiendo a la combinación exact-head probada, no repitas CI innecesariamente: haz race-check, integra por el flujo autorizado y verifica el merge SHA.
-4. Después de integración verificable, procesa #48 únicamente como superseded-for-integration conforme al plan y publica handoff final de 21.1/21.2.
-5. Si #51 sigue **Draft**, no rerunees CI verde solo para ocupar tiempo. Registra `BLOCKED_HUMAN_ACTION`, confirma exactamente la acción mínima requerida y STOP.
-6. Si head/base cambiaron, aplica la regla exact-head: refresh/union + evidencia aplicable antes de integración.
-7. Actualiza **solo este markdown nocturno** con el resultado.
-8. No empieces Día 22/23/24/25 dentro de este Assignment ID. JOBS decidirá el siguiente slice en el próximo ciclo.
-
-### Evidencia conocida a revalidar
-
-Handoff BBB Issue #41 `5460933229`:
-- PR #51 OPEN / DRAFT / mergeable / not merged;
-- exact head `362d69811da112c3b73f68c2e736455b05ed5dc4`;
-- base/integration `6c4499d124a64d138e791ea4abf0091766dde7e9`;
-- Required CI #458 / `33236730894` SUCCESS;
-- Upgrade 21.2 Staging #9 / `33236730864` SUCCESS;
-- D6 #93 / `33236730854` SUCCESS;
-- D7 #68 / `33236730901` SUCCESS;
-- Windows/macOS staging artifacts ligados al exact head.
-
-Este snapshot no sustituye el preflight.
+1. Preflight factual completo: Plan Maestro + F4 + Registro + roles + protocolo + este archivo + Issue #41 reciente + GitHub real.
+2. Reutiliza exclusivamente PR #51; no abras PR alterno.
+3. Cambio factual detectado por JOBS: PR #51 ya figura `draft=false` / Ready, OPEN, head `362d698...`, base `6c4499d...`. Revalida antes de actuar.
+4. Revalida exact-head evidence: Required CI, Upgrade 21.2 Staging #9 run `33236730864`, D6 y D7. No rerunees evidencia verde si la combinación no cambió.
+5. Si head/base siguen exactamente compatibles y checks aplicables siguen SUCCESS, haz race-check final e integra #51 por el flujo autorizado.
+6. Verifica merge SHA y contenido integrado. Solo después procesa PR #48 como superseded-for-integration según el plan y publica handoff final Issue #41.
+7. Si baseline/head cambió materialmente, refresh/union + CI exact-head antes de integrar.
+8. Actualiza solo este markdown nocturno y STOP. No empieces D22–D25 en este Assignment ID.
 
 ### Fuera de scope
 
-- signing Windows en este assignment;
-- notarización macOS;
-- certificados/credenciales;
-- D24/D25 en este assignment;
-- release/beta pública;
-- F1/F2/F3;
-- cualquier archivo de `!!!PLAN` salvo este markdown nocturno para reportar.
-
-## REGLAS DEL TURNO
-
-- Leer Plan Maestro + F4 + Registro + Equipo multi-IA + protocolo nocturno + este archivo + Issue #41 reciente.
-- Duplicate-check obligatorio.
-- REUSE-FIRST.
-- Evidence-before-claim.
-- No bypass de Draft mediante ref update directo/PR duplicado.
-- No editar la asignación ni tomar otra.
-- Al finalizar: reportar y STOP.
+Signing Windows, notarización macOS, certificados/credenciales, release/beta pública, F1/F2/F3 y cualquier `!!!PLAN` salvo este markdown nocturno.
 
 ## RESULTADO DEL TURNO
 
@@ -86,4 +54,5 @@ TURN_FINISHED_AT:
 
 ## HISTORIAL
 
-- Bootstrap: #51 tiene evidencia técnica exact-head verde pero el último estado factual conocido sigue Draft. Si el RO lo cambia a Ready antes del turno, BBB debe detectarlo factual y continuar sin esperar una nueva orden.
+- `NIGHT-BBB-001`: superseded before worker execution by JOBS cycle 001 because the human/process blocker changed factually: PR #51 is now Ready (`draft=false`). Same PR/owner retained; no duplicate work.
+- Handoff Issue #41 `5460933229` remains historical evidence for exact head and prior Draft blocker; current GitHub state prevails.
