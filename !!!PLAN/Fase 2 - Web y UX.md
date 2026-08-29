@@ -4,17 +4,18 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.  
-**Estado F2:** 11.1 y 12.2 cerrados; D8 ya PASS; siguiente slice F2 todavía **UNASSIGNED**.
+**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 está asignado a AAA bajo `NIGHT-AAA-003`.
 
 ## Owner actual
 
-**AAA cerró F2 / 12.2 y no tiene una nueva asignación activa.**
+**AAA — F2 / 12.1 Bootstrap y load — FULL OWNER para este slice.**
 
 - 11.1 / PR #47: cerrado e integrado.
+- 11.2 / PR #54: cerrado e integrado.
 - 12.2 / PR #50: cerrado e integrado.
-- AAA handoff Issue #41 `5460303449`: `STATUS: DONE`, `NEXT_WITHIN_AREA: none`.
-- No iniciar automáticamente 11.2, 12.1 ni 15.1. JOBS/RO debe reasignar explícitamente.
+- AAA handoff Issue #41 `5461257322`: 11.2 `STATUS: DONE`.
+- AAA no inicia 13.x/14.x/15.x automáticamente; JOBS reasigna en ciclos posteriores.
 
 ---
 
@@ -39,24 +40,33 @@ Checklist literal:
 - [x] Tests DOM/a11y afectados.
 - [x] Build/CI aplicable verde sobre exact head e integración verificable.
 
-### Tarea 11.2 [P1 · FE/QA] — Auth UI completa — `READY_TO_WORK / UNASSIGNED`
-- [ ] Login/register/MFA/verify/reset/recovery/error/offline.
-- [ ] OAuth popup/redirect, blocked/cancel/retry.
-- [ ] Tests teclado, lector, zoom, móvil y errores de red.
+### Tarea 11.2 [P1 · FE/QA] — Auth UI completa — `[x] DONE / INTEGRATED`
 
-**Dependencias:** las APIs/ciclo de cuenta de D8 ya están integradas y Gate D8 = PASS mediante Issue #41 `5460381842`. Por dependencia, 11.2 ya puede evaluarse como slice activo cuando JOBS/RO lo asigne. **No se asigna por inferencia.**
+Artifact: PR #54 exact tested head `e5aefa9fb6bda8a3f0e44c15ec7ae13084502ab5` sobre base `6c4499d124a64d138e791ea4abf0091766dde7e9`.
 
-**Gate:** variantes de cuenta alcanzables, legibles y recuperables.
+- [x] Login/register/MFA/verify/reset/recovery/error/offline.
+- [x] OAuth popup/redirect, blocked/cancel/retry.
+- [x] Tests/acceptance Web/DOM y a11y afectada; D6/D7 sin regresión.
+
+Evidencia exact-head:
+- Required CI #459 / run `33239731204` — SUCCESS;
+- D6 #94 — SUCCESS;
+- D7 #69 — SUCCESS;
+- merge a integración `3560dc844fbe6a56b5c2a29008a629f05a9125ce`;
+- post-merge parents: `6c4499d...` + `e5aefa9...`;
+- AAA handoff Issue #41 `5461257322` = `STATUS: DONE`.
+
+**Gate 11.2:** cerrado para este slice. Esto no declara F2 globalmente cerrada.
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 [P1 · BE/FE] — Bootstrap y load — `READY_TO_WORK / UNASSIGNED`
+### 12.1 [P1 · BE/FE] — Bootstrap y load — `ASSIGNED / IN PROGRESS` — AAA `NIGHT-AAA-003`
 - [ ] Índice vacío atómico en control plane.
 - [ ] Separar empty/no-results/offline/auth/cloud failure.
 - [ ] Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.
 - [ ] Instrumentar startup por fases, comparar cold/warm y corregir regresión de carga inicial reportada.
 
-D8 y 12.2 ya no son blockers. JOBS/RO decide explícitamente la prioridad entre 11.2, 12.1 y otros slices dependency-safe.
+**Regla de ejecución:** duplicate-check + REUSE-FIRST; preservar D8/11.2; Web pura sin Tauri/helper; exact-head CI antes de integración.
 
 ### 12.2 [P1/P2 · FE/DL] — Biblioteca — `[x] DONE / INTEGRATED`
 - [x] Header/search/sort/tags/selection accesibles.
