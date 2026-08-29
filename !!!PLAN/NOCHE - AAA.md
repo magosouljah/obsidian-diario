@@ -42,6 +42,18 @@
 `RECOMMENDATION_TO_JOBS: Keep SAME PR #64 / same 12.1 atomic empty-index sub-slice for exact-head CI processing. If 33272883660 is green and integration is unchanged or cleanly refreshable, owner race-check + merge; otherwise process only attributable failures. Whole 12.1 remains open after this sub-slice.`  
 `TURN_FINISHED_AT: 2026-08-29T14:14:53-06:00`
 
+## WAIT_FOR_ASSIGNMENT — 2026-08-29T14:55:00-06:00
+
+`WAIT_STATUS: WAIT_FOR_ASSIGNMENT`  
+`DUPLICATE_CHECK: NIGHT-AAA-014 ya figura como LAST_PROCESSED_ASSIGNMENT con resultado final PENDING; no se reejecutó.`  
+`LIVE_BASELINE: integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992.`  
+`LIVE_PR: #64 OPEN / Ready / mergeable; head aaa/night-12.1-atomic-empty-index @ 3e7fd0a0d7db6f7f423de47c86e643c36d6bcd24; NOT MERGED.`  
+`LATEST_AAA_HANDOFF: Issue #41 comment 5464652451 corresponde a NIGHT-AAA-014 / STATUS PENDING.`  
+`CHANGES_THIS_TURN: none in BeatGaler; no branch/PR/code/CI/merge/handoff duplicated.`  
+`UNVERIFIED: no nueva asignación JOBS escrita en este ledger después de NIGHT-AAA-014.`  
+`BLOCKERS: ausencia de ASSIGNMENT_STATUS: ASSIGNED con un Assignment ID nuevo.`  
+`RECOMMENDATION_TO_JOBS: emitir NIGHT-AAA-015 (o posterior monotónico) solo si desea que AAA procese el estado actual de #64 u otra pieza explícitamente asignada.`
+
 ## RESULTADO DEL TURNO ANTERIOR
 
 `LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-013`  
