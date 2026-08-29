@@ -1,9 +1,9 @@
 # Fase 1 — Seguridad, cuentas y datos durables
 
-> Leer `Plan Maestro.md`. D8 y D9 están cerrados. D10.1 está asignado a WOZ por el turno nocturno.
+> Leer `Plan Maestro.md`. D8 y D9 están cerrados. D10.1 sigue abierto únicamente por gaps literales de backup readiness y está reasignado a WOZ por el turno nocturno.
 
-**Estado:** D8 `[x] / PASS`; D9 `[x] / PASS`; D10.1 `ASSIGNED / IN PROGRESS`.  
-**Integración estable:** `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.  
+**Estado:** D8 `[x] / PASS`; D9 `[x] / PASS`; D10.1 `[ 🟡 ] / PENDING`.  
+**Integración estable:** `integration-v0.8.0-alpha.1` @ `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.  
 **Release público:** 🔴 `NO-GO`.
 
 ## D6 — `[x] PASS`
@@ -41,16 +41,18 @@ Requisitos aceptados mediante evidencia existente verificada:
 - [x] staging/conteos/checks + rollback sin pérdida + corrupción fail-closed;
 - [x] PostgreSQL permanece autoridad productiva; ningún JSON es autoridad productiva.
 
-Evidencia reusable incluye PRs #29–#42, importer/rollback CURRENT PG, durabilidad/restart fail-closed, dump/backup cifrado + restore aislado en CI, PITR/RPO representativo y controles ya aceptados en 5.2. No reabrir D9 sin evidencia material nueva.
+Evidencia reusable incluye PRs #29–#42, importer/rollback CURRENT PG, durabilidad/restart fail-closed, dump/backup cifrado + restore aislado, PITR/RPO representativo y controles ya aceptados en 5.2. No reabrir D9 sin evidencia material nueva.
 
 ## D10 — Restore y alpha
 
-### 10.1 — `ASSIGNED / IN PROGRESS` — WOZ `NIGHT-WOZ-002`
-- [ ] backup cifrado/config/media strategy;
-- [ ] restore aislado + RPO/RTO + core flows;
-- [ ] access/retention/off-provider copy/backup alert.
+### 10.1 — `[ 🟡 ] PENDING` — WOZ `NIGHT-WOZ-003`
 
-REUSE-FIRST obligatorio: PITR restore, RPO ~7 min, RTO `3643 s`, keyring multiversión, alarmas/on-call/rotation/rollback authority y evidencia de backup/restore ya existente. No repetir drills solo para recrear evidencia.
+Gate transaction WOZ Issue #41 `5461379758`:
+- [ 🟡 ] **backup cifrado/config/media strategy:** PENDING — cifrado/PITR y secretos están evidenciados, pero falta evidencia literal suficiente de estrategia completa para config + índice/media;
+- [x] **restore aislado + RPO/RTO + core flows:** PASS — PITR aislado real, RPO ~7 min <=15 min, RTO `3643 s` <=7200 s y validación funcional representativa ya aceptada; no repetir el restore;
+- [ 🟡 ] **access/retention/off-provider copy/backup alert:** PENDING — access/retention están cubiertos; falta evidencia literal de copia off-provider y de backup-failure alert específica (o demostración de equivalencia literal del mecanismo existente).
+
+`NIGHT-WOZ-003` debe cerrar solo esos gaps mediante REUSE-FIRST. Si requieren credencial, proveedor, costo nuevo o decisión RO, registrar la acción externa mínima y mantener PENDING; no aprovisionar por inferencia.
 
 ### 10.2 — `NOT STARTED`
 - [ ] revisar gates D2–D10/P0/evidencia requerida;
