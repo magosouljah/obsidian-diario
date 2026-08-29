@@ -7,16 +7,16 @@
 | Rol | Owner actual | Responsabilidad |
 |---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates, `WOZ NEXT` |
-| **WOZ** | F1 / D8 / 8.2 | implementación, fixes, tests, CI, integración y gate técnico de D8 |
-| **AAA** | F2 / 12.2 | artifact Biblioteca #50; tests/CI/evidencia e integración de su área |
-| **BBB** | F4 / 21.2 | PR #51 camino combinado 21.1+21.2; upgrade matrix y evidencia |
+| **WOZ** | sin asignación activa | D8 cerrado; espera asignación explícita antes de D9 u otro trabajo |
+| **AAA** | sin asignación activa | 12.2 cerrado; espera asignación explícita antes de 11.2/12.1/15.1 u otro slice |
+| **BBB** | F4 / 21.2 | PR #51 camino combinado 21.1+21.2; refresh, exact-head evidence e integración de su área |
 
 RO conserva alcance de producto, riesgo aceptado y go/no-go. JOBS puede reorganizar el roadmap, pero **un cambio de owner es una decisión explícita**, no un salto automático por dependencia.
 
 Estado de owner verificado:
-- WOZ: 8.1 cerrado/integrado; continúa el mismo FULL OWNER de D8 en 8.2 / PR #52.
-- AAA: 11.1 cerrado/integrado; continúa FULL OWNER de 12.2 / PR #50.
-- BBB: continúa FULL OWNER de 21.2 por Issue #41 `5458104890`; PR #51 es el camino combinado 21.1+21.2.
+- WOZ: D8 cerrado/PASS por Issue #41 `5460381842`; no inicia D9 automáticamente.
+- AAA: 12.2 cerrado/integrado; handoff `5460303449` dice `NEXT_WITHIN_AREA: none`; no auto-inicia 11.2, 12.1 ni 15.1.
+- BBB: continúa FULL OWNER de 21.2 por Issue #41 `5458104890`; PR #51 es el camino combinado 21.1+21.2 y necesita refresh contra baseline vivo.
 
 ## Modelo ROMPECABEZAS CON OWNER FIJO
 
@@ -30,6 +30,7 @@ Estado de owner verificado:
 8. Revisión independiente adicional se crea solo por orden JOBS/RO o por un gate que literalmente la requiera.
 9. `READY_TO_WORK` no implica `READY_TO_CLOSE` ni `READY_TO_RELEASE`.
 10. Ningún gate se marca `[x]` sin evidencia verificable.
+11. **Dependency-ready no equivale a assigned.** Cerrar un gate puede desbloquear tareas, pero nadie las inicia sin owner explícito.
 
 ## Invocaciones
 
@@ -38,7 +39,7 @@ Estado de owner verificado:
 - `Eres AAA. Lee !!!PLAN y continúa tu área asignada.`
 - `Eres BBB. Lee !!!PLAN y continúa tu área asignada.`
 
-No hace falta repetir estado si puede recuperarse del plan/GitHub.
+Si WOZ/AAA aparece sin asignación activa, debe hacer preflight y STOP/WAIT, no escoger por sí mismo la siguiente tarea.
 
 ## JOBS — rutina
 
@@ -49,7 +50,7 @@ No hace falta repetir estado si puede recuperarse del plan/GitHub.
 5. actualizar estado confirmado en Plan/fase/Registro;
 6. escalar blocker real sin mover al agente automáticamente;
 7. reasignar solo con decisión explícita;
-8. entregar `WOZ NEXT` centrado en el cuello técnico.
+8. entregar `WOZ NEXT` centrado en el cuello técnico o declarar `NO ACTIVE ASSIGNMENT` si todavía no existe una asignación autorizada.
 
 JOBS no toca producto/infra ni decide la solución técnica de WOZ. En particular, JOBS **no mergea código BeatGaler** cuando esa integración pertenece al owner/integrador técnico; JOBS secuencia, exige evidencia y sincroniza el plan.
 
@@ -94,6 +95,8 @@ Verificar:
 
 Dato material no verificable → **STOP / PENDING**.
 
+Si el rol no tiene tarea activa explícita → **STOP / WAIT_FOR_ASSIGNMENT**. No seleccionar automáticamente la primera tarea dependency-ready.
+
 ## 2. Idempotencia
 
 Antes de rama/PR/comentario/commit:
@@ -125,7 +128,8 @@ STOP/BLOCKED/STALLED/RO DECISION REQUIRED ante:
 - decisión reservada al RO;
 - necesidad real de ampliar alcance;
 - CI externo no atribuible;
-- evidencia insuficiente para gate.
+- evidencia insuficiente para gate;
+- ausencia de asignación activa explícita.
 
 **BLOCKED no cambia el owner automáticamente.**
 
@@ -170,10 +174,10 @@ NEXT_WITHIN_AREA: <acción>
 
 ```text
 NIGHT SHIFT LEDGER
-WOZ: F1/D8/8.2 + PR #52 → <estado/evidencia>
-AAA: F2/12.2 + PR #50 → <estado/evidencia>
+WOZ: D8 CLOSED / no active assignment → WAIT_FOR_ASSIGNMENT
+AAA: 12.2 CLOSED / no active assignment → WAIT_FOR_ASSIGNMENT
 BBB: F4/21.2 + PR #51 → <estado/evidencia>
-JOBS: <plan sync/no-op>
+JOBS: <plan sync/no-op/reassignment explicit>
 OWNER_CHANGES: none | <explícitos>
 DUPLICATE_WORK: none | ...
 UNVERIFIED_CLAIMS: none | ...
@@ -182,19 +186,23 @@ STALLED: none | ...
 
 ## Estado vigente
 
-- **Baseline canónico:** `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
-- **WOZ:** F1 / D8 / 8.2 FULL OWNER. 8.1/#49 ya está integrado. PR #52 `ef0d6b1...` tiene candidate técnico + Required CI verde sobre baseline `14002b29...`, pero debe refresh/revalidarse contra `489d81b...`. Gate D8 sigue PENDING por email provider/templates, retención y provider-only reauth; no D9.
-- **AAA:** F2 / 12.2 FULL OWNER. 11.1/#47 refreshed e integrado como `489d81b...`. PR #50 `258017f...` sigue OPEN/no mergeado y debe refresh/revalidarse contra el baseline canónico posterior a la secuencia WOZ.
-- **BBB:** F4 / 21.2 FULL OWNER. PR #51 es camino combinado 21.1+21.2, OPEN/DRAFT; current head observado `f70f17e...`, CI actual en curso al preflight y fresh baseline requerido antes de integración final.
+- **Baseline canónico:** `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.
+- **WOZ:** D8 `[x] / PASS`. #49/8.1, #52/8.2 y #53/resoluciones RO integrados. Sin nueva asignación activa. D9 está dependency-ready pero unassigned.
+- **AAA:** 11.1 y 12.2 `[x] / DONE / INTEGRATED`. PR #50 merge `39e894c...`; sin nueva asignación activa. 11.2 y 12.1 están dependency-ready; F2/15.1 “Vaciar Trash” queda queued, todos sin owner hasta decisión JOBS/RO.
+- **BBB:** F4 / 21.2 FULL OWNER. PR #51 sigue OPEN/DRAFT. Head histórico `e9fc4e68...` tuvo Required CI + Upgrade Staging + D6/D7 verdes sobre base `c25ec6a...`, pero integración avanzó a `6c4499d...`; fresh union + exact-head evidence requerida. Process blocker registrado en Issue #41 `5460283021`.
 - **JOBS:** coordinación, secuenciación y plan; sin hopping automático y sin código BeatGaler.
 
 ## Secuencia de integración vigente
 
+Completado:
 1. #49 / 8.1 — **DONE / INTEGRATED** `14002b29...`.
 2. #47 / 11.1 — **DONE / INTEGRATED** `489d81b...`.
-3. #52 / 8.2 — siguiente cuello técnico: refresh contra `489d81b...`, exact-head CI, integración técnica; Gate D8 puede permanecer PENDING por decisiones externas.
-4. #50 / 12.2 — refresh final después del movimiento #52 para evitar doble revalidación; exact-head CI + integración.
-5. #51 / 21.1+21.2 — puede continuar pruebas en paralelo; integración final usa baseline vigente y exact-head evidence.
-6. Cualquier cambio material de head/combinación invalida el uso del CI anterior como prueba de la nueva combinación hasta nuevo CI exact-head.
+3. #52 / 8.2 — **DONE / INTEGRATED** `c25ec6a...`.
+4. #50 / 12.2 — **DONE / INTEGRATED** `39e894c...`.
+5. #53 / D8 RO resolutions — **DONE / INTEGRATED** `6c4499d...`; Gate D8 PASS.
 
-**Principio:** tres constructores trabajan tres piezas distintas; cada uno termina y prueba la suya.
+Pendiente:
+6. #51 / 21.1+21.2 — BBB conserva owner; refresh contra `6c4499d...`, exact-head Required CI + Upgrade Staging + D6/D7, ready-state válido e integración verificable.
+7. Cualquier cambio material de head/combinación invalida el uso del CI anterior como prueba de la nueva combinación hasta nuevo CI exact-head.
+
+**Principio:** cada constructor termina y prueba su pieza; cuando termina, espera una nueva asignación en vez de saltar solo a otra tarea.
