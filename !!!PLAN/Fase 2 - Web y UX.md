@@ -1,17 +1,20 @@
 # Fase 2 — Flujos Web completos y rediseño de alto impacto
 
-> Leer `Plan Maestro.md`. Bajo el modelo ROMPECABEZAS, slices frontend independientes pueden avanzar antes de cerrar Fase 1 si no dependen materialmente de APIs pendientes.
+> Leer `Plan Maestro.md`. Bajo el modelo ROMPECABEZAS, slices frontend independientes pueden avanzar cuando sus dependencias reales están satisfechas, pero el siguiente owner/task se asigna explícitamente.
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.  
-**Estado F2:** trabajo independiente permitido; no se declara Fase 2 globalmente cerrada por un solo slice.
+**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.  
+**Estado F2:** 11.1 y 12.2 cerrados; D8 ya PASS; siguiente slice F2 todavía **UNASSIGNED**.
 
 ## Owner actual
 
-**AAA — F2 / 12.2 Biblioteca: FULL OWNER del artifact actual hasta integración/secuenciación o reasignación explícita.**
+**AAA cerró F2 / 12.2 y no tiene una nueva asignación activa.**
 
-11.1 ya fue integrado y cerrado. AAA conserva ownership de 12.2 / PR #50; no crea artifact duplicado. Fuera de scope: APIs F1/D8, MFA/reset backend semantics, data plane, YouTube.
+- 11.1 / PR #47: cerrado e integrado.
+- 12.2 / PR #50: cerrado e integrado.
+- AAA handoff Issue #41 `5460303449`: `STATUS: DONE`, `NEXT_WITHIN_AREA: none`.
+- No iniciar automáticamente 11.2, 12.1 ni 15.1. JOBS/RO debe reasignar explícitamente.
 
 ---
 
@@ -36,43 +39,43 @@ Checklist literal:
 - [x] Tests DOM/a11y afectados.
 - [x] Build/CI aplicable verde sobre exact head e integración verificable.
 
-### Tarea 11.2 [P1 · FE/QA] — Auth UI completa
+### Tarea 11.2 [P1 · FE/QA] — Auth UI completa — `READY_TO_WORK / UNASSIGNED`
 - [ ] Login/register/MFA/verify/reset/recovery/error/offline.
 - [ ] OAuth popup/redirect, blocked/cancel/retry.
 - [ ] Tests teclado, lector, zoom, móvil y errores de red.
 
-**Dependencias de cierre:** APIs de cuenta aplicables de Fase 1. D8/8.2 sigue `[ 🟡 ] / PENDING` y conserva decisiones de provider/retención/provider-only reauth, por lo que **11.2 completa todavía no es AAA NEXT dependency-safe**.
+**Dependencias:** las APIs/ciclo de cuenta de D8 ya están integradas y Gate D8 = PASS mediante Issue #41 `5460381842`. Por dependencia, 11.2 ya puede evaluarse como slice activo cuando JOBS/RO lo asigne. **No se asigna por inferencia.**
 
 **Gate:** variantes de cuenta alcanzables, legibles y recuperables.
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 [P1 · BE/FE] — Bootstrap y load
+### 12.1 [P1 · BE/FE] — Bootstrap y load — `READY_TO_WORK / UNASSIGNED`
 - [ ] Índice vacío atómico en control plane.
 - [ ] Separar empty/no-results/offline/auth/cloud failure.
 - [ ] Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.
 - [ ] Instrumentar startup por fases, comparar cold/warm y corregir regresión de carga inicial reportada.
 
-**AAA NEXT condicional:** después de integrar/cerrar 12.2, si D8 sigue pendiente, JOBS reasigna AAA explícitamente a **12.1** como siguiente slice F2 independiente. Si D8 ya cerró para entonces, JOBS reevalúa 11.2 antes de iniciar 12.1.
+D8 y 12.2 ya no son blockers. JOBS/RO decide explícitamente la prioridad entre 11.2, 12.1 y otros slices dependency-safe.
 
-### 12.2 [P1/P2 · FE/DL] — Biblioteca — `[ 🟡 ] CANDIDATE DONE / INTEGRACIÓN PENDIENTE`
-- [ ] Header/search/sort/tags/selection accesibles — implementado en candidate; cierre global pendiente.
-- [ ] Card con jerarquía fija y estados sin salto — implementado en candidate; cierre global pendiente.
-- [ ] Grid 390/768/1024/desktop; touch no depende de hover — implementado en candidate; cierre global pendiente.
+### 12.2 [P1/P2 · FE/DL] — Biblioteca — `[x] DONE / INTEGRATED`
+- [x] Header/search/sort/tags/selection accesibles.
+- [x] Card con jerarquía fija y estados sin salto.
+- [x] Grid 390/768/1024/desktop; touch no depende de hover.
 
-Artifact canónico: PR #50 `aaa/f2-12.2-library` @ `258017fbd03e2a8edf0a93f7af2c7acb7ddf1a7c` — **OPEN / no mergeado / non-draft**.
+**Artifact canónico:** PR #50 `aaa/f2-12.2-library` exact tested head `b7a31d686a361f559783b5dc7cb8bebc5aa04e8e`, construido directamente sobre baseline post-#52 `c25ec6a824bc0ae60fbf65858d53be26d453f205`.
 
-El candidate original fue intencionalmente apilado sobre la rama #47 y tiene Required CI #416 `33213031905` SUCCESS + D6 `33213031958` SUCCESS. Sin embargo #47 fue después refreshed e integrado como `489d81b...`; el head #50 actual no constituye todavía evidencia exacta de la combinación canónica viva.
+**Delta final:** 1 commit / 4 files; sin cambios a AccountGate/auth/session/backend/data-plane/infra.
 
-**No marcar 12.2 `[x]`:**
-1. conservar/reutilizar PR #50;
-2. seguir la secuencia JOBS para evitar refresh doble mientras WOZ mueve D8.2;
-3. incorporar el baseline canónico que ya contenga los cambios previos autorizados;
-4. repetir CI exact-head si cambia el head;
-5. integrar por flujo autorizado y solo entonces cerrar 12.2.
+**Evidencia exact-head:**
+- Required CI #452 / run `33233250213` — SUCCESS;
+- D6 #89 / `33233250229` — SUCCESS;
+- D7 #62 / `33233250210` — SUCCESS;
+- Productive Temp Auth Compile #173 / `33233250206` — SUCCESS;
+- merge a integración `39e894c0fcefffa5d3222e3c135a086937a10a8e`;
+- AAA handoff Issue #41 `5460303449` = `STATUS: DONE`.
 
-**Dependencias de cierre:** data plane + foundations. Foundations 11.1 ya está cerrado; falta integración verificable del slice 12.2.  
-**Gate:** registro → empty gallery → Add Beat sin Desktop previo.
+12.2 queda cerrado; esto no declara F2 globalmente cerrada.
 
 ## Día 13 — Import, Review y bulk edit
 
@@ -104,10 +107,13 @@ El candidate original fue intencionalmente apilado sobre la rama #47 y tiene Req
 
 ## Día 15 — Settings, Trash, accesibilidad y YouTube Web
 
-### 15.1 [P1 · FE/DL]
+### 15.1 [P1 · FE/DL] — `QUEUED / UNASSIGNED`
 - [ ] SettingsShell desktop/móvil; Account/Plan/Preferences/Trash/legal.
 - [ ] State machines reales para catálogo/cache/Trash/updater.
 - [ ] Acciones peligrosas separadas, confirmadas y con reauth.
+- [ ] **Follow-up RO de D8:** acción visible **“Vaciar Trash”** que haga borrado permanente, con confirmación fuerte y recent reauth antes de ejecutar.
+
+El follow-up “Vaciar Trash” fue registrado por WOZ al cerrar D8; pertenece a F2/15.1 y **no fue implementado por PR #53**. Registrar ≠ asignar ni cerrar.
 
 ### 15.2 [P2 · QA/DL]
 - [ ] Dialog/focus restoration/live regions/labels/contraste/zoom/reduced motion.
