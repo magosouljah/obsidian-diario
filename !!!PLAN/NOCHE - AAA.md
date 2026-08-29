@@ -11,30 +11,28 @@ Cerrar la mayor cantidad posible de F2 sin invadir otras áreas. Un turno = una 
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-006`
+- `ASSIGNMENT_ID: NIGHT-AAA-007`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F2 / 12.1 — Bootstrap y load / corrective slice A completion`
-- `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`
+- `AREA: F2 / 12.1 — Bootstrap y load / exact-head candidate closure`
+- `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`
 - `REUSE_BRANCH: aaa/night-12.1-bootstrap-load`
-- `KNOWN_BRANCH_HEAD: 51232744a6cd4bc2af67de901e09beb70c91f4fc`
+- `KNOWN_BRANCH_HEAD: d7cc93f9c4318be7f993bd033483c4e7f1834a55`
 
 ### Orden JOBS
 
 1. Preflight factual: Plan Maestro + F2 + Registro + roles + protocolo + este archivo + Issue #41 reciente + GitHub real.
-2. Reutiliza exclusivamente `aaa/night-12.1-bootstrap-load`; no abras otra rama/PR 12.1.
-3. Conserva el cambio `51232744...` y completa el mismo slice A:
-   - taxonomía observable mínima `empty`, `no-results`, `offline`, `auth-failure`, `cloud-failure`;
-   - instrumentación startup por fases suficiente para comparar cold/warm reproduciblemente;
-   - tests afectados para artwork lazy + taxonomy + instrumentation.
-4. No tocar atomic empty-index bootstrap salvo compilación estrictamente necesaria; sigue como requisito 12.1 posterior.
-5. Preserva Web pura sin Tauri/helper y no reabras auth/session fuera del mapping de estados.
-6. Si queda candidate coherente, abre/reutiliza un solo PR contra baseline vivo y obtiene CI exact-head aplicable.
-7. Si cambia baseline, refresh mínimo + CI exact-head nuevo; no reutilices CI de combinación vieja.
-8. Actualiza solo este markdown con DONE/BLOCKED/PENDING/STALLED y STOP.
+2. Reutiliza exclusivamente `aaa/night-12.1-bootstrap-load`; no abras otra rama/PR 12.1. Duplicate-check antes de cualquier artifact.
+3. Preserva los cambios ya hechos: lazy artwork `51232744...`, taxonomy mínima y startup timing de `d7cc93f...`.
+4. Ejecuta y corrige únicamente los tests afectados de artwork lazy + taxonomy + startup instrumentation. Si el wiring diagnóstico mínimo es necesario para que la observación sea realmente consumible/reproducible, añádelo sin ampliar scope.
+5. Refresca contra baseline vivo `f0d65aa...` solo con la unión mínima necesaria. Si cambia materialmente la combinación, toda evidencia CI anterior queda inválida.
+6. Cuando el slice A sea coherente, abre o reutiliza **un solo PR** contra `integration-v0.8.0-alpha.1` y obtiene CI exact-head aplicable. No declares PASS por tests no ejecutados.
+7. No implementes atomic empty-index bootstrap en este Assignment ID salvo requisito estrictamente necesario de compilación; queda como siguiente sub-slice de 12.1 después de cerrar este candidate.
+8. Si tras este turno no puedes producir ejecución verificable/PR/CI y no existe blocker externo real, reporta `STALLED` con causa exacta; no sigas acumulando cambios no verificados.
+9. Actualiza solo este markdown con DONE/BLOCKED/PENDING/STALLED y STOP.
 
 ### Fuera de scope
 
-F1/F3/F4; pagos; signing/release; YouTube 15.3; 13.x/14.x/15.x; atomic empty-index salvo necesidad de compilación; cualquier `!!!PLAN` salvo este markdown.
+F1/F3/F4; pagos; signing/release; YouTube 15.3; 13.x/14.x/15.x; atomic empty-index salvo necesidad estricta; cualquier `!!!PLAN` salvo este markdown.
 
 ## RESULTADO DEL TURNO
 
@@ -54,6 +52,7 @@ F1/F3/F4; pagos; signing/release; YouTube 15.3; 13.x/14.x/15.x; atomic empty-ind
 
 ## HISTORIAL
 
+- `NIGHT-AAA-007`: ASSIGNED — cerrar candidate exact-head del corrective slice A en la misma rama; no atomic empty-index aún.
 - `NIGHT-AAA-006`: PENDING — head `d7cc93f9...` añade taxonomy + timing + tests; CI exact-head aún UNVERIFIED.
 - `NIGHT-AAA-005`: PENDING — product commit `51232744...` retira eager artwork hydration; resto sin verificar.
 - `NIGHT-AAA-004`: STALLED — rama creada, sin product commit/PR/CI.
