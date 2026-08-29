@@ -4,8 +4,8 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 está asignado a AAA bajo `NIGHT-AAA-003`.
+**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto y está asignado a AAA bajo `NIGHT-AAA-004`.
 
 ## Owner actual
 
@@ -14,8 +14,8 @@
 - 11.1 / PR #47: cerrado e integrado.
 - 11.2 / PR #54: cerrado e integrado.
 - 12.2 / PR #50: cerrado e integrado.
-- AAA handoff Issue #41 `5461257322`: 11.2 `STATUS: DONE`.
-- AAA no inicia 13.x/14.x/15.x automáticamente; JOBS reasigna en ciclos posteriores.
+- `NIGHT-AAA-003` terminó PENDING sin artifact: auditoría encontró gaps reales en eager artwork hydration, startup/state taxonomy y bootstrap evidence.
+- `NIGHT-AAA-004` continúa la misma pieza sobre baseline `5b05ca8...`; no auto-inicia 13.x/14.x/15.x.
 
 ---
 
@@ -23,17 +23,8 @@
 
 ### Tarea 11.1 [P1 · FE/DL] — `[x] DONE / INTEGRATED`
 
-Artifact: PR #47 `aaa/f2-11.1-design-foundations` refreshed exact head `fdc6463e6b81efedc547c97595529d28e0ba2d83`.
+PR #47 exact head `fdc6463e6b81efedc547c97595529d28e0ba2d83`; Required CI `33216364174` SUCCESS; merge `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
 
-Después de integrar PR #49 / D8.1, AAA reutilizó #47, incorporó el baseline post-#49 y resolvió el overlap material de `AccountGate.tsx` + test DOM preservando como autoridad la seguridad de sesión de #49. El delta de 11.1 permaneció limitado a UI/a11y foundations.
-
-Evidencia exact-head:
-- Required CI #429 / run `33216364174` — SUCCESS;
-- D6 #68 / `33216364104` — SUCCESS;
-- D7 #39 / `33216364074` — SUCCESS;
-- merge a `integration-v0.8.0-alpha.1`: `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
-
-Checklist literal:
 - [x] Tokens, tipografía, iconos, focus, buttons, fields, feedback, Dialog y reduced motion.
 - [x] Documentar estados; retirar duplicación inline empezando por AccountGate.
 - [x] Corregir autofill, contraste, loading y layout 390–430 px.
@@ -42,50 +33,31 @@ Checklist literal:
 
 ### Tarea 11.2 [P1 · FE/QA] — Auth UI completa — `[x] DONE / INTEGRATED`
 
-Artifact: PR #54 exact tested head `e5aefa9fb6bda8a3f0e44c15ec7ae13084502ab5` sobre base `6c4499d124a64d138e791ea4abf0091766dde7e9`.
+PR #54 exact tested head `e5aefa9fb6bda8a3f0e44c15ec7ae13084502ab5` sobre base `6c4499d124a64d138e791ea4abf0091766dde7e9`.
 
 - [x] Login/register/MFA/verify/reset/recovery/error/offline.
 - [x] OAuth popup/redirect, blocked/cancel/retry.
 - [x] Tests/acceptance Web/DOM y a11y afectada; D6/D7 sin regresión.
 
-Evidencia exact-head:
-- Required CI #459 / run `33239731204` — SUCCESS;
-- D6 #94 — SUCCESS;
-- D7 #69 — SUCCESS;
-- merge a integración `3560dc844fbe6a56b5c2a29008a629f05a9125ce`;
-- post-merge parents: `6c4499d...` + `e5aefa9...`;
-- AAA handoff Issue #41 `5461257322` = `STATUS: DONE`.
-
-**Gate 11.2:** cerrado para este slice. Esto no declara F2 globalmente cerrada.
+Evidencia: Required CI `33239731204` SUCCESS; D6 #94 SUCCESS; D7 #69 SUCCESS; merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`; Issue #41 `5461257322` DONE.
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 [P1 · BE/FE] — Bootstrap y load — `ASSIGNED / IN PROGRESS` — AAA `NIGHT-AAA-003`
+### 12.1 [P1 · BE/FE] — Bootstrap y load — `ASSIGNED / IN PROGRESS` — AAA `NIGHT-AAA-004`
 - [ ] Índice vacío atómico en control plane.
 - [ ] Separar empty/no-results/offline/auth/cloud failure.
 - [ ] Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.
 - [ ] Instrumentar startup por fases, comparar cold/warm y corregir regresión de carga inicial reportada.
 
-**Regla de ejecución:** duplicate-check + REUSE-FIRST; preservar D8/11.2; Web pura sin Tauri/helper; exact-head CI antes de integración.
+**Hallazgo factual `NIGHT-AAA-003`:** no existe artifact reusable 12.1 verificado; `webLibrary.ts` hidrata artwork de forma eager antes de devolver la biblioteca; `webAdapter.ts` carece de la instrumentación/state taxonomy requerida; no se verificó bootstrap atómico de índice vacío. No marcar 12.1 cerrado hasta artifact + tests/CI exact-head.
 
 ### 12.2 [P1/P2 · FE/DL] — Biblioteca — `[x] DONE / INTEGRATED`
+
+PR #50 exact tested head `b7a31d686a361f559783b5dc7cb8bebc5aa04e8e`; Required CI `33233250213`, D6 `33233250229`, D7 `33233250210`, compile `33233250206` SUCCESS; merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`; Issue #41 `5460303449` DONE.
+
 - [x] Header/search/sort/tags/selection accesibles.
 - [x] Card con jerarquía fija y estados sin salto.
 - [x] Grid 390/768/1024/desktop; touch no depende de hover.
-
-**Artifact canónico:** PR #50 `aaa/f2-12.2-library` exact tested head `b7a31d686a361f559783b5dc7cb8bebc5aa04e8e`, construido directamente sobre baseline post-#52 `c25ec6a824bc0ae60fbf65858d53be26d453f205`.
-
-**Delta final:** 1 commit / 4 files; sin cambios a AccountGate/auth/session/backend/data-plane/infra.
-
-**Evidencia exact-head:**
-- Required CI #452 / run `33233250213` — SUCCESS;
-- D6 #89 / `33233250229` — SUCCESS;
-- D7 #62 / `33233250210` — SUCCESS;
-- Productive Temp Auth Compile #173 / `33233250206` — SUCCESS;
-- merge a integración `39e894c0fcefffa5d3222e3c135a086937a10a8e`;
-- AAA handoff Issue #41 `5460303449` = `STATUS: DONE`.
-
-12.2 queda cerrado; esto no declara F2 globalmente cerrada.
 
 ## Día 13 — Import, Review y bulk edit
 
@@ -121,9 +93,7 @@ Evidencia exact-head:
 - [ ] SettingsShell desktop/móvil; Account/Plan/Preferences/Trash/legal.
 - [ ] State machines reales para catálogo/cache/Trash/updater.
 - [ ] Acciones peligrosas separadas, confirmadas y con reauth.
-- [ ] **Follow-up RO de D8:** acción visible **“Vaciar Trash”** que haga borrado permanente, con confirmación fuerte y recent reauth antes de ejecutar.
-
-El follow-up “Vaciar Trash” fue registrado por WOZ al cerrar D8; pertenece a F2/15.1 y **no fue implementado por PR #53**. Registrar ≠ asignar ni cerrar.
+- [ ] **Follow-up RO de D8:** acción visible **“Vaciar Trash”** con borrado permanente, confirmación fuerte y recent reauth.
 
 ### 15.2 [P2 · QA/DL]
 - [ ] Dialog/focus restoration/live regions/labels/contraste/zoom/reduced motion.
