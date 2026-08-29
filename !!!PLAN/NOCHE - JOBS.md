@@ -8,127 +8,104 @@
 
 Terminar F0–F4 o reducirlas al mínimo número factual de blockers externos. Prioridad: (1) F0–F4, (2) sencillez, (3) limpieza. Evidence-before-claim; REUSE-FIRST; duplicate-check; exact-head; no rebajar gates.
 
-## BASELINE VIVO — CYCLE 007
+## BASELINE VIVO — CYCLE 007 FINAL
 
-- BeatGaler integración: `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9` al preflight; ningún PR nuevo estaba integrado todavía.
+- BeatGaler integración permaneció en `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9` durante este ciclo; JOBS no hizo merges de código.
 - Release público: 🔴 `NO-GO`.
-- F0: trabajo técnico de avance cerrado; 1.2 y 2.2 conservan tails externos. No `[x]` global.
-- F1: D6/D7/D8/D9 PASS. D10.1 artifact integrado; queda exclusivamente off-provider/off-account copy proof real + read/checksum. D10.2 sigue decisión RO.
-- F2: PR #58 existe ahora y GitHub lo reporta OPEN/Ready/mergeable=true, exact head `d7cc93f9c4318be7f993bd033483c4e7f1834a55`, base `f0d65aa...`; Required CI `33254699647` SUCCESS. Esto supera el snapshot STALLED de AAA-007. Slice A aún no está integrado y no cierra todo 12.1.
-- F3: PR #59 OPEN/Ready/mergeable=true, exact head `292a7706bc4f6c21eccc60f2838cda0cd8ed4adc`, base `f0d65aa...`; D6 `33256145573`, D7 `33256145614` y compile `33256145521` SUCCESS. Test - Desktop Portability `33256145531` seguía IN_PROGRESS en el último preflight; no se integra ni se reclama PASS todavía. Separación física staging/prod permanece externa aun si el contrato software integra.
-- F4: PR #57 OPEN/Ready/mergeable=true, exact refreshed head `4e251cae84ff55116c89c8398e78f04aecb78e3c`, base `f0d65aa...`; Required CI, D6 `33255401544` y D7 `33255401512` SUCCESS. 24.2 está técnicamente listo para owner race-check/merge; JOBS no mergea código BeatGaler.
+- F0: técnico habilitado; 1.2 y 2.2 tails externos.
+- F1: D6/D7/D8/D9 PASS. D10.1 artifact integrado; queda solo off-provider/off-account copy proof real + read/checksum. D10.2 = decisión RO.
+- F2: PR #58 OPEN/Ready/mergeable=true, exact head `d7cc93f9c4318be7f993bd033483c4e7f1834a55`, base `f0d65aa...`; Required CI `33254699647` SUCCESS. Slice A aún no integrado y 12.1 sigue abierto.
+- F3: PR #59 OPEN/Ready/mergeable=true, exact head `292a7706bc4f6c21eccc60f2838cda0cd8ed4adc`, base `f0d65aa...`; local self-test 7/7, D6 `33256145573`, D7 `33256145614`, productive temp-auth compile `33256145521` y Test - Desktop Portability `33256145531` **SUCCESS**. Candidate software está listo para owner race-check/merge; physical staging/prod separation sigue externa.
+- F4: PR #57 OPEN/Ready/mergeable=true, exact refreshed head `4e251cae84ff55116c89c8398e78f04aecb78e3c`, base `f0d65aa...`; Required CI exact-head, D6 `33255401544` y D7 `33255401512` SUCCESS. 24.2 está listo para owner race-check/merge.
 
 ## TABLERO AAA / BBB / WOZ
 
-### AAA
-- AREA: F2 / 12.1.
-- LAST_RESULT: `NIGHT-AAA-007` STALLED al cierre, pero el estado vivo posterior mejoró: PR #58 mergeable + Required CI exact-head SUCCESS.
-- CURRENT_ASSIGNMENT: `NIGHT-AAA-008`.
-- TARGET: race-check + integrar #58 si sigue verde; después comenzar únicamente atomic empty-index como siguiente sub-slice 12.1 con un candidate sucesor. No mezclar pagination/memory/cold-warm residual.
-- OWNER: AAA conserva 12.1.
+| Worker | Resultado 007 procesado | Asignación nueva | Objetivo |
+|---|---|---|---|
+| AAA | STALLED snapshot, luego GitHub mostró #58 mergeable + Required CI verde | `NIGHT-AAA-008` | integrar #58 si race-check válido; después atomic empty-index únicamente |
+| BBB | PENDING por CI en curso; luego exact-head quedó verde | `NIGHT-BBB-008` | integrar #57 si race-check válido; después 25.1 matrix audit dependency-safe |
+| WOZ | PENDING_EXTERNAL con #59; CI terminó verde después | `NIGHT-WOZ-008` | integrar #59 si race-check válido; mantener physical separation externa; después 16.2 software-only |
 
-### BBB
-- AREA: F4 / 24.2 → 25.1 dependency-safe.
-- LAST_RESULT: `NIGHT-BBB-007` PENDING por CI en curso; JOBS verificó después Required CI + D6 + D7 SUCCESS sobre exact head `4e251cae...`.
-- CURRENT_ASSIGNMENT: `NIGHT-BBB-008`.
-- TARGET: race-check + merge protegido de #57; después REUSE-FIRST audit de 25.1 para separar cobertura automatizada de blockers físicos/externos. No signing/notarization ni release.
-- OWNER: BBB único owner de #57/24.2 y del slice matrix 25.1 posterior al merge.
+No existe ownership simultáneo: AAA=F2/12.1; BBB=F4/24.2→25.1; WOZ=F3/16.1→16.2.
 
-### WOZ
-- AREA: F3 / 16.1 software candidate → 16.2 software-only.
-- LAST_RESULT: `NIGHT-WOZ-007` PENDING_EXTERNAL; PR #59 + self-test 7/7. CI posterior: D6/D7/compile verdes; Desktop Portability aún en curso en último fetch.
-- CURRENT_ASSIGNMENT: `NIGHT-WOZ-008`.
-- TARGET: esperar/verificar exact-head final de #59 y merge solo si PASS; mantener physical staging/prod PENDING_EXTERNAL; después iniciar 16.2 reproducible promotion contract dependency-safe sin crear infra/costo.
-- OWNER: WOZ único owner F3 16.x técnico.
+## ASIGNACIONES EMITIDAS
 
-## ASIGNACIONES EMITIDAS — CYCLE 007
+### `NIGHT-AAA-008`
+- REUSE PR #58 / `aaa/night-12.1-bootstrap-load`.
+- Revalidar exact head/base/checks y merge protegido si siguen válidos.
+- No marcar 12.1 completo por integrar #58.
+- Después: atomic empty-index como único sub-slice nuevo; duplicate-check, un candidate, tests/CI exact-head.
+- Pagination/window/memory y cold/warm residual quedan fuera de 008.
 
-- `NIGHT-AAA-008` → #58 closure + atomic empty-index siguiente sub-slice.
-- `NIGHT-BBB-008` → #57 closure + 25.1 matrix audit dependency-safe.
-- `NIGHT-WOZ-008` → #59 closure condicionado a exact-head + 16.2 software-only promotion contract.
+### `NIGHT-BBB-008`
+- REUSE PR #57 / `bbb/task-24.2-updater-recovery`.
+- Revalidar exact head/base/checks y merge protegido si siguen válidos.
+- Después: F4/25.1 REUSE-FIRST matrix audit dependency-safe, sin modificar lógica F2/F3 para hacer pasar la matriz.
+- No signing/notarization, release ni 25.2 freeze.
 
-No existe ownership simultáneo: AAA=F2/12.1; BBB=F4/24.2→25.1; WOZ=F3/16.1→16.2. JOBS no toca producto/infra.
+### `NIGHT-WOZ-008`
+- REUSE PR #59 / `woz/night-16.1-runtime-operability`.
+- Exact-head CI ya está completamente verde; revalidar race y merge protegido si combinación sigue vigente.
+- Aun con merge, 16.1 completo sigue PENDING_EXTERNAL por separación física staging/prod.
+- Después: 16.2 software-only/dependency-safe: promotion contract, API origin/TLS/headers fail-closed, smoke/rollback fixtures; sin crear provider resources/costo ni deploy real.
 
 ## BLOCKERS
 
-1. **F0/2.2 externo:** GitHub Support server-side cleanup + fresh final verification.
-2. **F0/1.2 release:** governance/provenance final, domain/support/status, signing plans, independent reviews, tester matrix; Apple Developer deferred.
-3. **F1/D10.1 externo:** off-provider/off-account copy real + read/checksum.
-4. **F1/D10.2:** alpha final por RO.
-5. **F2/12.1 interno:** #58 aún sin merge; después atomic empty-index, pagination/window/memory budget y cold/warm residual.
-6. **F3/16.1 externo:** recursos/credenciales/ownership físicamente separados staging/prod. Internamente #59 aún espera final Desktop Portability/merge.
-7. **F3 restante:** 16.2–20.x; Stripe/DNS/legal/provider resources contienen prerequisitos externos, pero aún hay trabajo software dependency-safe.
-8. **F4:** #57 listo para owner merge si race-check permanece válido; D22/D23 signing/notarization externos; 25.1 contiene hardware/physical matrix tails.
+1. F0/2.2: GitHub Support server-side cleanup + fresh final verification.
+2. F0/1.2: governance/provenance/domain/support/status/signing/reviews/test matrix; Apple Developer deferred.
+3. F1/D10.1: copia real fuera del primary provider/account failure domain + read/checksum.
+4. F1/D10.2: decisión RO sobre alpha final.
+5. F2/12.1: #58 merge pendiente; después atomic empty-index, pagination/window/memory y cold/warm residual.
+6. F3/16.1: #59 merge pendiente internamente; physical staging/prod resources/credentials/ownership permanecen externos.
+7. F3: 16.2–20.x es el mayor volumen restante; partes de Stripe/DNS/legal/provider requieren inputs externos.
+8. F4: #57 merge pendiente; D22/D23 signing/notarization externos; 25.1 incluye tails físicos.
 
 ## PROGRESO HACIA F0–F4
 
-- **F0:** técnicamente habilitado; solo tails externos/administrativos.
-- **F1:** técnico principal cerrado; D10.1 external-only + D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; 12.1 slice A ya tiene PR #58 + Required CI verde y está más cerca de integración; resto 12.1 y 13–15 siguen abiertos.
-- **F3:** 16.1 ya tiene candidate real #59 y gran parte de CI verde; physical separation sigue externa. 16.2 será el siguiente carril software-only. D17–D20 siguen el mayor volumen.
-- **F4:** 24.2 ya tiene refreshed exact-head CI verde y solo requiere owner race-check/merge; D22/D23 externos; 25.1 aún debe reducirse a evidencia/matrix real.
+- **F0:** solo tails externos/administrativos; no consumir worker técnico en trabajo duplicado.
+- **F1:** core técnico cerrado; D10.1 external-only + D10.2 RO.
+- **F2:** 11.1/11.2/12.2 cerrados; 12.1 slice A tiene candidate mergeable + Required CI verde.
+- **F3:** 16.1 software candidate #59 tiene self-test y exact-head CI completamente verdes; external physical separation conserva el gate. 16.2 será el siguiente carril dependency-safe.
+- **F4:** 24.2 candidate #57 exact-head CI verde; el siguiente retorno útil es integrar y reducir 25.1.
 
-## PLAN SYNC — CYCLE 007
+## PLAN SYNC DEL CICLO
 
-Hechos nuevos procesados:
-- AAA-007 no queda tratado como fracaso estático: GitHub vivo mostró #58 mergeable y Required CI `33254699647` SUCCESS después de su cierre.
-- BBB-007 blocker transitorio desapareció: #57 refreshed head `4e251cae...` tiene Required CI + D6 + D7 SUCCESS y mergeable=true.
-- WOZ-007 candidate #59 obtuvo D6/D7/compile SUCCESS; Desktop Portability aún estaba corriendo al último fetch, por lo que no se promueve a DONE.
-- integration HEAD no cambió durante el preflight: `f0d65aa...`.
+Actualizados:
+- `!!!PLAN/Plan Maestro.md`
+- `!!!PLAN/Fase 2 - Web y UX.md`
+- `!!!PLAN/Fase 3 - Producción pagos y operación.md`
+- `!!!PLAN/Fase 4 - Desktop y release chain.md`
+- `!!!PLAN/Equipo multi-IA - Roles y coordinación.md`
+- `!!!PLAN/Registro de avances.md`
+- `!!!PLAN/NOCHE - AAA.md`
+- `!!!PLAN/NOCHE - BBB.md`
+- `!!!PLAN/NOCHE - WOZ.md`
+- `!!!PLAN/NOCHE - JOBS.md`
+- Issue #41 handoff `5462857248`.
 
-Actualizado en este ciclo:
-- `!!!PLAN/NOCHE - AAA.md` → `NIGHT-AAA-008`.
-- `!!!PLAN/NOCHE - BBB.md` → `NIGHT-BBB-008`.
-- `!!!PLAN/NOCHE - WOZ.md` → `NIGHT-WOZ-008`.
-- `!!!PLAN/NOCHE - JOBS.md` → este CYCLE 007.
-
-Las fases y Plan Maestro deben interpretar este bloque/GitHub vivo por encima de snapshots `007` anteriores hasta su siguiente sync textual; ningún checkbox se adelanta por esa diferencia documental.
+Fase 0 y Fase 1 fueron leídas completas; no recibieron cambio textual porque ningún requisito/estado de esas fases cambió en este ciclo.
 
 ## SIGUIENTE CICLO
 
-1. Revalidar integration HEAD antes de todo.
-2. Procesar #57: 24.2 solo DONE/INTEGRATED con merge SHA verificable; luego evaluar output 25.1.
-3. Procesar #58: registrar solo slice A realmente integrado; 12.1 completo sigue abierto salvo evidencia de atomic/pagination/memory/cold-warm.
-4. Procesar #59: si exact-head final + merge existen, registrar software 16.1 integrado pero conservar physical separation external; procesar 16.2 dependency-safe.
-5. Recalcular F0–F4 desde cero y reasignar sin overlap.
-6. No abrir Fase 5 mientras los gates reales de F0–F4 necesarios para ese handoff sigan abiertos.
+1. Releer integration HEAD y los tres PRs antes de cualquier claim.
+2. Procesar merges verificables de #57/#58/#59 y sus merge SHAs; si cualquiera avanzó el baseline, invalidar cualquier CI cuya combinación material haya cambiado antes del merge restante.
+3. Procesar output de atomic empty-index, 25.1 matrix y 16.2 software-only.
+4. Mantener D10.1 off-provider, physical staging/prod y signing/notarization como externos hasta evidencia real.
+5. Recalcular F0–F4 desde cero; no conservar asignación por inercia.
+6. No abrir Fase 5 mientras gates reales necesarios sigan abiertos.
 
-## LOG DE DECISIONES
-
-### NIGHT-JOBS-007
+## LOG
 
 ```text
 CYCLE_ID: NIGHT-JOBS-007
 INTEGRATION_HEAD: f0d65aa66988e3e1a026e237b65c65a56b098aa9
-AAA_LAST: NIGHT-AAA-007 STALLED snapshot; post-turn #58 mergeable + Required CI exact-head SUCCESS
-BBB_LAST: NIGHT-BBB-007 PENDING snapshot; post-turn #57 4e251cae exact-head Required CI/D6/D7 SUCCESS
-WOZ_LAST: NIGHT-WOZ-007 PENDING_EXTERNAL; #59 D6/D7/compile SUCCESS, Desktop Portability still IN_PROGRESS at final preflight
-NEW_ASSIGNMENTS: NIGHT-AAA-008; NIGHT-BBB-008; NIGHT-WOZ-008
+AAA: #58 d7cc93f; mergeable; Required CI 33254699647 SUCCESS -> NIGHT-AAA-008
+BBB: #57 4e251cae; mergeable; Required CI + D6 33255401544 + D7 33255401512 SUCCESS -> NIGHT-BBB-008
+WOZ: #59 292a7706; mergeable; self-test 7/7 + D6 33256145573 + D7 33256145614 + compile 33256145521 + Desktop Portability 33256145531 SUCCESS -> NIGHT-WOZ-008
 DUPLICATE_WORK: none
+CLAIMS_PROMOTED_WITHOUT_MERGE: none
 RELEASE: NO-GO
-CRITICAL_PATH_NEXT_HOUR: integrate #57; integrate #58 slice A then atomic empty-index; integrate #59 only after final exact-head PASS then advance 16.2 software-only
+ISSUE_41_HANDOFF: 5462857248
 ```
 
-### NIGHT-JOBS-006
-
-`INTEGRATION_HEAD: f0d65aa...`; assignments 007 issued; retained as history.
-
-### NIGHT-JOBS-005
-
-`INTEGRATION_HEAD: 672e133bc...`; assignments 006; retained as history.
-
-### NIGHT-JOBS-004
-
-`INTEGRATION_HEAD: 5b05ca845...`; assignments 005; retained as history.
-
-### NIGHT-JOBS-003
-
-`INTEGRATION_HEAD: 5b05ca845...`; assignments 004; retained as history.
-
-### NIGHT-JOBS-002
-
-`INTEGRATION_HEAD: 3560dc844...`; assignments 003; retained as history.
-
-### NIGHT-JOBS-001
-
-`INTEGRATION_HEAD: 6c4499d124...`; assignments 002; retained as history.
+**STOP:** ciclo JOBS 007 terminado. La siguiente ejecución debe iniciar desde GitHub vivo, no desde este snapshot si cambió.
