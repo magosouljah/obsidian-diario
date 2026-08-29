@@ -7,22 +7,26 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-017`
-- `ASSIGNMENT_STATUS: PENDING`
-- `AREA: F4 / 25.1 — SAME PR #63 Windows import runner bootstrap corrective transaction`
-- `LIVE_BASE_AT_FINAL_ASSIGNMENT: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`
+- `ASSIGNMENT_ID: NIGHT-BBB-018`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F4 / 25.1 — SAME PR #63 exact-head Windows import closure`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`
 - `REUSE_PR: #63 / bbb/task-25.1-windows-import`
 - `KNOWN_HEAD: ea00d85d7946da8a27fe336bf738afb9a4bd72d0`
-- `PREDECESSOR: NIGHT-BBB-016 superseded by JOBS before worker execution.`
+- `PREDECESSOR: NIGHT-BBB-017 PENDING; SAME lineage must be reused.`
 
 ### Orden JOBS
 
-1. Preflight factual + duplicate-check contra GitHub vivo, Plan Maestro, F4, Registro, roles, protocolo, este ledger e Issue #41. GitHub manda.
-2. REUSE-FIRST exclusivamente SAME #63. PR #62 permanece CLOSED/NOT MERGED y no se reabre.
-3. Integration avanzó a `ed6aab7e...`; refresh SAME #63 + fresh exact-head CI obligatorio.
-4. Corregir únicamente runner/bootstrap EdgeDriver/Tauri Driver/WDIO session reutilizando capabilities/config existentes.
-5. `windows/import` permanece `NOT_COVERED` hasta PASS literal. Merge solo con functional PASS + applicable exact-head CI green + race-check compatible.
-6. No segundo slice ni 25.2.
+1. Haz preflight factual + duplicate-check contra GitHub vivo, Plan Maestro, F4, Registro, roles, protocolo, este ledger e Issue #41. GitHub manda.
+2. REUSE-FIRST exclusivamente SAME #63. PR #62 permanece CLOSED/NOT MERGED. No abras segundo slice/PR para `windows/import`.
+3. Reutiliza los runs exact-head ya lanzados sobre `ea00d85d...`; **no rerun ceremonial** mientras den evidencia utilizable.
+4. En el preflight JOBS CYCLE 018: F4 Matrix, D6 y D7 están SUCCESS; Windows Import `33277733650` y Desktop Portability `33277733647` siguen IN_PROGRESS. Reread su conclusión real.
+5. Si Windows Import termina SUCCESS y Desktop Portability/aplicable CI queda verde, haz race-check final contra integration. Solo entonces promueve `windows/import` a `AUTOMATED_PASS` en el artifact correspondiente y mergea SAME #63 por el flujo autorizado, con evidencia literal.
+6. Si Windows Import falla, usa **ese log exacto** para corregir únicamente la causa mínima de EdgeDriver/Tauri Driver/WDIO/session/bootstrap dentro de #63; fresh exact-head functional + applicable CI después del cambio.
+7. Si aparece bug de producto en vez de tooling, registra `PRODUCT_FINDING`; no robes implementación fuera de F4.
+8. 25.1 completo sigue abierto aunque `windows/import` pase. No empieces 25.2 en este Assignment ID.
+9. OUT OF SCOPE: F2/F3, signing/notarization, iPhone externo, Stripe/YouTube de producto, segunda matriz, release público.
+10. Handoff en este markdown + Issue #41 y STOP. No tomes otra asignación sin ID nuevo.
 
 ## RESULTADO DEL TURNO — NIGHT-BBB-017
 
@@ -31,18 +35,19 @@
 `BASE_BEFORE: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`  
 `HEAD_AFTER: bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0`  
 `PR: #63 OPEN / Ready / mergeable=true / NOT MERGED; SAME lineage; base_sha ed6aab7e964686cdb5fb1b84eac0198ca67f8892; exactly 3 changed files.`  
-`CHANGES: failure 33276125806 revalidado como tooling/bootstrap F4: el intento embedded llegó al harness pero @wdio/tauri-service reportó EdgeDriver mismatch, tauri-driver ausente y no pudo crear sesión. Se eliminó únicamente ese bootstrap experimental: scripts/prepare-f4-25.1-embedded-driver.mjs ahora valida sin mutar que wdio.e2e.conf.mjs conserva driverProvider=official, autoInstallTauriDriver=true y autoDownloadEdgeDriver=true; el workflow refleja ese bootstrap oficial. Durante el cierre JOBS actualizó el ledger porque #65 movió integration; se hizo refresh SAME lineage como merge-union ea00d85d... sobre ed6aab7e..., preservando exclusivamente los 3 paths F4 de #63. No cambios de producto F2/F3, matriz adicional, signing, iPhone, Stripe/YouTube ni 25.2.`  
-`TESTS: evidencia negativa reutilizada de 33276125806; no rerun ceremonial. Fresh Windows Import exact-head 33277733650 sigue IN_PROGRESS.`  
-`CI: exact head ea00d85d7946da8a27fe336bf738afb9a4bd72d0: F4 Matrix 33277733635 SUCCESS; D6 33277733621 SUCCESS; D7 33277733651 SUCCESS; Windows Import 33277733650 IN_PROGRESS; Desktop Portability 33277733647 QUEUED; Upgrade 21.2 Staging 33277733677 SKIPPED/no aplicable.`  
-`EVIDENCIA: wdio.e2e.conf.mjs fuente contiene literalmente official + autoInstallTauriDriver=true + autoDownloadEdgeDriver=true; PR #62 revalidada CLOSED/NOT MERGED; PR #51 revalidada CLOSED/MERGED, draft=false, merge 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858; integration vivo ed6aab7e... corresponde a merge #65; PR #63 reread tras refresh: base ed6aab7e..., head ea00d85d..., mergeable=true, changed_files=3.`  
-`UNVERIFIED: windows/import sigue NOT_COVERED; fresh functional run aún sin conclusión; Desktop Portability final aún no verde; no AUTOMATED_PASS; #63 no integrada; 25.1 completo sigue abierto.`  
-`BLOCKERS: fresh Windows Import functional está IN_PROGRESS y Desktop Portability exact-head está QUEUED. Merge prohibido hasta PASS literal + applicable CI completo + race-check final.`  
-`RECOMMENDATION_TO_JOBS: mantener SAME #63 y reutilizar los runs exact-head ea00d85d... en el próximo ciclo, sin rerun ceremonial. Si Windows Import y Desktop Portability terminan SUCCESS y integration sigue en ed6aab7e... o compatible, hacer owner race-check y promover windows/import a AUTOMATED_PASS únicamente con evidencia literal antes de merge; si falla, usar ese log como causa mínima. No abrir segundo slice/25.2.`  
+`CHANGES: failure 33276125806 revalidado como tooling/bootstrap F4. Se eliminó únicamente el bootstrap embedded experimental: scripts/prepare-f4-25.1-embedded-driver.mjs valida sin mutar que wdio.e2e.conf.mjs conserva driverProvider=official, autoInstallTauriDriver=true y autoDownloadEdgeDriver=true; el workflow usa ese bootstrap oficial. SAME lineage refreshed como merge-union sobre ed6aab7e..., preservando únicamente los 3 paths F4 de #63.`  
+`TESTS: evidencia negativa histórica 33276125806; no rerun ceremonial. Fresh Windows Import exact-head 33277733650 continúa IN_PROGRESS en JOBS CYCLE 018 preflight.`  
+`CI: exact head ea00d85d...: F4 Matrix 33277733635 SUCCESS; D6 33277733621 SUCCESS; D7 33277733651 SUCCESS; Windows Import 33277733650 IN_PROGRESS; Desktop Portability 33277733647 IN_PROGRESS; Upgrade 21.2 Staging 33277733677 SKIPPED/no aplicable.`  
+`EVIDENCE: wdio.e2e.conf.mjs conserva official + autoInstallTauriDriver=true + autoDownloadEdgeDriver=true; #62 CLOSED/NOT MERGED; #63 live base ed6aab7e..., head ea00d85d..., mergeable=true.`  
+`UNVERIFIED: windows/import sigue NOT_COVERED hasta conclusión literal; no AUTOMATED_PASS; #63 no integrada; 25.1 completo sigue abierto.`  
+`BLOCKERS: fresh Windows Import functional y Desktop Portability aún en curso. Merge prohibido hasta PASS literal + applicable CI completo + race-check final.`  
+`RECOMMENDATION_TO_JOBS: mantener SAME #63; reutilizar runs exact-head y cerrar/diagnosticar según resultado real, sin rerun ceremonial ni abrir 25.2.`  
 `TURN_FINISHED_AT: 2026-08-29T16:02:00-06:00`
 
 ## HISTORIAL
 
-- `NIGHT-BBB-017`: PENDING — SAME #63 @ `ea00d85d...`; bootstrap vuelve al auto-install/download oficial existente, refreshed onto `ed6aab7e...`; F4 Matrix/D6/D7 SUCCESS; Windows Import en curso y Desktop Portability en cola; no merge.
+- `NIGHT-BBB-018`: ASSIGNED — SAME #63 reuse exact-head runs; PASS→race-check/promote/merge, FAIL→minimal log-driven fix.
+- `NIGHT-BBB-017`: PENDING — SAME #63 @ `ea00d85d...`; official auto-install/download bootstrap, refreshed onto `ed6aab7e...`; F4 Matrix/D6/D7 SUCCESS; Windows Import + Desktop Portability still running.
 - `NIGHT-BBB-016`: SUPERSEDED_BY_JOBS before worker execution.
 - `NIGHT-BBB-015`: PENDING — SAME #63 marker-safe fix + refresh; Windows Import luego falló en driver/session bootstrap.
 - `NIGHT-BBB-014`: PENDING — #63 prior bootstrap marker mismatch.
