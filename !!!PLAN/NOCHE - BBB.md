@@ -12,12 +12,12 @@ Cerrar F4 sin invadir otras áreas. Un turno = una asignación JOBS. BBB no se a
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-BBB-007`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F4 / 24.2 — refresh exact-head + integración de updater recovery/rollback`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`
 - `REUSE_PR: #57 / bbb/task-24.2-updater-recovery`
-- `KNOWN_CANDIDATE_HEAD: 5c74c0948c43d53b2f8d075cd66ba70c953da3c5`
-- `CONTEXT: candidate 24.2 ya tiene Test - Desktop Portability, D6 y D7 SUCCESS sobre su head histórico, pero PR #56 movió integración de 672e133... a f0d65aa...; #57 ahora requiere refresh y CI exact-head sobre la nueva combinación antes de merge.`
+- `KNOWN_CANDIDATE_HEAD: 4e251cae84ff55116c89c8398e78f04aecb78e3c`
+- `CONTEXT: candidate 24.2 fue refrescado/rebasado de forma mínima sobre el baseline vivo f0d65aa... preservando el único delta de #56; nuevo exact-head CI está corriendo y no se mergea hasta PASS.`
 
 ### Orden JOBS
 
@@ -36,24 +36,25 @@ D22/D23 signing/notarization reales; 25.x; F1/F2/F3; release público; cualquier
 
 ## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-006`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-007`  
 `TURN_STATUS: PENDING`  
-`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`  
-`HEAD_AFTER: integration-v0.8.0-alpha.1 permanece @ 672e133bc9cb8a47a29d4b34e13fc535290e5681 durante el turno BBB; después WOZ integró #56 y GitHub vive en f0d65aa66988e3e1a026e237b65c65a56b098aa9.`  
-`BRANCH_HEAD: bbb/task-24.2-updater-recovery @ 5c74c0948c43d53b2f8d075cd66ba70c953da3c5`  
-`PR: #57 OPEN/Ready; candidate creado contra base 672e133...; GitHub actual exige refresh tras avance de integración.`  
-`CHANGES: REUSE-FIRST sobre updater/upgrade-matrix/release-controls existentes; policy fail-closed de recovery para red/disco/firma/manifest; fixtures N-1; planner no destructivo de retiro ligado a tag + source SHA + SHA-256; runbook de rollback/recuperación/comunicación; test conectado a packaging static. Una deriva accidental de @types/react-dom detectada por diff-check fue revertida antes del cierre.`  
-`TESTS: test:updater-recovery queda integrado en test:packaging:static y test:mac-portability:static; ejecución independiente local UNVERIFIED.`  
-`CI POST-TURNO VERIFICADO POR JOBS: exact head 5c74c094... — Test - Desktop Portability 33252718637 SUCCESS; D6 33252718614 SUCCESS; D7 33252718625 SUCCESS; Upgrade 21.2 Staging 33252718609 SKIPPED/no aplica.`  
-`EVIDENCIA: PR #57, candidate head 5c74c094...; exact-head CI del candidate histórico verde.`  
-`UNVERIFIED: combinación de #57 con baseline vivo f0d65aa...; merge final; signing/notarization/publicación reales.`  
-`BLOCKERS: no blocker externo para 24.2; únicamente refresh + exact-head CI por avance legítimo del baseline.`  
-`RECOMMENDATION_TO_JOBS: reutilizar #57, refresh mínimo, CI exact-head y merge protegido si sigue verde; no auto-iniciar 25.x.`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`  
+`HEAD_AFTER: integration-v0.8.0-alpha.1 permanece @ f0d65aa66988e3e1a026e237b65c65a56b098aa9; no merge por CI incompleto.`  
+`BRANCH_HEAD: bbb/task-24.2-updater-recovery @ 4e251cae84ff55116c89c8398e78f04aecb78e3c`  
+`PR: #57 OPEN / Ready (draft=false); base_sha GitHub actualizado a f0d65aa66988e3e1a026e237b65c65a56b098aa9; head_sha 4e251cae84ff55116c89c8398e78f04aecb78e3c; mergeability final queda pendiente de recálculo/CI.`  
+`CHANGES: duplicate-check confirmó un solo candidate #57. Delta #56 desde 672e133... a f0d65aa... = únicamente cloud-server/d10-backup-readiness-contract.mjs. Se reconstruyó/rebasó la misma rama sobre f0d65aa... reaplicando exactamente los 5 archivos materiales de 24.2; tree resultante a7c3e37484fdc8e8879078e487565a44f3196a5b preserva el contrato D10.1 del baseline y el candidate 24.2 sin abrir PR/rama alternos.`  
+`TESTS: evidencia histórica 5c74c094... permanece válida solo para candidate anterior; nuevo CI exact-head fue disparado automáticamente por el refresh. No reruns ceremoniales/manuales.`  
+`CI: exact head 4e251cae84ff55116c89c8398e78f04aecb78e3c — Test - Desktop Portability run 33255401498 PENDING; D6 run 33255401544 IN_PROGRESS; D7 run 33255401512 IN_PROGRESS; Upgrade 21.2 Staging run 33255401534 SKIPPED/no aplica.`  
+`EVIDENCIA: integración viva f0d65aa... verificada; PR #51 CLOSED/MERGED con merge 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858; PR #57 base/head actualizados; Actions exact-head enlazan base f0d65aa... + head 4e251cae....`  
+`UNVERIFIED: conclusión final de Test - Desktop Portability/D6/D7 sobre 4e251cae...; mergeability final después de CI; merge SHA de #57; signing/notarization/publicación reales.`  
+`BLOCKERS: solo CI exact-head todavía incompleto; no blocker externo nuevo para 24.2.`  
+`RECOMMENDATION_TO_JOBS: mantener #57 como único candidate. Cuando 33255401498/33255401544/33255401512 concluyan SUCCESS, emitir siguiente Assignment ID para race-check base/head y merge con expected-head sin rerun ceremonial; si falla alguno, corregir la misma PR. No auto-iniciar 25.x.`  
+`TURN_FINISHED_AT: 2026-08-29T07:36-06:00`  
 `STOP: sí.`
 
 ## HISTORIAL
 
-- `NIGHT-BBB-007`: ASSIGNED — refresh #57 contra f0d65aa..., exact-head CI y merge protegido si PASS.
+- `NIGHT-BBB-007`: PENDING — #57 refrescado/rebasado sobre `f0d65aa...` como exact head `4e251cae...`; CI exact-head en curso; no merge.
 - `NIGHT-BBB-006`: PENDING — PR #57 head `5c74c094...`; candidate dependency-safe completo; CI histórico luego verificado verde, pero baseline avanzó.
 - `NIGHT-BBB-005`: DONE — PR #55 head `ba83c87...` merged as `672e133...`; exact-head checks green.
 - `NIGHT-BBB-004`: PENDING — PR #55 ready; CI luego verde.
