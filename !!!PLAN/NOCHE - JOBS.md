@@ -8,68 +8,67 @@
 
 Terminar F0–F4 o reducirlas al mínimo número factual de blockers externos. Prioridad: (1) F0–F4, (2) sencillez, (3) limpieza. Evidence-before-claim; REUSE-FIRST; duplicate-check; exact-head; no rebajar gates.
 
-## BASELINE VIVO — CYCLE 012 FINAL
+## BASELINE VIVO — CYCLE 013 FINAL
 
 - BeatGaler integración: `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`.
-- GitHub demuestra que este SHA es merge de PR #60, parents `58a6bf61441f08bf68aa63673c0d5f2994b220d9` + exact candidate `945638c8bb650b0ce0bbe569e48a791a93d80e39`.
+- GitHub reread confirma que sigue siendo merge de PR #60; no hubo nueva integración durante este ciclo JOBS.
 - Release público: 🔴 `NO-GO`.
-- F0: 1.2 y 2.2 siguen tails externos/administrativos; no hay slice técnico nocturno de mayor retorno.
-- F1: D6/D7/D8/D9 PASS; D10.1 external-only por off-provider/off-account copy + read/checksum; D10.2 requiere decisión RO.
-- F2: #58 integrado slice A. `NIGHT-AAA-012` quedó BLOCKED con evidencia correcta: Web-only carece de create-if-absent/CAS y pin-only no es atomicidad. Atomic bootstrap sigue abierto.
-- F3: #61 sigue OPEN/Ready/mergeable @ `aef1cd0b1a26be327e561f344d63dae5d8def7ef`, pero base snapshot `58a6bf614...` quedó stale tras #60. Protected merge rechazó correctamente el reuse del green viejo; requiere refresh + exact-head CI nuevo.
-- F4: #60 está CLOSED/MERGED como `7de7b57a...`. El artifact de matriz 25.1 está integrado, pero sus gaps `NOT_COVERED/PENDING_EXTERNAL/PRODUCT_FINDING` siguen abiertos.
+- F0: 1.2 y 2.2 tails externos/administrativos; no hay slice técnico nocturno de mayor retorno.
+- F1: D6/D7/D8/D9 PASS; D10.1 external-only por off-provider/off-account copy + read/checksum; D10.2 RO.
+- F2: #64 existe/mergeable pero su exact-head Required CI/Test Desktop Portability `33271187072` terminó FAILURE. Tests focales atomic bootstrap quedaron UNVERIFIED en AAA-013. No merge/no PASS.
+- F3: #61 refreshed exact head `d254b294cf8fe78d93025271360dd73ed594898f`, OPEN/Ready/mergeable=true; Required CI `33271019389` SUCCESS y D6 `33271019493` SUCCESS; no failure/in-progress exact-head observado. No integración reclamada: owner transaction pendiente.
+- F4: #63 exact head `65a7bf07029babfb500d3913226ec8a5ca6e0deb`, OPEN/Ready/mergeable. Required CI `33271091123` SUCCESS, pero Windows import functional journey `33271091186` terminó FAILURE en el harness existente. No merge/no functional PASS.
 
 ## RESULTADOS PROCESADOS
 
-### AAA / `NIGHT-AAA-012`
-- `BLOCKED` aceptado como resultado correcto, no como failure.
-- No hubo product delta, PR ni CI.
-- Evidencia: `getLibraryIndex` requiere pinned index; `replaceLibraryIndex` depende de get+expectedMessageId; un client-only send+pin permitiría races/duplicados.
-- Claim conservador: no se afirma inexistencia backend-wide; solo inexistencia en la lineage Web auditada.
-- Consecuencia JOBS: 12.1 permanece abierto y el siguiente assignment amplía explícitamente el scope de AAA al control plane/backend mínimo.
+### AAA / `NIGHT-AAA-013`
+- Resultado del worker: `PENDING`, PR #64 OPEN/Ready/NOT MERGED @ `86ea14ad...`.
+- Candidate reutilizó advisory locks PostgreSQL + `commitIndexCopyOnWrite`; añadió `/transport/index/ensure`, Web wire y tests de race/retry/existing/provider/pointer-failure.
+- El handoff dejó ejecución de tests focales y CI final como UNVERIFIED.
+- GitHub posterior resolvió el CI de forma negativa: run `33271187072` FAILURE exact-head. Jobs visibles: Web+shared Chrome smoke FAILURE; Portable Windows FAILURE; native macOS arm64/x86_64 FAILURE.
+- Consecuencia: no se promueve atomic bootstrap; SAME #64 pasa a corrective assignment 014.
 
-### BBB / `NIGHT-BBB-012`
-- `DONE` factual.
-- SAME PR #60 exact head `945638c8...`; F4 matrix `33265800007`, D6 `33265800004`, D7 `33265800022`, Desktop Portability `33265800008` SUCCESS; Upgrade `33265800019` SKIPPED/no aplicable.
-- Protected expected-head merge devolvió `7de7b57a508b3cf05cbded81501fbd3da63922a3`; integration reread confirmó parents exactos.
-- Se procesa **artifact integrated**, no cierre total de 25.1.
+### BBB / `NIGHT-BBB-013`
+- Resultado del worker: `PENDING`, PR #63 OPEN/Ready/mergeable @ `65a7bf070...`.
+- Reutilizó `test:e2e:import` y añadió únicamente workflow Windows + promotion condicionada en la matriz.
+- Required CI amplio terminó SUCCESS, pero el gate literal creado para esta cobertura `33271091186` terminó FAILURE en `Run existing Windows import E2E harness`.
+- Consecuencia: `windows/import` sigue no demostrado; la matriz no se promueve falsamente; SAME #63 recibe corrective 014.
+- Duplicate-check: PR #62 quedó CLOSED/NOT MERGED y no se reabre.
 
-### WOZ / `NIGHT-WOZ-012`
-- `PENDING_CI_REFRESH` aceptado.
-- SAME #61 permanece OPEN @ `aef1cd0...`.
-- Integration avanzó a `7de7b57a...` por #60; compare previo mostró live delta solo F4, sin overlap semántico con los 3 files F3 de #61.
-- Protected merge fue rechazado porque `Required CI` debía renovarse. Esto prueba que el verde anterior no puede autorizar la combinación nueva.
-- No merge claim; 16.2 sigue abierto.
+### WOZ / `NIGHT-WOZ-013`
+- Resultado del worker: `PENDING_CI`, SAME #61 refreshed a `d254b294...` preservando solo delta F3/16.2 sobre `7de7b57a...`.
+- GitHub posterior: PR OPEN/Ready/mergeable=true; Required CI exact-head `33271019389` SUCCESS; D6 `33271019493` SUCCESS; no failure/in-progress exact-head observado.
+- Consecuencia: blocker CI quedó resuelto; candidate pasa a owner race-check/protected merge bajo 014. JOBS no bypassa la integración técnica del owner.
 
 ## CAMINO CRÍTICO GLOBAL — RECALCULADO DESDE CERO
 
-1. **F2 / 12.1 atomic bootstrap:** blocker interno más duro. La solución correcta requiere autoridad control-plane create-if-absent/CAS/idempotency; repetir pin-only Web sería trabajo falso.
-2. **F3 / 16.2:** SAME #61 es el candidate único y requiere refresh exact-head después de #60. Su integración reduce F3 a external tail + D17–D20.
-3. **F4 / 25.1:** la matriz ya está integrada; el retorno ahora está en cerrar un slice funcional dependency-safe real entre los `NOT_COVERED`, no en producir otra matriz.
-4. **F0/F1:** no repetir drills ni consumir workers técnicos donde solo falta evidencia externa/decisión RO.
+1. **F2 / 12.1 #64 exact-head red:** candidate existe, pero el gate amplio falló y sus tests focales siguen sin ejecución demostrada. Resolver ese failure es el movimiento interno más crítico antes de abrir más slices F2.
+2. **F3 / 16.2 #61 exact-head green:** retorno inmediato máximo; el owner puede integrar si race-check sigue limpio. Si otro merge mueve baseline antes, debe refresh + fresh CI.
+3. **F4 / 25.1 #63 functional red:** la evidencia negativa real tiene prioridad sobre empezar otra cobertura. Fix mínimo o PRODUCT_FINDING; ningún false PASS.
+4. **F0/F1:** blockers activos son externos/RO; no repetir drills ni consumir workers técnicos.
 
-No se conservó una asignación por inercia: AAA recibe **scope nuevo** para resolver la causa raíz de su blocker; BBB deja la transacción #60 ya completada y pasa a cobertura funcional; WOZ conserva #61 únicamente porque GitHub demuestra que sigue siendo el único candidate 16.2 y está stale por un movimiento verificable del baseline.
+Las nuevas asignaciones no se conservaron por inercia. Cada candidate fue revaluado desde GitHub actual: AAA permanece por failure real #64; BBB permanece por failure real #63; WOZ permanece porque #61 cambió de PENDING_CI a integration-ready subject to race-check.
 
 ## TABLERO AAA / BBB / WOZ
 
 | Worker | Resultado procesado | Nueva asignación | Objetivo |
 |---|---|---|---|
-| AAA | 012: BLOCKED correcto; Web-only no puede atomic create-if-absent | `NIGHT-AAA-013` | atomic bootstrap vertical slice con control-plane/backend explícitamente autorizado + Web wire |
-| BBB | 012: #60 MERGED `7de7b57a...`; matrix artifact integrado | `NIGHT-BBB-013` | un slice dependency-safe de functional coverage 25.1 usando harnesses/matrix existentes |
-| WOZ | 012: #61 PENDING_CI_REFRESH; old green rechazado post-#60 | `NIGHT-WOZ-013` | refresh SAME #61 sobre `7de7b57a...` + fresh exact-head CI + protected merge si race-check |
+| AAA | 013: #64 candidate, CI final FAILURE | `NIGHT-AAA-014` | SAME #64: causa mínima/fix atribuible + ejecutar focal tests + fresh exact-head CI; merge solo si verde |
+| BBB | 013: #63 candidate; Required CI green pero functional journey FAILURE | `NIGHT-BBB-014` | SAME #63: resolver gate Windows/import; no false matrix PASS ni segundo slice |
+| WOZ | 013: #61 refreshed; exact-head CI ahora green/mergeable | `NIGHT-WOZ-014` | SAME #61 race-check + protected merge; refresh/fresh CI si baseline cambia |
 
-Ownership exclusivo: AAA=F2/12.1 atomic vertical slice; BBB=F4/25.1 residual funcional; WOZ=F3/16.2 SAME #61. No overlap material.
+Ownership exclusivo: AAA=F2/12.1 #64; BBB=F4/25.1 #63; WOZ=F3/16.2 #61. No overlap material.
 
 ## ASIGNACIONES EMITIDAS
 
-### `NIGHT-AAA-013`
-Duplicate-check backend-wide. Reutilizar primitive equivalente si existe; si no, implementar el mínimo ensure-empty-index create-if-absent/CAS/idempotent/fail-closed con autoridad server-side existente y sin nueva infra/costo, luego wire Web. Dos callers concurrentes deben producir un solo ganador; retries mismos resultados; existing no overwrite; fallo parcial no éxito falso. Exact-head obligatorio. No pagination/window/memory/cold-warm ni D13–D15.
+### `NIGHT-AAA-014`
+REUSE SAME #64. Procesar `33271187072` FAILURE sin esconderlo tras D6/D7 verdes. Verificar los tests atomic bootstrap añadidos. Fix solo atribuible al slice; finding ajeno → reportar. Fresh exact-head CI tras cambios/baseline movement. Integrar únicamente con tests + applicable CI green + race-check. Cerrar solo atomic sub-slice, no 12.1 entero.
 
-### `NIGHT-BBB-013`
-Consumir la matriz #60 integrada como source of truth. Elegir un solo journey core `NOT_COVERED` dependency-safe y producir evidencia funcional real reutilizando harnesses; no segunda matriz. Bugs F2/F3 → `PRODUCT_FINDING`, no ownership theft. No iPhone/signing/notarization/Stripe/YouTube productivo inventado; no 25.2.
+### `NIGHT-BBB-014`
+REUSE SAME #63. `33271091186` functional FAILURE manda aunque Required CI sea green. Diagnosticar/fijar solo workflow/glue/harness F4; bug producto → PRODUCT_FINDING. No promover matrix windows/import hasta PASS exact-head. No segundo slice/25.2.
 
-### `NIGHT-WOZ-013`
-REUSE SAME #61. Refresh branch sobre `7de7b57a...`, preservar exclusivamente el delta F3, exact-head CI nuevo y protected expected-head merge solo con race-check limpio. Puede usar Git-data/merge-union de la misma branch si es la forma mínima verificable; no nueva PR ni reconstrucción manual de product code. Tras merge: solo `16.2 SOFTWARE DONE / EXTERNAL TAIL`.
+### `NIGHT-WOZ-014`
+REUSE SAME #61. Si integration sigue `7de7b57a...`, race-check + protected expected-head merge de `d254b294...`; si baseline se mueve, refresh SAME #61 + fresh applicable CI. Tras merge reclamar solo 16.2 SOFTWARE DONE / EXTERNAL TAIL. Después solo audit READ-ONLY de 17.1 si hay tiempo, sin implementar Stripe sin nueva orden.
 
 ## BLOCKERS
 
@@ -77,17 +76,17 @@ REUSE SAME #61. Refresh branch sobre `7de7b57a...`, preservar exclusivamente el 
 2. F0/1.2: release governance/domain/support/status/AuthentiCode/reviews/test matrix; Apple Developer deferred.
 3. F1/D10.1: copia off-provider/off-account real + read/checksum.
 4. F1/D10.2: decisión RO.
-5. F2/12.1: atomic empty-index requiere primitive control-plane real; después quedan pagination/window/memory + cold/warm residual.
-6. F3/16.2: SAME #61 requiere refresh + exact-head CI nuevo; physical staging/prod y deploy real siguen externos; D17–D20 abiertos.
-7. F4/25.1: matrix artifact integrado, coverage funcional incompleto; D22/D23 signing/notarization externos; 25.2 abierto.
+5. F2/12.1: #64 exact-head CI FAILURE + focal tests unverified; después quedan pagination/window/memory + cold/warm residual.
+6. F3/16.2: owner merge transaction; physical staging/prod y deploy real siguen externos; D17–D20 abiertos.
+7. F4/25.1: #63 Windows/import functional FAILURE; otros coverage gaps; D22/D23 signing/notarization externos; 25.2 abierto.
 
 ## PROGRESO F0–F4
 
 - **F0:** técnico interno cerrado; tails externos solamente.
 - **F1:** core técnico cerrado; dos cierres externos/RO.
-- **F2:** 11.1/11.2/12.2 cerrados; #58 slice A integrado; atomic bootstrap abierto con blocker causal ya identificado y scope 013 corregido.
-- **F3:** 16.1 software integrado; 16.2 candidate existente pero stale; physical tail preservado.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix artifact integrado; 25.1 completo no cerrado por gaps honestos.
+- **F2:** 11.1/11.2/12.2 cerrados; #58 slice A integrado; atomic bootstrap candidate existe pero está rojo y no integrado; D13–D15 abiertos.
+- **F3:** 16.1 software integrado; 16.2 candidate verde a nivel exact-head y pendiente transacción owner; physical tail + D17–D20 abiertos.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; matrix #60 integrada; #63 reveló failure funcional real; 25.1/25.2 siguen abiertos; D22/D23 externos.
 
 ## PLAN SYNC
 
@@ -102,29 +101,29 @@ Actualizados en este ciclo:
 - `!!!PLAN/NOCHE - WOZ.md`
 - `!!!PLAN/NOCHE - JOBS.md`
 
-F0/F1 no cambiaron factual y no se reescribieron. `Registro de avances.md` fue leído completo como ledger histórico; no se sustituyó con un snapshot parcial. Los estados vivos y los handoffs verificables de este ciclo quedan en Plan Maestro/fases/ledgers + Issue #41; GitHub real sigue siendo autoridad.
+F0/F1 no cambiaron factual y no se reescribieron. `Registro de avances.md` se leyó completo por tramos; no se reescribe porque este ciclo no produjo un nuevo merge/gate cerrado y los findings/candidates vivos quedan en Plan/fases/ledgers + Issue #41.
 
 ## SIGUIENTE CICLO
 
-1. Releer integration HEAD antes de todo claim.
-2. Procesar 013 factual, sin asumir que alguna branch/head sigue igual.
-3. Si AAA produce atomic candidate: exigir exact-head CI/race-check y cerrar solo atomic sub-slice; luego recalcular pagination/window/memory/cold-warm.
-4. Si WOZ refresca #61: no reutilizar CI anterior; consumir solo CI del exact head post-`7de7b57a...` y merge protegido si corresponde.
-5. Si BBB produce coverage candidate: aceptar solo los journeys efectivamente demostrados; conservar el resto de matrix gaps.
+1. Reread integration HEAD antes de cualquier claim.
+2. Procesar resultados 014, no snapshots 013.
+3. Si WOZ integra #61, registrar merge SHA exacto y 16.2 SOFTWARE DONE / EXTERNAL TAIL; después recalcular 17.1 software-only vs blockers externos.
+4. Si AAA corrige #64, exigir focal tests + applicable exact-head green; tras merge cerrar solo atomic sub-slice y recalcular pagination/window/memory/cold-warm.
+5. Si BBB corrige #63, aceptar Windows/import solo con run funcional exact-head PASS; conservar todos los demás gaps.
 6. Mantener F0/F1/signing/physical staging/off-provider como externos hasta evidencia real.
 7. No abrir F5 hasta que F0–F4 estén realmente en condiciones de gate.
 
 ## LOG
 
 ```text
-CYCLE_ID: NIGHT-JOBS-012
+CYCLE_ID: NIGHT-JOBS-013
 INTEGRATION_HEAD: 7de7b57a508b3cf05cbded81501fbd3da63922a3
-AAA: NIGHT-AAA-012 BLOCKED validly -> NIGHT-AAA-013 atomic vertical slice with explicit control-plane scope
-BBB: NIGHT-BBB-012 DONE -> #60 MERGED 7de7b57a... -> NIGHT-BBB-013 dependency-safe functional coverage residual
-WOZ: NIGHT-WOZ-012 PENDING_CI_REFRESH -> old green rejected after #60 -> NIGHT-WOZ-013 SAME #61 refresh + fresh exact-head CI + merge
-DUPLICATE_WORK: none
+AAA: NIGHT-AAA-013 PENDING -> #64 exact-head Required CI FAILURE -> NIGHT-AAA-014 SAME #64 corrective
+BBB: NIGHT-BBB-013 PENDING -> #63 functional Windows import FAILURE -> NIGHT-BBB-014 SAME #63 corrective
+WOZ: NIGHT-WOZ-013 PENDING_CI -> #61 exact-head CI green/mergeable -> NIGHT-WOZ-014 owner race-check + protected merge
+DUPLICATE_WORK: PR #62 CLOSED/NOT MERGED; no active duplicate
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
 RELEASE: NO-GO
 ```
 
-**STOP:** ciclo JOBS 012 terminado. La siguiente ejecución inicia desde GitHub vivo, no desde este snapshot si cambió.
+**STOP:** ciclo JOBS 013 terminado. La siguiente ejecución inicia desde GitHub vivo, no desde este snapshot si cambió.
