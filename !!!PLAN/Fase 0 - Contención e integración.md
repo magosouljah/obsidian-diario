@@ -6,8 +6,9 @@
 
 **Estado:** `[ 🟡 ]` residual/administrativo — **el trabajo técnico necesario para avanzar terminó y el RO autorizó Fase 1**. 5.1 y 5.2 están `[x]`. 2.2 conserva únicamente un **tail externo no bloqueante / pendiente de cierre administrativo**; 1.2 conserva dependencias externas de release. Fase 0 no se marca `[x]` mientras esos cierres sigan pendientes.
 
-**Baseline técnico post-rewrite vigente:** `integration-v0.8.0-alpha.1` @ `b9c2317297ff3c0f7a6246ac97517fa978f6caea`.  
-**Required CI post-rewrite:** run **#314** (`33148873459`) = `SUCCESS` sobre ese SHA.
+**Baseline técnico post-rewrite histórico de salida F0:** `integration-v0.8.0-alpha.1` @ `b9c2317297ff3c0f7a6246ac97517fa978f6caea`.  
+**Required CI post-rewrite:** run **#314** (`33148873459`) = `SUCCESS` sobre ese SHA.  
+**Baseline canónico vivo actual:** ver `Plan Maestro.md`; al último sync JOBS es `6c4499d124a64d138e791ea4abf0091766dde7e9`.
 
 ---
 
@@ -49,7 +50,7 @@
 
 **Finding vigente:** `magosouljah/galer` ya tiene releases alpha públicas, pero la auditoría BBB encontró governance insuficiente: alphas observadas no prerelease/immutable, `galer:main` sin protección y tag público no ligado directamente al SHA fuente BeatGaler. Preservar evidencia; no borrar releases casualmente.
 
-**Gate 1.2:** ninguna dependencia launch-critical queda sin owner/plan/evidencia o deferral explícito aceptado. **NO SATISFECHO.** Sigue bloqueando release cuando aplique, pero por decisión RO **no bloquea la ejecución interna de Fase 1**.
+**Gate 1.2:** ninguna dependencia launch-critical queda sin owner/plan/evidencia o deferral explícito aceptado. **NO SATISFECHO.** Sigue bloqueando release cuando aplique, pero por decisión RO **no bloquea la ejecución interna posterior**.
 
 ---
 
@@ -77,7 +78,7 @@
 
 **Regla de cierre:** 2.2 **permanece `[ 🟡 ]`** hasta recibir evidencia de ambos puntos anteriores. No convertirla en `[x]` solo porque el rewrite y CI ya terminaron.
 
-**Decisión RO vigente:** este tail externo **NO bloquea Fase 1**. La excepción es únicamente de dependencia de avance interno; **no** equivale a cierre de 2.2 ni a GO de publicación.
+**Decisión RO vigente:** este tail externo **NO bloquea el trabajo interno posterior**. La excepción es únicamente de dependencia de avance interno; **no** equivale a cierre de 2.2 ni a GO de publicación.
 
 **No hacer:** rewrite genérico adicional, borrar evidencia innecesariamente, rotar/revocar credenciales sin evidencia adicional, o repetir la purga solo para recrear evidencia.
 
@@ -129,13 +130,14 @@ El detalle completo histórico puede recuperarse del Git history de este archivo
 
 ---
 
-## Estado de salida / handoff a Fase 1
+## Estado de salida / handoff de Fase 0
 
 Fase 0 **no se declara `[x]` administrativamente** mientras 2.2 y 1.2 sigan abiertos. Sin embargo, por decisión explícita del RO:
-- el trabajo técnico necesario para avanzar está terminado;
+- el trabajo técnico necesario para avanzar terminó;
 - 2.2 conserva exclusivamente un tail externo no bloqueante;
 - 1.2 sigue como carril externo de release;
-- Fase 1 queda autorizada y activa sobre `b9c2317297ff3c0f7a6246ac97517fa978f6caea` con Required CI #314 `SUCCESS`;
+- el handoff de Fase 0 a Fase 1 ya fue consumido; F1 avanzó posteriormente hasta **D8 `[x] / PASS`**;
+- el baseline `b9c231...` es evidencia histórica de salida F0, no el HEAD canónico actual;
 - release público permanece 🔴 `NO-GO`.
 
-**Handoff activo:** Fase 1 / Día 6. No usar los tails externos de Fase 0 para adelantar o saltar gates D6–D10.
+**Estado activo actual:** consultar `Plan Maestro.md` y la fase vigente. No usar este archivo archivístico para retroceder el baseline ni reactivar D6–D8.
