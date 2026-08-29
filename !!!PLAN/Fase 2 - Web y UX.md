@@ -1,17 +1,19 @@
 # Fase 2 — Flujos Web completos y rediseño de alto impacto
 
-> Leer `Plan Maestro.md`. Bajo ROMPECABEZAS, slices frontend independientes pueden avanzar cuando sus dependencias reales están satisfechas, pero el owner/task se asigna explícitamente.
+> Leer `Plan Maestro.md`. Bajo ROMPECABEZAS, slices independientes pueden avanzar cuando sus dependencias reales están satisfechas, pero el owner/pieza se asigna explícitamente.
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Integración estable CYCLE 011:** `integration-v0.8.0-alpha.1 @ 58a6bf61441f08bf68aa63673c0d5f2994b220d9`.  
+**Integración estable CYCLE 012:** `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`.  
 **Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto.
 
 ## Owner actual
 
-**AAA — F2 / 12.1 — FULL OWNER — `NIGHT-AAA-012`.**
+**AAA — F2 / 12.1 atomic empty-index vertical slice — `NIGHT-AAA-013`.**
 
-PR #58 `aaa/night-12.1-bootstrap-load` fue integrada con exact head `61e38f8a9c89aaa2e308e1e93bbbf4a7de22f741` como merge `58a6bf61441f08bf68aa63673c0d5f2994b220d9`. Este merge cierra únicamente slice A: lazy artwork + taxonomía mínima de startup + timing/tests. Duplicate-check posterior creó una sola successor branch `aaa/night-12.1-atomic-empty-index` desde el merge; no existe todavía implementación/PR/CI verificable de atomic empty-index.
+PR #58 `aaa/night-12.1-bootstrap-load` fue integrada con exact head `61e38f8a9c89aaa2e308e1e93bbbf4a7de22f741` como merge `58a6bf61441f08bf68aa63673c0d5f2994b220d9`. Cerró únicamente slice A: lazy artwork + taxonomía mínima de startup + timing/tests.
+
+`NIGHT-AAA-012` terminó `BLOCKED` con evidencia válida: el Web actual requiere pinned index existente para `getLibraryIndex`, y `replaceLibraryIndex` depende de ese read + expectedMessageId; no hay create-if-absent/CAS en la lineage frontend. Un bootstrap client-only send+pin permitiría carreras/duplicados y no satisface atomicidad. JOBS amplía explícitamente `NIGHT-AAA-013` al control plane/backend mínimo requerido para cerrar ese sub-slice correctamente.
 
 ---
 
@@ -25,14 +27,14 @@ PR #54 merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 — `[ 🟡 ] IN PROGRESS` — AAA `NIGHT-AAA-012`
+### 12.1 — `[ 🟡 ] IN PROGRESS` — AAA `NIGHT-AAA-013`
 
-- [ ] **Índice vacío atómico en control plane.** Siguiente slice activo; successor branch existente, implementación aún UNVERIFIED.
+- [ ] **Índice vacío atómico en control plane.** Blocker real identificado. 013 debe duplicate-check backend-wide y reutilizar o crear el primitive mínimo create-if-absent/CAS/idempotent/fail-closed; luego wire Web + race/retry/error-partial tests. No client-only pin como falsa atomicidad.
 - [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Slice A integrada en #58; no se declara requisito completo si quedan casos/residual sin prueba.
-- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado en #58; pagination/window/memory siguen abiertos.
-- [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing integrado en #58; cold/warm cuantificado/residual sigue abierto.
+- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado en #58; pagination/window/memory siguen abiertos y están fuera de 013.
+- [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing integrado en #58; cold/warm cuantificado/residual sigue abierto y está fuera de 013.
 
-**Orden 012:** continuar exclusivamente `aaa/night-12.1-atomic-empty-index`; REUSE-FIRST/duplicate-check; tests de concurrencia, idempotencia y fail-closed; exact-head CI si hay PR. No pagination/window/memory ni cold/warm residual en esta asignación.
+**Orden 013:** atomic empty-index vertical slice solamente. Scope backend/control-plane mínimo queda autorizado de forma explícita por JOBS; infraestructura nueva/costo no. Exact-head obligatorio para candidate/merge. No pagination/window/memory, cold/warm residual ni D13–D15.
 
 ### 12.2 — `[x] DONE / INTEGRATED`
 PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
