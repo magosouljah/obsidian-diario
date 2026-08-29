@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-017`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: DONE`
 - `AREA: F3 / 17.1 — SAME PR #65 exact-head green race-check / integration transaction`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`
 - `PR: #65 / woz/night-17.1-checkout-contract`
@@ -27,22 +27,28 @@
 8. Si el merge queda bloqueado por protección/race/CI nuevo, termina PENDING con blocker exacto; no amplíes scope.
 9. Handoff en este markdown + Issue #41 y STOP.
 
-## RESULTADO DEL TURNO MÁS RECIENTE — NIGHT-WOZ-015
+## RESULTADO DEL TURNO MÁS RECIENTE — NIGHT-WOZ-017
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-015`  
-`TURN_STATUS: PENDING_CI`  
-`GATE: F3/17.1 SOFTWARE CANDIDATE / NOT INTEGRATED`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-017`  
+`TURN_STATUS: DONE`  
+`GATE: F3/17.1 SOFTWARE DONE / INTEGRATED`  
 `BASE_BEFORE: integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`  
-`HEAD_AFTER: woz/night-17.1-checkout-contract @ e65538640581f3f986748968db1f4dfb069c2579`  
-`PR: #65 OPEN; base_sha b114111cafb29b4aa50cdce014059c66a75bddf2; NOT MERGED.`  
-`CHANGES: retained 17.1 implementation/tests; repaired only mutable GitHub Action refs with immutable SHAs.`  
-`JOBS_POST_RESULT_VERIFICATION: F3 33276769749, Desktop Portability 33276769684, D6 33276769695, D7 33276769698 and temp-auth 33276769702 all SUCCESS on exact head; Upgrade skipped/no aplicable.`  
-`UNVERIFIED: merge itself; productive Stripe account/products/prices/credentials; commercial trial/currency/tax decisions; real Checkout; webhooks/17.2; entitlements; physical staging/prod.`  
-`RECOMMENDATION_TO_JOBS: owner race-check + protected merge SAME #65, then close only 17.1 software slice.`
+`HEAD_AFTER: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`  
+`BRANCH/CANDIDATE_HEAD: woz/night-17.1-checkout-contract @ e65538640581f3f986748968db1f4dfb069c2579`  
+`PR: #65 CLOSED / MERGED -> ed6aab7e964686cdb5fb1b84eac0198ca67f8892`  
+`CHANGES: no new product code in this assignment; REUSE-FIRST consumed SAME #65 and executed only final race-check + expected-head merge.`  
+`TESTS: reused exact-head focal 17.1 deterministic tests already green; no rerun ceremonial.`  
+`CI: F3 17.1 33276769749 SUCCESS; Desktop Portability 33276769684 SUCCESS; D6 33276769695 SUCCESS; D7 33276769698 SUCCESS; temp-auth 33276769702 SUCCESS; Upgrade 33276769715 SKIPPED/no aplicable.`  
+`EVIDENCE_REUSED: exact-head CI above; PR #65 Ready/mergeable; compare b114111c...→e6553864... = ahead 2 / behind 0, exactly 3 17.1 paths.`  
+`EVIDENCE_NEW: protected expected-head merge succeeded; merge SHA ed6aab7e964686cdb5fb1b84eac0198ca67f8892; merge parents exactos b114111cafb29b4aa50cdce014059c66a75bddf2 + e65538640581f3f986748968db1f4dfb069c2579; integration reread points exactly to ed6aab7e...`  
+`UNVERIFIED: Stripe account/provider credentials reales; productos/precios comerciales reales; tax/trial/currency commercial decisions; real Checkout against Stripe; webhooks/17.2; entitlement reconciliation; physical staging/prod.`  
+`BLOCKERS: none para 17.1 software slice; external/productive Stripe and 17.2 remain separate.`  
+`RECOMMENDATION_TO_JOBS: promote only F3/17.1 to SOFTWARE DONE / INTEGRATED from ed6aab7e...; recalculate next assignment explicitly. Do not infer 17.2 DONE.`  
+`TURN_FINISHED_AT: 2026-08-29T16:04:36-06:00`
 
 ## HISTORIAL
 
-- `NIGHT-WOZ-017`: ASSIGNED — SAME #65 exact-head green race-check/integration transaction.
+- `NIGHT-WOZ-017`: DONE — SAME #65 merged `ed6aab7e...`; 17.1 SOFTWARE DONE / INTEGRATED.
 - `NIGHT-WOZ-016`: SUPERSEDED_BY_JOBS before worker execution; no separate result.
 - `NIGHT-WOZ-015`: PENDING_CI — #65 repaired at `e6553864...`; CI later verified all green by JOBS.
 - `NIGHT-WOZ-014`: DONE — #61 merged `55e0d875...`; 16.2 SOFTWARE DONE / EXTERNAL TAIL.
