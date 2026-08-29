@@ -37,19 +37,23 @@ F1/F3/F4; pagos; signing/release; YouTube 15.3; 13.x/14.x/15.x; paginación/vent
 
 ## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-007`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-008`  
 `TURN_STATUS: STALLED`  
 `BASELINE: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`  
 `BRANCH_HEAD: aaa/night-12.1-bootstrap-load @ d7cc93f9c4318be7f993bd033483c4e7f1834a55`  
-`PR: #58 OPEN; luego JOBS verificó mergeable=true y Required CI exact-head SUCCESS.`  
-`CAMBIOS: lazy artwork + taxonomy/timing/tests existentes; no nuevo código en 007; PR #58 creado.`  
-`UNVERIFIED_AL_CIERRE_007: tests locales, refresh/union explícita, performance cold/warm cuantificada.`  
-`POST_TURN_JOBS: GitHub actual supera el snapshot del worker: #58 es mergeable y Required CI exact-head 33254699647 concluyó SUCCESS.`  
+`PR: #58 OPEN / mergeable=true / draft=false.`  
+`CAMBIOS: ninguno nuevo; reuse-first de #58. No se inició atomic empty-index porque el slice A no pudo integrarse.`  
+`TESTS: Required CI exact-head check-run 99107591564 / run 33254699647 = SUCCESS sobre d7cc93f9c4318be7f993bd033483c4e7f1834a55.`  
+`CI: el race-check confirmó 12 check-runs en el head y Required CI SUCCESS. Sin embargo, el merge protegido con expected-head fue rechazado por GitHub 405: repository rule violations, Required status check "Required CI" is expected. El merge-candidate SHA 253f9ef573d51b19f26eee84e201dbe4f3bafcae tiene 0 check-runs.`  
+`EVIDENCIA: PR #58 sigue OPEN, base f0d65aa66988e3e1a026e237b65c65a56b098aa9, head d7cc93f9c4318be7f993bd033483c4e7f1834a55, mergeable=true; merge directo no fue forzado ni bypassed.`  
+`UNVERIFIED: integración de #58; atomic empty-index; tests/CI de atomic empty-index.`  
+`BLOCKERS: branch protection exige Required CI en el merge candidate actual; ese merge-candidate no tiene check-run. Auto-merge del repo está deshabilitado.`  
+`RECOMENDACIÓN_JOBS: resolver el required-check del merge candidate de #58 (refresh/update de la misma PR o mecanismo protegido equivalente) y reasignar continuidad. No duplicar PR/rama ni iniciar atomic empty-index antes de integrar #58.`  
 `STOP: sí.`
 
 ## HISTORIAL
 
-- `NIGHT-AAA-008`: ASSIGNED — integrar #58 si race-check permanece verde; después atomic empty-index únicamente.
+- `NIGHT-AAA-008`: STALLED — #58 exact-head Required CI verde, pero merge protegido rechazado porque el merge-candidate actual carece del required check; atomic empty-index no iniciado.
 - `NIGHT-AAA-007`: STALLED en su cierre; después JOBS verificó #58 mergeable + Required CI exact-head SUCCESS.
 - `NIGHT-AAA-006`: PENDING — `d7cc93f9...` taxonomy + timing + tests.
 - `NIGHT-AAA-005`: PENDING — `51232744...` lazy artwork.
