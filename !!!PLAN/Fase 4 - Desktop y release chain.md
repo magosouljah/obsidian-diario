@@ -4,15 +4,15 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 013:** `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`.
+**Integración estable CYCLE 014:** `integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 Windows import corrective transaction — `NIGHT-BBB-014`.**
+**BBB — F4 / 25.1 SAME PR #63 Windows import corrective transaction — `NIGHT-BBB-015`.**
 
 21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. PR #60 integró la matriz dependency-safe de 25.1, pero 25.1 completo sigue abierto.
 
-`NIGHT-BBB-013` produjo PR #63 `bbb/task-25.1-windows-import @ 65a7bf07029babfb500d3913226ec8a5ca6e0deb`, OPEN/Ready/mergeable, reutilizando `test:e2e:import`. Required CI exact-head `33271091123` terminó SUCCESS, pero el gate funcional específico `F4 - 25.1 Windows Import Journey` run `33271091186` terminó **FAILURE** en `Run existing Windows import E2E harness`. Por evidence-before-claim, `windows/import` sigue no demostrado y #63 no se integra.
+PR #63 `bbb/task-25.1-windows-import @ 9208ead249345d29458a5ae939923dd5c2f47dfb` está OPEN/Ready/mergeable pero stale respecto al baseline vivo `55e0d875...`. Exact-head F4 Matrix `33272794263`, D6 `33272794193`, D7 `33272794195` y Desktop Portability `33272794215` terminaron SUCCESS; el gate funcional Windows Import `33272794199` terminó **FAILURE** antes de ejecutar specs: `Prepare isolated embedded Tauri driver` no encontró el marker esperado en `wdio.e2e.conf.mjs`. No hay evidencia de bug F2/F3. `windows/import` sigue `NOT_COVERED`.
 
 ## Día 21 — Manifest e identidad únicos
 
@@ -62,17 +62,21 @@ Esto no cierra D22/D23 ni autoriza release público.
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-014`
+### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-015`
 
 PR #60 integró la matriz como `7de7b57a508b3cf05cbded81501fbd3da63922a3`. Sigue conservando `NOT_COVERED`, `PENDING_EXTERNAL` y `PRODUCT_FINDING` honestos.
 
-PR #63 intenta cerrar únicamente Windows/import con el harness existente. Estado factual:
-- exact head `65a7bf07029babfb500d3913226ec8a5ca6e0deb`;
-- Required CI `33271091123` SUCCESS;
-- Windows import functional `33271091186` **FAILURE**;
-- no merge/no promotion a AUTOMATED_PASS.
+SAME PR #63 intenta cerrar únicamente Windows/import reutilizando `test:e2e:import`. Estado factual CYCLE 014:
+- head `9208ead249345d29458a5ae939923dd5c2f47dfb`;
+- base PR todavía `7de7b57a...`, por tanto stale vs integración `55e0d875...`;
+- F4 Matrix `33272794263` SUCCESS;
+- D6 `33272794193` SUCCESS;
+- D7 `33272794195` SUCCESS;
+- Desktop Portability `33272794215` SUCCESS;
+- Windows Import `33272794199` **FAILURE** antes de specs por marker mismatch del bootstrap;
+- no merge/no promotion a `AUTOMATED_PASS`.
 
-`NIGHT-BBB-014` debe diagnosticar la causa mínima, corregir solo workflow/glue/harness si pertenece a F4 y exigir run funcional exact-head PASS + applicable CI green. Si descubre bug de producto, registrar `PRODUCT_FINDING` para su owner sin robar implementación. No segundo residual antes de resolver/descartar #63.
+`NIGHT-BBB-015` debe corregir solo el glue/harness F4 marker-safe, refresh SAME lineage sobre baseline vivo y exigir Windows Import functional PASS + applicable fresh exact-head CI. Si después aparece bug de producto, registrar `PRODUCT_FINDING` y no robar implementación.
 
 Persisten, entre otros: journeys core no demostrados cross-platform, iPhone runner/hardware externo, YouTube/billing donde la matriz marque gap y signing/notarization externos.
 
