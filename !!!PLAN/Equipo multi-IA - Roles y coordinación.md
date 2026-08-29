@@ -2,20 +2,20 @@
 
 > GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership actual — CYCLE 008
+## Roles y ownership actual — CYCLE 009
 
 | Rol | Owner actual | Responsabilidad |
 |---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra |
-| **AAA** | F2 / 12.1 | `NIGHT-AAA-009`: refresh SAME PR #58 sobre baseline vivo, CI exact-head/merge-candidate, merge protegido; luego atomic empty-index únicamente |
-| **BBB** | F4 / 25.1 | `NIGHT-BBB-009`: matrix/runner dependency-safe reutilizando harnesses existentes; no fixes F2/F3 |
-| **WOZ** | F3 / 16.1 → 16.2 | `NIGHT-WOZ-009`: cerrar #59 con exact-head verde; luego promotion contract software-only |
+| **AAA** | F2 / 12.1 | `NIGHT-AAA-010`: SAME PR #58 refresh sobre baseline vivo, CI exact-head/merge-candidate, merge protegido; luego atomic empty-index únicamente |
+| **BBB** | F4 / 25.1 | `NIGHT-BBB-010`: SAME PR #60; diagnosticar Desktop Portability failure, refresh/fix mínimo, CI completo; no fixes F2/F3 |
+| **WOZ** | F3 / 16.2 | `NIGHT-WOZ-010`: promotion/deploy contract software-only REUSE-FIRST; no provider resources/costo/deploy real |
 
 RO conserva alcance de producto, riesgo aceptado, decisiones/credenciales externas y go/no-go público. JOBS puede reorganizar el roadmap, pero un cambio de owner es una decisión explícita.
 
-**Baseline canónico CYCLE 008:** `integration-v0.8.0-alpha.1 @ f73c9ee8d058df3c780170c8c2a3fabef975c54d`. GitHub vivo manda si cambia después.
+**Baseline canónico CYCLE 009:** `integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`. GitHub vivo manda si cambia después.
 
-D10.1 permanece external-only por copia real off-provider/off-account + read/checksum; ningún worker técnico es owner de esa acción externa.
+D10.1 permanece external-only por copia real off-provider/off-account + read/checksum; ningún worker técnico es owner de esa acción externa. F3/16.1 runtime software quedó integrado por #59, pero physical staging/prod separation continúa external-only.
 
 ## Modelo ROMPECABEZAS CON OWNER FIJO
 
@@ -66,14 +66,15 @@ NEXT_WITHIN_AREA:
 END AI-HANDOFF
 ```
 
-## Night Shift Ledger — CYCLE 008
+## Night Shift Ledger — CYCLE 009
 
 ```text
-JOBS: CYCLE 008 complete; baseline f73c9ee...; assignments 009 issued
-AAA: NIGHT-AAA-008 STALLED on stale #58 merge-candidate Required CI; -> NIGHT-AAA-009 refresh SAME PR against f73c9ee, CI, merge, then atomic empty-index
-BBB: NIGHT-BBB-008 DONE; #57 merged f73c9ee...; 24.2 CLOSED; -> NIGHT-BBB-009 F4/25.1 matrix/runner dependency-safe
-WOZ: NIGHT-WOZ-008 PENDING_CI; after turn CI completed SUCCESS on #59 head 0e0bf188...; -> NIGHT-WOZ-009 race-check/merge then 16.2 software-only
+JOBS: CYCLE 009 preflight complete; baseline be9e58c...; #59 processed integrated; assignments 010 issued
+AAA: NIGHT-AAA-009 had no verified result; integration advanced -> NIGHT-AAA-010 SAME #58 refresh + CI + merge, then atomic empty-index
+BBB: NIGHT-BBB-009 produced #60; matrix/D6/D7 green but Desktop Portability 33260592774 FAILURE and base stale -> NIGHT-BBB-010 SAME #60 diagnose/refresh/fix/CI
+WOZ: NIGHT-WOZ-009 PENDING_EXTERNAL; #59 merged be9e58c...; runtime software 16.1 integrated -> NIGHT-WOZ-010 F3/16.2 software-only
 D10.1: PENDING_EXTERNAL_PROOF only; no technical worker overlap
+F3/16.1 physical separation: PENDING_EXTERNAL
 DUPLICATE_WORK: none
 UNVERIFIED_CLAIMS: none promoted to PASS
 RELEASE: NO-GO
@@ -83,7 +84,7 @@ RELEASE: NO-GO
 
 - **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
 - **F1:** D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; AAA full owner 12.1 bajo `NIGHT-AAA-009`.
-- **F3:** WOZ full owner 16.x técnico bajo `NIGHT-WOZ-009`; no nueva infra/costo sin RO.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; BBB full owner 25.1 bajo `NIGHT-BBB-009`; D22/D23 externos.
+- **F2:** 11.1/11.2/12.2 cerrados; AAA full owner 12.1 bajo `NIGHT-AAA-010`.
+- **F3:** 16.1 runtime software integrado; physical separation external; WOZ full owner 16.2 técnico bajo `NIGHT-WOZ-010`; no nueva infra/costo sin RO.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; BBB full owner 25.1 bajo `NIGHT-BBB-010`; #60 no está integration-ready por portability failure + stale base; D22/D23 externos.
 - **JOBS:** coordinación/plan; sin producto/infra.
