@@ -4,13 +4,13 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.
+**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `672e133bc9cb8a47a29d4b34e13fc535290e5681`.
 
 ## Owner actual
 
-**BBB — F4 / 24.1 provenance, channels y release controls — `NIGHT-BBB-004`.**
+**BBB — F4 / 24.2 updater recovery / rollback — `NIGHT-BBB-006`.**
 
-21.1 + 21.2 quedaron cerrados e integrados por PR #51. D22/D23 conservan dependencias externas de signing/notarization; JOBS mueve a BBB a 24.1 porque su trabajo técnico puede avanzar REUSE-FIRST sin inventar certificados ni publicar stable/latest.
+21.1 + 21.2 y 24.1 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. BBB avanza 24.2 porque es dependency-safe y puede cerrarse REUSE-FIRST sin inventar certificados ni publicar stable/latest.
 
 ---
 
@@ -38,16 +38,14 @@ Evidencia exact-head:
 - Test - Desktop Portability / Required CI run `33243436894` — SUCCESS;
 - Upgrade 21.2 Staging run `33243436914` — SUCCESS.
 
-Race-check del owner confirmó PR #51 Ready/non-draft, mergeable, base/head exactos y baseline inmóvil inmediatamente antes del merge. Integración:
+Integración:
 - merge SHA `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`;
 - parents `3560dc844...` + `0fd9bee...`;
 - merge tree `7bbc0640d293749e29330fd8da65bfcf90540153` idéntico al tree del exact tested head;
 - `release/desktop-manifest.json` integrado con `Galer` + `com.beatgaler.app`;
 - `release/upgrade-matrix.json` integrado con baseline 0.7.4, preservación app-data/SQLite/settings/offline/cache, recovery y same-source-SHA staging.
 
-Issue #41 handoff BBB `5461557463` = `DONE`. PR #48 quedó CLOSED/MERGED al ser incorporado por #51; no se hizo mutación administrativa redundante.
-
-**Gate 21:** cerrado para 21.1/21.2. Esto no cierra F4 globalmente.
+Issue #41 handoff BBB `5461557463` = `DONE`. PR #48 quedó CLOSED/MERGED al ser incorporado por #51.
 
 ## Día 22 — Windows firmado
 
@@ -81,17 +79,38 @@ Issue #41 handoff BBB `5461557463` = `DONE`. PR #48 quedó CLOSED/MERGED al ser 
 
 ## Día 24 — Updater/procedencia/rollback
 
-### 24.1 — `ASSIGNED / IN PROGRESS` — BBB `NIGHT-BBB-004`
-- [ ] tag protegido = SHA consumido;
-- [ ] checksums/SBOM/provenance;
-- [ ] channels/rings/minimum version/kill switch.
+### 24.1 — `[x] DONE / INTEGRATED`
 
-**Regla de ejecución:** REUSE-FIRST sobre F0/4.2, workflows y release metadata existentes. No crear release público, no mover stable/latest y no exigir signing externo para trabajo técnico que pueda cerrarse independientemente. Cualquier requisito que dependa literalmente de credencial/certificado queda PENDING con blocker factual.
+**Artifact:** PR #55 `bbb/task-24.1-release-controls`.
 
-### 24.2
+Exact tested head `ba83c87dab8a56163601e913f7764c7f8682b7a6` sobre base `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.
+
+Evidencia exact-head:
+- Required CI / Test - Desktop Portability `33248059804` SUCCESS;
+- F4 Release Controls `33248059891` SUCCESS;
+- D6 `33248059823` SUCCESS;
+- D7 `33248059990` SUCCESS.
+
+Integración:
+- PR #55 CLOSED/MERGED;
+- merge SHA `672e133bc9cb8a47a29d4b34e13fc535290e5681`;
+- parents `5b05ca845...` + `ba83c87...`;
+- tree `90caa2979bdb4cf4d185d2b6dd8f21e830b01472`.
+
+Requirements satisfechos:
+- [x] tag/source SHA binding y checkout del mismo source SHA en release flow;
+- [x] checksums/SBOM SPDX/provenance verification;
+- [x] channels/rings/minimum versions/kill switch;
+- [x] publication fail-closed mientras controles no autoricen release.
+
+**No implica:** signing Windows, notarización macOS ni ejecución de release público.
+
+### 24.2 — `ASSIGNED / IN PROGRESS` — BBB `NIGHT-BBB-006`
 - [ ] update N-1 y fallos de red/disco/firma/manifest;
 - [ ] recovery/rollback;
 - [ ] retiro artefacto malo/comunicación.
+
+**Regla de ejecución:** REUSE-FIRST sobre updater, upgrade matrix, release-controls y workflows existentes. No crear release público, no mover stable/latest, no inventar certificados. Los fallos de firma pueden probarse con fixtures/validación segura si no requieren credencial real.
 
 **Gate:** tag→SHA→artefacto demostrable + rollback runbook.
 
