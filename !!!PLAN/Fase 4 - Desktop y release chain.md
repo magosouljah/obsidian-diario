@@ -4,13 +4,13 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 009:** `integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`.
+**Integración estable CYCLE 012:** `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 dependency-safe — `NIGHT-BBB-010`.**
+**BBB — F4 / 25.1 functional coverage residual — `NIGHT-BBB-013`.**
 
-21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. BBB produjo PR #60 para 25.1; su matrix gate exact-head pasó, pero Desktop Portability falló y además el baseline avanzó por #59. Por tanto #60 sigue abierto y NO es integration-ready.
+21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. PR #60, que añade la matriz dependency-safe de 25.1, quedó integrada como `7de7b57a508b3cf05cbded81501fbd3da63922a3`; la tarea 25.1 completa sigue abierta porque el artifact conserva gaps `NOT_COVERED`, `PENDING_EXTERNAL` y `PRODUCT_FINDING` que el merge no convierte en PASS.
 
 ---
 
@@ -74,15 +74,7 @@ Satisfecho:
 
 ### 24.2 — `[x] DONE / INTEGRATED`
 
-PR #57 `bbb/task-24.2-updater-recovery` fue integrado después de race-check exacto.
-
-Evidencia:
-- exact tested head `4e251cae84ff55116c89c8398e78f04aecb78e3c`;
-- exact base probado `f0d65aa66988e3e1a026e237b65c65a56b098aa9`;
-- Test - Desktop Portability/Required CI `33255401498` SUCCESS;
-- D6 `33255401544` SUCCESS;
-- D7 `33255401512` SUCCESS;
-- merge `f73c9ee8d058df3c780170c8c2a3fabef975c54d`, parents exactos `f0d65aa...` + `4e251cae...`.
+PR #57 exact tested head `4e251cae84ff55116c89c8398e78f04aecb78e3c`; Test - Desktop Portability/Required CI `33255401498`, D6 `33255401544`, D7 `33255401512` SUCCESS; merge `f73c9ee8d058df3c780170c8c2a3fabef975c54d`.
 
 Satisfecho técnicamente:
 - [x] update N-1 y fallos de red/disco/firma/manifest con policy fail-closed;
@@ -93,27 +85,25 @@ Esto no cierra D22/D23 ni autoriza release público, signing, notarization o mov
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] IN PROGRESS` — BBB `NIGHT-BBB-010`
+### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-013`
 
-Audit REUSE-FIRST ya confirmado:
-- Web/component/desktop harnesses reutilizables cubren auth/import/Review/playback/edit/Trash/offline/downloads y updater recovery/static portability;
-- Web E2E explícito actualmente demuestra boot compilado sin Tauri, no todos los journeys;
-- Windows/macOS tienen gates nativos/build/portability y harnesses, pero no evidencia explícita de todos los journeys funcionales en ambos OS;
-- no se encontró runner funcional iPhone;
-- YouTube tiene helper de release pero no journey E2E dedicado verificado;
-- billing tiene plan code pero no journey funcional/E2E dedicado verificado.
+PR #60 `bbb/task-25.1-functional-matrix`:
+- exact tested head `945638c8bb650b0ce0bbe569e48a791a93d80e39`;
+- F4 - 25.1 Functional Matrix `33265800007` SUCCESS;
+- D6 `33265800004` SUCCESS;
+- D7 `33265800022` SUCCESS;
+- Test - Desktop Portability `33265800008` SUCCESS;
+- Upgrade 21.2 Staging `33265800019` SKIPPED/no aplicable;
+- protected expected-head merge `7de7b57a508b3cf05cbded81501fbd3da63922a3`, parents exactos `58a6bf614...` + `945638c8...`.
 
-Candidate actual:
-- PR #60 `bbb/task-25.1-functional-matrix` head `28d9e3819e528ae5ed23435ad39d20ef6c14641b`, creado sobre `f73c9ee...`;
-- F4 - 25.1 Functional Matrix `33260592877` SUCCESS;
-- D6 `33260592860` SUCCESS;
-- D7 `33260592764` SUCCESS;
-- **Test - Desktop Portability `33260592774` FAILURE**;
-- integration avanzó después a `be9e58c...` por PR #59, por lo que el candidate está stale además del failure.
+La matriz integrada conserva la verdad del coverage:
+- harnesses Web/component/desktop existentes cubren piezas de auth/import/Review/playback/edit/Trash/offline/downloads/updater;
+- no todos los journeys core están demostrados end-to-end en Web + Windows + macOS;
+- iPhone runner/hardware sigue `PENDING_EXTERNAL`/sin evidencia;
+- YouTube/billing dedicados siguen abiertos donde la matriz los marca;
+- integrar #60 **no** convierte esos gaps en PASS.
 
-`NIGHT-BBB-010` exige REUSE SAME #60: diagnosticar el failure exacto, refresh contra `be9e58c...`, corregir solo F4 si corresponde, y exigir CI nuevo sobre la combinación vigente. Si el failure es un bug F2/F3, registrar `PRODUCT_FINDING` sin robar ownership. No merge hasta que todos los gates aplicables estén verdes.
-
-La matriz conserva estados explícitos `AUTOMATED_PASS`, `PENDING_EXTERNAL`, `PRODUCT_FINDING` y `NOT_COVERED`; integrar el artifact no convierte los gaps en PASS.
+`NIGHT-BBB-013` debe escoger un solo slice dependency-safe de mayor retorno entre los journeys `NOT_COVERED`, reutilizar harnesses existentes y producir evidencia funcional real. No segunda matriz, no reabrir #60, no fixes F2/F3 robados. Bugs descubiertos → `PRODUCT_FINDING` con owner correspondiente. Exact-head obligatorio para candidate/merge.
 
 ### 25.2
 - [ ] design freeze tokens/nav/library/drawer/player/settings/wizard;
