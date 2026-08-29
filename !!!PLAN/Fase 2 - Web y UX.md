@@ -4,18 +4,18 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 013:** `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`.  
+**Baseline vivo CYCLE 014:** `integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`.  
 **Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto; D13–D15 no cerrados.
 
 ## Owner actual
 
-**AAA — F2 / 12.1 SAME PR #64 corrective transaction — `NIGHT-AAA-014`.**
+**AAA — F2 / 12.1 SAME PR #64 merge + residual pagination/window/memory — `NIGHT-AAA-015`.**
 
-PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9` y cerró solo slice A: lazy artwork + taxonomía mínima de startup + timing/tests.
+PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9` y cerró slice A: lazy artwork + taxonomía mínima de startup + timing/tests.
 
-`NIGHT-AAA-013` produjo PR #64 `aaa/night-12.1-atomic-empty-index @ 86ea14ad04357d86d4140f17621bd3a835435350`, OPEN/Ready/mergeable, usando PostgreSQL advisory locks y `commitIndexCopyOnWrite` existentes para un `/transport/index/ensure` server-side idempotente/fail-closed + Web fallback cuando falta el pinned INDEX. Añadió tests de concurrencia/idempotencia/fallo parcial, pero el handoff dejó su ejecución UNVERIFIED.
+Atomic empty-index candidate: PR #64 `aaa/night-12.1-atomic-empty-index @ 3e7fd0a0d7db6f7f423de47c86e643c36d6bcd24`, OPEN/Ready/mergeable, base exacta `55e0d875...`. Reutiliza advisory locks PostgreSQL y `commitIndexCopyOnWrite` para `/transport/index/ensure` server-side idempotente/fail-closed + Web fallback cuando falta el pinned INDEX. AAA corrigió el cycle Web atribuible y el harness de tests focales dentro de la misma lineage.
 
-GitHub posterior al handoff manda: `Test - Desktop Portability / Required CI` run `33271187072` terminó **FAILURE** sobre exact head `86ea14ad...`. Web+shared falló en `Smoke compiled Web bundle in Chrome`; Portable Windows falló; native macOS arm64/x86_64 fallaron. No merge/no PASS.
+GitHub factual CYCLE 014: `Test - Desktop Portability / Required CI` run `33272883660` terminó **SUCCESS** exact-head sobre `3e7fd0a0...`; Web+shared, Portable Windows y native macOS observados SUCCESS. #64 no se marca integrada hasta owner race-check/merge.
 
 ## Día 11 — Foundations y AccountGate
 
@@ -27,12 +27,12 @@ PR #54 merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 — `[ 🟡 ] IN PROGRESS / CANDIDATE RED` — AAA `NIGHT-AAA-014`
+### 12.1 — `[ 🟡 ] IN PROGRESS / ATOMIC CANDIDATE GREEN` — AAA `NIGHT-AAA-015`
 
-- [ 🟡 ] **Índice vacío atómico en control plane.** Candidate #64 existe pero no está autorizado a integrar por exact-head CI FAILURE y tests focales todavía no verificados. 014 debe diagnosticar/fijar únicamente el slice, ejecutar pruebas de dos callers→un ganador, retry/idempotencia, existing no overwrite, provider failure y pointer-persistence fail-closed/cleanup; luego fresh exact-head CI y race-check.
-- [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Slice A integrada en #58; residual sigue abierto donde no esté probado.
-- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado en #58; pagination/window/memory siguen abiertos y fuera de 014.
-- [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing integrado en #58; cold/warm cuantificado/residual sigue abierto y fuera de 014.
+- [ 🟡 ] **Índice vacío atómico en control plane.** Candidate #64 exact-head green y mergeable; owner debe hacer race-check + protected merge. Si cambia baseline/head, refresh SAME lineage + fresh applicable CI. Tras merge cerrar solo este sub-slice.
+- [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Slice A integrada en #58; residual abierto donde no esté probado.
+- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado en #58; pagination/window/memory es el siguiente residual asignado a AAA después de #64.
+- [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing integrado en #58; cold/warm cuantificado/residual sigue abierto.
 
 ### 12.2 — `[x] DONE / INTEGRATED`
 PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
