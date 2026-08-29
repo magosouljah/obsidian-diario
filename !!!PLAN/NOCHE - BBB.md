@@ -8,43 +8,33 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-BBB-019`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F4 / 25.1 — SAME PR #63 log-driven Windows import corrective`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`
-- `REUSE_PR: #63 / bbb/task-25.1-windows-import`
-- `KNOWN_HEAD: ea00d85d7946da8a27fe336bf738afb9a4bd72d0`
-- `PREDECESSOR: NIGHT-BBB-018 PENDING; exact-head functional run later ended FAILURE.`
+- `ASSIGNED_BASELINE: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`
+- `LIVE_BASELINE_AT_PREFLIGHT: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
+- `BRANCH_HEAD: bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0`
+- `PR: #63 OPEN / Ready / NOT MERGED; current mergeability false after base movement`
+- `CI-FALLBACK: NONE`
 
-### PRIMARY
+## RESULTADO — NIGHT-BBB-019
 
-1. Preflight GitHub vivo and reuse ONLY SAME #63. Do not open a second 25.1 PR/branch.
-2. Inspect failure evidence for `F4 - 25.1 Windows Import Journey` run `33277733650`, job `99167313710`. Setup, exact checkout and official Tauri/Edge driver auto-bootstrap passed; failure occurred inside `Run existing Windows import E2E harness`.
-3. Diagnose the concrete harness/session/runtime failure from the job log/artifacts. Apply only the minimal F4 tooling/session/harness fix if the cause belongs to BBB scope.
-4. If evidence shows a product bug outside BBB ownership, record `PRODUCT_FINDING`, do not patch F2/F3 product code, and STOP/PENDING for JOBS reassignment.
-5. On any new head, run the Windows Import journey to literal PASS and fresh applicable exact-head CI. Reuse F4 Matrix/D6/D7/Desktop Portability evidence only when still applicable to the final head; otherwise obtain fresh evidence.
-6. Promote `windows/import` to `AUTOMATED_PASS` only after literal exact-head functional PASS. Then race-check base/integration and merge SAME #63 only if all applicable gates are green.
-7. Do not begin 25.2, signing/notarization, iPhone hardware, YouTube or billing gaps.
-8. Handoff in this ledger + Issue #41 and STOP.
-
-**Required evidence:** failure cause, final branch/head, Windows Import PASS on exact head, applicable CI, race-check, merge SHA if integrated.  
-**STOP:** product bug outside F4, unexpected baseline, external runner/tool outage not attributable to candidate, red required gate, or unverified merge.
-
-### CI-FALLBACK
-
-`NONE`
-
-Reason: 25.2 and other F4 gaps either share release/test surfaces with #63 or advance a later gate while 25.1 remains unresolved. No independent branch/file ownership slice is safe enough to preauthorize.
-
-## RESULTADO PROCESADO ANTERIOR — NIGHT-BBB-018
-
-- `STATUS: PENDING / WAIT_FOR_ASSIGNMENT after processing`.
-- PR #63 head `ea00d85d7946da8a27fe336bf738afb9a4bd72d0`, base `ed6aab7e...`, OPEN/Ready/mergeable.
-- F4 Matrix `33277733635`, D6 `33277733621`, D7 `33277733651`, Desktop Portability `33277733647` = SUCCESS.
-- Windows Import `33277733650` = FAILURE; job setup/bootstrap passed and the existing E2E harness step failed.
-- `windows/import` remains `NOT_COVERED`; no merge/no promotion.
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-019`  
+`TURN_STATUS: PENDING`  
+`BASE_BEFORE: assigned ed6aab7e964686cdb5fb1b84eac0198ca67f8892; live preflight 712b49b6689a31a47902dbe95e98622d001dab40 after merge #66.`  
+`HEAD_AFTER: unchanged bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0.`  
+`PR: #63 OPEN / Ready / NOT MERGED; SAME canonical lineage; 3 changed F4 files. No second branch/PR. Duplicate-check found no competing active Windows-import candidate; #67 belongs to WOZ/F3 and unrelated legacy PRs do not own this slice.`  
+`CAMBIOS: no BeatGaler mutation. Assignment STOP condition "unexpected baseline" triggered before a corrective commit. Read-only diagnosis completed from exact failed job 99167313710; no rerun ceremonial, no matrix promotion, no merge.`  
+`TESTS: historical exact-head Windows Import run 33277733650 built frontend/Tauri successfully, mounted E2EImportHarness and restricted execution to tests/e2e/import-flow.e2e.mjs. No spec assertion executed because WDIO could not create a WebDriver session.`  
+`CI: exact old head ea00d85d7946da8a27fe336bf738afb9a4bd72d0 — F4 Matrix 33277733635 SUCCESS; D6 33277733621 SUCCESS; D7 33277733651 SUCCESS; Desktop Portability 33277733647 SUCCESS; Windows Import 33277733650 FAILURE; Upgrade 33277733677 SKIPPED/no aplicable. These runs do not authorize integration against live baseline 712b49b6689a31a47902dbe95e98622d001dab40.`  
+`EVIDENCIA: job 99167313710 passed exact checkout, npm install, official Tauri/Edge bootstrap and release build. tauri-driver and msedgedriver were running, then WDIO failed session creation twice with "session not created: DevToolsActivePort file doesn't exist" before any import spec assertion. This is F4 runner/session bootstrap evidence, not evidence of a product import bug. PR #51 revalidated CLOSED/MERGED, draft=false, merge 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858. Integration live moved to 712b49b6689a31a47902dbe95e98622d001dab40 by merge #66.`  
+`UNVERIFIED: windows/import remains NOT_COVERED; no literal functional PASS; #63 has not been refreshed onto 712b49b6689a31a47902dbe95e98622d001dab40; no fresh exact-head CI exists for that combination; no AUTOMATED_PASS; no merge; 25.1 remains open.`  
+`BLOCKERS: unexpected baseline is an explicit STOP condition for NIGHT-BBB-019. Candidate #63 is stale versus live integration and current PR mergeability is false. BBB must not patch/refresh under this processed assignment without a new or explicitly updated JOBS order.`  
+`RECOMMENDATION_TO_JOBS: keep SAME #63 and issue the next monotonic BBB assignment (or explicitly reassign 019 before processing, if policy permits) against live base 712b49b6689a31a47902dbe95e98622d001dab40. Then refresh SAME lineage preserving only the 3-file F4 delta, apply the minimal session/bootstrap corrective guided by DevToolsActivePort failure, require Windows Import literal PASS + fresh applicable exact-head CI, and only then promote windows/import/race-check/merge. Do not open a second slice or 25.2.`  
+`TURN_FINISHED_AT: 2026-08-29T17:04:00-06:00`
 
 ## HISTORIAL COMPACTO
 
+- `NIGHT-BBB-019`: PENDING — unexpected baseline after #66 merge; read-only failure diagnosis complete; no mutation.
 - `NIGHT-BBB-018`: PENDING — SAME #63 exact-head functional failure.
 - `NIGHT-BBB-017`: PENDING — SAME #63 refreshed; official driver bootstrap restored.
 - `NIGHT-BBB-012`: PR #60 matrix integrated `7de7b57a...`.
