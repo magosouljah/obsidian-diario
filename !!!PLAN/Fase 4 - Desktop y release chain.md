@@ -4,15 +4,25 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 017 FINAL:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.
+**Integración estable CYCLE 018:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 Windows import runner bootstrap corrective — `NIGHT-BBB-017`.**
+**BBB — F4 / 25.1 SAME PR #63 exact-head Windows import closure — `NIGHT-BBB-018`.**
 
 21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. #60 integró la matriz dependency-safe de 25.1, pero 25.1 completo sigue abierto.
 
-PR #63 `bbb/task-25.1-windows-import @ 8768856ff8ea15c7fa164e4b433abccf02852fb1` estaba OPEN/Ready/mergeable con F4 Matrix/D6/D7/Desktop Portability SUCCESS y Windows Import `33276125806` FAILURE después de prepare PASS por EdgeDriver/Tauri Driver/WDIO bootstrap. Su base `b114111caf...` quedó stale tras merge #65; `NIGHT-BBB-017` exige refresh SAME #63 sobre `ed6aab7e...`, fix mínimo y fresh functional/exact-head evidence. `windows/import` permanece `NOT_COVERED`.
+PR #63 `bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0` está OPEN/Ready/mergeable con base viva `ed6aab7e...`. El corrective de `NIGHT-BBB-017` volvió al bootstrap oficial ya configurado: `driverProvider=official`, `autoInstallTauriDriver=true`, `autoDownloadEdgeDriver=true`, sin cambios de producto.
+
+Preflight CYCLE 018 exact-head:
+- F4 Matrix `33277733635` SUCCESS;
+- D6 `33277733621` SUCCESS;
+- D7 `33277733651` SUCCESS;
+- Windows Import `33277733650` IN_PROGRESS;
+- Desktop Portability `33277733647` IN_PROGRESS;
+- Upgrade 21.2 `33277733677` SKIPPED/no aplicable.
+
+`windows/import` permanece `NOT_COVERED` hasta PASS literal. `NIGHT-BBB-018` debe reutilizar esos runs: si ambos gates aplicables cierran verdes, race-check + promoción literal + merge SAME #63; si Windows Import falla, usar ese log para el fix mínimo dentro de la misma lineage y exigir fresh exact-head después.
 
 ## Día 21 — Manifest e identidad únicos
 
@@ -62,18 +72,18 @@ Esto no cierra D22/D23 ni autoriza release público.
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-017`
+### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-018`
 
 #60 integró la matriz como `7de7b57a508b3cf05cbded81501fbd3da63922a3`. Conserva `NOT_COVERED`, `PENDING_EXTERNAL` y `PRODUCT_FINDING` honestos.
 
-SAME #63 intenta cerrar únicamente Windows/import reutilizando `test:e2e:import`. Estado pre-refresh:
-- head `8768856ff8ea15c7fa164e4b433abccf02852fb1`;
-- old base `b114111caf...` → stale vs live `ed6aab7e...`;
-- F4 Matrix `33276125761`, D6 `33276125754`, D7 `33276125735`, Desktop Portability `33276125736` SUCCESS;
-- Windows Import `33276125806` **FAILURE** por driver/session bootstrap;
-- no merge/no promotion a `AUTOMATED_PASS`.
+SAME #63 intenta cerrar únicamente Windows/import reutilizando `test:e2e:import`. Estado vivo:
+- head `ea00d85d7946da8a27fe336bf738afb9a4bd72d0`;
+- base `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`;
+- F4 Matrix/D6/D7 SUCCESS;
+- Windows Import + Desktop Portability todavía en curso en el preflight CYCLE 018;
+- no merge/no promoción a `AUTOMATED_PASS` todavía.
 
-`NIGHT-BBB-017` debe refresh SAME lineage, reparar solo EdgeDriver/Tauri Driver/WDIO session bootstrap y exigir Windows Import functional PASS + applicable fresh exact-head CI. Si aparece bug producto, registrar `PRODUCT_FINDING` y no robar implementación.
+`NIGHT-BBB-018` reutiliza esos runs. PASS literal + applicable CI green + race-check son obligatorios. Si falla, reparar solo la causa mínima de tooling/session en #63; si aparece bug producto, registrar `PRODUCT_FINDING` y no robar implementación.
 
 Persisten, entre otros: journeys core no demostrados cross-platform, iPhone runner/hardware externo, YouTube/billing donde la matriz marque gap y signing/notarization externos.
 
