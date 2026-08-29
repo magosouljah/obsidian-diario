@@ -2,18 +2,18 @@
 
 > GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership actual — CYCLE 017
+## Roles y ownership actual — CYCLE 017 FINAL
 
 | Rol | Owner actual | Responsabilidad |
 |---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra |
-| **AAA** | F2 / 12.1 SAME #66 | `NIGHT-AAA-018`: completar consumer windowing/navigation/refresh/no-dup/no-omission + bounded evidence; exact-head antes de merge |
-| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-017`: corregir únicamente runner bootstrap EdgeDriver/Tauri Driver/WDIO; functional PASS + fresh exact-head CI |
-| **WOZ** | F3 / 17.1 SAME #65 | `NIGHT-WOZ-017`: race-check/merge exact-head green; cerrar solo software slice 17.1 |
+| **AAA** | F2 / 12.1 SAME #66 | `NIGHT-AAA-018`: refresh sobre `ed6aab7e...`; completar consumer windowing/navigation/refresh/no-dup/no-omission + bounded evidence; fresh exact-head antes de merge |
+| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-017`: refresh sobre `ed6aab7e...`; corregir runner bootstrap EdgeDriver/Tauri Driver/WDIO; functional PASS + fresh exact-head CI |
+| **WOZ** | F3 / 17.2 | `NIGHT-WOZ-018`: webhook raw-body integrity + durable event dedupe/idempotency/retry software-only; sin recursos Stripe reales |
 
 RO conserva alcance de producto, riesgo aceptado, decisiones/credenciales externas y go/no-go público. JOBS puede reorganizar roadmap, pero un cambio de owner/scope es explícito.
 
-**Baseline canónico CYCLE 017:** `integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`. GitHub vivo manda si cambia después.
+**Baseline canónico CYCLE 017 FINAL:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892` por merge #65. GitHub vivo manda si cambia después.
 
 D10.1 permanece external-only por copia real off-provider/off-account + read/checksum. F3/16.1 physical staging/prod separation continúa external-only. F3/16.2 software está DONE/INTEGRATED por #61 pero deploy/staging/rollback reales continúan externos. D22/D23 signing/notarization siguen externos.
 
@@ -66,13 +66,13 @@ NEXT_WITHIN_AREA:
 END AI-HANDOFF
 ```
 
-## Night Shift Ledger — CYCLE 017
+## Night Shift Ledger — CYCLE 017 FINAL
 
 ```text
-JOBS: baseline remains b114111caf...; no new merge promoted this cycle
-AAA: NIGHT-AAA-017 -> PR #66 c9b5cd95... PENDING; bounded page primitive exists but consumer windowing/evidence incomplete; Desktop Portability still in progress -> NIGHT-AAA-018 SAME #66
-BBB: NIGHT-BBB-016 not executed; #63 remains 8768856f..., Windows Import 33276125806 FAILURE -> superseded -> NIGHT-BBB-017 SAME #63
-WOZ: NIGHT-WOZ-016 not executed; #65 remains e6553864..., all applicable exact-head gates SUCCESS -> superseded -> NIGHT-WOZ-017 SAME #65 merge transaction
+JOBS: baseline advanced during final race-check to ed6aab7e... via verifiable merge #65
+AAA: NIGHT-AAA-017 PENDING -> #66 c9b5cd95 partial bounded paging; base became stale -> NIGHT-AAA-018 SAME #66 refresh/completion
+BBB: NIGHT-BBB-016 unexecuted; #63 8768856f Windows Import red and base became stale -> NIGHT-BBB-017 SAME #63 refresh/bootstrap
+WOZ: NIGHT-WOZ-017 DONE -> #65 e6553864 exact-head green merged ed6aab7e... -> NIGHT-WOZ-018 F3/17.2 software-only
 D10.1: PENDING_EXTERNAL_PROOF only; no technical worker overlap
 F3/16.1 physical separation: PENDING_EXTERNAL
 D22/D23: PENDING_EXTERNAL
@@ -86,6 +86,6 @@ RELEASE: NO-GO
 - **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
 - **F1:** D6–D9 PASS; D10.1 external-only; D10.2 RO.
 - **F2:** 11.1/11.2/12.2 cerrados; AAA owner exclusivo de SAME #66 bajo `NIGHT-AAA-018`; 12.1 sigue abierto.
-- **F3:** 16.1/16.2 software integrado con external tails; WOZ owner exclusivo de #65 bajo `NIGHT-WOZ-017`; 17.2–20 abiertos.
+- **F3:** 16.1/16.2 software integrado con external tails; 17.1 SOFTWARE DONE/INTEGRATED por #65; WOZ owner exclusivo de 17.2 bajo `NIGHT-WOZ-018`; 18–20 abiertos.
 - **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo de #63 bajo `NIGHT-BBB-017`; D22/D23 externos; 25.2 abierto.
 - **JOBS:** coordinación/plan; sin producto/infra.
