@@ -2,18 +2,18 @@
 
 > GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership actual — CYCLE 017 FINAL
+## Roles y ownership actual — CYCLE 018
 
 | Rol | Owner actual | Responsabilidad |
 |---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra |
-| **AAA** | F2 / 12.1 SAME #66 | `NIGHT-AAA-018`: refresh sobre `ed6aab7e...`; completar consumer windowing/navigation/refresh/no-dup/no-omission + bounded evidence; fresh exact-head antes de merge |
-| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-017`: refresh sobre `ed6aab7e...`; corregir runner bootstrap EdgeDriver/Tauri Driver/WDIO; functional PASS + fresh exact-head CI |
-| **WOZ** | F3 / 17.2 | `NIGHT-WOZ-018`: webhook raw-body integrity + durable event dedupe/idempotency/retry software-only; sin recursos Stripe reales |
+| **AAA** | F2 / 12.1 SAME #66 | `NIGHT-AAA-019`: production React next/previous/cursor sin `Beat[]` global; focused PASS + fresh exact-head/race-check |
+| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-018`: reutilizar exact-head Windows Import/Required CI; PASS→race-check/promote/merge, FAIL→minimal log-driven fix |
+| **WOZ** | F3 / 17.2 | `NIGHT-WOZ-018` continúa vigente; webhook raw-body integrity + durable event dedupe/idempotency/retry software-only; no 019 hasta resultado verificable |
 
 RO conserva alcance de producto, riesgo aceptado, decisiones/credenciales externas y go/no-go público. JOBS puede reorganizar roadmap, pero un cambio de owner/scope es explícito.
 
-**Baseline canónico CYCLE 017 FINAL:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892` por merge #65. GitHub vivo manda si cambia después.
+**Baseline canónico CYCLE 018:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`. GitHub vivo manda si cambia después.
 
 D10.1 permanece external-only por copia real off-provider/off-account + read/checksum. F3/16.1 physical staging/prod separation continúa external-only. F3/16.2 software está DONE/INTEGRATED por #61 pero deploy/staging/rollback reales continúan externos. D22/D23 signing/notarization siguen externos.
 
@@ -66,17 +66,17 @@ NEXT_WITHIN_AREA:
 END AI-HANDOFF
 ```
 
-## Night Shift Ledger — CYCLE 017 FINAL
+## Night Shift Ledger — CYCLE 018
 
 ```text
-JOBS: baseline advanced during final race-check to ed6aab7e... via verifiable merge #65
-AAA: NIGHT-AAA-017 PENDING -> #66 c9b5cd95 partial bounded paging; base became stale -> NIGHT-AAA-018 SAME #66 refresh/completion
-BBB: NIGHT-BBB-016 unexecuted; #63 8768856f Windows Import red and base became stale -> NIGHT-BBB-017 SAME #63 refresh/bootstrap
-WOZ: NIGHT-WOZ-017 DONE -> #65 e6553864 exact-head green merged ed6aab7e... -> NIGHT-WOZ-018 F3/17.2 software-only
+JOBS: live integration remains ed6aab7e...; processed AAA-018 + BBB-017; WOZ-018 has no final shared result yet
+AAA: NIGHT-AAA-018 PENDING -> #66 2d9a9ae... refreshed/bounded; D6/D7 green, Required CI running; production React navigation gap -> NIGHT-AAA-019 SAME #66
+BBB: NIGHT-BBB-017 PENDING -> #63 ea00d85... refreshed; F4 Matrix/D6/D7 green, Windows Import + Required CI running -> NIGHT-BBB-018 SAME #63
+WOZ: NIGHT-WOZ-018 remains ASSIGNED; no verifiable final handoff/17.2 candidate -> NO 019 issued
 D10.1: PENDING_EXTERNAL_PROOF only; no technical worker overlap
 F3/16.1 physical separation: PENDING_EXTERNAL
 D22/D23: PENDING_EXTERNAL
-DUPLICATE_WORK: none; #62 remains CLOSED/NOT MERGED
+DUPLICATE_WORK: none; #62 remains CLOSED/NOT MERGED; #66/#63 SAME lineages preserved
 UNVERIFIED_CLAIMS: none promoted to PASS
 RELEASE: NO-GO
 ```
@@ -85,7 +85,7 @@ RELEASE: NO-GO
 
 - **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
 - **F1:** D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; AAA owner exclusivo de SAME #66 bajo `NIGHT-AAA-018`; 12.1 sigue abierto.
+- **F2:** 11.1/11.2/12.2 cerrados; AAA owner exclusivo de SAME #66 bajo `NIGHT-AAA-019`; 12.1 sigue abierto.
 - **F3:** 16.1/16.2 software integrado con external tails; 17.1 SOFTWARE DONE/INTEGRATED por #65; WOZ owner exclusivo de 17.2 bajo `NIGHT-WOZ-018`; 18–20 abiertos.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo de #63 bajo `NIGHT-BBB-017`; D22/D23 externos; 25.2 abierto.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo de #63 bajo `NIGHT-BBB-018`; D22/D23 externos; 25.2 abierto.
 - **JOBS:** coordinación/plan; sin producto/infra.
