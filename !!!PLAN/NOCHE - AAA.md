@@ -2,18 +2,16 @@
 
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** AAA — worker nocturno.  
-**Área inicial:** F2 — Web / UX / frontend de producto.  
+**Área:** F2 — Web / UX / frontend de producto.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.
 
 ## META DE AAA ESTA NOCHE
 
-Cerrar la mayor cantidad posible de F2 sin invadir otras áreas, comenzando por la asignación vigente y devolviendo el control a JOBS al terminar cada turno.
-
-AAA **no se autoasigna** la siguiente tarea. Un turno = una asignación JOBS.
+Cerrar la mayor cantidad posible de F2 sin invadir otras áreas. Un turno = una asignación JOBS. AAA no se autoasigna trabajo.
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-001`
+- `ASSIGNMENT_ID: NIGHT-AAA-002`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 11.2 Auth UI completa`
 - `TARGET_ARTIFACT: PR #54`
@@ -22,44 +20,22 @@ AAA **no se autoasigna** la siguiente tarea. Un turno = una asignación JOBS.
 
 ### Orden JOBS
 
-1. Haz preflight factual completo. No asumas que head/base/CI siguen iguales.
-2. Reutiliza exclusivamente PR #54 para 11.2; no abras otro artifact.
-3. Verifica el estado exact-head de Required CI #459 y checks aplicables.
-4. Si CI sigue corriendo o falla por causa externa/no atribuible, registra PENDING/BLOCKED con evidencia y STOP.
-5. Si CI pasa y baseline/head siguen compatibles, haz race-check final e integra #54 por el flujo autorizado del owner.
-6. Verifica el merge SHA y que integración contiene 11.2.
-7. Publica handoff Issue #41 con evidence-before-claim.
-8. Actualiza **solo este markdown nocturno** con el resultado del turno.
-9. No empieces 12.1, 13.x, 14.x ni 15.x en este turno aunque 11.2 termine. JOBS escogerá el siguiente slice al próximo ciclo.
+1. Preflight factual completo: Plan Maestro + F2 + Registro + roles + protocolo + este archivo + Issue #41 reciente + GitHub real.
+2. Reutiliza exclusivamente PR #54; no abras artifact duplicado.
+3. Revalida head/base/mergeability y Required CI #459 run `33239731204`. JOBS observó a las 02:02 local que ese run ya figura `completed/success` sobre exact head `e5aefa9...`; no confíes en este snapshot sin revalidarlo.
+4. Si head/base siguen exactamente compatibles y CI aplicable sigue verde, haz race-check final e integra #54 por el flujo autorizado del owner.
+5. Verifica merge SHA y que integración contiene 11.2; publica handoff Issue #41 con evidencia.
+6. Si baseline cambió materialmente antes del merge, refresh/revalida exact-head antes de integrar. Si aparece fallo externo/no atribuible, reporta PENDING/BLOCKED con evidencia.
+7. Actualiza solo este markdown nocturno con el resultado y STOP.
+8. No empieces 12.1/13.x/14.x/15.x en este Assignment ID.
 
-### Scope 11.2
+### Scope
 
-- login/register/MFA/verify/reset/recovery/error/offline;
-- OAuth popup/redirect/blocked/cancel/retry;
-- teclado/lector/zoom/móvil/error de red;
-- responsive/a11y;
-- preservar contratos D8 integrados;
-- Web pura, sin introducir dependencia Tauri.
+Login/register/MFA/verify/reset/recovery/error/offline; OAuth popup/redirect/blocked/cancel/retry; teclado/lector/zoom/móvil/red; responsive/a11y; preservar contratos D8; Web pura sin Tauri.
 
 ### Fuera de scope
 
-- D9/D10/F1;
-- F3;
-- F4;
-- 12.1/15.1 en este Assignment ID;
-- rediseño backend security;
-- cambios a decisiones RO de D8;
-- cualquier archivo de `!!!PLAN` salvo este markdown nocturno para reportar.
-
-## REGLAS DEL TURNO
-
-- Leer Plan Maestro + F2 + Registro + Equipo multi-IA + protocolo nocturno + este archivo + Issue #41 reciente.
-- Duplicate-check obligatorio.
-- REUSE-FIRST.
-- Evidence-before-claim.
-- Si integration avanzó, no uses CI viejo para una combinación nueva sin revalidación aplicable.
-- No editar la asignación ni inventar una nueva.
-- Al finalizar: reportar y STOP.
+F1/F3/F4; backend security redesign; decisiones RO D8; cualquier `!!!PLAN` salvo este markdown nocturno.
 
 ## RESULTADO DEL TURNO
 
@@ -82,4 +58,5 @@ TURN_FINISHED_AT:
 
 ## HISTORIAL
 
-- Bootstrap: antes del sistema nocturno, handoff Issue #41 `5460950384` registró PR #54 @ `e5aefa9...` como PENDING por finalización de Required CI #459. Este dato debe revalidarse en el turno.
+- `NIGHT-AAA-001`: superseded before worker execution by JOBS cycle 001 because factual CI state advanced from IN_PROGRESS to SUCCESS; same PR/scope retained, no duplicate work.
+- Bootstrap handoff Issue #41 `5460950384`: PR #54 @ `e5aefa9...` PENDING only on Required CI completion at that timestamp.
