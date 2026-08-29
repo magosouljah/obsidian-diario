@@ -7,56 +7,47 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-018`
-- `ASSIGNMENT_STATUS: PENDING`
-- `AREA: F4 / 25.1 — SAME PR #63 exact-head Windows import closure`
-- `BASELINE: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`
-- `BRANCH_HEAD: bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0`
-- `PR: #63 OPEN / Ready / mergeable / NOT MERGED`
-
-## RESULTADO DEL TURNO — WAIT_FOR_ASSIGNMENT
-
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-018`  
-`TURN_STATUS: WAIT_FOR_ASSIGNMENT`  
+- `ASSIGNMENT_ID: NIGHT-BBB-019`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F4 / 25.1 — SAME PR #63 log-driven Windows import corrective`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`
+- `REUSE_PR: #63 / bbb/task-25.1-windows-import`
+- `KNOWN_HEAD: ea00d85d7946da8a27fe336bf738afb9a4bd72d0`
+- `PREDECESSOR: NIGHT-BBB-018 PENDING; exact-head functional run later ended FAILURE.`
 
 ### PRIMARY
 
-`STATUS: NOT_EXECUTED — no existe Assignment ID nuevo ASSIGNED.`  
-`BASELINE: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892.`  
-`BRANCH/HEAD: bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0.`  
-`PR: #63 OPEN / Ready / mergeable / NOT MERGED.`  
-`CAMBIOS: ninguno; no commit, no rerun, no merge, no promoción.`  
-`TESTS: no ejecutados en este turno.`  
-`CI: evidencia viva del head ea00d85d... — F4 Matrix 33277733635 SUCCESS; D6 33277733621 SUCCESS; D7 33277733651 SUCCESS; Desktop Portability 33277733647 SUCCESS; Windows Import 33277733650 FAILURE; Upgrade 21.2 Staging 33277733677 SKIPPED/no aplicable.`  
-`EVIDENCIA: integration sigue en ed6aab7e...; PR #51 revalidada CLOSED/MERGED, draft=false, merge 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858. NIGHT-BBB-018 ya tiene resultado previo y no puede repetirse.`  
-`UNVERIFIED: windows/import continúa NOT_COVERED; causa/fix posterior al failure no procesado por falta de nuevo Assignment ID; #63 no integrada; 25.1 completo abierto.`  
-`BLOCKERS: JOBS aún no escribió un nuevo Assignment ID ASSIGNED para BBB.`  
+1. Preflight GitHub vivo and reuse ONLY SAME #63. Do not open a second 25.1 PR/branch.
+2. Inspect failure evidence for `F4 - 25.1 Windows Import Journey` run `33277733650`, job `99167313710`. Setup, exact checkout and official Tauri/Edge driver auto-bootstrap passed; failure occurred inside `Run existing Windows import E2E harness`.
+3. Diagnose the concrete harness/session/runtime failure from the job log/artifacts. Apply only the minimal F4 tooling/session/harness fix if the cause belongs to BBB scope.
+4. If evidence shows a product bug outside BBB ownership, record `PRODUCT_FINDING`, do not patch F2/F3 product code, and STOP/PENDING for JOBS reassignment.
+5. On any new head, run the Windows Import journey to literal PASS and fresh applicable exact-head CI. Reuse F4 Matrix/D6/D7/Desktop Portability evidence only when still applicable to the final head; otherwise obtain fresh evidence.
+6. Promote `windows/import` to `AUTOMATED_PASS` only after literal exact-head functional PASS. Then race-check base/integration and merge SAME #63 only if all applicable gates are green.
+7. Do not begin 25.2, signing/notarization, iPhone hardware, YouTube or billing gaps.
+8. Handoff in this ledger + Issue #41 and STOP.
+
+**Required evidence:** failure cause, final branch/head, Windows Import PASS on exact head, applicable CI, race-check, merge SHA if integrated.  
+**STOP:** product bug outside F4, unexpected baseline, external runner/tool outage not attributable to candidate, red required gate, or unverified merge.
 
 ### CI-FALLBACK
 
-`STATUS: NOT_EXECUTED.`  
-`BRANCH/HEAD: N/A.`  
-`PR: N/A.`  
-`CAMBIOS: ninguno.`  
-`TESTS: ninguno.`  
-`EVIDENCIA: no existe CI-FALLBACK explícito aplicable a un Assignment ID nuevo; no se inventa fallback.`  
-`UNVERIFIED: N/A.`  
-`BLOCKERS: sin Assignment ID nuevo, no existe fallback ejecutable autorizado.`  
-`STOP alcanzado: WAIT_FOR_ASSIGNMENT.`  
+`NONE`
 
-`RECOMMENDATION_TO_JOBS: emitir un nuevo Assignment ID monotónico para SAME #63 si BBB debe procesar el failure exact-head Windows Import 33277733650. El siguiente trabajo debe ser log-driven y limitado al runner/session bootstrap F4; reutilizar Desktop Portability/F4 Matrix/D6/D7 ya verdes solo si siguen aplicables al head final. No abrir segundo slice ni 25.2 sin orden explícita.`  
-`TURN_FINISHED_AT: 2026-08-29T16:35:00-06:00`
+Reason: 25.2 and other F4 gaps either share release/test surfaces with #63 or advance a later gate while 25.1 remains unresolved. No independent branch/file ownership slice is safe enough to preauthorize.
 
-## HISTORIAL
+## RESULTADO PROCESADO ANTERIOR — NIGHT-BBB-018
 
-- `WAIT_FOR_ASSIGNMENT`: NIGHT-BBB-018 ya procesado/PENDING; Windows Import luego FAILURE y Desktop Portability SUCCESS; sin nuevo ID no se reejecuta ni se autoasigna fallback.
-- `NIGHT-BBB-018`: PENDING — SAME #63 @ `ea00d85d...`; no merge/no promoción.
-- `NIGHT-BBB-017`: PENDING — SAME #63 refreshed sobre `ed6aab7e...`; bootstrap oficial.
-- `NIGHT-BBB-016`: SUPERSEDED_BY_JOBS before worker execution.
-- `NIGHT-BBB-015`: PENDING — SAME #63 corrective.
-- `NIGHT-BBB-014`: PENDING — #63 corrective.
-- `NIGHT-BBB-013`: PENDING — #63 initial candidate; #62 duplicate CLOSED.
-- `NIGHT-BBB-012`: DONE — #60 merged `7de7b57a...`.
-- `NIGHT-BBB-008`: DONE — #57 merged `f73c9ee...`.
-- `NIGHT-BBB-005`: DONE — #55 merged `672e133...`.
-- `NIGHT-BBB-003`: DONE — #51 merged `5b05ca845...`.
+- `STATUS: PENDING / WAIT_FOR_ASSIGNMENT after processing`.
+- PR #63 head `ea00d85d7946da8a27fe336bf738afb9a4bd72d0`, base `ed6aab7e...`, OPEN/Ready/mergeable.
+- F4 Matrix `33277733635`, D6 `33277733621`, D7 `33277733651`, Desktop Portability `33277733647` = SUCCESS.
+- Windows Import `33277733650` = FAILURE; job setup/bootstrap passed and the existing E2E harness step failed.
+- `windows/import` remains `NOT_COVERED`; no merge/no promotion.
+
+## HISTORIAL COMPACTO
+
+- `NIGHT-BBB-018`: PENDING — SAME #63 exact-head functional failure.
+- `NIGHT-BBB-017`: PENDING — SAME #63 refreshed; official driver bootstrap restored.
+- `NIGHT-BBB-012`: PR #60 matrix integrated `7de7b57a...`.
+- `NIGHT-BBB-008`: PR #57 integrated `f73c9ee...`.
+- `NIGHT-BBB-005`: PR #55 integrated `672e133...`.
+- `NIGHT-BBB-003`: PR #51 integrated `5b05ca845...`.
