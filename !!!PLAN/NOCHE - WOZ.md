@@ -12,12 +12,12 @@ Cerrar F1 factual y REUSE-FIRST, sin repetir drills aceptados. Un turno = una as
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-006`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F1 / D10.1 — integrar artifact verificado y reducir gate a blocker externo`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`
 - `CANDIDATE: PR #56 @ 0abe39e096d10d992764a2d24874e46529109a70`
 - `CI_FACTUAL: Test - Desktop Portability 33250824435 SUCCESS; D7 33250824401 SUCCESS; D6 33250824418 SUCCESS; Productive Temp Auth Compile 33250824441 SUCCESS; Upgrade 21.2 Staging skipped/no aplica.`
-- `CONTEXT: NIGHT-WOZ-005 redujo D10.1 a un único requisito no demostrable localmente: copia real fuera del primary provider/account failure domain.`
+- `CONTEXT: artifact integrado; D10.1 queda únicamente pendiente de copia real fuera del primary provider/account failure domain.`
 
 ### Orden JOBS
 
@@ -41,22 +41,27 @@ D10.2 alpha; F2/F3/F4; release público; nueva infraestructura/costo; cualquier 
 
 ## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-005`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-006`  
 `TURN_STATUS: PENDING`  
-`GATE: D10.1 / PENDING`  
+`GATE: D10.1 / PENDING_EXTERNAL_PROOF`  
 `BASE_BEFORE: integration-v0.8.0-alpha.1 @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`  
-`HEAD_AFTER: woz/d10.1-backup-readiness-contract @ 0abe39e096d10d992764a2d24874e46529109a70`  
-`PR: #56 OPEN / ready-for-review / mergeable`  
-`CHANGES: executable D10.1 contract cubre control-config+index+media, dry-run manifest+SHA256 y backup.failure routing fail-closed; no falsea off-provider proof.`  
-`TESTS: self-test local PASS_LOCAL_CONTRACT.`  
-`CI: exact-head posterior verificado por JOBS: Required CI/Test Desktop Portability 33250824435 SUCCESS; D7 33250824401 SUCCESS; D6 33250824418 SUCCESS; compile 33250824441 SUCCESS.`  
-`D10.1_MATRIX: config+index/media PASS candidate; restore/RPO/RTO/core PASS REUSED; access/retention PASS REUSED; backup-failure contract PASS candidate; off-provider PENDING_EXTERNAL_PROOF.`  
-`BLOCKERS: único EXTERNAL_BLOCKER — evidencia de copia real fuera del primary provider/account failure domain.`  
+`HEAD_AFTER: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`  
+`PR: #56 MERGED; exact candidate head 0abe39e096d10d992764a2d24874e46529109a70; merge SHA f0d65aa66988e3e1a026e237b65c65a56b098aa9.`  
+`CHANGES: integrado el artifact D10.1 que cubre estrategia control-config+index+media y contrato backup.failure condition+routing fail-closed; no se añadió provider/costo ni se falseó off-provider proof.`  
+`TESTS: self-test local previo PASS_LOCAL_CONTRACT; no se repitió drill.`  
+`CI: REUSED exact-head — Test - Desktop Portability 33250824435 SUCCESS; D7 33250824401 SUCCESS; D6 33250824418 SUCCESS; Productive Temp Auth Compile 33250824441 SUCCESS; Upgrade 21.2 Staging 33250824399 SKIPPED/no aplica.`  
+`EVIDENCE_REUSED: restore aislado real; RPO ~7 min <=15 min; RTO 3643 s <=7200 s; core flows PASS; access/retention PASS; exact-head CI verde.`  
+`EVIDENCE_NEW: PR #56 merge protegido por expected_head_sha; integración verificada en f0d65aa66988e3e1a026e237b65c65a56b098aa9 con parents 672e133bc9cb8a47a29d4b34e13fc535290e5681 + 0abe39e096d10d992764a2d24874e46529109a70.`  
+`D10.1_MATRIX: config+index/media PASS INTEGRATED; restore/RPO/RTO/core PASS REUSED; access/retention PASS REUSED; backup-failure condition+routing contract PASS INTEGRATED; off-provider copy PENDING_EXTERNAL_PROOF.`  
+`UNVERIFIED: delivery productivo real de backup.failure; copia real fuera del primary provider/account failure domain.`  
+`BLOCKERS: único EXTERNAL_BLOCKER — RO debe seleccionar/autorizar destino fuera del primary provider/account failure domain y ejecutar copia mínima + read/checksum verification.`  
+`RECOMMENDATION_TO_JOBS: mantener D10.1 PENDING exclusivamente por off-provider proof; no repetir restore/CI/drills. Tras prueba externa válida, JOBS puede asignar cierre factual D10.1 o decidir D10.2 en un Assignment ID separado.`  
+`TURN_FINISHED_AT: 2026-08-29T06:48:00-06:00`  
 `STOP: sí.`
 
 ## HISTORIAL
 
-- `NIGHT-WOZ-006`: ASSIGNED — integrar PR #56 exact-head y dejar D10.1 external-only factual.
+- `NIGHT-WOZ-006`: PENDING — PR #56 integrado como f0d65aa66988e3e1a026e237b65c65a56b098aa9; D10.1 external-only por off-provider proof.
 - `NIGHT-WOZ-005`: PENDING — PR #56 candidate; self-test PASS; único blocker off-provider; CI luego verificado SUCCESS por JOBS.
 - `NIGHT-WOZ-004`: PENDING — tres gaps literales confirmados.
 - `NIGHT-WOZ-003`: superseded unprocessed.
