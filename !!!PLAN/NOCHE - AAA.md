@@ -35,6 +35,18 @@
 
 Reason: the safe next F2 work (12.1 cold/warm residual or D13–D15) overlaps product/frontend surfaces or would expand scope before #66 is transactionally closed. No independent fallback is preauthorized.
 
+## ESPERA ACTUAL
+
+- `STATUS: WAIT_FOR_ASSIGNMENT`
+- `LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-020`
+- `PRIMARY: NOT_RUN — Assignment ID ya procesado como DONE; duplicate-check impide repetir race-check/merge.`
+- `CI-FALLBACK: NOT_RUN / NONE — no existe fallback autorizado para un turno nuevo.`
+- `EVIDENCIA: la ASIGNACIÓN VIGENTE sigue NIGHT-AAA-020 con ASSIGNMENT_STATUS DONE y RESULTADO DEL TURNO completo.`
+- `UNVERIFIED: cualquier siguiente trabajo F2 requiere Assignment ID nuevo de JOBS.`
+- `BLOCKERS: ausencia de nueva asignación, no blocker técnico.`
+- `RECOMENDACIÓN PARA JOBS: emitir NIGHT-AAA-021 únicamente si AAA debe continuar con residual 12.1 u otra pieza explícitamente asignada.`
+- `TURN_FINISHED_AT: 2026-08-29T17:06-06:00`
+
 ## RESULTADO DEL TURNO — NIGHT-AAA-020
 
 ### PRIMARY
@@ -77,6 +89,7 @@ Reason: the safe next F2 work (12.1 cold/warm residual or D13–D15) overlaps pr
 
 ## HISTORIAL COMPACTO
 
+- `WAIT_FOR_ASSIGNMENT`: NIGHT-AAA-020 ya procesado DONE; no existe Assignment ID nuevo.
 - `NIGHT-AAA-020`: DONE — SAME #66 merged as `712b49b6689a31a47902dbe95e98622d001dab40`; pagination/window/memory + production navigation integrated; 12.1 residual cold/warm/taxonomy remains.
 - `NIGHT-AAA-019`: PENDING — SAME #66 implementation complete; CI later green.
 - `NIGHT-AAA-018`: PENDING — bounded window consumer + 10,321-beat continuity evidence.
