@@ -4,84 +4,50 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.
+**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.
 
 ## Owner actual
 
-**BBB — F4 / 21.2 Upgrade Matrix: FULL OWNER por instrucción RO explícita 2026-08-28.**
+**BBB — F4 / 24.1 provenance, channels y release controls — `NIGHT-BBB-004`.**
 
-BBB consolidó el camino técnico de 21.1 + 21.2 en PR #51. Esto no convierte ninguno en cerrado hasta que el artifact combinado tenga evidencia exact-head válida contra el baseline vigente y quede integrado.
-
-Fuera de scope: signing Windows, notarización macOS, certificados/credenciales, release/beta pública, Día 24.
+21.1 + 21.2 quedaron cerrados e integrados por PR #51. D22/D23 conservan dependencias externas de signing/notarization; JOBS mueve a BBB a 24.1 porque su trabajo técnico puede avanzar REUSE-FIRST sin inventar certificados ni publicar stable/latest.
 
 ---
 
 ## Día 21 — Manifest e identidad únicos
 
-### 21.1 [P1 · DE/RO] — `[ 🟡 ] COMPLETE_TECHNICAL / CIERRE POR CAMINO COMBINADO #51`
+### 21.1 [P1 · DE/RO] — `[x] DONE / INTEGRATED`
 
-Artifact histórico: PR #48 `bbb/f4-21.1-release-manifest` @ `a3ba448e9ded04f73ee77a3556809dcf72e707f5` — técnico completo, pero no integrado.
+Artifact histórico PR #48 quedó incorporado por el camino combinado PR #51 y GitHub lo reporta CLOSED/MERGED con el mismo merge SHA final.
 
-Handoff BBB Issue #41 `5457967950`: `READY_FOR_INTEGRATION / COMPLETE_TECHNICAL`.
+Decisiones integradas:
+- nombre visible `Galer`;
+- bundle ID `com.beatgaler.app`;
+- fuente coherente de versión/endpoints/channel/capabilities;
+- runtimes/recursos y checks anti-drift incorporados en el candidate combinado.
 
-Decisión RO ya resuelta para este slice:
-- nombre visible: `Galer`;
-- bundle ID: `com.beatgaler.app`.
+### 21.2 [P1 · DE/QA] — `[x] DONE / INTEGRATED`
 
-El trabajo 21.1 fue incorporado por BBB al PR #51 como parte del camino combinado 21.1+21.2. Por tanto #48 queda **superseded para integración solo cuando #51 aterrice**; mientras #51 no esté integrado, 21.1 permanece `[ 🟡 ]` y #48 sigue OPEN/DRAFT.
+**Artifact canónico:** PR #51 `bbb/task-21.2-upgrade-matrix`.
 
-Checklist literal:
-- [ ] Inventariar VERSION/npm/Cargo/Tauri/Settings y escoger fuente coherente — implementado en candidate; cierre de integración pendiente.
-- [ ] Unificar versión/endpoints/channel/capabilities donde existan divergencias reales — implementado; integración pendiente.
-- [ ] Incluir/verificar runtimes Windows y recursos universales macOS con digests — implementado; integración pendiente.
-- [ ] Checks/tests anti-drift — implementados; exact-head final pendiente.
-- [ ] Build/CI aplicable sobre exact head final — evidencia histórica verde; fresh exact-head final pendiente por baseline movido.
-- [ ] Bundle ID final `com.beatgaler.app` — decisión RO resuelta; integración pendiente.
+Exact tested head: `0fd9bee8117ca92fb9f713f0d55089f5707a2917` sobre base `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
 
-**Gate 21.1:** no hay versión/endpoints divergentes ni runtime omitido; no se considera satisfecho globalmente hasta integración verificable del camino combinado.
+Evidencia exact-head:
+- D7 run `33243436937` — SUCCESS;
+- D6 run `33243436890` — SUCCESS;
+- Test - Desktop Portability / Required CI run `33243436894` — SUCCESS;
+- Upgrade 21.2 Staging run `33243436914` — SUCCESS.
 
-### 21.2 [P1 · DE/QA] — `[ 🟡 ] BBB FULL OWNER / PR #51 ACTIVO`
-- [ ] Upgrade desde 0.7.4 preservando settings/SQLite/offline/cache — implementado en candidate #51; cierre pendiente.
-- [ ] Instalación limpia + datos corruptos/incompletos con recovery — implementado en candidate #51; cierre pendiente.
-- [ ] Artefactos staging desde mismo SHA — demostrado en head histórico, pero debe revalidarse sobre combinación final si el head cambia.
+Race-check del owner confirmó PR #51 Ready/non-draft, mergeable, base/head exactos y baseline inmóvil inmediatamente antes del merge. Integración:
+- merge SHA `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`;
+- parents `3560dc844...` + `0fd9bee...`;
+- merge tree `7bbc0640d293749e29330fd8da65bfcf90540153` idéntico al tree del exact tested head;
+- `release/desktop-manifest.json` integrado con `Galer` + `com.beatgaler.app`;
+- `release/upgrade-matrix.json` integrado con baseline 0.7.4, preservación app-data/SQLite/settings/offline/cache, recovery y same-source-SHA staging.
 
-**Artifact canónico de integración:** PR #51 `bbb/task-21.2-upgrade-matrix` — **OPEN / DRAFT / no mergeado**.
+Issue #41 handoff BBB `5461557463` = `DONE`. PR #48 quedó CLOSED/MERGED al ser incorporado por #51; no se hizo mutación administrativa redundante.
 
-**Último head técnico con evidencia completa:** `e9fc4e68fc555357ee470996c51544b879cbae93`, base `c25ec6a824bc0ae60fbf65858d53be26d453f205`.
-
-El PR declara y evidencia el camino combinado:
-- manifest 21.1 + identidad final;
-- bridge no destructivo desde app-data 0.7.4;
-- preservación SQLite/settings/offline/cache y rollback source intacto;
-- recovery conservador de SQLite corrupto;
-- upgrade NSIS 0.7.4 → Galer;
-- staging Windows + macOS atado al source SHA.
-
-**Evidencia exact-head histórica sobre `e9fc4e68...`:**
-- Required CI #451 / run `33220523143` — SUCCESS;
-- Upgrade 21.2 Staging #8 / run `33220523159` — SUCCESS;
-- D6 #88 / run `33220523127` — SUCCESS;
-- D7 #61 / run `33220523155` — SUCCESS;
-- Windows literal 0.7.4 → Galer — PASS;
-- macOS arm64 identity/migration — PASS;
-- macOS x86_64 identity/migration — PASS.
-
-**Process blocker documentado — Issue #41 `5460283021`:**
-- el intento DRAFT → ready falló antes de mutar por error del connector GraphQL (`Repository.fullDatabaseId`);
-- GitHub rechazó correctamente el merge mientras el PR seguía draft (`HTTP 405`);
-- BBB no usó bypass, ref update directo ni PR alterno.
-
-**Cambio material posterior:** integración avanzó después del baseline probado: #50 y #53 llevaron el baseline canónico hasta `6c4499d124a64d138e791ea4abf0091766dde7e9`. Por `evidence-before-claim`, los greens de `e9fc4e68...` prueban ese candidate histórico, **no** la combinación final contra `6c4499d...`.
-
-**No marcar 21.1 ni 21.2 `[x]`:**
-1. reutilizar PR #51;
-2. incorporar `integration-v0.8.0-alpha.1@6c4499d...` por el método técnico que BBB determine;
-3. repetir Required CI + Upgrade 21.2 Staging + D6/D7 aplicables sobre el nuevo exact head;
-4. pasar PR #51 a ready por una vía válida;
-5. hacer race-check final baseline/head e integrar por el flujo autorizado;
-6. solo después considerar #48 superseded-for-integration/cerrarlo y marcar 21.1/21.2 `[x]`.
-
-**BBB NEXT:** continuar #51 dentro de su owner. No signing/notarization/release/D24.
+**Gate 21:** cerrado para 21.1/21.2. Esto no cierra F4 globalmente.
 
 ## Día 22 — Windows firmado
 
@@ -95,7 +61,8 @@ El PR declara y evidencia el camino combinado:
 - [ ] SmartScreen/AV/paths/red/sleep;
 - [ ] DAWs/versiones/updater válido e inválido.
 
-**Dependencia:** certificado + manifest. **Gate:** publisher verificable + core flows.
+**Dependencia:** certificado + manifest. **Gate:** publisher verificable + core flows.  
+**Estado:** manifest ya satisfecho por Día 21; certificado/signing siguen externos y no se infieren disponibles.
 
 ## Día 23 — macOS firmado/notarizado
 
@@ -109,14 +76,17 @@ El PR declara y evidencia el camino combinado:
 - [ ] Intel + Apple Silicon + macOS mínimo declarado;
 - [ ] DAWs/updater/app-data.
 
-**Dependencia:** membership/cert + universales. **Gate:** notarizado/stapled + core flows.
+**Dependencia:** membership/cert + universales. **Gate:** notarizado/stapled + core flows.  
+**Estado:** Apple Developer/certificados siguen externos/deferred según F0/1.2.
 
 ## Día 24 — Updater/procedencia/rollback
 
-### 24.1
+### 24.1 — `ASSIGNED / IN PROGRESS` — BBB `NIGHT-BBB-004`
 - [ ] tag protegido = SHA consumido;
 - [ ] checksums/SBOM/provenance;
 - [ ] channels/rings/minimum version/kill switch.
+
+**Regla de ejecución:** REUSE-FIRST sobre F0/4.2, workflows y release metadata existentes. No crear release público, no mover stable/latest y no exigir signing externo para trabajo técnico que pueda cerrarse independientemente. Cualquier requisito que dependa literalmente de credencial/certificado queda PENDING con blocker factual.
 
 ### 24.2
 - [ ] update N-1 y fallos de red/disco/firma/manifest;
@@ -139,4 +109,4 @@ El PR declara y evidencia el camino combinado:
 
 **Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido.
 
-**Regla:** 21.1/21.2 pueden construirse en paralelo con F1/F2, pero firma/notarización/release/beta siguen bloqueadas por sus prerequisitos reales.
+**Regla:** trabajo técnico dependency-safe puede avanzar cross-phase, pero firma/notarización/release/beta siguen bloqueadas por sus prerequisitos reales.
