@@ -4,25 +4,29 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 018:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.
+**Integración estable CYCLE 020:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 exact-head Windows import closure — `NIGHT-BBB-018`.**
+**BBB — F4 / 25.1 SAME PR #63 Windows Import corrective — `NIGHT-BBB-019` (ASSIGNED).**
 
 21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. #60 integró la matriz dependency-safe de 25.1, pero 25.1 completo sigue abierto.
 
-PR #63 `bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0` está OPEN/Ready/mergeable con base viva `ed6aab7e...`. El corrective de `NIGHT-BBB-017` volvió al bootstrap oficial ya configurado: `driverProvider=official`, `autoInstallTauriDriver=true`, `autoDownloadEdgeDriver=true`, sin cambios de producto.
+PR #63 `bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0` sigue OPEN/Ready sobre base viva `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.
 
-Preflight CYCLE 018 exact-head:
-- F4 Matrix `33277733635` SUCCESS;
-- D6 `33277733621` SUCCESS;
-- D7 `33277733651` SUCCESS;
-- Windows Import `33277733650` IN_PROGRESS;
-- Desktop Portability `33277733647` IN_PROGRESS;
-- Upgrade 21.2 `33277733677` SKIPPED/no aplicable.
+Evidencia exact-head:
+- F4 Matrix `33277733635` — SUCCESS;
+- D6 `33277733621` — SUCCESS;
+- D7 `33277733651` — SUCCESS;
+- Desktop Portability / Required CI `33277733647` — SUCCESS;
+- Windows Import `33277733650` — **FAILURE**;
+- Upgrade 21.2 — SKIPPED/no aplicable.
 
-`windows/import` permanece `NOT_COVERED` hasta PASS literal. `NIGHT-BBB-018` debe reutilizar esos runs: si ambos gates aplicables cierran verdes, race-check + promoción literal + merge SAME #63; si Windows Import falla, usar ese log para el fix mínimo dentro de la misma lineage y exigir fresh exact-head después.
+El job Windows Import `99167313710` pasó setup, exact checkout, Node/Rust/npm y `Verify official Tauri/Edge driver auto-bootstrap`; el fallo ocurrió dentro de `Run existing Windows import E2E harness`. Por tanto no es válido atribuir el fallo al bootstrap sin leer evidencia adicional y `windows/import` permanece `NOT_COVERED`.
+
+`NIGHT-BBB-019` debe reutilizar SAME #63, diagnosticar el failure real y aplicar únicamente el corrective F4 mínimo si la causa pertenece a BBB. Si aparece bug de producto fuera de F4, registrar `PRODUCT_FINDING` y STOP para JOBS. Cualquier head nuevo exige Windows Import PASS literal + fresh applicable exact-head CI antes de promoción/merge.
+
+CI-FALLBACK: `NONE`; 25.2 y otros gaps comparten release/test surfaces o adelantan un gate posterior.
 
 ## Día 21 — Manifest e identidad únicos
 
@@ -72,20 +76,18 @@ Esto no cierra D22/D23 ni autoriza release público.
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-018`
+### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-019`
 
 #60 integró la matriz como `7de7b57a508b3cf05cbded81501fbd3da63922a3`. Conserva `NOT_COVERED`, `PENDING_EXTERNAL` y `PRODUCT_FINDING` honestos.
 
 SAME #63 intenta cerrar únicamente Windows/import reutilizando `test:e2e:import`. Estado vivo:
 - head `ea00d85d7946da8a27fe336bf738afb9a4bd72d0`;
 - base `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`;
-- F4 Matrix/D6/D7 SUCCESS;
-- Windows Import + Desktop Portability todavía en curso en el preflight CYCLE 018;
-- no merge/no promoción a `AUTOMATED_PASS` todavía.
+- F4 Matrix/D6/D7/Required CI general SUCCESS;
+- Windows Import FAILURE dentro del E2E harness;
+- no merge/no promoción a `AUTOMATED_PASS`.
 
-`NIGHT-BBB-018` reutiliza esos runs. PASS literal + applicable CI green + race-check son obligatorios. Si falla, reparar solo la causa mínima de tooling/session en #63; si aparece bug producto, registrar `PRODUCT_FINDING` y no robar implementación.
-
-Persisten, entre otros: journeys core no demostrados cross-platform, iPhone runner/hardware externo, YouTube/billing donde la matriz marque gap y signing/notarization externos.
+Persisten otros gaps reales: journeys core no demostrados cross-platform, iPhone runner/hardware externo, YouTube/billing donde la matriz marque gap y signing/notarization externos.
 
 ### 25.2
 - [ ] design freeze tokens/nav/library/drawer/player/settings/wizard;
