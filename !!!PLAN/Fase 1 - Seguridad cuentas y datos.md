@@ -1,9 +1,9 @@
 # Fase 1 — Seguridad, cuentas y datos durables
 
-> Leer `Plan Maestro.md`. D8 y D9 están cerrados. D10.1 sigue abierto únicamente por evidencia real off-provider; el artifact técnico restante está en PR #56.
+> Leer `Plan Maestro.md`. D8 y D9 están cerrados. D10.1 sigue abierto únicamente por evidencia real off-provider; su artifact técnico ya quedó integrado por PR #56.
 
-**Estado:** D8 `[x] / PASS`; D9 `[x] / PASS`; D10.1 `[ 🟡 ] / PENDING`.  
-**Integración estable:** `integration-v0.8.0-alpha.1` @ `672e133bc9cb8a47a29d4b34e13fc535290e5681`.  
+**Estado:** D8 `[x] / PASS`; D9 `[x] / PASS`; D10.1 `[ 🟡 ] / PENDING_EXTERNAL_PROOF`.  
+**Integración estable:** `integration-v0.8.0-alpha.1` @ `f0d65aa66988e3e1a026e237b65c65a56b098aa9`.  
 **Release público:** 🔴 `NO-GO`.
 
 ## D6 — `[x] PASS`
@@ -43,28 +43,30 @@ Requisitos aceptados mediante evidencia existente verificada:
 
 ## D10 — Restore y alpha
 
-### 10.1 — `[ 🟡 ] PENDING` — WOZ `NIGHT-WOZ-006`
+### 10.1 — `[ 🟡 ] PENDING_EXTERNAL_PROOF`
 
-Evidencia reutilizada:
+Evidencia reutilizada y aceptada:
 - [x] restore aislado + RPO/RTO + core flows: PITR aislado real, RPO ~7 min <=15 min, RTO `3643 s` <=7200 s;
 - [x] access/retention cubiertos por evidencia ya aceptada.
 
-Artifact técnico nuevo `NIGHT-WOZ-005`:
+Artifact técnico integrado:
 - PR #56 `test(data): add D10.1 backup readiness contract`;
-- exact head `0abe39e096d10d992764a2d24874e46529109a70` sobre base `672e133bc9cb8a47a29d4b34e13fc535290e5681`;
+- exact tested head `0abe39e096d10d992764a2d24874e46529109a70` sobre base `672e133bc9cb8a47a29d4b34e13fc535290e5681`;
 - self-test local `PASS_LOCAL_CONTRACT`;
-- estrategia control-config + index + media = PASS en candidate;
-- backup-failure condition+routing contract = PASS en candidate;
-- dry-run manifest/checksum explícitamente **no** reclama copia off-provider real;
+- estrategia control-config + index + media = PASS;
+- backup-failure condition+routing contract = PASS;
 - Test - Desktop Portability `33250824435` SUCCESS;
 - D7 `33250824401` SUCCESS;
 - D6 `33250824418` SUCCESS;
-- Productive Temp Auth Compile `33250824441` SUCCESS.
+- Productive Temp Auth Compile `33250824441` SUCCESS;
+- PR #56 MERGED como `f0d65aa66988e3e1a026e237b65c65a56b098aa9`, parents `672e133...` + `0abe39e...`.
 
 Único requisito literal pendiente:
-- [ 🟡 ] **off-provider copy proof real:** seleccionar/autorizar un destino fuera del primary provider/account failure domain y ejecutar copia mínima + read/checksum verification.
+- [ 🟡 ] **off-provider copy proof real:** RO debe seleccionar/autorizar un destino fuera del primary provider/account failure domain y ejecutar copia mínima + read/checksum verification.
 
-`NIGHT-WOZ-006` debe hacer race-check + integrar #56 si sigue compatible. La integración del artifact no convierte el off-provider requirement en PASS por sí sola. REUSE-FIRST estricto: no repetir restore/cutover/restart/migrations/rotation.
+La integración del artifact **no** convierte ese requisito externo en PASS. D10.1 no se marca `[x]` hasta evidencia real. REUSE-FIRST estricto: no repetir restore/cutover/restart/migrations/rotation.
+
+WOZ ya no tiene trabajo técnico interno útil en D10.1 y fue reasignado explícitamente por JOBS a F3/16.1 bajo `NIGHT-WOZ-007`. El blocker externo permanece owned por RO/operación hasta autorización/evidencia.
 
 ### 10.2 — `NOT STARTED`
 - [ ] revisar gates D2–D10/P0/evidencia requerida;
