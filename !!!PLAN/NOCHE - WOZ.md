@@ -8,37 +8,39 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-010`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F3 / 16.2 — software-only reproducible promotion/deploy contract`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`
-- `JOBS_PRECHECK: PR #59 quedó MERGED como be9e58c9... con parents f73c9ee... + 0e0bf188...; 16.1 runtime/software contract puede procesarse DONE/INTEGRATED. La separación física staging/production continúa PENDING_EXTERNAL y no se reabre ni se falsea.`
 
-### Orden JOBS
+## RESULTADO DEL TURNO
 
-1. Preflight factual completo: Plan Maestro + F3 + Registro + roles + protocolo + este archivo + Issue #41 reciente + GitHub real.
-2. Da por consumido el cierre verificable de #59; no reabras 16.1 runtime ni repitas CI/drills aceptados.
-3. 16.1 completo permanece `[ 🟡 ] / PENDING_EXTERNAL` por separación física real de provider projects/DB/storage/bots/OAuth callbacks/secrets/ownership. No crear esos recursos ni costo.
-4. Ejecuta **16.2 software-only/dependency-safe** con REUSE-FIRST: audita workflows/deploy assets existentes antes de crear nada.
-5. Cierra o implementa únicamente contratos reproducibles que puedan probarse sin provider resources: PR→preview; candidate tag→staging; approval→production; mismo source SHA; API origin/TLS/headers inyectables; release fail-closed sin Tailscale/local fallback; smoke post-deploy y rollback al último artifact/DB compatible.
-6. Un único candidate solo si existe delta real. Si los requisitos ya están cubiertos literalmente, reporta `REUSED` con paths/tests/evidence y no abras PR ceremonial.
-7. Tests/CI exact-head aplicables. Si necesitas candidate, race-check e integración solo cuando la combinación vigente esté verde; si integration cambia materialmente, refresh + CI nuevo.
-8. No Stripe 17.x, billing 18.x, DNS/legal 19.x, capacity 20.x, F2/F4, release público ni recursos/credenciales/costo nuevos.
-9. Mantén explícitos como `PENDING_EXTERNAL` los deploys reales que requieran provider/RO; el contrato software no equivale a staging real.
-10. Actualiza solo este markdown + Issue #41 con resultado de `NIGHT-WOZ-010` y STOP.
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-010`  
+`TURN_STATUS: PENDING`  
+`GATE: F3/16.2 software contract candidate; full 16.2 remains PENDING until exact-head CI/integration and real provider deployment evidence where required`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`  
+`HEAD_AFTER: woz/night-16.2-promotion-contract @ d855b3d259626534650c1a78dae6df58f78cdcb9`  
+`PR: #61 OPEN / Ready; base be9e58c9edc0bb40742e0b91e3f2ebe771ace502; exact head d855b3d259626534650c1a78dae6df58f78cdcb9`  
+`CHANGES: delta real confirmado tras REUSE-FIRST: no existía deploy/promotion asset 16.2. Candidate mínimo añade cloud-server/deployment-promotion-contract.mjs, tests y post-deploy smoke. Contrato exige PR→preview, candidate_tag→staging, approval explícita→production, artifactSha===sourceSha, origin HTTPS público sin localhost/Tailscale fallback, headers inyectables, smoke /healthz + /readyz y rollback únicamente a artifact previo con DB compatible + smoke PASS.`  
+`TESTS: test source añadido con 5 casos contractuales; ejecución local no disponible/verificada desde connector, por lo que no se reclama PASS local.`  
+`CI: Test - Desktop Portability run 33263815780 sobre exact head d855b3d... estaba QUEUED al STOP; Required CI completo no verificado todavía.`  
+`EVIDENCIA_REUTILIZADA: PR #59 / merge be9e58c... para /healthz, /readyz, deployment env fail-closed, graceful shutdown/timeouts/proxy trust; no se repitió su CI/drill.`  
+`EVIDENCIA_NUEVA: PR #61; exact head d855b3d259626534650c1a78dae6df58f78cdcb9; CI run 33263815780 queued.`  
+`UNVERIFIED: ejecución de los 5 tests; CI exact-head final; mergeability final; merge SHA; staging/production reales; provider resources; DNS/TLS real; rollback real.`  
+`BLOCKERS: CI exact-head pendiente para candidate. Separación física staging/prod y deploy real siguen PENDING_EXTERNAL por provider/RO y no se falsean.`  
+`RECOMMENDATION_TO_JOBS: mantener ownership WOZ 16.2 para el próximo ciclo solo para consumir CI/race-check de SAME PR #61 y merge protegido si la combinación vigente queda verde. No crear provider resources ni repetir #59. Tras integración, marcar únicamente SOFTWARE DONE; mantener tail externo de deploy/staging real.`  
+`TURN_FINISHED_AT: 2026-08-29T10:47-06:00`
 
 ## RESULTADO DEL TURNO ANTERIOR
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-009`  
+`LAST_PREVIOUS_ASSIGNMENT: NIGHT-WOZ-009`  
 `TURN_STATUS: PENDING_EXTERNAL`  
-`BASELINE_BEFORE: integration-v0.8.0-alpha.1 @ f73c9ee8d058df3c780170c8c2a3fabef975c54d`  
 `PR: #59 / head 0e0bf188ceb298c5c6846e56576665b50a69e922`  
 `MERGE: be9e58c9edc0bb40742e0b91e3f2ebe771ace502`  
-`BASELINE_AFTER: integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`  
-`RESULT: exact-head/race-check válido, #59 integrado; runtime software 16.1 DONE/INTEGRATED; physical staging/prod sigue external. 16.2 no iniciado.`
+`RESULT: runtime software 16.1 DONE/INTEGRATED; physical staging/prod external.`
 
 ## HISTORIAL
 
-- `NIGHT-WOZ-010`: ASSIGNED — F3/16.2 software-only.
+- `NIGHT-WOZ-010`: PENDING — PR #61 candidate software 16.2; exact-head CI queued; external deploy tail preserved.
 - `NIGHT-WOZ-009`: PENDING_EXTERNAL — #59 merged `be9e58c...`; physical separation remains external.
 - `NIGHT-WOZ-008`: PENDING_CI — #59 refreshed; CI terminó verde después.
 - `NIGHT-WOZ-007`: PENDING_EXTERNAL — PR #59 + self-test 7/7; physical separation external.
