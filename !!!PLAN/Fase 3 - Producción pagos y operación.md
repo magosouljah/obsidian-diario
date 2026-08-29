@@ -4,15 +4,30 @@
 
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-**Estado nocturno CYCLE 017 FINAL:** baseline vivo `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.
+**Estado nocturno CYCLE 020:** baseline vivo `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.
 
 ## Owner actual
 
-**WOZ — F3 / 17.2 webhook integrity/idempotency/retry software-only — `NIGHT-WOZ-018`.**
+**WOZ — F3 / 17.2 SAME #67 PostgreSQL recovery-gate corrective — `NIGHT-WOZ-019` (ASSIGNED).**
 
 PR #59 quedó **MERGED / DONE** en su slice software como `be9e58c9...`; separación física staging/prod sigue externa. PR #61 quedó **MERGED** como `55e0d875...`; 16.2 permanece SOFTWARE DONE / EXTERNAL TAIL.
 
-PR #65 quedó **CLOSED / MERGED** como `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`, parents `b114111caf... + e655386405...`. Exact-head previo: F3 17.1 `33276769749`, Desktop Portability `33276769684`, D6 `33276769695`, D7 `33276769698`, temp-auth `33276769702` = SUCCESS; Upgrade skipped/no aplicable.
+PR #65 quedó **CLOSED / MERGED** como `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`. 17.1 está SOFTWARE DONE / INTEGRATED.
+
+PR #67 `woz/night-17.2-webhook-contract` está OPEN/Ready sobre base `ed6aab7e...`, head `22550152e9960c5dad328711b3a8b150301a8c4f`.
+
+Candidate 17.2 software-only ya contiene raw-body verifier, ledger durable PostgreSQL `billing_webhook_events`, dedupe/idempotency por event ID, ordering watermark, retry/failure state, out-of-order safe ignore, unsupported-event safe no-op y `entitlementGranted=false`. Tests focales cubren firma válida/inválida, body mutado, duplicados, reordering, failure+retry, timeout/error, unsupported y concurrencia.
+
+Evidencia exact-head:
+- F3 17.2 `33278423859` — SUCCESS;
+- D6 `33278423854` — SUCCESS;
+- D7 `33278423851` — SUCCESS;
+- temp-auth `33278423880` — SUCCESS;
+- Required CI / Desktop Portability `33278423879` — **FAILURE**.
+
+Causa factual disponible: el job `99169258638` `PostgreSQL live integration + recovery gate` superó migrations/adversarial persistence y dump/encrypt/restore, pero falló en `Verify restored constraints, secrets, reconciliation and rollback state`. No se infiere todavía si migration 0006, webhook durable state o expectation de recovery es la causa exacta.
+
+`NIGHT-WOZ-019` debe reutilizar SAME #67, diagnosticar esa discrepancia y aplicar solo el corrective mínimo sin debilitar recovery/D9/D10. Fresh applicable Required CI es obligatorio antes de merge. CI-FALLBACK: `NONE`; 18.x comparte billing/PostgreSQL ownership y no es independiente de 17.2.
 
 ## Día 16 — Staging y producción reproducibles
 
@@ -35,14 +50,14 @@ Integrado por #61 como `55e0d875...`: promoción dependency-safe PR→preview→
 - [x] Checkout Session abstraction server-side.
 - [x] idempotency key y rechazo de precio/plan/currency/trial controlado por cliente.
 
-**Evidencia:** PR #65 head `e65538640581f3f986748968db1f4dfb069c2579`, exact-head CI verde, merge `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`. El cierre es **software**: no prueba cuenta Stripe productiva, credenciales, products/prices reales ni decisiones comerciales reales.
+**Evidencia:** PR #65 merge `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`. El cierre es **software**: no prueba cuenta Stripe productiva, credenciales, products/prices reales ni decisiones comerciales reales.
 
-### 17.2 — `[ 🟡 ] ASSIGNED` — WOZ `NIGHT-WOZ-018`
-- [ ] firma webhook sobre raw-body antes de parse/mutate;
-- [ ] event ID durable/idempotente + async/retry/failure state;
-- [ ] duplicados/desorden/timeouts/eventos relevantes con semántica segura.
+### 17.2 — `[ 🟡 ] CANDIDATE / REQUIRED CI RED` — WOZ `NIGHT-WOZ-019`
+- [ 🟡 ] firma webhook sobre raw-body antes de parse/mutate — implementada en candidate #67, no integrada;
+- [ 🟡 ] event ID durable/idempotente + async/retry/failure state — implementado en candidate #67, no integrado;
+- [ 🟡 ] duplicados/desorden/timeouts/eventos relevantes con semántica segura — cubierto por candidate/tests focales, no integrado.
 
-**Gate:** la UI nunca concede plan por redirect; solo estado server-side reconciliado. `NIGHT-WOZ-018` es software-only, REUSE-FIRST y no autoriza recursos/credenciales Stripe reales.
+**Gate:** la UI nunca concede plan por redirect; solo estado server-side reconciliado. No marcar 17.2 `[x]` hasta merge exact-head verde. No Stripe productivo, no 18.x, no infraestructura/costo.
 
 ## Día 18 — Entitlements, portal y reconciliación
 
