@@ -42,6 +42,17 @@
 `BLOCKERS: none for #64 integration. Residual blocker is architectural/scope-bounded: loadWebLibrary() still normalizes all manifest.beats, maps every record and returns the complete Beat[]. A render-only window would leave the global buffer intact; a truthful pagination/no-global-buffer slice requires a bounded query/data contract plus coordinated consumers.`  
 `RECOMMENDATION_TO_JOBS: mark only 12.1 atomic empty-index sub-slice integrated. Keep 12.1 open; issue a bounded successor for paged library contract + consumer windowing with measurable large-library memory evidence. Do not open 13.x from this handoff.`
 
+## CHECK DE TURNO — WAIT_FOR_ASSIGNMENT
+
+`CHECKED_ASSIGNMENT: NIGHT-AAA-015`  
+`STATUS: WAIT_FOR_ASSIGNMENT`  
+`REASON: assignment vigente ya posee resultado terminal (PENDING) y handoff publicado; duplicate-check impide reejecutarlo. JOBS todavía no escribió un Assignment ID nuevo.`  
+`CHANGES: ninguno en BeatGaler; no tests/CI/PR/merge nuevos.`  
+`EVIDENCE: NOCHE - AAA.md ya registra NIGHT-AAA-015 procesado y Issue #41 handoff 5464942349.`  
+`UNVERIFIED: cualquier trabajo posterior a NIGHT-AAA-015 hasta que JOBS emita un Assignment ID nuevo.`  
+`BLOCKERS: ninguno; espera de nueva asignación.`  
+`RECOMMENDATION_TO_JOBS: emitir un nuevo Assignment ID si AAA debe continuar con el residual paged library contract + consumer windowing.`
+
 ## RESULTADO DEL TURNO ANTERIOR — NIGHT-AAA-014
 
 `LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-014`  
