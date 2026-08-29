@@ -1,9 +1,9 @@
 # Fase 1 — Seguridad, cuentas y datos durables
 
-> Leer `Plan Maestro.md`. D8 y D9 están cerrados. D10.1 sigue abierto únicamente por gaps literales de backup readiness y está reasignado a WOZ por el turno nocturno.
+> Leer `Plan Maestro.md`. D8 y D9 están cerrados. D10.1 sigue abierto únicamente por gaps literales de backup readiness y continúa con WOZ por el turno nocturno.
 
 **Estado:** D8 `[x] / PASS`; D9 `[x] / PASS`; D10.1 `[ 🟡 ] / PENDING`.  
-**Integración estable:** `integration-v0.8.0-alpha.1` @ `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.  
+**Integración estable:** `integration-v0.8.0-alpha.1` @ `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.  
 **Release público:** 🔴 `NO-GO`.
 
 ## D6 — `[x] PASS`
@@ -24,7 +24,7 @@
 Baseline de cierre `6c4499d124a64d138e791ea4abf0091766dde7e9`.
 
 - 8.1 / PR #49 exact head `f8ae2d1dedf0b4f977b4aedcaef5ac4ea83acdff`; merge `14002b29c5101232c0ca8f8b85d808c8214975fb`; handoff `5458273984` DONE.
-- 8.2 / PR #52 exact head `f5ae901fb48444b6ea845048fb86f4dd482d75ec`; Required CI #443 `33219253446`, D6 #81, D7 #53, compile #171 SUCCESS; merge `c25ec6a824bc0ae60fbf65858d53be26d453f205`.
+- 8.2 / PR #52 exact head `f5ae901fb48444b6ea845048fb86f4dd482d75ec`; Required CI #443, D6 #81, D7 #53, compile #171 SUCCESS; merge `c25ec6a824bc0ae60fbf65858d53be26d453f205`.
 - Resoluciones RO / PR #53 exact head `ab952c464f351aac736405c8559f5b85f421bc0c`; Amazon SES; deletion retention 0 días; provider-only recent reauth; Required CI #455, D6 #91, D7 #65, compile #175 SUCCESS; merge `6c4499d124a64d138e791ea4abf0091766dde7e9`.
 - Gate D8 PASS por Issue #41 `5460381842`.
 
@@ -41,18 +41,16 @@ Requisitos aceptados mediante evidencia existente verificada:
 - [x] staging/conteos/checks + rollback sin pérdida + corrupción fail-closed;
 - [x] PostgreSQL permanece autoridad productiva; ningún JSON es autoridad productiva.
 
-Evidencia reusable incluye PRs #29–#42, importer/rollback CURRENT PG, durabilidad/restart fail-closed, dump/backup cifrado + restore aislado, PITR/RPO representativo y controles ya aceptados en 5.2. No reabrir D9 sin evidencia material nueva.
-
 ## D10 — Restore y alpha
 
-### 10.1 — `[ 🟡 ] PENDING` — WOZ `NIGHT-WOZ-003`
+### 10.1 — `[ 🟡 ] PENDING` — WOZ `NIGHT-WOZ-004`
 
 Gate transaction WOZ Issue #41 `5461379758`:
-- [ 🟡 ] **backup cifrado/config/media strategy:** PENDING — cifrado/PITR y secretos están evidenciados, pero falta evidencia literal suficiente de estrategia completa para config + índice/media;
-- [x] **restore aislado + RPO/RTO + core flows:** PASS — PITR aislado real, RPO ~7 min <=15 min, RTO `3643 s` <=7200 s y validación funcional representativa ya aceptada; no repetir el restore;
-- [ 🟡 ] **access/retention/off-provider copy/backup alert:** PENDING — access/retention están cubiertos; falta evidencia literal de copia off-provider y de backup-failure alert específica (o demostración de equivalencia literal del mecanismo existente).
+- [ 🟡 ] backup cifrado/config/media strategy: falta evidencia literal suficiente de estrategia completa para config + índice/media;
+- [x] restore aislado + RPO/RTO + core flows: PASS — PITR aislado real, RPO ~7 min <=15 min, RTO `3643 s` <=7200 s;
+- [ 🟡 ] access/retention/off-provider copy/backup alert: access/retention cubiertos; falta evidencia literal de copia off-provider y backup-failure alert específica o equivalencia literal.
 
-`NIGHT-WOZ-003` debe cerrar solo esos gaps mediante REUSE-FIRST. Si requieren credencial, proveedor, costo nuevo o decisión RO, registrar la acción externa mínima y mantener PENDING; no aprovisionar por inferencia.
+`NIGHT-WOZ-003` quedó sin procesar y fue superseded explícitamente por `NIGHT-WOZ-004` para evitar doble ejecución; el scope no cambió. REUSE-FIRST estricto: no repetir restore/cutover/restart/rotation. Si un gap requiere credencial, proveedor, costo nuevo o decisión RO, registrar acción externa mínima y mantener PENDING.
 
 ### 10.2 — `NOT STARTED`
 - [ ] revisar gates D2–D10/P0/evidencia requerida;
