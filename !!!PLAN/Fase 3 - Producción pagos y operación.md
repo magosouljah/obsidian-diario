@@ -4,15 +4,17 @@
 
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-**Estado nocturno CYCLE 013:** baseline vivo `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`. F3 sigue siendo uno de los mayores bloques abiertos de F0–F4.
+**Estado nocturno CYCLE 014:** baseline vivo `integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`. F3 sigue siendo uno de los mayores bloques abiertos de F0–F4.
 
 ## Owner actual
 
-**WOZ — F3 / 16.2 SAME PR #61 merge transaction — `NIGHT-WOZ-014`.**
+**WOZ — F3 / 17.1 Stripe Checkout server-side software-only — `NIGHT-WOZ-015`.**
 
 PR #59 quedó **MERGED / DONE** en su slice software como `be9e58c9edc0bb40742e0b91e3f2ebe771ace502`; no satisface separación física staging/prod.
 
-PR #61 `woz/night-16.2-promotion-contract` fue refrescada en `NIGHT-WOZ-013` a exact head `d254b294cf8fe78d93025271360dd73ed594898f`, preservando el delta F3 sobre `7de7b57a...`. GitHub actual: OPEN/Ready/mergeable=true; Required CI `33271019389` SUCCESS; D6 `33271019493` SUCCESS; no failure/in-progress observado en el set exact-head. Sigue NO MERGED hasta race-check/merge del owner.
+PR #61 `woz/night-16.2-promotion-contract` quedó **CLOSED / MERGED** como `55e0d8759ec03b23fa8e4f1f35304922dffeb992`, candidate exact head `d254b294cf8fe78d93025271360dd73ed594898f`; Required CI `33271019389`, D6 `33271019493`, D7 `33271019399`, temp-auth `33271019373` y F4 matrix `33271019370` SUCCESS. Declaración limitada: 16.2 SOFTWARE DONE / EXTERNAL TAIL.
+
+Duplicate-check previo a `NIGHT-WOZ-015`: búsqueda visible por `stripe checkout idempotency webhook price` no encontró implementación reutilizable en BeatGaler; WOZ debe repetir búsqueda precisa antes de crear artifact.
 
 ## Día 16 — Staging y producción reproducibles
 
@@ -26,20 +28,20 @@ Integrado por #59: `/healthz`; `/readyz` PostgreSQL fail-closed; draining; proxy
 
 **Regla:** no crear infraestructura pagada, provider projects, buckets/bots/OAuth projects ni recursos con costo sin aprobación RO.
 
-### 16.2 — `[ 🟡 ] SOFTWARE CANDIDATE / READY_FOR_OWNER_RACE_CHECK` — WOZ `NIGHT-WOZ-014`
+### 16.2 — `[ 🟡 ] SOFTWARE DONE / EXTERNAL TAIL`
 
-Candidate #61 cubre software dependency-safe para PR→preview; tag candidato→staging; aprobación→producción; mismo source/artifact SHA; API origin HTTPS sin localhost/Tailscale fallback; headers inyectables; smoke `/healthz` + `/readyz`; rollback fail-closed al artifact previo con compatibilidad DB + smoke.
+Integrado por PR #61 como `55e0d875...`: software dependency-safe para PR→preview; tag candidato→staging; aprobación→producción; mismo source/artifact SHA; API origin HTTPS sin localhost/Tailscale fallback; headers inyectables; smoke `/healthz` + `/readyz`; rollback fail-closed al artifact previo con compatibilidad DB + smoke.
 
-**Orden 014:** si integration sigue en `7de7b57a...`, protected merge con expected head `d254b294...` tras race-check; si otro owner mueve integration, refresh SAME #61 + fresh applicable CI antes de merge. Tras integración declarar solo `16.2 SOFTWARE DONE / EXTERNAL TAIL`. Puede hacer audit READ-ONLY de 17.1 después, sin implementar Stripe sin nueva orden.
-
-**Gate completo:** mismo SHA desplegable, smoke y rollback verificables, sin pasos manuales irrepetibles ni secretos compartidos entre entornos. Deploy/staging/production reales siguen externos.
+**Pendiente externo:** deploy/staging/production reales, provider ownership, DNS/TLS productivo y rollback real. No falsear evidencia física/productiva.
 
 ## Día 17 — Stripe Checkout y webhooks
 
-### 17.1
+### 17.1 — `[ 🟡 ] ASSIGNED / SOFTWARE-ONLY` — WOZ `NIGHT-WOZ-015`
 - [ ] productos/precios/trial/currency/tax e IDs internos estables;
 - [ ] Checkout Session server-side;
 - [ ] idempotency keys y precios no decididos por cliente.
+
+**Orden 015:** implementar el contrato software mínimo con boundary de provider y tests deterministas; rechazar tampering de price/plan del cliente; retry/idempotency; unsupported product/currency; provider timeout/error fail-closed; identidad/metadata ligadas al usuario. Sin Stripe real, credenciales/costo ni claims productivos.
 
 ### 17.2
 - [ ] firma webhook raw-body;
