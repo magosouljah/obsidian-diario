@@ -8,64 +8,69 @@
 
 Terminar F0–F4 o reducirlas al mínimo número factual de blockers externos. Prioridad: (1) F0–F4, (2) sencillez, (3) limpieza. Evidence-before-claim; REUSE-FIRST; duplicate-check; exact-head; no rebajar gates.
 
-## BASELINE VIVO — CYCLE 016 FINAL
+## BASELINE VIVO — CYCLE 017 FINAL
 
 - BeatGaler integración: `integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`.
-- GitHub branch reread confirma que #64 sigue siendo el último merge de integración; no hubo avance de baseline durante este ciclo JOBS.
+- Branch reread: #64 sigue siendo el último merge de integración; no hubo avance de baseline durante este ciclo JOBS.
 - Release público: 🔴 `NO-GO`.
-- F0: 1.2 y 2.2 tails externos/administrativos; trabajo técnico interno que habilitaba avance ya cerrado.
+- F0: 1.2 y 2.2 tails externos/administrativos; trabajo técnico interno habilitante ya cerrado.
 - F1: D6/D7/D8/D9 PASS; D10.1 external-only por off-provider/off-account copy + read/checksum; D10.2 decisión RO.
-- F2: 12.1 atomic empty-index ya integrado; residual real = bounded pagination + consumer windowing + memoria/large-library + cold/warm.
-- F3: #65 exact head `e65538640581f3f986748968db1f4dfb069c2579` está OPEN/Ready/mergeable sobre `b114111c...` y todos los applicable exact-head gates observados están SUCCESS. No merge todavía.
-- F4: #63 exact head `8768856ff8ea15c7fa164e4b433abccf02852fb1` está OPEN/Ready/mergeable sobre `b114111c...`; F4 Matrix/D6/D7/Desktop Portability SUCCESS; Windows Import `33276125806` FAILURE por runner bootstrap después de prepare PASS. `windows/import` sigue `NOT_COVERED`.
+- F2: #66 es progreso real pero incompleto; no se promueve a DONE ni se autoriza merge.
+- F3: #65 sigue OPEN/Ready/mergeable y exact-head verde; merge aún no ejecutado.
+- F4: #63 sigue OPEN/Ready/mergeable; Windows Import continúa rojo por runner bootstrap.
 
 ## RESULTADOS PROCESADOS
 
-### AAA / latest result `NIGHT-AAA-015`; `NIGHT-AAA-016` no ejecutado
-- #64 ya quedó MERGED como `b114111caf...`; atomic empty-index cerrado únicamente en ese sub-slice.
-- El residual paged/window/memory sigue sin implementación/evidencia.
-- `NIGHT-AAA-016` estaba ASSIGNED pero todavía sin resultado final. Para cumplir recálculo fresh + ID nuevo del ciclo, JOBS lo marca superseded before execution y emite `NIGHT-AAA-017` con el mismo área solo porque volvió a quedar en el camino crítico desde cero, no por inercia.
+### AAA / `NIGHT-AAA-017`
+- PR #66 `aaa/night-12.1-pagination-windowing` @ `c9b5cd95ad5b6b4d8f681265992e44d8c777a76f`, base `b114111caf...`, OPEN/mergeable.
+- Candidate ya limita first-load a 240 rich `Beat` objects, añade `loadWebLibraryPage(offset/pageSize)` y test sintético 10,321 beats.
+- Gate incompleto: no consumer next/previous/cursor, refresh/invalidation, no-duplicate/no-omission end-to-end, rendered-card bound ni proxy CPU/network/memory final.
+- D6 `33277332289` SUCCESS; D7 `33277332325` SUCCESS; Upgrade `33277332283` SKIPPED; Desktop Portability `33277332334` seguía IN_PROGRESS al preflight.
+- Resultado procesado: `PENDING`; DO NOT MERGE.
 
-### BBB / `NIGHT-BBB-015`
-- Worker dejó #63 @ `8768856f...` PENDING mientras CI corría.
-- GitHub posterior cerró exact-head: F4 Matrix `33276125761` SUCCESS, D6 `33276125754` SUCCESS, D7 `33276125735` SUCCESS, Desktop Portability `33276125736` SUCCESS.
-- Windows Import `33276125806` terminó FAILURE. La corrección previa sí logró que `Prepare isolated embedded Tauri driver` PASS.
-- Falla nueva verificable: Edge `151.0.4129.101` / msedgedriver mismatch, `tauri-driver not found`, después WDIO sin browser/session. Es tooling/harness F4 hasta evidencia contraria; no product finding.
+### BBB / `NIGHT-BBB-016`
+- No apareció resultado ejecutado nuevo del worker.
+- GitHub real conserva #63 @ `8768856ff8ea15c7fa164e4b433abccf02852fb1`, base `b114111caf...`, OPEN/Ready/mergeable.
+- F4 Matrix/D6/D7/Desktop Portability exact-head siguen SUCCESS; Windows Import `33276125806` sigue FAILURE por EdgeDriver/Tauri Driver/WDIO session bootstrap.
+- `windows/import` permanece `NOT_COVERED`.
+- JOBS supersede 016 before execution y emite 017 únicamente porque el mismo blocker vuelve a estar en el camino crítico fresh.
 
-### WOZ / `NIGHT-WOZ-015`
-- PR #65 quedó en exact head reparado `e6553864...` después del pinning supply-chain.
-- GitHub posterior resolvió todos los gates aplicables del exact head: F3 17.1 `33276769749` SUCCESS; Required CI/Desktop Portability `33276769684` SUCCESS; D6 `33276769695` SUCCESS; D7 `33276769698` SUCCESS; temp-auth `33276769702` SUCCESS; Upgrade `33276769715` SKIPPED/no aplicable.
-- No se promueve 17.1 a DONE porque #65 aún no está mergeado. Próximo paso correcto: owner race-check/merge SAME #65.
+### WOZ / `NIGHT-WOZ-016`
+- No apareció resultado ejecutado nuevo del worker.
+- #65 @ `e65538640581f3f986748968db1f4dfb069c2579`, base `b114111caf...`, sigue OPEN/Ready/mergeable.
+- F3 17.1 `33276769749`, Desktop Portability `33276769684`, D6 `33276769695`, D7 `33276769698`, temp-auth `33276769702` = SUCCESS; Upgrade `33276769715` SKIPPED/no aplicable.
+- No merge, por lo tanto 17.1 sigue `SOFTWARE CANDIDATE GREEN / NOT INTEGRATED`.
+- JOBS supersede 016 before execution y emite 017 porque #65 sigue siendo el cierre interno inmediato más barato.
 
 ## CAMINO CRÍTICO GLOBAL — RECALCULADO DESDE CERO
 
-1. **F3 / 17.1 #65:** exact-head green y merge-ready; cierre interno más barato/inmediato de todo F0–F4.
-2. **F2 / 12.1 bounded pagination/window/memory:** mayor blocker interno restante de F2; independiente de #65/#63.
-3. **F4 / 25.1 #63:** failure concreto de runner bootstrap; corregible sin tocar producto y necesario para evidencia Windows/import.
+1. **F3 / 17.1 #65:** candidate exact-head green; depende solo de race-check/merge del owner.
+2. **F2 / 12.1 #66:** mayor blocker interno activo F2; bounded primitive parcial necesita consumer windowing/evidence real.
+3. **F4 / 25.1 #63:** functional gate rojo por runner bootstrap; arreglo F4 acotado puede convertir Windows/import en evidencia literal.
 4. **F0/F1:** blockers actuales son externos/RO; repetir drills o crear infraestructura falsa no aporta progreso legítimo.
 
-No se conservaron owners por mera existencia previa: WOZ conserva #65 porque pasó a merge-ready; BBB conserva #63 porque apareció un failure nuevo y focal; AAA conserva el área 12.1 únicamente después de volver a resultar crítico en el recálculo fresh, con Assignment ID nuevo.
+No se conservaron asignaciones por inercia: AAA continúa #66 porque hubo progreso material; BBB/WOZ reciben IDs nuevos tras supersede explícito de órdenes no ejecutadas y porque esas mismas piezas volvieron a resultar críticas al recálculo fresh.
 
 ## TABLERO AAA / BBB / WOZ
 
 | Worker | Resultado procesado | Nueva asignación | Objetivo |
 |---|---|---|---|
-| AAA | 015 PENDING → #64 ya integrado; 016 sin ejecutar | `NIGHT-AAA-017` | bounded paged library + consumer windowing + large-library evidence |
-| BBB | 015 PENDING → #63 CI cerró; Windows Import rojo por driver/session bootstrap | `NIGHT-BBB-016` | SAME #63 minimal runner bootstrap fix + fresh functional PASS/exact-head CI |
-| WOZ | 015 PENDING_CI → #65 exact-head all applicable green | `NIGHT-WOZ-016` | SAME #65 race-check + protected merge; cerrar solo 17.1 software slice |
+| AAA | 017 PENDING — #66 parcial/incompleto | `NIGHT-AAA-018` | SAME #66 consumer windowing + refresh/no-dup/no-omission + bounded evidence + exact-head |
+| BBB | 016 sin ejecución; #63 sigue rojo funcional | `NIGHT-BBB-017` | SAME #63 minimal runner bootstrap fix + fresh Windows Import PASS/exact-head CI |
+| WOZ | 016 sin ejecución; #65 exact-head all applicable green | `NIGHT-WOZ-017` | SAME #65 race-check + protected merge; cerrar solo 17.1 software slice |
 
-Ownership exclusivo: AAA=F2/12.1; BBB=F4/25.1 #63; WOZ=F3/17.1 #65. No overlap material.
+Ownership exclusivo: AAA=F2/12.1 #66; BBB=F4/25.1 #63; WOZ=F3/17.1 #65. No overlap material.
 
 ## ASIGNACIONES EMITIDAS
 
-### `NIGHT-AAA-017`
-Bounded/paged library contract real + consumer windowing + evidencia medible de no full-library/global `Beat[]`. REUSE-FIRST; Web pura; candidate pequeño; exact-head. No D13–D15.
+### `NIGHT-AAA-018`
+SAME #66. Completar consumer navigation/windowing, refresh/invalidation, no duplicados/omisiones y evidencia bounded medible. No D13–D15. Merge solo con exact-head verde y race-check.
 
-### `NIGHT-BBB-016`
-SAME #63. Corregir únicamente EdgeDriver/Tauri Driver/WDIO session bootstrap del runner reutilizando configuración existente; fresh Windows Import exact-head. `AUTOMATED_PASS` solo con PASS literal. Bug producto ajeno → PRODUCT_FINDING. No segundo slice/25.2.
+### `NIGHT-BBB-017`
+SAME #63. Corregir únicamente EdgeDriver/Tauri Driver/WDIO session bootstrap; fresh Windows Import exact-head. `AUTOMATED_PASS` solo con PASS literal. No segundo slice/25.2.
 
-### `NIGHT-WOZ-016`
-SAME #65 @ `e6553864...`. Todos los applicable exact-head gates ya observados SUCCESS. Reread/race-check; merge solo si head/base exactos y compatibles. Tras merge declarar únicamente `17.1 SOFTWARE DONE / INTEGRATED`. No 17.2 en este ID.
+### `NIGHT-WOZ-017`
+SAME #65 @ `e6553864...`. Exact-head aplicable observado verde. Race-check/merge solo si head/base siguen exactos y compatibles. Tras merge declarar únicamente `17.1 SOFTWARE DONE / INTEGRATED`. No 17.2 en este ID.
 
 ## BLOCKERS
 
@@ -73,7 +78,7 @@ SAME #65 @ `e6553864...`. Todos los applicable exact-head gates ya observados SU
 2. F0/1.2: release governance/domain/support/status/AuthentiCode/reviews/test matrix; Apple Developer deferred.
 3. F1/D10.1: copia off-provider/off-account real + read/checksum.
 4. F1/D10.2: decisión RO.
-5. F2/12.1: bounded pagination/window/memory + cold/warm residual; D13–D15 aún abiertos después.
+5. F2/12.1: SAME #66 consumer windowing/evidence + cold/warm residual; D13–D15 aún abiertos después.
 6. F3: #65 merge pendiente; luego 17.2–20; 16.x physical/deploy tails externos.
 7. F4/25.1: #63 functional red por runner bootstrap; otros coverage gaps; D22/D23 signing/notarization externos; 25.2 abierto.
 
@@ -81,7 +86,7 @@ SAME #65 @ `e6553864...`. Todos los applicable exact-head gates ya observados SU
 
 - **F0:** técnico interno cerrado; tails externos solamente.
 - **F1:** core técnico cerrado; D10.1 externo + D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; #58 + #64 integrados; 12.1 residual activo; D13–D15 abiertos.
+- **F2:** 11.1/11.2/12.2 cerrados; #58 + #64 integrados; #66 partial candidate; 12.1 residual activo; D13–D15 abiertos.
 - **F3:** 16.1 y 16.2 software integrados con tails externos; 17.1 candidate exact-head green pero no integrado; 17.2–20 abiertos.
 - **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrada; #63 funcional todavía rojo por bootstrap; 25.1/25.2 abiertos; D22/D23 externos.
 
@@ -89,37 +94,39 @@ SAME #65 @ `e6553864...`. Todos los applicable exact-head gates ya observados SU
 
 Actualizados en este ciclo:
 - `!!!PLAN/Plan Maestro.md`
+- `!!!PLAN/Fase 2 - Web y UX.md`
 - `!!!PLAN/Fase 3 - Producción pagos y operación.md`
 - `!!!PLAN/Fase 4 - Desktop y release chain.md`
+- `!!!PLAN/Equipo multi-IA - Roles y coordinación.md`
 - `!!!PLAN/NOCHE - AAA.md`
 - `!!!PLAN/NOCHE - BBB.md`
 - `!!!PLAN/NOCHE - WOZ.md`
 - `!!!PLAN/NOCHE - JOBS.md`
 
-Leídos completos/preflight: Plan Maestro; Fases 0–4; roles; protocolo; cuatro ledgers nocturnos; Registro de avances; Issue #41 body + comments across all pages; GitHub vivo. F0/F1/F2 no requirieron reescritura de fase en este ciclo porque no cambió su hecho material confirmado; Plan Maestro sí quedó sincronizado con la nueva asignación AAA.
+Leídos completos/preflight: Plan Maestro; Fases 0–4; roles; protocolo; cuatro ledgers nocturnos; Registro de avances por tramos; Issue #41 body + comments; GitHub vivo. `Registro de avances.md` no se reescribió porque este ciclo no produjo merge/gate nuevo; el progreso parcial #66 queda documentado en Plan/F2/JOBS/Issue.
 
 ## SIGUIENTE CICLO
 
 1. Reread integration HEAD antes de cualquier claim.
-2. Procesar únicamente resultados nuevos `AAA-017`, `BBB-016`, `WOZ-016`.
-3. Si WOZ integra #65, registrar merge SHA/parents y promover solo 17.1 SOFTWARE; después recalcular si 17.2 es el siguiente WOZ NEXT.
+2. Procesar únicamente resultados nuevos `AAA-018`, `BBB-017`, `WOZ-017`.
+3. Si WOZ integra #65, registrar merge SHA/parents y promover solo 17.1 SOFTWARE; después recalcular 17.2.
 4. Si BBB logra Windows Import PASS, promover únicamente `windows/import`; conservar el resto de gaps 25.1.
-5. Si AAA produce candidate paged/windowed, verificar que no sea render-only sobre un global full-library buffer y exigir evidencia large-library medible.
+5. Si AAA completa #66, verificar que no sea render-only sobre un global full-library buffer y exigir exact-head green antes de integración.
 6. Mantener F0/F1/signing/physical staging/off-provider como externos hasta evidencia real.
 7. No abrir F5 hasta que F0–F4 estén realmente en condiciones de gate.
 
 ## LOG
 
 ```text
-CYCLE_ID: NIGHT-JOBS-016
+CYCLE_ID: NIGHT-JOBS-017
 INTEGRATION_HEAD: b114111cafb29b4aa50cdce014059c66a75bddf2
-AAA: latest result 015; 016 unprocessed -> superseded -> NIGHT-AAA-017 bounded pagination/window/memory
-BBB: 015 PENDING -> #63 exact-head auxiliary CI green, Windows Import 33276125806 FAILURE driver/session bootstrap -> NIGHT-BBB-016
-WOZ: 015 PENDING_CI -> #65 e6553864 all applicable exact-head CI SUCCESS -> NIGHT-WOZ-016 owner race-check/merge
-DUPLICATE_WORK: no parallel PR opened; #62 remains closed/not merged; SAME #63/#65 reused
+AAA: 017 PENDING -> #66 c9b5cd95 partial bounded paging, consumer evidence incomplete -> NIGHT-AAA-018 SAME #66
+BBB: 016 unexecuted -> #63 8768856f Windows Import 33276125806 FAILURE unchanged -> superseded -> NIGHT-BBB-017
+WOZ: 016 unexecuted -> #65 e6553864 all applicable exact-head CI SUCCESS, no merge -> superseded -> NIGHT-WOZ-017
+DUPLICATE_WORK: none; #62 remains closed/not merged; SAME #66/#63/#65 reused
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
 CODE_OR_INFRA_MUTATION_BY_JOBS: none
 RELEASE: NO-GO
 ```
 
-**STOP:** ciclo JOBS 016 terminado. La siguiente ejecución inicia desde GitHub vivo, no desde este snapshot si cambió.
+**STOP:** ciclo JOBS 017 terminado. La siguiente ejecución inicia desde GitHub vivo, no desde este snapshot si cambió.
