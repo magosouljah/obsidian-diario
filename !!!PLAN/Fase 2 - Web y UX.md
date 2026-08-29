@@ -4,18 +4,16 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 017:** `integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`.  
+**Baseline vivo CYCLE 017 FINAL:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.  
 **Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto; D13–D15 no cerrados.
 
 ## Owner actual
 
 **AAA — F2 / 12.1 SAME #66 consumer windowing + bounded evidence — `NIGHT-AAA-018`.**
 
-PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9` y cerró slice A: lazy artwork + taxonomía mínima de startup + timing/tests.
+PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9` y cerró slice A: lazy artwork + taxonomía mínima de startup + timing/tests. Atomic empty-index quedó **DONE / INTEGRATED** por PR #64 como `b114111cafb29b4aa50cdce014059c66a75bddf2`.
 
-Atomic empty-index quedó **DONE / INTEGRATED** por PR #64 como `b114111cafb29b4aa50cdce014059c66a75bddf2` con exact-head Required CI verde.
-
-PR #66 `aaa/night-12.1-pagination-windowing` está OPEN/mergeable sobre base `b114111caf...`, head exacto `c9b5cd95ad5b6b4d8f681265992e44d8c777a76f`. Ya contiene un bounded first-load de 240 rich `Beat` objects, `loadWebLibraryPage(offset/pageSize)` y un test sintético de 10,321 beats. Eso es progreso real, pero NO satisface todavía el gate: faltan consumer next/previous o cursor equivalente, refresh/invalidation, no-duplicate/no-omission entre ventanas, rendered-card bound y proxy medible de CPU/network/memoria. D6 `33277332289` y D7 `33277332325` SUCCESS; Desktop Portability `33277332334` seguía IN_PROGRESS en el preflight JOBS. DO NOT MERGE hasta completar el slice y obtener exact-head verde.
+PR #66 `aaa/night-12.1-pagination-windowing` head `c9b5cd95ad5b6b4d8f681265992e44d8c777a76f` ya contiene bounded first-load de 240 rich `Beat` objects, `loadWebLibraryPage(offset/pageSize)` y test sintético 10,321 beats. Sigue incompleto: faltan consumer next/previous/cursor, refresh/invalidation, no-duplicate/no-omission, rendered-card bound y proxy medible CPU/network/memoria. Su base `b114111caf...` quedó stale tras merge #65; `NIGHT-AAA-018` exige refresh SAME #66 sobre `ed6aab7e...` + completion + fresh exact-head CI antes de merge.
 
 ## Día 11 — Foundations y AccountGate
 
@@ -29,9 +27,9 @@ PR #54 merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
 
 ### 12.1 — `[ 🟡 ] IN PROGRESS / PAGING CANDIDATE INCOMPLETE` — AAA `NIGHT-AAA-018`
 
-- [x] **Índice vacío atómico en control plane.** PR #64 integrado como `b114111caf...`; create-if-absent serializado/idempotente/fail-closed y Web wiring verificados.
+- [x] **Índice vacío atómico en control plane.** PR #64 integrado.
 - [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Slice A integrada en #58; residual abierto donde no esté probado.
-- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado en #58. #66 ya limita first-load materialization y aporta primitive paged, pero consumer windowing/evidence sigue incompleto. Un render-window sobre un global full-library buffer NO satisface el gate.
+- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado. #66 aporta primitive paged parcial, pero consumer windowing/evidence sigue incompleto y debe refrescarse sobre `ed6aab7e...`.
 - [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing integrado en #58; cold/warm cuantificado/residual sigue abierto.
 
 ### 12.2 — `[x] DONE / INTEGRATED`
