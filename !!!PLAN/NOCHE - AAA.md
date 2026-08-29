@@ -26,7 +26,22 @@
 9. OUT OF SCOPE: D13–D15, F3/F4, Stripe, signing/notarization, nueva infraestructura/costo.
 10. Handoff en este markdown + Issue #41 y STOP. No tomes otra asignación sin nuevo ID.
 
-## RESULTADO DEL TURNO MÁS RECIENTE — NIGHT-AAA-015
+## RESULTADO DEL TURNO MÁS RECIENTE — NIGHT-AAA-017
+
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-017`  
+`TURN_STATUS: PENDING`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`  
+`BRANCH_HEAD: aaa/night-12.1-pagination-windowing @ c9b5cd95ad5b6b4d8f681265992e44d8c777a76f`  
+`PR: #66 OPEN; base integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2.`  
+`CHANGES: reused the in-flight same-lineage candidate created while JOBS superseded NIGHT-AAA-016; added bounded Web first-load materialization (240 Beat objects max), loadWebLibraryPage(offset/pageSize) with totalVisible/materializedCount/hasMore/nextOffset, preserved lazy artwork/audio and load-state taxonomy; added synthetic 10,321-beat page-bound test.`  
+`TESTS: focused test code added for first page, second page and tail page; execution result is UNVERIFIED because CI has not completed. Consumer next/previous/refresh wiring and no-duplicate/no-omission end-to-end consumer evidence are not yet implemented, so the NIGHT-AAA-017 gate is not satisfied.`  
+`CI: Test - Desktop Portability run #512 / 33277332334 is IN_PROGRESS on exact head c9b5cd95ad5b6b4d8f681265992e44d8c777a76f; D6/D7 were queued at last check; Upgrade 21.2 Staging skipped as non-applicable.`  
+`EVIDENCE: PR #66 has exactly 2 changed files; first-load path now calls bounded page loader and test dataset is 10,321 records with expected materializedCount <= 240 independent of total N.`  
+`UNVERIFIED: focused test PASS; Required CI exact-head PASS; actual consumer navigation (next/previous or cursor equivalent), refresh/invalidation, duplicate/omission guarantees across page transitions, rendered-card bound, proxy CPU/network comparison, physical cold/warm hardware measurements.`  
+`BLOCKERS: no external blocker identified; current candidate is incomplete relative to JOBS order because consumer windowing/navigation/refresh evidence is missing. DO NOT MERGE #66 in this state.`  
+`RECOMMENDATION_TO_JOBS: keep NIGHT-AAA-017 PENDING and preserve PR #66/branch lineage for the next AAA continuation only if JOBS explicitly reassigns it; require consumer-window completion + exact-head green CI before integration.`
+
+## RESULTADO PREVIO — NIGHT-AAA-015
 
 `LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-015`  
 `TURN_STATUS: PENDING`  
@@ -42,8 +57,8 @@
 
 ## HISTORIAL
 
-- `NIGHT-AAA-017`: ASSIGNED — fresh-cycle bounded pagination/window/memory transaction.
-- `NIGHT-AAA-016`: SUPERSEDED_BY_JOBS before execution — same area retained only after fresh recalculation under new ID.
+- `NIGHT-AAA-017`: PENDING — PR #66 @ `c9b5cd95...`; bounded page primitive + 10k+ test added, consumer windowing/CI still incomplete; DO NOT MERGE.
+- `NIGHT-AAA-016`: SUPERSEDED_BY_JOBS during active preflight/implementation race; work reused under 017 lineage, no standalone final claim.
 - `NIGHT-AAA-015`: PENDING — #64 merged as `b114111caf...`; atomic empty-index integrated.
 - `NIGHT-AAA-014`: PENDING — SAME #64 @ `3e7fd0a0...`; CI later green.
 - `NIGHT-AAA-013`: PENDING — PR #64 initial candidate; CI rojo.
