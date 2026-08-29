@@ -16,47 +16,49 @@ Reglas:
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-011
+## Estado vivo — NIGHT-JOBS-012
 
 - **Release público:** 🔴 `NO-GO`.
-- **Integración estable:** `integration-v0.8.0-alpha.1 @ 58a6bf61441f08bf68aa63673c0d5f2994b220d9`, merge verificable de PR #58.
+- **Integración estable:** `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`, merge verificable de PR #60.
 - **F0:** trabajo técnico interno cerrado; 1.2 y 2.2 conservan tails externos/administrativos. No consumir workers técnicos en duplicados.
 - **F1:** D6/D7/D8/D9 PASS. D10.1 `PENDING_EXTERNAL_PROOF` por copia real off-provider/off-account + read/checksum. D10.2 requiere decisión RO. No repetir drills aceptados.
 - **F2 / 11.1:** `[x]` PR #47. **11.2:** `[x]` PR #54. **12.2:** `[x]` PR #50.
-- **F2 / 12.1:** `[ 🟡 ] IN PROGRESS`. PR #58 ya **MERGED** como `58a6bf614...`; cerró solo slice A (lazy artwork + taxonomía mínima + startup timing/tests). Atomic empty-index es el siguiente slice y ya existe una sola successor branch `aaa/night-12.1-atomic-empty-index`, sin implementación/PR/CI aún.
+- **F2 / 12.1:** `[ 🟡 ] IN PROGRESS / BLOCKED-UNTIL-CONTROL-PLANE-DELTA`. PR #58 ya **MERGED** como `58a6bf614...` y cerró solo slice A. `NIGHT-AAA-012` demostró que el frontend actual no puede crear un índice ausente de forma atómica: `getLibraryIndex` exige pinned index existente y `replaceLibraryIndex` exige lectura/expected message previo. No hay implementación/PR/CI de atomic empty-index; client-only send+pin no es aceptable. `NIGHT-AAA-013` amplía explícitamente ownership de AAA al control plane/backend para resolver ese primitive sin falsear atomicidad.
 - **F3 / 16.1:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — PR #59 integrado; separación física staging/prod sigue externa.
-- **F3 / 16.2:** `[ 🟡 ] SOFTWARE CANDIDATE GREEN` — SAME PR #61 OPEN/Ready/mergeable, exact head `aef1cd0b1a26be327e561f344d63dae5d8def7ef`, base `58a6bf614...`; D6 `33266547956`, temp-auth `33266548019`, D7 `33266548050`, Desktop Portability `33266547963` SUCCESS. No merge aún.
+- **F3 / 16.2:** `[ 🟡 ] SOFTWARE CANDIDATE / NEEDS REFRESH`. SAME PR #61 sigue OPEN/Ready/mergeable, head `aef1cd0b1a26be327e561f344d63dae5d8def7ef`, pero su base snapshot es `58a6bf614...` y el baseline vivo avanzó a `7de7b57a...` por #60. El CI verde previo queda como evidencia histórica, no autoriza merge de la combinación nueva; WOZ debe refrescar SAME #61 + exact-head CI.
 - **F4 / 21.1+21.2:** `[x]` PR #51. **24.1:** `[x]` PR #55. **24.2:** `[x]` PR #57.
-- **F4 / 25.1:** `[ 🟡 ] SOFTWARE CANDIDATE GREEN` — SAME PR #60 OPEN/Ready/mergeable, exact head `945638c8bb650b0ce0bbe569e48a791a93d80e39`, base `58a6bf614...`; F4 matrix `33265800007`, D6 `33265800004`, D7 `33265800022`, Desktop Portability `33265800008` SUCCESS. No merge aún; matrix gaps honestos siguen abiertos.
+- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. PR #60 exact head `945638c8bb650b0ce0bbe569e48a791a93d80e39` pasó F4 matrix `33265800007`, D6 `33265800004`, D7 `33265800022`, Desktop Portability `33265800008` y fue integrada como `7de7b57a508b3cf05cbded81501fbd3da63922a3`. Este merge **no** convierte `NOT_COVERED`, `PENDING_EXTERNAL` o `PRODUCT_FINDING` en PASS; siguen faltando journeys funcionales explícitos y tails de runner/hardware iPhone, YouTube/billing donde apliquen, signing/notarization y 25.2.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 - **2.2:** `[ 🟡 ]` tail externo. **1.2:** `[ 🟡 ]` release externo; Apple Developer `PENDING — DEFERRED`.
 
-## OWNERS — CYCLE 011
+## OWNERS — CYCLE 012
 
-### AAA — `NIGHT-AAA-012` — F2 / 12.1 atomic empty-index
-Continuar solo la successor branch existente. Auditar primitives; implementar delta mínimo atómico/idempotente/fail-closed; cubrir race/retry/error parcial; tests + CI exact-head. No pagination/window/memory ni cold/warm residual.
+### AAA — `NIGHT-AAA-013` — F2 / 12.1 atomic empty-index vertical slice
+La asignación anterior quedó correctamente `BLOCKED`, no fallida. JOBS amplía ownership de esta pieza al control plane/backend: duplicate-check backend-wide; reutilizar primitive existente si hay equivalente; si no existe, implementar el mínimo create-if-absent/CAS/idempotent/fail-closed server-side y cablearlo al Web. Debe probar concurrencia, retry/idempotencia y fallo parcial. No pagination/window/memory/cold-warm ni D13–D15.
 
-### BBB — `NIGHT-BBB-012` — F4 / 25.1 SAME #60
-Race-check e integrar #60 si integration/head siguen exactamente compatibles con el CI verde. Si AAA mueve baseline antes, refresh SAME #60 + CI nuevo. No 25.2/signing/notarization/release.
+### BBB — `NIGHT-BBB-013` — F4 / 25.1 functional coverage residual
+PR #60 ya está integrada. BBB conserva ownership exclusivo de los gaps dependency-safe de 25.1: usar la matriz integrada como lista de verdad y cerrar **un slice automatizable real** de journeys core Web/Desktop mediante harnesses existentes, sin inventar iPhone, signing, notarization, billing/YouTube externos ni absorber bugs F2/F3. Findings de producto se reportan, no se roban.
 
-### WOZ — `NIGHT-WOZ-012` — F3 / 16.2 SAME #61
-Race-check e integrar #61 si la combinación sigue válida; si BBB/AAA mueve baseline, refresh SAME #61 + CI nuevo. Tras merge solo `SOFTWARE DONE / EXTERNAL TAIL`. Si integra y queda tiempo, solo audit READ-ONLY REUSE-FIRST de 17.1; no Stripe resources ni implementación.
+### WOZ — `NIGHT-WOZ-013` — F3 / 16.2 SAME #61 refresh transaction
+REUSE-FIRST exclusivamente SAME #61. Refrescar su branch sobre `7de7b57a...` preservando solo el delta F3/16.2; exigir CI aplicable exact-head nuevo y merge protegido con expected-head solo si el race-check sigue válido. Tras merge, reclamar únicamente `SOFTWARE DONE / EXTERNAL TAIL`; no staging/prod físicos ni Stripe.
 
 ### JOBS
 Mantiene prioridades, `!!!PLAN`, handoffs y gates. No mergea código BeatGaler ni modifica infraestructura.
 
-## Camino crítico global — recalculado desde cero CYCLE 011
+## Camino crítico global — recalculado desde cero CYCLE 012
 
-1. **F2:** atomic empty-index es el siguiente trabajo interno listo; después quedan pagination/window/memory + cold/warm y D13–D15.
-2. **F4:** #60 tiene el mayor retorno inmediato: candidate exact-head verde listo para transacción de integración; después quedan gaps funcionales reales + 25.2 y tails de signing/notarization.
-3. **F3:** #61 también está exact-head verde; integrarlo cierra el contrato software 16.2 y deja explícitos los tails físicos. Después D17–D20 constituyen el mayor volumen global, con dependencias Stripe/DNS/legal/provider en varias piezas.
+1. **F2 / 12.1 atomic bootstrap:** es el blocker interno más duro porque el frontend no puede satisfacer atomicidad sin autoridad de control plane. El siguiente movimiento correcto es el primitive backend + wire Web, no otro intento pin-only.
+2. **F3 / 16.2:** #61 conserva valor inmediato, pero necesita refresh exact-head tras #60. Integrarla reduce F3 a tails físicos + D17–D20.
+3. **F4 / 25.1:** el artifact de matriz ya está integrado; ahora el valor está en convertir `NOT_COVERED` dependency-safe en evidencia funcional real, sin falsear hardware/proveedor externo.
 4. **F0/F1:** no usar workers en pruebas repetidas: los gaps activos son externos/RO.
+
+Las asignaciones se recalcularon, no se conservaron por inercia: AAA recibe alcance nuevo porque su auditoría demostró el blocker de autoridad; BBB abandona la transacción #60 ya cerrada y pasa al residual funcional; WOZ permanece en #61 únicamente porque GitHub demuestra que es el candidate único todavía abierto y stale por el merge previo.
 
 ## Secuencia de integración verificada
 
-#47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; **#58 → `58a6bf61441f08bf68aa63673c0d5f2994b220d9`**.
+#47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; #58 → `58a6bf614...`; **#60 → `7de7b57a508b3cf05cbded81501fbd3da63922a3`**.
 
-Candidates vivos: **#60 @ `945638c8...` GREEN**, **#61 @ `aef1cd0b...` GREEN**. Ninguno se considera integrado hasta que GitHub lo demuestre.
+Candidate vivo: **#61 @ `aef1cd0b...` OPEN/mergeable pero stale respecto al baseline `7de7b57a...`; refresh + exact-head CI requerido antes de merge**.
 
 ## Invariantes
 
@@ -71,7 +73,7 @@ Candidates vivos: **#60 @ `945638c8...` GREEN**, **#61 @ `aef1cd0b...` GREEN**. 
 
 ## NEXT
 
-**AAA:** `NIGHT-AAA-012` atomic empty-index only.  
-**BBB:** `NIGHT-BBB-012` SAME #60 race-check/merge; refresh+CI si cambió baseline.  
-**WOZ:** `NIGHT-WOZ-012` SAME #61 race-check/merge; luego solo read-only 17.1 readiness si se integra.  
-**PLAN_HEALTH:** sincronizado a GitHub vivo CYCLE 011; GitHub prevalece si cambia después de este commit.
+**AAA:** `NIGHT-AAA-013` atomic empty-index con scope ampliado explícitamente a control plane/backend + Web wire.  
+**BBB:** `NIGHT-BBB-013` 25.1 residual funcional dependency-safe sobre la matriz ya integrada.  
+**WOZ:** `NIGHT-WOZ-013` SAME #61 refresh + exact-head CI + protected merge si corresponde.  
+**PLAN_HEALTH:** sincronizado a GitHub vivo CYCLE 012; GitHub prevalece si cambia después de este commit.
