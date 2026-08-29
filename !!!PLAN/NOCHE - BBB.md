@@ -27,24 +27,24 @@
 9. OUT OF SCOPE: 25.2, signing/notarization/release público, F2/F3 implementation.
 10. Handoff en este markdown + Issue #41 y STOP.
 
-## RESULTADO DEL TURNO ANTERIOR
+## RESULTADO VIGENTE
 
 `LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-013`  
 `TURN_STATUS: PENDING`  
 `BASE_BEFORE: integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`  
 `BRANCH/HEAD: bbb/task-25.1-windows-import @ 65a7bf07029babfb500d3913226ec8a5ca6e0deb`  
-`PR: #63 OPEN/Ready; base exacta 7de7b57a508b3cf05cbded81501fbd3da63922a3; candidate exacto 65a7bf07029babfb500d3913226ec8a5ca6e0deb; 2 archivos cambiados.`  
+`PR: #63 OPEN/Ready/mergeable; base exacta 7de7b57a508b3cf05cbded81501fbd3da63922a3; candidate exacto 65a7bf07029babfb500d3913226ec8a5ca6e0deb; 2 archivos cambiados.`  
 `CAMBIOS: REUSE-FIRST del harness existente test:e2e:import; añadido solo .github/workflows/f4-25.1-windows-import.yml para ejecutar ese journey en windows-2025 y actualizado release/f4-25.1-functional-matrix.json para que windows/import sea AUTOMATED_PASS únicamente condicionado a PASS exact-head del workflow. No product code F2/F3, no segunda matriz, no 25.2.`  
-`TESTS: harness reutilizado npm run test:e2e:import -> scripts/run-import-e2e.mjs -> runner desktop aislado con BEATGALER_E2E_IMPORT=1; nueva ejecución funcional exact-head iniciada como F4 - 25.1 Windows Import Journey run 33271091186.`  
-`CI: exact head 65a7bf07029babfb500d3913226ec8a5ca6e0deb: F4 Windows Import 33271091186 IN_PROGRESS; F4 Matrix 33271091128 IN_PROGRESS; D6 33271091122 IN_PROGRESS; D7 33271091147 IN_PROGRESS; Desktop Portability 33271091123 QUEUED; Upgrade 21.2 Staging 33271091125 SKIPPED/no aplicable.`  
-`EVIDENCIA: integración seguía en 7de7b57a508b3cf05cbded81501fbd3da63922a3 al crear #63; PR #51 verificada contra GitHub vivo como CLOSED/MERGED, merge 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858; duplicate-check no encontró otra PR BBB abierta para este residual.`  
-`UNVERIFIED: windows/import NO se considera cerrado todavía porque el workflow funcional exact-head no había terminado; 25.1 completo sigue abierto y todos los demás NOT_COVERED/PENDING_EXTERNAL/PRODUCT_FINDING permanecen honestamente abiertos.`  
-`BLOCKERS: evidencia exact-head aún en ejecución/cola; merge prohibido hasta PASS funcional + CI aplicable + race-check limpio.`  
-`RECOMMENDATION_TO_JOBS: mantener NIGHT-BBB-013 sobre la MISMA PR #63/lineage hasta que 33271091186 y gates aplicables terminen; si integration se mueve, refrescar la misma lineage y exigir CI nuevo. No asignar otro slice a BBB antes de cerrar/descartar #63.`
+`TESTS: harness reutilizado npm run test:e2e:import -> scripts/run-import-e2e.mjs -> runner desktop aislado con BEATGALER_E2E_IMPORT=1; ejecución funcional exact-head F4 - 25.1 Windows Import Journey run 33271091186 continúa IN_PROGRESS y ya llegó al step Run existing Windows import E2E harness.`  
+`CI: exact head 65a7bf07029babfb500d3913226ec8a5ca6e0deb: F4 Windows Import 33271091186 IN_PROGRESS; Desktop Portability 33271091123 IN_PROGRESS; demás workflows exact-head iniciados según GitHub; Upgrade 21.2 Staging no aplicable. No merge mientras falte verde completo.`  
+`EVIDENCIA: integration fue revalidada en 7de7b57a508b3cf05cbded81501fbd3da63922a3; PR #51 sigue CLOSED/MERGED, no Ready; PR #63 es la lineage canónica de NIGHT-BBB-013. Durante este readback se detectó una PR #62 creada de forma duplicada antes de leer el ledger vivo; fue cerrada inmediatamente como CLOSED/NOT MERGED y no sustituye #63.`  
+`UNVERIFIED: windows/import NO se considera cerrado todavía porque el workflow funcional exact-head no ha terminado; 25.1 completo sigue abierto y todos los demás NOT_COVERED/PENDING_EXTERNAL/PRODUCT_FINDING permanecen honestamente abiertos.`  
+`BLOCKERS: evidencia exact-head de #63 aún en ejecución; merge prohibido hasta PASS funcional + CI aplicable + race-check limpio. No existe autorización para iniciar otro slice mientras ASSIGNMENT_STATUS siga PENDING.`  
+`RECOMMENDATION_TO_JOBS: mantener NIGHT-BBB-013 sobre la MISMA PR #63/lineage hasta que 33271091186 y gates aplicables terminen; si integration se mueve, refrescar la misma lineage y exigir CI nuevo. No asignar otro slice a BBB antes de cerrar/descartar #63. PR #62 queda cerrada como duplicado y no debe reabrirse.`
 
 ## HISTORIAL
 
-- `NIGHT-BBB-013`: PENDING — PR #63 `bbb/task-25.1-windows-import @ 65a7bf07029babfb500d3913226ec8a5ca6e0deb`; Windows/import residual aislado con harness existente; exact-head CI en curso, no merge.
+- `NIGHT-BBB-013`: PENDING — PR #63 `bbb/task-25.1-windows-import @ 65a7bf07029babfb500d3913226ec8a5ca6e0deb`; Windows/import residual aislado con harness existente; exact-head CI en curso, no merge. PR #62 accidental quedó CLOSED/NOT MERGED al detectar duplicación en readback.
 - `NIGHT-BBB-012`: DONE — SAME #60 exact-head green merged as `7de7b57a508b3cf05cbded81501fbd3da63922a3`.
 - `NIGHT-BBB-011`: PENDING — #60 refreshed to `945638c8...`; CI later green.
 - `NIGHT-BBB-010`: PENDING — #60 repaired/refreshed.
