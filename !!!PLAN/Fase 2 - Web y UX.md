@@ -4,8 +4,8 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `672e133bc9cb8a47a29d4b34e13fc535290e5681`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto y está asignado a AAA bajo `NIGHT-AAA-006`.
+**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `f0d65aa66988e3e1a026e237b65c65a56b098aa9`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto y está asignado a AAA bajo `NIGHT-AAA-007`.
 
 ## Owner actual
 
@@ -14,9 +14,10 @@
 - 11.1 / PR #47: cerrado e integrado.
 - 11.2 / PR #54: cerrado e integrado.
 - 12.2 / PR #50: cerrado e integrado.
-- `NIGHT-AAA-005` produjo commit productivo `51232744a6cd4bc2af67de901e09beb70c91f4fc` en `aaa/night-12.1-bootstrap-load`: `webLibrary.ts` dejó de hidratar eager todo artwork antes de devolver la biblioteca; `assets.artwork` permanece para resolución on-demand.
-- Todavía están UNVERIFIED/abiertos taxonomy observable, startup instrumentation, tests/CI exact-head y atomic empty-index bootstrap.
-- `NIGHT-AAA-006` continúa la misma pieza y misma rama; no auto-inicia 13.x/14.x/15.x.
+- `NIGHT-AAA-005` produjo commit `51232744a6cd4bc2af67de901e09beb70c91f4fc` en `aaa/night-12.1-bootstrap-load`: `webLibrary.ts` dejó de hidratar eager todo artwork antes de devolver la biblioteca; `assets.artwork` permanece para resolución on-demand.
+- `NIGHT-AAA-006` avanzó la misma rama hasta `d7cc93f9c4318be7f993bd033483c4e7f1834a55`: añadió taxonomy mínima `ready/empty/no-results/offline/auth-failure/cloud-failure`, timing reproducible `durationMs/beatCount/state` alrededor del metadata startup boundary y tests que exigen cero eager artwork downloads.
+- La ejecución real de esos tests y CI exact-head siguen **UNVERIFIED**; no existe PR todavía y no hay blocker externo demostrado.
+- `NIGHT-AAA-007` cierra el candidate exact-head sobre la misma rama/lineage. Atomic empty-index permanece como sub-slice posterior de 12.1.
 
 ---
 
@@ -44,13 +45,13 @@ Evidencia: Required CI `33239731204` SUCCESS; D6 #94 SUCCESS; D7 #69 SUCCESS; me
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 [P1 · BE/FE] — Bootstrap y load — `ASSIGNED / IN PROGRESS` — AAA `NIGHT-AAA-006`
+### 12.1 [P1 · BE/FE] — Bootstrap y load — `ASSIGNED / IN PROGRESS` — AAA `NIGHT-AAA-007`
 - [ ] Índice vacío atómico en control plane.
-- [ ] Separar empty/no-results/offline/auth/cloud failure.
-- [ 🟡 ] Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria. **Progreso:** commit `51232744...` retira eager artwork hydration del initial Web library load; falta evidencia de paginación/ventana/memory budget y tests.
-- [ ] Instrumentar startup por fases, comparar cold/warm y corregir regresión de carga inicial reportada.
+- [ 🟡 ] Separar empty/no-results/offline/auth/cloud failure. **Implementado en rama hasta `d7cc93f...`; ejecución/tests/CI todavía no verificados.**
+- [ 🟡 ] Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria. **Progreso:** commit `51232744...` retira eager artwork hydration del initial Web library load; falta evidencia de paginación/ventana/memory budget y tests ejecutados.
+- [ 🟡 ] Instrumentar startup por fases, comparar cold/warm y corregir regresión de carga inicial reportada. **Progreso:** `d7cc93f...` añade timing reproducible alrededor del metadata startup boundary; falta ejecución verificable, surface diagnóstico mínima si resulta necesaria y comparación cold/warm cuantificada.
 
-**Estado factual actual:** `NIGHT-AAA-005` produjo un cambio real pero incompleto; no hay PR ni CI exact-head para `51232744...`. `NIGHT-AAA-006` debe completar taxonomy + startup instrumentation + tests y producir un único candidate reutilizando la misma rama. Atomic empty-index queda requisito posterior y no se marca satisfecho por el cambio de artwork.
+**Estado factual actual:** existe progreso real en la rama, pero no hay PR ni CI exact-head para `d7cc93f...`. `NIGHT-AAA-007` debe ejecutar/corregir tests, refrescar contra baseline vivo `f0d65aa...` si hace falta, producir/reutilizar un único PR y obtener evidencia exact-head. No se marca ningún requisito PASS por código no ejecutado. Atomic empty-index queda requisito posterior y no se satisface por taxonomy/artwork/timing.
 
 ### 12.2 [P1/P2 · FE/DL] — Biblioteca — `[x] DONE / INTEGRATED`
 
