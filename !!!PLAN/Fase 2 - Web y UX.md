@@ -4,18 +4,32 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 018:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.  
+**Baseline vivo CYCLE 020:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.  
 **Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto; D13–D15 no cerrados.
 
 ## Owner actual
 
-**AAA — F2 / 12.1 SAME #66 production consumer navigation — `NIGHT-AAA-019`.**
+**AAA — F2 / 12.1 SAME #66 race-check + integration — `NIGHT-AAA-020` (ASSIGNED).**
 
 PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9` y cerró slice A: lazy artwork + taxonomía mínima de startup + timing/tests. Atomic empty-index quedó **DONE / INTEGRATED** por PR #64 como `b114111cafb29b4aa50cdce014059c66a75bddf2`.
 
-PR #66 `aaa/night-12.1-pagination-windowing` fue refrescado sobre el baseline vivo y ahora está en `2d9a9ae89f4594b8b72a36dcc835f92b1017bf15`. Ya contiene first-load bounded, `WebLibraryWindowConsumer` con current/next/previous/refresh, refresh seguro tras shrink, métricas de materialización y test sintético 10,321 beats para no duplicados/no omisiones/previous/bounded/no artwork eager. D6/D7 exact-head están SUCCESS; Desktop Portability sigue en curso al preflight CYCLE 018.
+PR #66 `aaa/night-12.1-pagination-windowing` está OPEN sobre base `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`, head `86f9659b0341107496332ada546312611e40ddaa`. El candidate contiene:
+- first-load/materialización bounded;
+- `WebLibraryWindowConsumer` current/next/previous/refresh + acceso por offset;
+- refresh seguro tras shrink;
+- métricas de materialización;
+- continuidad sintética de 10,321 beats sin duplicados/omisiones y sin artwork eager;
+- wiring React productivo por cursor `bgPage`, con Previous/Next reales y sin reconstruir un `Beat[]` global.
 
-Gap material restante de este slice: **el consumer React de producción todavía no invoca next/previous/cursor o equivalente real**. `NIGHT-AAA-019` debe cerrar ese wiring sin `Beat[]` global completo, ejecutar focused tests y obtener fresh exact-head CI sobre cualquier head nuevo antes de integrar. Cold/warm cuantificado continúa residual si no queda demostrado por evidencia separada.
+Evidencia exact-head observada sobre `86f9659b...`:
+- Required CI / Desktop Portability `33278321854` — SUCCESS;
+- D6 `33278321859` — SUCCESS;
+- D7 `33278321867` — SUCCESS;
+- Upgrade 21.2 — SKIPPED/no aplicable.
+
+Gap inmediato: **transacción race-check + merge de SAME #66**. No marcar pagination/window/memory como integrado hasta merge SHA verificable. Después siguen residuales de 12.1: cold/warm cuantificado y cualquier taxonomy residual no demostrado por evidencia separada.
+
+CI-FALLBACK para `NIGHT-AAA-020`: `NONE`; no se autoriza D13–D15 ni otro slice frontend mientras #66 siga activo.
 
 ## Día 11 — Foundations y AccountGate
 
@@ -27,11 +41,11 @@ PR #54 merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 — `[ 🟡 ] IN PROGRESS / SAME #66` — AAA `NIGHT-AAA-019`
+### 12.1 — `[ 🟡 ] IN PROGRESS / SAME #66` — AAA `NIGHT-AAA-020`
 
 - [x] **Índice vacío atómico en control plane.** PR #64 integrado.
 - [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Slice A integrada en #58; residual abierto donde no esté probado.
-- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado. #66 ya tiene bounded consumer y continuidad sintética; falta wiring productivo next/previous/cursor + exact-head closure.
+- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado. #66 tiene candidate exact-head verde con navegación bounded productiva; falta merge verificable.
 - [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing integrado en #58; cold/warm cuantificado/residual sigue abierto.
 
 ### 12.2 — `[x] DONE / INTEGRATED`
