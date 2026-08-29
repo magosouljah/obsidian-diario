@@ -1,9 +1,9 @@
 # Fase 1 — Seguridad, cuentas y datos durables
 
-> Leer `Plan Maestro.md`. Fase 1 mantiene sus gates y ownership fijo: **WOZ es dueño completo de D8** hasta cerrarlo.
+> Leer `Plan Maestro.md`. D8 está cerrado. D9 queda dependency-ready, pero no se inicia sin asignación explícita JOBS/RO.
 
-**Estado:** `[ 🟡 ]` — D8 activo.  
-**Integración estable:** `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.  
+**Estado:** D8 `[x] / PASS`; D9 `READY_TO_WORK / UNASSIGNED`.  
+**Integración estable:** `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.  
 **Release público:** 🔴 `NO-GO`.
 
 ## D6 — `[x] PASS`
@@ -33,11 +33,11 @@ Gate D7 cerrado. No reabrir sin nueva evidencia material.
 
 ---
 
-## D8 — ACTIVO — WOZ FULL OWNER
+## D8 — `[x] PASS / CLOSED`
 
 **Gate D8:** usuario puede verificar, recuperar, exportar y borrar sin intervención manual insegura.
 
-Baseline canónico vivo: `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
+Baseline canónico de cierre: `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.
 
 ### 8.1 — sesión y seguridad de sesión — `[x] DONE / INTEGRATED`
 - [x] Cookie HttpOnly/Secure/SameSite o equivalente; CSRF explícito.
@@ -53,49 +53,62 @@ Baseline canónico vivo: `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b
 - D6 `33208687050` SUCCESS;
 - D7 `33208687027` SUCCESS;
 - Productive Temp Auth Compile #159 SUCCESS;
-- PR #49 merged;
 - merge a integración `14002b29c5101232c0ca8f8b85d808c8214975fb`;
 - WOZ structured handoff Issue #41 `5458273984` = `STATUS: DONE`.
 
-8.1 queda cerrado. Esto **no** convierte por sí solo D8 en PASS.
+### 8.2 — ciclo de cuenta — `[x] DONE / INTEGRATED`
 
-### 8.2 — ciclo de cuenta — `[ 🟡 ] TECHNICAL CANDIDATE / REVALIDACIÓN + DECISIONES PENDIENTES`
+**Artifact canónico:** PR #52 `woz/task-8.2-account-lifecycle` exact tested head `f5ae901fb48444b6ea845048fb86f4dd482d75ec`.
 
-**Artifact canónico:** PR #52 `woz/task-8.2-account-lifecycle` @ `ef0d6b142a92cdb88b2a3111e144ba6a9f15df9c` — OPEN / no mergeado / non-draft.
-
-Cobertura técnica verificada del candidate:
+Cobertura integrada:
 - [x] Motor hash-only de email verification/reset, one-shot, expiry y anti-enumeración.
 - [x] MFA recovery codes hash-only/one-shot, reauth session-bound y security notifications.
 - [x] Export con reauth y exclusión de secretos.
 - [x] Delete con reauth, revocación de sesiones/capabilities, cleanup provider/local metadata y deletion receipt.
-- [x] Fail-closed si falta política explícita de retención.
-- [x] Tests unitarios de lifecycle incluidos en Required CI del candidate.
+- [x] Fail-closed mientras las decisiones externas no estaban definidas.
+- [x] Tests unitarios de lifecycle incluidos en Required CI.
 
-**CI del candidate `ef0d6b...`:** Required CI / Test Desktop Portability run `33216990412` = SUCCESS; checks aplicables observados verdes sobre ese exact head.
+**Evidencia exact-head final de #52:**
+- Required CI #443 / `33219253446` SUCCESS;
+- D6 #81 / `33219253348` SUCCESS;
+- D7 #53 / `33219253320` SUCCESS;
+- Productive Temp Auth Compile #171 / `33219253332` SUCCESS;
+- merge a integración `c25ec6a824bc0ae60fbf65858d53be26d453f205`.
 
-**Pero NO cerrar 8.2 todavía:** PR #52 fue construido sobre integración `14002b29...`; mientras corría/terminaba su evidencia, PR #47 fue integrado y la rama canónica avanzó a `489d81b...`. Por tanto el candidate debe incorporar el baseline vivo, resolver cualquier interacción dentro del ownership WOZ y repetir exact-head CI antes de integración.
+### Resoluciones RO de D8 — `[x] DONE / INTEGRATED`
 
-**Dependencias explícitas todavía no resueltas para el Gate D8:**
-- **Email delivery/provider/templates:** `BLOCKED / PROVIDER DECISION REQUIRED`. El engine/notifier boundary existe, pero no hay provider/template productivo aprobado en repo/plan.
-- **Retention duration:** `RO / LEGAL DECISION REQUIRED`. El delete falla cerrado si no se configura `BEATGALER_ACCOUNT_TOMBSTONE_RETENTION_DAYS`; no inventar duración.
-- **Provider-only sensitive reauth:** `PROVIDER DECISION REQUIRED`. Password-backed está implementado; OAuth/provider-only permanece fail-closed con `PROVIDER_REAUTH_REQUIRED` hasta contrato aprobado.
+PR #53 `woz/d8-ro-resolutions`, exact tested head `ab952c464f351aac736405c8559f5b85f421bc0c`, resolvió las tres decisiones que mantenían el gate pendiente:
 
-**WOZ NEXT:** continuar en el mismo PR #52, refresh/revalidar contra `489d81b...`, CI exact-head, integrar el cierre técnico 8.2 y publicar handoff. Mantener Gate D8 `PENDING` mientras las decisiones anteriores no estén resueltas/aceptadas.
+- [x] **Email verification/reset:** Amazon SES; templates nominales `VERIFY_EMAIL` y `RESET_PASSWORD`; producción fail-closed si falta configuración SES requerida.
+- [x] **Account deletion retention:** `0` días; cleanup inmediato; sin tombstone recuperable; receipt registra retención 0.
+- [x] **Provider-only/OAuth-only sensitive reauth:** autorización reciente del mismo provider conectada al mismo usuario BeatGaler y a la sesión BeatGaler exacta; Google fresh login y X OAuth2 PKCE; sin inventar password local.
 
-### Gate D8 — `[ 🟡 ] PENDING`
+**Evidencia exact-head #53:**
+- Required CI #455 / `33234071878` SUCCESS;
+- D6 #91 / `33234071860` SUCCESS;
+- D7 #65 / `33234071863` SUCCESS;
+- Productive Temp Auth Compile #175 / `33234071871` SUCCESS;
+- merge a integración `6c4499d124a64d138e791ea4abf0091766dde7e9`.
 
-No PASS hasta:
-1. 8.1 + 8.2 integrados y demostrados sobre baseline canónico;
-2. provider/templates de verification/reset resueltos/aceptados;
-3. retención definida por autoridad aplicable;
-4. provider-only reauth resuelto/aceptado;
-5. transacción estructurada WOZ `GATE D8`.
+### Gate D8 — `[x] PASS`
 
-No saltar a D9 mientras D8 permanezca así.
+WOZ publicó la transacción final en Issue #41 `5460381842`:
+1. 8.1 integrado y demostrado — PASS;
+2. 8.2 integrado y demostrado — PASS;
+3. delivery verification/reset por Amazon SES — PASS;
+4. retención account deletion = 0 días — PASS;
+5. provider-only recent reauth — PASS;
+6. usuario puede verificar, recuperar, exportar y borrar sin intervención manual insegura — PASS.
+
+**D8 queda cerrado. No reabrir sin nueva evidencia material.**
+
+Follow-up explícito fuera de D8: F2/15.1 debe incluir acción visible **“Vaciar Trash”** con borrado permanente, confirmación fuerte y recent reauth. Registrar en F2; no convertirlo en requisito retroactivo de D8.
 
 ---
 
-## D9 — PostgreSQL/migración reversible — REUSE-FIRST
+## D9 — PostgreSQL/migración reversible — `READY_TO_WORK / UNASSIGNED` — REUSE-FIRST
+
+D8 ya no bloquea D9 por dependencia. **Esto no asigna D9 a WOZ automáticamente.** JOBS/RO debe emitir una asignación separada antes de iniciar trabajo nuevo.
 
 - [ ] migrations/constraints/indexes/transacciones;
 - [ ] importer dry-run/checksums/idempotencia/quarantine/reporte;
