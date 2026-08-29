@@ -26,7 +26,7 @@
 9. OUT OF SCOPE: 18.1/18.2, F2/F4, provider credentials/resources, DNS/legal, physical staging/prod.
 10. Handoff en este markdown + Issue #41 y STOP.
 
-## RESULTADO DEL TURNO MÁS RECIENTE — NIGHT-WOZ-018
+## RESULTADO DEL TURNO ANTERIOR — NIGHT-WOZ-018
 
 `LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-018`  
 `TURN_STATUS: PENDING_CI`  
@@ -44,9 +44,43 @@
 `BLOCKERS: only exact-head Test - Desktop Portability / Required CI 33278423879 still running for integration eligibility.`  
 `RECOMMENDATION_TO_JOBS: keep SAME PR #67. If Required CI closes SUCCESS and integration remains ed6aab7e-compatible, issue owner race-check/protected merge assignment without rerun ceremonial. If integration moves, refresh SAME lineage + fresh applicable exact-head CI. Do not start 18.x from this result.`
 
+## RESULTADO DEL TURNO MÁS RECIENTE — WAIT_FOR_ASSIGNMENT
+
+`ASSIGNMENT_ID: NONE_NEW (última orden JOBS: NIGHT-WOZ-018)`  
+`TURN_STATUS: WAIT_FOR_ASSIGNMENT`  
+`DUPLICATE_CHECK: NIGHT-WOZ-018 ya figura como LAST_PROCESSED_ASSIGNMENT y ASIGNMENT_STATUS=PENDING; Issue #41 contiene el handoff NIGHT-WOZ-018 PENDING_CI; JOBS no ha escrito NIGHT-WOZ-019 ni una reapertura explícita ASSIGNED del 018.`  
+
+### PRIMARY
+
+- `STATUS: NOT_EXECUTED / WAIT_FOR_ASSIGNMENT`
+- `baseline: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892 (GitHub vivo; sin movimiento)`
+- `branch/head: woz/night-17.2-webhook-contract @ 22550152e9960c5dad328711b3a8b150301a8c4f (sin cambio)`
+- `PR: #67 OPEN / Ready / mergeable / NOT MERGED; base ed6aab7e964686cdb5fb1b84eac0198ca67f8892`
+- `cambios: ninguno en BeatGaler; no se reejecutó el trabajo productivo ya procesado.`
+- `tests: REUSE-FIRST; no rerun ni drill nuevo.`
+- `CI: actualización factual — Test - Desktop Portability / Required CI run 33278423879 terminó COMPLETED/FAILURE en exact head 22550152...; check PostgreSQL live integration + recovery gate = FAILURE; Required CI aggregator = FAILURE. F3 17.2 33278423859, D6 33278423854, D7 33278423851 y temp-auth 33278423880 permanecen reutilizados como SUCCESS del mismo head.`
+- `evidencia: PR #67 vivo; integration branch vivo; workflow/check-runs exact-head; último handoff WOZ en Issue #41 #5465227160.`
+- `UNVERIFIED: causa raíz exacta del fallo del PostgreSQL live integration + recovery gate (annotation/log no disponible por la lectura usada); corrective necesario; merge/race transaction; cualquier evidencia Stripe/productiva/18.x ya marcada fuera de alcance.`
+- `blockers: no existe nueva asignación ASSIGNED de JOBS; Required CI de #67 está rojo, por lo que no hay autoridad/evidencia para merge.`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_EXECUTED / NONE AUTHORIZED`
+- `branch/head: N/A`
+- `PR: N/A`
+- `cambios: ninguno`
+- `tests: ninguno`
+- `evidencia: la orden NIGHT-WOZ-018 no contiene CI-FALLBACK explícito y el Assignment ID ya fue procesado.`
+- `UNVERIFIED: N/A`
+- `blockers: fallback no autorizado; no se inventa ni autoasigna.`
+- `STOP alcanzado: SÍ — WAIT_FOR_ASSIGNMENT.`
+
+`RECOMENDACIÓN PARA JOBS: procesar el handoff NIGHT-WOZ-018 y el nuevo resultado CI rojo. Si desea corrective, emitir asignación explícita SAME #67 para inspeccionar el fallo PostgreSQL del run 33278423879 y aplicar solo el fix mínimo guiado por evidencia; después fresh exact-head CI aplicable. No rerun ceremonial, no branch/PR nuevo, no 18.x.`
+
 ## HISTORIAL
 
-- `NIGHT-WOZ-018`: PENDING_CI — PR #67 @ `22550152...`; focal/D6/D7/temp-auth green; Required CI still running; no merge.
+- `WAIT_FOR_ASSIGNMENT`: NIGHT-WOZ-018 ya procesado; #67 sigue exact head `22550152...`; Required CI `33278423879` terminó FAILURE por PostgreSQL live integration + recovery gate; sin nueva orden JOBS no se ejecutó corrective.
+- `NIGHT-WOZ-018`: PENDING_CI — PR #67 @ `22550152...`; focal/D6/D7/temp-auth green; Required CI estaba corriendo al cierre del turno original; no merge.
 - `NIGHT-WOZ-017`: DONE — SAME #65 merged `ed6aab7e...`; 17.1 SOFTWARE DONE / INTEGRATED.
 - `NIGHT-WOZ-016`: SUPERSEDED_BY_JOBS before worker execution.
 - `NIGHT-WOZ-015`: PENDING_CI — #65 repaired at `e6553864...`; CI later green.
