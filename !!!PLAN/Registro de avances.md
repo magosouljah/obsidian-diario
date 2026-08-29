@@ -197,23 +197,36 @@ Ese estado queda como ledger histórico y fue superado por los cierres siguiente
 **Baseline canónico:** `integration-v0.8.0-alpha.1` @ `f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
 
 - F1/D10.1: PR #56 exact tested head `0abe39e096d10d992764a2d24874e46529109a70` quedó **DONE / INTEGRATED** como merge `f0d65aa66988e3e1a026e237b65c65a56b098aa9`. Strategy config+index+media y backup-failure condition/routing están integrados; restore/RPO/RTO/core/access/retention permanecen PASS REUSED. Gate completo sigue `[ 🟡 ] / PENDING_EXTERNAL_PROOF` únicamente por copia real fuera del primary provider/account failure domain + read/checksum verification. WOZ no repite drills.
-- F2/12.1: `NIGHT-AAA-006` avanzó `aaa/night-12.1-bootstrap-load` a `d7cc93f9c4318be7f993bd033483c4e7f1834a55` con taxonomy mínima, startup timing y tests sobre lazy artwork; ejecución real/CI/PR siguen UNVERIFIED. `NIGHT-AAA-007` exige candidate verificable en la misma lineage.
-- F4/24.2: PR #57 head histórico `5c74c0948c43d53b2f8d075cd66ba70c953da3c5` tiene Test - Desktop Portability `33252718637`, D6 `33252718614` y D7 `33252718625` SUCCESS; Upgrade Staging `33252718609` SKIPPED/no aplica. Como fue probado contra `672e133...` y #56 movió baseline a `f0d65aa...`, no se marca DONE; `NIGHT-BBB-007` debe refrescar la misma PR + nuevo exact-head CI + merge protegido si PASS.
-- Owner change explícito: WOZ deja F1 técnico external-only y pasa a F3/16.1 bajo `NIGHT-WOZ-007`. Primer objetivo: agotar health/readiness/dependency checks, graceful shutdown, timeouts/proxy trust y separación contractual de entornos REUSE-FIRST, sin nueva infraestructura/costo no autorizado.
-- Asignaciones activas: `NIGHT-AAA-007`, `NIGHT-BBB-007`, `NIGHT-WOZ-007`; no overlap material.
+- F2/12.1: `NIGHT-AAA-006` avanzó `aaa/night-12.1-bootstrap-load` a `d7cc93f9c4318be7f993bd033483c4e7f1834a55` con taxonomy mínima, startup timing y tests sobre lazy artwork; ejecución real/CI/PR seguían UNVERIFIED en ese snapshot. `NIGHT-AAA-007` exigió candidate verificable.
+- F4/24.2: PR #57 head histórico `5c74c0948c43d53b2f8d075cd66ba70c953da3c5` tenía Test - Desktop Portability `33252718637`, D6 `33252718614` y D7 `33252718625` SUCCESS; como fue probado contra `672e133...` y #56 movió baseline, `NIGHT-BBB-007` exigió refresh exact-head.
+- Owner change explícito: WOZ dejó F1 técnico external-only y pasó a F3/16.1 bajo `NIGHT-WOZ-007`.
 - Issue #41: JOBS handoff CYCLE 006 `5462589883`.
-- Release público permanece 🔴 `NO-GO`; F0/1.2, F0/2.2, D10.1 off-provider y D22/D23 siguen externos donde corresponde. Ningún gate fue rebajado.
+- Release público permaneció 🔴 `NO-GO`.
+
+## 2026-08-29 — Turno nocturno CYCLE 007
+
+**Baseline factual durante preflight:** `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
+
+- **AAA / F2 12.1:** `NIGHT-AAA-007` cerró como STALLED, pero GitHub posterior superó ese snapshot. PR #58 `aaa/night-12.1-bootstrap-load` está OPEN/Ready/mergeable=true, exact head `d7cc93f9c4318be7f993bd033483c4e7f1834a55`, base `f0d65aa...`; Required CI `33254699647` SUCCESS. No se marca 12.1 `[x]`: #58 solo cubre lazy artwork + taxonomy + startup timing/tests. `NIGHT-AAA-008` ordena race-check/merge y luego atomic empty-index únicamente.
+- **BBB / F4 24.2:** PR #57 fue refrescado a exact head `4e251cae84ff55116c89c8398e78f04aecb78e3c` sobre base `f0d65aa...`; OPEN/Ready/mergeable=true; Required CI exact-head SUCCESS, D6 `33255401544` SUCCESS, D7 `33255401512` SUCCESS. El blocker transitorio de CI de BBB-007 desapareció. `NIGHT-BBB-008` ordena race-check/merge protegido; después 25.1 matrix audit dependency-safe. 24.2 no se marca `[x]` hasta merge SHA verificable.
+- **WOZ / F3 16.1:** PR #59 `woz/night-16.1-runtime-operability` OPEN/Ready/mergeable=true, exact head `292a7706bc4f6c21eccc60f2838cda0cd8ed4adc`, base `f0d65aa...`; local self-test 7/7 PASS; D6 `33256145573`, D7 `33256145614`, productive temp-auth compile `33256145521` y Test - Desktop Portability `33256145531` SUCCESS. `NIGHT-WOZ-008` ordena race-check/merge; aun integrado, 16.1 conserva `PENDING_EXTERNAL` por separación física staging/prod. Después WOZ avanza 16.2 software-only/dependency-safe.
+- Asignaciones activas: `NIGHT-AAA-008`, `NIGHT-BBB-008`, `NIGHT-WOZ-008`; sin overlap material.
+- JOBS sincronizó `Plan Maestro.md`, Fase 2, Fase 3, Fase 4, roles y los cuatro markdowns nocturnos; no tocó código BeatGaler ni infraestructura.
+- Issue #41 JOBS handoff CYCLE 007: `5462857248`.
+- F0/1.2, F0/2.2, D10.1 off-provider, D10.2 RO, F3 physical staging/prod y D22/D23 continúan como blockers externos/decisión donde corresponde. Ningún gate fue rebajado.
+- Release público permanece 🔴 `NO-GO`.
 
 ---
 
 ## Estado actual
 
-- Integración estable: `integration-v0.8.0-alpha.1` @ `f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
-- WOZ: **F3/16.1** bajo `NIGHT-WOZ-007`; D10.1 queda external-only `[ 🟡 ]` por off-provider proof.
-- AAA: **F2/12.1** bajo `NIGHT-AAA-007`; 11.1/11.2/12.2 `[x]`; 12.1 `[ 🟡 ]` con branch `d7cc93f...` aún sin CI/PR verificable.
-- BBB: **F4/24.2** bajo `NIGHT-BBB-007`; PR #57 candidate histórico verde pero requiere refresh exact-head contra `f0d65aa...`.
+- Integración estable conocida: `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`; GitHub real prevalece si cambió después de este registro.
+- AAA: **F2/12.1** bajo `NIGHT-AAA-008`; #58 exact-head CI verde, merge pendiente; después atomic empty-index.
+- BBB: **F4/24.2→25.1** bajo `NIGHT-BBB-008`; #57 exact-head CI verde, merge pendiente.
+- WOZ: **F3/16.1→16.2** bajo `NIGHT-WOZ-008`; #59 exact-head CI verde, merge pendiente; physical separation external.
 - JOBS: coordinación/plan/handoffs; no código BeatGaler ni merges técnicos.
 - 5.1/5.2: `[x]`.
 - 2.2/1.2: tails externos `[ 🟡 ]`.
-- F3: 16.1 activo; D16–D20 siguen siendo el mayor volumen restante.
+- D10.1: external-only `[ 🟡 ]` por off-provider proof; D10.2 RO.
+- F3 D16–D20 sigue siendo el mayor volumen restante.
 - Release público: 🔴 `NO-GO`.
