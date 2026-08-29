@@ -12,7 +12,7 @@ Reducir el mayor bloque técnico restante de F0–F4 con REUSE-FIRST y evidencia
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-007`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING_EXTERNAL`
 - `AREA: F3 / 16.1 — entornos / runtime-operability dependency-safe slice`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`
 - `CONTEXT: NIGHT-WOZ-006 integró PR #56. D10.1 quedó exclusivamente PENDING_EXTERNAL_PROOF por copia real fuera del primary provider/account failure domain; no queda trabajo técnico interno útil en ese lane hasta acción externa RO. JOBS reasigna WOZ explícitamente a F3/16.1.`
@@ -38,27 +38,26 @@ F1/D10.1 off-provider copy; D10.2; F2; F4; Stripe 17.x; legal/DNS 19.x; capacida
 
 ## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-006`  
-`TURN_STATUS: PENDING`  
-`GATE: D10.1 / PENDING_EXTERNAL_PROOF`  
-`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`  
-`HEAD_AFTER: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`  
-`PR: #56 MERGED; exact candidate head 0abe39e096d10d992764a2d24874e46529109a70; merge SHA f0d65aa66988e3e1a026e237b65c65a56b098aa9.`  
-`CHANGES: integrado el artifact D10.1 que cubre estrategia control-config+index+media y contrato backup.failure condition+routing fail-closed; no se añadió provider/costo ni se falseó off-provider proof.`  
-`TESTS: self-test local previo PASS_LOCAL_CONTRACT; no se repitió drill.`  
-`CI: REUSED exact-head — Test - Desktop Portability 33250824435 SUCCESS; D7 33250824401 SUCCESS; D6 33250824418 SUCCESS; Productive Temp Auth Compile 33250824441 SUCCESS; Upgrade 21.2 Staging 33250824399 SKIPPED/no aplica.`  
-`EVIDENCE_REUSED: restore aislado real; RPO ~7 min <=15 min; RTO 3643 s <=7200 s; core flows PASS; access/retention PASS; exact-head CI verde.`  
-`EVIDENCE_NEW: PR #56 merge protegido por expected_head_sha; integración verificada en f0d65aa66988e3e1a026e237b65c65a56b098aa9 con parents 672e133bc9cb8a47a29d4b34e13fc535290e5681 + 0abe39e096d10d992764a2d24874e46529109a70.`  
-`D10.1_MATRIX: config+index/media PASS INTEGRATED; restore/RPO/RTO/core PASS REUSED; access/retention PASS REUSED; backup-failure condition+routing contract PASS INTEGRATED; off-provider copy PENDING_EXTERNAL_PROOF.`  
-`UNVERIFIED: delivery productivo real de backup.failure; copia real fuera del primary provider/account failure domain.`  
-`BLOCKERS: único EXTERNAL_BLOCKER — RO debe seleccionar/autorizar destino fuera del primary provider/account failure domain y ejecutar copia mínima + read/checksum verification.`  
-`RECOMMENDATION_TO_JOBS: mantener D10.1 PENDING exclusivamente por off-provider proof; no repetir restore/CI/drills. WOZ queda disponible para reasignación independiente.`  
-`TURN_FINISHED_AT: 2026-08-29T06:48:00-06:00`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-007`  
+`TURN_STATUS: PENDING_EXTERNAL`  
+`GATE: F3 / 16.1 — dependency-safe runtime slice READY_FOR_REVIEW; physical environment separation PENDING_EXTERNAL.`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`  
+`BRANCH_HEAD: woz/night-16.1-runtime-operability @ 292a7706bc4f6c21eccc60f2838cda0cd8ed4adc`  
+`PR: #59 OPEN / mergeable; base exact f0d65aa66988e3e1a026e237b65c65a56b098aa9; 4 changed files.`  
+`CHANGES: añadido contrato dependency-safe F3/16.1: /healthz; /readyz con PostgreSQL SELECT 1 y fail-closed si DB requerida falta/no responde; estado draining; trust proxy explícito y acotado; request/header/keepalive/socket/dependency timeouts; graceful SIGINT/SIGTERM HTTP drain; BEATGALER_DEPLOYMENT_ENV obligatorio como staging|production cuando NODE_ENV=production; knobs documentados en .env.example. Se reutiliza bootstrap/shutdown PostgreSQL y el patrón existente de installers Express; no se toca server-core monolítico ni se crean recursos/provider/costo.`  
+`TESTS: PASS_LOCAL_UNIT — node:test 7/7 para contrato de entorno, proxy trust, readiness missing/SELECT 1, timeouts, graceful drain e integración del patch Express. Intento de clone/full-repo self-test no ejecutable por DNS del runtime; no se falsea evidencia.`  
+`CI: UNVERIFIED/NO_RUN para head 292a7706bc4f6c21eccc60f2838cda0cd8ed4adc — GitHub reportó workflow_runs=[] y combined statuses=[] al cierre; no se lanzó CI costoso artificialmente.`  
+`EVIDENCE_REUSED: /auth/health existente; timeouts puntuales de dependencias; postgres-bootstrap con pool+migrations y cierre pool en SIGINT/SIGTERM; patrón Express prototype installers ya integrado; baseline estable f0d65aa66988e3e1a026e237b65c65a56b098aa9.`  
+`EVIDENCE_NEW: PR #59; head exact 292a7706bc4f6c21eccc60f2838cda0cd8ed4adc; self-test 7/7; PR mergeable=true contra baseline exact.`  
+`UNVERIFIED: ejecución full-repo del candidate; CI exact-head inexistente al cierre; staging/prod físicos separados; proyectos/provider, DB, buckets/volumes, bots, OAuth callbacks, secrets y ownership reales separados.`  
+`BLOCKERS: EXTERNAL — para completar literalmente 16.1, RO/provider owner debe definir/autorizar topología y credenciales de staging/prod separados (proyectos + DB + storage + bots + OAuth callbacks + secret stores/ownership). WOZ no puede crear esos recursos/costos sin autorización explícita.`  
+`RECOMMENDATION_TO_JOBS: revisar PR #59 y, si acepta el contrato software, integrarlo con protección exact-head. Mantener 16.1 PENDING exclusivamente por separación física externa y CI/full-repo aún no observado; no reasignar WOZ dentro de este turno.`  
+`TURN_FINISHED_AT: 2026-08-29T07:53:18-06:00`  
 `STOP: sí.`
 
 ## HISTORIAL
 
-- `NIGHT-WOZ-007`: ASSIGNED — reasignación explícita a F3/16.1 dependency-safe, sin costo/infra nueva no autorizada.
+- `NIGHT-WOZ-007`: PENDING_EXTERNAL — PR #59 runtime-operability candidate; self-test 7/7; separación física staging/prod requiere RO/provider action; CI exact-head no observado al cierre.
 - `NIGHT-WOZ-006`: PENDING — PR #56 integrado como f0d65aa66988e3e1a026e237b65c65a56b098aa9; D10.1 external-only por off-provider proof.
 - `NIGHT-WOZ-005`: PENDING — PR #56 candidate; self-test PASS; único blocker off-provider; CI luego verificado SUCCESS por JOBS.
 - `NIGHT-WOZ-004`: PENDING — tres gaps literales confirmados.
