@@ -2,20 +2,20 @@
 
 > GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership actual
+## Roles y ownership actual — CYCLE 007
 
 | Rol | Owner actual | Responsabilidad |
 |---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra |
-| **AAA** | F2 / 12.1 | Bootstrap/load Web bajo `NIGHT-AAA-007`; misma rama/candidate lineage |
-| **BBB** | F4 / 24.2 | PR #57 updater recovery/rollback bajo `NIGHT-BBB-007` |
-| **WOZ** | F3 / 16.1 | entornos/runtime-operability dependency-safe bajo `NIGHT-WOZ-007` |
+| **AAA** | F2 / 12.1 | `NIGHT-AAA-008`: cerrar PR #58 si exact-head sigue válido; luego atomic empty-index únicamente |
+| **BBB** | F4 / 24.2 → 25.1 | `NIGHT-BBB-008`: cerrar PR #57; luego matrix audit dependency-safe |
+| **WOZ** | F3 / 16.1 → 16.2 | `NIGHT-WOZ-008`: cerrar PR #59 solo con exact-head final PASS; luego promotion contract software-only |
 
 RO conserva alcance de producto, riesgo aceptado, decisiones/credenciales externas y go/no-go público. JOBS puede reorganizar el roadmap, pero **un cambio de owner es una decisión explícita**, no un salto automático por dependencia.
 
-**Baseline canónico al CYCLE 006:** `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
+**Baseline canónico al CYCLE 007:** `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9` al preflight JOBS. GitHub vivo manda si cambia después.
 
-Cambio explícito vigente: WOZ dejó F1/D10.1 después de integrar PR #56 porque ese gate quedó únicamente `PENDING_EXTERNAL_PROOF` por copia real off-provider/off-account. JOBS lo reasignó a F3/16.1; nadie técnico comparte ownership simultáneo de D10.1.
+D10.1 permanece external-only por copia real off-provider/off-account + read/checksum; ningún worker técnico es owner de esa acción externa.
 
 ## Modelo ROMPECABEZAS CON OWNER FIJO
 
@@ -46,7 +46,7 @@ Si un worker no tiene asignación activa explícita en su markdown nocturno, deb
 3. Procesar DONE/PASS/integraciones solo con evidencia aplicable.
 4. Mantener scope claro y evitar duplicación/overlap.
 5. Actualizar estado confirmado en Plan/fases/Registro.
-6. Recalcular camino crítico F0–F4 desde cero.
+6. Recalcular camino crítico F0→F4 desde cero.
 7. Reasignar explícitamente cuando el retorno global sea mayor.
 8. Escalar blockers externos sin falsear PASS.
 
@@ -165,13 +165,13 @@ NEXT_WITHIN_AREA: <acción>
 END AI-HANDOFF
 ```
 
-## Night Shift Ledger — CYCLE 006
+## Night Shift Ledger — CYCLE 007
 
 ```text
-JOBS: CYCLE 006 complete; baseline f0d65aa...; assignments 007 issued
-AAA: F2/12.1 -> NIGHT-AAA-007; d7cc93f progress, exact-head evidence pending
-BBB: F4/24.2 -> NIGHT-BBB-007; PR #57 historical CI green, refresh required after #56
-WOZ: explicit owner change F1/D10.1 -> F3/16.1 -> NIGHT-WOZ-007
+JOBS: CYCLE 007 complete; baseline f0d65aa...; assignments 008 issued
+AAA: F2/12.1 -> NIGHT-AAA-008; PR #58 d7cc93f mergeable + Required CI green; integrate then atomic empty-index
+BBB: F4/24.2 -> NIGHT-BBB-008; PR #57 4e251cae exact-head Required CI/D6/D7 green; integrate then 25.1 audit
+WOZ: F3/16.1 -> NIGHT-WOZ-008; PR #59 292a7706 D6/D7/compile green, Desktop Portability still pending at JOBS preflight; then 16.2 software-only
 D10.1: PENDING_EXTERNAL_PROOF only; no technical worker overlap
 DUPLICATE_WORK: none
 UNVERIFIED_CLAIMS: none promoted to PASS
@@ -181,10 +181,10 @@ RELEASE: NO-GO
 ## Estado vigente
 
 - **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
-- **F1:** D6–D9 PASS; D10.1 artifact integrado por #56, gate external-only; D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; AAA full owner de 12.1 bajo `NIGHT-AAA-007`.
-- **F3:** WOZ full owner del slice 16.1 bajo `NIGHT-WOZ-007`; no nueva infra/costo sin RO.
-- **F4:** 21.1/21.2/24.1 cerrados; BBB full owner de #57/24.2 bajo `NIGHT-BBB-007`; D22/D23 externos.
+- **F1:** D6–D9 PASS; D10.1 external-only; D10.2 RO.
+- **F2:** 11.1/11.2/12.2 cerrados; AAA full owner 12.1 bajo `NIGHT-AAA-008`.
+- **F3:** WOZ full owner 16.x técnico bajo `NIGHT-WOZ-008`; no nueva infra/costo sin RO.
+- **F4:** 21.1/21.2/24.1 cerrados; BBB full owner #57/24.2→25.1 bajo `NIGHT-BBB-008`; D22/D23 externos.
 - **JOBS:** coordinación/plan; sin producto/infra.
 
-**Principio:** cada constructor termina y prueba su pieza; al terminar espera una nueva asignación en vez de saltar solo a otra tarea.
+**Principio:** cada constructor termina y prueba su pieza; al terminar espera una nueva asignación en vez de saltar solo a otra tarea salvo que la misma asignación contenga explícitamente el siguiente sub-slice condicionado.
