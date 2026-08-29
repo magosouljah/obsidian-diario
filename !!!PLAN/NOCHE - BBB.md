@@ -8,11 +8,11 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-BBB-014`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F4 / 25.1 — SAME PR #63 Windows import functional journey corrective transaction`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`
 - `REUSE_PR: #63 / bbb/task-25.1-windows-import`
-- `KNOWN_HEAD: 65a7bf07029babfb500d3913226ec8a5ca6e0deb`
+- `KNOWN_HEAD: 9208ead249345d29458a5ae939923dd5c2f47dfb`
 
 ### Orden JOBS
 
@@ -28,17 +28,22 @@
 
 ## RESULTADO DEL TURNO ANTERIOR
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-013`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-014`  
 `TURN_STATUS: PENDING`  
-`BASE_BEFORE: 7de7b57a508b3cf05cbded81501fbd3da63922a3`  
-`BRANCH/HEAD: bbb/task-25.1-windows-import @ 65a7bf07029babfb500d3913226ec8a5ca6e0deb`  
-`PR: #63 OPEN / Ready / mergeable; NOT MERGED.`  
-`CHANGES: workflow windows-2025 reutilizando test:e2e:import + matrix conditional promotion.`  
-`JOBS RECHECK: Windows import functional run 33271091186 terminó FAILURE exact-head; Required CI 33271091123 SUCCESS. Gate específico manda y bloquea merge.`
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`  
+`BRANCH/HEAD: bbb/task-25.1-windows-import @ 9208ead249345d29458a5ae939923dd5c2f47dfb`  
+`PR: #63 OPEN / Ready / mergeable; NOT MERGED; SAME lineage.`  
+`CAMBIOS: causa mínima del failure 33271091186 aislada a glue/driver F4: build + import harness llegaron al arranque de WDIO pero el proveedor externo tauri-driver/Edge falló antes de ejecutar specs con DevToolsActivePort; además el workflow antiguo hacía checkout del merge-ref de PR pese a llamarse exact source. Se añadió solo scripts/prepare-f4-25.1-embedded-driver.mjs, el workflow ahora hace checkout explícito de github.event.pull_request.head.sha + assert git rev-parse HEAD y prepara driver embebido Tauri para el harness aislado. La matriz volvió honestamente windows/import a NOT_COVERED hasta PASS real. Sin cambios de producto F2/F3.`  
+`TESTS: se reutiliza npm run test:e2e:import; no se creó segundo harness productivo. Nuevo gate funcional exact-head: F4 - 25.1 Windows Import Journey run 33272794199 IN_PROGRESS.`  
+`CI: exact head 9208ead249345d29458a5ae939923dd5c2f47dfb: F4 Matrix 33272794263 SUCCESS; Windows Import 33272794199 IN_PROGRESS; D6 33272794193 IN_PROGRESS; D7 33272794195 IN_PROGRESS; Desktop Portability 33272794215 PENDING; Upgrade 21.2 Staging 33272794243 SKIPPED/no aplicable.`  
+`EVIDENCIA: PR #63 reread OPEN/Ready/mergeable sobre base 7de7b57a... y head 9208ead...; PR #51 revalidada GitHub vivo CLOSED/MERGED, no Ready; integration permanecía 7de7b57a... durante preflight. Matrix exact-head confirma windows/import NOT_COVERED hasta PASS.`  
+`UNVERIFIED: windows/import sigue NOT_COVERED; el nuevo driver embebido aún no tiene PASS exact-head; 25.1 completo sigue abierto con todos los demás NOT_COVERED/PENDING_EXTERNAL/PRODUCT_FINDING honestos.`  
+`BLOCKERS: gate funcional 33272794199 y CI aplicable exact-head aún no terminaron; merge prohibido.`  
+`RECOMMENDATION_TO_JOBS: mantener NIGHT-BBB-014 sobre SAME PR #63/lineage en próximo ciclo; si 33272794199 pasa y gates aplicables quedan verdes con baseline sin mover, promover windows/import a AUTOMATED_PASS en la misma lineage y exigir evidencia exact-head nueva antes de merge. Si integration se mueve, refresh SAME lineage. No asignar segundo slice antes de cerrar/descartar #63.`
 
 ## HISTORIAL
 
-- `NIGHT-BBB-014`: ASSIGNED — SAME #63; diagnosticar/corregir functional FAILURE; fresh exact-head evidence; no merge sin PASS.
+- `NIGHT-BBB-014`: PENDING — SAME #63 corregida a head `9208ead249...`; driver/bootstrap F4 corregido, exact-head checkout enforced, matrix vuelve NOT_COVERED; CI nuevo en curso, no merge.
 - `NIGHT-BBB-013`: PENDING — PR #63 @ `65a7bf070...`; exact functional run luego FAILURE; PR #62 duplicate CLOSED.
 - `NIGHT-BBB-012`: DONE — #60 merged `7de7b57a...`.
 - `NIGHT-BBB-011`: PENDING — #60 refreshed.
