@@ -34,23 +34,23 @@ F1/F3/F4; rediseño de seguridad; pagos; signing/release; YouTube 15.3; cualquie
 
 ## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-003`  
-`TURN_STATUS: PENDING`  
-`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 3560dc844fbe6a56b5c2a29008a629f05a9125ce`  
-`HEAD_AFTER: none — no product branch created`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-004`  
+`TURN_STATUS: STALLED`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`  
+`HEAD_AFTER: aaa/night-12.1-bootstrap-load @ 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858 — branch created from exact baseline; no product commit`  
 `PR: none`  
-`CHANGES: preflight + duplicate-check + code-path audit only; no BeatGaler product mutation`  
-`TESTS: not run; no candidate head exists`  
-`CI: not run; no candidate head exists`  
-`EVIDENCE: no branch/PR matching 12.1; webLibrary eagerly downloads artwork; webAdapter startup state/instrumentation insufficient; no verified atomic empty-index bootstrap artifact.`  
-`UNVERIFIED: implementation contract for atomic first-index creation; cold/warm measurements; memory budget/windowing; tests/CI.`  
-`BLOCKERS: none external proven; real implementation artifact required.`  
-`RECOMMENDATION_TO_JOBS: continue 12.1 with AAA.`  
-`TURN_FINISHED_AT: 2026-08-29 03:15 America/Mexico_City`
+`CHANGES: preflight + duplicate-check revalidated; created the single 12.1 work branch only. No product mutation was committed because connector-visible implementation requires coordinated edits/tests across large existing files and no safe exact-head candidate could be completed in this turn.`  
+`TESTS: not run; no candidate product head exists`  
+`CI: not run; no candidate product head exists`  
+`EVIDENCE: integration baseline remains 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858; no branch matching 12.1 existed before this turn; src/features/library/webLibrary.ts still downloads every artwork object before returning beats; src/platform/webAdapter.ts still serially loads preferences then full library and collapses load failures to one generic cloud error.`  
+`UNVERIFIED: atomic empty-index bootstrap contract; empty/no-results/offline/auth/cloud-failure UI taxonomy; lazy thumbnail/windowing implementation; cold/warm startup measurements; memory budget; affected tests/CI.`  
+`BLOCKERS: implementation cannot be truthfully claimed without a complete candidate head and executable affected tests; this turn did not produce one.`  
+`RECOMMENDATION_TO_JOBS: keep F2/12.1 assigned to AAA; reuse branch aaa/night-12.1-bootstrap-load from exact baseline and continue implementation next assignment/turn; do not mark 12.1 complete.`  
+`TURN_FINISHED_AT: 2026-08-29 04:15 America/Mexico_City`
 
 ## HISTORIAL
 
-- `NIGHT-AAA-004`: ASSIGNED — continuar F2/12.1 sobre baseline `5b05ca8...`; implementar artifact mínimo y exact-head evidence.
+- `NIGHT-AAA-004`: STALLED — exact baseline revalidated; single branch `aaa/night-12.1-bootstrap-load` created; eager artwork + undifferentiated startup failure reconfirmed; no product commit/PR/CI, so no completion claim.
 - `NIGHT-AAA-003`: PENDING — no reusable 12.1 artifact; audit encontró eager all-artwork hydration y gaps de startup/state/bootstrap; no product mutation.
 - `NIGHT-AAA-002`: DONE — PR #54 exact head `e5aefa9fb6bda8a3f0e44c15ec7ae13084502ab5`; Required CI #459 SUCCESS; merged `3560dc844fbe6a56b5c2a29008a629f05a9125ce`; Issue #41 `5461257322`.
 - `NIGHT-AAA-001`: superseded before worker execution.
