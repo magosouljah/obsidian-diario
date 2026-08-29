@@ -4,25 +4,25 @@
 
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-**Estado nocturno CYCLE 008:** F3 sigue siendo el mayor bloque abierto de F0–F4. Baseline vivo: `integration-v0.8.0-alpha.1 @ f73c9ee8d058df3c780170c8c2a3fabef975c54d`.
+**Estado nocturno CYCLE 009:** F3 sigue siendo el mayor bloque abierto de F0–F4. Baseline vivo: `integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`.
 
 ## Owner actual
 
-**WOZ — F3 / 16.1 → 16.2 — `NIGHT-WOZ-009`.**
+**WOZ — F3 / 16.2 software-only — `NIGHT-WOZ-010`.**
 
-PR #59 `woz/night-16.1-runtime-operability` está OPEN/Ready/mergeable=true, exact head `0e0bf188ceb298c5c6846e56576665b50a69e922`, base `f73c9ee8d058df3c780170c8c2a3fabef975c54d`. Test - Desktop Portability `33258609802`, D6 `33258609811`, D7 `33258609799` y productive temp-auth compile `33258609793` terminaron SUCCESS sobre ese exact head. WOZ debe hacer race-check final y merge protegido si la combinación sigue vigente. Esto puede cerrar el slice software dependency-safe de 16.1, no la separación física staging/prod.
+PR #59 `woz/night-16.1-runtime-operability` quedó **MERGED / DONE** en su slice software como `be9e58c9edc0bb40742e0b91e3f2ebe771ace502`, parents exactos `f73c9ee8d058df3c780170c8c2a3fabef975c54d` + `0e0bf188ceb298c5c6846e56576665b50a69e922`. WOZ confirmó race-check, Required CI SUCCESS y merge protegido en Issue #41 `5463349979`. Esto integra el contrato runtime dependency-safe de 16.1; **no** satisface la separación física staging/prod.
 
-Después del merge verificable, `NIGHT-WOZ-009` autoriza avanzar 16.2 solo en el carril software-only/dependency-safe, REUSE-FIRST y sin crear recursos/costo.
+`NIGHT-WOZ-010` avanza únicamente 16.2 software-only/dependency-safe, REUSE-FIRST y sin crear recursos/costo.
 
 ## Día 16 — Staging y producción reproducibles
 
-### 16.1 — `[ 🟡 ] SOFTWARE CANDIDATE READY / EXTERNAL TAIL`
+### 16.1 — `[ 🟡 ] SOFTWARE DONE / EXTERNAL TAIL`
 
 - [ ] Entornos físicamente separados con provider ownership, DB, storage, bots, OAuth callbacks y secretos separados. **PENDING_EXTERNAL**; requiere autorización/credenciales/recursos reales.
 - [ ] Provider final/ownership real donde aplique.
-- [ 🟡 ] Health/readiness/dependency checks; graceful shutdown, timeouts y proxy trust. Candidate #59 exact-head CI verde; integración pendiente.
+- [x] Health/readiness/dependency checks; graceful shutdown, timeouts y proxy trust — **DONE / INTEGRATED** por PR #59.
 
-Candidate #59 implementa dependency-safe:
+Integrado por #59:
 - `/healthz`;
 - `/readyz` con PostgreSQL `SELECT 1`, fail-closed si DB requerida falta/no responde;
 - draining durante shutdown;
@@ -32,15 +32,15 @@ Candidate #59 implementa dependency-safe:
 - `BEATGALER_DEPLOYMENT_ENV=staging|production` obligatorio bajo `NODE_ENV=production`;
 - knobs documentados en `.env.example`.
 
-**Regla:** no crear nueva infraestructura pagada, provider projects, buckets/bots/OAuth projects ni recursos con costo sin aprobación RO. Integrar #59 no convierte 16.1 entero en PASS.
+**Regla:** no crear nueva infraestructura pagada, provider projects, buckets/bots/OAuth projects ni recursos con costo sin aprobación RO. El merge #59 no convierte 16.1 entero en PASS.
 
-### 16.2 — `NEXT SOFTWARE-ONLY AFTER #59`
+### 16.2 — `[ 🟡 ] IN PROGRESS SOFTWARE-ONLY` — WOZ `NIGHT-WOZ-010`
 
 - [ ] PR → preview; tag candidato → staging; aprobación → producción.
 - [ ] API origin público, TLS y headers inyectables; release sin Tailscale/local fallbacks.
 - [ ] Smoke post-deploy y rollback al último artefacto/DB compatible.
 
-`NIGHT-WOZ-009` puede cerrar únicamente el contrato software reproducible de esos puntos si existe delta real y puede probarse sin provider resources: auditar/reutilizar workflows/deploy assets existentes; fail-closed release origins; smoke/rollback scripts/fixtures; un único candidate si hace falta. Deploy real/staging real sigue externo.
+`NIGHT-WOZ-010` puede cerrar únicamente el contrato software reproducible de esos puntos si existe delta real y puede probarse sin provider resources: auditar/reutilizar workflows/deploy assets existentes; fail-closed release origins; smoke/rollback scripts/fixtures; un único candidate si hace falta. Deploy real/staging real sigue externo.
 
 **Gate completo:** mismo SHA desplegable, smoke y rollback verificables, sin pasos manuales irrepetibles ni secretos compartidos entre entornos.
 
