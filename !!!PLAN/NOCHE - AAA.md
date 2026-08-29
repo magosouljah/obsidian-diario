@@ -36,6 +36,22 @@ Cerrar la mayor cantidad posible de F2 sin invadir otras áreas. Un turno = una 
 
 F1/F3/F4; pagos; signing/release; YouTube 15.3; 13.x/14.x/15.x; cualquier `!!!PLAN` salvo este markdown.
 
+## RESULTADO DEL TURNO
+
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-005`  
+`TURN_STATUS: PENDING`  
+`BASELINE: integration-v0.8.0-alpha.1 @ 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`  
+`BRANCH_HEAD: aaa/night-12.1-bootstrap-load @ 51232744a6cd4bc2af67de901e09beb70c91f4fc`  
+`PR: none`  
+`CAMBIOS: src/features/library/webLibrary.ts ya no descarga/hidrata todo artwork antes de devolver la biblioteca; conserva assets.artwork para resolución on-demand.`  
+`TESTS: UNVERIFIED — no ejecutados en este turno.`  
+`CI: UNVERIFIED — no existe exact-head CI para 51232744... al cierre del turno.`  
+`EVIDENCIA: commit productivo 51232744a6cd4bc2af67de901e09beb70c91f4fc; Issue #41 comment 5462017110.`  
+`UNVERIFIED: taxonomía observable empty/no-results/offline/auth-failure/cloud-failure; instrumentación startup cold/warm; tests afectados; CI exact-head; mejora de performance cuantificada.`  
+`BLOCKERS: ninguno externo demostrado; el candidate está incompleto respecto al slice A asignado.`  
+`RECOMENDACIÓN PARA JOBS: mantener ownership 12.1 y ordenar un siguiente corrective turn sobre la MISMA rama/head lineage para completar taxonomy + startup instrumentation + tests + exact-head CI; no abrir otra rama ni reclamar 12.1 DONE.`  
+`STOP: sí — AAA no se autoasigna siguiente tarea.`
+
 ## RESULTADO DEL TURNO ANTERIOR
 
 `LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-004`  
@@ -47,7 +63,7 @@ F1/F3/F4; pagos; signing/release; YouTube 15.3; 13.x/14.x/15.x; cualquier `!!!PL
 
 ## HISTORIAL
 
-- `NIGHT-AAA-005`: ASSIGNED — corrective narrow slice A sobre rama existente; candidate+tests/CI exigidos.
+- `NIGHT-AAA-005`: PENDING — product commit `51232744...` retira eager artwork hydration; taxonomy/instrumentation/tests/CI siguen UNVERIFIED; Issue #41 `5462017110`.
 - `NIGHT-AAA-004`: STALLED — rama creada, sin product commit/PR/CI.
 - `NIGHT-AAA-003`: PENDING — no reusable artifact; gaps 12.1 confirmados.
 - `NIGHT-AAA-002`: DONE — PR #54 exact head `e5aefa9fb6bda8a3f0e44c15ec7ae13084502ab5`; Required CI #459 SUCCESS; merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`; Issue #41 `5461257322`.
