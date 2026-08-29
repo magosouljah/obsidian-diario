@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-AAA-014`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F2 / 12.1 — SAME PR #64 corrective exact-head transaction`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`
 - `REUSE_PR: #64 / aaa/night-12.1-atomic-empty-index`
@@ -26,6 +26,22 @@
 8. OUT OF SCOPE: D13–D15, F3/F4, nueva infraestructura/costo, pagination/window/memory/cold-warm antes de resolver #64.
 9. Handoff en este markdown + Issue #41 y STOP.
 
+## RESULTADO DEL TURNO — NIGHT-AAA-014
+
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-014`  
+`TURN_STATUS: PENDING`  
+`BASE_BEFORE: assignment baseline 7de7b57a508b3cf05cbded81501fbd3da63922a3; live integration advanced during turn to 55e0d8759ec03b23fa8e4f1f35304922dffeb992 and SAME #64 was refreshed.`  
+`HEAD_AFTER: aaa/night-12.1-atomic-empty-index @ 3e7fd0a0d7db6f7f423de47c86e643c36d6bcd24`  
+`PR: #64 OPEN / Ready / mergeable; NOT MERGED.`  
+`CHANGES: Reuse-first only on #64. Fixed attributable static module cycle webAdapter → webLibrary → webLibraryBootstrap → AccountGate → platform → webAdapter by resolving AccountGate auth/base helpers at runtime inside ensureWebLibraryIndex. Added a Required-CI bridge for the existing five atomic-library-index focused tests. The bridge exposed a harness-only eager dependency on direct-transport-control/telegram, so atomic-library-index now lazy-loads the real Direct transport only on production paths while preserving injected test behavior. Refreshed same lineage onto live baseline 55e0d875...; no duplicate branch/PR and no out-of-scope work.`  
+`TESTS: Intermediate exact-head 7ca0945a...: build:web PASS; compiled Chrome Web smoke PASS 1/1; typecheck PASS; TS unit PASS; DOM component PASS. Focused test bridge then failed before assertions because root CI did not install cloud-server telegram dependency; this harness cause was corrected at final head 3e7fd0a0.... Five required focused cases are wired for the final fresh CI: concurrent callers one winner; retry/idempotence; existing no overwrite; provider failure fail-closed; pointer persistence failure cleanup/fail-closed.`  
+`CI: Final head 3e7fd0a0...: D6 run 33272883566 SUCCESS; D7 run 33272883526 SUCCESS; Productive Temp Auth Compile run 33272883548 SUCCESS; Required Test - Desktop Portability run 33272883660 QUEUED at turn close. Prior fresh attempt 33272753302 demonstrated that the original #64 Web regression was fixed: Web build + Chrome smoke + typecheck + unit + DOM all passed before the newly-added focused-test harness failed on missing telegram dependency.`  
+`EVIDENCE: Original Required CI 33271187072 on 86ea14ad... showed attributable platform-before-init/Web mount failures from the new static dependency cycle. The same-PR corrective changed that failure to a passing real-browser Web smoke on 33272753302. Live integration moved to 55e0d875... via #61; #64 was refreshed and remained mergeable. Issue #41 handoff: comment 5464652451.`  
+`UNVERIFIED: Final exact-head Required CI conclusion for 33272883660; final exact-head execution/results of all five focused atomic tests; final Windows/macOS portability jobs; integration/merge transaction.`  
+`BLOCKERS: Required CI 33272883660 has not started/completed. Evidence-before-claim therefore prohibits merge and DONE.`  
+`RECOMMENDATION_TO_JOBS: Keep SAME PR #64 / same 12.1 atomic empty-index sub-slice for exact-head CI processing. If 33272883660 is green and integration is unchanged or cleanly refreshable, owner race-check + merge; otherwise process only attributable failures. Whole 12.1 remains open after this sub-slice.`  
+`TURN_FINISHED_AT: 2026-08-29T14:14:53-06:00`
+
 ## RESULTADO DEL TURNO ANTERIOR
 
 `LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-013`  
@@ -39,7 +55,7 @@
 
 ## HISTORIAL
 
-- `NIGHT-AAA-014`: ASSIGNED — SAME #64; corregir/explicar exact-head CI FAILURE + ejecutar tests focales + fresh CI; merge solo si todo verde.
+- `NIGHT-AAA-014`: PENDING — SAME #64 @ `3e7fd0a0...`; defecto Web atribuible corregido, harness focal corregido; fresh Required CI `33272883660` queued al cierre; no merge.
 - `NIGHT-AAA-013`: PENDING — PR #64 @ `86ea14ad...`; candidate atomic implementado; CI luego terminó FAILURE.
 - `NIGHT-AAA-012`: BLOCKED — Web-only no posee create-if-absent/CAS.
 - `NIGHT-AAA-011`: DONE — #58 merged `58a6bf614...`; slice A integrado.
