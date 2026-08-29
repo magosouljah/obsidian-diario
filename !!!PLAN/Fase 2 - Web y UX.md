@@ -4,16 +4,18 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 017 FINAL:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.  
+**Baseline vivo CYCLE 018:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`.  
 **Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto; D13–D15 no cerrados.
 
 ## Owner actual
 
-**AAA — F2 / 12.1 SAME #66 consumer windowing + bounded evidence — `NIGHT-AAA-018`.**
+**AAA — F2 / 12.1 SAME #66 production consumer navigation — `NIGHT-AAA-019`.**
 
 PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9` y cerró slice A: lazy artwork + taxonomía mínima de startup + timing/tests. Atomic empty-index quedó **DONE / INTEGRATED** por PR #64 como `b114111cafb29b4aa50cdce014059c66a75bddf2`.
 
-PR #66 `aaa/night-12.1-pagination-windowing` head `c9b5cd95ad5b6b4d8f681265992e44d8c777a76f` ya contiene bounded first-load de 240 rich `Beat` objects, `loadWebLibraryPage(offset/pageSize)` y test sintético 10,321 beats. Sigue incompleto: faltan consumer next/previous/cursor, refresh/invalidation, no-duplicate/no-omission, rendered-card bound y proxy medible CPU/network/memoria. Su base `b114111caf...` quedó stale tras merge #65; `NIGHT-AAA-018` exige refresh SAME #66 sobre `ed6aab7e...` + completion + fresh exact-head CI antes de merge.
+PR #66 `aaa/night-12.1-pagination-windowing` fue refrescado sobre el baseline vivo y ahora está en `2d9a9ae89f4594b8b72a36dcc835f92b1017bf15`. Ya contiene first-load bounded, `WebLibraryWindowConsumer` con current/next/previous/refresh, refresh seguro tras shrink, métricas de materialización y test sintético 10,321 beats para no duplicados/no omisiones/previous/bounded/no artwork eager. D6/D7 exact-head están SUCCESS; Desktop Portability sigue en curso al preflight CYCLE 018.
+
+Gap material restante de este slice: **el consumer React de producción todavía no invoca next/previous/cursor o equivalente real**. `NIGHT-AAA-019` debe cerrar ese wiring sin `Beat[]` global completo, ejecutar focused tests y obtener fresh exact-head CI sobre cualquier head nuevo antes de integrar. Cold/warm cuantificado continúa residual si no queda demostrado por evidencia separada.
 
 ## Día 11 — Foundations y AccountGate
 
@@ -25,11 +27,11 @@ PR #54 merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 — `[ 🟡 ] IN PROGRESS / PAGING CANDIDATE INCOMPLETE` — AAA `NIGHT-AAA-018`
+### 12.1 — `[ 🟡 ] IN PROGRESS / SAME #66` — AAA `NIGHT-AAA-019`
 
 - [x] **Índice vacío atómico en control plane.** PR #64 integrado.
 - [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Slice A integrada en #58; residual abierto donde no esté probado.
-- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado. #66 aporta primitive paged parcial, pero consumer windowing/evidence sigue incompleto y debe refrescarse sobre `ed6aab7e...`.
+- [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado. #66 ya tiene bounded consumer y continuidad sintética; falta wiring productivo next/previous/cursor + exact-head closure.
 - [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing integrado en #58; cold/warm cuantificado/residual sigue abierto.
 
 ### 12.2 — `[x] DONE / INTEGRATED`
