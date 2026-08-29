@@ -37,21 +37,24 @@ D22/D23 signing/notarization reales; 25.x; F1/F2/F3; release público; cualquier
 
 ## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-005`  
-`TURN_STATUS: DONE`  
-`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`  
-`HEAD_AFTER: integration-v0.8.0-alpha.1 @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`  
-`BRANCH_HEAD: bbb/task-24.1-release-controls @ ba83c87dab8a56163601e913f7764c7f8682b7a6`  
-`PR: #55 CLOSED/MERGED; merge SHA 672e133bc9cb8a47a29d4b34e13fc535290e5681`  
-`CHANGES: 24.1 release controls integrado; rings/minimum versions, fail-closed publication, kill switch, SPDX SBOM y SHA/provenance/checksum binding.`  
-`TESTS: F4 Release Controls 33248059891 SUCCESS; D6 33248059823 SUCCESS; D7 33248059990 SUCCESS.`  
-`CI: Required CI 33248059804 SUCCESS on exact head ba83c87...`  
-`BLOCKERS: none para 24.1; signing/notarization siguen externos.`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-006`  
+`TURN_STATUS: PENDING`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`  
+`HEAD_AFTER: integration-v0.8.0-alpha.1 permanece @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`  
+`BRANCH_HEAD: bbb/task-24.2-updater-recovery @ 5c74c0948c43d53b2f8d075cd66ba70c953da3c5`  
+`PR: #57 OPEN/Ready; no merge mientras CI exact-head no cierre verde.`  
+`CHANGES: REUSE-FIRST sobre updater/upgrade-matrix/release-controls existentes; policy fail-closed de recovery para red/disco/firma/manifest; fixtures N-1; planner no destructivo de retiro ligado a tag + source SHA + SHA-256; runbook de rollback/recuperación/comunicación; test conectado a packaging static. Una deriva accidental de @types/react-dom detectada por diff-check fue revertida antes del cierre.`  
+`TESTS: test:updater-recovery queda integrado en test:packaging:static y test:mac-portability:static; ejecución independiente local UNVERIFIED porque el runtime no pudo clonar GitHub, por lo que evidence-before-claim depende de CI exact-head.`  
+`CI: exact head 5c74c094... disparó Test - Desktop Portability run 33252718637 PENDING, D6 run 33252718614 QUEUED, D7 run 33252718625 PENDING; Upgrade 21.2 Staging run 33252718609 SKIPPED por scope. No reruns ceremoniales.`  
+`EVIDENCIA: PR #57 base exacta 672e133...; release-desktop-updater existente ya demuestra build-runs→same source SHA→VERSION/tag→provenance/checksum→signed updater entry; candidate 24.2 añade recovery/withdrawal sin publicar ni mutar release.`  
+`UNVERIFIED: conclusión final de Required CI/Test - Desktop Portability, D6 y D7; ejecución real de signing/notarization/publicación (fuera de scope); retiro real de artefacto público (intencionalmente no ejecutado).`  
+`BLOCKERS: CI exact-head aún no concluido. No hay blocker técnico dependency-safe conocido; D22/D23 credenciales siguen externos y fuera de 24.2.`  
+`RECOMMENDATION_TO_JOBS: si los checks del exact head 5c74c094... cierran SUCCESS, emitir nuevo Assignment ID para race-check base/head y merge de #57 sin rerun ceremonial; si falla un check, asignar corrección sobre la misma PR. No auto-iniciar 25.x.`  
 `STOP: sí.`
 
 ## HISTORIAL
 
-- `NIGHT-BBB-006`: ASSIGNED — F4/24.2 updater recovery/rollback, REUSE-FIRST.
+- `NIGHT-BBB-006`: PENDING — PR #57 head `5c74c094...`; 24.2 candidate completo dependency-safe, CI exact-head en curso.
 - `NIGHT-BBB-005`: DONE — PR #55 head `ba83c87...` merged as `672e133...`; exact-head checks green.
 - `NIGHT-BBB-004`: PENDING — PR #55 ready; CI luego verde.
 - `NIGHT-BBB-003`: DONE — #51 merged `5b05ca845...`.
