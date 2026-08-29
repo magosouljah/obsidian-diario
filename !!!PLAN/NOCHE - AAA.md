@@ -7,24 +7,25 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-015`
+- `ASSIGNMENT_ID: NIGHT-AAA-016`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F2 / 12.1 — SAME PR #64 merge transaction; después residual pagination/window/memory`
-- `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`
-- `REUSE_PR: #64 / aaa/night-12.1-atomic-empty-index`
-- `KNOWN_HEAD: 3e7fd0a0d7db6f7f423de47c86e643c36d6bcd24`
+- `AREA: F2 / 12.1 — paged library contract + consumer windowing + measurable memory evidence`
+- `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`
+- `PREDECESSOR: PR #64 MERGED as b114111cafb29b4aa50cdce014059c66a75bddf2`
+- `BLOCKER_RESOLUTION: atomic empty-index sub-slice ya integrado; 12.1 sigue abierto por pagination/window/memory + cold/warm residual.`
 
 ### Orden JOBS
 
 1. Preflight factual contra GitHub vivo, Plan Maestro, F2, Registro, roles, protocolo, este ledger e Issue #41. GitHub manda.
-2. REUSE-FIRST exclusivamente SAME #64 para cerrar el sub-slice atomic empty-index. No nueva PR equivalente.
-3. GitHub factual al emitir esta orden: #64 OPEN/Ready/mergeable=true, base exacta `55e0d875...`, head `3e7fd0a0...`; `Test - Desktop Portability / Required CI` run `33272883660` terminó SUCCESS exact-head. Los jobs observados Web+shared, Portable Windows y macOS quedaron SUCCESS; la bridge añadida por AAA ejecuta los focused tests bajo el gate compartido. No reutilices el CI rojo viejo.
-4. Haz race-check final: head exacto, integration exacta, compare/delta y ausencia de cambio material. Si todo coincide, protected merge de SAME #64. Si baseline/head cambió, refresh SAME lineage y exige fresh applicable exact-head CI antes de merge.
-5. Tras merge verificable, reclama únicamente `12.1 atomic empty-index sub-slice DONE/INTEGRATED`; 12.1 completo sigue abierto.
-6. Si el merge queda demostrado y todavía hay tiempo en el turno, continúa **dentro de F2/12.1** con el siguiente residual de mayor retorno: pagination/window/memory para evitar librería completa/render/buffers gigantes. Duplicate-check primero; usa successor branch/PR solo si no existe artifact reutilizable. Mantén el slice pequeño y dependency-safe.
-7. Cold/warm residual puede auditarse/read-only, pero no sacrifiques el slice pagination/window/memory por instrumentación ceremonial.
-8. OUT OF SCOPE: D13–D15, F3/F4, nueva infraestructura/costo, Stripe, signing/notarization.
-9. Handoff en este markdown + Issue #41 y STOP. No tomes otra asignación sin nuevo ID.
+2. Duplicate-check/REUSE-FIRST: audita `loadWebLibrary()` y consumidores para encontrar cualquier primitive paged/bounded existente antes de crear otra.
+3. Implementa un único slice honesto de **paged library contract + consumer windowing** que evite cargar/normalizar/renderizar la librería completa como `Beat[]` global cuando el dataset es grande. No hagas solo render-window si el buffer global completo sigue intacto.
+4. Mantén Web pura: sin Tauri/helper. Preserva estados empty/no-results/offline/auth/cloud failure y lazy artwork ya integrados.
+5. Añade evidencia medible con dataset grande/sintético: memoria/CPU/network o proxy verificable que demuestre bounded loading/windowing frente al comportamiento full-library anterior. Define page/window size explícito y comportamiento de navegación/refresh.
+6. Tests obligatorios: primeras páginas; siguiente/anterior o cursor equivalente; sin duplicados/omisiones; refresh/invalidación; empty library; error parcial/fail-closed; límite superior de objetos cargados/renderizados verificable.
+7. Candidate único, scope pequeño, exact-head CI aplicable. Si integration cambia, refresh SAME lineage/candidate y fresh CI antes de merge.
+8. Integra solo con evidence + CI verde + race-check limpio. Tras merge reclama solo `12.1 pagination/window/memory sub-slice DONE/INTEGRATED`; 12.1 permanece abierto si cold/warm u otros residuales siguen sin cerrar.
+9. OUT OF SCOPE: D13–D15, F3/F4, Stripe, signing/notarization, nueva infraestructura/costo.
+10. Handoff en este markdown + Issue #41 y STOP. No tomes otra asignación sin nuevo ID.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE — NIGHT-AAA-015
 
@@ -42,32 +43,9 @@
 `BLOCKERS: none for #64 integration. Residual blocker is architectural/scope-bounded: loadWebLibrary() still normalizes all manifest.beats, maps every record and returns the complete Beat[]. A render-only window would leave the global buffer intact; a truthful pagination/no-global-buffer slice requires a bounded query/data contract plus coordinated consumers.`  
 `RECOMMENDATION_TO_JOBS: mark only 12.1 atomic empty-index sub-slice integrated. Keep 12.1 open; issue a bounded successor for paged library contract + consumer windowing with measurable large-library memory evidence. Do not open 13.x from this handoff.`
 
-## CHECK DE TURNO — WAIT_FOR_ASSIGNMENT
-
-`CHECKED_ASSIGNMENT: NIGHT-AAA-015`  
-`STATUS: WAIT_FOR_ASSIGNMENT`  
-`REASON: assignment vigente ya posee resultado terminal (PENDING) y handoff publicado; duplicate-check impide reejecutarlo. JOBS todavía no escribió un Assignment ID nuevo.`  
-`CHANGES: ninguno en BeatGaler; no tests/CI/PR/merge nuevos.`  
-`EVIDENCE: NOCHE - AAA.md ya registra NIGHT-AAA-015 procesado y Issue #41 handoff 5464942349.`  
-`UNVERIFIED: cualquier trabajo posterior a NIGHT-AAA-015 hasta que JOBS emita un Assignment ID nuevo.`  
-`BLOCKERS: ninguno; espera de nueva asignación.`  
-`RECOMMENDATION_TO_JOBS: emitir un nuevo Assignment ID si AAA debe continuar con el residual paged library contract + consumer windowing.`
-
-## RESULTADO DEL TURNO ANTERIOR — NIGHT-AAA-014
-
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-014`  
-`TURN_STATUS: PENDING`  
-`BASE_BEFORE: assignment baseline 7de7b57a508b3cf05cbded81501fbd3da63922a3; live integration advanced to 55e0d8759ec03b23fa8e4f1f35304922dffeb992 and SAME #64 was refreshed.`  
-`HEAD_AFTER: aaa/night-12.1-atomic-empty-index @ 3e7fd0a0d7db6f7f423de47c86e643c36d6bcd24`  
-`PR: #64 OPEN / Ready / mergeable; NOT MERGED at worker close.`  
-`CHANGES: fixed attributable static module cycle; added CI bridge for five atomic-library-index focused tests; corrected harness-only eager Direct dependency by lazy-loading production transport; refreshed same lineage onto 55e0d875...`  
-`TESTS: intermediate Web build/Chrome smoke/typecheck/unit/DOM PASS; focused cases wired: concurrent callers one winner; retry/idempotence; existing no overwrite; provider failure fail-closed; pointer-persistence failure cleanup/fail-closed.`  
-`CI_AT_WORKER_CLOSE: D6 33272883566 SUCCESS; D7 33272883526 SUCCESS; Productive Temp Auth Compile 33272883548 SUCCESS; Required CI 33272883660 was queued.`  
-`JOBS_RECHECK: Required CI 33272883660 later completed SUCCESS exact-head on 3e7fd0a0...; Web+shared, Portable Windows and native macOS jobs observed SUCCESS. #64 remains OPEN/Ready/mergeable on base 55e0d875... at assignment time.`  
-`EVIDENCE: Issue #41 handoff 5464652451.`
-
 ## HISTORIAL
 
+- `NIGHT-AAA-016`: ASSIGNED — paged library contract + consumer windowing + measurable large-library memory evidence.
 - `NIGHT-AAA-015`: PENDING — #64 merged as `b114111caf...`; atomic empty-index sub-slice integrated; pagination/window/memory residual remains bounded/open.
 - `NIGHT-AAA-014`: PENDING — SAME #64 @ `3e7fd0a0...`; defects attributable/harness corrected; CI later green.
 - `NIGHT-AAA-013`: PENDING — PR #64 initial candidate; CI rojo.
