@@ -2,18 +2,18 @@
 
 > GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership actual — CYCLE 018
+## Roles y ownership actual — CYCLE 020
 
-| Rol | Owner actual | Responsabilidad |
-|---|---|---|
-| **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra |
-| **AAA** | F2 / 12.1 SAME #66 | `NIGHT-AAA-019`: production React next/previous/cursor sin `Beat[]` global; focused PASS + fresh exact-head/race-check |
-| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-018`: reutilizar exact-head Windows Import/Required CI; PASS→race-check/promote/merge, FAIL→minimal log-driven fix |
-| **WOZ** | F3 / 17.2 | `NIGHT-WOZ-018` continúa vigente; webhook raw-body integrity + durable event dedupe/idempotency/retry software-only; no 019 hasta resultado verificable |
+| Rol | Owner actual | PRIMARY vigente | CI-FALLBACK |
+|---|---|---|---|
+| **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra | n/a |
+| **AAA** | F2 / 12.1 SAME #66 | `NIGHT-AAA-020`: race-check + integración del candidate bounded exact-head verde | `NONE` |
+| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-019`: corrective mínimo log-driven del Windows Import + PASS literal/fresh CI | `NONE` |
+| **WOZ** | F3 / 17.2 SAME #67 | `NIGHT-WOZ-019`: corrective mínimo del PostgreSQL restored-state failure + fresh Required CI | `NONE` |
 
 RO conserva alcance de producto, riesgo aceptado, decisiones/credenciales externas y go/no-go público. JOBS puede reorganizar roadmap, pero un cambio de owner/scope es explícito.
 
-**Baseline canónico CYCLE 018:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`. GitHub vivo manda si cambia después.
+**Baseline canónico CYCLE 020:** `integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`. GitHub vivo manda si cambia después.
 
 D10.1 permanece external-only por copia real off-provider/off-account + read/checksum. F3/16.1 physical staging/prod separation continúa external-only. F3/16.2 software está DONE/INTEGRATED por #61 pero deploy/staging/rollback reales continúan externos. D22/D23 signing/notarization siguen externos.
 
@@ -41,6 +41,14 @@ Antes de rama/PR/comentario/commit: buscar artefacto/evidencia existente; contin
 ### Evidence-before-claim / exact-head
 No afirmar DONE/PASS/corregido/integrado/cerrado sin SHA/PR/test/CI/runtime/handoff aplicable. Si cambia head o combinación material, refresh + CI aplicable sobre la combinación vigente.
 
+### PRIMARY / CI-FALLBACK
+- `PRIMARY` siempre se ejecuta primero.
+- `CI-FALLBACK` solo existe si JOBS lo preautoriza explícitamente y solo puede empezar cuando PRIMARY entra realmente en `WAITING_CI` o `WAITING_EXTERNAL`.
+- Fallback debe ser independiente: distintos archivos/rama/PR/ownership material, no depender del PRIMARY, no adelantar un gate bloqueado, no duplicar otro owner y no ampliar alcance.
+- Cada fallback autorizado debe declarar scope exacto, evidencia requerida y STOP condition.
+- Si no existe fallback seguro y útil: `CI-FALLBACK: NONE`.
+- El worker nunca inventa fallback. Después de usar uno debe releer PRIMARY antes de cerrar el turno.
+
 ### STOP conditions
 STOP/BLOCKED/STALLED/RO DECISION REQUIRED ante contradicción material, baseline inesperado, cambio destructivo, secretos fuera de procedimiento, decisión RO, scope creep, CI externo no atribuible, evidencia insuficiente o ausencia de asignación.
 
@@ -66,17 +74,17 @@ NEXT_WITHIN_AREA:
 END AI-HANDOFF
 ```
 
-## Night Shift Ledger — CYCLE 018
+## Night Shift Ledger — CYCLE 020
 
 ```text
-JOBS: live integration remains ed6aab7e...; processed AAA-018 + BBB-017; WOZ-018 has no final shared result yet
-AAA: NIGHT-AAA-018 PENDING -> #66 2d9a9ae... refreshed/bounded; D6/D7 green, Required CI running; production React navigation gap -> NIGHT-AAA-019 SAME #66
-BBB: NIGHT-BBB-017 PENDING -> #63 ea00d85... refreshed; F4 Matrix/D6/D7 green, Windows Import + Required CI running -> NIGHT-BBB-018 SAME #63
-WOZ: NIGHT-WOZ-018 remains ASSIGNED; no verifiable final handoff/17.2 candidate -> NO 019 issued
+JOBS: integration sigue ed6aab7e...; CYCLE 019 fue detectado concurrentemente y ya había emitido assignments nuevos; duplicate guard impide supersederlos sin resultado
+AAA: NIGHT-AAA-020 ASSIGNED -> SAME #66 86f9659b... exact-head green; race-check/merge pendiente; CI-FALLBACK NONE
+BBB: NIGHT-BBB-019 ASSIGNED -> SAME #63 ea00d85d...; Windows Import 33277733650 FAILURE dentro del E2E harness; CI-FALLBACK NONE
+WOZ: NIGHT-WOZ-019 ASSIGNED -> SAME #67 22550152...; Required CI 33278423879 FAILURE por PostgreSQL restored-state verification; CI-FALLBACK NONE
 D10.1: PENDING_EXTERNAL_PROOF only; no technical worker overlap
 F3/16.1 physical separation: PENDING_EXTERNAL
 D22/D23: PENDING_EXTERNAL
-DUPLICATE_WORK: none; #62 remains CLOSED/NOT MERGED; #66/#63 SAME lineages preserved
+DUPLICATE_WORK: none; active assignments preserved instead of issuing churn IDs
 UNVERIFIED_CLAIMS: none promoted to PASS
 RELEASE: NO-GO
 ```
@@ -85,7 +93,7 @@ RELEASE: NO-GO
 
 - **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
 - **F1:** D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; AAA owner exclusivo de SAME #66 bajo `NIGHT-AAA-019`; 12.1 sigue abierto.
-- **F3:** 16.1/16.2 software integrado con external tails; 17.1 SOFTWARE DONE/INTEGRATED por #65; WOZ owner exclusivo de 17.2 bajo `NIGHT-WOZ-018`; 18–20 abiertos.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo de #63 bajo `NIGHT-BBB-018`; D22/D23 externos; 25.2 abierto.
+- **F2:** 11.1/11.2/12.2 cerrados; AAA owner exclusivo de SAME #66 bajo `NIGHT-AAA-020`; 12.1 sigue abierto.
+- **F3:** 16.1/16.2 software integrado con external tails; 17.1 SOFTWARE DONE/INTEGRATED; WOZ owner exclusivo de SAME #67 bajo `NIGHT-WOZ-019`; 17.2 sigue abierto.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo de SAME #63 bajo `NIGHT-BBB-019`; D22/D23 externos; 25.1/25.2 abiertos.
 - **JOBS:** coordinación/plan; sin producto/infra.
