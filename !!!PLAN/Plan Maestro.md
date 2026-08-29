@@ -16,52 +16,51 @@ Reglas:
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-013
+## Estado vivo — NIGHT-JOBS-014
 
 - **Release público:** 🔴 `NO-GO`.
-- **Integración estable:** `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`, merge verificable de PR #60. GitHub reread del ciclo confirma que no hubo nueva integración antes de emitir las órdenes 014.
+- **Integración estable:** `integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`, merge verificable de PR #61 sobre parents `7de7b57a... + d254b294...`.
 - **F0:** trabajo técnico interno cerrado; 1.2 y 2.2 conservan tails externos/administrativos. No consumir workers técnicos en duplicados.
 - **F1:** D6/D7/D8/D9 PASS. D10.1 `PENDING_EXTERNAL_PROOF` por copia real off-provider/off-account + read/checksum. D10.2 requiere decisión RO. No repetir drills aceptados.
 - **F2 / 11.1:** `[x]` PR #47. **11.2:** `[x]` PR #54. **12.2:** `[x]` PR #50.
-- **F2 / 12.1:** `[ 🟡 ] IN PROGRESS`. Slice A está integrada por #58. `NIGHT-AAA-013` produjo PR #64 `aaa/night-12.1-atomic-empty-index @ 86ea14ad04357d86d4140f17621bd3a835435350`, OPEN/Ready/mergeable, con primitive server-side `/transport/index/ensure` + Web wire y tests focales añadidos. Sin embargo el exact-head `Test - Desktop Portability / Required CI` run `33271187072` terminó **FAILURE**: Web+shared falló en Chrome smoke, Portable Windows falló y ambos native macOS smoke fallaron. Los tests focales del atomic bootstrap también quedaron UNVERIFIED en el handoff 013. No merge/no PASS. `NIGHT-AAA-014` reutiliza SAME #64 para causa mínima + fixes atribuibles + ejecución de tests + fresh exact-head CI.
+- **F2 / 12.1:** `[ 🟡 ] IN PROGRESS`. Slice A está integrada por #58. Atomic empty-index SAME PR #64 está ahora OPEN/Ready/mergeable sobre base viva `55e0d875...`, exact head `3e7fd0a0d7db6f7f423de47c86e643c36d6bcd24`. El Required CI/Test Desktop Portability `33272883660` terminó **SUCCESS** exact-head; Web+shared, Portable Windows y native macOS observados SUCCESS. No se reclama integración hasta owner race-check/merge. `NIGHT-AAA-015` procesa merge y, solo después, residual pagination/window/memory.
 - **F3 / 16.1:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — PR #59 integrado; separación física staging/prod sigue externa.
-- **F3 / 16.2:** `[ 🟡 ] SOFTWARE CANDIDATE / READY_FOR_OWNER_RACE_CHECK`. SAME PR #61 fue refrescada sobre el baseline vivo mediante head `d254b294cf8fe78d93025271360dd73ed594898f`. GitHub actual: OPEN/Ready/mergeable=true; Required CI exact-head run `33271019389` SUCCESS; D6 `33271019493` SUCCESS; no failure/in-progress observado en el set exact-head. No se reclama integración: `NIGHT-WOZ-014` ejecuta race-check + protected merge, o refresh/fresh CI si integration se mueve antes.
+- **F3 / 16.2:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — PR #61 protegido/integrado como `55e0d875...`; deploy/staging/rollback reales siguen externos. `NIGHT-WOZ-015` pasa explícitamente a F3/17.1 software-only Stripe Checkout server-side, sin credenciales/costo.
 - **F4 / 21.1+21.2:** `[x]` PR #51. **24.1:** `[x]` PR #55. **24.2:** `[x]` PR #57.
-- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. PR #60 integró la matriz. `NIGHT-BBB-013` produjo PR #63 `bbb/task-25.1-windows-import @ 65a7bf07029babfb500d3913226ec8a5ca6e0deb`, OPEN/Ready/mergeable. Required CI `33271091123` fue SUCCESS, pero el gate funcional específico `F4 - 25.1 Windows Import Journey` run `33271091186` terminó **FAILURE** en `Run existing Windows import E2E harness`. Por tanto `windows/import` NO puede promoverse a AUTOMATED_PASS ni #63 integrarse todavía. `NIGHT-BBB-014` corrige/explica SAME #63 sin robar fixes F2/F3.
+- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. PR #60 integró la matriz. SAME PR #63 está OPEN/Ready/mergeable pero stale respecto a `55e0d875...`; exact head `9208ead249345d29458a5ae939923dd5c2f47dfb`. F4 Matrix/D6/D7/Desktop Portability verdes, pero Windows Import `33272794199` terminó **FAILURE** antes de specs porque el bootstrap `prepare-f4-25.1-embedded-driver.mjs` no encontró el marker esperado. `windows/import` sigue `NOT_COVERED`. `NIGHT-BBB-015` corrige solo glue/harness, refresh y exige functional PASS + fresh exact-head CI.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 - **2.2:** `[ 🟡 ]` tail externo. **1.2:** `[ 🟡 ]` release externo; Apple Developer `PENDING — DEFERRED`.
 
-## OWNERS — CYCLE 013 → órdenes 014
+## OWNERS — CYCLE 014 → órdenes 015
 
-### AAA — `NIGHT-AAA-014` — F2 / 12.1 SAME #64 corrective transaction
-Procesar el failure exact-head de #64 y ejecutar los tests focales que 013 dejó UNVERIFIED. Fixes solo atribuibles al atomic bootstrap/harness de su slice. Fresh CI exact-head tras cambio material. Integrar únicamente con tests + applicable CI green + race-check. No pagination/window/memory/cold-warm ni D13–D15 hasta resolver #64.
+### AAA — `NIGHT-AAA-015` — F2 / 12.1 SAME #64 merge + residual
+Race-check + protected merge de #64 si GitHub sigue exactamente compatible; si baseline/head cambia, refresh SAME lineage + fresh CI. Después de merge, cerrar solo atomic sub-slice y avanzar pagination/window/memory como siguiente residual pequeño y dependency-safe. No D13–D15.
 
-### BBB — `NIGHT-BBB-014` — F4 / 25.1 SAME #63 Windows import corrective transaction
-El Required CI amplio verde no sustituye el journey funcional rojo. Diagnosticar/fijar únicamente workflow/glue/harness F4; product bug ajeno → `PRODUCT_FINDING`. La matriz no marca PASS antes de un run funcional exact-head verde. No segundo slice ni 25.2.
+### BBB — `NIGHT-BBB-015` — F4 / 25.1 SAME #63 corrective
+Fix mínimo marker-safe del bootstrap, refresh SAME lineage sobre baseline vivo y functional Windows Import exact-head. `AUTOMATED_PASS` solo con PASS literal; bug producto ajeno → `PRODUCT_FINDING`. No segundo slice/25.2.
 
-### WOZ — `NIGHT-WOZ-014` — F3 / 16.2 SAME #61 merge transaction
-El CI exact-head de `d254b294...` ya está verde y #61 mergeable. Owner debe hacer race-check + protected merge si integration aún es `7de7b57a...`; si otro owner mueve baseline primero, refresh SAME #61 + fresh CI. Tras merge, solo `SOFTWARE DONE / EXTERNAL TAIL`. Puede hacer audit READ-ONLY de 17.1 después, sin implementar Stripe sin nueva orden.
+### WOZ — `NIGHT-WOZ-015` — F3 / 17.1 Stripe Checkout software-only
+16.2 ya cerró su slice software. Duplicate-check no encontró implementación Stripe reutilizable. Implementar server-side Checkout contract con IDs/precios estables, idempotency y rechazo de precio/plan controlado por cliente; adapter/mocks permitidos. Sin Stripe real, credenciales, costo, 17.2 completo ni D18–D20.
 
 ### JOBS
 Mantiene prioridades, `!!!PLAN`, handoffs y gates. No mergea código BeatGaler ni modifica infraestructura.
 
-## Camino crítico global — recalculado desde cero CYCLE 013
+## Camino crítico global — recalculado desde cero CYCLE 014
 
-1. **F2 / 12.1 #64 rojo:** el atomic bootstrap ya tiene candidate, pero el gate amplio exact-head falló. Resolver ese failure y probar los tests focales es el camino interno más crítico de F2 antes de avanzar pagination/window/memory/cold-warm o D13–D15.
-2. **F3 / 16.2 #61 verde:** es el retorno inmediato más alto; candidate está exact-head green/mergeable y solo falta la transacción del owner, sujeta a race-check. Después F3 sigue con physical tail + D17–D20.
-3. **F4 / 25.1 #63 rojo funcional:** el journey Windows/import produjo evidencia negativa real. Corregirlo es más útil que iniciar otro residual y evita falsa cobertura.
+1. **F2 / 12.1 #64 exact-head verde:** es el retorno inmediato más alto; merge del atomic bootstrap desbloquea el residual pagination/window/memory sin rehacer trabajo.
+2. **F3 / 17.1:** 16.2 software quedó integrado; F3 D17–D20 es ahora el mayor volumen técnico abierto. Stripe Checkout server-side software-only puede avanzar sin esperar physical staging ni credenciales reales.
+3. **F4 / 25.1 #63 functional red:** failure reproducible y atribuible a glue F4; corregirlo antes de ampliar cobertura evita falsa matriz y deuda.
 4. **F0/F1:** continúan external/RO tails; no repetir trabajo técnico aceptado.
 
-No se conservó trabajo por inercia: AAA permanece en #64 porque existe un failure atribuible pendiente en su candidate; BBB permanece en #63 porque su gate funcional reveló un failure real; WOZ permanece en #61 porque GitHub ya convirtió el blocker de CI en candidate listo para race-check. Son tres piezas distintas y sin ownership simultáneo.
+No se conservó trabajo por inercia: AAA sigue en #64 porque el candidate pasó a merge-ready; BBB sigue en #63 por failure específico demostrado; WOZ cambia de 16.2 ya integrado a 17.1 porque ese es ahora el siguiente bloque técnico independiente de mayor retorno.
 
 ## Secuencia de integración verificada
 
-#47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; #58 → `58a6bf614...`; #60 → `7de7b57a508b3cf05cbded81501fbd3da63922a3`.
+#47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; #58 → `58a6bf614...`; #60 → `7de7b57a...`; #61 → `55e0d8759ec03b23fa8e4f1f35304922dffeb992`.
 
 Candidates vivos:
-- #64 @ `86ea14ad...` — OPEN/mergeable, **Required CI FAILURE**, no merge.
-- #63 @ `65a7bf070...` — OPEN/mergeable, Required CI green pero **Windows import functional FAILURE**, no merge.
-- #61 @ `d254b294...` — OPEN/mergeable, applicable exact-head CI observado verde; owner race-check/merge pendiente.
+- #64 @ `3e7fd0a0...` — OPEN/Ready/mergeable, base `55e0d875...`, Required CI `33272883660` SUCCESS; owner merge transaction pendiente.
+- #63 @ `9208ead249...` — OPEN/Ready/mergeable, stale vs `55e0d875...`; Windows Import `33272794199` FAILURE en bootstrap; no merge.
 
 ## Invariantes
 
@@ -76,7 +75,7 @@ Candidates vivos:
 
 ## NEXT
 
-**AAA:** `NIGHT-AAA-014` SAME #64 CI failure + focal tests + corrective exact-head transaction.  
-**BBB:** `NIGHT-BBB-014` SAME #63 Windows import functional failure; no false PASS.  
-**WOZ:** `NIGHT-WOZ-014` SAME #61 race-check/protected merge; refresh+fresh CI si baseline se mueve.  
-**PLAN_HEALTH:** sincronizado a GitHub vivo CYCLE 013; GitHub prevalece si cambia después de este commit.
+**AAA:** `NIGHT-AAA-015` SAME #64 owner merge; después pagination/window/memory.  
+**BBB:** `NIGHT-BBB-015` SAME #63 marker-safe fix + refresh + functional exact-head.  
+**WOZ:** `NIGHT-WOZ-015` F3/17.1 server-side Stripe Checkout software-only.  
+**PLAN_HEALTH:** sincronizado a GitHub vivo CYCLE 014; GitHub prevalece si cambia después de este commit.
