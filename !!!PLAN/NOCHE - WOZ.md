@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-011`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F3 / 16.2 — integrate SAME PR #61 after live-baseline race-check`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`
 - `REUSE_PR: #61 / woz/night-16.2-promotion-contract`
@@ -29,25 +29,25 @@
 
 ## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-010`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-011`  
 `TURN_STATUS: PENDING`  
-`GATE: F3/16.2 software contract candidate; full 16.2 remains PENDING until integration and real provider deployment evidence where required`  
-`BASE_BEFORE: integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`  
-`HEAD_AFTER: woz/night-16.2-promotion-contract @ d855b3d259626534650c1a78dae6df58f78cdcb9`  
-`PR: #61 OPEN / Ready; base be9e58c9edc0bb40742e0b91e3f2ebe771ace502; exact head d855b3d259626534650c1a78dae6df58f78cdcb9`  
-`CHANGES: candidate mínimo añade promotion contract, tests y post-deploy smoke, sin provider resources/costo/deploy real.`  
-`TESTS: tests contractuales añadidos; la evidencia de Actions aplicable terminó verde después del STOP.`  
-`CI: Test - Desktop Portability 33263815780 SUCCESS; D6 33263815813 SUCCESS; D7 33263815852 SUCCESS; Productive Temp Auth Compile 33263815854 SUCCESS.`  
-`EVIDENCIA_REUTILIZADA: PR #59 / merge be9e58c... para runtime 16.1; no se repitieron drills.`  
-`EVIDENCIA_NUEVA: PR #61 exact head d855b3d259626534650c1a78dae6df58f78cdcb9 con CI aplicable verde.`  
-`UNVERIFIED: race-check posterior a merges previos del ciclo; merge SHA; staging/production reales; provider resources; DNS/TLS real; rollback real.`  
-`BLOCKERS: ninguno software si baseline no cambia; tails productivos siguen PENDING_EXTERNAL.`  
-`RECOMMENDATION_TO_JOBS: 011 debe cerrar únicamente software contract #61 con exact-head; si baseline cambia, refresh SAME PR + CI. Después conservar external tails.`  
-`TURN_FINISHED_AT: 2026-08-29T10:47-06:00`
+`GATE: F3/16.2 software contract refreshed on live baseline; integration waits for new exact-head CI. Full 16.2 remains EXTERNAL TAIL after software integration.`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 58a6bf61441f08bf68aa63673c0d5f2994b220d9 (PR #58 already merged; assigned be9e58c... was stale at live preflight)`  
+`HEAD_AFTER: woz/night-16.2-promotion-contract @ aef1cd0b1a26be327e561f344d63dae5d8def7ef`  
+`PR: #61 OPEN / Ready; base 58a6bf61441f08bf68aa63673c0d5f2994b220d9; refreshed exact head aef1cd0b1a26be327e561f344d63dae5d8def7ef; no merge this turn.`  
+`CHANGES: REUSE-FIRST refresh de la MISMA #61 sobre el baseline vivo. #58 solo modificó src/features/library/webLibrary.ts + tests/component-dom/webLibrary.test.ts; no overlap con los 3 archivos cloud-server de 16.2. Se preservó exactamente el delta candidate y se creó commit de refresh con parents d855b3d... + 58a6bf...; sin nueva rama/PR, provider resources, costo ni deploy real.`  
+`TESTS: no se repitieron drills ni tests manuales; se reutilizó el candidate contractual previamente probado. El refresh disparó CI automático aplicable al nuevo exact head.`  
+`CI: exact head aef1cd0...: D7 run 33266548050 IN_PROGRESS; D6 run 33266547956 IN_PROGRESS; Productive Temp Auth Compile 33266548019 IN_PROGRESS; Test - Desktop Portability 33266547963 QUEUED; Upgrade 21.2 Staging 33266548063 SKIPPED/no aplicable. CI no estaba completamente verde al STOP.`  
+`EVIDENCIA_REUTILIZADA: PR #61 original d855b3d... y sus 3 blobs 16.2; CI viejo verde se usó solo como evidencia histórica, NO para autorizar merge sobre combinación nueva. PR #59/be9e58c... conserva runtime 16.1; no se repitieron drills.`  
+`EVIDENCIA_NUEVA: baseline vivo 58a6bf...; compare be9e58c...→58a6bf... confirmó cambios solo F2 sin overlap; SAME #61 refrescada a aef1cd0... con base snapshot 58a6bf...; cinco workflow runs nuevos ligados al exact head.`  
+`UNVERIFIED: conclusión final del CI aef1cd0...; race-check posterior al CI; merge SHA; staging/production reales; provider resources; DNS/TLS real; deploy/rollback real; separación física staging/prod.`  
+`BLOCKERS: CI exact-head nuevo aún no terminado. Tails productivos/physical separation siguen PENDING_EXTERNAL después del futuro merge software.`  
+`RECOMMENDATION_TO_JOBS: siguiente asignación WOZ debe reutilizar SAME #61 @ aef1cd0...; si CI termina verde y integration sigue exactamente 58a6bf..., race-check + merge protegido expected-head. Si integration cambia antes, refresh SAME PR otra vez + CI aplicable. No iniciar 17.1 hasta que JOBS lo asigne separadamente.`  
+`TURN_FINISHED_AT: 2026-08-29T11:49-06:00`
 
 ## HISTORIAL
 
-- `NIGHT-WOZ-011`: ASSIGNED — SAME #61 integration transaction; refresh + CI si baseline cambió.
+- `NIGHT-WOZ-011`: PENDING — live baseline avanzó por #58 a `58a6bf...`; SAME #61 refrescada a `aef1cd0...`; CI exact-head nuevo en curso/queue; no merge.
 - `NIGHT-WOZ-010`: PENDING — PR #61 candidate software 16.2; CI terminó SUCCESS después del turno; no merge.
 - `NIGHT-WOZ-009`: PENDING_EXTERNAL — #59 merged `be9e58c...`; physical separation remains external.
 - `NIGHT-WOZ-008`: PENDING_CI — #59 refreshed; CI terminó verde después.
