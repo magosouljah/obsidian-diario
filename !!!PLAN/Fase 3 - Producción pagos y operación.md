@@ -4,15 +4,15 @@
 
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-**Estado nocturno CYCLE 012:** baseline vivo `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`. F3 sigue siendo uno de los mayores bloques abiertos de F0–F4.
+**Estado nocturno CYCLE 013:** baseline vivo `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`. F3 sigue siendo uno de los mayores bloques abiertos de F0–F4.
 
 ## Owner actual
 
-**WOZ — F3 / 16.2 software-only — `NIGHT-WOZ-013`.**
+**WOZ — F3 / 16.2 SAME PR #61 merge transaction — `NIGHT-WOZ-014`.**
 
-PR #59 `woz/night-16.1-runtime-operability` quedó **MERGED / DONE** en su slice software como `be9e58c9edc0bb40742e0b91e3f2ebe771ace502`. Esto integra el contrato runtime dependency-safe de 16.1; **no** satisface la separación física staging/prod.
+PR #59 quedó **MERGED / DONE** en su slice software como `be9e58c9edc0bb40742e0b91e3f2ebe771ace502`; no satisface separación física staging/prod.
 
-PR #61 `woz/night-16.2-promotion-contract` sigue OPEN/Ready/mergeable con head `aef1cd0b1a26be327e561f344d63dae5d8def7ef`, pero ese head fue validado sobre snapshot base `58a6bf614...`. El baseline vivo avanzó por #60 a `7de7b57a...`; el protected merge fue rechazado correctamente porque Required CI debía renovarse para la combinación nueva. `NIGHT-WOZ-013` debe REUSE SAME #61, refresh sobre el baseline vivo, exact-head CI nuevo y merge protegido si el race-check queda limpio.
+PR #61 `woz/night-16.2-promotion-contract` fue refrescada en `NIGHT-WOZ-013` a exact head `d254b294cf8fe78d93025271360dd73ed594898f`, preservando el delta F3 sobre `7de7b57a...`. GitHub actual: OPEN/Ready/mergeable=true; Required CI `33271019389` SUCCESS; D6 `33271019493` SUCCESS; no failure/in-progress observado en el set exact-head. Sigue NO MERGED hasta race-check/merge del owner.
 
 ## Día 16 — Staging y producción reproducibles
 
@@ -22,33 +22,17 @@ PR #61 `woz/night-16.2-promotion-contract` sigue OPEN/Ready/mergeable con head `
 - [ ] Provider final/ownership real donde aplique.
 - [x] Health/readiness/dependency checks; graceful shutdown, timeouts y proxy trust — **DONE / INTEGRATED** por PR #59.
 
-Integrado por #59:
-- `/healthz`;
-- `/readyz` con PostgreSQL `SELECT 1`, fail-closed si DB requerida falta/no responde;
-- draining durante shutdown;
-- trust proxy explícito/acotado;
-- request/header/keepalive/socket/dependency timeouts;
-- graceful SIGINT/SIGTERM drain;
-- `BEATGALER_DEPLOYMENT_ENV=staging|production` obligatorio bajo `NODE_ENV=production`;
-- knobs documentados en `.env.example`.
+Integrado por #59: `/healthz`; `/readyz` PostgreSQL fail-closed; draining; proxy trust acotado; timeouts; graceful shutdown; `BEATGALER_DEPLOYMENT_ENV`; knobs documentados.
 
-**Regla:** no crear nueva infraestructura pagada, provider projects, buckets/bots/OAuth projects ni recursos con costo sin aprobación RO. El merge #59 no convierte 16.1 entero en PASS.
+**Regla:** no crear infraestructura pagada, provider projects, buckets/bots/OAuth projects ni recursos con costo sin aprobación RO.
 
-### 16.2 — `[ 🟡 ] SOFTWARE CANDIDATE / NEEDS REFRESH` — WOZ `NIGHT-WOZ-013`
+### 16.2 — `[ 🟡 ] SOFTWARE CANDIDATE / READY_FOR_OWNER_RACE_CHECK` — WOZ `NIGHT-WOZ-014`
 
-Candidate existente #61 contiene contrato software dependency-safe para:
-- PR → preview; tag candidato → staging; aprobación → producción;
-- mismo source/artifact SHA;
-- API origin público HTTPS, sin localhost/Tailscale fallback;
-- headers inyectables;
-- smoke `/healthz` + `/readyz`;
-- rollback fail-closed al artefacto previo con compatibilidad DB + smoke.
+Candidate #61 cubre software dependency-safe para PR→preview; tag candidato→staging; aprobación→producción; mismo source/artifact SHA; API origin HTTPS sin localhost/Tailscale fallback; headers inyectables; smoke `/healthz` + `/readyz`; rollback fail-closed al artifact previo con compatibilidad DB + smoke.
 
-**Evidencia válida histórica:** exact head `aef1cd0...` tuvo D6/temp-auth/D7/Desktop Portability SUCCESS sobre el baseline anterior. **No autoriza merge post-#60.** GitHub ya rechazó usar el estado viejo después del movimiento de integración.
+**Orden 014:** si integration sigue en `7de7b57a...`, protected merge con expected head `d254b294...` tras race-check; si otro owner mueve integration, refresh SAME #61 + fresh applicable CI antes de merge. Tras integración declarar solo `16.2 SOFTWARE DONE / EXTERNAL TAIL`. Puede hacer audit READ-ONLY de 17.1 después, sin implementar Stripe sin nueva orden.
 
-**Orden 013:** refresh de SAME branch/PR #61 sobre `7de7b57a...`, preservar exclusivamente el delta F3, exact-head CI aplicable nuevo y protected merge expected-head solo con race-check limpio. Si integra, declarar únicamente `16.2 SOFTWARE DONE / EXTERNAL TAIL`; deploy/staging/production reales siguen externos.
-
-**Gate completo:** mismo SHA desplegable, smoke y rollback verificables, sin pasos manuales irrepetibles ni secretos compartidos entre entornos.
+**Gate completo:** mismo SHA desplegable, smoke y rollback verificables, sin pasos manuales irrepetibles ni secretos compartidos entre entornos. Deploy/staging/production reales siguen externos.
 
 ## Día 17 — Stripe Checkout y webhooks
 
