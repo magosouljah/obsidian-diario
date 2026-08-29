@@ -12,7 +12,7 @@ Cerrar la mayor cantidad posible de F2 sin invadir otras áreas. Un turno = una 
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-AAA-007`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: STALLED`
 - `AREA: F2 / 12.1 — Bootstrap y load / exact-head candidate closure`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`
 - `REUSE_BRANCH: aaa/night-12.1-bootstrap-load`
@@ -36,23 +36,23 @@ F1/F3/F4; pagos; signing/release; YouTube 15.3; 13.x/14.x/15.x; atomic empty-ind
 
 ## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-006`  
-`TURN_STATUS: PENDING`  
-`BASELINE: integration-v0.8.0-alpha.1 @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-007`  
+`TURN_STATUS: STALLED`  
+`BASELINE: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`  
 `BRANCH_HEAD: aaa/night-12.1-bootstrap-load @ d7cc93f9c4318be7f993bd033483c4e7f1834a55`  
-`PR: none`  
-`CAMBIOS: conserva 51232744 artwork lazy; añade taxonomy mínima ready/empty/no-results/offline/auth-failure/cloud-failure, timing reproducible durationMs/beatCount/state alrededor del metadata startup boundary y corrige tests para exigir cero eager artwork downloads.`  
-`TESTS: añadidos/actualizados en tests/component-dom/webLibrary.test.ts; ejecución UNVERIFIED.`  
-`CI: exact-head d7cc93f9 sin check-runs al cierre; UNVERIFIED.`  
-`EVIDENCIA: commits 388a73a71e9c94bf5d8059535f2f4bbac81a2d32 y d7cc93f9c4318be7f993bd033483c4e7f1834a55; Issue #41 comment 5462381947.`  
-`UNVERIFIED: ejecución real de tests, CI exact-head, performance cold/warm cuantificada, wiring de observation a surface diagnóstico de runtime.`  
-`BLOCKERS: no hay blocker externo demostrado; falta evidencia exact-head antes de candidate/PR.`  
-`RECOMENDACIÓN PARA JOBS: mantener 12.1 abierto; siguiente asignación puede verificar CI exact-head y decidir wiring diagnóstico mínimo. Atomic empty-index bootstrap sigue posterior y no fue tocado.`  
+`PR: #58 — OPEN; base f0d65aa...; head d7cc93f...; mergeable=false observado al abrir.`  
+`CAMBIOS: no se añadió código nuevo; se preservó lazy artwork + taxonomy/timing/tests existentes y se abrió el único PR #58 para convertir el slice en candidate verificable.`  
+`TESTS: ejecución real no disponible/verificada en este turno; UNVERIFIED.`  
+`CI: exact branch head d7cc93f9 no tenía workflow runs observados al cierre; UNVERIFIED.`  
+`EVIDENCIA: integration f0d65aa66988e3e1a026e237b65c65a56b098aa9; branch d7cc93f9c4318be7f993bd033483c4e7f1834a55; compare diverged ahead 3/behind 7, merge-base 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858; PR #58; Issue #41 comment 5462639147.`  
+`UNVERIFIED: tests ejecutados, refresh/union efectiva contra f0d65aa, CI exact-head/merge candidate, performance cold/warm cuantificada, wiring diagnóstico consumible.`  
+`BLOCKERS: no hay blocker externo demostrado. El candidate requiere refresh/union contra baseline vivo y ejecución/CI verificable; este turno no dispone de una operación segura de merge/rebase de branch contents que preserve el slice y produzca evidencia ejecutada.`  
+`RECOMENDACIÓN PARA JOBS: mantener 12.1 abierto y reutilizar exclusivamente PR #58/esta rama. Siguiente corrective assignment debe refrescar la lineage contra integration, ejecutar/corregir tests y obtener CI exact-head; no abrir otra PR. Atomic empty-index sigue fuera de este candidate.`  
 `STOP: sí.`
 
 ## HISTORIAL
 
-- `NIGHT-AAA-007`: ASSIGNED — cerrar candidate exact-head del corrective slice A en la misma rama; no atomic empty-index aún.
+- `NIGHT-AAA-007`: STALLED — PR #58 abierto sobre la misma lineage; branch diverged del baseline vivo y no hubo tests/CI verificables; no se acumuló código adicional.
 - `NIGHT-AAA-006`: PENDING — head `d7cc93f9...` añade taxonomy + timing + tests; CI exact-head aún UNVERIFIED.
 - `NIGHT-AAA-005`: PENDING — product commit `51232744...` retira eager artwork hydration; resto sin verificar.
 - `NIGHT-AAA-004`: STALLED — rama creada, sin product commit/PR/CI.
