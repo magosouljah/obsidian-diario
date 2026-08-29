@@ -5,15 +5,25 @@
 **Fechas:** 14–18 de septiembre  
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
+**Estado nocturno actual:** F3 sigue siendo el mayor bloque abierto de F0–F4. JOBS reasignó explícitamente a WOZ desde F1 external-only hacia **16.1** bajo `NIGHT-WOZ-007`. Baseline vivo: `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
+
+## Owner actual
+
+**WOZ — F3 / 16.1 — `NIGHT-WOZ-007`.**
+
+Primer slice: REUSE-FIRST de assets/runtime existentes; separar lo dependency-safe de lo que realmente requiera recursos/credenciales externos. No crear nueva infraestructura/costo sin autorización RO. Health/readiness/dependency checks, graceful shutdown, timeouts y proxy trust pueden cerrarse técnicamente si existe evidencia aplicable; staging/producción realmente separados no se declararán PASS sin recursos/secretos/callbacks separados verificables.
+
 ## Día 16 — 14 de septiembre — Staging y producción reproducibles
 
 **Resultado:** el mismo SHA se despliega de forma aislada y reversible.
 
-### Tarea 16.1 [P0 · OP/BE] — Entornos
+### Tarea 16.1 [P0 · OP/BE] — Entornos — `ASSIGNED / IN PROGRESS` — WOZ `NIGHT-WOZ-007`
 
 - [ ] Crear proyectos separados, base de datos, buckets/volúmenes, bots, OAuth callbacks y secretos para staging/producción.
 - [ ] Si se mantiene la propuesta del usuario: Cloudflare Pages para Web y Railway para API/PostgreSQL; documentar alternativa y ownership.
-- [ ] Health, readiness y dependency checks; graceful shutdown, timeouts y proxy trust.
+- [ 🟡 ] Health, readiness y dependency checks; graceful shutdown, timeouts y proxy trust. **WOZ audita primero lo ya existente y completa solo el delta real dependency-safe.**
+
+**Regla nocturna:** no crear una segunda RDS, nueva infraestructura pagada, cuentas/provider projects, buckets ni recursos con costo sin aprobación explícita RO. Si la separación real staging/prod requiere credenciales/decisión externa, registrar el blocker literal y continuar únicamente el contrato software reproducible.
 
 ### Tarea 16.2 [P0 · OP/QA] — Pipeline de promoción
 
