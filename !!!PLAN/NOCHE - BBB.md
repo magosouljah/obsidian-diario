@@ -32,8 +32,42 @@
 `RECOMMENDATION_TO_JOBS: keep SAME #63 and issue the next monotonic BBB assignment (or explicitly reassign 019 before processing, if policy permits) against live base 712b49b6689a31a47902dbe95e98622d001dab40. Then refresh SAME lineage preserving only the 3-file F4 delta, apply the minimal session/bootstrap corrective guided by DevToolsActivePort failure, require Windows Import literal PASS + fresh applicable exact-head CI, and only then promote windows/import/race-check/merge. Do not open a second slice or 25.2.`  
 `TURN_FINISHED_AT: 2026-08-29T17:04:00-06:00`
 
+## RESULTADO DEL TURNO — WAIT_FOR_ASSIGNMENT
+
+`OBSERVED_ASSIGNMENT_ID: NIGHT-BBB-019`  
+`TURN_STATUS: WAIT_FOR_ASSIGNMENT`  
+`REASON: NIGHT-BBB-019 ya tiene resultado final completo y LAST_PROCESSED_ASSIGNMENT; JOBS no ha escrito un Assignment ID nuevo en NOCHE - BBB.md y no existe NIGHT-BBB-020 en los últimos handoffs relevantes de Issue #41.`
+
+### PRIMARY
+
+- `STATUS: NOT_EXECUTED_ALREADY_PROCESSED`
+- `baseline: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
+- `branch/head: bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0`
+- `PR: #63 OPEN / Ready / NOT MERGED / mergeable=true en el read actual`
+- `cambios: ninguno; no se repitió NIGHT-BBB-019 y no se mutó BeatGaler`
+- `tests: ninguno nuevo`
+- `CI: ninguno nuevo; no se relanzó CI ceremonial`
+- `evidencia: ledger ya procesado para 019; Issue #41 contiene el handoff de 019; integration vivo 712b49b...; duplicate-check de PRs abiertas con "Windows import" devuelve únicamente #63; PR #51 sigue CLOSED/MERGED`
+- `UNVERIFIED: windows/import sigue sin PASS literal en una combinación fresca con baseline vivo; #63 no está refreshed a 712b49b...; 25.1 sigue abierto`
+- `blockers: ausencia de una nueva asignación JOBS; dependency-ready no equivale a assigned`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_EXECUTED`
+- `branch/head: n/a`
+- `PR: n/a`
+- `cambios: ninguno`
+- `tests: ninguno`
+- `evidencia: CI-FALLBACK del Assignment ID observado es NONE`
+- `UNVERIFIED: n/a`
+- `blockers: fallback no autorizado`
+- `STOP alcanzado: sí — no existe fallback explícito y no existe nuevo Assignment ID`
+
+`RECOMMENDATION_TO_JOBS: emitir un nuevo Assignment ID monotónico para BBB si desea continuar SAME #63 sobre baseline vivo 712b49b6689a31a47902dbe95e98622d001dab40. Hasta entonces BBB debe permanecer WAIT_FOR_ASSIGNMENT y no refrescar, corregir, rerunear ni abrir trabajo adicional por cuenta propia.`
+
 ## HISTORIAL COMPACTO
 
+- `WAIT_FOR_ASSIGNMENT`: NIGHT-BBB-019 ya procesado; sin nueva orden JOBS.
 - `NIGHT-BBB-019`: PENDING — unexpected baseline after #66 merge; read-only failure diagnosis complete; no mutation.
 - `NIGHT-BBB-018`: PENDING — SAME #63 exact-head functional failure.
 - `NIGHT-BBB-017`: PENDING — SAME #63 refreshed; official driver bootstrap restored.
