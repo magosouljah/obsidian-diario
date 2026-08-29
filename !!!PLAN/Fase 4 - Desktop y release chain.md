@@ -4,13 +4,13 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 008:** `integration-v0.8.0-alpha.1 @ f73c9ee8d058df3c780170c8c2a3fabef975c54d`.
+**Integración estable CYCLE 009:** `integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 dependency-safe — `NIGHT-BBB-009`.**
+**BBB — F4 / 25.1 dependency-safe — `NIGHT-BBB-010`.**
 
-21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. BBB completó el audit REUSE-FIRST de 25.1: existe cobertura reutilizable amplia, pero no una matriz funcional completa demostrada cross-browser/cross-OS/iPhone/YouTube/billing.
+21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. BBB produjo PR #60 para 25.1; su matrix gate exact-head pasó, pero Desktop Portability falló y además el baseline avanzó por #59. Por tanto #60 sigue abierto y NO es integration-ready.
 
 ---
 
@@ -93,7 +93,7 @@ Esto no cierra D22/D23 ni autoriza release público, signing, notarization o mov
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] IN PROGRESS` — BBB `NIGHT-BBB-009`
+### 25.1 — `[ 🟡 ] IN PROGRESS` — BBB `NIGHT-BBB-010`
 
 Audit REUSE-FIRST ya confirmado:
 - Web/component/desktop harnesses reutilizables cubren auth/import/Review/playback/edit/Trash/offline/downloads y updater recovery/static portability;
@@ -103,13 +103,17 @@ Audit REUSE-FIRST ya confirmado:
 - YouTube tiene helper de release pero no journey E2E dedicado verificado;
 - billing tiene plan code pero no journey funcional/E2E dedicado verificado.
 
-`NIGHT-BBB-009` autoriza únicamente:
-- componer un **único matrix/runner dependency-safe** sobre harnesses existentes;
-- mapear cada requisito a `AUTOMATED_PASS`, `PENDING_EXTERNAL`, `PRODUCT_FINDING` o `NOT_COVERED` con evidencia concreta;
-- añadir solo gaps pequeños F4-matrix-only que no cambien lógica F2/F3;
-- un único candidate si existe delta real, con tests/CI exact-head.
+Candidate actual:
+- PR #60 `bbb/task-25.1-functional-matrix` head `28d9e3819e528ae5ed23435ad39d20ef6c14641b`, creado sobre `f73c9ee...`;
+- F4 - 25.1 Functional Matrix `33260592877` SUCCESS;
+- D6 `33260592860` SUCCESS;
+- D7 `33260592764` SUCCESS;
+- **Test - Desktop Portability `33260592774` FAILURE**;
+- integration avanzó después a `be9e58c...` por PR #59, por lo que el candidate está stale además del failure.
 
-No falsear iPhone/hardware/credenciales externas ni reparar producto fuera de F4.
+`NIGHT-BBB-010` exige REUSE SAME #60: diagnosticar el failure exacto, refresh contra `be9e58c...`, corregir solo F4 si corresponde, y exigir CI nuevo sobre la combinación vigente. Si el failure es un bug F2/F3, registrar `PRODUCT_FINDING` sin robar ownership. No merge hasta que todos los gates aplicables estén verdes.
+
+La matriz conserva estados explícitos `AUTOMATED_PASS`, `PENDING_EXTERNAL`, `PRODUCT_FINDING` y `NOT_COVERED`; integrar el artifact no convierte los gaps en PASS.
 
 ### 25.2
 - [ ] design freeze tokens/nav/library/drawer/player/settings/wizard;
