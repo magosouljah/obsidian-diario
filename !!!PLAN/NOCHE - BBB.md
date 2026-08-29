@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-BBB-011`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F4 / 25.1 — integrate SAME PR #60 after live-baseline race-check`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`
 - `REUSE_PR: #60 / bbb/task-25.1-functional-matrix`
@@ -29,23 +29,23 @@
 
 ## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-010`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-011`  
 `TURN_STATUS: PENDING`  
-`BASE_BEFORE: integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`  
-`HEAD_AFTER: bbb/task-25.1-functional-matrix @ f8773d5f3f0a93d5e1a0a338cd3e5db6c1f574c4`  
-`PR: #60 OPEN / Ready; base_sha be9e58c9edc0bb40742e0b91e3f2ebe771ace502; same lineage reused.`  
-`CHANGES: diagnosed Desktop Portability 33260592774 failure as mutable GitHub Actions refs; refreshed SAME branch to live baseline, pinned actions immutably and preserved only F4 scope.`  
-`TESTS: F4 - 25.1 Functional Matrix 33263350498 SUCCESS.`  
-`CI: D6 33263350489 SUCCESS; D7 33263350490 SUCCESS; Test - Desktop Portability/Required CI 33263350496 terminó SUCCESS después del STOP de BBB-010.`  
-`EVIDENCE: exact head f8773d5f3f0a93d5e1a0a338cd3e5db6c1f574c4, base be9e58c9..., PR mergeable true, todos los gates aplicables observados verdes.`  
-`UNVERIFIED: race-check posterior a cualquier merge previo del ciclo; merge SHA/integration result; journeys marcados NOT_COVERED/PENDING_EXTERNAL.`  
-`BLOCKERS: ninguno si baseline no cambia; si cambia, refresh + CI exact-head obligatorio.`  
-`RECOMMENDATION_TO_JOBS: 011 debe consumir el verde actual solo si la combinación sigue intacta; si AAA mueve integration, refrescar SAME #60 y no bypass.`  
-`TURN_FINISHED_AT: 2026-08-29 10:35 America/Mexico_City`
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 58a6bf61441f08bf68aa63673c0d5f2994b220d9 (PR #58 ya integrado por AAA; baseline asignado be9e58c... quedó stale).`  
+`HEAD_AFTER: bbb/task-25.1-functional-matrix @ 945638c8bb650b0ce0bbe569e48a791a93d80e39`  
+`PR: #60 OPEN / Ready / mergeable; SAME lineage reutilizada. Compare live baseline 58a6bf... -> head 945638c... muestra solo 3 paths F4: workflow, matrix y validator.`  
+`CHANGES: race-check detectó baseline movido por #58; se refrescó exclusivamente SAME #60 mediante merge-union sobre 58a6bf..., preservando el delta F4 y actualizando matrix.baseline a 58a6bf61441f08bf68aa63673c0d5f2994b220d9. No rama/PR duplicada; no F2/F3/25.2/signing/notarization/release.`  
+`TESTS: nuevo exact-head disparó F4 - 25.1 Functional Matrix run 33265800007; al cierre seguía IN_PROGRESS.`  
+`CI: Test - Desktop Portability 33265800008 QUEUED; D6 33265800004 IN_PROGRESS; D7 33265800022 IN_PROGRESS. Upgrade 21.2 Staging 33265800019 también IN_PROGRESS por paths/workflow aplicable. Verde anterior no fue reutilizado para esta combinación materialmente nueva.`  
+`EVIDENCE: live integration 58a6bf61441f08bf68aa63673c0d5f2994b220d9 es merge verificado de #58 con parent be9e58c...; PR #60 head exacto 945638c8bb650b0ce0bbe569e48a791a93d80e39, mergeable=true, draft=false; compare live baseline->head = ahead/behind 4/0 y solo 3 archivos F4. PR #51 verificada GitHub real: CLOSED/MERGED, draft=false, merge 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858.`  
+`UNVERIFIED: resultado final de runs 33265800007/00008/00004/00022/00019; race-check posterior al CI; merge SHA/integration result; journeys NOT_COVERED/PENDING_EXTERNAL continúan sin promoción.`  
+`BLOCKERS: CI exact-head/combinación nueva todavía en ejecución; por orden JOBS no se puede mergear hasta verde aplicable completo.`  
+`RECOMMENDATION_TO_JOBS: revalidar SAME #60 @ 945638c... cuando terminen runs; si todos los gates aplicables quedan verdes y integration sigue 58a6bf..., emitir/continuar race-check protegido con expected-head. Si integration vuelve a moverse, refrescar SAME #60 + CI nuevo; no bypass ni 25.2 automático.`  
+`TURN_FINISHED_AT: 2026-08-29 11:33 America/Mexico_City`
 
 ## HISTORIAL
 
-- `NIGHT-BBB-011`: ASSIGNED — SAME #60 integration transaction con race-check; refresh + CI si baseline cambió.
+- `NIGHT-BBB-011`: PENDING — baseline avanzó por #58 a `58a6bf...`; SAME #60 refrescada a `945638c...`; exact-head CI nuevo en curso; no merge.
 - `NIGHT-BBB-010`: PENDING — SAME #60 refreshed a `be9e58c...`; immutable-action fix; head `f8773d5...`; F4 matrix/D6/D7/Portability finalmente SUCCESS; no merge.
 - `NIGHT-BBB-009`: PENDING — #60 candidate; matrix/D6/D7 green pero Desktop Portability failure y stale base.
 - `NIGHT-BBB-008`: DONE — #57 merge `f73c9ee...`; 24.2 closed.
