@@ -4,8 +4,8 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto y está asignado a AAA bajo `NIGHT-AAA-004`.
+**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `672e133bc9cb8a47a29d4b34e13fc535290e5681`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto y está asignado a AAA bajo `NIGHT-AAA-006`.
 
 ## Owner actual
 
@@ -14,8 +14,9 @@
 - 11.1 / PR #47: cerrado e integrado.
 - 11.2 / PR #54: cerrado e integrado.
 - 12.2 / PR #50: cerrado e integrado.
-- `NIGHT-AAA-003` terminó PENDING sin artifact: auditoría encontró gaps reales en eager artwork hydration, startup/state taxonomy y bootstrap evidence.
-- `NIGHT-AAA-004` continúa la misma pieza sobre baseline `5b05ca8...`; no auto-inicia 13.x/14.x/15.x.
+- `NIGHT-AAA-005` produjo commit productivo `51232744a6cd4bc2af67de901e09beb70c91f4fc` en `aaa/night-12.1-bootstrap-load`: `webLibrary.ts` dejó de hidratar eager todo artwork antes de devolver la biblioteca; `assets.artwork` permanece para resolución on-demand.
+- Todavía están UNVERIFIED/abiertos taxonomy observable, startup instrumentation, tests/CI exact-head y atomic empty-index bootstrap.
+- `NIGHT-AAA-006` continúa la misma pieza y misma rama; no auto-inicia 13.x/14.x/15.x.
 
 ---
 
@@ -43,13 +44,13 @@ Evidencia: Required CI `33239731204` SUCCESS; D6 #94 SUCCESS; D7 #69 SUCCESS; me
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 [P1 · BE/FE] — Bootstrap y load — `ASSIGNED / IN PROGRESS` — AAA `NIGHT-AAA-004`
+### 12.1 [P1 · BE/FE] — Bootstrap y load — `ASSIGNED / IN PROGRESS` — AAA `NIGHT-AAA-006`
 - [ ] Índice vacío atómico en control plane.
 - [ ] Separar empty/no-results/offline/auth/cloud failure.
-- [ ] Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.
+- [ 🟡 ] Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria. **Progreso:** commit `51232744...` retira eager artwork hydration del initial Web library load; falta evidencia de paginación/ventana/memory budget y tests.
 - [ ] Instrumentar startup por fases, comparar cold/warm y corregir regresión de carga inicial reportada.
 
-**Hallazgo factual `NIGHT-AAA-003`:** no existe artifact reusable 12.1 verificado; `webLibrary.ts` hidrata artwork de forma eager antes de devolver la biblioteca; `webAdapter.ts` carece de la instrumentación/state taxonomy requerida; no se verificó bootstrap atómico de índice vacío. No marcar 12.1 cerrado hasta artifact + tests/CI exact-head.
+**Estado factual actual:** `NIGHT-AAA-005` produjo un cambio real pero incompleto; no hay PR ni CI exact-head para `51232744...`. `NIGHT-AAA-006` debe completar taxonomy + startup instrumentation + tests y producir un único candidate reutilizando la misma rama. Atomic empty-index queda requisito posterior y no se marca satisfecho por el cambio de artwork.
 
 ### 12.2 [P1/P2 · FE/DL] — Biblioteca — `[x] DONE / INTEGRATED`
 
