@@ -30,20 +30,21 @@
 
 `LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-014`  
 `TURN_STATUS: PENDING`  
-`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`  
 `BRANCH/HEAD: bbb/task-25.1-windows-import @ 9208ead249345d29458a5ae939923dd5c2f47dfb`  
-`PR: #63 OPEN / Ready / mergeable; NOT MERGED; SAME lineage.`  
-`CAMBIOS: causa mínima del failure 33271091186 aislada a glue/driver F4: build + import harness llegaron al arranque de WDIO pero el proveedor externo tauri-driver/Edge falló antes de ejecutar specs con DevToolsActivePort; además el workflow antiguo hacía checkout del merge-ref de PR pese a llamarse exact source. Se añadió solo scripts/prepare-f4-25.1-embedded-driver.mjs, el workflow ahora hace checkout explícito de github.event.pull_request.head.sha + assert git rev-parse HEAD y prepara driver embebido Tauri para el harness aislado. La matriz volvió honestamente windows/import a NOT_COVERED hasta PASS real. Sin cambios de producto F2/F3.`  
-`TESTS: se reutiliza npm run test:e2e:import; no se creó segundo harness productivo. Nuevo gate funcional exact-head: F4 - 25.1 Windows Import Journey run 33272794199 IN_PROGRESS.`  
-`CI: exact head 9208ead249345d29458a5ae939923dd5c2f47dfb: F4 Matrix 33272794263 SUCCESS; Windows Import 33272794199 IN_PROGRESS; D6 33272794193 IN_PROGRESS; D7 33272794195 IN_PROGRESS; Desktop Portability 33272794215 PENDING; Upgrade 21.2 Staging 33272794243 SKIPPED/no aplicable.`  
-`EVIDENCIA: PR #63 reread OPEN/Ready/mergeable sobre base 7de7b57a... y head 9208ead...; PR #51 revalidada GitHub vivo CLOSED/MERGED, no Ready; integration permanecía 7de7b57a... durante preflight. Matrix exact-head confirma windows/import NOT_COVERED hasta PASS.`  
-`UNVERIFIED: windows/import sigue NOT_COVERED; el nuevo driver embebido aún no tiene PASS exact-head; 25.1 completo sigue abierto con todos los demás NOT_COVERED/PENDING_EXTERNAL/PRODUCT_FINDING honestos.`  
-`BLOCKERS: gate funcional 33272794199 y CI aplicable exact-head aún no terminaron; merge prohibido.`  
-`RECOMMENDATION_TO_JOBS: mantener NIGHT-BBB-014 sobre SAME PR #63/lineage en próximo ciclo; si 33272794199 pasa y gates aplicables quedan verdes con baseline sin mover, promover windows/import a AUTOMATED_PASS en la misma lineage y exigir evidencia exact-head nueva antes de merge. Si integration se mueve, refresh SAME lineage. No asignar segundo slice antes de cerrar/descartar #63.`
+`PR: #63 OPEN / Ready / mergeable; NOT MERGED; SAME lineage; candidate quedó stale frente al baseline vivo 55e0d8759ec03b23fa8e4f1f35304922dffeb992.`  
+`CAMBIOS: NO-OP productivo en esta revalidación. El protocolo nocturno exige ASSIGNMENT_STATUS=ASSIGNED y Assignment ID no procesado; NIGHT-BBB-014 ya figura PENDING + LAST_PROCESSED_ASSIGNMENT, por lo que BBB no volvió a mutar #63 ni abrió trabajo nuevo. Preflight vivo sí procesó la evidencia que terminó después del turno anterior: run 33272794199 falló en el step Prepare isolated embedded Tauri driver, antes de ejecutar el import harness. La causa mínima verificable es glue F4: scripts/prepare-f4-25.1-embedded-driver.mjs esperaba el marcador de desactivación de driver externo en wdio.e2e.conf.mjs y no lo encontró. No hay evidencia de bug de producto F2/F3.`  
+`TESTS: npm run test:e2e:import NO SE EJECUTÓ en run 33272794199; quedó SKIPPED porque el bootstrap F4 falló antes. No se repitieron tests ni CI por idempotencia.`  
+`CI: exact head 9208ead249345d29458a5ae939923dd5c2f47dfb: F4 Matrix 33272794263 SUCCESS; D6 33272794193 SUCCESS; D7 33272794195 SUCCESS; Desktop Portability 33272794215 SUCCESS; Windows Import 33272794199 FAILURE; Upgrade 21.2 Staging 33272794243 SKIPPED/no aplicable.`  
+`EVIDENCIA: integration-v0.8.0-alpha.1 avanzó a 55e0d8759ec03b23fa8e4f1f35304922dffeb992 por merge de PR #61; #63 sigue OPEN/Ready/mergeable @ 9208ead249345d29458a5ae939923dd5c2f47dfb; exact-head checkout y su assert sí pasaron en 33272794199; failure determinístico: [f4-25.1] disable external driver installation marker missing in wdio.e2e.conf.mjs; PR #51 revalidada GitHub vivo CLOSED/MERGED con merge 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858, no Ready.`  
+`UNVERIFIED: windows/import continúa NOT_COVERED; ninguna spec del journey corrió en 33272794199; no existe PASS funcional exact-head; #63 no está refrescada contra baseline 55e0d8759ec03b23fa8e4f1f35304922dffeb992; 25.1 completo permanece abierto.`  
+`BLOCKERS: NIGHT-BBB-014 no está ASSIGNED sino PENDING y ya fue procesada; el gate funcional específico 33272794199 está FAILURE; integration se movió, por lo que incluso un PASS del head viejo no habilitaría merge sin refresh + fresh applicable CI.`  
+`RECOMMENDATION_TO_JOBS: emitir nuevo Assignment ID monotónico NIGHT-BBB-015 si se desea continuar SAME #63. Mantener owner/scope F4; autorizar el fix mínimo marker-safe del bootstrap, refresh SAME lineage sobre integration 55e0d8759ec03b23fa8e4f1f35304922dffeb992 preservando solo delta #63 y exigir Windows Import PASS + applicable CI exact-head nuevo antes de merge. No asignar segundo slice/25.2 mientras #63 siga viva.`  
+`TURN_FINISHED_AT: 2026-08-29T14:55:00-06:00`
 
 ## HISTORIAL
 
-- `NIGHT-BBB-014`: PENDING — SAME #63 corregida a head `9208ead249...`; driver/bootstrap F4 corregido, exact-head checkout enforced, matrix vuelve NOT_COVERED; CI nuevo en curso, no merge.
+- `NIGHT-BBB-014`: PENDING — revalidación idempotente: assignment ya procesado/PENDING, por protocolo no se reejecutó. #63 sigue @ `9208ead249...`; Windows Import `33272794199` FAILURE en bootstrap por marker mismatch antes de specs; integration avanzó a `55e0d8759e...`; requiere nuevo Assignment ID para continuar SAME lineage.
 - `NIGHT-BBB-013`: PENDING — PR #63 @ `65a7bf070...`; exact functional run luego FAILURE; PR #62 duplicate CLOSED.
 - `NIGHT-BBB-012`: DONE — #60 merged `7de7b57a...`.
 - `NIGHT-BBB-011`: PENDING — #60 refreshed.
