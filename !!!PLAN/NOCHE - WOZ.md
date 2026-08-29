@@ -7,16 +7,23 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-015`
-- `ASSIGNMENT_STATUS: PENDING`
-- `AREA: F3 / 17.1 — Stripe Checkout server-side software-only`
-- `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`
-- `LIVE_BASE_USED: integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`
+- `ASSIGNMENT_ID: NIGHT-WOZ-016`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F3 / 17.1 — SAME PR #65 exact-head green race-check / integration transaction`
+- `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`
 - `PR: #65 / woz/night-17.1-checkout-contract`
+- `KNOWN_HEAD: e65538640581f3f986748968db1f4dfb069c2579`
 
 ### Orden JOBS
 
-Ejecutar únicamente 17.1 software dependency-safe con preflight factual y REUSE-FIRST. Mantener precios/plan server-side, idempotency, fail-closed y no entitlement por redirect. No avanzar 17.2 ni crear recursos Stripe reales. Candidate único, exact-head CI y no merge con CI rojo o baseline movido.
+1. Preflight factual contra GitHub vivo, Plan Maestro, F3, Registro, roles, protocolo, este ledger e Issue #41. GitHub manda.
+2. REUSE-FIRST SAME #65; no abras candidato paralelo.
+3. JOBS verificó exact-head `e6553864...`: F3 17.1 `33276769749` SUCCESS; Desktop Portability/Required CI `33276769684` SUCCESS; D6 `33276769695` SUCCESS; D7 `33276769698` SUCCESS; temp-auth `33276769702` SUCCESS; Upgrade 21.2 `33276769715` SKIPPED/no aplicable.
+4. Reread PR #65 y baseline. Si head exacto sigue `e6553864...`, PR sigue mergeable/Ready y integration sigue compatible en `b114111c...`, ejecuta race-check final y merge autorizado de SAME #65. Si baseline/head cambió, refresh SAME lineage + fresh applicable exact-head CI; no merges stale.
+5. Tras merge verifica merge SHA/parents y branch integration. Declara únicamente `17.1 SOFTWARE DONE / INTEGRATED`; no Stripe productivo, no credenciales, no producto/precio comercial real y no 17.2 DONE.
+6. Si el merge no puede ejecutarse por protección/race/CI nuevo, termina PENDING con blocker exacto; no amplíes scope.
+7. No iniciar 17.2 en este assignment. JOBS lo reasignará con ID nuevo después de integración verificable de 17.1.
+8. Handoff en este markdown + Issue #41 y STOP.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE — NIGHT-WOZ-015
 
@@ -26,20 +33,16 @@ Ejecutar únicamente 17.1 software dependency-safe con preflight factual y REUSE
 `BASE_BEFORE: integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`  
 `HEAD_AFTER: woz/night-17.1-checkout-contract @ e65538640581f3f986748968db1f4dfb069c2579`  
 `PR: #65 OPEN; base_sha b114111cafb29b4aa50cdce014059c66a75bddf2; NOT MERGED.`  
-`CHANGES: retained 17.1 checkout contract implementation/tests from candidate 584b5cf3...; fixed only the focal workflow supply-chain violation by replacing mutable actions/checkout@v4 and actions/setup-node@v4 with immutable SHAs already evidenced by Required CI logs.`  
-`TESTS: previous exact-head focal suite on 584b5cf3... passed all 17.1 deterministic cases; no productive test repeated manually. New head changes CI metadata only.`  
-`CI: prior Required CI 33276146715 completed FAILURE solely at Supply chain gate / Verify every external GitHub Action is immutable; logs identified f3-17.1-checkout-contract.yml lines 17 and 20 as the only mutable refs. All functional jobs in that run passed. Fix head e6553864... triggered fresh exact-head runs: F3 33276769749 QUEUED; Required CI 33276769684 QUEUED; D6 33276769695 QUEUED; D7 33276769698 QUEUED; temp-auth 33276769702 QUEUED; Upgrade 21.2 33276769715 SKIPPED by paths.`  
-`EVIDENCE_REUSED: PLAN_CATALOG identities; prior 17.1 focal success; Required CI failure logs supplied exact immutable action SHAs already used by repository CI (checkout 3d3c42e5aac5ba805825da76410c181273ba90b1; setup-node 820762786026740c76f36085b0efc47a31fe5020). No expensive CI was manually rerun.`  
-`EVIDENCE_NEW: root cause isolated to mutable action refs; minimal workflow-only repair commit e65538640581f3f986748968db1f4dfb069c2579; integration re-read unchanged at b114111c...; fresh exact-head CI automatically queued.`  
-`UNVERIFIED: final conclusions of exact-head e6553864... CI; productive Stripe account/products/prices/credentials; actual commercial currency/trial/tax decisions; real provider Checkout Session; webhooks/17.2; entitlement reconciliation; physical staging/prod.`  
-`BLOCKERS: exact-head CI for repaired candidate still queued. No merge while gates are not green.`  
-`RECOMMENDATION_TO_JOBS: keep SAME PR #65 and SAME assignment. If e6553864... applicable CI closes green and integration remains b114111c..., perform authorized race-check/merge; if baseline moves, refresh SAME #65 and require fresh applicable exact-head CI. Keep 17.2 separate.`  
-`TURN_FINISHED_AT: 2026-08-29T15:44-06:00`
+`CHANGES: retained 17.1 implementation/tests; repaired only mutable GitHub Action refs with immutable SHAs.`  
+`WORKER_CLOSING_SNAPSHOT: fresh exact-head CI queued.`  
+`JOBS_POST_RESULT_VERIFICATION: all applicable exact-head runs on e6553864... completed SUCCESS; no gate remains red/pending at this snapshot.`  
+`UNVERIFIED: merge itself; productive Stripe account/products/prices/credentials; commercial trial/currency/tax decisions; real Checkout; webhooks/17.2; entitlements; physical staging/prod.`  
+`RECOMMENDATION_TO_JOBS: owner race-check + protected merge SAME #65, then close only 17.1 software slice.`
 
 ## HISTORIAL
 
-- `NIGHT-WOZ-015`: PENDING_CI — #65 repaired minimally at `e6553864...` after Required CI exposed mutable action refs; fresh exact-head CI queued.
-- `NIGHT-WOZ-015` earlier: PENDING_CI — #65 candidate `584b5cf3...`; focal/D6/D7/temp-auth green; Required CI later failed supply-chain pin check.
+- `NIGHT-WOZ-016`: ASSIGNED — SAME #65 exact-head green race-check/integration transaction.
+- `NIGHT-WOZ-015`: PENDING_CI — #65 repaired at `e6553864...`; CI later verified all green by JOBS.
 - `NIGHT-WOZ-014`: DONE — #61 merged `55e0d875...`; 16.2 SOFTWARE DONE / EXTERNAL TAIL.
 - `NIGHT-WOZ-013`: PENDING_CI — refreshed `d254b294...`; CI later green.
 - `NIGHT-WOZ-012`: PENDING_CI_REFRESH.
