@@ -8,67 +8,66 @@
 
 Terminar F0–F4 o reducirlas al mínimo número factual de blockers externos. Prioridad: (1) F0–F4, (2) sencillez, (3) limpieza. Evidence-before-claim; REUSE-FIRST; duplicate-check; exact-head; no rebajar gates.
 
-## BASELINE VIVO — CYCLE 013 FINAL
+## BASELINE VIVO — CYCLE 014 FINAL
 
-- BeatGaler integración: `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`.
-- GitHub reread confirma que sigue siendo merge de PR #60; no hubo nueva integración durante este ciclo JOBS.
+- BeatGaler integración: `integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`.
+- GitHub branch reread confirma merge de PR #61 con parents `7de7b57a... + d254b294...`.
 - Release público: 🔴 `NO-GO`.
-- F0: 1.2 y 2.2 tails externos/administrativos; no hay slice técnico nocturno de mayor retorno.
+- F0: 1.2 y 2.2 tails externos/administrativos; no slice técnico nocturno de mayor retorno.
 - F1: D6/D7/D8/D9 PASS; D10.1 external-only por off-provider/off-account copy + read/checksum; D10.2 RO.
-- F2: #64 existe/mergeable pero su exact-head Required CI/Test Desktop Portability `33271187072` terminó FAILURE. Tests focales atomic bootstrap quedaron UNVERIFIED en AAA-013. No merge/no PASS.
-- F3: #61 refreshed exact head `d254b294cf8fe78d93025271360dd73ed594898f`, OPEN/Ready/mergeable=true; Required CI `33271019389` SUCCESS y D6 `33271019493` SUCCESS; no failure/in-progress exact-head observado. No integración reclamada: owner transaction pendiente.
-- F4: #63 exact head `65a7bf07029babfb500d3913226ec8a5ca6e0deb`, OPEN/Ready/mergeable. Required CI `33271091123` SUCCESS, pero Windows import functional journey `33271091186` terminó FAILURE en el harness existente. No merge/no functional PASS.
+- F2: #64 exact head `3e7fd0a0d7db6f7f423de47c86e643c36d6bcd24`, base viva `55e0d875...`, OPEN/Ready/mergeable. Required CI/Test Desktop Portability `33272883660` terminó SUCCESS exact-head; Web+shared, Portable Windows y native macOS observados SUCCESS. No merge todavía.
+- F3: #61 integrado como `55e0d875...`; 16.2 queda SOFTWARE DONE / EXTERNAL TAIL. Duplicate-check de Stripe visible no encontró implementation reutilizable para 17.1.
+- F4: #63 @ `9208ead249345d29458a5ae939923dd5c2f47dfb`, OPEN/Ready/mergeable pero stale vs `55e0d875...`. F4 Matrix/D6/D7/Desktop Portability verdes; Windows Import `33272794199` FAILURE antes de specs por marker mismatch del bootstrap. `windows/import` sigue NOT_COVERED.
 
 ## RESULTADOS PROCESADOS
 
-### AAA / `NIGHT-AAA-013`
-- Resultado del worker: `PENDING`, PR #64 OPEN/Ready/NOT MERGED @ `86ea14ad...`.
-- Candidate reutilizó advisory locks PostgreSQL + `commitIndexCopyOnWrite`; añadió `/transport/index/ensure`, Web wire y tests de race/retry/existing/provider/pointer-failure.
-- El handoff dejó ejecución de tests focales y CI final como UNVERIFIED.
-- GitHub posterior resolvió el CI de forma negativa: run `33271187072` FAILURE exact-head. Jobs visibles: Web+shared Chrome smoke FAILURE; Portable Windows FAILURE; native macOS arm64/x86_64 FAILURE.
-- Consecuencia: no se promueve atomic bootstrap; SAME #64 pasa a corrective assignment 014.
+### AAA / `NIGHT-AAA-014`
+- Worker terminó PENDING en #64 @ `3e7fd0a0...` después de corregir el cycle Web atribuible y el harness focal dentro de SAME lineage.
+- El Required CI final estaba queued al cierre del worker, pero GitHub posterior resolvió el dato: `33272883660` SUCCESS exact-head.
+- #64 sigue OPEN/Ready/mergeable sobre base viva `55e0d875...`.
+- Consecuencia: blocker técnico/CI desapareció; el próximo paso correcto es owner race-check + protected merge, no más corrective work. Tras merge solo se cierra atomic sub-slice; 12.1 sigue abierto.
 
-### BBB / `NIGHT-BBB-013`
-- Resultado del worker: `PENDING`, PR #63 OPEN/Ready/mergeable @ `65a7bf070...`.
-- Reutilizó `test:e2e:import` y añadió únicamente workflow Windows + promotion condicionada en la matriz.
-- Required CI amplio terminó SUCCESS, pero el gate literal creado para esta cobertura `33271091186` terminó FAILURE en `Run existing Windows import E2E harness`.
-- Consecuencia: `windows/import` sigue no demostrado; la matriz no se promueve falsamente; SAME #63 recibe corrective 014.
-- Duplicate-check: PR #62 quedó CLOSED/NOT MERGED y no se reabre.
+### BBB / `NIGHT-BBB-014`
+- Worker/handoff final PENDING; SAME #63 sigue @ `9208ead249...` y no fue refrescada después de #61.
+- Run funcional `33272794199` terminó FAILURE en `Prepare isolated embedded Tauri driver` antes de ejecutar `npm run test:e2e:import` specs.
+- Causa mínima verificable: glue F4 marker mismatch en `prepare-f4-25.1-embedded-driver.mjs` vs `wdio.e2e.conf.mjs`; no product finding F2/F3 demostrado.
+- Consecuencia: SAME #63 corrective + refresh + fresh functional/exact-head evidence. No false AUTOMATED_PASS.
 
-### WOZ / `NIGHT-WOZ-013`
-- Resultado del worker: `PENDING_CI`, SAME #61 refreshed a `d254b294...` preservando solo delta F3/16.2 sobre `7de7b57a...`.
-- GitHub posterior: PR OPEN/Ready/mergeable=true; Required CI exact-head `33271019389` SUCCESS; D6 `33271019493` SUCCESS; no failure/in-progress exact-head observado.
-- Consecuencia: blocker CI quedó resuelto; candidate pasa a owner race-check/protected merge bajo 014. JOBS no bypassa la integración técnica del owner.
+### WOZ / `NIGHT-WOZ-014`
+- DONE verificable: SAME PR #61 protected-merged como `55e0d8759ec03b23fa8e4f1f35304922dffeb992`.
+- Exact-head evidence reutilizada: Required CI `33271019389`, D6 `33271019493`, D7 `33271019399`, temp-auth `33271019373`, F4 matrix `33271019370` SUCCESS.
+- Declaración limitada: 16.2 SOFTWARE DONE / EXTERNAL TAIL; physical deploy/staging/provider/DNS/rollback reales siguen externos.
+- Audit/duplicate-check read-only no encontró Stripe Checkout/idempotency visible, por lo que 17.1 software-only es el siguiente bloque independiente de mayor retorno.
 
 ## CAMINO CRÍTICO GLOBAL — RECALCULADO DESDE CERO
 
-1. **F2 / 12.1 #64 exact-head red:** candidate existe, pero el gate amplio falló y sus tests focales siguen sin ejecución demostrada. Resolver ese failure es el movimiento interno más crítico antes de abrir más slices F2.
-2. **F3 / 16.2 #61 exact-head green:** retorno inmediato máximo; el owner puede integrar si race-check sigue limpio. Si otro merge mueve baseline antes, debe refresh + fresh CI.
-3. **F4 / 25.1 #63 functional red:** la evidencia negativa real tiene prioridad sobre empezar otra cobertura. Fix mínimo o PRODUCT_FINDING; ningún false PASS.
+1. **F2 / 12.1 #64 exact-head green:** retorno inmediato máximo; owner merge puede cerrar atomic empty-index y desbloquear pagination/window/memory.
+2. **F3 / 17.1:** 16.2 software ya está integrado; D17–D20 es ahora el mayor volumen técnico abierto. Checkout server-side software-only puede avanzar sin esperar physical staging/credenciales.
+3. **F4 / 25.1 #63 functional red:** failure atribuible a glue F4 y baseline stale. Corregir/refresh antes de ampliar matrix.
 4. **F0/F1:** blockers activos son externos/RO; no repetir drills ni consumir workers técnicos.
 
-Las nuevas asignaciones no se conservaron por inercia. Cada candidate fue revaluado desde GitHub actual: AAA permanece por failure real #64; BBB permanece por failure real #63; WOZ permanece porque #61 cambió de PENDING_CI a integration-ready subject to race-check.
+No se conservó asignación por inercia: AAA sigue en #64 porque el candidate cambió a merge-ready; BBB sigue en #63 porque existe un failure específico no resuelto; WOZ abandona 16.2 ya integrada y pasa a 17.1.
 
 ## TABLERO AAA / BBB / WOZ
 
 | Worker | Resultado procesado | Nueva asignación | Objetivo |
 |---|---|---|---|
-| AAA | 013: #64 candidate, CI final FAILURE | `NIGHT-AAA-014` | SAME #64: causa mínima/fix atribuible + ejecutar focal tests + fresh exact-head CI; merge solo si verde |
-| BBB | 013: #63 candidate; Required CI green pero functional journey FAILURE | `NIGHT-BBB-014` | SAME #63: resolver gate Windows/import; no false matrix PASS ni segundo slice |
-| WOZ | 013: #61 refreshed; exact-head CI ahora green/mergeable | `NIGHT-WOZ-014` | SAME #61 race-check + protected merge; refresh/fresh CI si baseline cambia |
+| AAA | 014 PENDING → CI posterior verde | `NIGHT-AAA-015` | SAME #64 race-check/merge; después pagination/window/memory si merge demostrado |
+| BBB | 014 PENDING → marker mismatch F4 + stale baseline | `NIGHT-BBB-015` | SAME #63 marker-safe fix + refresh + Windows Import PASS + fresh exact-head CI |
+| WOZ | 014 DONE → #61 merged `55e0d875...` | `NIGHT-WOZ-015` | F3/17.1 Stripe Checkout server-side software-only |
 
-Ownership exclusivo: AAA=F2/12.1 #64; BBB=F4/25.1 #63; WOZ=F3/16.2 #61. No overlap material.
+Ownership exclusivo: AAA=F2/12.1; BBB=F4/25.1 #63; WOZ=F3/17.1. No overlap material.
 
 ## ASIGNACIONES EMITIDAS
 
-### `NIGHT-AAA-014`
-REUSE SAME #64. Procesar `33271187072` FAILURE sin esconderlo tras D6/D7 verdes. Verificar los tests atomic bootstrap añadidos. Fix solo atribuible al slice; finding ajeno → reportar. Fresh exact-head CI tras cambios/baseline movement. Integrar únicamente con tests + applicable CI green + race-check. Cerrar solo atomic sub-slice, no 12.1 entero.
+### `NIGHT-AAA-015`
+REUSE SAME #64. Race-check final contra integration `55e0d875...`, head `3e7fd0a0...` y CI exact-head `33272883660` SUCCESS. Protected merge solo si combinación sigue válida; si cambia, refresh SAME lineage + fresh CI. Tras merge cerrar solo atomic sub-slice y avanzar pagination/window/memory mínimo si queda tiempo. No D13–D15.
 
-### `NIGHT-BBB-014`
-REUSE SAME #63. `33271091186` functional FAILURE manda aunque Required CI sea green. Diagnosticar/fijar solo workflow/glue/harness F4; bug producto → PRODUCT_FINDING. No promover matrix windows/import hasta PASS exact-head. No segundo slice/25.2.
+### `NIGHT-BBB-015`
+REUSE SAME #63. Fix mínimo marker-safe del bootstrap F4, refresh sobre baseline vivo y fresh Windows Import + applicable CI exact-head. `windows/import` no cambia de NOT_COVERED hasta PASS literal. Bug producto ajeno → PRODUCT_FINDING. No segundo slice/25.2.
 
-### `NIGHT-WOZ-014`
-REUSE SAME #61. Si integration sigue `7de7b57a...`, race-check + protected expected-head merge de `d254b294...`; si baseline se mueve, refresh SAME #61 + fresh applicable CI. Tras merge reclamar solo 16.2 SOFTWARE DONE / EXTERNAL TAIL. Después solo audit READ-ONLY de 17.1 si hay tiempo, sin implementar Stripe sin nueva orden.
+### `NIGHT-WOZ-015`
+F3/17.1 software-only. Duplicate-check antes de crear artifact. Implementar IDs/precios/trial/currency/tax internos estables, Checkout Session server-side, idempotency y rechazo de price/plan controlado por cliente; adapter/mocks y tests deterministas. Sin Stripe real/credenciales/costo, 17.2 completo ni D18–D20.
 
 ## BLOCKERS
 
@@ -76,17 +75,17 @@ REUSE SAME #61. Si integration sigue `7de7b57a...`, race-check + protected expec
 2. F0/1.2: release governance/domain/support/status/AuthentiCode/reviews/test matrix; Apple Developer deferred.
 3. F1/D10.1: copia off-provider/off-account real + read/checksum.
 4. F1/D10.2: decisión RO.
-5. F2/12.1: #64 exact-head CI FAILURE + focal tests unverified; después quedan pagination/window/memory + cold/warm residual.
-6. F3/16.2: owner merge transaction; physical staging/prod y deploy real siguen externos; D17–D20 abiertos.
-7. F4/25.1: #63 Windows/import functional FAILURE; otros coverage gaps; D22/D23 signing/notarization externos; 25.2 abierto.
+5. F2/12.1: #64 owner merge pendiente; después pagination/window/memory + cold/warm residual.
+6. F3: 16.x physical/deploy tails externos; D17–D20 abiertos.
+7. F4/25.1: #63 functional red + stale; otros coverage gaps; D22/D23 signing/notarization externos; 25.2 abierto.
 
 ## PROGRESO F0–F4
 
 - **F0:** técnico interno cerrado; tails externos solamente.
 - **F1:** core técnico cerrado; dos cierres externos/RO.
-- **F2:** 11.1/11.2/12.2 cerrados; #58 slice A integrado; atomic bootstrap candidate existe pero está rojo y no integrado; D13–D15 abiertos.
-- **F3:** 16.1 software integrado; 16.2 candidate verde a nivel exact-head y pendiente transacción owner; physical tail + D17–D20 abiertos.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; matrix #60 integrada; #63 reveló failure funcional real; 25.1/25.2 siguen abiertos; D22/D23 externos.
+- **F2:** 11.1/11.2/12.2 cerrados; #58 slice A integrado; atomic bootstrap candidate exact-head green pero todavía no integrado; D13–D15 abiertos.
+- **F3:** 16.1 software integrado; 16.2 software integrado por #61; physical tails externos; 17.1 asignado; 17.2–20 abiertos.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; matrix #60 integrada; #63 sigue functional red; 25.1/25.2 abiertos; D22/D23 externos.
 
 ## PLAN SYNC
 
@@ -101,29 +100,29 @@ Actualizados en este ciclo:
 - `!!!PLAN/NOCHE - WOZ.md`
 - `!!!PLAN/NOCHE - JOBS.md`
 
-F0/F1 no cambiaron factual y no se reescribieron. `Registro de avances.md` se leyó completo por tramos; no se reescribe porque este ciclo no produjo un nuevo merge/gate cerrado y los findings/candidates vivos quedan en Plan/fases/ledgers + Issue #41.
+F0/F1 no cambiaron factual y no se reescribieron. `Registro de avances.md` fue leído completo; el merge #61 y la transición de estado quedan además registrados en Issue #41 y en Plan/F3/ledgers de este ciclo.
 
 ## SIGUIENTE CICLO
 
 1. Reread integration HEAD antes de cualquier claim.
-2. Procesar resultados 014, no snapshots 013.
-3. Si WOZ integra #61, registrar merge SHA exacto y 16.2 SOFTWARE DONE / EXTERNAL TAIL; después recalcular 17.1 software-only vs blockers externos.
-4. Si AAA corrige #64, exigir focal tests + applicable exact-head green; tras merge cerrar solo atomic sub-slice y recalcular pagination/window/memory/cold-warm.
-5. Si BBB corrige #63, aceptar Windows/import solo con run funcional exact-head PASS; conservar todos los demás gaps.
+2. Procesar resultados 015, no snapshots 014.
+3. Si AAA integra #64, registrar merge SHA exacto y cerrar solo atomic sub-slice; continuar residual 12.1 sin adelantar D13–D15.
+4. Si BBB logra Windows Import PASS, aceptar únicamente esa cobertura con exact-head fresh y conservar el resto de gaps.
+5. Si WOZ produce candidate 17.1, validar exact-head/CI y no confundir software contract con Stripe productivo.
 6. Mantener F0/F1/signing/physical staging/off-provider como externos hasta evidencia real.
 7. No abrir F5 hasta que F0–F4 estén realmente en condiciones de gate.
 
 ## LOG
 
 ```text
-CYCLE_ID: NIGHT-JOBS-013
-INTEGRATION_HEAD: 7de7b57a508b3cf05cbded81501fbd3da63922a3
-AAA: NIGHT-AAA-013 PENDING -> #64 exact-head Required CI FAILURE -> NIGHT-AAA-014 SAME #64 corrective
-BBB: NIGHT-BBB-013 PENDING -> #63 functional Windows import FAILURE -> NIGHT-BBB-014 SAME #63 corrective
-WOZ: NIGHT-WOZ-013 PENDING_CI -> #61 exact-head CI green/mergeable -> NIGHT-WOZ-014 owner race-check + protected merge
-DUPLICATE_WORK: PR #62 CLOSED/NOT MERGED; no active duplicate
+CYCLE_ID: NIGHT-JOBS-014
+INTEGRATION_HEAD: 55e0d8759ec03b23fa8e4f1f35304922dffeb992
+AAA: NIGHT-AAA-014 PENDING -> #64 exact-head Required CI SUCCESS -> NIGHT-AAA-015 owner merge + residual
+BBB: NIGHT-BBB-014 PENDING -> #63 Windows Import FAILURE marker mismatch + stale -> NIGHT-BBB-015 corrective+refresh
+WOZ: NIGHT-WOZ-014 DONE -> #61 merged 55e0d875... -> NIGHT-WOZ-015 F3/17.1 software-only
+DUPLICATE_WORK: PR #62 CLOSED/NOT MERGED; Stripe search found no visible reusable implementation
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
 RELEASE: NO-GO
 ```
 
-**STOP:** ciclo JOBS 013 terminado. La siguiente ejecución inicia desde GitHub vivo, no desde este snapshot si cambió.
+**STOP:** ciclo JOBS 014 terminado. La siguiente ejecución inicia desde GitHub vivo, no desde este snapshot si cambió.
