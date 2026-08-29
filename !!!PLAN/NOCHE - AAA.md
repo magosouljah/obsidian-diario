@@ -38,22 +38,23 @@ F1/F3/F4; pagos; signing/release; YouTube 15.3; 13.x/14.x/15.x; atomic empty-ind
 
 ## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-005`  
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-006`  
 `TURN_STATUS: PENDING`  
-`BASELINE: integration-v0.8.0-alpha.1 @ 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`  
-`BRANCH_HEAD: aaa/night-12.1-bootstrap-load @ 51232744a6cd4bc2af67de901e09beb70c91f4fc`  
+`BASELINE: integration-v0.8.0-alpha.1 @ 672e133bc9cb8a47a29d4b34e13fc535290e5681`  
+`BRANCH_HEAD: aaa/night-12.1-bootstrap-load @ d7cc93f9c4318be7f993bd033483c4e7f1834a55`  
 `PR: none`  
-`CAMBIOS: webLibrary.ts ya no hidrata eager todo artwork antes de devolver biblioteca; assets.artwork queda para resolución on-demand.`  
-`TESTS: UNVERIFIED.`  
-`CI: UNVERIFIED.`  
-`EVIDENCIA: commit 51232744a6cd4bc2af67de901e09beb70c91f4fc; Issue #41 5462017110.`  
-`UNVERIFIED: taxonomy, startup instrumentation, tests, CI exact-head, performance cuantificada.`  
-`BLOCKERS: ninguno externo demostrado.`  
+`CAMBIOS: conserva 51232744 artwork lazy; añade taxonomy mínima ready/empty/no-results/offline/auth-failure/cloud-failure, timing reproducible durationMs/beatCount/state alrededor del metadata startup boundary y corrige tests para exigir cero eager artwork downloads.`  
+`TESTS: añadidos/actualizados en tests/component-dom/webLibrary.test.ts; ejecución UNVERIFIED.`  
+`CI: exact-head d7cc93f9 sin check-runs al cierre; UNVERIFIED.`  
+`EVIDENCIA: commits 388a73a71e9c94bf5d8059535f2f4bbac81a2d32 y d7cc93f9c4318be7f993bd033483c4e7f1834a55; Issue #41 comment 5462381947.`  
+`UNVERIFIED: ejecución real de tests, CI exact-head, performance cold/warm cuantificada, wiring de observation a surface diagnóstico de runtime.`  
+`BLOCKERS: no hay blocker externo demostrado; falta evidencia exact-head antes de candidate/PR.`  
+`RECOMENDACIÓN PARA JOBS: mantener 12.1 abierto; siguiente asignación puede verificar CI exact-head y decidir wiring diagnóstico mínimo. Atomic empty-index bootstrap sigue posterior y no fue tocado.`  
 `STOP: sí.`
 
 ## HISTORIAL
 
-- `NIGHT-AAA-006`: ASSIGNED — completar taxonomy + startup instrumentation + tests + exact-head candidate en misma rama.
+- `NIGHT-AAA-006`: PENDING — head `d7cc93f9...` añade taxonomy + timing + tests; CI exact-head aún UNVERIFIED.
 - `NIGHT-AAA-005`: PENDING — product commit `51232744...` retira eager artwork hydration; resto sin verificar.
 - `NIGHT-AAA-004`: STALLED — rama creada, sin product commit/PR/CI.
 - `NIGHT-AAA-003`: PENDING — gaps 12.1 confirmados.
