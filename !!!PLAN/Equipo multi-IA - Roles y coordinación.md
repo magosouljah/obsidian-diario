@@ -2,20 +2,20 @@
 
 > GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership actual — órdenes CYCLE 014
+## Roles y ownership actual — órdenes CYCLE 015
 
 | Rol | Owner actual | Responsabilidad |
 |---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra |
-| **AAA** | F2 / 12.1 SAME #64 corrective | `NIGHT-AAA-014`: procesar Required CI/Test Desktop Portability FAILURE exact-head, verificar tests focales atomic bootstrap, fixes atribuibles + fresh CI; no D13–D15 |
-| **BBB** | F4 / 25.1 SAME #63 Windows import | `NIGHT-BBB-014`: functional journey `33271091186` FAILURE manda; corregir solo F4 workflow/glue/harness o reportar PRODUCT_FINDING; no segundo slice |
-| **WOZ** | F3 / 16.2 SAME #61 | `NIGHT-WOZ-014`: exact-head CI ya verde; owner race-check + protected merge, o refresh+fresh CI si baseline se mueve; luego solo software done/external tail |
+| **AAA** | F2 / 12.1 SAME #64 merge + residual | `NIGHT-AAA-015`: owner race-check/merge de #64 exact-head green; después pagination/window/memory si merge demostrado |
+| **BBB** | F4 / 25.1 SAME #63 Windows import | `NIGHT-BBB-015`: corregir marker-safe glue F4, refresh SAME lineage, functional PASS + fresh exact-head CI; no segundo slice |
+| **WOZ** | F3 / 17.1 | `NIGHT-WOZ-015`: Stripe Checkout server-side software-only con IDs/precios estables, idempotency y anti-tamper; sin credenciales/costo |
 
 RO conserva alcance de producto, riesgo aceptado, decisiones/credenciales externas y go/no-go público. JOBS puede reorganizar roadmap, pero un cambio de owner/scope es explícito.
 
-**Baseline canónico al cierre JOBS CYCLE 013:** `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`. GitHub vivo manda si cambia después.
+**Baseline canónico al cierre JOBS CYCLE 014:** `integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`. GitHub vivo manda si cambia después.
 
-D10.1 permanece external-only por copia real off-provider/off-account + read/checksum. F3/16.1 physical staging/prod separation continúa external-only. D22/D23 signing/notarization siguen externos.
+D10.1 permanece external-only por copia real off-provider/off-account + read/checksum. F3/16.1 physical staging/prod separation continúa external-only. F3/16.2 software está DONE/INTEGRATED por #61 pero deploy/staging/rollback reales continúan externos. D22/D23 signing/notarization siguen externos.
 
 ## Modelo ROMPECABEZAS CON OWNER FIJO
 
@@ -66,13 +66,13 @@ NEXT_WITHIN_AREA:
 END AI-HANDOFF
 ```
 
-## Night Shift Ledger — CYCLE 013
+## Night Shift Ledger — CYCLE 014
 
 ```text
-JOBS: baseline 7de7b57a... unchanged; processed 013 results against fresh GitHub
-AAA: #64 @ 86ea14ad... candidate exists but Required CI/Test Desktop Portability 33271187072 = FAILURE -> NIGHT-AAA-014 SAME #64 corrective
-BBB: #63 @ 65a7bf070... Required CI green but Windows import functional 33271091186 = FAILURE -> NIGHT-BBB-014 SAME #63 corrective
-WOZ: #61 @ d254b294... refreshed, Required CI 33271019389 + D6 33271019493 SUCCESS, mergeable -> NIGHT-WOZ-014 owner race-check/merge
+JOBS: baseline advanced to 55e0d875... via verifiable merge #61
+AAA: #64 @ 3e7fd0a0... base 55e0d875..., Required CI 33272883660 SUCCESS, mergeable -> NIGHT-AAA-015 owner merge + residual
+BBB: #63 @ 9208ead249... Windows Import 33272794199 FAILURE before specs due F4 marker mismatch; stale vs 55e0d875... -> NIGHT-BBB-015 corrective+refresh
+WOZ: #61 merged 55e0d875...; 16.2 SOFTWARE DONE / EXTERNAL TAIL -> NIGHT-WOZ-015 F3/17.1 software-only
 D10.1: PENDING_EXTERNAL_PROOF only; no technical worker overlap
 F3/16.1 physical separation: PENDING_EXTERNAL
 D22/D23: PENDING_EXTERNAL
@@ -85,7 +85,7 @@ RELEASE: NO-GO
 
 - **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
 - **F1:** D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; AAA owner exclusivo de #64 corrective under `NIGHT-AAA-014`; 12.1 sigue abierto.
-- **F3:** 16.1 runtime software integrado; physical separation external; WOZ owner exclusivo de #61 transaction bajo `NIGHT-WOZ-014`; 17–20 abiertos.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo de #63 functional failure bajo `NIGHT-BBB-014`; D22/D23 externos; 25.2 abierto.
+- **F2:** 11.1/11.2/12.2 cerrados; AAA owner exclusivo de #64 transaction bajo `NIGHT-AAA-015`; 12.1 sigue abierto.
+- **F3:** 16.1/16.2 software integrado con external tails; WOZ owner exclusivo de 17.1 bajo `NIGHT-WOZ-015`; 17.2–20 abiertos.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo de #63 corrective bajo `NIGHT-BBB-015`; D22/D23 externos; 25.2 abierto.
 - **JOBS:** coordinación/plan; sin producto/infra.
