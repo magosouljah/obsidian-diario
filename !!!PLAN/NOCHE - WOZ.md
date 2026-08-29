@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-018`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F3 / 17.2 — webhook integrity/idempotency/retry software contract`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`
 - `PREDECESSOR: NIGHT-WOZ-017 DONE; PR #65 merged as ed6aab7e...; 17.1 SOFTWARE DONE / INTEGRATED.`
@@ -26,25 +26,27 @@
 9. OUT OF SCOPE: 18.1/18.2, F2/F4, provider credentials/resources, DNS/legal, physical staging/prod.
 10. Handoff en este markdown + Issue #41 y STOP.
 
-## RESULTADO DEL TURNO MÁS RECIENTE — NIGHT-WOZ-017
+## RESULTADO DEL TURNO MÁS RECIENTE — NIGHT-WOZ-018
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-017`  
-`TURN_STATUS: DONE`  
-`GATE: F3/17.1 SOFTWARE DONE / INTEGRATED`  
-`BASE_BEFORE: integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`  
-`HEAD_AFTER: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`  
-`BRANCH/CANDIDATE_HEAD: woz/night-17.1-checkout-contract @ e65538640581f3f986748968db1f4dfb069c2579`  
-`PR: #65 CLOSED / MERGED -> ed6aab7e964686cdb5fb1b84eac0198ca67f8892`  
-`CHANGES: no new product code in this assignment; REUSE-FIRST consumed SAME #65 and executed final race-check + expected-head merge.`  
-`TESTS: reused exact-head focal 17.1 deterministic tests already green; no rerun ceremonial.`  
-`CI: F3 17.1 33276769749 SUCCESS; Desktop Portability 33276769684 SUCCESS; D6 33276769695 SUCCESS; D7 33276769698 SUCCESS; temp-auth 33276769702 SUCCESS; Upgrade 33276769715 SKIPPED/no aplicable.`  
-`EVIDENCE_NEW: protected expected-head merge succeeded; merge SHA ed6aab7e964686cdb5fb1b84eac0198ca67f8892; parents b114111caf... + e655386405...; integration reread points to ed6aab7e...`  
-`UNVERIFIED: Stripe account/provider credentials reales; productos/precios comerciales reales; tax/trial/currency commercial decisions; real Checkout against Stripe; webhooks/17.2; entitlement reconciliation; physical staging/prod.`  
-`BLOCKERS: none para 17.1 software slice; external/productive Stripe and 17.2 remain separate.`
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-018`  
+`TURN_STATUS: PENDING_CI`  
+`GATE: F3/17.2 SOFTWARE CANDIDATE / NOT INTEGRATED`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`  
+`HEAD_AFTER: woz/night-17.2-webhook-contract @ 22550152e9960c5dad328711b3a8b150301a8c4f`  
+`BRANCH/CANDIDATE_HEAD: woz/night-17.2-webhook-contract @ 22550152e9960c5dad328711b3a8b150301a8c4f`  
+`PR: #67 OPEN / Ready; base_sha ed6aab7e964686cdb5fb1b84eac0198ca67f8892; NOT MERGED.`  
+`CHANGES: software-only 17.2 candidate: raw-body verifier boundary; PostgreSQL billing_webhook_events durable event ledger + subject ordering watermark; duplicate/event-ID immutable-field guard; FAILED retry transition; out-of-order safe ignore; unsupported-event safe no-op; entitlementGranted=false; migration 0006 transaction-bounded; focal immutable-pinned workflow.`  
+`TESTS: deterministic 17.2 suite covers valid/invalid signature, mutated/non-raw body, duplicate event ID, strict out-of-order, equal-timestamp distinct events, failure+retry, timeout/error fail-closed, unsupported event and concurrent duplicate handling.`  
+`CI: exact head 22550152... — F3 17.2 run 33278423859 SUCCESS; D6 33278423854 SUCCESS; D7 33278423851 SUCCESS; temp-auth 33278423880 SUCCESS; Upgrade 33278423852 SKIPPED/no aplicable; Test - Desktop Portability / Required CI 33278423879 IN_PROGRESS at STOP.`  
+`EVIDENCE_REUSED: authoritative PostgreSQL/migration infrastructure and idempotent ON CONFLICT/state-transition pattern from existing control-plane/direct-operation repositories; no productive drill or unrelated CI rerun requested.`  
+`EVIDENCE_NEW: PR #67; final delta is 8 commits ahead / 0 behind from ed6aab7e and exactly four 17.2 paths; focal exact-head 17.2 gate SUCCESS; integration reread remained ed6aab7e before STOP.`  
+`UNVERIFIED: final Required CI conclusion; merge/race transaction; real Stripe webhook secret/signature provider integration; public webhook endpoint; productive event delivery; async external queue/worker; entitlement 18.x reconciliation; physical staging/prod.`  
+`BLOCKERS: only exact-head Test - Desktop Portability / Required CI 33278423879 still running for integration eligibility.`  
+`RECOMMENDATION_TO_JOBS: keep SAME PR #67. If Required CI closes SUCCESS and integration remains ed6aab7e-compatible, issue owner race-check/protected merge assignment without rerun ceremonial. If integration moves, refresh SAME lineage + fresh applicable exact-head CI. Do not start 18.x from this result.`
 
 ## HISTORIAL
 
-- `NIGHT-WOZ-018`: ASSIGNED — F3/17.2 webhook integrity/idempotency/retry software-only.
+- `NIGHT-WOZ-018`: PENDING_CI — PR #67 @ `22550152...`; focal/D6/D7/temp-auth green; Required CI still running; no merge.
 - `NIGHT-WOZ-017`: DONE — SAME #65 merged `ed6aab7e...`; 17.1 SOFTWARE DONE / INTEGRATED.
 - `NIGHT-WOZ-016`: SUPERSEDED_BY_JOBS before worker execution.
 - `NIGHT-WOZ-015`: PENDING_CI — #65 repaired at `e6553864...`; CI later green.
