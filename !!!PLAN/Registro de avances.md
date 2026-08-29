@@ -175,20 +175,31 @@ Ese estado queda como ledger histórico y fue superado por los cierres siguiente
 
 - D9 `[x] / PASS` por WOZ REUSE-FIRST; Issue #41 `5460959369`.
 - F2/11.2 `[x] / DONE / INTEGRATED`: PR #54 exact head `e5aefa9fb6bda8a3f0e44c15ec7ae13084502ab5`; Required CI `33239731204` SUCCESS; merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`; Issue #41 `5461257322`.
-- D10.1 sigue `[ 🟡 ] / PENDING`: restore/RPO/RTO/core flows PASS; gaps literales = config+índice/media backup strategy, off-provider copy y backup-failure alert; Issue #41 `5461379758`. `NIGHT-WOZ-003` quedó sin procesar y fue superseded por `NIGHT-WOZ-004` con mismo scope.
-- F2/12.1 sigue `[ 🟡 ]`: `NIGHT-AAA-003` no encontró artifact reusable y confirmó gaps reales (artwork eager, startup/state taxonomy insuficiente y bootstrap atómico no verificado). `NIGHT-AAA-004` continúa la implementación sobre baseline vivo.
-- F4/21.1+21.2 `[x] / DONE / INTEGRATED`: PR #51 exact tested head `0fd9bee8117ca92fb9f713f0d55089f5707a2917`; D7 `33243436937`, D6 `33243436890`, Required CI `33243436894`, Upgrade Staging `33243436914` SUCCESS; race-check Ready/mergeable/base/head exactos; merge `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`; tree integrado idéntico al exact tested head; Issue #41 `5461557463`. PR #48 quedó CLOSED/MERGED al ser incorporado.
-- BBB reasignado explícitamente a F4/24.1 bajo `NIGHT-BBB-004`, REUSE-FIRST de tag→SHA, checksums/SBOM/provenance, channels/rings/minimum version/kill switch; signing/notarization permanecen gates externos.
-- Ningún gate de release fue rebajado y no se marcaron D10.1, 12.1, F0 global, signing/notarization o F3 como cerrados.
+- D10.1 sigue `[ 🟡 ] / PENDING`: restore/RPO/RTO/core flows PASS; gaps literales = config+índice/media backup strategy, off-provider copy y backup-failure alert; Issue #41 `5461379758`.
+- F2/12.1 sigue `[ 🟡 ]`: `NIGHT-AAA-003` confirmó gaps reales; `NIGHT-AAA-004` continuó implementación.
+- F4/21.1+21.2 `[x] / DONE / INTEGRATED`: PR #51 exact tested head `0fd9bee8117ca92fb9f713f0d55089f5707a2917`; D7 `33243436937`, D6 `33243436890`, Required CI `33243436894`, Upgrade Staging `33243436914` SUCCESS; merge `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`; Issue #41 `5461557463`.
+- BBB reasignado explícitamente a F4/24.1.
+- Ningún gate de release fue rebajado.
+
+## 2026-08-29 — Turno nocturno CYCLE 005
+
+**Baseline canónico:** `integration-v0.8.0-alpha.1` @ `672e133bc9cb8a47a29d4b34e13fc535290e5681`.
+
+- F4/24.1 `[x] / DONE / INTEGRATED`: PR #55 exact head `ba83c87dab8a56163601e913f7764c7f8682b7a6`; Required CI `33248059804`, F4 Release Controls `33248059891`, D6 `33248059823`, D7 `33248059990` SUCCESS; merge `672e133bc9cb8a47a29d4b34e13fc535290e5681`. Publication fail-closed; signing/notarization siguen externos.
+- F2/12.1 `[ 🟡 ]`: `NIGHT-AAA-005` produjo commit `51232744a6cd4bc2af67de901e09beb70c91f4fc` retirando eager artwork hydration; taxonomy, startup instrumentation, tests/CI y atomic empty-index siguen abiertos. Nueva orden `NIGHT-AAA-006` sobre la misma rama.
+- F1/D10.1 `[ 🟡 ] / PENDING`: `NIGHT-WOZ-005` produjo PR #56 exact head `0abe39e096d10d992764a2d24874e46529109a70`; self-test `PASS_LOCAL_CONTRACT`; strategy config+index+media y backup-failure condition/routing PASS en candidate. Exact-head Test - Desktop Portability `33250824435`, D7 `33250824401`, D6 `33250824418`, compile `33250824441` SUCCESS. Único blocker literal restante: copia real fuera del primary provider/account failure domain. Nueva orden `NIGHT-WOZ-006` para race-check + integración; no repetir drills.
+- BBB pasa a `NIGHT-BBB-006` / F4/24.2 updater recovery/rollback REUSE-FIRST.
+- F3 D16–D20 sigue siendo el mayor volumen abierto; WOZ debe moverse explícitamente a F3 cuando D10.1 quede external-only integrado.
+- Release público permanece 🔴 `NO-GO`; ningún gate externo fue rebajado.
 
 ---
 
 ## Estado actual
 
-- Integración estable: `integration-v0.8.0-alpha.1` @ `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.
-- WOZ: **F1/D10.1** bajo `NIGHT-WOZ-004`; D8/D9 `[x] / PASS`; D10.1 `[ 🟡 ]`.
-- AAA: **F2/12.1** bajo `NIGHT-AAA-004`; 11.1/11.2/12.2 `[x]`; 12.1 `[ 🟡 ]`.
-- BBB: **F4/24.1** bajo `NIGHT-BBB-004`; 21.1/21.2 `[x] / DONE / INTEGRATED`.
+- Integración estable: `integration-v0.8.0-alpha.1` @ `672e133bc9cb8a47a29d4b34e13fc535290e5681`.
+- WOZ: **F1/D10.1** bajo `NIGHT-WOZ-006`; D8/D9 `[x] / PASS`; D10.1 `[ 🟡 ]`, reducido a off-provider proof + integración #56.
+- AAA: **F2/12.1** bajo `NIGHT-AAA-006`; 11.1/11.2/12.2 `[x]`; 12.1 `[ 🟡 ]` con progreso parcial `51232744...`.
+- BBB: **F4/24.2** bajo `NIGHT-BBB-006`; 21.1/21.2/24.1 `[x] / DONE / INTEGRATED`.
 - JOBS: coordinación/plan/handoffs; no código BeatGaler ni merges técnicos.
 - 5.1/5.2: `[x]`.
 - 2.2/1.2: tails externos `[ 🟡 ]`.
