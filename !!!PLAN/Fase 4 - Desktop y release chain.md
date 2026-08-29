@@ -4,7 +4,7 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
+**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.
 
 ## Owner actual
 
@@ -28,14 +28,14 @@ Decisión RO ya resuelta para este slice:
 - nombre visible: `Galer`;
 - bundle ID: `com.beatgaler.app`.
 
-El trabajo 21.1 fue incorporado por BBB al PR #51 como parte del camino combinado 21.1+21.2. Por tanto #48 queda **superseded para integración solo cuando #51 aterrice**; mientras #51 no esté integrado, 21.1 permanece `[ 🟡 ]`.
+El trabajo 21.1 fue incorporado por BBB al PR #51 como parte del camino combinado 21.1+21.2. Por tanto #48 queda **superseded para integración solo cuando #51 aterrice**; mientras #51 no esté integrado, 21.1 permanece `[ 🟡 ]` y #48 sigue OPEN/DRAFT.
 
 Checklist literal:
 - [ ] Inventariar VERSION/npm/Cargo/Tauri/Settings y escoger fuente coherente — implementado en candidate; cierre de integración pendiente.
 - [ ] Unificar versión/endpoints/channel/capabilities donde existan divergencias reales — implementado; integración pendiente.
 - [ ] Incluir/verificar runtimes Windows y recursos universales macOS con digests — implementado; integración pendiente.
 - [ ] Checks/tests anti-drift — implementados; exact-head final pendiente.
-- [ ] Build/CI aplicable sobre exact head final — pendiente en combinación canónica definitiva.
+- [ ] Build/CI aplicable sobre exact head final — evidencia histórica verde; fresh exact-head final pendiente por baseline movido.
 - [ ] Bundle ID final `com.beatgaler.app` — decisión RO resuelta; integración pendiente.
 
 **Gate 21.1:** no hay versión/endpoints divergentes ni runtime omitido; no se considera satisfecho globalmente hasta integración verificable del camino combinado.
@@ -43,11 +43,13 @@ Checklist literal:
 ### 21.2 [P1 · DE/QA] — `[ 🟡 ] BBB FULL OWNER / PR #51 ACTIVO`
 - [ ] Upgrade desde 0.7.4 preservando settings/SQLite/offline/cache — implementado en candidate #51; cierre pendiente.
 - [ ] Instalación limpia + datos corruptos/incompletos con recovery — implementado en candidate #51; cierre pendiente.
-- [ ] Artefactos staging desde mismo SHA — workflow/candidate presente; evidencia exact-head final pendiente.
+- [ ] Artefactos staging desde mismo SHA — demostrado en head histórico, pero debe revalidarse sobre combinación final si el head cambia.
 
-**Artifact canónico de integración:** PR #51 `bbb/task-21.2-upgrade-matrix` — OPEN / DRAFT. Head observado por JOBS: `f70f17ea41cd26bd833bf7ee91949a3e4d752d4e`.
+**Artifact canónico de integración:** PR #51 `bbb/task-21.2-upgrade-matrix` — **OPEN / DRAFT / no mergeado**.
 
-El PR declara y evidencia en código el camino combinado:
+**Último head técnico con evidencia completa:** `e9fc4e68fc555357ee470996c51544b879cbae93`, base `c25ec6a824bc0ae60fbf65858d53be26d453f205`.
+
+El PR declara y evidencia el camino combinado:
 - manifest 21.1 + identidad final;
 - bridge no destructivo desde app-data 0.7.4;
 - preservación SQLite/settings/offline/cache y rollback source intacto;
@@ -55,13 +57,29 @@ El PR declara y evidencia en código el camino combinado:
 - upgrade NSIS 0.7.4 → Galer;
 - staging Windows + macOS atado al source SHA.
 
-**Preflight JOBS actual:**
-- integración canónica ya avanzó a `489d81b...`;
-- #51 fue preparado originalmente sobre `14002b29...`;
-- el propio contrato del PR exige fresh union + CI si integración se mueve;
-- Required CI del head `f70f17e...` estaba `QUEUED` al snapshot de JOBS; D6 del mismo head ya aparecía SUCCESS.
+**Evidencia exact-head histórica sobre `e9fc4e68...`:**
+- Required CI #451 / run `33220523143` — SUCCESS;
+- Upgrade 21.2 Staging #8 / run `33220523159` — SUCCESS;
+- D6 #88 / run `33220523127` — SUCCESS;
+- D7 #61 / run `33220523155` — SUCCESS;
+- Windows literal 0.7.4 → Galer — PASS;
+- macOS arm64 identity/migration — PASS;
+- macOS x86_64 identity/migration — PASS.
 
-**No marcar 21.1 ni 21.2 `[x]`:** BBB continúa el mismo PR, completa CI/staging exact-head, incorpora el baseline vigente cuando toque integración y repite evidencia si el head cambia.
+**Process blocker documentado — Issue #41 `5460283021`:**
+- el intento DRAFT → ready falló antes de mutar por error del connector GraphQL (`Repository.fullDatabaseId`);
+- GitHub rechazó correctamente el merge mientras el PR seguía draft (`HTTP 405`);
+- BBB no usó bypass, ref update directo ni PR alterno.
+
+**Cambio material posterior:** integración avanzó después del baseline probado: #50 y #53 llevaron el baseline canónico hasta `6c4499d124a64d138e791ea4abf0091766dde7e9`. Por `evidence-before-claim`, los greens de `e9fc4e68...` prueban ese candidate histórico, **no** la combinación final contra `6c4499d...`.
+
+**No marcar 21.1 ni 21.2 `[x]`:**
+1. reutilizar PR #51;
+2. incorporar `integration-v0.8.0-alpha.1@6c4499d...` por el método técnico que BBB determine;
+3. repetir Required CI + Upgrade 21.2 Staging + D6/D7 aplicables sobre el nuevo exact head;
+4. pasar PR #51 a ready por una vía válida;
+5. hacer race-check final baseline/head e integrar por el flujo autorizado;
+6. solo después considerar #48 superseded-for-integration/cerrarlo y marcar 21.1/21.2 `[x]`.
 
 **BBB NEXT:** continuar #51 dentro de su owner. No signing/notarization/release/D24.
 
