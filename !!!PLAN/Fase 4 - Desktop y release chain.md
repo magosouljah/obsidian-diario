@@ -4,13 +4,13 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `672e133bc9cb8a47a29d4b34e13fc535290e5681`.
+**Integración estable actual:** `integration-v0.8.0-alpha.1` @ `f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
 
 ## Owner actual
 
-**BBB — F4 / 24.2 updater recovery / rollback — `NIGHT-BBB-006`.**
+**BBB — F4 / 24.2 updater recovery / rollback — `NIGHT-BBB-007`.**
 
-21.1 + 21.2 y 24.1 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. BBB avanza 24.2 porque es dependency-safe y puede cerrarse REUSE-FIRST sin inventar certificados ni publicar stable/latest.
+21.1 + 21.2 y 24.1 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. 24.2 tiene candidate real en PR #57, pero su combinación histórica era contra `672e133...`; la integración avanzó por PR #56 a `f0d65aa...`, por lo que BBB debe refrescar la misma PR y obtener nuevo CI exact-head antes de integración.
 
 ---
 
@@ -105,14 +105,27 @@ Requirements satisfechos:
 
 **No implica:** signing Windows, notarización macOS ni ejecución de release público.
 
-### 24.2 — `ASSIGNED / IN PROGRESS` — BBB `NIGHT-BBB-006`
-- [ ] update N-1 y fallos de red/disco/firma/manifest;
-- [ ] recovery/rollback;
-- [ ] retiro artefacto malo/comunicación.
+### 24.2 — `ASSIGNED / IN PROGRESS` — BBB `NIGHT-BBB-007`
 
-**Regla de ejecución:** REUSE-FIRST sobre updater, upgrade matrix, release-controls y workflows existentes. No crear release público, no mover stable/latest, no inventar certificados. Los fallos de firma pueden probarse con fixtures/validación segura si no requieren credencial real.
+Candidate existente, REUSE-FIRST:
+- PR #57 `F4 24.2: updater recovery and rollback acceptance`;
+- branch `bbb/task-24.2-updater-recovery`;
+- candidate head histórico `5c74c0948c43d53b2f8d075cd66ba70c953da3c5` sobre base `672e133bc9cb8a47a29d4b34e13fc535290e5681`;
+- Test - Desktop Portability `33252718637` SUCCESS;
+- D6 `33252718614` SUCCESS;
+- D7 `33252718625` SUCCESS;
+- Upgrade 21.2 Staging `33252718609` SKIPPED/no aplica.
 
-**Gate:** tag→SHA→artefacto demostrable + rollback runbook.
+El candidate implementa dependency-safe:
+- [ 🟡 ] update N-1 y fallos de red/disco/firma/manifest con policy fail-closed;
+- [ 🟡 ] recovery/rollback verificable;
+- [ 🟡 ] planner/runbook no destructivo para retiro de artefacto malo/comunicación.
+
+**No se marca PASS todavía:** GitHub vivo avanzó a `f0d65aa...` por PR #56 y #57 ya no está sobre el baseline actual. Los checks verdes de `5c74c094...` prueban el candidate histórico, no la nueva combinación. `NIGHT-BBB-007` debe refrescar **la misma PR**, obtener CI sobre el nuevo exact head y, si sigue Ready/mergeable, hacer race-check + merge protegido.
+
+**Regla de ejecución:** no crear release público, no mover stable/latest, no inventar certificados. Los fallos de firma pueden probarse con fixtures/validación segura si no requieren credencial real.
+
+**Gate:** tag→SHA→artefacto demostrable + rollback runbook + integración exact-head verificable.
 
 ## Día 25 — Matriz/freeze
 
