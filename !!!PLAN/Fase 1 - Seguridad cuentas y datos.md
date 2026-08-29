@@ -1,9 +1,9 @@
 # Fase 1 — Seguridad, cuentas y datos durables
 
-> Leer `Plan Maestro.md`. D8 y D9 están cerrados. D10.1 sigue abierto únicamente por gaps literales de backup readiness y continúa con WOZ por el turno nocturno.
+> Leer `Plan Maestro.md`. D8 y D9 están cerrados. D10.1 sigue abierto únicamente por evidencia real off-provider; el artifact técnico restante está en PR #56.
 
 **Estado:** D8 `[x] / PASS`; D9 `[x] / PASS`; D10.1 `[ 🟡 ] / PENDING`.  
-**Integración estable:** `integration-v0.8.0-alpha.1` @ `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.  
+**Integración estable:** `integration-v0.8.0-alpha.1` @ `672e133bc9cb8a47a29d4b34e13fc535290e5681`.  
 **Release público:** 🔴 `NO-GO`.
 
 ## D6 — `[x] PASS`
@@ -43,14 +43,28 @@ Requisitos aceptados mediante evidencia existente verificada:
 
 ## D10 — Restore y alpha
 
-### 10.1 — `[ 🟡 ] PENDING` — WOZ `NIGHT-WOZ-004`
+### 10.1 — `[ 🟡 ] PENDING` — WOZ `NIGHT-WOZ-006`
 
-Gate transaction WOZ Issue #41 `5461379758`:
-- [ 🟡 ] backup cifrado/config/media strategy: falta evidencia literal suficiente de estrategia completa para config + índice/media;
-- [x] restore aislado + RPO/RTO + core flows: PASS — PITR aislado real, RPO ~7 min <=15 min, RTO `3643 s` <=7200 s;
-- [ 🟡 ] access/retention/off-provider copy/backup alert: access/retention cubiertos; falta evidencia literal de copia off-provider y backup-failure alert específica o equivalencia literal.
+Evidencia reutilizada:
+- [x] restore aislado + RPO/RTO + core flows: PITR aislado real, RPO ~7 min <=15 min, RTO `3643 s` <=7200 s;
+- [x] access/retention cubiertos por evidencia ya aceptada.
 
-`NIGHT-WOZ-003` quedó sin procesar y fue superseded explícitamente por `NIGHT-WOZ-004` para evitar doble ejecución; el scope no cambió. REUSE-FIRST estricto: no repetir restore/cutover/restart/rotation. Si un gap requiere credencial, proveedor, costo nuevo o decisión RO, registrar acción externa mínima y mantener PENDING.
+Artifact técnico nuevo `NIGHT-WOZ-005`:
+- PR #56 `test(data): add D10.1 backup readiness contract`;
+- exact head `0abe39e096d10d992764a2d24874e46529109a70` sobre base `672e133bc9cb8a47a29d4b34e13fc535290e5681`;
+- self-test local `PASS_LOCAL_CONTRACT`;
+- estrategia control-config + index + media = PASS en candidate;
+- backup-failure condition+routing contract = PASS en candidate;
+- dry-run manifest/checksum explícitamente **no** reclama copia off-provider real;
+- Test - Desktop Portability `33250824435` SUCCESS;
+- D7 `33250824401` SUCCESS;
+- D6 `33250824418` SUCCESS;
+- Productive Temp Auth Compile `33250824441` SUCCESS.
+
+Único requisito literal pendiente:
+- [ 🟡 ] **off-provider copy proof real:** seleccionar/autorizar un destino fuera del primary provider/account failure domain y ejecutar copia mínima + read/checksum verification.
+
+`NIGHT-WOZ-006` debe hacer race-check + integrar #56 si sigue compatible. La integración del artifact no convierte el off-provider requirement en PASS por sí sola. REUSE-FIRST estricto: no repetir restore/cutover/restart/migrations/rotation.
 
 ### 10.2 — `NOT STARTED`
 - [ ] revisar gates D2–D10/P0/evidencia requerida;
