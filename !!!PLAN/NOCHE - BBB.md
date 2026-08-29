@@ -7,69 +7,52 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-019`
-- `ASSIGNMENT_STATUS: PENDING`
-- `AREA: F4 / 25.1 — SAME PR #63 log-driven Windows import corrective`
-- `ASSIGNED_BASELINE: integration-v0.8.0-alpha.1 @ ed6aab7e964686cdb5fb1b84eac0198ca67f8892`
-- `LIVE_BASELINE_AT_PREFLIGHT: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
-- `BRANCH_HEAD: bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0`
-- `PR: #63 OPEN / Ready / NOT MERGED; current mergeability false after base movement`
-- `CI-FALLBACK: NONE`
-
-## RESULTADO — NIGHT-BBB-019
-
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-019`  
-`TURN_STATUS: PENDING`  
-`BASE_BEFORE: assigned ed6aab7e964686cdb5fb1b84eac0198ca67f8892; live preflight 712b49b6689a31a47902dbe95e98622d001dab40 after merge #66.`  
-`HEAD_AFTER: unchanged bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0.`  
-`PR: #63 OPEN / Ready / NOT MERGED; SAME canonical lineage; 3 changed F4 files. No second branch/PR. Duplicate-check found no competing active Windows-import candidate; #67 belongs to WOZ/F3 and unrelated legacy PRs do not own this slice.`  
-`CAMBIOS: no BeatGaler mutation. Assignment STOP condition "unexpected baseline" triggered before a corrective commit. Read-only diagnosis completed from exact failed job 99167313710; no rerun ceremonial, no matrix promotion, no merge.`  
-`TESTS: historical exact-head Windows Import run 33277733650 built frontend/Tauri successfully, mounted E2EImportHarness and restricted execution to tests/e2e/import-flow.e2e.mjs. No spec assertion executed because WDIO could not create a WebDriver session.`  
-`CI: exact old head ea00d85d7946da8a27fe336bf738afb9a4bd72d0 — F4 Matrix 33277733635 SUCCESS; D6 33277733621 SUCCESS; D7 33277733651 SUCCESS; Desktop Portability 33277733647 SUCCESS; Windows Import 33277733650 FAILURE; Upgrade 33277733677 SKIPPED/no aplicable. These runs do not authorize integration against live baseline 712b49b6689a31a47902dbe95e98622d001dab40.`  
-`EVIDENCIA: job 99167313710 passed exact checkout, npm install, official Tauri/Edge bootstrap and release build. tauri-driver and msedgedriver were running, then WDIO failed session creation twice with "session not created: DevToolsActivePort file doesn't exist" before any import spec assertion. This is F4 runner/session bootstrap evidence, not evidence of a product import bug. PR #51 revalidated CLOSED/MERGED, draft=false, merge 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858. Integration live moved to 712b49b6689a31a47902dbe95e98622d001dab40 by merge #66.`  
-`UNVERIFIED: windows/import remains NOT_COVERED; no literal functional PASS; #63 has not been refreshed onto 712b49b6689a31a47902dbe95e98622d001dab40; no fresh exact-head CI exists for that combination; no AUTOMATED_PASS; no merge; 25.1 remains open.`  
-`BLOCKERS: unexpected baseline is an explicit STOP condition for NIGHT-BBB-019. Candidate #63 is stale versus live integration and current PR mergeability is false. BBB must not patch/refresh under this processed assignment without a new or explicitly updated JOBS order.`  
-`RECOMMENDATION_TO_JOBS: keep SAME #63 and issue the next monotonic BBB assignment (or explicitly reassign 019 before processing, if policy permits) against live base 712b49b6689a31a47902dbe95e98622d001dab40. Then refresh SAME lineage preserving only the 3-file F4 delta, apply the minimal session/bootstrap corrective guided by DevToolsActivePort failure, require Windows Import literal PASS + fresh applicable exact-head CI, and only then promote windows/import/race-check/merge. Do not open a second slice or 25.2.`  
-`TURN_FINISHED_AT: 2026-08-29T17:04:00-06:00`
-
-## RESULTADO DEL TURNO — WAIT_FOR_ASSIGNMENT
-
-`OBSERVED_ASSIGNMENT_ID: NIGHT-BBB-019`  
-`TURN_STATUS: WAIT_FOR_ASSIGNMENT`  
-`REASON: NIGHT-BBB-019 ya tiene resultado final completo y LAST_PROCESSED_ASSIGNMENT; JOBS no ha escrito un Assignment ID nuevo en NOCHE - BBB.md y no existe NIGHT-BBB-020 en los últimos handoffs relevantes de Issue #41.`
+- `ASSIGNMENT_ID: NIGHT-BBB-020`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F4 / 25.1 — SAME PR #63 refresh + minimal Windows session/bootstrap corrective`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
+- `REUSE_PR: #63 / bbb/task-25.1-windows-import`
+- `KNOWN_HEAD: ea00d85d7946da8a27fe336bf738afb9a4bd72d0`
+- `PREDECESSOR: NIGHT-BBB-019 PENDING — stopped on baseline movement after #66; root diagnosis reached DevToolsActivePort session creation failure before any import assertion.`
 
 ### PRIMARY
 
-- `STATUS: NOT_EXECUTED_ALREADY_PROCESSED`
-- `baseline: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
-- `branch/head: bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0`
-- `PR: #63 OPEN / Ready / NOT MERGED / mergeable=true en el read actual`
-- `cambios: ninguno; no se repitió NIGHT-BBB-019 y no se mutó BeatGaler`
-- `tests: ninguno nuevo`
-- `CI: ninguno nuevo; no se relanzó CI ceremonial`
-- `evidencia: ledger ya procesado para 019; Issue #41 contiene el handoff de 019; integration vivo 712b49b...; duplicate-check de PRs abiertas con "Windows import" devuelve únicamente #63; PR #51 sigue CLOSED/MERGED`
-- `UNVERIFIED: windows/import sigue sin PASS literal en una combinación fresca con baseline vivo; #63 no está refreshed a 712b49b...; 25.1 sigue abierto`
-- `blockers: ausencia de una nueva asignación JOBS; dependency-ready no equivale a assigned`
+1. Preflight GitHub vivo + duplicate-check. Reuse ONLY SAME #63; no second Windows-import branch/PR.
+2. Refresh SAME lineage onto live integration `712b49b...` while preserving only the intended F4 delta. Re-check changed files before mutation.
+3. Reproduce/inspect the Windows Import failure evidence already known: official Tauri/Edge bootstrap passed, but WDIO failed to create a WebDriver session with `DevToolsActivePort file doesn't exist` before any functional import assertion.
+4. Apply only the smallest F4 runner/session-bootstrap corrective that makes the existing `tests/e2e/import-flow.e2e.mjs` actually execute. Do not modify product import logic unless fresh evidence proves a product defect; if so, record `PRODUCT_FINDING` and STOP for JOBS.
+5. Do not promote `windows/import` from `NOT_COVERED` until a literal functional PASS executes the import assertions on the final exact head.
+6. Any changed/refreshed head requires fresh Windows Import + applicable exact-head CI. Reuse old evidence only as diagnosis, never as merge authorization for the new combination.
+7. If Windows Import literal PASS + applicable CI are green, race-check and merge SAME #63 through authorized owner flow; verify merge SHA/integration HEAD.
+8. Claim only Windows/import coverage proven. 25.1 remains open for other matrix gaps.
+9. Handoff in this ledger + Issue #41 and STOP.
+
+**Required evidence:** refreshed base/head, exact changed-file scope, Windows Import literal functional assertions PASS, fresh exact-head CI, race-check and merge SHA if integrated.  
+**STOP:** product bug outside F4, unexpected baseline after refresh, new unrelated changed files, session failure not attributable within F4 runner scope, CI red, scope expansion to 25.2/signing/notarization.
 
 ### CI-FALLBACK
 
-- `STATUS: NOT_EXECUTED`
-- `branch/head: n/a`
-- `PR: n/a`
-- `cambios: ninguno`
-- `tests: ninguno`
-- `evidencia: CI-FALLBACK del Assignment ID observado es NONE`
-- `UNVERIFIED: n/a`
-- `blockers: fallback no autorizado`
-- `STOP alcanzado: sí — no existe fallback explícito y no existe nuevo Assignment ID`
+`NONE`
 
-`RECOMMENDATION_TO_JOBS: emitir un nuevo Assignment ID monotónico para BBB si desea continuar SAME #63 sobre baseline vivo 712b49b6689a31a47902dbe95e98622d001dab40. Hasta entonces BBB debe permanecer WAIT_FOR_ASSIGNMENT y no refrescar, corregir, rerunear ni abrir trabajo adicional por cuenta propia.`
+Reason: 25.2 and signing/notarization are either later scope or external, and other 25.1 gaps share the release/test surfaces. No independent fallback is safe.
+
+## RESULTADO PROCESADO — NIGHT-BBB-019
+
+- `TURN_STATUS: PENDING`
+- `BASE_BEFORE: assigned ed6aab7e...; live preflight 712b49b6689... after #66.`
+- `HEAD_AFTER: ea00d85d7946da8a27fe336bf738afb9a4bd72d0 unchanged.`
+- `PR: #63 OPEN / Ready / NOT MERGED.`
+- `CHANGES: none; explicit unexpected-baseline STOP triggered.`
+- `TESTS/CI: Windows Import 33277733650 FAILURE before functional assertions; F4 Matrix/D6/D7/Desktop Portability green on old exact head.`
+- `EVIDENCE: WDIO session creation failed with DevToolsActivePort after official driver bootstrap; evidence points to F4 runner/session bootstrap, not a proven product import bug.`
+- `UNVERIFIED: windows/import literal PASS; fresh combination with 712b49b...; merge.`
+- `Issue #41: handoff 5465407309.`
 
 ## HISTORIAL COMPACTO
 
-- `WAIT_FOR_ASSIGNMENT`: NIGHT-BBB-019 ya procesado; sin nueva orden JOBS.
-- `NIGHT-BBB-019`: PENDING — unexpected baseline after #66 merge; read-only failure diagnosis complete; no mutation.
-- `NIGHT-BBB-018`: PENDING — SAME #63 exact-head functional failure.
+- `NIGHT-BBB-020`: ASSIGNED — SAME #63 refresh + minimal session corrective; CI-FALLBACK NONE.
+- `NIGHT-BBB-019`: PENDING — baseline moved; read-only root diagnosis completed.
+- `NIGHT-BBB-018`: PENDING — SAME #63 Windows Import functional gate red.
 - `NIGHT-BBB-017`: PENDING — SAME #63 refreshed; official driver bootstrap restored.
 - `NIGHT-BBB-012`: PR #60 matrix integrated `7de7b57a...`.
 - `NIGHT-BBB-008`: PR #57 integrated `f73c9ee...`.
