@@ -160,31 +160,37 @@ Ese estado queda como ledger histórico y fue superado por los cierres siguiente
 
 ## 2026-08-28 — JOBS sync factual post-D8 / post-12.2
 
-**Baseline canónico:** `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.
+**Baseline canónico entonces:** `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.
 
 - D8/8.2 y resoluciones RO cerradas con evidencia verificable; Gate D8 `[x] / PASS`.
-- F2/12.2 cerrado/integrado; AAA terminó su owner actual y espera asignación explícita.
-- WOZ terminó D8 y espera asignación explícita; D9 está dependency-ready, no auto-asignado.
-- F2/11.2 y 12.1 están dependency-ready, pero no auto-asignados.
-- F2/15.1 “Vaciar Trash” queda `QUEUED / UNASSIGNED`; registrar no equivale a implementar.
-- BBB conserva FULL OWNER F4/21.2. PR #51 sigue OPEN/DRAFT.
-- Como el baseline se movió desde `c25ec6a...` a `6c4499d...`, la evidencia verde de #51 `e9fc4e68...` ya no autoriza integración final: requiere fresh union/refresh + exact-head Required CI + Upgrade Staging + D6/D7 aplicables.
-- PR #48 no se considera superseded/cerrado hasta que #51 aterrice verificablemente.
-- `Plan Maestro 2208 copy DONT TOUCH .md` permanece untouched.
-- Release público sigue 🔴 `NO-GO`.
+- F2/12.2 cerrado/integrado.
+- WOZ terminó D8; D9 dependency-ready.
+- F2/11.2 y 12.1 dependency-ready.
+- F2/15.1 “Vaciar Trash” `QUEUED / UNASSIGNED`.
+- BBB conservaba F4/21.2; #51 aún no integrado en ese snapshot.
+- `Plan Maestro 2208 copy DONT TOUCH .md` permaneció untouched.
+- Release público 🔴 `NO-GO`.
+
+## 2026-08-29 — Turno nocturno hasta CYCLE 003
+
+- D9 `[x] / PASS` por WOZ REUSE-FIRST; Issue #41 `5460959369`.
+- F2/11.2 `[x] / DONE / INTEGRATED`: PR #54 exact head `e5aefa9fb6bda8a3f0e44c15ec7ae13084502ab5`; Required CI `33239731204` SUCCESS; merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`; Issue #41 `5461257322`.
+- D10.1 sigue `[ 🟡 ] / PENDING`: restore/RPO/RTO/core flows PASS; gaps literales = config+índice/media backup strategy, off-provider copy y backup-failure alert; Issue #41 `5461379758`. `NIGHT-WOZ-003` quedó sin procesar y fue superseded por `NIGHT-WOZ-004` con mismo scope.
+- F2/12.1 sigue `[ 🟡 ]`: `NIGHT-AAA-003` no encontró artifact reusable y confirmó gaps reales (artwork eager, startup/state taxonomy insuficiente y bootstrap atómico no verificado). `NIGHT-AAA-004` continúa la implementación sobre baseline vivo.
+- F4/21.1+21.2 `[x] / DONE / INTEGRATED`: PR #51 exact tested head `0fd9bee8117ca92fb9f713f0d55089f5707a2917`; D7 `33243436937`, D6 `33243436890`, Required CI `33243436894`, Upgrade Staging `33243436914` SUCCESS; race-check Ready/mergeable/base/head exactos; merge `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`; tree integrado idéntico al exact tested head; Issue #41 `5461557463`. PR #48 quedó CLOSED/MERGED al ser incorporado.
+- BBB reasignado explícitamente a F4/24.1 bajo `NIGHT-BBB-004`, REUSE-FIRST de tag→SHA, checksums/SBOM/provenance, channels/rings/minimum version/kill switch; signing/notarization permanecen gates externos.
+- Ningún gate de release fue rebajado y no se marcaron D10.1, 12.1, F0 global, signing/notarization o F3 como cerrados.
 
 ---
 
 ## Estado actual
 
-- Integración estable: `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.
-- WOZ: **sin asignación activa**; D8 `[x] / PASS`; D9 dependency-ready/unassigned.
-- AAA: **sin asignación activa**; 11.1 y 12.2 `[x]`; 11.2/12.1 dependency-ready; 15.1 Trash follow-up queued.
-- BBB: **F4/21.2 FULL OWNER**; #51 combinado 21.1+21.2 OPEN/DRAFT; requiere refresh contra baseline vivo + exact-head evidence; 21.1/21.2 `[ 🟡 ]`.
+- Integración estable: `integration-v0.8.0-alpha.1` @ `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.
+- WOZ: **F1/D10.1** bajo `NIGHT-WOZ-004`; D8/D9 `[x] / PASS`; D10.1 `[ 🟡 ]`.
+- AAA: **F2/12.1** bajo `NIGHT-AAA-004`; 11.1/11.2/12.2 `[x]`; 12.1 `[ 🟡 ]`.
+- BBB: **F4/24.1** bajo `NIGHT-BBB-004`; 21.1/21.2 `[x] / DONE / INTEGRATED`.
 - JOBS: coordinación/plan/handoffs; no código BeatGaler ni merges técnicos.
-- D6: `[x] / PASS`.
-- D7: `[x] / PASS`.
-- D8: `[x] / PASS`.
 - 5.1/5.2: `[x]`.
 - 2.2/1.2: tails externos `[ 🟡 ]`.
+- F3: D16–D20 abiertos; mayor volumen restante.
 - Release público: 🔴 `NO-GO`.
