@@ -4,13 +4,13 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable al preflight JOBS CYCLE 007:** `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
+**Integración estable CYCLE 008:** `integration-v0.8.0-alpha.1 @ f73c9ee8d058df3c780170c8c2a3fabef975c54d`.
 
 ## Owner actual
 
-**BBB — F4 / 24.2 → 25.1 dependency-safe — `NIGHT-BBB-008`.**
+**BBB — F4 / 25.1 dependency-safe — `NIGHT-BBB-009`.**
 
-21.1 + 21.2 y 24.1 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. PR #57 fue refrescado al baseline vivo y ya tiene exact-head Required CI/D6/D7 verdes; BBB debe race-check + integrar, y después reducir 25.1 por REUSE-FIRST sin invadir producto F2/F3.
+21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. BBB completó el audit REUSE-FIRST de 25.1: existe cobertura reutilizable amplia, pero no una matriz funcional completa demostrada cross-browser/cross-OS/iPhone/YouTube/billing.
 
 ---
 
@@ -72,45 +72,44 @@ Satisfecho:
 - [x] channels/rings/minimum versions/kill switch;
 - [x] publicación fail-closed mientras controles no autoricen release.
 
-No implica signing Windows, notarización macOS ni release público.
+### 24.2 — `[x] DONE / INTEGRATED`
 
-### 24.2 — `[ 🟡 ] READY FOR OWNER MERGE` — BBB `NIGHT-BBB-008`
+PR #57 `bbb/task-24.2-updater-recovery` fue integrado después de race-check exacto.
 
-**Candidate único REUSE-FIRST:** PR #57 `bbb/task-24.2-updater-recovery`.
-
-Estado vivo verificado por JOBS:
-- exact refreshed head `4e251cae84ff55116c89c8398e78f04aecb78e3c`;
-- exact base `f0d65aa66988e3e1a026e237b65c65a56b098aa9`;
-- OPEN / Ready / mergeable=true;
-- Required CI exact-head SUCCESS;
+Evidencia:
+- exact tested head `4e251cae84ff55116c89c8398e78f04aecb78e3c`;
+- exact base probado `f0d65aa66988e3e1a026e237b65c65a56b098aa9`;
+- Test - Desktop Portability/Required CI `33255401498` SUCCESS;
 - D6 `33255401544` SUCCESS;
-- D7 `33255401512` SUCCESS.
+- D7 `33255401512` SUCCESS;
+- merge `f73c9ee8d058df3c780170c8c2a3fabef975c54d`, parents exactos `f0d65aa...` + `4e251cae...`.
 
-Candidate cubre dependency-safe:
-- [ 🟡 ] update N-1 y fallos de red/disco/firma/manifest con policy fail-closed;
-- [ 🟡 ] recovery/rollback verificable;
-- [ 🟡 ] planner/runbook no destructivo para retiro de artifact malo/comunicación.
+Satisfecho técnicamente:
+- [x] update N-1 y fallos de red/disco/firma/manifest con policy fail-closed;
+- [x] recovery/rollback verificable;
+- [x] planner/runbook no destructivo para retiro de artifact malo/comunicación.
 
-**No se marca `[x]` hasta merge SHA verificable.** BBB debe revalidar base/head/checks; si integration cambió materialmente, refrescar la misma PR y obtener nuevo exact-head CI. JOBS no mergea código BeatGaler.
-
-**Regla:** no crear release público, no mover stable/latest, no inventar certificados.  
-**Gate:** tag→SHA→artefacto demostrable + rollback runbook + integración exact-head verificable.
+Esto no cierra D22/D23 ni autoriza release público, signing, notarization o movimiento stable/latest.
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `NEXT AFTER #57 / BBB NIGHT-BBB-008`
-- [ ] Web browsers/iPhone + Windows/macOS físicos;
-- [ ] auth/import/Review/playback/edit/Trash/offline/YouTube/updater/billing;
-- [ ] refresh/restart + cero llamadas plataforma inválida.
+### 25.1 — `[ 🟡 ] IN PROGRESS` — BBB `NIGHT-BBB-009`
 
-`NIGHT-BBB-008` autoriza únicamente **REUSE-FIRST dependency-safe matrix audit** después de integrar #57:
-- inventariar workflows/fixtures/evidencia existente;
-- separar cobertura automatizada de pruebas físicas/credenciales externas;
-- cerrar solo gaps F4-matrix internos pequeños sin modificar lógica de producto F2/F3;
-- findings de producto vuelven a JOBS para owner correcto;
-- un único candidate si existe delta real.
+Audit REUSE-FIRST ya confirmado:
+- Web/component/desktop harnesses reutilizables cubren auth/import/Review/playback/edit/Trash/offline/downloads y updater recovery/static portability;
+- Web E2E explícito actualmente demuestra boot compilado sin Tauri, no todos los journeys;
+- Windows/macOS tienen gates nativos/build/portability y harnesses, pero no evidencia explícita de todos los journeys funcionales en ambos OS;
+- no se encontró runner funcional iPhone;
+- YouTube tiene helper de release pero no journey E2E dedicado verificado;
+- billing tiene plan code pero no journey funcional/E2E dedicado verificado.
 
-No falsear browser/iPhone/Windows/macOS físicos si no se ejecutan realmente.
+`NIGHT-BBB-009` autoriza únicamente:
+- componer un **único matrix/runner dependency-safe** sobre harnesses existentes;
+- mapear cada requisito a `AUTOMATED_PASS`, `PENDING_EXTERNAL`, `PRODUCT_FINDING` o `NOT_COVERED` con evidencia concreta;
+- añadir solo gaps pequeños F4-matrix-only que no cambien lógica F2/F3;
+- un único candidate si existe delta real, con tests/CI exact-head.
+
+No falsear iPhone/hardware/credenciales externas ni reparar producto fuera de F4.
 
 ### 25.2
 - [ ] design freeze tokens/nav/library/drawer/player/settings/wizard;
