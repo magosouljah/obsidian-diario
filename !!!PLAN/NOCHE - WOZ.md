@@ -11,57 +11,51 @@ Reducir el mayor bloque técnico restante de F0–F4 con REUSE-FIRST y evidencia
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-007`
-- `ASSIGNMENT_STATUS: PENDING_EXTERNAL`
-- `AREA: F3 / 16.1 — entornos / runtime-operability dependency-safe slice`
+- `ASSIGNMENT_ID: NIGHT-WOZ-008`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F3 / 16.1 candidate closure → 16.2 software-only promotion contract`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`
-- `CONTEXT: NIGHT-WOZ-006 integró PR #56. D10.1 quedó exclusivamente PENDING_EXTERNAL_PROOF por copia real fuera del primary provider/account failure domain; no queda trabajo técnico interno útil en ese lane hasta acción externa RO. JOBS reasigna WOZ explícitamente a F3/16.1.`
+- `REUSE_PR: #59 / woz/night-16.1-runtime-operability`
+- `KNOWN_CANDIDATE_HEAD: 292a7706bc4f6c21eccc60f2838cda0cd8ed4adc`
+- `JOBS_PRECHECK: #59 OPEN / Ready / mergeable=true; D6 33256145573 SUCCESS; D7 33256145614 SUCCESS; productive temp-auth compile 33256145521 SUCCESS; Test - Desktop Portability 33256145531 estaba IN_PROGRESS en el último preflight.`
 
 ### Orden JOBS
 
 1. Preflight factual completo: Plan Maestro + F3 + Registro + roles + protocolo + este archivo + Issue #41 reciente + GitHub real.
-2. REUSE-FIRST: audita primero los assets/runtime/deploy/config existentes para prod/staging, health/readiness/dependency checks, graceful shutdown, timeouts y proxy trust. No asumas que F3 parte de cero.
-3. Ejecuta únicamente el slice dependency-safe de 16.1 que pueda demostrarse sin nuevas credenciales/costo:
-   - separar/validar contractualmente staging vs producción donde ya exista soporte;
-   - health/readiness/dependency checks fail-closed;
-   - graceful shutdown, timeouts y proxy trust seguros/reproducibles;
-   - documentar el gap exacto de recursos/secretos/callbacks separados si requiere acción externa.
-4. No crees una segunda RDS, nueva infraestructura pagada, cuentas/provider projects, buckets o recursos con costo sin autorización RO explícita. No cambies DNS/Stripe/legal.
-5. Duplicate-check antes de rama/PR. Si código/config necesita cambio, usa un único candidate mínimo y CI exact-head. Si todo lo dependency-safe ya existe, entrega evidencia REUSED en vez de reimplementarlo.
-6. Si staging real separado requiere credenciales/decisión externa, reduce el blocker a una acción literal y no lo declares PASS. La ausencia de staging productivo no impide cerrar subrequisitos puramente software si están demostrados.
-7. No volver a D10.1 ni repetir restore/cutover/restart/migrations/rotation. No tocar F2/F4.
-8. Actualiza solo este markdown + Issue #41 con evidencia y STOP.
+2. REUSE-FIRST: continúa exclusivamente #59 para 16.1; no abras candidate duplicado.
+3. Revalida head/base y el workflow Test - Desktop Portability `33256145531`. D6/D7/compile ya fueron verificados verdes por JOBS sobre exact head.
+4. Si Desktop Portability/Required CI aplicable termina SUCCESS, #59 sigue Ready/mergeable y no cambió la combinación, realiza race-check final y merge protegido con expected-head. Verifica merge SHA. Si falla, corrige la MISMA PR y vuelve a exigir exact-head.
+5. Tras merge, 16.1 **no** se marca completo: el contrato software dependency-safe puede quedar DONE/INTEGRATED, pero la separación física staging/prod (projects, DB, storage, bots, OAuth callbacks, secrets/ownership) permanece PENDING_EXTERNAL hasta evidencia real.
+6. Después de integrar #59, inicia 16.2 únicamente en el carril **software-only/dependency-safe** y REUSE-FIRST: audita workflows/deploy assets existentes; define/ajusta el contrato reproducible PR→preview, candidate tag→staging, approval→production; API origin/TLS/headers inyectables y release fail-closed sin Tailscale/local fallback; smoke/rollback scripts o fixtures que no requieran desplegar infraestructura real.
+7. No crear RDS/provider projects/buckets/bots/OAuth projects/secret stores ni costo nuevo. No ejecutar deploy productivo ni staging real sin credenciales/RO.
+8. Si 16.2 requiere infraestructura para probar el último tramo, separa DONE software-only de blocker externo literal. Un único candidate si hay delta real; si ya existe todo, entrega REUSED con evidencia.
+9. No volver a D10.1; no tocar Stripe/DNS/legal/F2/F4. Actualiza solo este markdown + Issue #41 con evidencia y STOP.
 
 ### Fuera de scope
 
-F1/D10.1 off-provider copy; D10.2; F2; F4; Stripe 17.x; legal/DNS 19.x; capacidad 20.2 salvo inspección de dependencias; nueva infraestructura/costo; release público; cualquier `!!!PLAN` salvo este markdown.
+F1/D10.1; D10.2; F2; F4; Stripe 17.x; legal/DNS 19.x; capacidad 20.x; recursos/costo nuevos; release público; cualquier `!!!PLAN` salvo este markdown.
 
 ## RESULTADO DEL TURNO
 
 `LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-007`  
 `TURN_STATUS: PENDING_EXTERNAL`  
-`GATE: F3 / 16.1 — dependency-safe runtime slice READY_FOR_REVIEW; physical environment separation PENDING_EXTERNAL.`  
 `BASE_BEFORE: integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`  
 `BRANCH_HEAD: woz/night-16.1-runtime-operability @ 292a7706bc4f6c21eccc60f2838cda0cd8ed4adc`  
-`PR: #59 OPEN / mergeable; base exact f0d65aa66988e3e1a026e237b65c65a56b098aa9; 4 changed files.`  
-`CHANGES: añadido contrato dependency-safe F3/16.1: /healthz; /readyz con PostgreSQL SELECT 1 y fail-closed si DB requerida falta/no responde; estado draining; trust proxy explícito y acotado; request/header/keepalive/socket/dependency timeouts; graceful SIGINT/SIGTERM HTTP drain; BEATGALER_DEPLOYMENT_ENV obligatorio como staging|production cuando NODE_ENV=production; knobs documentados en .env.example. Se reutiliza bootstrap/shutdown PostgreSQL y el patrón existente de installers Express; no se toca server-core monolítico ni se crean recursos/provider/costo.`  
-`TESTS: PASS_LOCAL_UNIT — node:test 7/7 para contrato de entorno, proxy trust, readiness missing/SELECT 1, timeouts, graceful drain e integración del patch Express. Intento de clone/full-repo self-test no ejecutable por DNS del runtime; no se falsea evidencia.`  
-`CI: UNVERIFIED/NO_RUN para head 292a7706bc4f6c21eccc60f2838cda0cd8ed4adc — GitHub reportó workflow_runs=[] y combined statuses=[] al cierre; no se lanzó CI costoso artificialmente.`  
-`EVIDENCE_REUSED: /auth/health existente; timeouts puntuales de dependencias; postgres-bootstrap con pool+migrations y cierre pool en SIGINT/SIGTERM; patrón Express prototype installers ya integrado; baseline estable f0d65aa66988e3e1a026e237b65c65a56b098aa9.`  
-`EVIDENCE_NEW: PR #59; head exact 292a7706bc4f6c21eccc60f2838cda0cd8ed4adc; self-test 7/7; PR mergeable=true contra baseline exact.`  
-`UNVERIFIED: ejecución full-repo del candidate; CI exact-head inexistente al cierre; staging/prod físicos separados; proyectos/provider, DB, buckets/volumes, bots, OAuth callbacks, secrets y ownership reales separados.`  
-`BLOCKERS: EXTERNAL — para completar literalmente 16.1, RO/provider owner debe definir/autorizar topología y credenciales de staging/prod separados (proyectos + DB + storage + bots + OAuth callbacks + secret stores/ownership). WOZ no puede crear esos recursos/costos sin autorización explícita.`  
-`RECOMMENDATION_TO_JOBS: revisar PR #59 y, si acepta el contrato software, integrarlo con protección exact-head. Mantener 16.1 PENDING exclusivamente por separación física externa y CI/full-repo aún no observado; no reasignar WOZ dentro de este turno.`  
-`TURN_FINISHED_AT: 2026-08-29T07:53:18-06:00`  
+`PR: #59 OPEN / Ready / mergeable=true; exact base f0d65aa...`  
+`CHANGES: runtime-operability contract /healthz, /readyz fail-closed, drain, proxy trust, bounded timeouts, graceful shutdown, deployment-env contract; no provider resources.`  
+`TESTS: local node:test 7/7 PASS.`  
+`POST_TURN_JOBS_CI: D6 33256145573 SUCCESS; D7 33256145614 SUCCESS; compile 33256145521 SUCCESS; Test - Desktop Portability 33256145531 todavía IN_PROGRESS en el último fetch.`  
+`BLOCKER_16_1: separación física staging/prod real permanece externa aun si #59 integra.`  
 `STOP: sí.`
 
 ## HISTORIAL
 
-- `NIGHT-WOZ-007`: PENDING_EXTERNAL — PR #59 runtime-operability candidate; self-test 7/7; separación física staging/prod requiere RO/provider action; CI exact-head no observado al cierre.
-- `NIGHT-WOZ-006`: PENDING — PR #56 integrado como f0d65aa66988e3e1a026e237b65c65a56b098aa9; D10.1 external-only por off-provider proof.
-- `NIGHT-WOZ-005`: PENDING — PR #56 candidate; self-test PASS; único blocker off-provider; CI luego verificado SUCCESS por JOBS.
-- `NIGHT-WOZ-004`: PENDING — tres gaps literales confirmados.
+- `NIGHT-WOZ-008`: ASSIGNED — cerrar #59 si exact-head termina verde; después 16.2 software-only/dependency-safe.
+- `NIGHT-WOZ-007`: PENDING_EXTERNAL — PR #59 + self-test 7/7; external physical separation.
+- `NIGHT-WOZ-006`: PENDING — PR #56 integrado como `f0d65aa...`; D10.1 external-only.
+- `NIGHT-WOZ-005`: PENDING — PR #56 candidate.
+- `NIGHT-WOZ-004`: PENDING — D10.1 gaps confirmados.
 - `NIGHT-WOZ-003`: superseded unprocessed.
-- `NIGHT-WOZ-002`: PENDING — D10.1 REUSE-FIRST audit.
+- `NIGHT-WOZ-002`: PENDING — D10.1 audit.
 - `NIGHT-WOZ-001`: superseded.
 - D9: DONE/PASS — Issue #41 `5460959369`.
