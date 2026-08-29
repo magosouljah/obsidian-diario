@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-BBB-012`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: DONE`
 - `AREA: F4 / 25.1 — integrate SAME PR #60`
 - `KNOWN_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 58a6bf61441f08bf68aa63673c0d5f2994b220d9`
 - `REUSE_PR: #60 / bbb/task-25.1-functional-matrix`
@@ -24,16 +24,25 @@
 5. No auto-iniciar 25.2, signing, notarization, release ni fixes F2/F3 en 012.
 6. Handoff en este markdown + Issue #41 y STOP.
 
-## RESULTADO DEL TURNO ANTERIOR
+## RESULTADO DEL TURNO
 
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-011`  
-`TURN_STATUS: PENDING`  
-`RESULT: tras merge #58, SAME #60 fue refrescada sobre 58a6bf614... a head 945638c8bb650b0ce0bbe569e48a791a93d80e39. El turno terminó con CI en curso; GitHub posterior confirma todos los gates aplicables SUCCESS.`  
-`EVIDENCE_NEW_BY_JOBS: runs 33265800007/00004/00022/00008 = SUCCESS; #60 OPEN/Ready/mergeable; no merge todavía.`
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-012`  
+`TURN_STATUS: DONE`  
+`BASE_BEFORE: integration-v0.8.0-alpha.1 @ 58a6bf61441f08bf68aa63673c0d5f2994b220d9`  
+`HEAD_AFTER: integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3; candidate bbb/task-25.1-functional-matrix @ 945638c8bb650b0ce0bbe569e48a791a93d80e39`  
+`PR: #60 CLOSED/MERGED @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`  
+`CHANGES: preflight/race-check factual completo; REUSE-FIRST de la misma PR #60; duplicate-check sin candidate 25.1 alterno; merge protegido con expected-head 945638c8...; reread de integration confirma 7de7b57a... con parents exactos 58a6bf614... + 945638c8.... No se inició 25.2, signing, notarization, release ni fixes F2/F3.`  
+`TESTS: se reutilizó evidencia exact-head existente, sin reruns ceremoniales: F4 - 25.1 Functional Matrix 33265800007 SUCCESS; D6 33265800004 SUCCESS; D7 33265800022 SUCCESS; Test - Desktop Portability 33265800008 SUCCESS; Upgrade 21.2 Staging 33265800019 SKIPPED/no aplicable.`  
+`CI: exact head 945638c8bb650b0ce0bbe569e48a791a93d80e39 — todos los gates aplicables observados SUCCESS; no se rebajó ningún gate.`  
+`EVIDENCE: integration pre-merge seguía exactamente 58a6bf61441f08bf68aa63673c0d5f2994b220d9; compare exacto mostró merge-base 58a6bf614...; #60 estaba OPEN/Ready/mergeable clean con head 945638c8...; merge expected-head devolvió 7de7b57a508b3cf05cbded81501fbd3da63922a3; integration reread apunta exactamente a 7de7b57a... con parent1 58a6bf614... y parent2 945638c8.... PR #51 fue revalidada contra GitHub real: CLOSED/MERGED, merge 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858.`  
+`UNVERIFIED: los estados funcionales honestos de la matriz que siguen NOT_COVERED/PENDING_EXTERNAL/PRODUCT_FINDING no se convierten en PASS por integrar el artifact; siguen sin verificarse runner/hardware iPhone y journeys funcionales no cubiertos, incluyendo evidencia dedicada de YouTube/billing donde aplique; signing Windows, notarization macOS, 25.2 y release público siguen fuera de esta asignación.`  
+`BLOCKERS: ninguno para NIGHT-BBB-012. Los gaps funcionales/externos anteriores permanecen como gaps y no son blockers de esta transacción ya completada.`  
+`RECOMMENDATION_TO_JOBS: aceptar PR #60 como artifact F4/25.1 integrado, conservar explícitamente los gaps NOT_COVERED/PENDING_EXTERNAL/PRODUCT_FINDING y decidir una nueva asignación separada si BBB debe trabajar 25.2 u otra pieza. No inferir cierre funcional total de 25.1 sólo por el merge.`  
+`TURN_FINISHED_AT: 2026-08-29T12:31:00-06:00`
 
 ## HISTORIAL
 
-- `NIGHT-BBB-012`: ASSIGNED — race-check + integración SAME #60 si baseline/head siguen válidos.
+- `NIGHT-BBB-012`: DONE — SAME #60 exact-head green merged as `7de7b57a508b3cf05cbded81501fbd3da63922a3`; no siguiente tarea iniciada.
 - `NIGHT-BBB-011`: PENDING — #60 refreshed a `945638c...`; CI luego verde.
 - `NIGHT-BBB-010`: PENDING — #60 repaired/refreshed.
 - `NIGHT-BBB-009`: PENDING — candidate con failure/stale base.
