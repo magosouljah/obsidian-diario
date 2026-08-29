@@ -4,51 +4,47 @@
 
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-**Estado nocturno CYCLE 014:** baseline vivo `integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`. F3 sigue siendo uno de los mayores bloques abiertos de F0–F4.
+**Estado nocturno CYCLE 016:** baseline vivo `integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`. F3 sigue siendo uno de los mayores bloques abiertos de F0–F4.
 
 ## Owner actual
 
-**WOZ — F3 / 17.1 Stripe Checkout server-side software-only — `NIGHT-WOZ-015`.**
+**WOZ — F3 / 17.1 SAME PR #65 exact-head green race-check/integration — `NIGHT-WOZ-016`.**
 
 PR #59 quedó **MERGED / DONE** en su slice software como `be9e58c9edc0bb40742e0b91e3f2ebe771ace502`; no satisface separación física staging/prod.
 
-PR #61 `woz/night-16.2-promotion-contract` quedó **CLOSED / MERGED** como `55e0d8759ec03b23fa8e4f1f35304922dffeb992`, candidate exact head `d254b294cf8fe78d93025271360dd73ed594898f`; Required CI `33271019389`, D6 `33271019493`, D7 `33271019399`, temp-auth `33271019373` y F4 matrix `33271019370` SUCCESS. Declaración limitada: 16.2 SOFTWARE DONE / EXTERNAL TAIL.
+PR #61 quedó **CLOSED / MERGED** como `55e0d8759ec03b23fa8e4f1f35304922dffeb992`; 16.2 permanece SOFTWARE DONE / EXTERNAL TAIL.
 
-Duplicate-check previo a `NIGHT-WOZ-015`: búsqueda visible por `stripe checkout idempotency webhook price` no encontró implementación reutilizable en BeatGaler; WOZ debe repetir búsqueda precisa antes de crear artifact.
+PR #65 `woz/night-17.1-checkout-contract` está OPEN/Ready/mergeable sobre base `b114111caf...`, head exacto `e65538640581f3f986748968db1f4dfb069c2579`. Evidencia exact-head ya resuelta: F3 17.1 `33276769749` SUCCESS; Required CI/Desktop Portability `33276769684` SUCCESS; D6 `33276769695` SUCCESS; D7 `33276769698` SUCCESS; temp-auth `33276769702` SUCCESS; Upgrade `33276769715` SKIPPED/no aplicable. Todavía NO está integrado; `NIGHT-WOZ-016` procesa race-check/merge exclusivamente.
 
 ## Día 16 — Staging y producción reproducibles
 
 ### 16.1 — `[ 🟡 ] SOFTWARE DONE / EXTERNAL TAIL`
-
-- [ ] Entornos físicamente separados con provider ownership, DB, storage, bots, OAuth callbacks y secretos separados. **PENDING_EXTERNAL**; requiere autorización/credenciales/recursos reales.
+- [ ] Entornos físicamente separados con provider ownership, DB, storage, bots, OAuth callbacks y secretos separados. **PENDING_EXTERNAL**.
 - [ ] Provider final/ownership real donde aplique.
-- [x] Health/readiness/dependency checks; graceful shutdown, timeouts y proxy trust — **DONE / INTEGRATED** por PR #59.
-
-Integrado por #59: `/healthz`; `/readyz` PostgreSQL fail-closed; draining; proxy trust acotado; timeouts; graceful shutdown; `BEATGALER_DEPLOYMENT_ENV`; knobs documentados.
+- [x] Health/readiness/dependency checks; graceful shutdown, timeouts y proxy trust — **DONE / INTEGRATED** por #59.
 
 **Regla:** no crear infraestructura pagada, provider projects, buckets/bots/OAuth projects ni recursos con costo sin aprobación RO.
 
 ### 16.2 — `[ 🟡 ] SOFTWARE DONE / EXTERNAL TAIL`
+Integrado por #61 como `55e0d875...`: promoción dependency-safe PR→preview→staging→producción con mismo source/artifact SHA, smoke y rollback fail-closed.
 
-Integrado por PR #61 como `55e0d875...`: software dependency-safe para PR→preview; tag candidato→staging; aprobación→producción; mismo source/artifact SHA; API origin HTTPS sin localhost/Tailscale fallback; headers inyectables; smoke `/healthz` + `/readyz`; rollback fail-closed al artifact previo con compatibilidad DB + smoke.
-
-**Pendiente externo:** deploy/staging/production reales, provider ownership, DNS/TLS productivo y rollback real. No falsear evidencia física/productiva.
+**Pendiente externo:** deploy/staging/production reales, provider ownership, DNS/TLS productivo y rollback real.
 
 ## Día 17 — Stripe Checkout y webhooks
 
-### 17.1 — `[ 🟡 ] ASSIGNED / SOFTWARE-ONLY` — WOZ `NIGHT-WOZ-015`
+### 17.1 — `[ 🟡 ] SOFTWARE CANDIDATE GREEN / NOT INTEGRATED` — WOZ `NIGHT-WOZ-016`
 - [ ] productos/precios/trial/currency/tax e IDs internos estables;
 - [ ] Checkout Session server-side;
 - [ ] idempotency keys y precios no decididos por cliente.
 
-**Orden 015:** implementar el contrato software mínimo con boundary de provider y tests deterministas; rechazar tampering de price/plan del cliente; retry/idempotency; unsupported product/currency; provider timeout/error fail-closed; identidad/metadata ligadas al usuario. Sin Stripe real, credenciales/costo ni claims productivos.
+**Estado factual:** software candidate #65 está exact-head verde pero no mergeado. Solo después de merge verificable puede promoverse este slice a `SOFTWARE DONE / INTEGRATED`. Eso no prueba Stripe productivo, credenciales reales ni decisiones comerciales reales.
 
 ### 17.2
 - [ ] firma webhook raw-body;
 - [ ] event ID durable + async/retry;
 - [ ] duplicados/desorden/timeouts/eventos relevantes.
 
-**Gate:** la UI nunca concede plan por redirect; solo estado server-side reconciliado.
+**Gate:** la UI nunca concede plan por redirect; solo estado server-side reconciliado. 17.2 no empieza dentro de `NIGHT-WOZ-016`; requiere nuevo Assignment ID tras 17.1 integrado.
 
 ## Día 18 — Entitlements, portal y reconciliación
 
