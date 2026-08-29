@@ -4,14 +4,14 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Integración estable CYCLE 008:** `integration-v0.8.0-alpha.1 @ f73c9ee8d058df3c780170c8c2a3fabef975c54d`.  
+**Integración estable CYCLE 009:** `integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`.  
 **Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto.
 
 ## Owner actual
 
-**AAA — F2 / 12.1 — FULL OWNER — `NIGHT-AAA-009`.**
+**AAA — F2 / 12.1 — FULL OWNER — `NIGHT-AAA-010`.**
 
-PR #58 `aaa/night-12.1-bootstrap-load` sigue OPEN/Ready/mergeable=true, head `d7cc93f9c4318be7f993bd033483c4e7f1834a55`, pero su base observada es `f0d65aa...` y la integración avanzó a `f73c9ee...` por #57. El intento anterior de merge fue bloqueado correctamente porque el merge-candidate no tenía Required CI. AAA debe refrescar la MISMA PR contra el baseline vivo, obtener CI aplicable exact-head/merge-candidate y solo entonces race-check + merge protegido. No duplicate.
+PR #58 `aaa/night-12.1-bootstrap-load` sigue OPEN y conserva head `d7cc93f9c4318be7f993bd033483c4e7f1834a55`. Su combinación probada quedó atrás: integration avanzó primero a `f73c9ee...` y ahora a `be9e58c...` por #59. No existe resultado verificable de `NIGHT-AAA-009`; JOBS lo supersedió antes de ejecución verificable para evitar una orden stale. AAA debe refrescar la MISMA PR contra el baseline vivo, obtener CI aplicable exact-head/merge-candidate y solo entonces race-check + merge protegido. No duplicate.
 
 ---
 
@@ -25,14 +25,14 @@ PR #54 merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 — `[ 🟡 ] IN PROGRESS` — AAA `NIGHT-AAA-009`
+### 12.1 — `[ 🟡 ] IN PROGRESS` — AAA `NIGHT-AAA-010`
 
 - [ ] **Índice vacío atómico en control plane.** No iniciar hasta integrar #58.
-- [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Candidate #58; aún no integrado.
+- [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Candidate #58; aún no integrado y requiere refresh/CI vigente.
 - [ 🟡 ] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork está en #58; pagination/window/memory siguen abiertos.
 - [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing está en #58; cold/warm cuantificado/residual siguen abiertos.
 
-**Orden 009:** refresh de la MISMA PR #58 sobre `f73c9ee...`; CI exacto; merge protegido si PASS. Después, atomic empty-index como único sub-slice nuevo. Pagination/window/memory y cold/warm residual quedan fuera de 009.
+**Orden 010:** refresh de la MISMA PR #58 sobre `be9e58c...`; CI aplicable a la nueva combinación; merge protegido solo si PASS. Después, atomic empty-index como único sub-slice nuevo. Pagination/window/memory y cold/warm residual quedan fuera de 010.
 
 ### 12.2 — `[x] DONE / INTEGRATED`
 PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
