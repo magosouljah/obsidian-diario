@@ -16,51 +16,50 @@ Reglas:
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-014
+## Estado vivo — NIGHT-JOBS-015
 
 - **Release público:** 🔴 `NO-GO`.
-- **Integración estable:** `integration-v0.8.0-alpha.1 @ 55e0d8759ec03b23fa8e4f1f35304922dffeb992`, merge verificable de PR #61 sobre parents `7de7b57a... + d254b294...`.
+- **Integración estable:** `integration-v0.8.0-alpha.1 @ b114111cafb29b4aa50cdce014059c66a75bddf2`, merge verificable de PR #64 sobre parents `55e0d875... + 3e7fd0a0...`.
 - **F0:** trabajo técnico interno cerrado; 1.2 y 2.2 conservan tails externos/administrativos. No consumir workers técnicos en duplicados.
 - **F1:** D6/D7/D8/D9 PASS. D10.1 `PENDING_EXTERNAL_PROOF` por copia real off-provider/off-account + read/checksum. D10.2 requiere decisión RO. No repetir drills aceptados.
 - **F2 / 11.1:** `[x]` PR #47. **11.2:** `[x]` PR #54. **12.2:** `[x]` PR #50.
-- **F2 / 12.1:** `[ 🟡 ] IN PROGRESS`. Slice A está integrada por #58. Atomic empty-index SAME PR #64 está ahora OPEN/Ready/mergeable sobre base viva `55e0d875...`, exact head `3e7fd0a0d7db6f7f423de47c86e643c36d6bcd24`. El Required CI/Test Desktop Portability `33272883660` terminó **SUCCESS** exact-head; Web+shared, Portable Windows y native macOS observados SUCCESS. No se reclama integración hasta owner race-check/merge. `NIGHT-AAA-015` procesa merge y, solo después, residual pagination/window/memory.
+- **F2 / 12.1:** `[ 🟡 ] IN PROGRESS`. Slice A integrada por #58. Atomic empty-index quedó **DONE / INTEGRATED** por PR #64 como `b114111caf...`, Required CI `33272883660` SUCCESS. Residual prioritario: paged/bounded library contract + consumer windowing + measurable memory evidence; `NIGHT-AAA-016` asignado. Cold/warm residual sigue después.
 - **F3 / 16.1:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — PR #59 integrado; separación física staging/prod sigue externa.
-- **F3 / 16.2:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — PR #61 protegido/integrado como `55e0d875...`; deploy/staging/rollback reales siguen externos. `NIGHT-WOZ-015` pasa explícitamente a F3/17.1 software-only Stripe Checkout server-side, sin credenciales/costo.
+- **F3 / 16.2:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL` — PR #61 integrado como `55e0d875...`; deploy/staging/rollback reales siguen externos.
+- **F3 / 17.1:** PR #65 `woz/night-17.1-checkout-contract @ 584b5cf3...` OPEN/Ready/mergeable sobre base `b114111caf...`. Focal 17.1, D6, D7 y temp-auth SUCCESS; Required CI `33276146715` sigue IN_PROGRESS. No merge todavía.
 - **F4 / 21.1+21.2:** `[x]` PR #51. **24.1:** `[x]` PR #55. **24.2:** `[x]` PR #57.
-- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. PR #60 integró la matriz. SAME PR #63 está OPEN/Ready/mergeable pero stale respecto a `55e0d875...`; exact head `9208ead249345d29458a5ae939923dd5c2f47dfb`. F4 Matrix/D6/D7/Desktop Portability verdes, pero Windows Import `33272794199` terminó **FAILURE** antes de specs porque el bootstrap `prepare-f4-25.1-embedded-driver.mjs` no encontró el marker esperado. `windows/import` sigue `NOT_COVERED`. `NIGHT-BBB-015` corrige solo glue/harness, refresh y exige functional PASS + fresh exact-head CI.
+- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. SAME #63 está OPEN/Ready/mergeable sobre base `b114111caf...`, head `8768856ff8ea15c7fa164e4b433abccf02852fb1`. F4 Matrix/D6/D7 ya SUCCESS; Windows Import `33276125806` IN_PROGRESS y Desktop Portability `33276125736` PENDING. `windows/import` sigue `NOT_COVERED` hasta PASS literal.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 - **2.2:** `[ 🟡 ]` tail externo. **1.2:** `[ 🟡 ]` release externo; Apple Developer `PENDING — DEFERRED`.
 
-## OWNERS — CYCLE 014 → órdenes 015
+## OWNERS — CYCLE 015
 
-### AAA — `NIGHT-AAA-015` — F2 / 12.1 SAME #64 merge + residual
-Race-check + protected merge de #64 si GitHub sigue exactamente compatible; si baseline/head cambia, refresh SAME lineage + fresh CI. Después de merge, cerrar solo atomic sub-slice y avanzar pagination/window/memory como siguiente residual pequeño y dependency-safe. No D13–D15.
+### AAA — `NIGHT-AAA-016` — F2 / 12.1 paged library contract + consumer windowing
+#64 ya fue integrado. Implementar un bounded/paged data contract real que evite full-library/global `Beat[]`, coordinar consumers/windowing y producir evidencia medible large-library. No D13–D15.
 
 ### BBB — `NIGHT-BBB-015` — F4 / 25.1 SAME #63 corrective
-Fix mínimo marker-safe del bootstrap, refresh SAME lineage sobre baseline vivo y functional Windows Import exact-head. `AUTOMATED_PASS` solo con PASS literal; bug producto ajeno → `PRODUCT_FINDING`. No segundo slice/25.2.
+Sigue vigente mientras exact-head Windows Import/CI terminan. No nuevo Assignment ID hasta procesar ese resultado. `AUTOMATED_PASS` solo con PASS literal + applicable CI green + race-check.
 
-### WOZ — `NIGHT-WOZ-015` — F3 / 17.1 Stripe Checkout software-only
-16.2 ya cerró su slice software. Duplicate-check no encontró implementación Stripe reutilizable. Implementar server-side Checkout contract con IDs/precios estables, idempotency y rechazo de precio/plan controlado por cliente; adapter/mocks permitidos. Sin Stripe real, credenciales, costo, 17.2 completo ni D18–D20.
+### WOZ — `NIGHT-WOZ-015` — F3 / 17.1 SAME #65 candidate
+Sigue vigente mientras Required CI `33276146715` termina. No nuevo Assignment ID hasta procesar el resultado. Sin Stripe real/credenciales/costo.
 
 ### JOBS
 Mantiene prioridades, `!!!PLAN`, handoffs y gates. No mergea código BeatGaler ni modifica infraestructura.
 
-## Camino crítico global — recalculado desde cero CYCLE 014
+## Camino crítico global — recalculado desde cero CYCLE 015
 
-1. **F2 / 12.1 #64 exact-head verde:** es el retorno inmediato más alto; merge del atomic bootstrap desbloquea el residual pagination/window/memory sin rehacer trabajo.
-2. **F3 / 17.1:** 16.2 software quedó integrado; F3 D17–D20 es ahora el mayor volumen técnico abierto. Stripe Checkout server-side software-only puede avanzar sin esperar physical staging ni credenciales reales.
-3. **F4 / 25.1 #63 functional red:** failure reproducible y atribuible a glue F4; corregirlo antes de ampliar cobertura evita falsa matriz y deuda.
+1. **F2 / 12.1 pagination/window/memory:** atomic bootstrap ya integrado; este residual es el siguiente blocker interno de F2.
+2. **F3 / 17.1 #65:** candidate software existe; falta Required CI + race-check/merge.
+3. **F4 / 25.1 #63:** correction/refresco hechos; falta Windows Import functional PASS + Required CI.
 4. **F0/F1:** continúan external/RO tails; no repetir trabajo técnico aceptado.
-
-No se conservó trabajo por inercia: AAA sigue en #64 porque el candidate pasó a merge-ready; BBB sigue en #63 por failure específico demostrado; WOZ cambia de 16.2 ya integrado a 17.1 porque ese es ahora el siguiente bloque técnico independiente de mayor retorno.
 
 ## Secuencia de integración verificada
 
-#47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; #58 → `58a6bf614...`; #60 → `7de7b57a...`; #61 → `55e0d8759ec03b23fa8e4f1f35304922dffeb992`.
+#47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; #58 → `58a6bf614...`; #60 → `7de7b57a...`; #61 → `55e0d875...`; #64 → `b114111cafb29b4aa50cdce014059c66a75bddf2`.
 
 Candidates vivos:
-- #64 @ `3e7fd0a0...` — OPEN/Ready/mergeable, base `55e0d875...`, Required CI `33272883660` SUCCESS; owner merge transaction pendiente.
-- #63 @ `9208ead249...` — OPEN/Ready/mergeable, stale vs `55e0d875...`; Windows Import `33272794199` FAILURE en bootstrap; no merge.
+- #63 @ `8768856f...` — OPEN/Ready/mergeable, base `b114111c...`; functional/Required CI aún no cerrados.
+- #65 @ `584b5cf3...` — OPEN/Ready/mergeable, base `b114111c...`; focal/D6/D7/temp-auth green, Required CI en progreso.
 
 ## Invariantes
 
@@ -75,7 +74,7 @@ Candidates vivos:
 
 ## NEXT
 
-**AAA:** `NIGHT-AAA-015` SAME #64 owner merge; después pagination/window/memory.  
-**BBB:** `NIGHT-BBB-015` SAME #63 marker-safe fix + refresh + functional exact-head.  
-**WOZ:** `NIGHT-WOZ-015` F3/17.1 server-side Stripe Checkout software-only.  
-**PLAN_HEALTH:** sincronizado a GitHub vivo CYCLE 014; GitHub prevalece si cambia después de este commit.
+**AAA:** `NIGHT-AAA-016` paged library contract + consumer windowing + large-library evidence.  
+**BBB:** mantener `NIGHT-BBB-015` hasta cierre factual de CI de #63.  
+**WOZ:** mantener `NIGHT-WOZ-015` hasta cierre factual de Required CI de #65.  
+**PLAN_HEALTH:** sincronizado a GitHub vivo CYCLE 015; GitHub prevalece si cambia después de este commit.
