@@ -4,15 +4,15 @@
 
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-**Estado nocturno CYCLE 009:** F3 sigue siendo el mayor bloque abierto de F0–F4. Baseline vivo: `integration-v0.8.0-alpha.1 @ be9e58c9edc0bb40742e0b91e3f2ebe771ace502`.
+**Estado nocturno CYCLE 012:** baseline vivo `integration-v0.8.0-alpha.1 @ 7de7b57a508b3cf05cbded81501fbd3da63922a3`. F3 sigue siendo uno de los mayores bloques abiertos de F0–F4.
 
 ## Owner actual
 
-**WOZ — F3 / 16.2 software-only — `NIGHT-WOZ-010`.**
+**WOZ — F3 / 16.2 software-only — `NIGHT-WOZ-013`.**
 
-PR #59 `woz/night-16.1-runtime-operability` quedó **MERGED / DONE** en su slice software como `be9e58c9edc0bb40742e0b91e3f2ebe771ace502`, parents exactos `f73c9ee8d058df3c780170c8c2a3fabef975c54d` + `0e0bf188ceb298c5c6846e56576665b50a69e922`. WOZ confirmó race-check, Required CI SUCCESS y merge protegido en Issue #41 `5463349979`. Esto integra el contrato runtime dependency-safe de 16.1; **no** satisface la separación física staging/prod.
+PR #59 `woz/night-16.1-runtime-operability` quedó **MERGED / DONE** en su slice software como `be9e58c9edc0bb40742e0b91e3f2ebe771ace502`. Esto integra el contrato runtime dependency-safe de 16.1; **no** satisface la separación física staging/prod.
 
-`NIGHT-WOZ-010` avanza únicamente 16.2 software-only/dependency-safe, REUSE-FIRST y sin crear recursos/costo.
+PR #61 `woz/night-16.2-promotion-contract` sigue OPEN/Ready/mergeable con head `aef1cd0b1a26be327e561f344d63dae5d8def7ef`, pero ese head fue validado sobre snapshot base `58a6bf614...`. El baseline vivo avanzó por #60 a `7de7b57a...`; el protected merge fue rechazado correctamente porque Required CI debía renovarse para la combinación nueva. `NIGHT-WOZ-013` debe REUSE SAME #61, refresh sobre el baseline vivo, exact-head CI nuevo y merge protegido si el race-check queda limpio.
 
 ## Día 16 — Staging y producción reproducibles
 
@@ -34,13 +34,19 @@ Integrado por #59:
 
 **Regla:** no crear nueva infraestructura pagada, provider projects, buckets/bots/OAuth projects ni recursos con costo sin aprobación RO. El merge #59 no convierte 16.1 entero en PASS.
 
-### 16.2 — `[ 🟡 ] IN PROGRESS SOFTWARE-ONLY` — WOZ `NIGHT-WOZ-010`
+### 16.2 — `[ 🟡 ] SOFTWARE CANDIDATE / NEEDS REFRESH` — WOZ `NIGHT-WOZ-013`
 
-- [ ] PR → preview; tag candidato → staging; aprobación → producción.
-- [ ] API origin público, TLS y headers inyectables; release sin Tailscale/local fallbacks.
-- [ ] Smoke post-deploy y rollback al último artefacto/DB compatible.
+Candidate existente #61 contiene contrato software dependency-safe para:
+- PR → preview; tag candidato → staging; aprobación → producción;
+- mismo source/artifact SHA;
+- API origin público HTTPS, sin localhost/Tailscale fallback;
+- headers inyectables;
+- smoke `/healthz` + `/readyz`;
+- rollback fail-closed al artefacto previo con compatibilidad DB + smoke.
 
-`NIGHT-WOZ-010` puede cerrar únicamente el contrato software reproducible de esos puntos si existe delta real y puede probarse sin provider resources: auditar/reutilizar workflows/deploy assets existentes; fail-closed release origins; smoke/rollback scripts/fixtures; un único candidate si hace falta. Deploy real/staging real sigue externo.
+**Evidencia válida histórica:** exact head `aef1cd0...` tuvo D6/temp-auth/D7/Desktop Portability SUCCESS sobre el baseline anterior. **No autoriza merge post-#60.** GitHub ya rechazó usar el estado viejo después del movimiento de integración.
+
+**Orden 013:** refresh de SAME branch/PR #61 sobre `7de7b57a...`, preservar exclusivamente el delta F3, exact-head CI aplicable nuevo y protected merge expected-head solo con race-check limpio. Si integra, declarar únicamente `16.2 SOFTWARE DONE / EXTERNAL TAIL`; deploy/staging/production reales siguen externos.
 
 **Gate completo:** mismo SHA desplegable, smoke y rollback verificables, sin pasos manuales irrepetibles ni secretos compartidos entre entornos.
 
