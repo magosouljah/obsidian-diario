@@ -2,35 +2,34 @@
 
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** WOZ — worker nocturno.  
-**Área:** F3 — operación/capacidad.  
+**Área:** F3 / 20.2 — capacity harness continuation.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-051`
+- `ASSIGNMENT_ID: NIGHT-WOZ-052`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F3 / 20.2 — explicit replacement PR authorization from refreshed #77 branch`
+- `AREA: F3 / 20.2 — one authorized replacement PR from refreshed #77 branch`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`
-- `SOURCE_ARTIFACT: CLOSED/UNMERGED #77; refreshed branch woz/night-20.2-capacity-harness @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a`
-- `PREDECESSOR: NIGHT-WOZ-050 BLOCKED / REOPEN_UNAVAILABLE after GitHub 422; processed by JOBS CYCLE 052.`
-- `FACTUAL_STATE: compare live integration→50aac3f0 is AHEAD by 2, BEHIND by 0; exact merge-base is a306e3b3... and delta is exactly two added harness/test files (+139/-0).`
+- `SOURCE_ARTIFACT: CLOSED/UNMERGED #77; branch woz/night-20.2-capacity-harness @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a`
+- `PREDECESSOR: NIGHT-WOZ-051 produced no final RESULTADO DEL TURNO / replacement PR before JOBS CYCLE 053; SUPERSEDED and MUST NOT execute late.`
+- `FACTUAL_STATE: no replacement PR was found in duplicate-check; branch was last verified ahead 2 / behind 0 with merge-base exact live integration and two intended harness/test files.`
 - `HOLD_PR: #75 @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f — frozen / DO NOT TOUCH.`
 
 ### PRIMARY
 
-1. Preflight live integration + refreshed branch `50aac3f0...` + duplicate-check. STOP if baseline or branch changed materially after assignment.
-2. JOBS explicitly authorizes creating **one replacement PR only** from existing refreshed branch `woz/night-20.2-capacity-harness` because SAME #77 cannot be reopened. Do not create another branch or another duplicate artifact.
-3. Before opening replacement PR, verify compare remains exactly two intended files: `cloud-server/tests/capacity-load-harness.cjs` and `cloud-server/tests/capacity-load-harness.test.cjs`, with no unrelated delta.
-4. Preserve explicit target requirement and synthetic/local-only limitation. No invented expected peak, safety margin, provider load, 2× proof or capacity PASS.
-5. Open replacement PR against live `integration-v0.8.0-alpha.1`; document that #77 is CLOSED/unmerged and this PR is the authorized continuation, not a second implementation.
-6. Run focused deterministic tests + fresh applicable exact-head CI on the replacement PR head.
-7. Maximum positive result before external/runtime evidence: `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
-8. Merge only if exact-head green, race-clean, narrow delta unchanged and owner flow permits. Even if merged, global 20.2 remains open for approved target + real 2× runtime proof + safety margin/waitlist evidence.
-9. Do not touch #75, #76, #72/#74/#71, #69/#70 or provider resources.
-10. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+1. Fresh preflight live integration + source branch + duplicate-check. If baseline/branch changed, recompute compare before any mutation.
+2. REUSE-FIRST: use the existing refreshed branch only. JOBS authorizes exactly one replacement PR because #77 cannot reopen; do not create a new implementation branch or duplicate harness.
+3. Require compare to remain only `cloud-server/tests/capacity-load-harness.cjs` and `cloud-server/tests/capacity-load-harness.test.cjs`, no unrelated delta.
+4. Open exactly one replacement PR against current live integration and document #77 as CLOSED/unmerged predecessor.
+5. Preserve explicit target input and synthetic/local-only limitation. No invented expected peak, safety margin, provider load, 2× proof, latency target or full capacity PASS.
+6. Run focused deterministic tests + fresh applicable exact-head CI.
+7. Merge only if exact-head green, race-clean, narrow delta unchanged and owner flow permits. Even if merged, maximum claim is `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`; global 20.2 remains open.
+8. Do not touch #75/#76/#72/#74/#71/#69/#70 or provider/infra resources.
+9. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** live base; source branch head; compare proving 2 files/ahead2/behind0; replacement PR number/head/base; focused tests; fresh exact-head CI; merge SHA only if actually merged; explicit `RUNTIME_CAPACITY_UNVERIFIED`.  
-**STOP:** branch scope drift, duplicate replacement PR already exists, target invention required, provider/infra/load operation required, fresh non-attributable red, another owner changes branch, or broad transport redesign.
+**Required evidence:** live base; source branch head; fresh compare; replacement PR number/head/base; focused tests; fresh exact-head CI; merge SHA only if actually merged; explicit `RUNTIME_CAPACITY_UNVERIFIED`.  
+**STOP:** duplicate replacement exists, branch scope drift, baseline race that cannot be reconciled narrowly, target invention/provider operation required, overlap with another owner, unsafe write/merge flow or non-attributable CI red.
 
 ### CI-FALLBACK
 
@@ -38,32 +37,22 @@
 
 **Alcance:** none preauthorized.  
 **Evidencia requerida:** n/a.  
-**STOP:** if PRIMARY waits CI/review/merge, do not invent secondary work; only recheck PRIMARY and report status.
+**STOP:** if PRIMARY waits CI/review/merge, do not invent secondary work; recheck PRIMARY and report.
 
-## RESULTADO PROCESADO — NIGHT-WOZ-050
+## RESULTADOS PROCESADOS
 
-- `STATUS: BLOCKED / REOPEN_UNAVAILABLE`.
-- #77 remained CLOSED/unmerged; GitHub returned 422 on reopen because branch was force-pushed/recreated.
-- SAME branch was reconciled cleanly onto live base and now points to `50aac3f0c700a88e1f058372c23ee1d96ecf247a`.
-- Fresh compare from live integration: `ahead_by=2`, `behind_by=0`, merge-base exactly `a306e3b3...`, two intended files only (+139/-0).
-- Focused tests/CI were not run after STOP; runtime capacity remains unverified.
-- JOBS CYCLE 052 accepts only the refreshed branch artifact and explicitly authorizes one replacement PR; no 20.2 PASS claim.
-
-## RESULTADO PROCESADO — NIGHT-WOZ-048
-
-- `STATUS: DONE / INTEGRATED`.
-- #73 exact head `fc831172c4c86d97cadb03801a6777777fd345bb`; merge/post-merge integration `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
-- Accepted result: reconciliation/exception-queue software slice integrated; full 18.2 remains open.
-- Issue #41 handoff: `5470883416`.
+- `NIGHT-WOZ-051`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no replacement PR found before CYCLE 053.
+- `NIGHT-WOZ-050`: `BLOCKED / REOPEN_UNAVAILABLE`; #77 could not reopen, branch refreshed to `50aac3f0...` and verified narrow/exact-base; no runtime-capacity PASS.
+- `NIGHT-WOZ-048`: `DONE / INTEGRATED`; #73 merged as `a306e3b3...`, only reconciliation/exception-queue software slice.
 
 ## HOLDING
 
-- F3/20.1 #75: corrective known, previous write flow blocked; untouched.
+- F3/20.1 #75: corrective known, write-flow blocker; untouched.
 - F3/18.2 residual provider/payment scenarios: external/business-policy evidence remains open.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-051`: ASSIGNED — explicit one-time replacement PR authorization from refreshed #77 branch `50aac3f0...`; runtime capacity unverified; CI-FALLBACK NONE.
-- `NIGHT-WOZ-050`: BLOCKED/REOPEN_UNAVAILABLE — branch refreshed cleanly; #77 cannot reopen.
-- `NIGHT-WOZ-049`: NO_RESULT / SUPERSEDED_BY_JOBS.
-- `NIGHT-WOZ-048`: DONE/INTEGRATED — #73 merged as `a306e3b3...`.
+- `NIGHT-WOZ-052`: ASSIGNED — one authorized replacement PR from existing exact-base #77 branch; CI-FALLBACK NONE.
+- `NIGHT-WOZ-051`: NO_RESULT / SUPERSEDED_BY_JOBS.
+- `NIGHT-WOZ-050`: BLOCKED / REOPEN_UNAVAILABLE.
+- `NIGHT-WOZ-048`: DONE / INTEGRATED — #73.
