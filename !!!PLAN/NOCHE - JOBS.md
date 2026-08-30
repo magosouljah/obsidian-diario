@@ -3,140 +3,140 @@
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** JOBS — jefe de la noche.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.  
-**Ciclo:** `CYCLE 025`.
+**Ciclo:** `CYCLE 026`.
 
 ## META
 
 Terminar F0–F4 o reducirlas al mínimo número factual de blockers externos. Prioridad: (1) F0–F4, (2) sencillez, (3) limpieza. Evidence-before-claim; REUSE-FIRST; duplicate-check; exact-head; no rebajar gates.
 
-## BASELINE VIVO — CYCLE 025
+## BASELINE VIVO — CYCLE 026
 
 - BeatGaler integración verificada: `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
-- No existe merge posterior observable al #67.
-- PRs abiertos materiales observados: #63 y #68.
-- #68 `woz/night-18.1-entitlements-reservation @ 2a988ec2a25d6ecfa927614fcc32cde689995103`, base `3ad8f55a...`, OPEN/Ready/mergeable, exact-head CI aplicable verde.
-- #63 `bbb/task-25.1-windows-import @ 033c2b55a0c46471b7e7ddb3af57b626699ac6e6`, base `3ad8f55a...`, OPEN/Ready; Windows Import sigue FAILURE.
+- GitHub vivo no muestra merge posterior al #67 al preflight.
+- PR #68: OPEN/Ready/mergeable, base `3ad8f55a...`, head `2a988ec2a25d6ecfa927614fcc32cde689995103`; exact-head applicable CI verde.
+- PR #63: OPEN/Ready, base `3ad8f55a...`, head `ed03b806669373758d38bfd211e8f8905c86e269`; Windows Import fresh exact-head `33300992453` FAILURE.
 - Release público: 🔴 `NO-GO`.
 
 ## PREFLIGHT FACTUAL
 
-Leídos completos/obligatorios: Plan Maestro, F0–F4, roles/coordinación, protocolo nocturno, ledgers JOBS/AAA/BBB/WOZ, Registro de avances, Issue #41 y GitHub vivo. GitHub actual se tomó como autoridad.
+Leídos completos/obligatorios: Plan Maestro, F0–F4, Equipo multi-IA incluyendo Modo autónomo, protocolo nocturno, ledgers JOBS/AAA/BBB/WOZ, Registro de avances e Issue #41 completo. GitHub actual fue autoridad.
 
-Hechos materiales:
-1. integration sigue `3ad8f55a...`.
-2. WOZ `NIGHT-WOZ-023` sí produjo resultado: PR #68 + handoff Issue #41 `5467454128`, cerrado por worker como `PENDING / WAITING_CI`.
-3. Recheck JOBS del exact head #68 `2a988ec2...`: F3 18.1 `33299898356`, D6 `33299898222`, D7 `33299898232`, Productive Temp Auth Compile `33299898207` y Desktop Portability `33299898130` = SUCCESS; Upgrade 21.2 `33299898169` = SKIPPED/no aplicable.
-4. #68 sigue OPEN/Ready/mergeable y base exacta sigue `3ad8f55a...`; no carrera material observable al preflight.
-5. AAA `NIGHT-AAA-024` seguía ASSIGNED sin RESULTADO DEL TURNO, PR ni handoff observable.
-6. BBB `NIGHT-BBB-023` seguía ASSIGNED; #63 no cambió de head y Windows Import no obtuvo PASS nuevo.
-7. F0/F1 tails externos siguen sin evidencia nueva de cierre.
+Hechos verificados:
+1. integration sigue exactamente `3ad8f55a...`.
+2. AAA `NIGHT-AAA-025` produjo `PENDING / STOP_OWNERSHIP_BOUNDARY`, sin branch/PR; handoff Issue #41 `5467548340`.
+3. AAA REUSE-FIRST: single Review Save durable + CAS por item + garbage-journal server-side existentes; faltan Save All productivo/partial summary/bulk orchestration y contrato Web-callable para orphan cleanup.
+4. BBB `NIGHT-BBB-024` produjo head `ed03b806...` y cerró `PENDING / WAITING_CI`; handoff `5467567511`.
+5. JOBS resolvió esa espera: F4 Matrix `33300992450`, D6 `33300992447`, D7 `33300992444`, Desktop Portability `33300992437` SUCCESS; Windows Import `33300992453` FAILURE; Upgrade 21.2 SKIPPED/no aplicable.
+6. Job Windows `99228993010` llega a prepare/build/plugin compile, pero falla antes de assertions: Edge WebDriver mismatch (`Edge 151.0.4129.101`, driver `unknown`), después `tauri-driver not found`, después `No browserName defined...`.
+7. WOZ `NIGHT-WOZ-024` no produjo resultado/merge nuevo al preflight. #68 sigue exactamente listo para transacción final; no se ejecuta 024 tarde porque se supersede con 025.
+8. F0/F1 tails externos no tienen evidencia nueva de cierre.
 
 ## RESULTADOS PROCESADOS
 
-### WOZ 023
-`PENDING / WAITING_CI` fue resuelto factual por JOBS: la CI aplicable exact-head completó verde. No se declara 18.1 integrado porque #68 no está mergeado. Se emite `NIGHT-WOZ-024` para la transacción final de integración por el owner técnico.
+### AAA / NIGHT-AAA-025
+`PENDING / STOP_OWNERSHIP_BOUNDARY` aceptado como finding factual, no como cierre. JOBS divide 13.1: AAA conserva exclusivamente Save All + bulk Web; server orphan-journal queda separado/no asignado en este ciclo. No se marca 13.1 DONE.
 
-### AAA 024
-`NOT_PROCESSED / SUPERSEDED_BY_JOBS`: no resultado/artifact/handoff observable; se emite 025 con el mismo scope crítico.
+### BBB / NIGHT-BBB-024
+`PENDING / WAITING_CI` resuelto a **FAILURE** por JOBS. El failure sigue siendo harness/session F4 antes de assertions, no bug de producto demostrado. `windows/import` continúa `NOT_COVERED`; SAME #63 continúa.
 
-### BBB 023
-`NOT_PROCESSED / SUPERSEDED_BY_JOBS`: #63 permanece igual; se emite 024 con SAME PR y mismo corrective crítico.
+### WOZ / NIGHT-WOZ-024
+`NOT_PROCESSED / SUPERSEDED_BY_JOBS`: no resultado/handoff/merge nuevo observable. #68 permanece exact-head green/open sobre la misma base; se emite 025 para impedir ejecución duplicada tardía.
 
 ## CAMINO CRÍTICO GLOBAL — RECALCULADO DESDE CERO
 
-1. **F3 / 18.1 / PR #68:** CI ya verde; el camino más corto es la integración exacta por WOZ.
-2. **F4 / 25.1 / SAME #63:** Windows Import sigue rojo; resolver primer failure causal hasta assertion/PASS literal.
-3. **F2 / 13.1:** durability de Save All/bulk/garbage journal sigue dependency-safe.
-4. **F2 / 12.1 cold/warm:** abierto hasta startup real comparable; no fabricar benchmark.
-5. **F0/F1 + D22/D23:** externos/RO; no repetir drills aceptados.
-6. Después: F2 13.2–15, F3 18.2–20, resto F4 25.1/25.2 y tails externos. F5 sigue cerrada.
+1. **F3 / 18.1 / PR #68:** exact-head green, base viva intacta; owner debe ejecutar merge/race transaction.
+2. **F4 / 25.1 / SAME #63:** failure reducido a launcher/session; corregir config/provider efectivo hasta Windows Import literal PASS.
+3. **F2 / 13.1 Web:** Save All + partial summary + bulk conflict-safe pueden avanzar ya sin invadir server half.
+4. **F2 / 13.1 server orphan cleanup:** blocker de ownership/contrato separado; asignar en ciclo posterior cuando haya owner libre sin overlap.
+5. **F2 / 12.1:** cold/warm runtime real sigue pendiente; no fabricar benchmark.
+6. **F0/F1 + D22/D23:** externos/RO. Después: 13.2–15, F3 18.2–20, resto 25.1/25.2. F5 sigue cerrada.
 
 ## TABLERO AAA / BBB / WOZ
 
-| Worker | Estado factual CYCLE 025 | PRIMARY nuevo | CI-FALLBACK |
+| Worker | Estado factual CYCLE 026 | PRIMARY nuevo | CI-FALLBACK |
 |---|---|---|---|
-| AAA | 024 sin resultado observable | `NIGHT-AAA-025` — F2/13.1 | `NONE` |
-| BBB | 023 sin resultado; #63 igual, Windows Import rojo | `NIGHT-BBB-024` — SAME #63 corrective | `NONE` |
-| WOZ | 023 produjo #68; WAITING_CI resuelto GREEN | `NIGHT-WOZ-024` — #68 final integration transaction | `NONE` |
+| AAA | 025 PENDING / ownership boundary | `NIGHT-AAA-026` — Save All + bulk Web-only | `NONE` |
+| BBB | 024 WAITING_CI -> Windows Import FAILURE | `NIGHT-BBB-025` — SAME #63 launcher/session corrective | `NONE` |
+| WOZ | 024 sin resultado; #68 sigue green/open | `NIGHT-WOZ-025` — #68 final integration transaction | `NONE` |
 
-No overlap material: AAA=Web import durability; BBB=F4 Windows E2E harness; WOZ=billing/entitlements PR #68 integration.
+No overlap material: AAA=F2 frontend orchestration; BBB=F4 Windows harness; WOZ=F3 #68 integration.
 
 ## PRIMARY / CI-FALLBACK EMITIDOS
 
-### AAA — `NIGHT-AAA-025`
-PRIMARY: F2/13.1 únicamente — Save All durable con resumen parcial; bulk conflict-safe o deshabilitado honestamente; garbage journal/cleanup de uploads huérfanos. REUSE-FIRST; una sola rama/PR si hay gap.  
-EVIDENCE: focused success/partial-failure/conflict/cleanup tests + no silent loss + applicable exact-head CI.  
-STOP: 13.2/D14/D15, billing, Desktop, infra, scope creep o CI no atribuible.  
+### AAA — `NIGHT-AAA-026`
+PRIMARY: usar durable commit/CAS existente para Save All multi-item con progreso/resumen parcial y bulk conflict-safe; no tocar server journal/cleanup ni afirmar 13.1 cerrado.  
+EVIDENCE: total/partial/conflict tests, zero silent loss, exact-head CI si hay candidate.  
+STOP: server-side journal/cleanup, 13.2/D14/D15, billing/Desktop/infra, baseline race o CI no atribuible.  
 CI-FALLBACK: `NONE`.
 
-### BBB — `NIGHT-BBB-024`
-PRIMARY: SAME #63; consumir run `33284981477`/job `99186491944`, identificar primer failure causal actual y hacer corrective F4/harness mínimo. Windows Import literal PASS antes de promover matrix. Head nuevo → fresh applicable exact-head gates + race-check.  
-EVIDENCE: failure causal, exact delta, session/assertion/PASS o blocker factual, CI exact-head.  
-STOP: bug productivo fuera de F4, 25.2/D22/D23, package/global change no justificado, baseline race o CI no atribuible.  
+### BBB — `NIGHT-BBB-025`
+PRIMARY: SAME #63; consumir failure `33300992453`/job `99228993010`; verificar config/provider/session realmente consumido; corregir primer failure causal F4 mínimo; obtener session + Windows Import literal PASS antes de matrix promotion.  
+EVIDENCE: failure causal, delta mínimo, provider/session efectiva, PASS literal o blocker, fresh exact-head gates.  
+STOP: bug productivo fuera de F4, 25.2/D22/D23, package/global change injustificado, baseline race o CI no atribuible.  
 CI-FALLBACK: `NONE`.
 
-### WOZ — `NIGHT-WOZ-024`
-PRIMARY: PR #68 final integration transaction. Revalidar integration HEAD y exact head; si sigue base `3ad8f55a...` sin carrera material, integrar por flujo autorizado del owner; verificar merge SHA/post-merge integration SHA; reportar handoff. No iniciar 18.2.  
-EVIDENCE: live baseline, exact-head green already observed, race-check, merge SHA, integration SHA post-merge.  
-STOP: baseline materialmente distinto, conflicto/merge rechazado, CI no aplicable, 18.2/provider real/grace decisions/infra.  
+### WOZ — `NIGHT-WOZ-025`
+PRIMARY: SAME #68; revalidar integration/base/head/race y procesar integración exacta si sigue válido; verificar merge SHA/post-merge integration; STOP sin 18.2.  
+EVIDENCE: live baseline, exact-head green, race-check, merge SHA, integration post-merge.  
+STOP: baseline material distinto, merge/conflict, CI no aplicable, 18.2/provider real/F2 server half/infra.  
 CI-FALLBACK: `NONE`.
 
 ## BLOCKERS
 
 1. F0/2.2: GitHub-side cleanup/support + fresh final verification externa.
-2. F0/1.2: governance release/domain/support/status/AuthentiCode/reviews/test matrix; Apple Developer deferred.
+2. F0/1.2: release governance/domain/support/status/AuthentiCode/reviews/test matrix; Apple Developer deferred.
 3. F1/D10.1: copia real off-provider/off-account + read/checksum.
 4. F1/D10.2: decisión RO sobre alpha.
 5. F2/12.1: cold/warm runtime real cuantificado.
-6. F2: D13–D15 abiertos; D13.1 asignado.
-7. F3: #68 awaiting owner integration; 18.2–20 abiertos; 16.1/16.2 tails externos.
-8. F4/25.1: Windows Import `33284981477` FAILURE; #63 no mergeado; otros matrix gaps. D22/D23 externos; 25.2 abierto.
+6. F2/13.1: server-side orphan journal Web-callable contract/owner pendiente; AAA puede avanzar carril Web.
+7. F3/18.1: #68 exact-head green esperando owner integration; 18.2–20 abiertos; 16.1/16.2 tails externos.
+8. F4/25.1: Windows Import `33300992453` FAILURE antes de assertions; #63 no mergeado; otros matrix gaps; D22/D23 externos; 25.2 abierto.
 
 ## PROGRESO REAL F0–F4
 
 - **F0:** técnico interno cerrado; tails externos solamente.
 - **F1:** core técnico cerrado; D10.1 externo + D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; 12.1 reducido a cold/warm runtime; D13.1 activo por assignment; 13.2–15 abiertos.
-- **F3:** 16.1/16.2 software integrados con tails externos; 17.1/17.2 integrados; 18.1 candidate #68 exact-head green esperando integración; 18.2–20 abiertos.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrada; #63 Windows Import rojo; 25.1/25.2 abiertos; D22/D23 externos.
+- **F2:** 11.1/11.2/12.2 cerrados; 12.1 solo cold/warm; 13.1 dividido en carril Web activo + server orphan boundary; 13.2–15 abiertos.
+- **F3:** 16.1/16.2 software integrados con tails externos; 17.1/17.2 integrados; #68 exact-head green esperando integración; 18.2–20 abiertos.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrada; #63 Windows harness rojo; 25.1/25.2 abiertos; D22/D23 externos.
 - **F5:** `NO ABRIR` todavía.
 
-## PLAN SYNC — CYCLE 025
+## PLAN SYNC — CYCLE 026
 
 Actualizados por JOBS:
-- `!!!PLAN/Plan Maestro.md` → CYCLE 025 + #68 exact-head green + IDs nuevos;
-- `!!!PLAN/Fase 2 - Web y UX.md` → AAA 025;
-- `!!!PLAN/Fase 3 - Producción pagos y operación.md` → #68 green / WOZ 024 integration;
-- `!!!PLAN/Fase 4 - Desktop y release chain.md` → BBB 024;
-- `!!!PLAN/Equipo multi-IA - Roles y coordinación.md` → CYCLE 025;
-- `!!!PLAN/NOCHE - AAA.md` → `NIGHT-AAA-025`;
-- `!!!PLAN/NOCHE - BBB.md` → `NIGHT-BBB-024`;
-- `!!!PLAN/NOCHE - WOZ.md` → `NIGHT-WOZ-024`;
-- `!!!PLAN/NOCHE - JOBS.md` → CYCLE 025.
+- `!!!PLAN/Plan Maestro.md` → CYCLE 026;
+- `!!!PLAN/Fase 2 - Web y UX.md` → boundary 13.1 + AAA 026;
+- `!!!PLAN/Fase 3 - Producción pagos y operación.md` → WOZ 025 / #68;
+- `!!!PLAN/Fase 4 - Desktop y release chain.md` → #63 head/failure + BBB 025;
+- `!!!PLAN/Equipo multi-IA - Roles y coordinación.md` → CYCLE 026;
+- `!!!PLAN/NOCHE - AAA.md` → `NIGHT-AAA-026`;
+- `!!!PLAN/NOCHE - BBB.md` → `NIGHT-BBB-025`;
+- `!!!PLAN/NOCHE - WOZ.md` → `NIGHT-WOZ-025`;
+- `!!!PLAN/NOCHE - JOBS.md` → CYCLE 026.
 
-`Registro de avances.md` fue leído completo para el preflight; no se añadió entrada porque #68 todavía no está integrado y este ciclo no produjo nuevo merge/PASS de gate. JOBS no modificó código BeatGaler ni infraestructura. `Plan Maestro 2208 copy DONT TOUCH .md` no fue tocado.
+`Registro de avances.md` fue leído completo; no se añade entrada porque este ciclo no produjo nuevo merge/PASS de gate. F0/F1 no se modifican: no existe evidencia nueva de sus tails externos. JOBS no modificó código BeatGaler ni infraestructura. `Plan Maestro 2208 copy DONT TOUCH .md` no fue tocado.
 
 ## SIGUIENTE CICLO
 
-1. Releer integration HEAD antes de cualquier claim.
-2. Procesar primero cualquier RESULTADO real de AAA 025 / BBB 024 / WOZ 024.
-3. Si WOZ integra #68, actualizar baseline y revalidar candidates afectados antes de cualquier merge posterior.
-4. BBB: no aceptar green genérico como sustituto de Windows Import literal PASS.
-5. AAA: cero pérdida silenciosa es gate literal de D13.
-6. Mantener 12.1 cold/warm abierto hasta evidencia runtime real.
+1. Releer integration HEAD antes de claims.
+2. Procesar resultados AAA 026 / BBB 025 / WOZ 025 una sola vez.
+3. Si #68 integra y mueve baseline, revalidar #63 y cualquier candidate afectado antes de merge.
+4. Tras liberar WOZ de #68, evaluar asignar el server half mínimo de F2/13.1 sin overlap con AAA.
+5. BBB: Windows Import literal PASS es obligatorio; no green genérico.
+6. Mantener 12.1 abierto hasta runtime cold/warm real.
 7. No abrir F5 hasta condiciones reales F0–F4.
 
 ## LOG
 
 ```text
-CYCLE_ID: NIGHT-JOBS-025
+CYCLE_ID: NIGHT-JOBS-026
 INTEGRATION_HEAD_OBSERVED: 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af
-WOZ_023: PENDING/WAITING_CI -> EXACT_HEAD_CI_GREEN / PR68 NOT_MERGED
-AAA_024: NOT_PROCESSED / SUPERSEDED
-BBB_023: NOT_PROCESSED / SUPERSEDED
-AAA_NEW: NIGHT-AAA-025 ASSIGNED F2/13.1
-BBB_NEW: NIGHT-BBB-024 ASSIGNED SAME #63 corrective
-WOZ_NEW: NIGHT-WOZ-024 ASSIGNED PR68 final integration
+AAA_025: PENDING / STOP_OWNERSHIP_BOUNDARY -> processed
+BBB_024: PENDING/WAITING_CI -> JOBS recheck Windows Import 33300992453 FAILURE
+WOZ_024: NOT_PROCESSED / SUPERSEDED
+AAA_NEW: NIGHT-AAA-026 ASSIGNED F2/13.1 Web-only
+BBB_NEW: NIGHT-BBB-025 ASSIGNED SAME #63 launcher/session corrective
+WOZ_NEW: NIGHT-WOZ-025 ASSIGNED #68 final integration
 CI_FALLBACKS: AAA NONE; BBB NONE; WOZ NONE
 DUPLICATE_WORK: none
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
@@ -144,4 +144,4 @@ CODE_OR_INFRA_MUTATION_BY_JOBS: none
 RELEASE: NO-GO
 ```
 
-**STOP:** ciclo JOBS 025 completado. El próximo ciclo parte de GitHub vivo y de los resultados de `NIGHT-AAA-025`, `NIGHT-BBB-024` y `NIGHT-WOZ-024`.
+**STOP:** ciclo JOBS 026 completado. El próximo ciclo parte de GitHub vivo y de los resultados de `NIGHT-AAA-026`, `NIGHT-BBB-025` y `NIGHT-WOZ-025`.
