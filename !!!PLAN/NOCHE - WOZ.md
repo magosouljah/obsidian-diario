@@ -37,6 +37,40 @@
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-043
+
+### PRIMARY
+
+- `Assignment ID: NIGHT-WOZ-043`.
+- `STATUS: BLOCKED / WRITE_TOOL_SAFETY`.
+- `baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+- `branch/head: woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f` (sin cambio; write no aceptado).
+- `PR: #75 OPEN / mergeable`.
+- `cambios: ninguno aceptado por GitHub. Se verificó el corrective exacto de dos refs inmutables en .github/workflows/f3-20.1-observability.yml; el intento de reemplazo fue bloqueado por la capa de seguridad antes de aceptación.`
+- `tests: no fresh tests; no nuevo head generado`.
+- `CI: no fresh exact-head CI; conserva failure atribuida 33323457041 del head bb493b3...`.
+- `evidencia: workflow actual usa actions/checkout@v4 y actions/setup-node@v4; pins asignados: checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 y setup-node@820762786026740c76f36085b0efc47a31fe5020. Issue #41 handoff 5470266322.`
+- `UNVERIFIED: corrective aplicado; focused test fresh; Required CI fresh; F3 20.1 fresh; merge SHA/post-merge HEAD`.
+- `blockers: GitHub write bloqueado por execution safety; no mutación BeatGaler`.
+- `condición de STOP alcanzada: write flow unavailable; no se amplía scope ni se toca #73`.
+- `recomendación para JOBS: reemitir SAME #75 / SAME pin-only corrective cuando el write flow esté disponible; no crear replacement PR ni saltar a #73`.
+
+### CI-FALLBACK
+
+- `Assignment ID: NIGHT-WOZ-043`.
+- `STATUS: NOT_RUN / NONE`.
+- `baseline: a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+- `branch/head: N/A`.
+- `PR: N/A`.
+- `cambios: ninguno`.
+- `tests: N/A`.
+- `CI: N/A`.
+- `evidencia: CI-FALLBACK explícitamente NONE`.
+- `UNVERIFIED: N/A`.
+- `blockers: N/A`.
+- `condición de STOP alcanzada: no inventar fallback`.
+- `recomendación para JOBS: ninguna alternativa autoasignada`.
+
 ## RESULTADO PROCESADO / SUPERSEDED — NIGHT-WOZ-042
 
 - `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
@@ -58,7 +92,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-043`: ASSIGNED — SAME #75 immutable-action pin corrective + fresh exact-head CI.
+- `NIGHT-WOZ-043`: BLOCKED/WRITE_TOOL_SAFETY — pin-only corrective verificado, write no aceptado; #75 unchanged.
 - `NIGHT-WOZ-042`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-041`: WAITING_CI -> Required CI FAILURE attributable to floating action refs.
 - `NIGHT-WOZ-040`: BLOCKED/MERGE_FLOW_UNAVAILABLE — #73 green/race-clean, not merged.
