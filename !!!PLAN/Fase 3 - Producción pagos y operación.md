@@ -2,20 +2,20 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 050:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Baseline vivo CYCLE 051:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado owner / candidates
 
 - PR #68 / 18.1 MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
-- PR #73 / 18.2 reconciliation **MERGED** como `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`, parents `a9d35a3d...` + `fc831172...`. Exact-head green evidence fue reutilizada por WOZ048. Cierra solo el software slice de reconciliation/exception queue; global 18.2 sigue abierto.
-- PR #76 `legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070` sigue OPEN/Ready pero tras #73 está diverged/mergeable=false desde merge-base `a9d35a3d...`. Canonical Privacy/Terms + public routes existen; Settings stale sigue pendiente. `NIGHT-AAA-046` es owner único para narrow refresh + canonical Settings reuse + fresh exact-head CI.
+- PR #73 / 18.2 reconciliation **MERGED** como `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`, parents `a9d35a3d...` + `fc831172...`. Cierra solo el software slice de reconciliation/exception queue; global 18.2 sigue abierto.
+- PR #76 `legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070` sigue OPEN sin cambio de head desde CYCLE 050. Compare contra live integration conserva merge-base `a9d35a3d...`; el candidate sigue stale/diverged. Canonical Privacy/Terms + public routes existen; Settings stale sigue pendiente. `NIGHT-AAA-047` es owner único para narrow refresh + canonical Settings reuse + fresh exact-head CI.
 - PR #75 `woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f` sigue frozen por corrective/write-flow blocker.
-- PR #77 `woz/night-20.2-capacity-harness @ 204a03fc48d161b6943f7b11bea2bfc16bf54b05` está CLOSED/unmerged. Su ejecución anterior fue prematura y no cuenta como evidencia. `NIGHT-WOZ-049` lo reutiliza explícitamente como PRIMARY; no crear artifact duplicado.
+- PR #77 `woz/night-20.2-capacity-harness @ 204a03fc48d161b6943f7b11bea2bfc16bf54b05` sigue CLOSED/unmerged y sin cambio de head. Su ejecución prematura anterior no cuenta como evidencia. `NIGHT-WOZ-050` lo reutiliza explícitamente como PRIMARY; no crear artifact duplicado.
 
 ## Owners actuales
 
-**AAA — `NIGHT-AAA-046` — F3 / 19.2 SAME #76 refresh + canonical legal Settings reuse.**  
-**WOZ — `NIGHT-WOZ-049` — F3 / 20.2 REUSE SAME #77 harness.**
+**AAA — `NIGHT-AAA-047` — F3 / 19.2 SAME #76 refresh + canonical legal Settings reuse.**  
+**WOZ — `NIGHT-WOZ-050` — F3 / 20.2 REUSE SAME #77 harness.**
 
 ### AAA PRIMARY — #76
 
@@ -28,7 +28,7 @@
 
 ### WOZ PRIMARY — #77
 
-1. Confirm #77 remains CLOSED/unmerged and delta is only the intended harness/test files.
+1. Confirm #77 remains CLOSED/unmerged and delta is only intended harness/test files.
 2. Reuse SAME #77; refresh onto `a306e3b3...`; reopen only if available.
 3. Preserve explicit target requirement and synthetic/local-only limitation.
 4. Focused deterministic tests + fresh exact-head CI.
@@ -74,7 +74,7 @@ No convertir el merge de #73 en full 18.2 PASS.
 ### 19.2 — `[ 🟡 ] CANONICAL LEGAL CANDIDATE / REFRESH ASSIGNED`
 - [ 🟡 ] Privacy Policy v1.0 + Terms v1.0 owner-approved están en #76, effective/updated 2026-08-30;
 - [ 🟡 ] rutas públicas + links de entrada existen en #76;
-- [ 🟡 ] #76 quedó stale/diverged tras #73; AAA046 debe refrescar y sincronizar Settings con canonical docs;
+- [ 🟡 ] #76 sigue stale/diverged tras #73; AAA047 debe refrescar y sincronizar Settings con canonical docs;
 - [ ] independent legal review / production publication evidence permanece gate externo;
 - [ ] soporte con intake/severidad/SLA/escalación aún abierto.
 
@@ -95,6 +95,6 @@ Gap map vigente:
 - safety margin `GAP`;
 - durable user waitlist `GAP`.
 
-#77 aporta un harness sintético reusable con target explícito, concurrency/queue/latency/errors/recovery, pero su creación prematura fue invalidada. WOZ049 puede legitimarlo como SAME artifact; aun integrado, resultado máximo `HARNESS_READY`, nunca runtime capacity PASS.
+#77 aporta un harness sintético reusable con target explícito, concurrency/queue/latency/errors/recovery, pero su creación prematura fue invalidada. WOZ050 puede legitimarlo como SAME artifact; aun integrado, resultado máximo `HARNESS_READY`, nunca runtime capacity PASS.
 
 **Principio:** no falsear proveedor, capacidad, pagos, DNS, legal review o staging real sin evidencia externa/productiva.
