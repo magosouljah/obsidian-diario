@@ -16,62 +16,62 @@ Reglas:
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-031
+## Estado vivo — NIGHT-JOBS-032
 
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`; GitHub vivo sigue sin merge posterior a #67.
 - **F0:** trabajo técnico interno cerrado; 1.2 y 2.2 conservan tails externos/administrativos.
 - **F1:** D6/D7/D8/D9 PASS. D10.1 `PENDING_EXTERNAL_PROOF` por copia real off-provider/off-account + read/checksum. D10.2 requiere decisión RO.
 - **F2 / 11.1:** `[x]` #47. **11.2:** `[x]` #54. **12.2:** `[x]` #50.
-- **F2 / 12.1:** `[ 🟡 ] RESIDUAL / RUNTIME EVIDENCE`; queda comparación cold/warm Web real cuantificada/reproducible.
-- **F2 / 13.1 Web:** `[ 🟡 ] PRODUCT WIRING GAP`. PR #69 `aaa/night-13.1-web-save-all @ b2ab75ae...` sigue OPEN/Ready/mergeable; helper/unit evidence y CI previo están verdes, pero falta wiring productivo App/Review al coordinator `saveAllWebItems`. `NIGHT-AAA-030` no dejó resultado observable y queda superseded por `NIGHT-AAA-031` con el mismo scope mínimo.
-- **F2 / 13.1 server:** `[ 🟡 ] ATTRIBUTED CORRECTIVE`. PR #70 `woz/night-13.1-orphan-lifecycle @ 5a99ebf2...` sigue OPEN/Ready/mergeable. Focused F2 `33304798320` = SUCCESS. Required CI `33304798363` falló de forma determinista porque el fixture `cloud-server/tests/postgres-live.integration.cjs` no proporciona el nuevo guard `isObjectStillOrphan`; PostgreSQL estuvo sano. JOBS autoriza explícitamente ese quinto path de test como corrective mínimo, sin cambiar el comportamiento productivo fail-closed.
+- **F2 / 12.1:** `[ 🟡 ] RESIDUAL / RUNTIME EVIDENCE`; queda comparación cold/warm Web real cuantificada/reproducible. `NIGHT-AAA-032` toma este residual con harness aislado para evitar el blocker de edición de App.tsx.
+- **F2 / 13.1 Web:** `[ 🟡 ] HOLDING / WRITE-SURFACE BLOCKER`. PR #69 `aaa/night-13.1-web-save-all @ b2ab75ae...` sigue OPEN/Ready/mergeable; helper/unit + CI previo green, pero product wiring App/Review sigue faltando. NIGHT-AAA-031 confirmó `STOP_WRITE_SURFACE`; #69 queda frozen, no reemplazado.
+- **F2 / 13.1 server:** `[ 🟡 ] ATTRIBUTED CORRECTIVE`. PR #70 `woz/night-13.1-orphan-lifecycle @ 5a99ebf2...` sigue OPEN/Ready/mergeable; focused F2 `33304798320` SUCCESS; Required CI `33304798363` rojo por fixture live-PG legacy sin `isObjectStillOrphan`. `NIGHT-WOZ-031` mantiene el corrective mínimo del quinto test path autorizado.
 - **F3 / 16.1:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL`.
 - **F3 / 16.2:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL`.
 - **F3 / 17.1:** `[x] SOFTWARE DONE / INTEGRATED` — #65.
 - **F3 / 17.2:** `[x] SOFTWARE DONE / INTEGRATED` — #67 merge `3ad8f55a...`.
 - **F3 / 18.1:** `[ 🟡 ] EXACT-HEAD GREEN / BLOCKED_EXTERNAL_MERGE_EXECUTION`. PR #68 sigue OPEN/Ready/mergeable @ `2a988ec2...`; no existe merge SHA aceptado. Candidate frozen.
 - **F4 / 21.1+21.2:** `[x]` #51. **24.1:** `[x]` #55. **24.2:** `[x]` #57.
-- **F4 / 25.1:** `[ 🟡 ] WINDOWS IMPORT PROMOTED / MATRIX CONTRACT RED`. SAME #63 @ `1b957eff...` sigue OPEN/Ready/mergeable. Windows Import `33305947664` = SUCCESS y Required CI `33305947677` = SUCCESS; F4 Functional Matrix `33305947676` = FAILURE en `Validate dependency-safe matrix contract`. `NIGHT-BBB-029` no dejó resultado observable y queda superseded por `NIGHT-BBB-030` con el mismo corrective reducido.
+- **F4 / 25.1:** `[ 🟡 ] WINDOWS IMPORT SLICE EXACT-HEAD GREEN / MERGE PENDING`. SAME #63 @ `7a6b7443...` sigue OPEN/Ready/mergeable sobre base `3ad8f55a...`. Fresh exact-head recheck: matrix-contract SUCCESS, Windows Import SUCCESS, Required CI SUCCESS, PostgreSQL live/recovery SUCCESS y portable/supply-chain checks observados green. `NIGHT-BBB-031` queda únicamente para final race-check + merge SAME #63. 25.1 completo permanece abierto por otros gaps.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 - **2.2:** `[ 🟡 ]` tail externo. **1.2:** `[ 🟡 ]` release externo; Apple Developer `PENDING — DEFERRED`.
 
-## OWNERS — CYCLE 031
+## OWNERS — CYCLE 032
 
-### AAA — `NIGHT-AAA-031` — F2 / 13.1 Web SAME #69
-PRIMARY: reutilizar SAME #69 e implementar únicamente el wiring productivo mínimo App/Review/Import/Bulk al coordinator existente `saveAllWebItems`; demostrar saved/conflict/failed + partial/retry semantics; fresh exact-head CI y merge solo si todo aplicable queda verde. No tocar #70/server journal.  
+### AAA — `NIGHT-AAA-032` — F2 / 12.1 runtime
+PRIMARY: REUSE-FIRST sobre instrumentación #58/#66; producir cold/warm Web real reproducible mediante harness aislado pequeño, sin reescribir App.tsx ni tocar #69. Si demuestra el requisito literal, recomendar cierre solo de 12.1.  
 CI-FALLBACK: `NONE`.
 
-### BBB — `NIGHT-BBB-030` — F4 / 25.1 SAME #63
-PRIMARY: reutilizar SAME #63 y atribuir/corregir únicamente el `matrix-contract` rojo del promotion head `1b957eff...`; no reabrir Windows import harness. Tras cualquier head nuevo exigir F4 Matrix + Windows Import + D6 + D7 + Desktop Portability/Required CI fresh exact-head; merge solo si todo verde.  
+### BBB — `NIGHT-BBB-031` — F4 / 25.1 SAME #63
+PRIMARY: no más corrective. Verificar exact head `7a6b7443...`, changed-file scope, fresh green set y race-check contra integration `3ad8f55a...`; integrar SAME #63 solo si todo permanece compatible, y verificar merge SHA + integration HEAD.  
 CI-FALLBACK: `NONE`.
 
-### WOZ — `NIGHT-WOZ-030` — F2 / 13.1 server SAME #70
-PRIMARY: corrective mínimo ya atribuido. JOBS autoriza añadir `cloud-server/tests/postgres-live.integration.cjs` al scope de #70 exclusivamente para actualizar el fixture ETIMEDOUT con un guard positivo `isObjectStillOrphan` (o equivalente autoritativo), preservando el fail-closed productivo. Después focused F2 + Required CI fresh exact-head; merge solo si todo aplicable queda verde. No tocar frontend/#69, #68, infra ni producto fuera del corrective.  
+### WOZ — `NIGHT-WOZ-031` — F2 / 13.1 server SAME #70
+PRIMARY: corrective mínimo ya atribuido y autorizado en `cloud-server/tests/postgres-live.integration.cjs`; añadir guard positivo autoritativo al fixture ETIMEDOUT, preservar fail-closed productivo, fresh focused + Required CI y merge SAME #70 solo si green.  
 CI-FALLBACK: `NONE`.
 
 ### JOBS
 Mantiene prioridades, `!!!PLAN`, handoffs y gates. No modifica código BeatGaler ni infraestructura.
 
-## Camino crítico global — recalculado CYCLE 031
+## Camino crítico global — recalculado CYCLE 032
 
-1. **F2 / 13.1 server / #70:** aplicar el único corrective de fixture ya atribuido → fresh focused + Required CI → race-check/merge.
-2. **F4 / 25.1 / #63:** matrix-contract corrective → fresh gates → race-check/merge.
-3. **F2 / 13.1 Web / #69:** product wiring mínimo → focused evidence + fresh CI → merge.
-4. **F3 / 18.1 / #68:** candidate técnicamente listo pero bloqueado por execution layer; conservar frozen.
-5. **F2 / 12.1:** cold/warm runtime Web real sigue abierto; no fabricar benchmark.
+1. **F4 / 25.1 / #63:** todos los gates fresh están green; final race-check/merge es la transacción más corta de avance real.
+2. **F2 / 13.1 server / #70:** aplicar fixture corrective ya atribuido → fresh focused + Required CI → merge.
+3. **F2 / 12.1:** cerrar residual cold/warm runtime con evidencia real; AAA se mueve aquí para evitar repetir STOP_WRITE_SURFACE de #69.
+4. **F2 / 13.1 Web / #69:** frozen hasta disponer de patch/worktree seguro para App.tsx; no duplicar PR.
+5. **F3 / 18.1 / #68:** exact-head green pero merge execution blocked; conservar frozen porque reintentos ceremoniales no añaden evidencia.
 6. **F0/F1/F3 external tails + D22/D23:** externos/RO; no repetir drills aceptados.
-7. Después: F2 13.2–15, F3 18.2–20 y resto F4 25.1/25.2. F5 no se abre.
+7. Después: F2 13.2–15, F3 18.2–20 y F4 25.1 remainder/25.2. F5 no se abre.
 
 ## Secuencia de integración verificada
 
 #47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; #58 → `58a6bf614...`; #60 → `7de7b57a...`; #61 → `55e0d875...`; #64 → `b114111caf...`; #65 → `ed6aab7e...`; #66 → `712b49b...`; #67 → `3ad8f55a...`.
 
 Candidates vivos:
-- #69 @ `b2ab75ae...` — product wiring pendiente.
-- #70 @ `5a99ebf2...` — focused PASS; Required CI failure atribuida a fixture legacy; corrective de test autorizado.
+- #63 @ `7a6b7443...` — fresh exact-head green; final merge transaction pending.
+- #70 @ `5a99ebf2...` — focused PASS; Required CI corrective pending.
+- #69 @ `b2ab75ae...` — product wiring pending, frozen by write-surface blocker.
 - #68 @ `2a988ec2...` — exact-head green; merge execution blocked/frozen.
-- #63 @ `1b957eff...` — Windows Import + Required CI SUCCESS; F4 matrix-contract FAILURE.
 
 ## Invariantes
 
@@ -86,8 +86,8 @@ Candidates vivos:
 
 ## NEXT
 
-**AAA:** ejecutar una sola vez `NIGHT-AAA-031`.  
-**BBB:** ejecutar una sola vez `NIGHT-BBB-030`.  
-**WOZ:** ejecutar una sola vez `NIGHT-WOZ-030`; corrective de fixture autorizado, no tocar #68.  
-**JOBS:** siguiente ciclo procesa resultados reales; cualquier merge que mueva integration obliga revalidación fresh de candidates restantes cuando la combinación sea material.  
-**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 031; GitHub vivo prevalece si cambia después.
+**AAA:** ejecutar una sola vez `NIGHT-AAA-032`.  
+**BBB:** ejecutar una sola vez `NIGHT-BBB-031`.  
+**WOZ:** ejecutar una sola vez `NIGHT-WOZ-031`.  
+**JOBS:** siguiente ciclo procesa resultados reales; si BBB/#63 mueve integration, cualquier candidate restante debe revalidar combinación material antes de merge.  
+**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 032; GitHub vivo prevalece si cambia después.
