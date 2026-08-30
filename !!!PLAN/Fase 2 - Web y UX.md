@@ -4,14 +4,16 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 026:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 abierto solo por cold/warm runtime real; 13.1 activo con boundary Web↔server explícito; D13–D15 no cerrados.
+**Baseline vivo CYCLE 027:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 abierto solo por cold/warm runtime real; 13.1 activo con dos carriles independientes y ownership explícito; D13–D15 no cerrados.
 
-## Owner actual
+## Owners actuales — F2/13.1
 
-**AAA — F2 / 13.1 carril Web — `NIGHT-AAA-026` (ASSIGNED).**
+**AAA — `NIGHT-AAA-027` — carril Web:** Save All multi-item + progreso/resumen parcial + bulk conflict-safe, reutilizando durable commits/CAS existentes. AAA no toca server garbage journal.
 
-NIGHT-AAA-025 terminó `PENDING / STOP_OWNERSHIP_BOUNDARY`: REUSE-FIRST confirmó single-save durable, CAS por item y componentes server-side de garbage journal ya existentes. El gap se dividió limpiamente: AAA puede implementar Save All/partial summary + bulk conflict-safe en Web, pero no puede declarar cerrado `garbage journal limpia uploads huérfanos` sin contrato Web-callable server-side o owner explícito de ese server half.
+**WOZ — `NIGHT-WOZ-026` — carril server:** REUSE-FIRST sobre garbage journal/reconciliation existentes; demostrar o implementar el contrato mínimo Web-callable durable para registrar/reconciliar uploads huérfanos, con cleanup idempotente/fail-closed y focused tests. WOZ no toca Save All/bulk frontend de AAA.
+
+NIGHT-AAA-025 confirmó single-save durable, CAS por item y componentes server-side de garbage journal ya existentes. El gap quedó dividido por boundary real Web↔server; ninguno de los dos carriles puede fingir cierre completo de 13.1 por sí solo.
 
 PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9`; PR #64 atomic empty-index como `b114111cafb29b4aa50cdce014059c66a75bddf2`; PR #66 pagination/windowing como `712b49b6689a31a47902dbe95e98622d001dab40`.
 
@@ -40,12 +42,12 @@ PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
 
 ## Día 13 — Import, Review y bulk edit
 
-### 13.1 — `[ 🟡 ] IN PROGRESS — AAA NIGHT-AAA-026`
-- [ 🟡 ] Save All durable con resumen parcial — AAA autorizado a implementar carril Web reutilizando commits durables existentes.
-- [ 🟡 ] Bulk conflict-safe o deshabilitado honestamente — AAA autorizado a usar CAS por item; cero pérdida silenciosa.
-- [ ] Garbage journal limpia uploads huérfanos — **BOUNDARY SERVER-SIDE PENDIENTE**; no sustituir con journal frontend-only.
+### 13.1 — `[ 🟡 ] IN PROGRESS — AAA 027 + WOZ 026`
+- [ 🟡 ] Save All durable con resumen parcial — AAA Web owner.
+- [ 🟡 ] Bulk conflict-safe o deshabilitado honestamente — AAA Web owner; CAS por item; cero pérdida silenciosa.
+- [ 🟡 ] Garbage journal limpia uploads huérfanos — WOZ server owner; reutilizar journal/worker existente y cerrar únicamente el contrato durable Web-callable si el gap es real.
 
-**Scope 026:** AAA solo Save All + bulk Web. No server journal/cleanup, 13.2, D14/D15, YouTube, billing, Desktop ni infra. CI-FALLBACK `NONE`.
+**No overlap:** AAA no modifica `cloud-server/garbage-journal-repository.js`, `garbage-reconciliation-worker.js` ni el server contract de WOZ. WOZ no modifica Save All/bulk frontend ni los primitives Web owned por AAA. Ambos `CI-FALLBACK: NONE`.
 
 ### 13.2
 - [ ] ReviewShell Import/Edit/Bulk, CTA fija y progreso N/N.
