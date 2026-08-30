@@ -7,22 +7,22 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-036`
+- `ASSIGNMENT_ID: NIGHT-AAA-037`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F4 blocker / Desktop product-auth — token/session persistence`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
 - `INPUT_EVIDENCE: PR #71 @ 29656aa0... / Windows Auth 33313675968`
-- `PREDECESSOR: NIGHT-AAA-035 NOT_PROCESSED / SUPERSEDED_BY_JOBS — #69 queda HOLDING; no ejecutar 035 después de recibir 036.`
+- `PREDECESSOR: NIGHT-AAA-036 NOT_PROCESSED / SUPERSEDED_BY_JOBS por baseline movement tras merge #68; no ejecutar 036 después de recibir 037.`
 
 ### PRIMARY
 
-1. Preflight GitHub vivo + duplicate-check; revalida integration antes de mutar.
+1. Preflight GitHub vivo + duplicate-check; revalida integration `a9d35a3d...` antes de mutar.
 2. Toma ownership explícito del PRODUCT_FINDING reportado por BBB034: el Desktop AccountGate completó login bajo WebDriver real pero no dejó persistido `beatgaler:account-session:v1`.
-3. No toques PR/branch/files de #71; esa rama queda como regression proof F4 owned por BBB/holding.
-4. Reproduce/diagnostica la causa raíz en código productivo de auth/frontend/platform. REUSE-FIRST de tests existentes y contrato `AccountGate.storeSession()`.
-5. Solo si causa raíz queda demostrada, aplica corrective mínimo en una rama/PR AAA nueva desde baseline vivo. No refactor amplio ni cambio de contrato auth.
-6. Evidencia requerida: focused test que falle antes/pase después o equivalente literal; persistencia del token/session tras login Desktop; no regresión Web/account gate; fresh applicable exact-head CI.
-7. Si corrective integra, deja handoff claro para que BBB refresque SAME #71 y vuelva a ejecutar Windows Auth. No promociones matrix.
+3. No toques PR/branch/files de #71; esa rama queda como regression proof F4.
+4. REUSE-FIRST: reproduce/diagnostica la causa raíz en código productivo auth/frontend/platform y el contrato `AccountGate.storeSession()`.
+5. Solo con causa raíz demostrada aplica corrective mínimo en rama/PR AAA nueva desde baseline vivo. Nada de refactor amplio ni cambio de contrato auth.
+6. Evidencia: focused test fail-before/pass-after o equivalente literal; token/session persistido tras login Desktop; no regresión Web/account gate; fresh applicable exact-head CI.
+7. Si corrective integra, handoff explícito para que JOBS devuelva #71 a BBB para refresh + Windows Auth literal. No promociones matrix.
 8. No tocar #69/#70, F3, signing/notarization, infra/provider secrets ni otras matrix rows.
 9. Escribe RESULTADO DEL TURNO aquí + handoff Issue #41 y STOP.
 
@@ -34,13 +34,13 @@
 
 **Alcance:** N/A.  
 **Evidencia requerida:** N/A.  
-**STOP:** no inventar fallback. #69 es otra pieza holding y no se reactiva mientras PRIMARY está activo.
+**STOP:** no inventar fallback.
 
-## RESULTADO PROCESADO — NIGHT-AAA-035
+## RESULTADO PROCESADO — NIGHT-AAA-036
 
 - `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- No se observó resultado final/handoff nuevo antes de CYCLE 038.
-- #69 sigue OPEN @ `b2ab75ae...`, stale frente a `02a40564...`; pasa a HOLDING sin owner de implementación activo.
+- No hubo RESULTADO DEL TURNO/handoff observable antes de CYCLE 039.
+- Razón de supersede: PR #68 integró y movió integration de `02a40564...` a `a9d35a3d...`; la misma misión se reemite con base factual nueva.
 
 ## HOLDING
 
@@ -50,7 +50,8 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-036`: ASSIGNED — product-auth token/session persistence corrective.
+- `NIGHT-AAA-037`: ASSIGNED — product-auth token/session persistence corrective sobre `a9d35a3d...`.
+- `NIGHT-AAA-036`: NOT_PROCESSED / SUPERSEDED_BY_JOBS por baseline movement.
 - `NIGHT-AAA-035`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-032`: PENDING / STOP_RUNTIME_UNAVAILABLE.
 - `NIGHT-AAA-031`: PENDING / STOP_WRITE_SURFACE.
