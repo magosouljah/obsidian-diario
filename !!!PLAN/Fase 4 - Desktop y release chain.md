@@ -4,17 +4,17 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 026:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Integración estable CYCLE 027:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-025` (ASSIGNED).**
+**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-026` (ASSIGNED).**
+
+`NIGHT-BBB-025` no produjo RESULTADO DEL TURNO ni nuevo head antes del preflight CYCLE 027 y quedó superseded para preservar ejecución monotónica. GitHub vivo conserva #63 OPEN/Ready/mergeable, base `3ad8f55a...`, head `ed03b806669373758d38bfd211e8f8905c86e269`.
 
 21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. #60 integró la matriz dependency-safe de 25.1, pero 25.1 completo sigue abierto.
 
-PR #63 `bbb/task-25.1-windows-import @ ed03b806669373758d38bfd211e8f8905c86e269` sigue OPEN/Ready, base viva `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
-
-Fresh exact-head CYCLE 026:
+Exact-head vigente sobre #63:
 - F4 Matrix `33300992450` — SUCCESS;
 - D6 `33300992447` — SUCCESS;
 - D7 `33300992444` — SUCCESS;
@@ -30,7 +30,7 @@ Por tanto:
 - `windows/import` continúa `NOT_COVERED`;
 - no AUTOMATED_PASS ni merge.
 
-`NIGHT-BBB-025` debe trabajar SAME #63, verificar la config/provider/session **efectivamente consumida** y hacer solo el corrective F4 mínimo que resuelva el primer failure causal. Si alcanza assertions y aparece bug de producto, registrar PRODUCT_FINDING y STOP.
+`NIGHT-BBB-026` trabaja SAME #63, verifica la config/provider/session **efectivamente consumida** y hace solo el corrective F4 mínimo que resuelva el primer failure causal. Si alcanza assertions y aparece bug de producto, registra `PRODUCT_FINDING` y STOP.
 
 CI-FALLBACK: `NONE`.
 
@@ -82,7 +82,7 @@ Esto no cierra D22/D23 ni autoriza release público.
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-025`
+### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-026`
 
 #60 integró la matriz como `7de7b57a508b3cf05cbded81501fbd3da63922a3`. Conserva `NOT_COVERED`, `PENDING_EXTERNAL` y `PRODUCT_FINDING` honestos.
 
