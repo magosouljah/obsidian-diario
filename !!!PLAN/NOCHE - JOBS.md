@@ -3,7 +3,7 @@
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** JOBS — jefe de la noche.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.  
-**Ciclo:** `CYCLE 041`.
+**Ciclo:** `CYCLE 042`.
 
 ## META
 
@@ -21,69 +21,71 @@ Leídos completos/revisados: Plan Maestro; F0–F4; Equipo multi-IA; protocolo n
 
 Hechos verificados:
 1. Integration sigue exactamente `a9d35a3d69dd9127029fb851d189f9bd3079d03b`; no hubo merge posterior a #68.
-2. AAA038 sigue ASSIGNED sin RESULTADO DEL TURNO/handoff nuevo observable; product-auth finding de #71 continúa abierto.
-3. BBB037 sigue ASSIGNED sin RESULTADO DEL TURNO/handoff nuevo observable; #72 conserva dedicated Windows Review failure conocido y attribution pendiente.
-4. WOZ039 produjo resultado `PENDING / WAITING_CI`: PR #73 OPEN/Ready, base exacta `a9d35a3d...`, head `fc831172c4c86d97cadb03801a6777777fd345bb`, 4 archivos, software-only.
-5. JOBS recheck final de #73: `mergeable=true`, `mergeable_state=clean`; `Required CI` run `33320621865` = SUCCESS; `F3 - 18.2 Reconciliation` run `33320621931` = SUCCESS; Upgrade 21.2 no aplicable = SKIPPED.
-6. #73 todavía no está merged; por evidence-before-claim no se promueve 18.2 global ni se mueve integration.
-7. F0/F1 sin evidencia externa nueva; F2 12.1 runtime blocker persiste; #69/#70 holding/frozen; F3/20.1 gap map válido; F4 auth/review blockers persisten.
+2. AAA038 terminó `PENDING / WAITING_CI` con PR #74 OPEN/Ready/mergeable @ `92058b42e6e455f641e8a494f5c85ae1f2214834`, base exacta `a9d35a3d...`.
+3. JOBS recheck de #74: D6 `33321752555` SUCCESS; D7 `33321752537` SUCCESS; Upgrade 21.2 SKIPPED; `Test - Desktop Portability / Required CI` `33321752522` FAILURE. Root cause literal: TypeScript `src/platform/index.ts(10,22)` no reconoce `__TAURI_INTERNALS__` sobre el tipo unión actual. No #74 PASS/merge y #71 no se revalida todavía.
+4. BBB037 terminó `PENDING / WAITING_CI` sobre SAME #72 head `3219996e181ef3f53508b1ea1d272d84b73bc1a4` después de corregir solo expectativa de key normalizada `F#m -> f#m` en harness.
+5. JOBS recheck de #72: Windows Review `33321799798` SUCCESS literal; Windows Import `33321799800`, Desktop Portability `33321799802`, D6 `33321799792`, D7 `33321799819` SUCCESS; Upgrade 21.2 SKIPPED. Matrix aún no promovida; PR no merged.
+6. WOZ040 terminó `BLOCKED / MERGE_FLOW_UNAVAILABLE`: #73 OPEN/Ready/mergeable, base `a9d35a3d...`, head `fc831172...`, exact-head CI verde y race-check limpio; execution layer bloqueó merge antes de aceptación por GitHub. Integration no cambió.
+7. F0/F1 sin evidencia externa nueva; F2 12.1 runtime blocker persiste; #69/#70 holding/frozen.
 
 ## RESULTADOS PROCESADOS
 
 ### AAA / NIGHT-AAA-038
-`NO_NEW_FINAL_RESULT`.
-- Assignment sigue vigente y materialmente útil.
-- No se emite ID nuevo para evitar ejecución duplicada.
+`PENDING / WAITING_CI -> FAILURE_RESOLVED_BY_JOBS_RECHECK`.
+- SAME #74 continúa candidate correcto; no replacement PR.
+- Failure atribuible a compile/type issue en el corrective, no a D6/D7 ni a provider externo.
+- Nuevo `NIGHT-AAA-039` emitido sobre SAME #74 para correctivo mínimo + fresh CI.
 
 ### BBB / NIGHT-BBB-037
-`NO_NEW_FINAL_RESULT`.
-- Assignment SAME #72 sigue vigente y materialmente útil.
-- No se emite ID nuevo para evitar ejecución duplicada.
+`PENDING / WAITING_CI -> PASS_RESOLVED_BY_JOBS_RECHECK`.
+- SAME #72 dedicated Review tiene literal PASS sobre exact head `3219996e...`.
+- Matrix row aún no cambió; no merge.
+- Nuevo `NIGHT-BBB-038` emitido para promotion-only + fresh post-promotion exact-head gates + merge si green/race-clean.
 
-### WOZ / NIGHT-WOZ-039
-`PENDING / WAITING_CI -> READY_FOR_INTEGRATION_BY_JOBS_RECHECK`.
-- #73 exact head `fc831172...`, base `a9d35a3d...`.
-- Required CI SUCCESS + F3/18.2 dedicated SUCCESS.
-- PR OPEN/Ready/mergeable-clean.
-- No merge todavía.
-- Reemitido como `NIGHT-WOZ-040` exclusivamente para race-check + integración exact-head.
+### WOZ / NIGHT-WOZ-040
+`BLOCKED / MERGE_FLOW_UNAVAILABLE`.
+- #73 technical evidence sigue válida y exact-head green, pero no integrada.
+- No repetir/recrear/rebasear #73 mientras base/head sigan válidos.
+- Para maximizar avance global, WOZ se mueve explícitamente a pieza independiente F3/20.1 bajo `NIGHT-WOZ-041`.
 
 ## CAMINO CRÍTICO GLOBAL — RECALCULADO DESDE CERO
 
-1. **F3/18.2 / #73:** integrar ahora el software slice ya exact-head verde; no depende de AAA/BBB.
-2. **F4 product-auth / #71 input:** corregir persistencia sesión Desktop para desbloquear `windows/auth`.
-3. **F4 windows/review / #72:** atribuir el failure dedicado y resolverlo por camino mínimo.
-4. **F2/13.1 #69:** Save All product wiring + refresh; holding hasta liberar owner.
-5. **F2/12.1:** runtime navegador real cold/warm; blocker factual.
-6. **F2/#70:** safe-write + stale baseline; frozen.
-7. **F3/20.1:** gap map listo; holding.
+1. **F4 product-auth / #74:** corregir compile exacto y obtener candidate verde; después #71 requiere nueva BBB assignment para Windows Auth literal.
+2. **F4 windows/review / #72:** PASS literal ya existe; promotion + fresh gates + integration es la transacción ejecutable más corta.
+3. **F3/20.1:** cerrar gaps internos software mientras #73 espera un canal de merge funcional.
+4. **F3/18.2 #73:** integration-ready pero bloqueado por execution layer; no duplicar trabajo.
+5. **F2/13.1 #69:** Save All product wiring + refresh; holding hasta liberar owner.
+6. **F2/12.1:** real-browser cold/warm sigue bloqueado por runtime ejecutable.
+7. **F2/#70:** safe-write + stale baseline frozen.
 8. **F0/F1/F3 external tails + F4 D22/D23:** externos/RO.
-9. Después: F2 13.2–15, F3 19–20 y F4 remainder 25.1/25.2. F5 sigue cerrada.
+9. Después: F2 13.2–15, F3 19–20 remainder y F4 remainder 25.1/25.2. F5 sigue cerrada.
 
 ## TABLERO AAA / BBB / WOZ
 
-| Worker | Resultado procesado | PRIMARY vigente/nuevo | CI-FALLBACK |
+| Worker | Resultado procesado | PRIMARY nuevo | CI-FALLBACK |
 |---|---|---|---|
-| AAA | 038 sin final nuevo | mantener `NIGHT-AAA-038` — product-auth token/session persistence | `NONE` |
-| BBB | 037 sin final nuevo | mantener `NIGHT-BBB-037` — SAME #72 attribution-first | `NONE` |
-| WOZ | 039 WAITING_CI → exact-head green/mergeable-clean | `NIGHT-WOZ-040` — SAME #73 integration transaction | `NONE` |
+| AAA | 038 WAITING_CI -> Required CI FAILURE atribuible | `NIGHT-AAA-039`: SAME #74 compile/type corrective + fresh CI | `NONE` |
+| BBB | 037 WAITING_CI -> Windows Review literal PASS | `NIGHT-BBB-038`: SAME #72 promotion + fresh post-promotion gates + merge | `NONE` |
+| WOZ | 040 BLOCKED / MERGE_FLOW_UNAVAILABLE | `NIGHT-WOZ-041`: F3/20.1 internal observability slice | `NONE` |
 
-No overlap material: AAA product auth; BBB Review F4; WOZ billing reconciliation F3. #69/#70/20.1 holding.
+No overlap material: AAA product runtime/auth; BBB Review F4; WOZ observability F3. #73/#69/#70 quedan holding/frozen.
 
 ## PRIMARY / CI-FALLBACK EMITIDOS
 
-### AAA — NIGHT-AAA-038
-PRIMARY se conserva sin reemisión duplicada: root cause + corrective mínimo token/session persistence Desktop; no tocar #71; fail-before/pass-after literal + fresh applicable exact-head CI.  
-CI-FALLBACK: `NONE`.
-
-### BBB — NIGHT-BBB-037
-PRIMARY se conserva sin reemisión duplicada: SAME #72 attribution-first; harness defect → corrective mínimo F4; product behavior defect → PRODUCT_FINDING + STOP. Literal Review PASS antes de matrix promotion.  
-CI-FALLBACK: `NONE`.
-
-### WOZ — NIGHT-WOZ-040
-PRIMARY: SAME #73 @ `fc831172...`; recheck base/head/mergeable/exact-head CI, integrar solo si todo permanece válido, verificar merge SHA + parents + nuevo integration HEAD. No cerrar 18.2 global por provider/business tails.  
+### AAA — NIGHT-AAA-039
+PRIMARY: SAME #74; arreglar únicamente TS2339 sobre `__TAURI_INTERNALS__` sin cambiar semántica ni contrato auth; focused regression + fresh exact-head D6/D7/Required CI; integrar solo si la autoridad/flujo lo permite y todo queda verde. No tocar #71.  
 CI-FALLBACK: `NONE`.  
-STOP: race, CI red/pending, PR no mergeable, merge flow unavailable, scope drift o mismatch de evidencia.
+STOP: semantic drift, auth contract change, baseline race, CI rojo no atribuible, merge-flow unavailable o necesidad de tocar #71.
+
+### BBB — NIGHT-BBB-038
+PRIMARY: SAME #72; consumir PASS literal `33321799798`, promover solo `windows/review = AUTOMATED_PASS`; exigir después fresh exact-head Windows Review + F4 Matrix + D6 + D7 + Desktop Portability; race-check + merge solo si verde. No auth/#71/#74.  
+CI-FALLBACK: `NONE`.  
+STOP: failure nuevo, matrix contract failure no atribuible, baseline race, merge-flow unavailable, scope drift o auth overlap.
+
+### WOZ — NIGHT-WOZ-041
+PRIMARY: F3/20.1; REUSE-FIRST del gap map WOZ033; cerrar solo gaps internos software de observability/alerts/runbook/kill-switch. No tocar #73 ni crear provider/on-call/status/retention externos; no 20.2.  
+CI-FALLBACK: `NONE`.  
+STOP: provider/RO decision, overlap, scope creep, external evidence requirement, CI rojo no atribuible o baseline race.
 
 ## BLOCKERS
 
@@ -94,11 +96,11 @@ STOP: race, CI red/pending, PR no mergeable, merge flow unavailable, scope drift
 5. F2/12.1: runtime real browser cold/warm.
 6. F2/13.1 #69: product wiring + refresh; holding/stale.
 7. F2/13.1 #70: safe-write blocker + stale baseline.
-8. F3/18.2: #73 software slice ready for integration; provider/business tails siguen abiertos.
-9. F3/20.1: internal gaps + external observability/on-call/status.
-10. F4/windows-auth: product session persistence finding; #71 waiting corrective.
-11. F4/windows-review: #72 dedicated run FAILURE, attribution pending.
-12. F4/25.1: other matrix rows NOT_COVERED/PENDING_EXTERNAL.
+8. F3/18.2 #73: software slice exact-head green pero merge-flow unavailable; provider/business tails además abiertos.
+9. F3/20.1: internal gaps en trabajo WOZ041 + external observability/on-call/status tails.
+10. F4/windows-auth: #74 compile-red; #71 waiting corrective integrado + literal rerun.
+11. F4/windows-review: literal PASS candidate; matrix promotion/integration pendiente BBB038.
+12. F4/25.1: otras rows NOT_COVERED/PENDING_EXTERNAL.
 13. F4/25.2 + D22/D23 external signing/notarization.
 
 ## PROGRESO REAL F0–F4
@@ -106,40 +108,43 @@ STOP: race, CI red/pending, PR no mergeable, merge flow unavailable, scope drift
 - **F0:** técnico interno cerrado; tails externos.
 - **F1:** core técnico cerrado; D10.1 externo + D10.2 RO.
 - **F2:** 12.1 runtime residual; 13.1 #69/#70 holding/frozen.
-- **F3:** 17.1/17.2/18.1 integrated; 18.2 #73 exact-head green pending integration; 20.1 holding.
-- **F4:** windows/import integrated; windows/auth product finding; windows/review dedicated test red; 25.1/25.2 open.
+- **F3:** 17.1/17.2/18.1 integrated; 18.2 #73 green but merge-flow blocked; 20.1 internal slice assigned.
+- **F4:** windows/import integrated; windows/auth corrective compile-red; windows/review literal PASS pending promotion/integration; 25.1/25.2 open.
 - **F5:** `NO ABRIR`.
 
-## PLAN SYNC — CYCLE 041
+## PLAN SYNC — CYCLE 042
 
 Actualizados por JOBS:
 - `!!!PLAN/Plan Maestro.md`;
 - `!!!PLAN/Fase 3 - Producción pagos y operación.md`;
+- `!!!PLAN/Fase 4 - Desktop y release chain.md`;
 - `!!!PLAN/Equipo multi-IA - Roles y coordinación.md`;
-- `!!!PLAN/NOCHE - WOZ.md` → `NIGHT-WOZ-040`;
-- `!!!PLAN/NOCHE - JOBS.md` → CYCLE 041.
+- `!!!PLAN/NOCHE - AAA.md` → `NIGHT-AAA-039`;
+- `!!!PLAN/NOCHE - BBB.md` → `NIGHT-BBB-038`;
+- `!!!PLAN/NOCHE - WOZ.md` → `NIGHT-WOZ-041`;
+- `!!!PLAN/NOCHE - JOBS.md` → CYCLE 042.
 
-F0/F1/F2/F4 se leyeron completos y quedaron sin cambio material. AAA/BBB nocturnos se leyeron completos y se conservaron sin reemisión para evitar duplicate work. `Registro de avances.md` no recibe nueva entrada porque todavía no hubo merge/PASS estable nuevo. `Plan Maestro 2208 copy DONT TOUCH .md` untouched. JOBS no modificó código BeatGaler ni infraestructura.
+F0/F1/F2 y Registro de avances fueron leídos completos. No se cambian sus checkboxes ni Registro porque no hubo merge/PASS estable nuevo integrado. `Plan Maestro 2208 copy DONT TOUCH .md` untouched. JOBS no modificó código BeatGaler ni infraestructura.
 
 ## SIGUIENTE CICLO
 
 1. Releer integration HEAD.
-2. Procesar AAA038/BBB037/WOZ040 una sola vez.
-3. Si WOZ040 integra #73 y mueve baseline, cualquier candidate restante requiere reconciliación exact-head antes de integración.
-4. #72 no se promueve sin Review PASS literal.
-5. Si AAA integra auth corrective, #71 vuelve a BBB únicamente mediante asignación JOBS explícita y sin ownership overlap.
-6. No hopping automático a #69/#70/20.1.
+2. Procesar AAA039/BBB038/WOZ041 una sola vez.
+3. Si BBB038 integra #72 y mueve baseline, revalidar #74/#73 antes de cualquier integración posterior.
+4. #71 solo vuelve a BBB después de #74 verde/integrado y nueva asignación explícita JOBS.
+5. #73 queda intacto hasta disponer de merge flow capaz; no gastar worker repitiendo el mismo bloqueo.
+6. No hopping automático a #69/#70.
 7. No abrir F5.
 
 ```text
-CYCLE_ID: NIGHT-JOBS-041
+CYCLE_ID: NIGHT-JOBS-042
 INTEGRATION_HEAD_OBSERVED: a9d35a3d69dd9127029fb851d189f9bd3079d03b
-AAA_RESULT_PROCESSED: NIGHT-AAA-038 NO_NEW_FINAL_RESULT -> retained
-BBB_RESULT_PROCESSED: NIGHT-BBB-037 NO_NEW_FINAL_RESULT -> retained
-WOZ_RESULT_PROCESSED: NIGHT-WOZ-039 WAITING_CI -> exact-head green / READY_FOR_INTEGRATION
-AAA_CURRENT: NIGHT-AAA-038
-BBB_CURRENT: NIGHT-BBB-037
-WOZ_NEW: NIGHT-WOZ-040
+AAA_RESULT_PROCESSED: NIGHT-AAA-038 WAITING_CI -> Required CI FAILURE / TS compile attribution
+BBB_RESULT_PROCESSED: NIGHT-BBB-037 WAITING_CI -> Windows Review literal PASS
+WOZ_RESULT_PROCESSED: NIGHT-WOZ-040 BLOCKED / MERGE_FLOW_UNAVAILABLE
+AAA_NEW: NIGHT-AAA-039
+BBB_NEW: NIGHT-BBB-038
+WOZ_NEW: NIGHT-WOZ-041
 CI_FALLBACKS: NONE/NONE/NONE
 DUPLICATE_WORK: none
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
@@ -147,4 +152,4 @@ CODE_OR_INFRA_MUTATION_BY_JOBS: none
 RELEASE: NO-GO
 ```
 
-**STOP:** ciclo JOBS 041 completado.
+**STOP:** ciclo JOBS 042 completado.
