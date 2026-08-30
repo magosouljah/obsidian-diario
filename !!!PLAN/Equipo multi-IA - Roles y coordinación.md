@@ -2,20 +2,22 @@
 
 > GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership actual — CYCLE 026
+## Roles y ownership actual — CYCLE 027
 
 | Rol | Owner actual | PRIMARY vigente | CI-FALLBACK |
 |---|---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra | n/a |
-| **AAA** | F2 / 13.1 Web-only | `NIGHT-AAA-026`: Save All + partial summary + bulk conflict-safe usando durable/CAS existente; server garbage-journal fuera de scope | `NONE` |
-| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-025`: launcher/session corrective mínimo sobre failure `33300992453`; Windows Import literal PASS | `NONE` |
-| **WOZ** | F3 / 18.1 PR #68 | `NIGHT-WOZ-025`: final exact-head integration transaction for #68 | `NONE` |
+| **AAA** | F2 / 13.1 Web-only | `NIGHT-AAA-027`: Save All + partial summary + bulk conflict-safe usando durable/CAS existente; server garbage-journal fuera de scope | `NONE` |
+| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-026`: launcher/session corrective mínimo sobre failure `33300992453`; Windows Import literal PASS | `NONE` |
+| **WOZ** | F2 / 13.1 server half | `NIGHT-WOZ-026`: garbage journal/orphan reconciliation Web-callable durable, REUSE-FIRST; frontend AAA fuera de scope | `NONE` |
+
+**Holding item:** F3/18.1 PR #68 permanece owned técnicamente por WOZ pero frozen/bloqueado por execution layer después de `NIGHT-WOZ-025`; no existe owner concurrente ni mutación activa sobre #68 en CYCLE 027.
 
 RO conserva alcance de producto, riesgo aceptado, decisiones/credenciales externas y go/no-go público. JOBS puede reorganizar roadmap, pero un cambio de owner/scope es explícito.
 
-**Baseline canónico CYCLE 026:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`. GitHub vivo manda si cambia después.
+**Baseline canónico CYCLE 027:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`. GitHub vivo manda si cambia después.
 
-D10.1 permanece external-only por copia real off-provider/off-account + read/checksum. F3/16.1 physical staging/prod separation continúa external-only. F3/16.2 software DONE/INTEGRATED con deploy/staging/rollback reales externos. D22/D23 signing/notarization externos. F2/13.1 tiene boundary explícito: AAA posee carril Web; server half durable orphan-journal queda sin owner técnico asignado en este ciclo y no se falsea como cerrado.
+D10.1 permanece external-only por copia real off-provider/off-account + read/checksum. F3/16.1 physical staging/prod separation continúa external-only. F3/16.2 software DONE/INTEGRATED con deploy/staging/rollback reales externos. D22/D23 signing/notarization externos. F2/13.1 tiene boundary explícito y owners separados: AAA=Web Save All/bulk; WOZ=server garbage journal/orphan cleanup.
 
 ## Modelo ROMPECABEZAS CON OWNER FIJO
 
@@ -70,13 +72,13 @@ NEXT_WITHIN_AREA:
 END AI-HANDOFF
 ```
 
-## Night Shift Ledger — CYCLE 026
+## Night Shift Ledger — CYCLE 027
 
 ```text
-JOBS: integration remains 3ad8f55a...; #68 still exact-head green/open; #63 advanced to ed03b806... but Windows Import 33300992453 failed before assertions
-AAA: NIGHT-AAA-025 PENDING/STOP_OWNERSHIP_BOUNDARY -> NIGHT-AAA-026 ASSIGNED Web-only Save All/bulk; server orphan-journal boundary preserved; fallback NONE
-BBB: NIGHT-BBB-024 WAITING_CI -> JOBS recheck FAILURE -> NIGHT-BBB-025 ASSIGNED SAME #63 launcher/session corrective; fallback NONE
-WOZ: NIGHT-WOZ-024 no result -> superseded; NIGHT-WOZ-025 ASSIGNED SAME #68 final integration; fallback NONE
+JOBS: integration remains 3ad8f55a...; #68 merge attempt blocked by execution layer, no merge; #63 still Windows Import failure
+AAA: NIGHT-AAA-026 no result -> superseded; NIGHT-AAA-027 ASSIGNED Web Save All/bulk; fallback NONE
+BBB: NIGHT-BBB-025 no result -> superseded; NIGHT-BBB-026 ASSIGNED SAME #63 launcher/session corrective; fallback NONE
+WOZ: NIGHT-WOZ-025 BLOCKED/MERGE_TOOL_REJECTED -> NIGHT-WOZ-026 ASSIGNED F2 server garbage-journal half; #68 frozen; fallback NONE
 D10.1: PENDING_EXTERNAL_PROOF only
 F2/12.1: cold/warm runtime evidence only
 F3/16.1 physical separation: PENDING_EXTERNAL
@@ -90,7 +92,7 @@ RELEASE: NO-GO
 
 - **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
 - **F1:** D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; 12.1 solo cold/warm real; AAA owner exclusivo de Save All/bulk Web de 13.1 bajo `NIGHT-AAA-026`; server orphan-journal no asignado.
-- **F3:** 16.1/16.2 software integrado con external tails; 17.1/17.2 integrados; #68 exact-head green y WOZ owner exclusivo de integración bajo `NIGHT-WOZ-025`.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo SAME #63 bajo `NIGHT-BBB-025`; Windows Import `NOT_COVERED`; D22/D23 externos; 25.1/25.2 abiertos.
+- **F2:** 11.1/11.2/12.2 cerrados; 12.1 solo cold/warm real; 13.1 con AAA Web + WOZ server, owners explícitos/no-overlap.
+- **F3:** 16.1/16.2 software integrado con external tails; 17.1/17.2 integrados; #68 exact-head green pero merge execution blocked, no 18.1 closure.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner SAME #63 bajo `NIGHT-BBB-026`; Windows Import `NOT_COVERED`; D22/D23 externos; 25.1/25.2 abiertos.
 - **JOBS:** coordinación/plan; sin producto/infra.
