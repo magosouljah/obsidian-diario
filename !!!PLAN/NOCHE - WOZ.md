@@ -8,39 +8,46 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-039`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F3 / 18.2 — reconciliation + exception-queue software contract`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
-- `PREDECESSOR: NIGHT-WOZ-038 NOT_PROCESSED / SUPERSEDED_BY_JOBS — no result/handoff observable at CYCLE 040; no baseline movement, mission retained because it remains highest dependency-ready F3 work.`
 
 ### PRIMARY
 
-1. Preflight GitHub vivo + duplicate-check y releer 18.1 ya integrado.
-2. REUSE-FIRST: auditar primitives actuales de reconciliation, webhook/event-ledger, subscription state, retry/idempotency y exception handling.
-3. No crear recursos Stripe, credenciales, productos/precios, checkout real ni infraestructura. No inventar grace periods/refund/upgrade/downgrade policy.
-4. Si reconciliation + exception queue ya están literalmente satisfechas con evidencia, audit/handoff sin PR ceremonial.
-5. Si hay gap interno, implementar solo slice mínimo software-only: detectar divergencia provider↔BeatGaler; excepción durable/idempotente; retry/reconcile seguro; fail-closed; nunca entitlement por redirect/session.
-6. Focused tests: replay/idempotencia, divergence, exception/retry y no-grant ambiguo/incompleto.
-7. Fresh applicable exact-head CI para cualquier nuevo head.
-8. No cerrar 18.2 completo mientras queden casos de negocio/proveedor literales; separar `SOFTWARE DONE` de tails externos/RO.
-9. No iniciar 19.x/20.x ni tomar #69/#70/#71/#72.
-10. Escribir RESULTADO DEL TURNO aquí + handoff Issue #41 y STOP.
-
-**STOP:** decisión RO/proveedor/credencial; scope drift; baseline race; evidencia insuficiente; CI rojo no atribuible.
+Assignment ID: NIGHT-WOZ-039
+STATUS: PENDING / WAITING_CI
+baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b
+branch/head: woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb
+PR: #73 OPEN / Ready; created from exact live baseline
+cambios: exactly 4 paths — cloud-server/billing-reconciliation.js; cloud-server/migrations/0008_billing_reconciliation.sql; cloud-server/tests/billing-reconciliation.test.cjs; .github/workflows/f3-18.2-reconciliation.yml. REUSE-FIRST conserva billing_subscription_state de #68 y webhook/event ledger de #67. Candidate detecta divergence provider↔BeatGaler, persiste exception queue durable/idempotente con attempt_count, serializa por advisory xact lock y falla cerrado ante snapshot desconocido/incompleto o provider failure; nunca concede entitlement desde reconciliation/session.
+tests: focused suite committed: matching authoritative state; divergence durable; replay/idempotency + retry attempt; ambiguous provider state fail-closed; provider lookup failure fail-closed. No ejecución local reclamada.
+CI: consulta inmediata exact-head fc831172 devolvió 0 workflow runs observables; fresh applicable CI todavía pendiente. No se reutilizó CI histórico y no se intentó merge.
+evidencia: preflight confirmó assignment 039 no procesado, baseline vivo a9d35a3d y #68/18.1 integrado. Duplicate-check: no branch 18.2 ni PR reconciliation/exception existente. PR #73 base_sha=a9d35a3d, head=fc831172, changed_files=4, additions=186, deletions=0. Handoff Issue #41 comment 5469672078.
+UNVERIFIED: Stripe/provider productivo; 3DS/rechazo/pago tardío/renewal/cancel/upgrade/downgrade/refund; grace periods aprobados; integración/merge del candidate. Esos tails no se reclaman ni se inventan.
+blockers: fresh exact-head CI aún no observable.
+condición de STOP alcanzada: WAITING_CI; CI-FALLBACK NONE; no esperar interactuando.
+recomendación para JOBS: conservar SAME #73/head y recheck fresh applicable exact-head CI; si todo verde y baseline/race-check permanecen válidos, reemitir transacción de integración al owner. Mantener 18.2 global abierto por provider/business tails.
 
 ### CI-FALLBACK
 
-`NONE`
-
-**Alcance:** N/A.  
-**Evidencia requerida:** N/A.  
-**STOP:** no inventar fallback.
+Assignment ID: NIGHT-WOZ-039
+STATUS: NOT RUN / NONE
+baseline: a9d35a3d69dd9127029fb851d189f9bd3079d03b
+branch/head: N/A
+PR: N/A
+cambios: ninguno
+tests: N/A
+CI: N/A
+evidencia: JOBS declaró CI-FALLBACK NONE.
+UNVERIFIED: N/A
+blockers: N/A
+condición de STOP alcanzada: fallback no autorizado.
+recomendación para JOBS: no inferir trabajo alterno.
 
 ## RESULTADO PROCESADO — NIGHT-WOZ-038
 
 - `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
 - No RESULTADO DEL TURNO/handoff observable al preflight CYCLE 040.
-- GitHub live baseline no cambió después de #68; 18.2 sigue dependency-ready y distinto de AAA/BBB, por eso la misión se reemite como WOZ039.
 
 ## ÚLTIMO RESULTADO MATERIAL
 
@@ -55,7 +62,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-039`: ASSIGNED — F3/18.2 reconciliation/exception queue.
+- `NIGHT-WOZ-039`: PENDING/WAITING_CI — #73 @ `fc831172...`.
 - `NIGHT-WOZ-038`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-037`: DONE/INTEGRATED — #68 merge `a9d35a3d...`.
 - `NIGHT-WOZ-033`: DONE/AUDIT_ONLY — 20.1 gap map.
