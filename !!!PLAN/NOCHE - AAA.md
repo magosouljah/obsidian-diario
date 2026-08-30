@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-AAA-043`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F2 / 13.1 — SAME PR #69 refresh + product wiring Save All`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
 - `REUSE_PR: #69 / aaa/night-13.1-web-save-all @ b2ab75ae1dbde4e3aba389da844f466920a5d6eb`
@@ -36,6 +36,37 @@
 **Evidencia requerida:** exact baseline + literal paths/commands/prerequisites + classification `EXISTS/PARTIAL/GAP/PENDING_EXTERNAL`.  
 **STOP:** any write, overlap with #69, need for unavailable browser/runtime operation, scope expansion or synthetic number treated as real. Recheck PRIMARY before closing.
 
+## RESULTADO DEL TURNO — NIGHT-AAA-043
+
+### PRIMARY
+
+- `STATUS: PENDING / STOP_WRITE_SURFACE`
+- `baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b (live rechecked).`
+- `branch/head: aaa/night-13.1-web-save-all @ b2ab75ae1dbde4e3aba389da844f466920a5d6eb; stale lineage from merge-base 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af.`
+- `PR: #69 OPEN / Ready / mergeable; not merged.`
+- `cambios: ninguno. Reuse-first preserved SAME #69. No force-ref, replacement PR, fabricated merge tree or unsafe whole-file product rewrite.`
+- `tests: no fresh tests; code is not refreshed/product-wired, so fresh CI would be premature.`
+- `CI: NOT_RUN fresh; PRIMARY did not reach code-complete WAITING_CI.`
+- `evidencia: #69 changed-file list remains only src/features/edit/webBulkSave.ts + tests/component-dom/webBulkSave.test.ts. Compare b2ab75ae... -> a9d35a3d... is diverged from merge-base 3ad8f55a...; current integration changes are outside those two #69 files. GitHub PR synthetic merge ref remains historical 4506dad5... merging b2ab75ae into old 3ad8f55a, so it is not evidence of refresh onto live integration.`
+- `UNVERIFIED: refreshed #69 head/base; real Web product wiring to saveAllWebItems; focused wiring tests; fresh exact-head CI; race-check; merge SHA/post-merge integration HEAD.`
+- `blockers: available connector writes can replace whole files/move refs/create commits from a precomputed tree, but provide no safe small-patch or merge-tree operation for this stale branch + large product wiring. Assignment STOP explicitly covers write flow unavailable. Unsafe force/update was rejected.`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_EXECUTED / NOT_ELIGIBLE`
+- `branch/head si aplica: N/A — read-only fallback.`
+- `PR si aplica: N/A.`
+- `cambios: ninguno.`
+- `tests: ninguno.`
+- `evidencia: fallback is authorized only after PRIMARY code is complete and genuinely WAITING_CI/WAITING_EXTERNAL. PRIMARY stopped before code completion due write surface.`
+- `UNVERIFIED: 12.1 cold/warm remains unchanged.`
+- `blockers: eligibility condition false.`
+- `STOP alcanzado: sí — PRIMARY STOP_WRITE_SURFACE; fallback not eligible.`
+
+**Recomendación para JOBS:** conservar SAME #69 y enrutarlo a una superficie patch-capable/worktree. Acción mínima: refresh #69 onto `a9d35a3d...`, wire `saveAllWebItems` solo en paths Web batch reales, añadir focused wiring evidence, fresh exact-head CI y race-check. No tocar #74/#71/#72/#70.
+
+**Issue #41 handoff:** `5470672560`.
+
 ## RESULTADO PROCESADO — NIGHT-AAA-042
 
 - `STATUS: NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
@@ -57,7 +88,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-043`: ASSIGNED — F2/#69 refresh + product wiring; 12.1 read-only CI fallback preauthorized.
+- `NIGHT-AAA-043`: PENDING / STOP_WRITE_SURFACE — SAME #69 preserved; refresh/product wiring requires patch-capable surface; fallback not eligible.
 - `NIGHT-AAA-042`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-041`: PENDING / STOP_MERGE_FLOW_BLOCKED — #74 unchanged.
 - `NIGHT-AAA-040`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
