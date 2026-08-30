@@ -12,49 +12,50 @@
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-037
+## Estado vivo — NIGHT-JOBS-038
 
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
-- **Último merge material:** PR #63 exact tested head `7a6b7443fc4821a9b10798e2a3823a9d931bc2df` → merge `02a40564d85284a119281ff79995c9b9bcb5e833`; `windows/import` integrado como `AUTOMATED_PASS`; 25.1 completo sigue abierto.
+- **Último merge material:** PR #63 → `02a40564...`; `windows/import` integrado como `AUTOMATED_PASS`; 25.1 completo sigue abierto.
 - **F0:** técnico interno cerrado; 1.2 y 2.2 siguen tails externos/administrativos.
 - **F1:** D6–D9 PASS. D10.1 `PENDING_EXTERNAL_PROOF` por copia off-provider/off-account + read/checksum. D10.2 requiere decisión RO.
 - **F2 / 11.1, 11.2, 12.2:** `[x]`.
 - **F2 / 12.1:** `[ 🟡 ] RUNTIME EVIDENCE`; cold/warm real cuantificado sigue bloqueado por runtime navegador ejecutable.
-- **F2 / 13.1 Web:** `[ 🟡 ]`; SAME PR #69 OPEN @ `b2ab75ae...`, Save All coordinator/CAS probado, product wiring App/Review pendiente y candidate stale respecto a `02a40564...`. `NIGHT-AAA-035` owner activo.
-- **F2 / 13.1 server:** PR #70 OPEN @ `5a99ebf2...`; corrective conocido, safe-write blocker y baseline stale. Frozen.
+- **F2 / 13.1 Web:** SAME PR #69 OPEN @ `b2ab75ae...`, coordinator Save All/CAS probado pero product wiring y refresh siguen pendientes. Queda HOLDING este ciclo para priorizar un P1 product finding de auth.
+- **F2 / 13.1 server:** PR #70 OPEN @ `5a99ebf2...`; safe-write blocker + baseline stale. Frozen.
 - **F3 / 16.1 + 16.2:** software done con tails externos.
 - **F3 / 17.1 + 17.2:** `[x] SOFTWARE DONE / INTEGRATED`.
-- **F3 / 18.1:** SAME PR #68 OPEN/Ready/mergeable @ `68adaad4...`, refreshed sobre baseline vivo `02a40564...`, exact diff 4 files/+178/-0. Fresh exact-head CI ya resolvió: 6 workflows = **5 SUCCESS + 1 SKIPPED; 0 FAILURE/IN_PROGRESS/QUEUED**. `NIGHT-WOZ-036` hace race-check + merge exact-head; no más implementación.
-- **F3 / 20.1:** gap map audit-only de WOZ033 sigue válido; software slice continúa holding hasta resolver 18.1.
+- **F3 / 18.1:** PR #68 OPEN/Ready/mergeable @ `68adaad4...`, base exacta `02a40564...`, 4 files/+178/-0; fresh exact-head workflows siguen 5 SUCCESS + 1 SKIPPED y cero failure/pending. `NIGHT-WOZ-037` hace únicamente race-check + merge exact-head.
+- **F3 / 20.1:** gap map audit-only válido; holding hasta procesar 18.1.
 - **F4 / 21.1+21.2, 24.1, 24.2:** `[x]`.
-- **F4 / 25.1:** `[ 🟡 ]`; `windows/import` integrado. SAME PR #71 OPEN @ `29656aa0...` para `windows/auth`. Último authoritative Windows Auth `33313675968` = **FAILURE** en `Run isolated Windows auth assertions`; setup/toolchains/embedded prep pasaron y generic gates quedaron verdes. `windows/auth` sigue `NOT_COVERED`; `NIGHT-BBB-034` hace attribution-first/corrective mínimo.
+- **F4 / 25.1:** `[ 🟡 ]`; `windows/import` integrado. PR #71 Windows Auth llegó a WebDriver/session real y falló en assertion literal: Desktop login no persistió `beatgaler:account-session:v1` pese al contrato de `AccountGate.storeSession()`. BBB declaró `PRODUCT_FINDING`; `windows/auth` sigue `NOT_COVERED` y #71 queda intacta como prueba de regresión.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 
-## OWNERS — CYCLE 037
+## OWNERS — CYCLE 038
 
-### AAA — `NIGHT-AAA-035` — F2 / 13.1 SAME #69
-PRIMARY: refresh/reconcile SAME #69 contra `02a40564...`; REUSE-FIRST del coordinator existente; cerrar únicamente product wiring App/Review→`saveAllWebItems` si existe superficie segura, preservando saved/conflict/failed + retry semantics. No reemplazar PR ni tocar #70/13.2+/F3/F4.  
+### AAA — `NIGHT-AAA-036` — product-auth Desktop finding
+PRIMARY: ownership explícito del finding de #71. Reproducir/diagnosticar por qué el login Desktop no conserva el token de sesión en `AccountGate`; corrective mínimo en frontend/platform auth productivo solo si causa raíz queda demostrada; focused tests + fresh applicable exact-head CI. No tocar PR #71 ni F4 matrix.  
 CI-FALLBACK: `NONE`.
 
-### BBB — `NIGHT-BBB-034` — F4 / 25.1 SAME #71
-PRIMARY: procesar failure exacto `33313675968`; atribuir primero harness vs producto. Si harness, corrective mínimo F4; si assertion demuestra bug de producto, `PRODUCT_FINDING` + STOP. No promover `windows/auth` hasta PASS literal; después fresh post-promotion matrix/D6/D7/Required CI antes de merge.  
+### BBB — `NIGHT-BBB-035` — F4 / 25.1 `windows/review`
+PRIMARY: dejar #71 intacta y abrir/reutilizar únicamente un slice independiente para Windows Review. Reusar harness Desktop/embedded existente sin modificar auth productivo ni archivos de #71; exigir assertion literal de Review journey antes de cualquier promoción de matrix. Si aparece bug de producto, `PRODUCT_FINDING` + STOP.  
 CI-FALLBACK: `NONE`.
 
-### WOZ — `NIGHT-WOZ-036` — F3 / 18.1 SAME #68
-PRIMARY: race-check final sobre SAME #68 @ `68adaad4...` con base vivo `02a40564...`; fresh exact-head CI ya resuelto 5 SUCCESS + 1 SKIPPED y cero failures/pending. Si head/base permanecen exactos y PR sigue Ready/mergeable, merge por flujo autorizado y verificar merge SHA + integration HEAD. Si cambia baseline/head o reaparece blocker de proceso, STOP; no duplicate PR/bypass.  
+### WOZ — `NIGHT-WOZ-037` — F3 / 18.1 SAME #68
+PRIMARY: revalidar integration `02a40564...`, exact head `68adaad4...`, Ready/mergeable y exact-head green evidence; si race-check limpio, merge #68 por flujo autorizado y verificar merge SHA + integration HEAD. No rerun ceremonial ni 18.2/20.1 automático.  
 CI-FALLBACK: `NONE`.
 
-## Camino crítico global — recalculado CYCLE 037
+## Camino crítico global — recalculado CYCLE 038
 
-1. **F3 / 18.1 / #68:** ya refreshed y exact-head green; solo falta race-check + integración autorizada. Es el cierre material más cercano.
-2. **F2 / 13.1 / #69:** coordinator probado; falta product wiring + refresh.
-3. **F4 / 25.1 / #71:** Windows Auth llegó a assertions y falló; attribution/corrective es el camino mínimo al siguiente row PASS.
-4. **F2 / 12.1:** requiere runtime navegador real; blocker factual.
-5. **F2 #70:** stale + safe-write blocker; frozen.
-6. **F3 / 20.1:** gap map listo; vuelve después de 18.1 salvo cambio factual.
-7. **F0/F1/F3 external tails + D22/D23:** externos/RO.
-8. Después: F2 13.2–15, F3 18.2–20 y F4 remainder 25.1/25.2. F5 no se abre.
+1. **F3 / 18.1 / #68:** candidate exact-head verde; solo falta integración autorizada.
+2. **F4 / product-auth finding:** corregir persistencia de sesión Desktop para desbloquear `windows/auth` y permitir reutilizar #71.
+3. **F4 / 25.1 windows/review:** fila independiente que BBB puede avanzar sin tocar auth.
+4. **F2 / 13.1 / #69:** coordinator probado; product wiring + refresh quedan holding hasta liberar AAA.
+5. **F2 / 12.1:** requiere runtime navegador real; blocker factual.
+6. **F2 #70:** stale + safe-write blocker; frozen.
+7. **F3 / 20.1:** gap map listo; vuelve después de 18.1.
+8. **F0/F1/F3 external tails + D22/D23:** externos/RO.
+9. Después: F2 13.2–15, F3 18.2–20 y F4 remainder 25.1/25.2. F5 no se abre.
 
 ## Secuencia de integración verificada
 
@@ -73,8 +74,8 @@ CI-FALLBACK: `NONE`.
 
 ## NEXT
 
-**AAA:** ejecutar una sola vez `NIGHT-AAA-035`.  
-**BBB:** ejecutar una sola vez `NIGHT-BBB-034`.  
-**WOZ:** ejecutar una sola vez `NIGHT-WOZ-036`.  
+**AAA:** ejecutar una sola vez `NIGHT-AAA-036`.  
+**BBB:** ejecutar una sola vez `NIGHT-BBB-035`.  
+**WOZ:** ejecutar una sola vez `NIGHT-WOZ-037`.  
 **JOBS:** siguiente ciclo procesa resultados reales; cualquier merge que mueva baseline obliga race revalidation/fresh applicable exact-head en candidatos restantes.  
-**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 037; GitHub vivo prevalece si cambia después.
+**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 038; GitHub vivo prevalece si cambia después.
