@@ -2,27 +2,28 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 053:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Baseline vivo CYCLE 054:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado owner / candidates
 
 - PR #68 / 18.1 MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 - PR #73 / 18.2 reconciliation MERGED como `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`; cierra solo software reconciliation/exception-queue slice.
-- PR #76 `legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070` sigue OPEN/Ready/mergeable con base snapshot `a9d35a3d...`, stale contra live integration. AAA048 no produjo resultado; #76 queda frozen hasta disponer de refresh history-preserving seguro. Canonical Privacy/Terms + public routes existen; Settings canonical sync sigue pendiente.
+- PR #76 `legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070` sigue OPEN/Ready/mergeable con base snapshot `a9d35a3d...`, stale contra live integration. Frozen hasta refresh history-preserving seguro. Canonical Privacy/Terms + public routes existen; Settings canonical sync sigue pendiente.
 - PR #75 `woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f` sigue frozen por corrective/write-flow blocker.
-- PR #77 sigue CLOSED/unmerged y no puede reabrirse. Source branch `woz/night-20.2-capacity-harness @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a` fue verificado previamente exact-base, ahead 2 / behind 0, dos archivos harness/test. No replacement PR apareció antes de CYCLE 053. `NIGHT-WOZ-052` es owner único para una sola replacement PR autorizada.
+- PR #77 sigue CLOSED/unmerged y no puede reabrirse.
+- Replacement PR #78 `woz/night-20.2-capacity-harness @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a` está OPEN/non-draft/mergeable=true sobre base exacta `a306e3b3...`; 2 archivos/+139. En CYCLE 054, exact-head CI ya materializó 13 check-runs sin failure/pending/null y `Required CI = SUCCESS`. `NIGHT-WOZ-053` es owner único para race-check + integración exact-head.
 
 ## Owners actuales
 
-**WOZ — `NIGHT-WOZ-052` — F3 / 20.2 one authorized replacement PR from existing source artifact.**
+**WOZ — `NIGHT-WOZ-053` — F3 / 20.2 SAME #78 exact-head race-check + integration.**
 
 ### WOZ PRIMARY
 
-1. Fresh compare de live integration contra `50aac3f0...`; no asumir el snapshot anterior si cambió algo.
-2. Reutilizar exclusivamente ese branch; crear exactamente una replacement PR si duplicate-check sigue limpio.
-3. Preservar delta de dos archivos harness/test, target explícito y limitación synthetic/local-only.
-4. Focused deterministic tests + fresh exact-head CI.
-5. Merge solo si exact-head green/race-clean; máximo claim `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
+1. Recheck live integration, #78 exact head/base, mergeability and two-file delta.
+2. Revalidate exact-head CI immediately before merge; no stale-head reuse.
+3. Merge only through WOZ authorized flow if race-clean.
+4. Verify resulting integration SHA and parents after merge.
+5. Maximum claim even after merge: `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
 
 **WOZ CI-FALLBACK:** NONE.
 
@@ -74,11 +75,11 @@ No convertir #73 en full 18.2 PASS.
 ### 20.1 — `[ 🟡 ] IN PROGRESS / INTERNAL SLICE BLOCKED`
 PR #75 contiene structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno. Corrective de immutable pins conocido; write-flow blocker persiste. No fresh PASS ni integración.
 
-### 20.2 — `[ 🟡 ] REPLACEMENT CONTINUATION ASSIGNED / NO PASS CLAIM`
+### 20.2 — `[ 🟡 ] PR #78 GREEN / INTEGRATION ASSIGNED / NO RUNTIME PASS CLAIM`
 Gap map vigente:
 - capacity envelope `PARTIAL`;
 - approved expected peak `GAP / prerequisite missing`;
-- load/stress harness source artifact `50aac3f0...` listo para una replacement PR si compare sigue limpio;
+- deterministic local/synthetic harness candidate #78 exact-head CI green, integration pendiente bajo `NIGHT-WOZ-053`;
 - 2× peak proof `PENDING_EXTERNAL`;
 - latency `GAP` hasta ejecución aplicable;
 - error/queue/recovery measurement `PARTIAL`;
@@ -86,6 +87,6 @@ Gap map vigente:
 - safety margin `GAP`;
 - durable user waitlist `GAP`.
 
-Aun integrado el harness, resultado máximo `HARNESS_READY`; nunca runtime capacity PASS sin target aprobado + ejecución real aplicable.
+Aun integrado #78, resultado máximo `HARNESS_READY`; nunca runtime capacity PASS sin target aprobado + ejecución real aplicable.
 
 **Principio:** no falsear proveedor, capacidad, pagos, DNS, legal review o staging real sin evidencia externa/productiva.
