@@ -2,35 +2,43 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 042:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Integración estable CYCLE 044:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado actual
 
-PR #63 fue MERGED y dejó `windows/import = AUTOMATED_PASS` con exact-head CI verde. 25.1 completo permanece abierto.
+PR #63 fue MERGED y dejó `windows/import = AUTOMATED_PASS` integrado. 25.1 completo permanece abierto.
 
 ### windows/auth
 
-PR #71 sigue como evidencia de regresión Auth: bajo WebDriver/session real el Desktop login no persistió `beatgaler:account-session:v1`. `windows/auth` sigue `NOT_COVERED`.
+PR #71 permanece como regression proof: bajo sesión WebDriver real el Desktop login no persistió `beatgaler:account-session:v1`. `windows/auth` sigue `NOT_COVERED`.
 
-AAA038 creó PR #74 `aaa/night-25.1-auth-session-corrective @ 92058b42e6e455f641e8a494f5c85ae1f2214834` sin tocar #71. D6 `33321752555` y D7 `33321752537` terminaron SUCCESS, pero `Test - Desktop Portability / Required CI` `33321752522` terminó FAILURE. El fallo es literal y atribuible al candidate: `src/platform/index.ts(10,22): Property '__TAURI_INTERNALS__' does not exist on type '(Window & typeof globalThis) | RuntimeWindow'`; Web build y portability/native gates caen por ese compile error. No hay PASS, no integración y #71 no vuelve todavía a BBB.
+AAA039 corrigió el blocker de compilación en SAME PR #74. Estado vivo verificado por JOBS:
+- PR #74 OPEN/Ready/mergeable;
+- base exacta `a9d35a3d69dd9127029fb851d189f9bd3079d03b`;
+- head exacto `14dfba52775f40f1956e3d1dcb343b07b147ba0c`;
+- D6 `33324138675` — SUCCESS;
+- D7 `33324138676` — SUCCESS;
+- Test - Desktop Portability / Required CI `33324138689` — SUCCESS;
+- Upgrade `33324138691` — SKIPPED/no aplicable.
 
-**AAA — `NIGHT-AAA-039`:** SAME #74; corregir solo ese error de tipado/compile preservando el corrective runtime y el contrato auth; focused regression + fresh exact-head gates. No tocar #71 ni matrix.
+El corrective conserva `__TAURI_INTERNALS__` como señal primaria, packaged Tauri origins como fallback y Web/localhost ordinario como Web. No se reclama integración: integration HEAD sigue `a9d35a3d...`.
+
+**AAA — `NIGHT-AAA-040`:** SAME #74; race-check + integración únicamente si la evidencia exact-head sigue válida. Si baseline cambia, refresh/revalidate antes de merge. No tocar #71. Después de integración real, #71 necesitará nueva asignación explícita para revalidación literal Windows Auth.
 
 ### windows/review
 
-PR #72 `bbb/night-25.1-windows-review @ 3219996e181ef3f53508b1ea1d272d84b73bc1a4` está OPEN/Ready/mergeable sobre baseline vivo. BBB037 atribuyó el fallo previo a expectativa incorrecta del harness (`F#m` vs normalización productiva `f#m`) y corrigió solo el test.
+BBB038 consumió el literal PASS previo y promovió solo `windows/review = AUTOMATED_PASS` en SAME PR #72. Estado vivo:
+- PR #72 OPEN/Ready/mergeable;
+- base exacta `a9d35a3d...`;
+- nuevo head `56dc4adf206cc53f5260c71952f84ae67d994279`;
+- Windows Review `33324512156` — SUCCESS;
+- Windows Import `33324512159` — SUCCESS;
+- Required CI `33324512153` — SUCCESS;
+- F4 Functional Matrix `33324512174` — **FAILURE**, job `matrix-contract`, paso exacto `Validate dependency-safe matrix contract`.
 
-Fresh exact-head sobre `3219996e...`:
-- Windows Review `33321799798` — **SUCCESS**;
-- Windows Import `33321799800` — SUCCESS;
-- Desktop Portability `33321799802` — SUCCESS;
-- D6 `33321799792` — SUCCESS;
-- D7 `33321799819` — SUCCESS;
-- Upgrade 21.2 — SKIPPED/no aplicable.
+Por tanto `windows/review` **NO se considera integrado** y #72 no puede mergearse todavía. El fallo debe atribuirse antes de cambiar nada más; no se asume bug de producto.
 
-Este PASS literal autoriza el siguiente paso, pero `windows/review` todavía no está promovido en la matriz y #72 no está integrado.
-
-**BBB — `NIGHT-BBB-038`:** SAME #72; promover únicamente `windows/review = AUTOMATED_PASS`, luego fresh exact-head Windows Review + F4 Matrix + D6 + D7 + Desktop Portability sobre el nuevo head; race-check + merge solo si todos verdes. No tocar auth/#71/#74.
+**BBB — `NIGHT-BBB-039`:** SAME #72; attribution-first del matrix-contract failure, corrective mínimo solo si pertenece al contrato/matriz/workflow de #72, fresh exact-head Windows Review + F4 Matrix + D6 + D7 + Required CI y merge únicamente si todo verde/race-clean. No tocar auth/#71/#74.
 
 CI-FALLBACK AAA: `NONE`.  
 CI-FALLBACK BBB: `NONE`.
@@ -71,8 +79,8 @@ Integrated rows:
 - `macos/updater = AUTOMATED_PASS`.
 
 Active/holding:
-- `windows/auth = NOT_COVERED` — #74 corrective compile failure; AAA039 assigned. Después de #74 integrado, #71 requiere nueva asignación BBB y PASS literal antes de matrix promotion.
-- `windows/review = NOT_COVERED` en matriz actual — literal dedicated PASS ya existe en #72 head `3219996e...`; BBB038 asignado para promotion + fresh post-promotion gates + merge.
+- `windows/auth = NOT_COVERED` — #74 corrective ya exact-head green pero aún no integrado; AAA040 asignado para la transacción de integración. #71 solo se revalida después de ese merge real y una nueva asignación.
+- `windows/review` — candidate #72 contiene la promoción y dedicated PASS, pero matrix-contract está rojo; BBB039 asignado. No reclamar integración.
 - otras Web/Windows/macOS journeys permanecen NOT_COVERED salvo evidencia dedicada.
 - iPhone rows permanecen PENDING_EXTERNAL.
 
@@ -83,4 +91,4 @@ Active/holding:
 
 **Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido.
 
-**Regla:** no convertir findings/product gaps/external prerequisites en PASS por conveniencia.
+**Regla:** no convertir findings/product gaps/external prerequisites en PASS por conveniencia; exact-head + race-check antes de integración.
