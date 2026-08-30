@@ -4,20 +4,16 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 027:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 abierto solo por cold/warm runtime real; 13.1 activo con dos carriles independientes y ownership explícito; D13–D15 no cerrados.
+**Baseline vivo CYCLE 028:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 abierto solo por cold/warm runtime real; 13.1 activo con dos carriles independientes.
 
 ## Owners actuales — F2/13.1
 
-**AAA — `NIGHT-AAA-027` — carril Web:** Save All multi-item + progreso/resumen parcial + bulk conflict-safe, reutilizando durable commits/CAS existentes. AAA no toca server garbage journal.
+**AAA — `NIGHT-AAA-028` — carril Web / SAME #69:** #69 `aaa/night-13.1-web-save-all @ b2ab75ae...` OPEN/Ready/mergeable. D6 `33303237410`, D7 `33303237375` y Desktop Portability `33303237401` = SUCCESS; Upgrade no aplicable. Helper Save All secuencial por item, resumen saved/conflict/failed, retry unresolved y duplicate-id protection ya existe con focused tests. El turno 028 debe confirmar/wirear el flujo productivo real Review/Import/Bulk; no basta reclamar helper aislado. Si ya está wired, demostrarlo y no añadir cambio ceremonial. Si cambia head, fresh exact-head CI antes de merge.
 
-**WOZ — `NIGHT-WOZ-026` — carril server:** REUSE-FIRST sobre garbage journal/reconciliation existentes; demostrar o implementar el contrato mínimo Web-callable durable para registrar/reconciliar uploads huérfanos, con cleanup idempotente/fail-closed y focused tests. WOZ no toca Save All/bulk frontend de AAA.
+**WOZ — `NIGHT-WOZ-027` — carril server:** REUSE-FIRST sobre garbage journal/reconciliation existentes; demostrar o implementar el contrato mínimo Web-callable durable para registrar/reconciliar uploads huérfanos, idempotente/fail-closed y sin borrar uploads committed/valid. No tocar el frontend de AAA.
 
-NIGHT-AAA-025 confirmó single-save durable, CAS por item y componentes server-side de garbage journal ya existentes. El gap quedó dividido por boundary real Web↔server; ninguno de los dos carriles puede fingir cierre completo de 13.1 por sí solo.
-
-PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9`; PR #64 atomic empty-index como `b114111cafb29b4aa50cdce014059c66a75bddf2`; PR #66 pagination/windowing como `712b49b6689a31a47902dbe95e98622d001dab40`.
-
-NIGHT-AAA-022 demostró taxonomy/state `ready / empty / no-results / offline / auth-failure / cloud-failure`. El único residual 12.1 es startup Web cold vs warm real, mismo escenario, cache/session cold vs preservados, con métricas cuantificadas/reproducibles.
+No se cierra 13.1 hasta demostrar ambos lados sin pérdida silenciosa.
 
 ## Día 11 — Foundations y AccountGate
 
@@ -42,12 +38,12 @@ PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
 
 ## Día 13 — Import, Review y bulk edit
 
-### 13.1 — `[ 🟡 ] IN PROGRESS — AAA 027 + WOZ 026`
-- [ 🟡 ] Save All durable con resumen parcial — AAA Web owner.
-- [ 🟡 ] Bulk conflict-safe o deshabilitado honestamente — AAA Web owner; CAS por item; cero pérdida silenciosa.
-- [ 🟡 ] Garbage journal limpia uploads huérfanos — WOZ server owner; reutilizar journal/worker existente y cerrar únicamente el contrato durable Web-callable si el gap es real.
+### 13.1 — `[ 🟡 ] IN PROGRESS — AAA 028 + WOZ 027`
+- [ 🟡 ] Save All durable con resumen parcial — #69 candidate green; product wiring/integration factual aún pendiente.
+- [ 🟡 ] Bulk conflict-safe o deshabilitado honestamente — helper #69 usa CAS/durable por item; product wiring debe demostrarse.
+- [ 🟡 ] Garbage journal limpia uploads huérfanos — WOZ server owner.
 
-**No overlap:** AAA no modifica `cloud-server/garbage-journal-repository.js`, `garbage-reconciliation-worker.js` ni el server contract de WOZ. WOZ no modifica Save All/bulk frontend ni los primitives Web owned por AAA. Ambos `CI-FALLBACK: NONE`.
+**No overlap:** AAA no modifica server journal/reconciliation. WOZ no modifica Save All/bulk frontend. `CI-FALLBACK: NONE` para ambos.
 
 ### 13.2
 - [ ] ReviewShell Import/Edit/Bulk, CTA fija y progreso N/N.
