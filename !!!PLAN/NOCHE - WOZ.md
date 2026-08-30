@@ -37,6 +37,40 @@
 
 Reason: #68 is externally merge-blocked/frozen and other pieces would expand ownership; no independent fallback is safe.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-029
+
+### PRIMARY
+
+- `Assignment ID:` NIGHT-WOZ-029
+- `STATUS:` PENDING / ATTRIBUTED_CORRECTIVE_BLOCKED_BY_SCOPE_TOOLING
+- `baseline:` integration-v0.8.0-alpha.1 @ `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `branch/head:` `woz/night-13.1-orphan-lifecycle @ 5a99ebf2c54a9c0aaae7f20b2262160e55ca6ae7`
+- `PR:` #70 OPEN / Ready / mergeable; unchanged head; initial changed-file scope exactly 4 server/F2 files, no migration.
+- `cambios:` no product mutation this turn. Attribution proved the Required CI failure is candidate-specific: #70 changed `processGarbageBatch` so `reason='orphan_upload'` requires `isObjectStillOrphan` before delete. Existing `postgres-live.integration.cjs` retry fixture invokes that orphan path without the new guard; it now fails closed with `REQUIRED` before its synthetic delete throws `ETIMEDOUT`.
+- `tests:` focused F2/13.1 run `33304798320` remains SUCCESS. Required CI run `33304798363` inspected to exact failing assertion.
+- `CI:` `33304798363` FAILURE; job `99239317593`, step `Execute migrations and adversarial persistence checks on PostgreSQL`; assertion at `cloud-server/tests/postgres-live.integration.cjs:159`: actual `REQUIRED`, expected `ETIMEDOUT`. PostgreSQL containers were healthy; failure is deterministic contract mismatch, not provider outage.
+- `evidencia:` #70 head `5a99ebf2...`; PR changes `garbage-reconciliation-worker.js` to require authoritative orphan revalidation. The failing live fixture at lines 145-160 enqueues `reason: orphan_upload` and calls `processGarbageBatch` with only `deleteObject`, so the new fail-closed guard fires first. Minimum semantic corrective is to update that live integration fixture to provide positive `isObjectStillOrphan` for the retry-policy case (or equivalent authoritative guard) so the test continues testing ETIMEDOUT retry while preserving fail-closed production semantics.
+- `UNVERIFIED:` no fresh head, no fresh Required CI, no merge SHA, no integration movement. Corrective itself is not applied.
+- `blockers:` applying the correct minimal fix requires changing `cloud-server/tests/postgres-live.integration.cjs`, a fifth server test path outside the explicitly enumerated 4-file #70 scope/evidence. The available file-write action is whole-file replacement and the fetched full file is truncated, so a safe surgical edit cannot be performed without risking unrelated content. No frontend/billing/#68/infra touched.
+- `condición de STOP alcanzada:` insufficient safe mutation evidence/tooling for the required fifth-file corrective; evidence-before-claim forbids merge while Required CI is red.
+- `recomendación para JOBS:` keep SAME #70/head and explicitly authorize inclusion of `cloud-server/tests/postgres-live.integration.cjs` as the minimal server-test corrective, then apply only `isObjectStillOrphan: async () => true` (or equivalent authoritative positive guard) to the ETIMEDOUT retry fixture; require focused orphan workflow + Required CI fresh exact-head before merge. Do not alter product fail-closed behavior.
+
+### CI-FALLBACK
+
+- `Assignment ID:` NIGHT-WOZ-029
+- `STATUS:` NOT_RUN / NONE
+- `baseline:` `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `branch/head:` NONE
+- `PR:` NONE
+- `cambios:` none
+- `tests:` none
+- `CI:` none
+- `evidencia:` JOBS explicitly set `CI-FALLBACK: NONE`.
+- `UNVERIFIED:` n/a
+- `blockers:` n/a
+- `condición de STOP alcanzada:` PRIMARY blocked before any external wait eligible for fallback; fallback does not exist.
+- `recomendación para JOBS:` no fallback; resolve PRIMARY corrective scope/tooling only.
+
 ## RESULTADO PROCESADO — NIGHT-WOZ-027 / STATE CARRIED THROUGH 028
 
 - `PR #70`: OPEN/Ready/mergeable, base `3ad8f55a...`, head `5a99ebf2c54a9c0aaae7f20b2262160e55ca6ae7`.
@@ -51,7 +85,7 @@ Reason: #68 is externally merge-blocked/frozen and other pieces would expand own
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-029`: ASSIGNED — SAME #70 PG failure attribution/corrective + integration only if green; fallback NONE.
+- `NIGHT-WOZ-029`: PENDING / ATTRIBUTED_CORRECTIVE_BLOCKED_BY_SCOPE_TOOLING — Required CI failure attributed to new orphan revalidation contract vs live retry fixture; no unsafe mutation; fallback NONE.
 - `NIGHT-WOZ-028`: no result observable at CYCLE 030; superseded.
 - `NIGHT-WOZ-027`: PENDING/WAITING_CI -> focused F2 workflow SUCCESS; Required CI PostgreSQL gate FAILURE.
 - `NIGHT-WOZ-025`: BLOCKED / MERGE_TOOL_REJECTED — #68 unchanged.
