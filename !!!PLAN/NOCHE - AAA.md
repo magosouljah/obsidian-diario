@@ -2,29 +2,31 @@
 
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** AAA — worker nocturno.  
-**Área:** F4 — Desktop product-auth corrective/integration.  
+**Área:** F2 — Web / UX.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-041`
-- `ASSIGNMENT_STATUS: PENDING`
-- `AREA: F4 / windows-auth prerequisite — SAME PR #74 integration transaction`
+- `ASSIGNMENT_ID: NIGHT-AAA-042`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F2 / 13.1 — SAME PR #69 refresh + product wiring Save All`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
-- `REUSE_PR: #74 / aaa/night-25.1-auth-session-corrective @ 14dfba52775f40f1956e3d1dcb343b07b147ba0c`
-- `PREDECESSOR: NIGHT-AAA-040 had no RESULTADO DEL TURNO/handoff by JOBS CYCLE 045; superseded explicitly to prevent late duplicate execution.`
+- `REUSE_PR: #69 / aaa/night-13.1-web-save-all @ b2ab75ae1dbde4e3aba389da844f466920a5d6eb`
+- `PREDECESSOR: NIGHT-AAA-041 ended PENDING / STOP_MERGE_FLOW_BLOCKED on #74; #74 remains frozen under that blocker and is not owned by this assignment.`
 
 ### PRIMARY
 
-1. Preflight live integration + SAME #74 exact head/base + duplicate-check; do not create a replacement PR.
-2. Reuse exact-head evidence already verified on `14dfba52775f40f1956e3d1dcb343b07b147ba0c`: D6 `33324138675` SUCCESS; D7 `33324138676` SUCCESS; Test - Desktop Portability / Required CI `33324138689` SUCCESS. Upgrade `33324138691` is SKIPPED/non-applicable.
-3. Recheck PR #74 remains OPEN/Ready/mergeable and integration still matches the tested base. If integration moved, do not merge stale evidence: refresh/reconcile only within SAME #74 and obtain fresh applicable CI, or STOP if that would require broad conflict work.
-4. If race-clean and all applicable evidence remains green, integrate SAME #74 through the authorized AAA flow and verify merge SHA + post-merge integration HEAD.
-5. Do not touch #71, #72, #75, F2/F3, matrix, signing/notarization or infrastructure. #71 needs a new explicit JOBS assignment only after #74 is actually integrated.
-6. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+1. Preflight live integration + SAME #69 head/base + duplicate-check; do not create a replacement PR.
+2. #69 is stale from base `3ad8f55a...`; refresh/reconcile SAME #69 to current integration using the minimum safe delta. Preserve the already-proven sequential Save All coordinator/CAS semantics.
+3. Wire the existing `saveAllWebItems` coordinator into the actual Web product flow for Save All/Review/Import/Bulk only where the current product path requires it. Do not redesign single-item commit, INDEX CAS, upload semantics, server garbage journal or orphan cleanup.
+4. Keep Web pure: no Tauri/Desktop helper calls. Preserve explicit partial summary, per-item conflict/failure handling, retry only unresolved items and no silent loss.
+5. Run focused tests for product wiring plus existing coordinator behavior, then fresh applicable exact-head CI on the refreshed #69 head.
+6. Do not touch #74/#71/#72, auth/platform runtime, #70 server orphan lifecycle, F3/F4, signing, provider resources or infrastructure.
+7. Merge only if SAME #69 is race-clean, fresh applicable CI is green and the refreshed delta stays within this assignment. Otherwise hand off exact blocker and STOP.
+8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** exact base/head; D6/D7/Required CI exact-head SUCCESS; race-check; merge SHA and post-merge integration HEAD only if actually integrated.  
-**STOP:** baseline race requiring broad conflict work, fresh CI red, merge-flow unavailable, scope drift, need to touch #71 or any semantic/product change.
+**Required evidence:** current integration SHA; refreshed #69 head/base; changed-file list proving scope isolation; focused tests; fresh exact-head CI; merge SHA/post-merge integration HEAD only if actually integrated.  
+**STOP:** broad refresh conflict, need to touch auth/#74/#71/#72/#70, product redesign, fresh CI red not attributable, write/merge flow unavailable, or scope expansion.
 
 ### CI-FALLBACK
 
@@ -34,65 +36,36 @@
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback.
 
-## RESULTADO DEL TURNO — NIGHT-AAA-041
+## RESULTADO PROCESADO — NIGHT-AAA-041
 
 ### PRIMARY
 
-- `STATUS: PENDING / STOP_MERGE_FLOW_BLOCKED`
-- `baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b; live recheck remained exact.`
-- `branch/head: aaa/night-25.1-auth-session-corrective @ 14dfba52775f40f1956e3d1dcb343b07b147ba0c.`
-- `PR: #74 OPEN / Ready / mergeable=true; not merged.`
-- `cambios: ninguno; reuse-only integration transaction.`
-- `tests: no rerun ceremonial; exact-head evidence reused.`
-- `CI: D6 33324138675 SUCCESS; D7 33324138676 SUCCESS; Test - Desktop Portability / Required CI 33324138689 SUCCESS; Upgrade 33324138691 SKIPPED/non-applicable.`
-- `evidencia: PR #74 exact head/base unchanged; live integration unchanged. Merge attempted with expected-head 14dfba52775f40f1956e3d1dcb343b07b147ba0c, but connector safety layer blocked the merge call before mutation. Issue #41 handoff 5470373990.`
-- `UNVERIFIED: merge SHA and post-merge integration HEAD do not exist because merge was not executed.`
-- `blockers: authorized merge-flow unavailable through current connector safety layer; assignment STOP explicitly includes merge-flow unavailable.`
+- `STATUS: PENDING / STOP_MERGE_FLOW_BLOCKED`.
+- baseline exacto: `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+- #74: OPEN/Ready/mergeable @ `14dfba52775f40f1956e3d1dcb343b07b147ba0c` sobre base exacta `a9d35a3d...`.
+- D6 `33324138675` SUCCESS; D7 `33324138676` SUCCESS; Required CI `33324138689` SUCCESS; Upgrade `33324138691` SKIPPED/no aplicable.
+- No hubo cambio de código ni head. El intento de merge expected-head fue bloqueado por la capa de seguridad del connector antes de mutación.
+- Issue #41 handoff `5470373990`.
+- `UNVERIFIED`: merge SHA/post-merge integration HEAD no existen.
+- Resultado: #74 queda frozen bajo `MERGE_FLOW_BLOCKED`; no repetir el mismo intento sin cambio factual del flujo.
 
 ### CI-FALLBACK
 
-- `STATUS: NOT_EXECUTED — NONE`
-- `branch/head si aplica: N/A`
-- `PR si aplica: N/A`
-- `cambios: ninguno`
-- `tests: ninguno`
-- `evidencia: JOBS explicitly set CI-FALLBACK NONE.`
-- `UNVERIFIED: N/A`
-- `blockers: fallback not authorized.`
-- `STOP alcanzado: sí — PRIMARY hit merge-flow unavailable; no fallback exists.`
+- `STATUS: NOT_EXECUTED — NONE`.
 
-**Recomendación para JOBS:** mantener SAME #74 y enrutar/reemitir únicamente la transacción de merge por una superficie autorizada capaz de mergear, preservando expected-head `14dfba527...` y rechecando integration `a9d35a3d...` inmediatamente antes. No asignar #71 regression hasta que #74 esté realmente integrado.
+## HOLDING / FROZEN
 
-## RESULTADO PROCESADO / SUPERSEDED — NIGHT-AAA-040
-
-- `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- No RESULTADO DEL TURNO ni handoff nuevo observable en Issue #41 al preflight CYCLE 045.
-- GitHub vivo conserva #74 OPEN/Ready, no mergeado, exact head `14dfba52775f40f1956e3d1dcb343b07b147ba0c`, base `a9d35a3d...`.
-- Para impedir ejecución tardía/duplicada, el mismo trabajo crítico se reemite una sola vez como `NIGHT-AAA-041`.
-
-## RESULTADO PROCESADO — NIGHT-AAA-039
-
-- `STATUS: PENDING / WAITING_CI -> PASS_RESOLVED_BY_JOBS_RECHECK`.
-- SAME #74 OPEN/Ready/mergeable @ `14dfba52775f40f1956e3d1dcb343b07b147ba0c`, base `a9d35a3d...`.
-- Corrective remained compile-only in `src/platform/index.ts`; runtime/auth semantics preserved.
-- D6 `33324138675` SUCCESS.
-- D7 `33324138676` SUCCESS.
-- Required CI `33324138689` SUCCESS.
-- No merge observed at JOBS CYCLE 045; integration still `a9d35a3d...`.
-- Issue #41 handoff: `5470062487`.
-
-## HOLDING
-
-- F4/windows-auth #71: regression proof only; waits for #74 actual integration + new explicit JOBS assignment.
+- F4 #74 product-auth corrective: exact-head green, OPEN/Ready/mergeable, `MERGE_FLOW_BLOCKED`; no owner activo bajo 042.
+- F4 #71 Windows Auth regression proof: espera integración real de #74 + nueva asignación JOBS.
 - F2/12.1 cold/warm real: runtime navegador ejecutable faltante.
-- F2/13.1 Web #69: stale/holding; coordinator proven, product wiring + refresh pending.
-- F2/13.1 server #70: frozen by safe-write + stale baseline.
+- F2/13.1 server #70: stale/frozen; owner separado futuro.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-041`: PENDING / STOP_MERGE_FLOW_BLOCKED — #74 race-clean + exact-head CI green; merge transaction blocked before mutation.
+- `NIGHT-AAA-042`: ASSIGNED — F2/#69 refresh + product wiring Save All.
+- `NIGHT-AAA-041`: PENDING / STOP_MERGE_FLOW_BLOCKED — #74 unchanged.
 - `NIGHT-AAA-040`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
-- `NIGHT-AAA-039`: PASS_RESOLVED_BY_JOBS_RECHECK — candidate green, not yet integrated.
+- `NIGHT-AAA-039`: PASS_RESOLVED_BY_JOBS_RECHECK — #74 candidate green, not integrated.
 - `NIGHT-AAA-038`: Required CI FAILURE on prior typing error.
 - `NIGHT-AAA-032`: PENDING / STOP_RUNTIME_UNAVAILABLE.
 - `NIGHT-AAA-031`: PENDING / STOP_WRITE_SURFACE.
