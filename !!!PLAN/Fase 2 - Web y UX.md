@@ -4,14 +4,14 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 030:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
+**Baseline vivo CYCLE 031:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
 **Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 abierto solo por cold/warm runtime real; 13.1 activo con carriles Web y server separados.
 
 ## Owners actuales — F2/13.1
 
-**AAA — `NIGHT-AAA-030` — carril Web / SAME #69:** #69 `aaa/night-13.1-web-save-all @ b2ab75ae...` permanece OPEN/Ready. Helper Save All secuencial por item, resumen saved/conflict/failed, retry unresolved y duplicate-id protection ya están unit-tested; Desktop Portability `33303237401`, D6 `33303237410` y D7 `33303237375` fueron SUCCESS en ese head. El blocker real es product wiring: `App.tsx` todavía usa `handleReviewedSaveAll` y no consume `saveAllWebItems`. AAA debe hacer solo el wiring mínimo + focused evidence + fresh exact-head CI antes de merge.
+**AAA — `NIGHT-AAA-031` — carril Web / SAME #69:** #69 `aaa/night-13.1-web-save-all @ b2ab75ae...` sigue OPEN/Ready/mergeable. Helper Save All, resumen saved/conflict/failed, retry unresolved y duplicate-id protection ya están unit-tested; Desktop Portability `33303237401`, D6 `33303237410` y D7 `33303237375` fueron SUCCESS en ese head. El blocker real sigue siendo product wiring: `App.tsx` todavía usa `handleReviewedSaveAll` y no consume `saveAllWebItems`. AAA030 no dejó resultado observable; 031 supersede sin cambiar scope: wiring mínimo + focused evidence + fresh exact-head CI antes de merge.
 
-**WOZ — `NIGHT-WOZ-029` — carril server / SAME #70:** #70 `woz/night-13.1-orphan-lifecycle @ 5a99ebf2...` OPEN/Ready/mergeable. Focused `F2 - 13.1 Orphan Lifecycle` run `33304798320` = SUCCESS. Required CI `33304798363` = FAILURE en `PostgreSQL live integration + recovery gate`. #70 cambia cuatro archivos server/F2 y ningún migration file; attribution-first sigue obligatorio. Un Required CI reciente de #63 contra el mismo baseline tuvo su PG live/recovery job SUCCESS, por lo que no se asume fallo provider-wide sin logs/repro.
+**WOZ — `NIGHT-WOZ-030` — carril server / SAME #70:** #70 `woz/night-13.1-orphan-lifecycle @ 5a99ebf2...` OPEN/Ready/mergeable. Focused `F2 - 13.1 Orphan Lifecycle` run `33304798320` = SUCCESS. Required CI `33304798363` = FAILURE, ya atribuida de forma determinista al fixture de `cloud-server/tests/postgres-live.integration.cjs`: el test de retry ETIMEDOUT invoca el path `orphan_upload` sin el nuevo guard `isObjectStillOrphan`, por lo que el comportamiento productivo fail-closed devuelve `REQUIRED` antes de llegar al delete sintético. PostgreSQL estuvo sano. JOBS autoriza explícitamente añadir ese quinto archivo de test al scope de #70 solo para suministrar guard positivo autoritativo en ese fixture y luego correr focused + Required CI fresh exact-head.
 
 No se cierra 13.1 hasta demostrar ambos lados sin pérdida silenciosa e integrar los artifacts aplicables.
 
@@ -38,10 +38,10 @@ PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
 
 ## Día 13 — Import, Review y bulk edit
 
-### 13.1 — `[ 🟡 ] IN PROGRESS — AAA 030 + WOZ 029`
+### 13.1 — `[ 🟡 ] IN PROGRESS — AAA 031 + WOZ 030`
 - [ 🟡 ] Save All durable con resumen parcial — #69 helper green; product wiring App/Review al coordinator pendiente.
 - [ 🟡 ] Bulk conflict-safe o deshabilitado honestamente — #69 CAS/durable por item probado; wiring productivo debe demostrar saved/conflict/failed + partial/retry semantics.
-- [ 🟡 ] Garbage journal limpia uploads huérfanos — #70 focused workflow PASS; Required CI PG gate rojo; atribución/corrección e integración pendientes.
+- [ 🟡 ] Garbage journal limpia uploads huérfanos — #70 focused workflow PASS; Required CI failure atribuida a fixture legacy; corrective de quinto test path autorizado, fresh CI pendiente.
 
 **No overlap:** AAA no modifica server journal/#70. WOZ no modifica Save All/bulk frontend/#69. `CI-FALLBACK: NONE` para ambos.
 
