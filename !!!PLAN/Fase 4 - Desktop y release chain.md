@@ -4,7 +4,7 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 034:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
+**Integración estable CYCLE 036:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
 
 ## Estado actual
 
@@ -22,11 +22,24 @@ Esto integra **solo** la fila `windows/import = AUTOMATED_PASS`; 25.1 completo p
 
 ## Owner actual
 
-**BBB — `NIGHT-BBB-032` — F4 / 25.1 `windows/auth`.**
+**BBB — `NIGHT-BBB-033` — F4 / 25.1 SAME #71 `windows/auth`.**
 
-PRIMARY: REUSE-FIRST sobre `desktop_e2e` + shared auth coverage. Demostrar literalmente el journey Windows/auth mediante harness/workflow mínimo F4. No tocar producto salvo que un assertion real revele un bug; en ese caso registrar `PRODUCT_FINDING` y STOP. Promover únicamente la fila `windows/auth` después de PASS literal + fresh exact-head applicable CI + race-check limpio.
+PR #71 sigue OPEN / Ready, base `02a40564...`, head `29656aa0a040043934380c97e0145608c69e8daf`.
 
-CI-FALLBACK: `NONE`.
+Final exact-head recheck del turno anterior:
+- Windows Auth `33313675968` — **FAILURE**;
+- job `99263095638`: setup, exact checkout, pinned Node/Rust, locked npm graph y prepare isolated embedded Tauri WebDriver = SUCCESS; fallo en `Run isolated Windows auth assertions`;
+- Required CI / Desktop Portability `33313676131` — SUCCESS;
+- D6 `33313675921` — SUCCESS;
+- D7 `33313675911` — SUCCESS;
+- Windows Import regression `33313676127` — SUCCESS;
+- Upgrade 21.2 — SKIPPED/no aplicable.
+
+Por evidence-before-claim, `windows/auth` continúa `NOT_COVERED`; no se infiere bug de producto solo por un job rojo.
+
+PRIMARY: attribution-first del failure exacto. Si es harness/test plumbing, corrective mínimo dentro de #71/F4; si una assertion literal demuestra bug de producto, `PRODUCT_FINDING` + STOP para reasignación. Promover solo `windows/auth` después de PASS literal, y luego exigir fresh post-promotion Windows Auth + F4 Matrix + D6 + D7 + Required CI/Desktop Portability antes de race-check/merge.
+
+CI-FALLBACK: `NONE` — otra fila de 25.1 o 25.2 sería scope nuevo, no fallback independiente autorizado.
 
 ## Día 21 — Manifest e identidad únicos
 
@@ -85,7 +98,7 @@ Gaps honestos restantes incluyen:
 - YouTube/billing donde no existe evidencia dedicada;
 - iPhone = `PENDING_EXTERNAL` por runner/hardware/credenciales.
 
-`NIGHT-BBB-032` toma únicamente `windows/auth` por ser un slice harness-backed y no externo.
+`NIGHT-BBB-033` toma únicamente `windows/auth`. La primera ejecución exact-head de #71 llegó al paso de assertions pero falló; no hay promoción hasta PASS literal.
 
 ### 25.2
 - [ ] design freeze tokens/nav/library/drawer/player/settings/wizard;
