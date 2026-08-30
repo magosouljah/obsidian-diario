@@ -7,12 +7,12 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-034`
+- `ASSIGNMENT_ID: NIGHT-AAA-035`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.1 — SAME PR #69 refresh + product wiring mínimo`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`
 - `REUSE_PR: #69 / aaa/night-13.1-web-save-all @ b2ab75ae1dbde4e3aba389da844f466920a5d6eb`
-- `PREDECESSOR: NIGHT-AAA-033 NOT_PROCESSED / SUPERSEDED_BY_JOBS — no RESULTADO DEL TURNO ni handoff final nuevo observable; no ejecutar 033 después de recibir 034.`
+- `PREDECESSOR: NIGHT-AAA-034 NOT_PROCESSED / SUPERSEDED_BY_JOBS — no RESULTADO DEL TURNO ni handoff final nuevo observable; no ejecutar 034 después de recibir 035.`
 
 ### PRIMARY
 
@@ -36,11 +36,11 @@
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback. 12.1 requiere runtime navegador que este worker no demostró disponible y 13.2+ ampliaría scope.
 
-## RESULTADO PROCESADO — NIGHT-AAA-033
+## RESULTADO PROCESADO — NIGHT-AAA-034
 
 - `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- No se observó resultado final/handoff nuevo antes de CYCLE 036.
-- #69 sigue OPEN @ `b2ab75ae...` y stale respecto al baseline vivo.
+- No se observó resultado final/handoff nuevo antes de CYCLE 037.
+- #69 sigue OPEN @ `b2ab75ae...`, mergeable, y stale respecto al baseline vivo `02a40564...`.
 
 ## RESULTADO PROCESADO — NIGHT-AAA-032
 
@@ -56,11 +56,10 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-034`: ASSIGNED — SAME #69 refresh + product wiring mínimo.
+- `NIGHT-AAA-035`: ASSIGNED — SAME #69 refresh + product wiring mínimo.
+- `NIGHT-AAA-034`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-033`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-032`: PENDING / STOP_RUNTIME_UNAVAILABLE.
 - `NIGHT-AAA-031`: PENDING / STOP_WRITE_SURFACE.
 - `NIGHT-AAA-029`: helper green; product wiring missing.
 - `NIGHT-AAA-027`: #69 created.
-- `NIGHT-AAA-022`: taxonomy/state demonstrated; cold/warm remained open.
-- `NIGHT-AAA-020`: #66 merged `712b49b6689...`.
