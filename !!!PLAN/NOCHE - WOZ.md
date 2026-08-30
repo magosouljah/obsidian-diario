@@ -2,27 +2,39 @@
 
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** WOZ — worker nocturno.  
-**Área:** F2 — Web/server durable cleanup.  
+**Área:** F3 — producción/operación software-only.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-031`
+- `ASSIGNMENT_ID: NIGHT-WOZ-032`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F2 / 13.1 — SAME PR #70: execute attributed live-PG fixture corrective + fresh CI`
+- `AREA: F3 / 20.1 — observability / alerts / runbook / kill-switch REUSE-FIRST gap map`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
-- `REUSE_PR: #70 / woz/night-13.1-orphan-lifecycle @ 5a99ebf2c54a9c0aaae7f20b2262160e55ca6ae7`
-- `HOLDING_ITEM: F3 / 18.1 / PR #68 remains frozen; do NOT touch/retry it in this assignment.`
+- `HOLDING_ITEM_1: F2 / 13.1 / PR #70 frozen exactly @ 5a99ebf2c54a9c0aaae7f20b2262160e55ca6ae7 after NIGHT-WOZ-031 SAFE_WRITE_TOOLING_LIMIT; do NOT touch/retry it.`
+- `HOLDING_ITEM_2: F3 / 18.1 / PR #68 remains frozen @ 2a988ec2...; do NOT touch/retry it.`
 
 ### PRIMARY
 
-Corrective autorizado: solo `cloud-server/tests/postgres-live.integration.cjs`, fixture ETIMEDOUT `orphan_upload`, añadir revalidación positiva `isObjectStillOrphan: async () => true`; preservar producto fail-closed. Fresh focused + Required CI y merge SAME #70 solo si verde y baseline compatible.
+1. Preflight GitHub vivo + duplicate-check. No toques #68 ni #70 y no reutilices sus ramas/PRs.
+2. Lee F3/20.1 literalmente y aplica REUSE-FIRST sobre evidencia/artefactos ya integrados: 5.2 observabilidad/alarms/on-call, #59 health/readiness, #61 promotion/rollback y cualquier log/metric/alert/runbook/kill-switch existente en el repo.
+3. Construye un mapa compacto `requisito -> evidencia exacta -> cobertura -> gap` para: logs/métricas/tracing/error reporting/retention; alerts auth/API/DB/billing/provider/pool/queue/backup/release; on-call/runbook/status/kill switches.
+4. No marques un requisito cubierto solo por naming parecido; exige evidencia literal y ejecutable/documentada aplicable.
+5. Si el audit demuestra que una parte de 20.1 ya está satisfecha por artefactos existentes, reporta exactamente cuál, con paths/SHAs/tests/CI/runtime aplicable. No cierres 20.1 completo salvo cobertura literal total.
+6. Si aparece un **único gap pequeño, independiente, software-only y safely writable**, puedes crear UNA rama/PR nueva exclusivamente para ese gap. Prefiere archivo/harness/test pequeño y aislado; no reemplaces archivos largos truncados ni hagas full-file rewrite inseguro.
+7. Si hace falta provider real, dashboards externos, secretos, recursos pagados, DNS/status vendor, infraestructura o decisión RO, registra `PENDING_EXTERNAL` y no lo falsees.
+8. Evidencia requerida si hay cambio: branch/head, changed-file scope, focused tests y fresh applicable exact-head CI. Si no hay cambio: paths/SHAs/evidencia REUSE-FIRST y gap map verificable.
+9. Publica handoff en Issue #41, actualiza RESULTADO DEL TURNO aquí y STOP.
+
+**STOP:** necesidad de tocar #68/#70/F2/Desktop packaging, full-file destructive write, provider/cost/secret action, scope creep, baseline race o CI rojo no atribuible.
 
 ### CI-FALLBACK
 
 `NONE`
 
-## RESULTADO DEL TURNO — NIGHT-WOZ-031
+Reason: el PRIMARY ya es trabajo independiente y read/audit-first; no se autoriza otro carril.
+
+## RESULTADO PROCESADO — NIGHT-WOZ-031
 
 ### PRIMARY
 - `Assignment ID: NIGHT-WOZ-031`
@@ -32,31 +44,25 @@ Corrective autorizado: solo `cloud-server/tests/postgres-live.integration.cjs`, 
 - `PR: #70 OPEN; no merge attempted`
 - `cambios: corrective exacto identificado en postgres-live.integration.cjs. El writer disponible reemplaza archivo completo; un intento no seguro produjo commit 588f3895 con contenido truncado y fue revertido inmediatamente moviendo la rama exactamente al head previo 5a99ebf2. Estado final del PR restaurado sin ese cambio.`
 - `tests: no fresh tests; no claim PASS`
-- `CI: no fresh CI porque no quedó corrective aplicado`
+- `CI: live recheck posterior sobre 5a99ebf2 mantiene Required CI FAILURE y PostgreSQL live/recovery FAILURE; no corrective aplicado.`
 - `evidencia: fixture original confirmado: processGarbageBatch para gc-retry-live/orphan_upload carece isObjectStillOrphan; baseline vivo sigue 3ad8f55a...; branch restaurada a 5a99ebf2...`
-- `UNVERIFIED: corrective no aplicado; fresh CI no ejecutado; merge no ejecutado`
+- `UNVERIFIED: corrective no aplicado; merge no ejecutado`
 - `blockers: herramienta de escritura disponible exige reemplazo completo de un archivo largo y no ofrece patch quirúrgico seguro; no repetir escritura destructiva`
-- `condición de STOP alcanzada: no existe forma segura disponible en este turno de aplicar únicamente el fixture autorizado sin riesgo de truncar el archivo`
-- `recomendación para JOBS: mantener SAME #70/head y ejecutar el parche quirúrgico con una herramienta que soporte patch/edit o autorizar un mecanismo seguro equivalente; luego fresh focused + Required CI y merge si verde.`
+- `condición de STOP alcanzada: no existe forma segura disponible en ese turno de aplicar únicamente el fixture autorizado sin riesgo de truncar el archivo`
+- `recomendación para JOBS: mantener SAME #70/head frozen hasta disponer de patch/edit seguro.`
 
 ### CI-FALLBACK
-- `Assignment ID: NIGHT-WOZ-031`
 - `STATUS: NOT_RUN`
-- `baseline: 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
-- `branch/head: n/a`
-- `PR: n/a`
-- `cambios/tests/CI/evidencia: NONE`
-- `UNVERIFIED: none`
-- `blockers: CI-FALLBACK explícitamente NONE`
-- `condición de STOP alcanzada: fallback no autorizado`
-- `recomendación para JOBS: no fallback.`
+- `CI-FALLBACK: NONE`
 
-## HOLDING — F3/18.1 / PR #68
+## HOLDING
 
-#68 @ `2a988ec2a25d6ecfa927614fcc32cde689995103` permanece frozen; no tocado durante 031.
+- F2/13.1 / #70 @ `5a99ebf2...` — frozen por safe-write tooling; no tocar en 032.
+- F3/18.1 / #68 @ `2a988ec2...` — frozen por merge execution blocker; no tocar en 032.
 
 ## HISTORIAL COMPACTO
 
+- `NIGHT-WOZ-032`: ASSIGNED — F3/20.1 observability gap map.
 - `NIGHT-WOZ-031`: BLOCKED / SAFE_WRITE_TOOLING_LIMIT; #70 restaurado exactamente a 5a99ebf2.
 - `NIGHT-WOZ-030`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-029`: PENDING / attributed corrective.
