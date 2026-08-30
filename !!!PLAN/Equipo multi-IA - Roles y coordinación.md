@@ -2,25 +2,31 @@
 
 > GitHub + `!!!PLAN` son memoria compartida. Modelo: ROMPECABEZAS CON OWNER FIJO. GitHub/runtime vivo prevalece.
 
-## Roles y ownership actual — CYCLE 043
+## Roles y ownership actual — CYCLE 044
 
 | Rol | Owner actual | PRIMARY | CI-FALLBACK |
 |---|---|---|---|
 | JOBS | coordinación | `!!!PLAN`, prioridades, handoffs, gates; no código/infra | n/a |
-| AAA | F4 product-auth SAME #74 | `NIGHT-AAA-039`: corregir compile/type error exacto, preservar runtime corrective, fresh exact-head CI | `NONE` |
-| BBB | F4 / 25.1 SAME #72 | `NIGHT-BBB-038`: promover windows/review tras PASS literal, fresh post-promotion gates + merge si verde | `NONE` |
-| WOZ | F3 / 20.1 SAME #75 | `NIGHT-WOZ-042`: corregir únicamente floating GitHub Action refs con pins inmutables canónicos; fresh exact-head CI | `NONE` |
+| AAA | F4 / SAME #74 | `NIGHT-AAA-040`: race-check + integración de #74 usando exact-head green; no #71 todavía | `NONE` |
+| BBB | F4 / SAME #72 | `NIGHT-BBB-039`: atribuir/corregir matrix-contract post-promotion; fresh gates + merge solo si verde | `NONE` |
+| WOZ | F3 / SAME #75 | `NIGHT-WOZ-043`: pin-only supply-chain corrective; fresh exact-head CI; no #73 | `NONE` |
 
-**Baseline canónico CYCLE 043:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Baseline canónico CYCLE 044:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+
+## Handoffs procesados
+
+- AAA039: #74 head `14dfba52...`; D6 `33324138675`, D7 `33324138676`, Required CI `33324138689` = SUCCESS; no merge observado. AAA040 emitido para la transacción exacta de integración.
+- BBB038: #72 promovió solo `windows/review`; nuevo head `56dc4adf...`; Review/Import/Required CI verdes pero F4 Matrix `33324512174` FAILURE en `Validate dependency-safe matrix contract`. BBB039 emitido attribution-first.
+- WOZ042: no resultado, commit ni CI nuevo; #75 permanece en `bb493b37...`. 042 queda `NOT_PROCESSED / SUPERSEDED_BY_JOBS`; 043 reemite el mismo correctivo mínimo para evitar ejecución tardía del ID viejo.
 
 ## Holding / blocked items
 
 - F2/12.1 cold/warm real: blocker runtime navegador.
 - F2/13.1 Web #69 @ `b2ab75ae...`: holding/stale; coordinator probado, wiring/refresh pendientes.
 - F2/13.1 server #70 @ `5a99ebf2...`: frozen por safe-write + stale baseline.
-- F4/windows-auth #71: regression proof; waiting #74 corrective verde/integrado y luego nueva asignación BBB.
-- F3/18.2 #73 @ `fc831172...`: exact-head verde/mergeable, pero `BLOCKED / MERGE_FLOW_UNAVAILABLE`; no duplicar ni recrear.
-- F3/20.1 #75 @ `bb493b37...`: candidate software-only; Required CI rojo únicamente por floating external Action refs del workflow nuevo; WOZ042 assigned corrective.
+- F4/windows-auth #71: regression proof; espera #74 integrado + nueva asignación explícita.
+- F3/18.2 #73 @ `fc831172...`: exact-head verde/mergeable, pero `MERGE_FLOW_UNAVAILABLE`; no duplicar ni recrear.
+- F3/20.1 #75 @ `bb493b37...`: pin corrective pendiente WOZ043; external/productive tails siguen abiertos.
 
 ## Reglas
 
@@ -43,17 +49,16 @@
 - Si no existe fallback seguro: `CI-FALLBACK: NONE`.
 - Worker nunca inventa fallback.
 
-## Night Shift Ledger — CYCLE 043
+## Night Shift Ledger — CYCLE 044
 
 ```text
 JOBS: integration remains a9d35a3d69dd9127029fb851d189f9bd3079d03b
-AAA039: still ASSIGNED; #74 head unchanged 92058b42..., no new worker result observed
-BBB038: still ASSIGNED; #72 head unchanged 3219996e..., no new worker result observed
-WOZ041: WAITING_CI -> JOBS recheck FAILURE: Required CI 33323457041; supply-chain immutable-action gate rejects actions/checkout@v4 + actions/setup-node@v4
-WOZ042: emitted SAME #75, pin-only corrective using canonical immutable SHAs
-AAA_CURRENT: NIGHT-AAA-039
-BBB_CURRENT: NIGHT-BBB-038
-WOZ_CURRENT: NIGHT-WOZ-042
+AAA039: WAITING_CI -> exact-head PASS resolved by JOBS; #74 not merged
+AAA040: ASSIGNED SAME #74 integration transaction
+BBB038: WAITING_CI -> F4 Matrix FAILURE on promoted head 56dc4adf...
+BBB039: ASSIGNED SAME #72 attribution/corrective
+WOZ042: NOT_PROCESSED / SUPERSEDED_BY_JOBS; #75 unchanged
+WOZ043: ASSIGNED SAME #75 pin-only corrective
 CI_FALLBACKS: NONE / NONE / NONE
 DUPLICATE_WORK: none
 RELEASE: NO-GO
@@ -64,6 +69,6 @@ RELEASE: NO-GO
 - F0: técnico habilitado; 1.2/2.2 externos.
 - F1: D6–D9 PASS; D10.1 external-only; D10.2 RO.
 - F2: 12.1 runtime residual; #69/#70 holding/frozen.
-- F3: 17.1/17.2/18.1 integrated; 18.2 #73 integration-ready pero merge-flow blocked; 20.1 #75 compile/logic candidate existe pero Required CI está rojo por supply-chain pinning y WOZ042 lo corrige.
-- F4: windows/import integrated; windows/auth #74 compile-red asignado AAA039; windows/review #72 literal PASS pendiente promotion/integration BBB038; 25.1/25.2 open.
+- F3: 17.1/17.2/18.1 integrated; 18.2 #73 ready but merge-flow blocked; 20.1 #75 pin corrective pendiente.
+- F4: windows/import integrated; windows/auth #74 exact-head green pendiente integración; windows/review #72 dedicated green pero matrix-contract red; 25.1/25.2 open.
 - JOBS: coordinación/plan; no producto/infra.
