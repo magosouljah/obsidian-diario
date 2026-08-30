@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-020`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F3 / 17.2 — SAME PR #67 refresh/race transaction after baseline moved`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
 - `REUSE_PR: #67 / woz/night-17.2-webhook-contract`
@@ -35,6 +35,40 @@
 
 Reason: 18.x shares billing/PostgreSQL ownership and depends on trustworthy 17.2 semantics; no independent fallback is safe.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-020
+
+### PRIMARY
+
+- `Assignment ID: NIGHT-WOZ-020`
+- `STATUS: PENDING / WAITING_CI`
+- `baseline: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
+- `branch/head: woz/night-17.2-webhook-contract @ 27c2f30007a687a144be289a64ab986451f05c99`
+- `PR: #67 OPEN / Ready / NOT MERGED`
+- `cambios: SAME #67 fue refrescado sobre baseline vivo y conserva exactamente cinco paths: .github/workflows/f3-17.2-webhook-contract.yml; cloud-server/billing-webhook.js; cloud-server/migrations/0006_billing_webhooks.sql; cloud-server/tests/billing-webhook.test.cjs; cloud-server/tests/postgres-restore.verify.cjs. No delta de #66 fue sobrescrito.`
+- `tests: no se fabricó resultado local nuevo; el corrective de restore conserva listMigrations() y el resto de invariantes previamente verdes. Fresh exact-head CI requerido para 27c2f300... todavía no observable.`
+- `CI: WAITING_CI — al cierre de este turno fetch_commit_workflow_runs(27c2f300...) devolvió 0 runs; evidencia verde 8a534111... queda explícitamente old-combination-only.`
+- `evidencia: #66 delta vs old baseline toca únicamente Web Library/frontend; #67 changed-file scope son cinco paths F3/recovery disjuntos. GitHub confirmó #67 reabierto con base 712b49b..., head 27c2f300..., 1 commit y 5 changed files.`
+- `UNVERIFIED: fresh applicable exact-head CI sobre 27c2f300...; focused 17.2/recovery PASS en esta combinación; race-check final; merge SHA; integration HEAD post-merge.`
+- `blockers: espera externa verificable de GitHub Actions para el nuevo exact head.`
+- `condición de STOP alcanzada: WAITING_CI; CI-FALLBACK es NONE, por lo que no se inventa trabajo alterno.`
+- `recomendación para JOBS: mantener NIGHT-WOZ-020 PENDING hasta observar CI del exact head 27c2f300...; si todo lo aplicable queda verde, reasignar/continuar la transacción de race-check + merge SAME #67; si CI red, conservar scope 17.2/recovery y corregir únicamente la causa factual.`
+
+### CI-FALLBACK
+
+- `Assignment ID: NIGHT-WOZ-020`
+- `STATUS: NOT_RUN`
+- `baseline: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
+- `branch/head: N/A`
+- `PR: N/A`
+- `cambios: NONE`
+- `tests: NONE`
+- `CI: NONE`
+- `evidencia: asignación vigente declara CI-FALLBACK = NONE.`
+- `UNVERIFIED: NONE`
+- `blockers: NONE`
+- `condición de STOP alcanzada: fallback inexistente por orden explícita.`
+- `recomendación para JOBS: no asignar 18.x como fallback mientras 17.2 siga pendiente.`
+
 ## RESULTADO PROCESADO — NIGHT-WOZ-019
 
 - `TURN_STATUS: PENDING / WAITING_CI`
@@ -48,7 +82,7 @@ Reason: 18.x shares billing/PostgreSQL ownership and depends on trustworthy 17.2
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-020`: ASSIGNED — SAME #67 refresh + fresh exact-head CI + merge si verde; CI-FALLBACK NONE.
+- `NIGHT-WOZ-020`: PENDING/WAITING_CI — SAME #67 refreshed onto 712b49b... as 27c2f300...; fresh exact-head CI pending; CI-FALLBACK NONE.
 - `NIGHT-WOZ-019`: PENDING/WAITING_CI — minimal recovery verifier corrective `8a534111...`; CI later all green on old base.
 - `NIGHT-WOZ-018`: PENDING_CI — original #67 recovery gate red.
 - `NIGHT-WOZ-017`: PR #65 merged `ed6aab7e...`; 17.1 SOFTWARE DONE / INTEGRATED.
