@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 046:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Integración estable CYCLE 047:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado actual
 
@@ -16,13 +16,13 @@ SAME PR #74 permanece factual:
 - OPEN/Ready/mergeable, no mergeado;
 - base exacta `a9d35a3d69dd9127029fb851d189f9bd3079d03b`;
 - head `14dfba52775f40f1956e3d1dcb343b07b147ba0c`;
-- D6 `33324138675` SUCCESS; D7 `33324138676` SUCCESS; Required CI `33324138689` SUCCESS; Upgrade `33324138691` SKIPPED/no aplicable.
+- evidencia exact-head previamente verde preservada.
 
-`NIGHT-AAA-041` hizo race-check y el merge expected-head fue bloqueado antes de mutación por la superficie de seguridad del connector. #74 queda `STOP_MERGE_FLOW_BLOCKED`/frozen; no repetir el mismo intento sin cambio factual. #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
+`NIGHT-AAA-041` intentó la transacción de merge expected-head y fue bloqueada antes de mutación. #74 queda frozen bajo el blocker previo; no repetir sin cambio factual. #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
 
 ### windows/review
 
-SAME #72 ahora está factual y completamente verde:
+SAME #72 sigue factual y completamente verde:
 - PR #72 OPEN/Ready/mergeable, no mergeado;
 - base exacta `a9d35a3d...`;
 - head `904fbf3c0f81e6ff4c22e4ee717f337e5018fa5c`;
@@ -34,11 +34,9 @@ SAME #72 ahora está factual y completamente verde:
 - Windows Import `33327407514` SUCCESS;
 - Upgrade `33327407526` SKIPPED/no aplicable.
 
-El fallo previo del matrix-contract fue atribuido a una referencia de evidencia interpretada como path; BBB corrigió únicamente el prefijo de esa referencia sin relajar el contrato ni cambiar producto. `NIGHT-BBB-041` es race-check + integración SAME #72; si baseline cambia, fresh reconciliation/CI antes de merge.
+`NIGHT-BBB-041` no dejó RESULTADO DEL TURNO/handoff observable y queda superseded para impedir ejecución tardía duplicada. `NIGHT-BBB-042` es owner único para race-check + integración SAME #72; si baseline cambia, refresh estrecho + fresh applicable CI antes de merge.
 
-**CI-FALLBACK BBB:** F4/25.2 READ-ONLY readiness inventory solo si PRIMARY queda realmente esperando una operación externa de merge/review/queue; sin rama/PR/commit/write y sin tocar #72/auth/producto/matrix/docs. Recheck PRIMARY antes de cerrar.
-
-CI-FALLBACK AAA: `NONE`.
+**CI-FALLBACK BBB:** F4/25.2 READ-ONLY readiness inventory solo si PRIMARY queda realmente esperando operación externa de merge/review/queue; sin rama/PR/commit/write y sin tocar #72/auth/producto/matrix/docs. Recheck PRIMARY antes de cerrar.
 
 ## Día 21
 
@@ -76,8 +74,8 @@ Integrated rows:
 - `macos/updater = AUTOMATED_PASS`.
 
 Active/holding:
-- `windows/auth = NOT_COVERED` — #74 exact-head green pero merge-flow blocked; #71 espera integración real + nueva assignment.
-- `windows/review` — #72 exact-head dedicated journey + matrix + required gates verdes; integración pendiente bajo BBB041.
+- `windows/auth = NOT_COVERED` — #74 candidate green/mergeable pero merge-flow bloqueado; #71 espera integración real + nueva assignment.
+- `windows/review` — #72 exact-head dedicated journey + matrix + required gates verdes; integración pendiente bajo BBB042.
 - otras Web/Windows/macOS journeys permanecen NOT_COVERED salvo evidencia dedicada.
 - iPhone rows permanecen PENDING_EXTERNAL.
 
