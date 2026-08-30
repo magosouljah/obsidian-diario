@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE 047:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Baseline vivo CYCLE 048:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado actual
 
@@ -14,30 +14,32 @@
 - [x] lazy artwork + pagination/window/memory — #58/#66;
 - [ 🟡 ] cold/warm startup Web real cuantificado — harness localizado (`npm run test:web:smoke`), pero falta runtime ejecutable con checkout/npm/Chrome.
 
-No cerrar 12.1 con benchmark sintético. `NIGHT-AAA-043` tiene un CI-FALLBACK **read-only** para inventariar requisitos/paths/comandos de runtime únicamente si #69 queda esperando CI; ese fallback no cierra 12.1.
+No cerrar 12.1 con benchmark sintético.
 
-### 13.1 — `[ 🟡 ] IN PROGRESS`
+### 13.1 — `[ 🟡 ] IN PROGRESS / BLOCKED ON WRITE SURFACE`
 
-**Web / #69:** PR OPEN/mergeable @ `b2ab75ae1dbde4e3aba389da844f466920a5d6eb`, base histórica `3ad8f55a...`; coordinator Save All + CAS/partial summary probado; product wiring App/Review/Import/Bulk + refresh al baseline vivo pendientes. `NIGHT-AAA-042` no dejó resultado observable y queda superseded; `NIGHT-AAA-043` es owner único y debe reutilizar SAME #69.
+**Web / #69:** PR OPEN/Ready/mergeable @ `b2ab75ae1dbde4e3aba389da844f466920a5d6eb`, base histórica `3ad8f55a...`; coordinator Save All + CAS/partial summary probado. `NIGHT-AAA-043` revalidó que integration y #69 divergen desde ese merge-base y que integration cambia fuera de los dos archivos de #69. No pudo hacer refresh/product wiring de forma segura con la superficie de escritura disponible y terminó `PENDING / STOP_WRITE_SURFACE`. #69 queda frozen/unowned hasta superficie patch-capable.
 
-**Server / #70:** PR OPEN/mergeable @ `5a99ebf2...`; corrective conocido, safe-write tooling blocker y baseline stale. Frozen; no owner activo en CYCLE 047.
+**Server / #70:** PR OPEN/mergeable @ `5a99ebf2...`; corrective conocido, safe-write tooling blocker y baseline stale. Frozen/unowned.
 
 - [ 🟡 ] Save All durable con resumen parcial — helper probado, wiring productivo pendiente.
 - [ 🟡 ] Bulk conflict-safe — CAS/item semantics probado, wiring productivo pendiente.
 - [ 🟡 ] Garbage journal — candidate/focused evidence existe; corrective + refresh pendientes.
 
-### 13.2
-- [ ] ReviewShell Import/Edit/Bulk, CTA fija y progreso N/N.
-- [ ] errores item/retry/skip/cancel/confirmación durable.
-- [ ] E2E multi-file/conflicto/refresh/rollback.
+### 13.2 — `[ 🟡 ] AUDIT ASSIGNED`
+
+`NIGHT-AAA-044` es owner único para un gap map **read-only** sobre baseline vivo:
+- ReviewShell Import/Edit/Bulk;
+- CTA fija y progreso N/N;
+- errores item/retry/skip/cancel/confirmación durable;
+- E2E multi-file/conflicto/refresh/rollback;
+- dependencia exacta con #69/#70.
+
+Resultado permitido: matriz `EXISTS/PARTIAL/GAP/PENDING_DEPENDENCY` + slices mínimos/path/symbol/test. No branch/PR/commit/write y no PASS claim.
+
+**CI-FALLBACK AAA:** `NONE`.
 
 **Gate:** ninguna acción Web visible llama Tauri; 0 pérdida silenciosa.
-
-## Owner CYCLE 047
-
-**AAA — `NIGHT-AAA-043` — SAME #69.** Refresh mínimo al baseline vivo, preservar coordinator/CAS ya probado y conectar `saveAllWebItems` al flujo Web real sin tocar #70 ni reimplementar single-item commit/server garbage journal. Focused tests + fresh exact-head CI.
-
-**CI-FALLBACK AAA:** F2/12.1 READ-ONLY runtime-prerequisite inventory solo si PRIMARY entra en WAITING_CI; sin rama/PR/commit/write, sin benchmark sintético; luego recheck PRIMARY.
 
 ## Día 14
 
