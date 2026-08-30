@@ -4,15 +4,15 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 028:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Integración estable CYCLE 029:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-027` (ASSIGNED).**
+**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-028` (ASSIGNED).**
 
 SAME #63 `bbb/task-25.1-windows-import` está OPEN/Ready/mergeable sobre base `3ad8f55a...`, head `e14a3ab9a284484cace9b8fa98c293c7c15b5dce`.
 
-Fresh exact-head sobre ese head:
+Fresh exact-head ya demostrado sobre ese head:
 - F4 Matrix `33303300262` — SUCCESS;
 - D6 `33303300263` — SUCCESS;
 - D7 `33303300298` — SUCCESS;
@@ -20,9 +20,7 @@ Fresh exact-head sobre ese head:
 - **Windows Import `33303300259` — SUCCESS**;
 - Upgrade 21.2 — SKIPPED/no aplicable.
 
-Esto demuestra por primera vez que el harness Windows llega y pasa literalmente las assertions existentes de import en el candidate actual. Sin embargo, la matrix todavía no se promueve automáticamente por el mero CI verde. `NIGHT-BBB-027` debe cambiar únicamente `windows/import` a `AUTOMATED_PASS`; ese cambio crea un head nuevo y exige un set fresh exact-head completo antes de race-check/merge.
-
-No se cierra 25.1 completa: persisten otros gaps de la matriz y D22/D23 externos.
+`NIGHT-BBB-028` debe promover únicamente `windows/import` a `AUTOMATED_PASS`; ese cambio crea un head nuevo y exige Windows Import + F4 Matrix + D6 + D7 + Desktop Portability fresh exact-head antes de race-check/merge. No se cierra 25.1 completa: persisten otros gaps y D22/D23 externos.
 
 ## Día 21 — Manifest e identidad únicos
 
@@ -70,7 +68,7 @@ No se cierra 25.1 completa: persisten otros gaps de la matriz y D22/D23 externos
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] WINDOWS IMPORT PROVEN / PROMOTION PENDING` — BBB `NIGHT-BBB-027`
+### 25.1 — `[ 🟡 ] WINDOWS IMPORT PROVEN / PROMOTION PENDING` — BBB `NIGHT-BBB-028`
 
 #60 integró la matriz base como `7de7b57a508b3cf05cbded81501fbd3da63922a3`.
 
@@ -80,7 +78,7 @@ SAME #63 estado vivo:
 - Windows Import `33303300259` SUCCESS literal;
 - F4 Matrix/D6/D7/Desktop Portability SUCCESS;
 - no merge todavía;
-- `windows/import` promotion a `AUTOMATED_PASS` pendiente de BBB.
+- `windows/import` promotion a `AUTOMATED_PASS` pendiente.
 
 Después de la promoción, el nuevo head debe repetir Windows Import + F4 Matrix + D6 + D7 + Desktop Portability exact-head. Solo entonces race-check/merge.
 
