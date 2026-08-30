@@ -4,23 +4,21 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 029:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Integración estable CYCLE 030:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-028` (ASSIGNED).**
+**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-029` (ASSIGNED).**
 
-SAME #63 `bbb/task-25.1-windows-import` está OPEN/Ready/mergeable sobre base `3ad8f55a...`, head `e14a3ab9a284484cace9b8fa98c293c7c15b5dce`.
+SAME #63 `bbb/task-25.1-windows-import` está OPEN/Ready/mergeable sobre base `3ad8f55a...`, promotion head `1b957eff98271f78809c6eeb5fd79fed311b3286`.
 
-Fresh exact-head ya demostrado sobre ese head:
-- F4 Matrix `33303300262` — SUCCESS;
-- D6 `33303300263` — SUCCESS;
-- D7 `33303300298` — SUCCESS;
-- Desktop Portability `33303300278` — SUCCESS;
-- **Windows Import `33303300259` — SUCCESS**;
-- Upgrade 21.2 — SKIPPED/no aplicable.
+Estado fresh exact-head del promotion head:
+- **Windows Import functional journey `33305947664` — SUCCESS**;
+- **Required CI `33305947677` — SUCCESS**;
+- PostgreSQL live/recovery dentro de ese Required CI — SUCCESS;
+- **F4 Functional Matrix `33305947676` — FAILURE**, job `matrix-contract`, step `Validate dependency-safe matrix contract`.
 
-`NIGHT-BBB-028` debe promover únicamente `windows/import` a `AUTOMATED_PASS`; ese cambio crea un head nuevo y exige Windows Import + F4 Matrix + D6 + D7 + Desktop Portability fresh exact-head antes de race-check/merge. No se cierra 25.1 completa: persisten otros gaps y D22/D23 externos.
+Por tanto Windows Import ya está probado en el promotion head; el único blocker técnico observado de esta transacción es el contrato de matriz. `NIGHT-BBB-029` debe atribuir/corregir únicamente ese rojo, no reabrir el harness sin evidencia nueva. Cualquier nuevo head exige F4 Matrix + Windows Import + D6 + D7 + Desktop Portability/Required CI fresh exact-head antes de race-check/merge.
 
 ## Día 21 — Manifest e identidad únicos
 
@@ -68,19 +66,20 @@ Fresh exact-head ya demostrado sobre ese head:
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] WINDOWS IMPORT PROVEN / PROMOTION PENDING` — BBB `NIGHT-BBB-028`
+### 25.1 — `[ 🟡 ] WINDOWS IMPORT PROMOTED / MATRIX CONTRACT RED` — BBB `NIGHT-BBB-029`
 
 #60 integró la matriz base como `7de7b57a508b3cf05cbded81501fbd3da63922a3`.
 
 SAME #63 estado vivo:
 - base `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`;
-- head `e14a3ab9a284484cace9b8fa98c293c7c15b5dce`;
-- Windows Import `33303300259` SUCCESS literal;
-- F4 Matrix/D6/D7/Desktop Portability SUCCESS;
-- no merge todavía;
-- `windows/import` promotion a `AUTOMATED_PASS` pendiente.
+- head `1b957eff98271f78809c6eeb5fd79fed311b3286`;
+- `windows/import` ya promovido a `AUTOMATED_PASS` con referencia a la prueba previa;
+- Windows Import `33305947664` SUCCESS literal en promotion head;
+- Required CI `33305947677` SUCCESS;
+- F4 Matrix `33305947676` FAILURE en `Validate dependency-safe matrix contract`;
+- no merge todavía.
 
-Después de la promoción, el nuevo head debe repetir Windows Import + F4 Matrix + D6 + D7 + Desktop Portability exact-head. Solo entonces race-check/merge.
+BBB debe corregir solo el contrato de matriz si el fallo es atribuible a la promoción/evidenceCatalog; después fresh exact-head gates y race-check/merge. No se cierra 25.1 completa: persisten otros gaps y D22/D23 externos.
 
 Persisten otros gaps reales: journeys core no demostrados cross-platform, iPhone runner/hardware externo, YouTube/billing donde la matriz marque gap y signing/notarization externos.
 
