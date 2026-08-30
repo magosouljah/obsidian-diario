@@ -4,32 +4,27 @@
 
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-**Estado nocturno CYCLE 021:** baseline vivo `integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`.
+**Estado nocturno CYCLE 023:** baseline vivo `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Owner actual
 
-**WOZ — F3 / 17.2 SAME #67 refresh + final integration transaction — `NIGHT-WOZ-020` (ASSIGNED).**
+**WOZ — F3 / 18.1 software-only — `NIGHT-WOZ-022` (ASSIGNED).**
 
-PR #59 quedó **MERGED / DONE** en su slice software como `be9e58c9...`; separación física staging/prod sigue externa. PR #61 quedó **MERGED** como `55e0d875...`; 16.2 permanece SOFTWARE DONE / EXTERNAL TAIL.
+PR #59 quedó **MERGED / DONE** en su slice software; separación física staging/prod sigue externa. PR #61 quedó **MERGED**; 16.2 permanece SOFTWARE DONE / EXTERNAL TAIL.
 
 PR #65 quedó **CLOSED / MERGED** como `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`. 17.1 está SOFTWARE DONE / INTEGRATED.
 
-PR #67 `woz/night-17.2-webhook-contract` sigue OPEN/Ready. Head actual observado: `8a5341114e00f373bd88553f3f95be53a153b6b8`.
+PR #67 `woz/night-17.2-webhook-contract` quedó **CLOSED / MERGED**. Exact tested head `27c2f30007a687a144be289a64ab986451f05c99`; merge/integration SHA `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
-Candidate 17.2 software-only contiene raw-body verifier, ledger durable PostgreSQL `billing_webhook_events`, dedupe/idempotency por event ID, ordering watermark, retry/failure state, out-of-order safe ignore, unsupported-event safe no-op y `entitlementGranted=false`.
+Candidate integrado 17.2 contiene raw-body verifier, ledger durable PostgreSQL `billing_webhook_events`, dedupe/idempotency por event ID, ordering watermark, retry/failure state, out-of-order safe ignore, unsupported-event safe no-op y `entitlementGranted=false`. `postgres-restore.verify.cjs` deriva el expected ledger desde `listMigrations()` preservando checks de recovery.
 
-El failure anterior de recovery fue reducido y corregido: `postgres-restore.verify.cjs` tenía ledger hardcodeado 0001..0005 mientras #67 añadió migration 0006. El corrective mínimo `8a534111...` cambió el verifier para derivar versiones desde `listMigrations()` preservando checks de checksum, secrets, reconciliation, rotation/rollback y constraints.
-
-Evidencia exact-head sobre `8a534111...`:
-- F3 17.2 `33280134623` — SUCCESS;
-- D6 `33280134598` — SUCCESS;
-- D7 `33280134660` — SUCCESS;
-- temp-auth `33280134648` — SUCCESS;
-- Required CI / Desktop Portability `33280134630` — SUCCESS.
-
-Sin embargo, #66 movió integration después a `712b49b...`. Por evidence-before-claim, esa evidencia no autoriza merge contra la combinación nueva. `NIGHT-WOZ-020` debe refresh SAME #67 onto live baseline, obtener fresh applicable exact-head CI y solo entonces integrar.
-
-CI-FALLBACK: `NONE`; 18.x comparte billing/PostgreSQL ownership y depende de 17.2.
+Evidencia exact-head final de #67:
+- F3 17.2 `33283532676` — SUCCESS;
+- D6 `33283532664` — SUCCESS;
+- D7 `33283532679` — SUCCESS;
+- productive temp-auth `33283532723` — SUCCESS;
+- Required CI / Desktop Portability `33283532696` — SUCCESS;
+- Upgrade 21.2 `33283532704` — SKIPPED/no aplicable.
 
 ## Día 16 — Staging y producción reproducibles
 
@@ -52,21 +47,25 @@ Integrado por #61 como `55e0d875...`: promoción dependency-safe PR→preview→
 - [x] Checkout Session abstraction server-side.
 - [x] idempotency key y rechazo de precio/plan/currency/trial controlado por cliente.
 
-**Evidencia:** PR #65 merge `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`. El cierre es **software**: no prueba cuenta Stripe productiva, credenciales, products/prices reales ni decisiones comerciales reales.
+**Evidencia:** PR #65 merge `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`. El cierre es software; no prueba cuenta Stripe productiva, credenciales ni products/prices reales.
 
-### 17.2 — `[ 🟡 ] CANDIDATE / REFRESH REQUIRED` — WOZ `NIGHT-WOZ-020`
-- [ 🟡 ] firma webhook sobre raw-body antes de parse/mutate — candidate probado, no integrado;
-- [ 🟡 ] event ID durable/idempotente + async/retry/failure state — candidate probado, no integrado;
-- [ 🟡 ] duplicados/desorden/timeouts/eventos relevantes con semántica segura — candidate/tests verdes en combinación previa, no integrado.
+### 17.2 — `[x] SOFTWARE DONE / INTEGRATED`
+- [x] firma webhook sobre raw-body antes de parse/mutate;
+- [x] event ID durable/idempotente + async/retry/failure state;
+- [x] duplicados/desorden/timeouts/eventos relevantes con semántica segura.
 
-**Gate:** la UI nunca concede plan por redirect; solo estado server-side reconciliado. No marcar 17.2 `[x]` hasta merge exact-head verde sobre baseline vivo. No Stripe productivo, no 18.x, no infraestructura/costo.
+**Evidencia:** PR #67 exact head `27c2f300...`, CI final verde, merge `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+
+**Límite de claim:** no prueba Stripe productivo, cuenta/provider real, 18.x, physical staging/prod ni decisiones comerciales externas.
 
 ## Día 18 — Entitlements, portal y reconciliación
 
-### 18.1
+### 18.1 — `[ 🟡 ] ASSIGNED — WOZ NIGHT-WOZ-022`
 - [ ] limits server-side antes de reservar recursos;
 - [ ] transacción/reserva anti-carreras;
 - [ ] Billing Portal/cancelación y estados subscription.
+
+**Scope 022:** software-only y REUSE-FIRST sobre #65/#67. Puede crear una sola rama/PR mínima si hay gaps. Debe probar límites/autoridad server-side, reserva atómica/race-safe y contrato de estados/portal. No Stripe productivo, credenciales/provider, 18.2, grace-period decisions ni infraestructura.
 
 ### 18.2
 - [ ] reconciliación Stripe↔BeatGaler + cola de excepciones;
