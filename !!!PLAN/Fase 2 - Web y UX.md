@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE 038:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
+**Baseline vivo CYCLE 039:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado actual
 
@@ -18,7 +18,7 @@ No cerrar 12.1 con benchmark sintético.
 
 ### 13.1 — `[ 🟡 ] IN PROGRESS / HOLDING`
 
-**Web / #69:** PR OPEN @ `b2ab75ae...`, base vieja `3ad8f55a...`. Coordinator Save All + CAS/partial summary probado; product wiring App/Review→`saveAllWebItems` y refresh al baseline vivo siguen pendientes. Queda HOLDING en CYCLE 038 porque AAA fue reasignado explícitamente a un product-auth finding P1 de Desktop; no existe segundo owner sobre #69.
+**Web / #69:** PR OPEN @ `b2ab75ae...`; coordinator Save All + CAS/partial summary probado; product wiring App/Review→`saveAllWebItems` sigue pendiente. Candidate ahora está stale frente a baseline `a9d35a3d...`. HOLDING porque AAA está explícitamente en product-auth F4; no existe segundo owner.
 
 **Server / #70:** PR OPEN @ `5a99ebf2...`; corrective conocido, safe-write tooling blocker y baseline stale. Frozen.
 
@@ -33,9 +33,9 @@ No cerrar 12.1 con benchmark sintético.
 
 **Gate:** ninguna acción Web visible llama Tauri; 0 pérdida silenciosa.
 
-## Owner CYCLE 038
+## Owner CYCLE 039
 
-AAA fue movido temporalmente a un product-auth finding descubierto por F4/Windows Auth. #69 permanece HOLDING sin owner de implementación activo; no se transfiere automáticamente a BBB/WOZ.
+AAA está en `NIGHT-AAA-037` resolviendo el product-auth blocker F4. #69 permanece HOLDING sin owner de implementación activo; no se transfiere automáticamente a BBB/WOZ.
 
 ## Día 14
 
