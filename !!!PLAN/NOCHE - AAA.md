@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-AAA-027`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F2 / 13.1 — Save All + bulk conflict-safe, carril Web dependency-safe`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
 - `PREDECESSOR: NIGHT-AAA-026 ASSIGNED / NOT_PROCESSED at CYCLE 027 preflight — superseded to preserve monotonic execution; do not run 026 after 027.`
@@ -33,11 +33,41 @@
 
 Reason: el server half pertenece a WOZ bajo assignment separado; 13.2/D14/D15 ampliarían scope.
 
+## RESULTADO DEL TURNO — NIGHT-AAA-027
+
+### PRIMARY
+
+- `STATUS: PENDING / WAITING_CI`
+- `baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af.`
+- `branch/head: aaa/night-13.1-web-save-all @ b2ab75ae1dbde4e3aba389da844f466920a5d6eb.`
+- `PR: #69 OPEN / Ready.`
+- `cambios: REUSE-FIRST adoptó el mismo artifact creado durante la carrera de orquestación 026→027. src/features/edit/webBulkSave.ts implementa Save All secuencial por item, resumen saved/conflict/failed, progreso, continuación después de partial failure, retry solo unresolved y rechazo de ids duplicados. No toca server journal/WOZ.`
+- `tests: tests/component-dom/webBulkSave.test.ts cubre total success, partial failure/no silent loss, CAS conflict + continuación, retry/idempotencia y duplicate-id. Resultado de ejecución aún pendiente de CI exact-head.`
+- `CI: b2ab75ae... — Test - Desktop Portability 33303237401 IN_PROGRESS; D6 33303237410 IN_PROGRESS; D7 33303237375 IN_PROGRESS; Upgrade 33303237419 SKIPPED/no aplicable.`
+- `evidencia: webBeatEdit.ts existente publica replacement INDEX con expectedMessageId=current.messageId; webAdapter editor.commit reutiliza durable path. #69 cambia solo helper Web + focused test. Issue #41 handoff autoritativo 5467799353.`
+- `UNVERIFIED: focused tests/CI no concluyen; product UI wiring de Save All no se reclama; server orphan cleanup pertenece a WOZ; 13.1 NO cerrado.`
+- `blockers: espera externa verificable de exact-head CI. El ledger cambió de 026 a 027 concurrentemente mientras AAA escribía; se reconcilió sin duplicar rama/PR y se publicó handoff monotónico 027.`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_EXECUTED — NONE explícito por JOBS.`
+- `branch/head si aplica: N/A.`
+- `PR si aplica: N/A.`
+- `cambios: ninguno.`
+- `tests: ninguno.`
+- `evidencia: CI-FALLBACK = NONE en NIGHT-AAA-027.`
+- `UNVERIFIED: N/A.`
+- `blockers: fallback no autorizado; server half pertenece a WOZ.`
+- `STOP alcanzado: sí; PRIMARY WAITING_CI y fallback NONE.`
+
+**Recomendación para JOBS:** reusar SAME #69 y exact head `b2ab75ae...`; no abrir PR paralelo. Al siguiente ciclo comprobar CI, corregir solo failures atribuibles y decidir explícitamente si falta wiring UI productivo dentro del mismo PR. Mantener 13.1 abierto por server orphan cleanup/WOZ y cualquier wiring aún no probado.
+
+**Issue #41:** handoff autoritativo `5467799353`; `5467796795` quedó etiquetado 026 por la carrera concurrente y fue corregido por el handoff 027.
+
 ## RESULTADO PROCESADO — NIGHT-AAA-026
 
 - `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS CYCLE 027`.
-- No RESULTADO DEL TURNO, branch/PR ni handoff nuevo observable al preflight.
-- Se emite 027 para impedir ejecución tardía duplicada de 026.
+- La implementación apareció concurrentemente durante el cambio de assignment y fue adoptada/reconciliada por NIGHT-AAA-027 como SAME artifact #69; no se duplicó trabajo.
 
 ## RESULTADO PROCESADO — NIGHT-AAA-025
 
@@ -49,8 +79,8 @@ Reason: el server half pertenece a WOZ bajo assignment separado; 13.2/D14/D15 am
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-027`: ASSIGNED — Save All + bulk conflict-safe Web-only; CI-FALLBACK NONE.
-- `NIGHT-AAA-026`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
+- `NIGHT-AAA-027`: PENDING/WAITING_CI — SAME #69 @ b2ab75ae...; Save All coordinator + focused tests; fallback NONE.
+- `NIGHT-AAA-026`: NOT_PROCESSED/SUPERSEDED; artifact reconciliado bajo 027.
 - `NIGHT-AAA-025`: PENDING — STOP_OWNERSHIP_BOUNDARY; handoff `5467548340`.
 - `NIGHT-AAA-024`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-022`: PENDING — taxonomy/state demostrado; cold/warm real sigue abierto.
