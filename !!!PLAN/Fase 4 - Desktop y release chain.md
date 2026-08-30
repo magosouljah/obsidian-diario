@@ -2,29 +2,35 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 040:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Integración estable CYCLE 042:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado actual
 
 PR #63 fue MERGED y dejó `windows/import = AUTOMATED_PASS` con exact-head CI verde. 25.1 completo permanece abierto.
 
-PR #71 sigue como evidencia de regresión Auth: bajo WebDriver/session real el Desktop login no persistió `beatgaler:account-session:v1`. `windows/auth` sigue `NOT_COVERED`. AAA tiene ownership productivo exclusivo bajo `NIGHT-AAA-038`; AAA no toca #71.
+### windows/auth
 
-PR #72 `bbb/night-25.1-windows-review @ e32ee7016adda60d3ac1b3be792b6ab9fa0e2708` está OPEN/Ready sobre baseline vivo. Exact-head recheck CYCLE 040:
-- Desktop Portability `33319185559` SUCCESS;
-- D6 `33319185558` SUCCESS;
-- D7 `33319185556` SUCCESS;
-- Windows Import `33319185575` SUCCESS;
-- Upgrade 21.2 SKIPPED/no aplicable;
-- dedicated Windows Review `33319185581` **FAILURE**.
+PR #71 sigue como evidencia de regresión Auth: bajo WebDriver/session real el Desktop login no persistió `beatgaler:account-session:v1`. `windows/auth` sigue `NOT_COVERED`.
 
-Job `99278020815`: setup/checkout/Node/Rust/npm/embedded preparation SUCCESS; failure queda localizado en `Run Windows Review E2E harness`. Aún no está atribuido a harness vs conducta productiva, por lo que `windows/review` permanece `NOT_COVERED` y no hay matrix promotion.
+AAA038 creó PR #74 `aaa/night-25.1-auth-session-corrective @ 92058b42e6e455f641e8a494f5c85ae1f2214834` sin tocar #71. D6 `33321752555` y D7 `33321752537` terminaron SUCCESS, pero `Test - Desktop Portability / Required CI` `33321752522` terminó FAILURE. El fallo es literal y atribuible al candidate: `src/platform/index.ts(10,22): Property '__TAURI_INTERNALS__' does not exist on type '(Window & typeof globalThis) | RuntimeWindow'`; Web build y portability/native gates caen por ese compile error. No hay PASS, no integración y #71 no vuelve todavía a BBB.
 
-## Owners actuales F4
+**AAA — `NIGHT-AAA-039`:** SAME #74; corregir solo ese error de tipado/compile preservando el corrective runtime y el contrato auth; focused regression + fresh exact-head gates. No tocar #71 ni matrix.
 
-**AAA — `NIGHT-AAA-038` — product-auth blocker.** Root cause/corrective mínimo token/session persistence; no tocar #71.
+### windows/review
 
-**BBB — `NIGHT-BBB-037` — SAME #72 windows/review.** Attribution-first del run `33319185581`; harness defect → corrective mínimo SAME #72; product behavior defect tras sesión/assertion → `PRODUCT_FINDING` + STOP. No tocar auth/#71.
+PR #72 `bbb/night-25.1-windows-review @ 3219996e181ef3f53508b1ea1d272d84b73bc1a4` está OPEN/Ready/mergeable sobre baseline vivo. BBB037 atribuyó el fallo previo a expectativa incorrecta del harness (`F#m` vs normalización productiva `f#m`) y corrigió solo el test.
+
+Fresh exact-head sobre `3219996e...`:
+- Windows Review `33321799798` — **SUCCESS**;
+- Windows Import `33321799800` — SUCCESS;
+- Desktop Portability `33321799802` — SUCCESS;
+- D6 `33321799792` — SUCCESS;
+- D7 `33321799819` — SUCCESS;
+- Upgrade 21.2 — SKIPPED/no aplicable.
+
+Este PASS literal autoriza el siguiente paso, pero `windows/review` todavía no está promovido en la matriz y #72 no está integrado.
+
+**BBB — `NIGHT-BBB-038`:** SAME #72; promover únicamente `windows/review = AUTOMATED_PASS`, luego fresh exact-head Windows Review + F4 Matrix + D6 + D7 + Desktop Portability sobre el nuevo head; race-check + merge solo si todos verdes. No tocar auth/#71/#74.
 
 CI-FALLBACK AAA: `NONE`.  
 CI-FALLBACK BBB: `NONE`.
@@ -65,10 +71,10 @@ Integrated rows:
 - `macos/updater = AUTOMATED_PASS`.
 
 Active/holding:
-- `windows/auth = NOT_COVERED` — product finding; waiting AAA038 corrective, después #71 refresh/revalidation bajo asignación JOBS explícita.
-- `windows/review = NOT_COVERED` — #72 dedicated workflow failure awaiting BBB037 attribution/corrective.
-- other Web/Windows/macOS journeys remain NOT_COVERED unless dedicated evidence exists.
-- iPhone rows remain PENDING_EXTERNAL.
+- `windows/auth = NOT_COVERED` — #74 corrective compile failure; AAA039 assigned. Después de #74 integrado, #71 requiere nueva asignación BBB y PASS literal antes de matrix promotion.
+- `windows/review = NOT_COVERED` en matriz actual — literal dedicated PASS ya existe en #72 head `3219996e...`; BBB038 asignado para promotion + fresh post-promotion gates + merge.
+- otras Web/Windows/macOS journeys permanecen NOT_COVERED salvo evidencia dedicada.
+- iPhone rows permanecen PENDING_EXTERNAL.
 
 ### 25.2
 - [ ] design freeze tokens/nav/library/drawer/player/settings/wizard;
