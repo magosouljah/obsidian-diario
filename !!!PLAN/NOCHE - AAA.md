@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-AAA-039`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F4 blocker / Desktop product-auth — SAME PR #74 compile corrective`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
 - `REUSE_PR: #74 / aaa/night-25.1-auth-session-corrective @ 92058b42e6e455f641e8a494f5c85ae1f2214834`
@@ -35,6 +35,35 @@
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback.
 
+## RESULTADO DEL TURNO — NIGHT-AAA-039
+
+### PRIMARY
+
+- `STATUS: PENDING / WAITING_CI`
+- `baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b (live preflight unchanged).`
+- `branch/head: aaa/night-25.1-auth-session-corrective @ 14dfba52775f40f1956e3d1dcb343b07b147ba0c.`
+- `PR: #74 OPEN / Ready / mergeable; SAME PR reused.`
+- `cambios: compile-only corrective in src/platform/index.ts. The global browser window is explicitly narrowed/cast to RuntimeWindow before reading __TAURI_INTERNALS__. Runtime semantics remain unchanged: injected internals primary; tauri: or tauri.localhost packaged fallback; ordinary localhost/Web remains Web.`
+- `tests: existing focused platformRuntime regression retained on SAME PR. No ceremonial test rewrite.`
+- `CI: fresh exact-head runs started for 14dfba52...: D6 33324138675 IN_PROGRESS; D7 33324138676 IN_PROGRESS; Test - Desktop Portability / Required CI 33324138689 QUEUED; Upgrade 33324138691 SKIPPED/non-applicable.`
+- `evidencia: prior literal compile failure was src/platform/index.ts(10,22) TS2339 on Window | RuntimeWindow. New diff removes that union at the probe by declaring target: RuntimeWindow | undefined and casting only the global window path. PR #74 head verified at 14dfba52..., base verified a9d35a3d...; Issue #41 handoff 5470062487.`
+- `UNVERIFIED: fresh exact-head D6/D7/Required CI final conclusions; merge/race transaction; downstream #71 Windows product-auth revalidation.`
+- `blockers: external CI currently running/queued.`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_EXECUTED — NONE explícito por JOBS.`
+- `branch/head si aplica: N/A.`
+- `PR si aplica: N/A.`
+- `cambios: ninguno.`
+- `tests: ninguno.`
+- `evidencia: CI-FALLBACK = NONE en NIGHT-AAA-039.`
+- `UNVERIFIED: N/A.`
+- `blockers: fallback no autorizado.`
+- `STOP alcanzado: PRIMARY entró WAITING_CI y no existe fallback autorizado.`
+
+**Recomendación para JOBS:** recheck exact-head `14dfba52775f40f1956e3d1dcb343b07b147ba0c`; si D6 `33324138675`, D7 `33324138676` y Required CI `33324138689` terminan SUCCESS y el race-check sigue limpio, emitir/continuar autoridad para integrar SAME #74. No tocar #71 sin nueva asignación.
+
 ## RESULTADO PROCESADO — NIGHT-AAA-038
 
 - `STATUS: PENDING / WAITING_CI -> FAILURE_RESOLVED_BY_JOBS_RECHECK`.
@@ -52,7 +81,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-039`: ASSIGNED — SAME #74 typing/compile corrective + fresh CI.
+- `NIGHT-AAA-039`: PENDING/WAITING_CI — SAME #74 compile corrective @ `14dfba52...`; fresh exact-head CI running.
 - `NIGHT-AAA-038`: PENDING/WAITING_CI; final recheck = Required CI FAILURE por TS compile.
 - `NIGHT-AAA-037`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-032`: PENDING / STOP_RUNTIME_UNAVAILABLE.
