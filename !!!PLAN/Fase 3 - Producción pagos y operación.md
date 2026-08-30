@@ -2,29 +2,30 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 046:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Baseline vivo CYCLE 047:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado owner / candidates
 
 - PR #68 / 18.1 MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
-- PR #73 `woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb` sigue OPEN/Ready/mergeable, exact-head verde y holding por `MERGE_FLOW_UNAVAILABLE`. No recrear, rebasar ni tocar mientras siga válido.
-- PR #75 `woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f` sigue OPEN/Ready/mergeable sobre base exacta `a9d35a3d...`.
-- Required CI conocido de #75 permanece FAILURE por supply-chain immutable-action gate: el workflow usa floating `actions/checkout@v4` y `actions/setup-node@v4`.
-- `NIGHT-WOZ-043` verificó el corrective exacto de dos pins pero terminó `BLOCKED / WRITE_TOOL_SAFETY`; no hubo write/head/CI/merge nuevo. #75 queda frozen hasta cambio factual del write flow.
-- `NIGHT-WOZ-044` no dejó RESULTADO DEL TURNO/handoff observable antes de CYCLE 046 y queda superseded para impedir ejecución tardía duplicada.
+- PR #73 `woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb` sigue OPEN/Ready/mergeable, base exacta `a9d35a3d...`; software slice listo pero no existe merge verificable. Mantener frozen bajo el blocker previo de merge-flow; no recrear ni tocar bajo 046.
+- PR #75 `woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f` sigue OPEN/Ready/mergeable. Required CI conocido falla por floating `actions/checkout@v4` + `actions/setup-node@v4`; corrective exacto conocido pero el último write fue bloqueado por safety. Mantener frozen.
+- `NIGHT-WOZ-045` terminó `DONE / AUDIT_ONLY`; no cerró 20.2.
+- `NIGHT-WOZ-046` es owner único del siguiente slice: harness parametrizable de capacidad/carga, sin provider/infra/load productivo y sin #73/#75.
 
 ## Owner actual
 
-**WOZ — `NIGHT-WOZ-045` — F3 / 20.2 REUSE-FIRST capacity/load readiness audit — READ ONLY.**
+**WOZ — `NIGHT-WOZ-046` — F3 / 20.2 software harness.**
 
 ### PRIMARY
 
-1. Confirmar baseline vivo y duplicate-check; #73/#75 permanecen holding y no se mutan.
-2. Auditar artefactos/evidencia existente para capacity envelope, 2× approved expected peak, latency/errors/queue/recovery, admission control, per-bot ceiling, safety margin y waitlist.
-3. Separar `EXISTS`, `PARTIAL`, `GAP`, `PENDING_EXTERNAL` y distinguir software de prueba real de capacidad.
-4. No inventar expected peak ni números no aprobados; si falta el target, registrarlo como prerequisite.
-5. Assignment estrictamente read-only: sin rama/PR/commit/workflow/code/infra, sin load test costoso y sin tocar 20.1/#75 ni 18.2/#73.
-6. No cerrar 20.2; dejar gap map + evidencia + blockers a JOBS y STOP.
+1. Reuse-first; confirmar #73/#75 untouched.
+2. Crear el mínimo harness reutilizable para una futura prueba 2× peak; target obligatorio se inyecta al ejecutar y no puede inventarse.
+3. Sin target aprobado, el harness debe negarse a producir claim 2×/PASS.
+4. Medir/reportar attempted concurrency/ops, latencia (p50/p95/p99 donde aplique), errores, queue/wait o ausencia explícita, y recovery timing del path ejercitado.
+5. Reutilizar admission control/per-bot ceiling; no rediseñar transport/provider.
+6. Preferir nuevos archivos de harness/test/workflow. No tocar #75 observability ni #73 billing; broad product change = STOP.
+7. Focused deterministic tests + fresh exact-head CI. Resultado máximo permitido en este turno: `HARNESS_READY`; `RUNTIME_CAPACITY_UNVERIFIED` permanece literal.
+8. No cerrar 20.2.
 
 **CI-FALLBACK:** `NONE`.
 
@@ -50,7 +51,7 @@ Health/readiness/shutdown/timeouts/proxy trust integrado por #59. Separación f�
 PR #68 integró limits/entitlements server-side, reservation anti-race y subscription-state contract. Merge `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ### 18.2 — `[ 🟡 ] SOFTWARE SLICE READY / GLOBAL OPEN`
-- [ 🟡 ] reconciliación provider↔BeatGaler + cola de excepciones: PR #73 exact-head verde, `BLOCKED / MERGE_FLOW_UNAVAILABLE` para integración;
+- [ 🟡 ] reconciliación provider↔BeatGaler + cola de excepciones: PR #73 exact-head candidate OPEN/Ready/mergeable; no merge verificable;
 - [ ] 3DS/rechazo/pago tardío/renewal/cancel/upgrade/downgrade/refund;
 - [ ] grace periods aprobados.
 
@@ -70,17 +71,25 @@ No convertir #73 en integrado ni 18.2 en `[x]` sin merge verificable y evidencia
 ## Día 20
 
 ### 20.1 — `[ 🟡 ] IN PROGRESS / INTERNAL SLICE BLOCKED`
-Gap map: logs PARTIAL; metrics GAP; tracing GAP; error reporting PARTIAL/GAP; retention PARTIAL/EXTERNAL; alert routing GAP; backup alert PARTIAL; on-call/status externos; runbook PARTIAL; kill switches GAP.
+Gap map vigente: logs PARTIAL; metrics GAP; tracing GAP; error reporting PARTIAL/GAP; retention PARTIAL/EXTERNAL; alert routing GAP; backup alert PARTIAL; on-call/status externos; runbook PARTIAL; kill switches GAP.
 
-PR #75 contiene un primer software slice para structured redacted events, bounded counters, explicit alert condition→route mapping, fail-closed kill switches, focused tests y runbook interno. Su fallo conocido sigue siendo el supply-chain pinning del workflow, pero el corrective no pudo escribirse por `WRITE_TOOL_SAFETY`. No existe head nuevo ni fresh PASS; mantener frozen.
+PR #75 contiene structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno. Corrective de immutable pins conocido pero write flow bloqueado; no fresh PASS, no integración.
 
-Aunque #75 llegue a integrarse, permanecen abiertos product call-site wiring, tracing/backend durable de error reporting/metrics, retention, provider alert resources/delivery, on-call/escalation y public status.
+### 20.2 — `[ 🟡 ] AUDIT DONE / HARNESS ASSIGNED / NO PASS CLAIM`
+WOZ045 produjo gap map literal:
+- capacity envelope `PARTIAL`;
+- approved expected peak `GAP / prerequisite missing`;
+- load/stress harness `GAP`;
+- 2× peak proof `PENDING_EXTERNAL`;
+- latency `GAP`;
+- error measurement `PARTIAL`;
+- queue measurement `PARTIAL`;
+- recovery measurement `PARTIAL`;
+- admission control `EXISTS (software)`;
+- per-bot ceiling `EXISTS (software)`;
+- safety margin `GAP`;
+- durable user waitlist `GAP`.
 
-### 20.2 — `[ 🟡 ] AUDIT ASSIGNED / NO PASS CLAIM`
-- [ ] capacity envelope + load al doble del pico aprobado;
-- [ ] medir latency/errors/queue/recovery;
-- [ ] admission control/per-bot ceiling/margen/waitlist.
-
-`NIGHT-WOZ-045` hace únicamente REUSE-FIRST/read-only gap map para determinar qué evidencia ya existe y qué es software vs prueba runtime/provider. No selecciona expected peak si no existe uno aprobado y no ejecuta carga costosa.
+`NIGHT-WOZ-046` puede cerrar únicamente el **gap de harness software** si logra evidencia exact-head. No selecciona expected peak ni ejecuta carga productiva. Después seguirán target aprobado + prueba runtime controlada 2× con latency/errors/queue/recovery.
 
 **Principio:** no falsear proveedor, capacidad, pagos, DNS, legal o staging real sin evidencia externa/productiva.
