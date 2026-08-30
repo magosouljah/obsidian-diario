@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 048:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Integración estable CYCLE 049:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado actual
 
@@ -23,7 +23,7 @@ SAME PR #74 permanece factual:
 ### windows/review
 
 SAME #72 sigue factual:
-- PR #72 OPEN; draft=false; merged_at=null;
+- PR #72 OPEN; draft=false; mergeable=true; merged=false;
 - base exacta `a9d35a3d...`;
 - head `904fbf3c0f81e6ff4c22e4ee717f337e5018fa5c`;
 - Windows Review `33327407530` SUCCESS;
@@ -34,9 +34,9 @@ SAME #72 sigue factual:
 - Windows Import `33327407514` SUCCESS;
 - Upgrade `33327407526` SKIPPED/no aplicable.
 
-`NIGHT-BBB-042` no dejó RESULTADO DEL TURNO/handoff observable antes de CYCLE 048 y queda superseded. `NIGHT-BBB-043` es owner único para race-check + integración SAME #72; si baseline cambia, refresh estrecho + fresh applicable CI antes de merge.
+`NIGHT-BBB-043` no dejó RESULTADO DEL TURNO/handoff observable antes de CYCLE 049 y queda superseded. `NIGHT-BBB-044` es owner único para race-check + integración SAME #72; si baseline cambia por un merge paralelo, refresh estrecho + fresh applicable CI antes de merge.
 
-**CI-FALLBACK BBB:** F4/25.2 READ-ONLY readiness inventory solo si PRIMARY queda realmente esperando operación externa de merge/review/queue; sin rama/PR/commit/write y sin tocar #72/auth/producto/matrix/docs. Recheck PRIMARY antes de cerrar.
+**CI-FALLBACK BBB:** F4/25.2 READ-ONLY readiness inventory solo si PRIMARY queda realmente esperando operación externa de merge/review/queue; sin rama/PR/commit/write y sin tocar #72/auth/legal/producto/matrix/docs. Recheck PRIMARY antes de cerrar.
 
 ## Día 21
 
@@ -75,7 +75,7 @@ Integrated rows:
 
 Active/holding:
 - `windows/auth = NOT_COVERED` — #74 candidate green/mergeable pero merge-flow bloqueado; #71 espera integración real + nueva assignment.
-- `windows/review` — #72 exact-head dedicated journey + matrix + required gates verdes; integración pendiente bajo BBB043.
+- `windows/review` — #72 exact-head dedicated journey + matrix + required gates verdes; integración asignada BBB044.
 - otras Web/Windows/macOS journeys permanecen NOT_COVERED salvo evidencia dedicada.
 - iPhone rows permanecen PENDING_EXTERNAL.
 
