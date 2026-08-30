@@ -2,64 +2,55 @@
 
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** AAA — worker nocturno.  
-**Área:** F3 / 19.2 — legal surfaces de producto.  
+**Área:** F2 / 14.1 — Web media streaming / memory safety.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-048`
+- `ASSIGNMENT_ID: NIGHT-AAA-049`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F3 / 19.2 — SAME PR #76 refresh + canonical Settings reuse`
+- `AREA: F2 / 14.1 — REUSE-FIRST media streaming/memory slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`
-- `REUSE_PR: #76 / legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070`
-- `PREDECESSOR: NIGHT-AAA-047 produced no RESULTADO DEL TURNO / Issue #41 handoff and #76 head did not move before JOBS CYCLE 052; SUPERSEDED and MUST NOT execute late.`
-- `FACTUAL_STATE: #76 remains OPEN/Ready/mergeable on base_sha a9d35a3d... while live integration is a306e3b3...; prior exact-base evidence cannot authorize merge.`
+- `PREDECESSOR: NIGHT-AAA-048 produced no final RESULTADO DEL TURNO / Issue #41 handoff before JOBS CYCLE 053; SUPERSEDED and MUST NOT execute late.`
+- `HOLD_PR: #76 @ 36d218609cf2488997755312fa2dafd0a019d070 — stale against live integration and now frozen pending a safe history-preserving refresh operation.`
 - `HOLD_PR: #69 @ b2ab75ae1dbde4e3aba389da844f466920a5d6eb — STOP_WRITE_SURFACE / DO NOT TOUCH.`
 
 ### PRIMARY
 
-1. Preflight live integration + SAME #76 exact head/base + duplicate-check. STOP if another owner changed #76 after this assignment.
-2. REUSE-FIRST: keep SAME #76; do not create a replacement PR, second legal route, or second Settings legal UI.
-3. Reconcile #76 narrowly onto live integration `a306e3b3...`. If conflict requires broad product redesign, STOP/PENDING.
-4. Reuse canonical `docs/legal/PRIVACY.md` + `docs/legal/TERMS.md` and existing Privacy/Terms surfaces in `src/components/SettingsPanel.tsx`.
-5. Replace only stale temporary August 11 copy/placeholders/old contact in Settings with canonical v1 content/metadata already approved in #76. Do not invent policy text.
-6. Preserve public `/privacy` and `/terms` routes and unauthenticated entry links.
-7. Add/update only focused tests proving canonical in-app legal content and absence of stale placeholders/contact.
-8. Run focused tests + fresh applicable exact-head CI on refreshed head. Merge only if race-clean, mergeable and all required evidence applies; otherwise structured handoff.
-9. Do not touch #69/#70, F4, billing implementation, provider resources, infra/DNS/deploy, or legal policy beyond canonical reuse.
-10. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+1. Preflight live integration and duplicate-check F2/14.1. Audit existing Web playback/download/media code before creating anything.
+2. REUSE-FIRST: map literal existing support for HTTP Range/streaming, MediaSource or equivalent progressive playback, cancellation/resume, buffer release and object-URL cleanup.
+3. Implement only the smallest independent product-safe slice that closes a literal 14.1 gap on live integration. Prefer using existing abstractions; no redesign of Player UX.
+4. Required behavior: do not require loading giant media fully into RAM; preserve safe fallback when streaming primitive is unavailable; cancellation/unmount must release buffers/object URLs/resources.
+5. Add focused tests that prove the exact behavior changed. No synthetic PASS for browser/provider behavior not actually exercised.
+6. Run fresh applicable exact-head CI. Merge/integrate only through AAA's authorized flow if exact-head green and race-clean; otherwise leave structured handoff.
+7. Do not touch #69/#70/#72/#74/#75/#76/#77 branches or files owned/frozen there; no auth/legal/billing/infra/provider changes.
+8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** live base/head; refreshed head/base; changed files; proof stale Settings legal copy removed; focused tests; fresh exact-head CI; merge SHA only if actually merged.  
-**STOP:** another owner changes #76, broad conflict, policy ambiguity/invention, infra/DNS/deploy requirement, non-attributable CI failure, overlap with another owner, or unavailable safe write/merge flow.
+**Required evidence:** exact live base; existing paths/symbols reused; changed files; focused tests; fresh exact-head CI; merge SHA only if actually merged; explicit UNVERIFIED for browsers/runtime not exercised.  
+**STOP:** existing implementation already satisfies 14.1 without a material gap; change requires broad Player redesign, provider/infra work, overlap with frozen/owned PRs, unsafe write flow, baseline race, or non-attributable CI red.
 
 ### CI-FALLBACK
 
-**F2 / 13.2 READ-ONLY gap map**, only if PRIMARY becomes genuinely `WAITING_CI`/waiting review/merge after its code delta is complete.
+**F2 / 14.2 READ-ONLY player-control gap map**, only if PRIMARY is code-complete and genuinely `WAITING_CI`/review/merge.
 
-**Alcance:** inspect live integration only for ReviewShell Import/Edit/Bulk, fixed CTA/progress N/N, per-item error/retry/skip/cancel/confirmation and existing E2E/component coverage. No branch/PR/commit/write; do not touch #69/#70/#76 files.  
-**Evidencia requerida:** exact baseline + `EXISTS/PARTIAL/GAP/PENDING_DEPENDENCY` matrix, literal paths/symbols/tests and minimum future slices.  
-**STOP:** any write, dependency on unmerged #76, overlap with #69/#70, attempt to close 13.2 from audit only, or insufficient source evidence. Recheck PRIMARY before closing.
+**Alcance:** inspect live integration only for active index, shortcuts, seek, shuffle/repeat, recoverable error, queue/volume responsiveness and existing browser/device tests. No writes/branch/PR/commit and no PRIMARY files.  
+**Evidencia requerida:** exact baseline + `EXISTS/PARTIAL/GAP/PENDING_EXTERNAL` matrix with literal paths/symbols/tests and minimum future slices.  
+**STOP:** any write, overlap with PRIMARY or another owner, attempt to close 14.2 from audit only, dependency on unmerged candidate, or insufficient source evidence. Recheck PRIMARY before closing.
 
-## RESULTADO PROCESADO — NIGHT-AAA-047
+## RESULTADOS PROCESADOS
 
-- `STATUS: NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- No RESULTADO DEL TURNO or Issue #41 handoff observable before CYCLE 052.
-- GitHub confirms #76 remains OPEN at `36d218609...`; no implementation/CI/merge claim promoted.
-
-## RESULTADO PROCESADO — NIGHT-AAA-043
-
-- `STATUS: PENDING / STOP_WRITE_SURFACE`.
-- #69 remains frozen/unowned; no refresh/product wiring accepted.
-- Issue #41 handoff: `5470672560`.
+- `NIGHT-AAA-048`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`; #76 remained unchanged and stale; no implementation/CI/merge claim accepted.
+- `NIGHT-AAA-047`: `NO_RESULT / SUPERSEDED_BY_JOBS`.
+- `NIGHT-AAA-043`: `PENDING / STOP_WRITE_SURFACE`; #69 frozen.
 
 ## HOLDING / FROZEN
 
-- F2/13.1 Web #69: frozen/unowned pending patch-capable surface.
+- F3/19.2 #76: frozen until safe history-preserving refresh becomes available.
+- F2/13.1 Web #69: frozen pending patch-capable surface.
 - F2/13.1 server #70: frozen by safe-write + stale baseline.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-048`: ASSIGNED — SAME #76 refresh + canonical Settings reuse; F2/13.2 read-only CI fallback.
-- `NIGHT-AAA-047`: NO_RESULT / SUPERSEDED_BY_JOBS.
-- `NIGHT-AAA-046`: NO_RESULT / SUPERSEDED_BY_JOBS.
-- `NIGHT-AAA-043`: PENDING / STOP_WRITE_SURFACE — #69 preserved.
+- `NIGHT-AAA-049`: ASSIGNED — F2/14.1 minimal media streaming/memory slice; 14.2 read-only CI fallback.
+- `NIGHT-AAA-048`: NO_RESULT / SUPERSEDED_BY_JOBS.
+- `NIGHT-AAA-043`: PENDING / STOP_WRITE_SURFACE.
