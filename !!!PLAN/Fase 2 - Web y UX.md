@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE 051:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Baseline vivo CYCLE 052:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado actual
 
@@ -28,7 +28,7 @@ No cerrar 12.1 con benchmark sintético.
 
 ### 13.2 — `[ 🟡 ] AUDIT QUEUED AS CONDITIONAL FALLBACK`
 
-El audit **read-only** queda preautorizado únicamente como `CI-FALLBACK` de `NIGHT-AAA-047`, y solo si PRIMARY #76 entra realmente en `WAITING_CI`/review/merge después de quedar code-complete.
+El audit **read-only** queda preautorizado únicamente como `CI-FALLBACK` de `NIGHT-AAA-048`, y solo si PRIMARY #76 entra realmente en `WAITING_CI`/review/merge después de quedar code-complete.
 
 Fallback permitido:
 - ReviewShell Import/Edit/Bulk;
