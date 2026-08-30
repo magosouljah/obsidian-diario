@@ -39,6 +39,40 @@
 **Evidencia requerida:** n/a.  
 **STOP:** if PRIMARY waits CI/review/merge, do not invent secondary work; only recheck PRIMARY and report status.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-050
+
+### PRIMARY
+
+- `Assignment ID: NIGHT-WOZ-050`
+- `STATUS: BLOCKED / REOPEN_UNAVAILABLE`
+- `baseline: integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`
+- `branch/head: woz/night-20.2-capacity-harness @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a`
+- `PR: #77 — remains CLOSED / UNMERGED; GitHub rejected reopen with 422 because branch was force-pushed/recreated.`
+- `cambios: preflight confirmed #77 CLOSED/unmerged at 204a03fc with exactly two intended files (+139/-0). Reconciled SAME branch onto live baseline by moving branch to a306e3b3 then restoring only cloud-server/tests/capacity-load-harness.cjs and cloud-server/tests/capacity-load-harness.test.cjs unchanged in semantics. Explicit --target guard and no-PASS note preserved. No replacement PR created.`
+- `tests: NOT_RUN after STOP condition; deterministic test file restored but reopen failed before fresh candidate PR/CI flow.`
+- `CI: NOT_RUN / no fresh exact-head CI accepted for closed #77 after reopen failure.`
+- `evidencia: pre-state #77 CLOSED/unmerged, head 204a03fc48d161b6943f7b11bea2bfc16bf54b05, changed_files=2; live integration a306e3b3f6b4a6cf9d678e325b6e529b5344fffe; refreshed branch head 50aac3f0c700a88e1f058372c23ee1d96ecf247a; GitHub reopen response 422 state cannot be changed because branch was force-pushed or recreated.`
+- `UNVERIFIED: RUNTIME_CAPACITY_UNVERIFIED; focused tests on refreshed head; fresh exact-head CI; approved expected peak; safety margin; 2x runtime proof; provider/production capacity.`
+- `blockers: SAME #77 cannot be reopened through GitHub after branch recreation; assignment explicitly forbids automatic #78 replacement.`
+- `condición de STOP alcanzada: reopen unavailable.`
+- `recomendación para JOBS: decide explicitly whether to authorize a replacement PR from refreshed SAME branch head 50aac3f0... or another owner flow; do not accept 20.2 PASS. Branch contains only the intended two-file harness slice on live base.`
+
+### CI-FALLBACK
+
+- `Assignment ID: NIGHT-WOZ-050`
+- `STATUS: NOT_EXECUTED / NONE`
+- `baseline: a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`
+- `branch/head: n/a`
+- `PR: n/a`
+- `cambios: none`
+- `tests: none`
+- `CI: none`
+- `evidencia: assignment states CI-FALLBACK NONE.`
+- `UNVERIFIED: n/a`
+- `blockers: n/a`
+- `condición de STOP alcanzada: PRIMARY reopen unavailable; no fallback authorized.`
+- `recomendación para JOBS: no secondary work invented.`
+
 ## RESULTADO PROCESADO — NIGHT-WOZ-049
 
 - `STATUS: NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
@@ -59,7 +93,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-050`: ASSIGNED — reuse/refresh/reopen SAME #77 as F3/20.2 harness PRIMARY; CI-FALLBACK NONE.
+- `NIGHT-WOZ-050`: BLOCKED/REOPEN_UNAVAILABLE — SAME #77 branch refreshed to live base at `50aac3f0...`; GitHub 422 prevents reopen; no replacement PR auto-created; runtime capacity unverified.
 - `NIGHT-WOZ-049`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-048`: DONE/INTEGRATED — #73 merged as `a306e3b3...`.
 - `NIGHT-WOZ-045`: DONE/AUDIT_ONLY — 20.2 gap map.
