@@ -7,65 +7,52 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-032`
+- `ASSIGNMENT_ID: NIGHT-WOZ-033`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F3 / 20.1 — observability / alerts / runbook / kill-switch REUSE-FIRST gap map`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
-- `HOLDING_ITEM_1: F2 / 13.1 / PR #70 frozen exactly @ 5a99ebf2c54a9c0aaae7f20b2262160e55ca6ae7 after NIGHT-WOZ-031 SAFE_WRITE_TOOLING_LIMIT; do NOT touch/retry it.`
-- `HOLDING_ITEM_2: F3 / 18.1 / PR #68 remains frozen @ 2a988ec2...; do NOT touch/retry it.`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`
+- `PREDECESSOR: NIGHT-WOZ-032 SUPERSEDED_BY_JOBS — no result observable before #63 changed integration baseline; do not execute 032 after receiving 033.`
+- `HOLDING_ITEM_1: F2 / 13.1 / #70 frozen @ 5a99ebf2...; baseline stale + safe-write blocker.`
+- `HOLDING_ITEM_2: F3 / 18.1 / #68 frozen @ 2a988ec2...; baseline stale + prior merge-execution blocker.`
 
 ### PRIMARY
 
-1. Preflight GitHub vivo + duplicate-check. No toques #68 ni #70 y no reutilices sus ramas/PRs.
-2. Lee F3/20.1 literalmente y aplica REUSE-FIRST sobre evidencia/artefactos ya integrados: 5.2 observabilidad/alarms/on-call, #59 health/readiness, #61 promotion/rollback y cualquier log/metric/alert/runbook/kill-switch existente en el repo.
-3. Construye un mapa compacto `requisito -> evidencia exacta -> cobertura -> gap` para: logs/métricas/tracing/error reporting/retention; alerts auth/API/DB/billing/provider/pool/queue/backup/release; on-call/runbook/status/kill switches.
-4. No marques un requisito cubierto solo por naming parecido; exige evidencia literal y ejecutable/documentada aplicable.
-5. Si el audit demuestra que una parte de 20.1 ya está satisfecha por artefactos existentes, reporta exactamente cuál, con paths/SHAs/tests/CI/runtime aplicable. No cierres 20.1 completo salvo cobertura literal total.
-6. Si aparece un **único gap pequeño, independiente, software-only y safely writable**, puedes crear UNA rama/PR nueva exclusivamente para ese gap. Prefiere archivo/harness/test pequeño y aislado; no reemplaces archivos largos truncados ni hagas full-file rewrite inseguro.
-7. Si hace falta provider real, dashboards externos, secretos, recursos pagados, DNS/status vendor, infraestructura o decisión RO, registra `PENDING_EXTERNAL` y no lo falsees.
-8. Evidencia requerida si hay cambio: branch/head, changed-file scope, focused tests y fresh applicable exact-head CI. Si no hay cambio: paths/SHAs/evidencia REUSE-FIRST y gap map verificable.
-9. Publica handoff en Issue #41, actualiza RESULTADO DEL TURNO aquí y STOP.
+1. Preflight GitHub vivo + duplicate-check. No tocar #68/#70 ni reutilizar sus ramas.
+2. Leer F3/20.1 literalmente y aplicar REUSE-FIRST sobre evidencia integrada: 5.2 observabilidad/alarms/on-call, #59 health/readiness, #61 promotion/rollback y artifacts actuales.
+3. Construir mapa `requisito -> evidencia exacta -> cobertura -> gap` para:
+   - logs/métricas/tracing/error reporting/retention;
+   - alerts auth/API/DB/billing/provider/pool/queue/backup/release;
+   - on-call/runbook/status/kill switches.
+4. No marcar cobertura por naming parecido; evidencia literal/documentada/ejecutable.
+5. Si una parte ya está satisfecha, citar paths/SHA/tests/runtime aplicable; no cerrar 20.1 completo salvo cobertura literal total.
+6. Si aparece UN gap pequeño, independiente, software-only y safely writable, se autoriza una sola rama/PR nueva para ese gap. Preferir archivo/harness/test pequeño; no full-file destructive rewrite.
+7. Provider/dashboard real, recursos pagados, secretos, DNS/status vendor o decisión RO => `PENDING_EXTERNAL`, sin falsear.
+8. Si hay cambio: branch/head, changed-file scope, focused tests + fresh applicable exact-head CI. Sin cambio: gap map verificable basta.
+9. Publicar handoff Issue #41, actualizar RESULTADO DEL TURNO aquí y STOP.
 
-**STOP:** necesidad de tocar #68/#70/F2/Desktop packaging, full-file destructive write, provider/cost/secret action, scope creep, baseline race o CI rojo no atribuible.
+**STOP:** tocar #68/#70/F2/F4; full-file destructive write; provider/cost/secret action; scope creep; baseline race; CI rojo no atribuible.
 
 ### CI-FALLBACK
 
 `NONE`
 
-Reason: el PRIMARY ya es trabajo independiente y read/audit-first; no se autoriza otro carril.
+Reason: PRIMARY ya es read/audit-first y materialmente independiente; otro carril ampliaría scope.
 
-## RESULTADO PROCESADO — NIGHT-WOZ-031
+## RESULTADO PROCESADO — NIGHT-WOZ-032
 
-### PRIMARY
-- `Assignment ID: NIGHT-WOZ-031`
-- `STATUS: BLOCKED / SAFE_WRITE_TOOLING_LIMIT`
-- `baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
-- `branch/head: woz/night-13.1-orphan-lifecycle @ 5a99ebf2c54a9c0aaae7f20b2262160e55ca6ae7`
-- `PR: #70 OPEN; no merge attempted`
-- `cambios: corrective exacto identificado en postgres-live.integration.cjs. El writer disponible reemplaza archivo completo; un intento no seguro produjo commit 588f3895 con contenido truncado y fue revertido inmediatamente moviendo la rama exactamente al head previo 5a99ebf2. Estado final del PR restaurado sin ese cambio.`
-- `tests: no fresh tests; no claim PASS`
-- `CI: live recheck posterior sobre 5a99ebf2 mantiene Required CI FAILURE y PostgreSQL live/recovery FAILURE; no corrective aplicado.`
-- `evidencia: fixture original confirmado: processGarbageBatch para gc-retry-live/orphan_upload carece isObjectStillOrphan; baseline vivo sigue 3ad8f55a...; branch restaurada a 5a99ebf2...`
-- `UNVERIFIED: corrective no aplicado; merge no ejecutado`
-- `blockers: herramienta de escritura disponible exige reemplazo completo de un archivo largo y no ofrece patch quirúrgico seguro; no repetir escritura destructiva`
-- `condición de STOP alcanzada: no existe forma segura disponible en ese turno de aplicar únicamente el fixture autorizado sin riesgo de truncar el archivo`
-- `recomendación para JOBS: mantener SAME #70/head frozen hasta disponer de patch/edit seguro.`
-
-### CI-FALLBACK
-- `STATUS: NOT_RUN`
-- `CI-FALLBACK: NONE`
+- `STATUS: NO_RESULT / SUPERSEDED_BY_JOBS`.
+- Razón: #63 movió integration de `3ad8f55a...` a `02a40564...` antes de resultado observable. No ejecutar 032 tardíamente.
 
 ## HOLDING
 
-- F2/13.1 / #70 @ `5a99ebf2...` — frozen por safe-write tooling; no tocar en 032.
-- F3/18.1 / #68 @ `2a988ec2...` — frozen por merge execution blocker; no tocar en 032.
+- F2/13.1 / #70 @ `5a99ebf2...` — stale/frozen; safe-write tooling blocker.
+- F3/18.1 / #68 @ `2a988ec2...` — stale/frozen; refresh/fresh CI obligatorio si se reactiva.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-032`: ASSIGNED — F3/20.1 observability gap map.
-- `NIGHT-WOZ-031`: BLOCKED / SAFE_WRITE_TOOLING_LIMIT; #70 restaurado exactamente a 5a99ebf2.
-- `NIGHT-WOZ-030`: NO_RESULT / SUPERSEDED_BY_JOBS.
-- `NIGHT-WOZ-029`: PENDING / attributed corrective.
-- `NIGHT-WOZ-027`: focused F2 SUCCESS; Required CI PG fixture failure.
+- `NIGHT-WOZ-033`: ASSIGNED — F3/20.1 observability gap map on live baseline.
+- `NIGHT-WOZ-032`: NO_RESULT / SUPERSEDED_BY_JOBS due baseline move.
+- `NIGHT-WOZ-031`: BLOCKED / SAFE_WRITE_TOOLING_LIMIT; #70 restored exactly.
+- `NIGHT-WOZ-029`: attributed #70 corrective.
 - `NIGHT-WOZ-025`: #68 exact-head green but merge execution blocked.
 - `NIGHT-WOZ-021`: #67 merged `3ad8f55a...`.
