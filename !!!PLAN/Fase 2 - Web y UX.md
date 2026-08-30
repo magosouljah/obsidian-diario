@@ -4,14 +4,14 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 032:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 abierto solo por cold/warm runtime real; 13.1 conserva Web #69 frozen + server #70 corrective activo.
+**Baseline vivo CYCLE 033:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 abierto solo por cold/warm runtime real; 13.1 conserva Web #69 frozen + server #70 frozen por safe-write tooling.
 
 ## Owners actuales
 
-**AAA — `NIGHT-AAA-032` — 12.1 runtime evidence.** NIGHT-AAA-031 confirmó que SAME #69 sigue necesitando product wiring en `App.tsx`, pero la superficie disponible no permitía patch seguro y el worker hizo STOP sin reemplazo peligroso. JOBS congela #69 y mueve AAA al residual 12.1: construir/usar un harness pequeño y aislado que ejecute startup Web real cold vs warm sobre la instrumentación ya integrada, con escenario reproducible y métricas cuantificadas. No timers sintéticos/unit-only.
+**AAA — `NIGHT-AAA-032` — 12.1 runtime evidence — ACTIVE / UNCHANGED.** La asignación sigue sin resultado observable. REUSE-FIRST sobre instrumentación #58/#66; harness pequeño y aislado para startup Web real cold vs warm, con escenario reproducible y métricas cuantificadas. No tocar #69/App wiring.
 
-**WOZ — `NIGHT-WOZ-031` — 13.1 server SAME #70.** #70 `woz/night-13.1-orphan-lifecycle @ 5a99ebf2...` sigue OPEN/Ready/mergeable. Focused F2 `33304798320` = SUCCESS. Required CI `33304798363` = FAILURE ya atribuida al fixture `cloud-server/tests/postgres-live.integration.cjs` que omite `isObjectStillOrphan`; PostgreSQL estuvo sano. JOBS mantiene autorización exclusiva de ese quinto test path para el corrective mínimo y fresh focused + Required CI.
+**WOZ — F2/13.1 server #70 — HOLDING / SAFE_WRITE_TOOLING_LIMIT.** NIGHT-WOZ-031 identificó el corrective exacto en `cloud-server/tests/postgres-live.integration.cjs`, pero la superficie de escritura disponible exigía reemplazo completo del archivo largo. Un intento no seguro creó `588f3895...` y fue revertido inmediatamente; rama/PR quedó restaurada exactamente a `5a99ebf2c54a9c0aaae7f20b2262160e55ca6ae7`. Live recheck mantiene Required CI y PostgreSQL live/recovery en FAILURE sobre ese mismo head. No repetir escritura destructiva. JOBS mueve a WOZ a F3/20.1 bajo `NIGHT-WOZ-032` mientras #70 queda frozen.
 
 ## Día 11 — Foundations y AccountGate
 
@@ -36,12 +36,12 @@ PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
 
 ## Día 13 — Import, Review y bulk edit
 
-### 13.1 — `[ 🟡 ] IN PROGRESS`
+### 13.1 — `[ 🟡 ] IN PROGRESS / HOLDING`
 - [ 🟡 ] Save All durable con resumen parcial — PR #69 helper green; product wiring App/Review al coordinator sigue pendiente. #69 queda **HOLDING/FROZEN** por write-surface blocker; no reemplazar ni duplicar.
 - [ 🟡 ] Bulk conflict-safe o deshabilitado honestamente — #69 CAS/durable por item probado; product wiring aún debe demostrar saved/conflict/failed + partial/retry semantics.
-- [ 🟡 ] Garbage journal limpia uploads huérfanos — #70 focused PASS; Required CI corrective de fixture live-PG pendiente bajo WOZ031.
+- [ 🟡 ] Garbage journal limpia uploads huérfanos — #70 focused PASS histórico; live Required CI/PostgreSQL live siguen FAILURE porque el fixture legacy aún omite `isObjectStillOrphan`. Corrective exacto atribuido, pero aplicación bloqueada por safe-write tooling. #70 queda frozen en `5a99ebf2...` hasta disponer de patch seguro.
 
-**No overlap:** AAA032 no toca #69/#70; WOZ031 no toca frontend/#69. `CI-FALLBACK: NONE`.
+**No overlap:** AAA032 no toca #69/#70; WOZ032 ya no toca F2 en su nueva asignación. `CI-FALLBACK: NONE`.
 
 ### 13.2
 - [ ] ReviewShell Import/Edit/Bulk, CTA fija y progreso N/N.
