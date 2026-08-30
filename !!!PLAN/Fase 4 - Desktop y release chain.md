@@ -2,35 +2,32 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 039:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Integración estable CYCLE 040:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado actual
 
 PR #63 fue MERGED y dejó `windows/import = AUTOMATED_PASS` con exact-head CI verde. 25.1 completo permanece abierto.
 
-PR #71 `bbb/night-25.1-windows-auth @ 29656aa0...` sigue como evidencia de regresión Auth sobre baseline previo. BBB034 confirmó WebDriver/session real y fallo literal: Desktop login no persistió `beatgaler:account-session:v1`. `AccountGate` productivo usa la key esperada y `storeSession()` intenta persistir antes de `syncSession`, por lo que se procesa como **PRODUCT_FINDING**, no generic harness red.
+PR #71 sigue como evidencia de regresión Auth: bajo WebDriver/session real el Desktop login no persistió `beatgaler:account-session:v1`. `windows/auth` sigue `NOT_COVERED`. AAA tiene ownership productivo exclusivo bajo `NIGHT-AAA-038`; AAA no toca #71.
 
-Consecuencias:
-- `windows/auth` sigue `NOT_COVERED`;
-- #71 no se modifica/promociona hasta corrective productivo demostrado y después requerirá refresh/revalidation frente al baseline vivo;
-- AAA recibe ownership explícito del product-auth finding bajo `NIGHT-AAA-037`;
-- BBB avanza `windows/review` independientemente bajo `NIGHT-BBB-036`.
+PR #72 `bbb/night-25.1-windows-review @ e32ee7016adda60d3ac1b3be792b6ab9fa0e2708` está OPEN/Ready sobre baseline vivo. Exact-head recheck CYCLE 040:
+- Desktop Portability `33319185559` SUCCESS;
+- D6 `33319185558` SUCCESS;
+- D7 `33319185556` SUCCESS;
+- Windows Import `33319185575` SUCCESS;
+- Upgrade 21.2 SKIPPED/no aplicable;
+- dedicated Windows Review `33319185581` **FAILURE**.
 
-## Owner actual F4
+Job `99278020815`: setup/checkout/Node/Rust/npm/embedded preparation SUCCESS; failure queda localizado en `Run Windows Review E2E harness`. Aún no está atribuido a harness vs conducta productiva, por lo que `windows/review` permanece `NOT_COVERED` y no hay matrix promotion.
 
-**AAA — `NIGHT-AAA-037` — product-auth blocker.** Root cause/corrective mínimo token/session persistence, sin tocar #71.
+## Owners actuales F4
 
-**BBB — `NIGHT-BBB-036` — F4 / 25.1 windows/review.**
+**AAA — `NIGHT-AAA-038` — product-auth blocker.** Root cause/corrective mínimo token/session persistence; no tocar #71.
 
-PRIMARY BBB:
-1. Duplicate-check de candidate/harness Windows Review.
-2. Reusar embedded/desktop harness; no tocar auth/#71.
-3. Crear/reusar solo slice F4 independiente para assertions literales Review.
-4. No promover matrix antes de PASS literal.
-5. Product bug => `PRODUCT_FINDING` + STOP.
-6. Si PASS, promover solo `windows/review`, luego fresh Windows Review + F4 Matrix + D6 + D7 + Required CI/Desktop Portability antes de race-check/merge.
+**BBB — `NIGHT-BBB-037` — SAME #72 windows/review.** Attribution-first del run `33319185581`; harness defect → corrective mínimo SAME #72; product behavior defect tras sesión/assertion → `PRODUCT_FINDING` + STOP. No tocar auth/#71.
 
-CI-FALLBACK: `NONE`.
+CI-FALLBACK AAA: `NONE`.  
+CI-FALLBACK BBB: `NONE`.
 
 ## Día 21
 
@@ -43,12 +40,12 @@ CI-FALLBACK: `NONE`.
 ## Día 22
 
 ### 22.1 / 22.2
-Signing/certificado/SmartScreen/AV/hardware remain external/open.
+Signing/certificado/SmartScreen/AV/hardware permanecen externos/abiertos.
 
 ## Día 23
 
 ### 23.1 / 23.2
-Apple Developer/certificados/notarization/hardware remain external/deferred.
+Apple Developer/certificados/notarization/hardware permanecen externos/deferred.
 
 ## Día 24
 
@@ -68,8 +65,8 @@ Integrated rows:
 - `macos/updater = AUTOMATED_PASS`.
 
 Active/holding:
-- `windows/auth = NOT_COVERED` — product finding; waiting corrective AAA037, después refresh/revalidation de #71.
-- `windows/review = NOT_COVERED` — BBB036 active independent slice.
+- `windows/auth = NOT_COVERED` — product finding; waiting AAA038 corrective, después #71 refresh/revalidation bajo asignación JOBS explícita.
+- `windows/review = NOT_COVERED` — #72 dedicated workflow failure awaiting BBB037 attribution/corrective.
 - other Web/Windows/macOS journeys remain NOT_COVERED unless dedicated evidence exists.
 - iPhone rows remain PENDING_EXTERNAL.
 
