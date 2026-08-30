@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-AAA-025`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F2 / 13.1 — Save All durable + bulk conflict safety + garbage journal`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
 - `PREDECESSOR: NIGHT-AAA-024 ASSIGNED / NOT_PROCESSED / SUPERSEDED_BY_JOBS — no RESULTADO DEL TURNO, PR ni handoff 024 observable al CYCLE 025; no ejecutar 024 después de recibir 025.`
@@ -35,6 +35,37 @@
 
 Reason: 13.2/D14/D15 ampliarían scope y podrían solapar la misma superficie de Review/Import. No existe fallback independiente seguro preautorizado.
 
+## RESULTADO DEL TURNO — NIGHT-AAA-025
+
+### PRIMARY
+
+- `STATUS: PENDING / STOP_OWNERSHIP_BOUNDARY`
+- `baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af — verificado sin cambio.`
+- `branch/head: NONE — no se creó candidate incompleto.`
+- `PR: NONE.`
+- `cambios: ninguno. REUSE-FIRST auditó las superficies Web edit/import/review y la infraestructura durable de garbage existente.`
+- `tests: tests/component-dom/webReviewSave.test.tsx ya prueba que single Review Save permanece saving hasta resolver commit durable y muestra progreso. Existen tests de webBeatEdit/webImportCommit y cloud-server/tests/garbage-journal-repository.test.cjs, pero no constituyen evidencia de Save All/bulk/orphan wiring end-to-end.`
+- `CI: N/A — no candidate/head AAA nuevo.`
+- `evidencia: commitWebBeatEdit() y commitWebImportedBeat() hacen upload-before-index y CAS de INDEX con expectedMessageId, protegiendo conflicto single-beat. El repo ya contiene cloud-server/garbage-journal-repository.js y garbage-reconciliation-worker.js. No se encontró product Save All ni bulk conflict-safe orchestration. Los paths Web upload-before-index no exponen hook de journal/cleanup cuando falla upload posterior o publicación INDEX.`
+- `UNVERIFIED: Save All durable con partial summary; bulk multi-beat sin pérdida silenciosa; orphan journal/cleanup conectado desde la transacción Web.`
+- `blockers: para cerrar orphan cleanup durable hace falta contrato Web-callable hacia el journal durable server-side existente o autorización/owner del server half. Inventar un journal frontend-only no sería durable ni cumpliría evidence-before-claim.`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_EXECUTED — NONE explícito por JOBS.`
+- `branch/head si aplica: N/A.`
+- `PR si aplica: N/A.`
+- `cambios: ninguno.`
+- `tests: ninguno.`
+- `evidencia: CI-FALLBACK = NONE en NIGHT-AAA-025.`
+- `UNVERIFIED: N/A.`
+- `blockers: fallback no autorizado.`
+- `STOP alcanzado: sí — PRIMARY encontró boundary material; no existe fallback.`
+
+**Recomendación para JOBS:** autorizar/dividir el mínimo boundary para un contrato Web-callable de orphan journal/cleanup (o asignar el server half a su owner) y después reasignar AAA para wiring Save All + bulk CAS/partial summary contra ese contrato. No marcar 13.1 DONE todavía.
+
+**Issue #41:** handoff publicado como comment `5467548340`.
+
 ## RESULTADO PROCESADO — NIGHT-AAA-024
 
 - `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS`
@@ -43,7 +74,7 @@ Reason: 13.2/D14/D15 ampliarían scope y podrían solapar la misma superficie de
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-025`: ASSIGNED — F2/13.1; CI-FALLBACK NONE.
+- `NIGHT-AAA-025`: PENDING — gaps reales 13.1 identificados; bloqueado por boundary durable orphan-journal Web↔server; CI-FALLBACK NONE.
 - `NIGHT-AAA-024`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-023`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-022`: PENDING — taxonomy/state demostrado; cold/warm real sigue abierto.
