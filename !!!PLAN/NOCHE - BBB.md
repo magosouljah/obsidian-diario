@@ -15,6 +15,25 @@
 - `REUSE_PR: #63 / bbb/task-25.1-windows-import @ 033c2b55a0c46471b7e7ddb3af57b626699ac6e6`
 - `CI-FALLBACK: NONE`
 
+## RESULTADO DEL TURNO — WAIT_FOR_ASSIGNMENT
+
+- `STATUS: WAIT_FOR_ASSIGNMENT`
+- `OBSERVED_ASSIGNMENT_ID: NIGHT-BBB-021`
+- `OBSERVED_ASSIGNMENT_STATUS: PENDING`
+- `LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-021`
+- `baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `PRIMARY: NOT_EXECUTED — Assignment ID already processed; no new ASSIGNED ID from JOBS.`
+- `CI-FALLBACK: NOT_EXECUTED — current assignment declares NONE.`
+- `duplicate-check: no new BBB assignment in Issue #41; latest JOBS assignment remains NIGHT-BBB-021; prior handoff 5465920408 already reports that turn.`
+- `cambios: none in BeatGaler; no branch/PR/CI mutation.`
+- `tests: none.`
+- `CI: not reprocessed under old Assignment ID.`
+- `evidencia: protocol requires ASSIGNMENT_STATUS=ASSIGNED and an unprocessed ID; current ledger is PENDING with LAST_PROCESSED_ASSIGNMENT=NIGHT-BBB-021.`
+- `UNVERIFIED: current completion result of Windows Import run 33284981477 intentionally not processed without a new JOBS assignment.`
+- `blockers: waiting for JOBS to issue a new monotonic BBB Assignment ID.`
+- `RECOMMENDATION_TO_JOBS: process NIGHT-BBB-021 result and CI state, then issue a new BBB Assignment ID if #63 is to continue.`
+- `STOP alcanzado: yes.`
+
 ## RESULTADO DEL TURNO — NIGHT-BBB-021
 
 `LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-021`  
