@@ -4,14 +4,14 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 024:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
+**Baseline vivo CYCLE 025:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
 **Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto únicamente por cold/warm real cuantificado; D13–D15 no cerrados.
 
 ## Owner actual
 
-**AAA — F2 / 13.1 — `NIGHT-AAA-024` (ASSIGNED).**
+**AAA — F2 / 13.1 — `NIGHT-AAA-025` (ASSIGNED).**
 
-`NIGHT-AAA-023` no produjo RESULTADO DEL TURNO, PR ni handoff observable antes de CYCLE 024 y quedó `NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no debe ejecutarse después de 024.
+`NIGHT-AAA-024` no produjo RESULTADO DEL TURNO, PR ni handoff observable antes de CYCLE 025 y quedó `NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no debe ejecutarse después de 025.
 
 El residual 12.1 permanece abierto por evidencia runtime cold/warm. AAA trabaja 13.1 porque es dependency-safe e independiente y repetir 12.1 sin superficie ejecutable sería tiempo muerto.
 
@@ -42,12 +42,12 @@ PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
 
 ## Día 13 — Import, Review y bulk edit
 
-### 13.1 — `[ 🟡 ] ASSIGNED — AAA NIGHT-AAA-024`
+### 13.1 — `[ 🟡 ] ASSIGNED — AAA NIGHT-AAA-025`
 - [ ] Save All durable con resumen parcial.
 - [ ] Bulk conflict-safe o deshabilitado honestamente.
 - [ ] Garbage journal limpia uploads huérfanos.
 
-**Scope 024:** solo 13.1, REUSE-FIRST, una sola rama/PR si existe gap real. No 13.2, D14/D15, YouTube, billing, Desktop ni infra. CI-FALLBACK `NONE`.
+**Scope 025:** solo 13.1, REUSE-FIRST, una sola rama/PR si existe gap real. No 13.2, D14/D15, YouTube, billing, Desktop ni infra. CI-FALLBACK `NONE`.
 
 ### 13.2
 - [ ] ReviewShell Import/Edit/Bulk, CTA fija y progreso N/N.
