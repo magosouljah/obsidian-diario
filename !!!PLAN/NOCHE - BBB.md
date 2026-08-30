@@ -7,49 +7,47 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-031`
-- `ASSIGNMENT_STATUS: DONE`
-- `AREA: F4 / 25.1 — SAME PR #63 final exact-head race/merge transaction`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
-- `REUSE_PR: #63 / bbb/task-25.1-windows-import @ 7a6b7443fc4821a9b10798e2a3823a9d931bc2df`
-- `CI-FALLBACK: NONE`
-
-## RESULTADO DEL TURNO — NIGHT-BBB-031
-
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-031`  
-`TURN_STATUS: DONE / INTEGRATED`
+- `ASSIGNMENT_ID: NIGHT-BBB-032`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F4 / 25.1 — windows/auth functional journey`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`
+- `PREDECESSOR: NIGHT-BBB-031 DONE / INTEGRATED — #63 merged; do not rerun.`
 
 ### PRIMARY
 
-- `STATUS: DONE / INTEGRATED`
-- `baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af; race-check confirmed unchanged immediately before merge.`
-- `branch/head: bbb/task-25.1-windows-import @ 7a6b7443fc4821a9b10798e2a3823a9d931bc2df`
-- `PR: #63 merged with expected-head guard; merge SHA 02a40564d85284a119281ff79995c9b9bcb5e833.`
-- `cambios: no new code changes this turn. Reused SAME #63. Changed-file scope verified exactly three authorized F4 paths: .github/workflows/f4-25.1-windows-import.yml; release/f4-25.1-functional-matrix.json; scripts/prepare-f4-25.1-embedded-driver.mjs.`
-- `tests: no ceremonial rerun. Reused fresh exact-head evidence on 7a6b7443...: Windows Import 33308327283 SUCCESS; F4 Functional Matrix 33308327295 SUCCESS; D6 33308327262 SUCCESS; D7 33308327271 SUCCESS; Desktop Portability 33308327289 SUCCESS; Upgrade 33308327291 SKIPPED/no aplicable.`
-- `CI: applicable exact-head set green before merge.`
-- `evidencia: pre-merge #63 OPEN/Ready/mergeable=true, base 3ad8f55a..., exact head 7a6b7443...; integration remained 3ad8f55a... at race-check; expected-head merge succeeded; post-merge integration verified at 02a40564d85284a119281ff79995c9b9bcb5e833. Issue #41 handoff 5468611912.`
-- `UNVERIFIED: integration closes only the windows/import slice inside 25.1. It does not close 25.1 complete, 25.2, D22/D23, signing/notarization, remaining matrix gaps, beta or public release.`
-- `blockers: none for NIGHT-BBB-031.`
+1. Preflight GitHub vivo + duplicate-check.
+2. REUSE-FIRST sobre `desktop_e2e`, shared auth tests y cualquier existing Windows harness. No copies #63 blindly and no second general matrix.
+3. Scope exacto: demostrar el journey `windows/auth` en Windows mediante el camino mínimo F4/harness/workflow. Preferir wiring de evidencia sobre cambios de producto.
+4. Debe alcanzar assertions funcionales reales de auth; un launcher/session green sin auth assertion no basta.
+5. Si un assertion revela bug de producto, registrar `PRODUCT_FINDING` con evidencia y STOP; no reparar producto desde F4 sin reasignación.
+6. Solo después de literal PASS puede cambiar únicamente `windows/auth` de `NOT_COVERED` a `AUTOMATED_PASS` con referencia exact-head verificable.
+7. Cualquier promotion cambia head: exigir fresh Windows auth journey + F4 matrix contract + D6 + D7 + Required CI/Desktop Portability aplicables antes de merge.
+8. Race-check final contra integration; merge solo si la combinación sigue compatible. Verificar merge SHA + integration HEAD.
+9. No 25.2, signing/notarization, iPhone, YouTube/billing ni otras filas.
+10. Reportar RESULTADO DEL TURNO + Issue #41 y STOP.
+
+**Required evidence:** exact base/head, changed-file scope, auth assertions literal PASS, matrix contract, fresh applicable exact-head CI, merge evidence si aplica.  
+**STOP:** product bug, runner/hardware/credential external, scope creep, baseline race no reconciliable, CI rojo no atribuible.
 
 ### CI-FALLBACK
 
-- `STATUS: NOT_EXECUTED`
-- `branch/head: n/a`
-- `PR: n/a`
-- `cambios: none`
-- `tests: none`
-- `evidencia: JOBS explicitly set CI-FALLBACK: NONE; PRIMARY was merge-ready, not waiting on external CI.`
-- `UNVERIFIED: n/a`
-- `blockers: fallback not authorized.`
-- `STOP alcanzado: yes — PRIMARY integrated successfully.`
+`NONE`
 
-`RECOMMENDATION_TO_JOBS: synchronize #63 merge 02a40564... and windows/import AUTOMATED_PASS into canonical plan state, while keeping 25.1 overall open for remaining honest gaps. Emit a new monotonic BBB assignment only if another F4 slice is explicitly authorized.`
+Reason: otro matrix slice sería nuevo scope/ownership; no existe fallback independiente preautorizable sin ampliar 25.1.
+
+## RESULTADO PROCESADO — NIGHT-BBB-031
+
+- `STATUS: DONE / INTEGRATED`.
+- SAME #63 exact head `7a6b7443fc4821a9b10798e2a3823a9d931bc2df`.
+- Windows Import `33308327283` SUCCESS; F4 Matrix `33308327295` SUCCESS; D6 `33308327262` SUCCESS; D7 `33308327271` SUCCESS; Desktop Portability `33308327289` SUCCESS.
+- Merge SHA / integration HEAD: `02a40564d85284a119281ff79995c9b9bcb5e833`.
+- Scope integrated: exactly 3 F4 files; `windows/import` only.
+- Issue #41 handoff `5468611912`.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-BBB-031`: DONE/INTEGRATED — #63 merged `02a40564d85284a119281ff79995c9b9bcb5e833`; windows/import slice integrated.
-- `NIGHT-BBB-030`: PENDING/WAITING_CI — corrective matrix-only; CI subsequently green.
-- `NIGHT-BBB-028`: promotion head; Windows Import/Required CI green, matrix red.
+- `NIGHT-BBB-032`: ASSIGNED — windows/auth journey.
+- `NIGHT-BBB-031`: DONE/INTEGRATED — #63 merge `02a40564...`.
+- `NIGHT-BBB-030`: matrix corrective, later green.
 - `NIGHT-BBB-026`: Windows Import literal PASS before promotion.
-- `NIGHT-BBB-012`: #60 matrix integrated `7de7b57a...`.
+- `NIGHT-BBB-012`: #60 matrix integrated.
