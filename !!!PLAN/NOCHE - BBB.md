@@ -8,50 +8,50 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-BBB-021`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F4 / 25.1 — SAME PR #63: activar realmente embedded WDIO y alcanzar Windows Import assertion`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
-- `REUSE_PR: #63 / bbb/task-25.1-windows-import @ 2a5853209669f7b50b51126f0aa4572383492c26`
-- `PREDECESSOR: NIGHT-BBB-020 PENDING -> exact-head Windows Import run 33281787254 terminó FAILURE; otros applicable gates del head quedaron SUCCESS.`
+- `BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
+- `LIVE_BASE_AT_CLOSE: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `REUSE_PR: #63 / bbb/task-25.1-windows-import @ 033c2b55a0c46471b7e7ddb3af57b626699ac6e6`
+- `CI-FALLBACK: NONE`
+
+## RESULTADO DEL TURNO — NIGHT-BBB-021
+
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-021`  
+`TURN_STATUS: PENDING / WAITING_CI`
 
 ### PRIMARY
 
-1. Preflight GitHub vivo + duplicate-check. Reusa únicamente SAME PR #63; no abras PR/rama replacement para 25.1.
-2. Toma el fallo literal del exact head `2a585320...` como autoridad: build E2E terminó, pero `@wdio/tauri-service` entró en `onPrepare` legacy y reportó `msedgedriver version mismatch` (Edge `151.0.4129.101`, Driver `unknown`), después diagnóstico `tauri-driver not found`, y finalmente `No "browserName" defined in capabilities nor hostname or port found`. **No assertion de import fue alcanzada.**
-3. Determina por qué `driverProvider=embedded` preparado por `scripts/prepare-f4-25.1-embedded-driver.mjs` no quedó seleccionado/consumido por la configuración WDIO efectiva. Corrige únicamente esa causa factual, preferentemente dentro de los 3 paths F4 ya autorizados. Si la evidencia obliga a tocar la config E2E aislada existente, limita el cambio estrictamente a habilitar el provider embebido; no cambies producto.
-4. No uses `autoDownloadEdgeDriver`/`autoInstallTauriDriver` como bypass salvo que la documentación/config efectiva demuestre que siguen siendo requisitos del provider embebido; el objetivo es eliminar el fallback accidental al launcher legacy, no ocultarlo.
-5. Mantén `windows/import = NOT_COVERED` hasta obtener una ejecución literal donde se cree la sesión y las assertions existentes de `tests/e2e/import-flow.e2e.mjs` pasen.
-6. Cuando exista literal Windows Import PASS, promueve `windows/import` a `AUTOMATED_PASS` en SAME #63. Esa promoción crea head nuevo: exige fresh exact-head Windows Import + F4 Matrix + D6 + D7 + Desktop Portability aplicables antes de race-check/merge.
-7. Si el siguiente run falla antes de assertions, usa solo el nuevo log factual para el siguiente corrective; no toques lógica productiva de import sin un fallo de assertion que la implique.
-8. Handoff en este ledger + Issue #41 y STOP.
-
-**Required evidence:** baseline/head/base, changed-file scope, log que demuestre provider/session efectiva, literal import assertions PASS antes de promover matrix, fresh exact-head CI después de toda promoción, race-check + merge SHA si integrado.  
-**STOP:** necesidad de modificar lógica productiva antes de una assertion fallida, scope fuera de F4/25.1, package/global driver changes no justificados, 25.2/signing/notarization, CI rojo no atribuible o baseline race no reconciliable.
+- `STATUS: WAITING_CI`
+- `baseline: assignment 712b49b6689a31a47902dbe95e98622d001dab40; integration moved during the turn by merge #67 to 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af. Compare 712b49b...→3ad8f55a... showed only F3 files, zero overlap with #63 F4 scope, so SAME lineage was safely refreshed to the new live baseline.`
+- `branch/head: bbb/task-25.1-windows-import @ 033c2b55a0c46471b7e7ddb3af57b626699ac6e6`
+- `PR: #63 OPEN / Ready / NOT MERGED; SAME canonical lineage. GitHub auto-closed it transiently when the branch was reset exactly to integration during refresh; it was reopened after the same 3-file F4 delta was reapplied. No replacement PR/branch was created.`
+- `cambios: only scripts/prepare-f4-25.1-embedded-driver.mjs changed in the corrective logic; final PR delta remains exactly 3 F4 files: .github/workflows/f4-25.1-windows-import.yml, release/f4-25.1-functional-matrix.json, scripts/prepare-f4-25.1-embedded-driver.mjs. The prep now selects driverProvider=embedded, embeddedPort=4445, adds a per-capability wdio:tauriServiceOptions embedded override, injects tauri-plugin-wdio-webdriver + Rust registration + ACL only into the isolated E2E build, and passes TAURI_WEBDRIVER_PORT/WDIO_EMBEDDED_PORT=4445 to WDIO. No F2/F3/product import logic changed.`
+- `tests: no local product test invented. New exact-head Windows Import run 33284981477 is the authoritative functional test. At close, exact checkout passed and Rust setup was in progress; the harness/assertion step had not executed yet.`
+- `CI: exact head 033c2b55... — F4 Matrix 33284981451 SUCCESS; D6 33284981429 SUCCESS; D7 33284981377 SUCCESS; Windows Import 33284981477 IN_PROGRESS; Desktop Portability 33284981371 QUEUED; Upgrade 33284981508 SKIPPED/no aplicable.`
+- `evidencia: prior failed job 99178054699 proved the embedded WebDriver Rust plugin compiled successfully but the effective service still entered legacy/external launcher and failed before assertions. Current WebdriverIO 1.3.0 documentation identifies driverProvider=embedded and TAURI_WEBDRIVER_PORT/WDIO_EMBEDDED_PORT as Windows/Linux embedded-provider signals, with embeddedPort default 4445; the corrective makes all selection signals explicit. Issue #41 JOBS handoff explicitly assigns NIGHT-BBB-021 for this exact effective-provider problem. PR #51 revalidated CLOSED/MERGED, draft=false, merge 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858. Duplicate #62 revalidated CLOSED/NOT MERGED.`
+- `UNVERIFIED: no evidence yet that run 33284981477 creates an embedded WebDriver session; no literal import assertion PASS yet; windows/import remains NOT_COVERED; no AUTOMATED_PASS promotion; Desktop Portability not complete on final head; no race-check/merge authorization.`
+- `blockers: external CI is actively running. Evidence-before-claim forbids matrix promotion or merge until Windows Import literal PASS and all fresh applicable exact-head gates are green.`
 
 ### CI-FALLBACK
 
-`NONE`
+- `STATUS: NOT_EXECUTED`
+- `branch/head: n/a`
+- `PR: n/a`
+- `cambios: none`
+- `tests: none`
+- `evidencia: JOBS explicitly set CI-FALLBACK: NONE for NIGHT-BBB-021.`
+- `UNVERIFIED: n/a`
+- `blockers: fallback not authorized; 25.2/other F4 gaps would expand or overlap scope.`
+- `STOP alcanzado: yes — PRIMARY entered WAITING_CI and no fallback exists.`
 
-Reason: 25.2 y los otros huecos de la matriz comparten ownership/release surfaces o ampliarían scope mientras #63 aún no demuestra la journey Windows. No hay fallback independiente seguro.
-
-## RESULTADO PROCESADO — NIGHT-BBB-020
-
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-020`  
-`TURN_STATUS_AT_WORKER_CLOSE: PENDING / WAITING_CI`  
-`JOBS_RECHECK: FAILED_GATE`
-
-- `baseline: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
-- `branch/head: bbb/task-25.1-windows-import @ 2a5853209669f7b50b51126f0aa4572383492c26`
-- `PR: #63 OPEN / Ready / NOT MERGED / mergeable=true`
-- `CI final exact head: D6 33281787207 SUCCESS; D7 33281787235 SUCCESS; Desktop Portability 33281787208 SUCCESS; F4 Matrix 33281787222 SUCCESS; Upgrade 33281787228 SKIPPED; Windows Import 33281787254 FAILURE.`
-- `literal failure: embedded-prep step SUCCESS; E2E build SUCCESS; service then reported EdgeDriver mismatch (Edge 151.0.4129.101 / driver unknown), tauri-driver missing and no browserName/hostname/port; 0 specs passed / 1 failed before import assertions.`
-- `CLAIM: windows/import remains NOT_COVERED; no AUTOMATED_PASS; no merge.`
+`RECOMMENDATION_TO_JOBS: recheck Windows Import 33284981477 on exact head 033c2b55... first. If it reaches a literal session + existing import assertions PASS, continue SAME #63 by promoting only windows/import to AUTOMATED_PASS; that promotion creates a new head and therefore requires a fresh Windows Import + F4 Matrix + D6 + D7 + Desktop Portability set before race-check/merge. If 33284981477 fails before assertions, use only its new log for the next corrective. Do not open a second PR or begin 25.2.`
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-BBB-021`: ASSIGNED — SAME #63, fix effective embedded-provider selection/session only; CI-FALLBACK NONE.
-- `NIGHT-BBB-020`: PENDING at worker close; JOBS recheck observed Windows Import FAILURE on 2a585320; other applicable CI SUCCESS.
-- `NIGHT-BBB-019`: PENDING — baseline movement STOP; previous DevToolsActivePort diagnosis.
+- `NIGHT-BBB-021`: PENDING / WAITING_CI — effective embedded selection made explicit; SAME #63 refreshed to 3ad8f55a...; exact-head CI running.
+- `NIGHT-BBB-020`: PENDING — exact-head Windows Import failed before assertions; other gates green.
+- `NIGHT-BBB-019`: PENDING — baseline movement STOP; DevToolsActivePort diagnosis.
 - `NIGHT-BBB-018`: PENDING — Windows Import gate red.
 - `NIGHT-BBB-017`: PENDING — prior refresh / official driver bootstrap.
 - `NIGHT-BBB-012`: #60 matrix integrated `7de7b57a...`.
