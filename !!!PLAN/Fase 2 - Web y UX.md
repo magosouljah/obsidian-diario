@@ -4,36 +4,25 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 021:** `integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto solo por residual cold/warm + taxonomy/state; D13–D15 no cerrados.
+**Baseline vivo CYCLE 023:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto únicamente por cold/warm real cuantificado; D13–D15 no cerrados.
 
 ## Owner actual
 
-**AAA — F2 / 12.1 residual cold/warm + taxonomy/state — `NIGHT-AAA-021` (ASSIGNED).**
+**AAA — F2 / 13.1 — `NIGHT-AAA-023` (ASSIGNED).**
 
-PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9` y cerró slice A: lazy artwork + taxonomía mínima de startup + timing/tests. Atomic empty-index quedó **DONE / INTEGRATED** por PR #64 como `b114111cafb29b4aa50cdce014059c66a75bddf2`.
+El residual 12.1 no se transfirió ni cerró falsamente: queda abierto por evidencia runtime cold/warm. JOBS mueve AAA explícitamente a 13.1 porque es trabajo dependency-safe e independiente y repetir 12.1 sin superficie ejecutable sería tiempo muerto.
 
-PR #66 `aaa/night-12.1-pagination-windowing` quedó **CLOSED / MERGED** como `712b49b6689a31a47902dbe95e98622d001dab40`. El candidate probado e integrado contiene:
-- first-load/materialización bounded;
-- `WebLibraryWindowConsumer` current/next/previous/refresh + acceso por offset;
-- refresh seguro tras shrink;
-- métricas de materialización;
-- continuidad sintética de 10,321 beats sin duplicados/omisiones y sin artwork eager;
-- wiring React productivo por cursor `bgPage`, con Previous/Next reales y sin reconstruir un `Beat[]` global.
+PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9` y cerró lazy artwork + taxonomía mínima de startup + timing/tests. Atomic empty-index quedó **DONE / INTEGRATED** por PR #64 como `b114111cafb29b4aa50cdce014059c66a75bddf2`.
 
-Evidencia exact-head de #66:
-- Required CI / Desktop Portability `33278321854` — SUCCESS;
-- D6 `33278321859` — SUCCESS;
-- D7 `33278321867` — SUCCESS;
-- merge verificado `712b49b6689a31a47902dbe95e98622d001dab40`.
+PR #66 `aaa/night-12.1-pagination-windowing` quedó **CLOSED / MERGED** como `712b49b6689a31a47902dbe95e98622d001dab40`. Contiene first-load bounded, `WebLibraryWindowConsumer`, refresh tras shrink, métricas de materialización, continuidad sintética 10,321 beats y wiring React productivo por cursor `bgPage`.
 
-Residuales literales de 12.1:
-- **cold/warm cuantificado** del startup Web;
-- cualquier separación de taxonomy/state `empty / no-results / offline / auth / cloud failure` que todavía no esté demostrada por evidencia existente.
+`NIGHT-AAA-022` hizo REUSE-FIRST y verificó evidencia literal existente:
+- `src/features/library/webLibrary.ts` distingue `ready / empty / no-results / offline / auth-failure / cloud-failure`;
+- `tests/component-dom/webLibrary.test.ts` afirma literalmente esos estados;
+- no se abrió PR ceremonial.
 
-`NIGHT-AAA-021` debe hacer REUSE-FIRST, cerrar solo esos residuales y no abrir D13–D15 automáticamente.
-
-CI-FALLBACK para `NIGHT-AAA-021`: `NONE`.
+Por tanto taxonomy/state queda **demostrado**. El único residual de 12.1 es comparar startup Web cold vs warm real bajo el mismo escenario, con cache/session cold vs preservados y métricas cuantificadas/reproducibles. La prueba de timing existente demuestra instrumentación, no esa comparación.
 
 ## Día 11 — Foundations y AccountGate
 
@@ -45,22 +34,26 @@ PR #54 merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
 
 ## Día 12 — Library, cards y primera cuenta Web
 
-### 12.1 — `[ 🟡 ] IN PROGRESS / RESIDUAL` — AAA `NIGHT-AAA-021`
+### 12.1 — `[ 🟡 ] RESIDUAL / RUNTIME EVIDENCE`
 
 - [x] **Índice vacío atómico en control plane.** PR #64 integrado.
-- [ 🟡 ] **Separar empty/no-results/offline/auth/cloud failure.** Slice A integrada en #58; cerrar residual solo donde falta evidencia literal.
-- [x] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** Lazy artwork integrado; bounded pagination/window/memory + navegación productiva integrado por #66.
-- [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Timing integrado en #58; falta cuantificación cold/warm verificable.
+- [x] **Separar empty/no-results/offline/auth/cloud failure.** Evidencia integrada #58 + verificación literal `NIGHT-AAA-022`.
+- [x] **Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria.** #58/#66 integrados.
+- [ 🟡 ] **Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial.** Instrumentación existe; falta comparación cold/warm real cuantificada/reproducible.
+
+No cerrar 12.1 hasta esa evidencia. No fabricar benchmark sintético para sustituir startup real.
 
 ### 12.2 — `[x] DONE / INTEGRATED`
 PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
 
 ## Día 13 — Import, Review y bulk edit
 
-### 13.1
+### 13.1 — `[ 🟡 ] ASSIGNED — AAA NIGHT-AAA-023`
 - [ ] Save All durable con resumen parcial.
 - [ ] Bulk conflict-safe o deshabilitado honestamente.
 - [ ] Garbage journal limpia uploads huérfanos.
+
+**Scope de 023:** solo 13.1, REUSE-FIRST, una sola rama/PR si existe gap real. No 13.2, D14/D15, YouTube, billing, Desktop ni infra.
 
 ### 13.2
 - [ ] ReviewShell Import/Edit/Bulk, CTA fija y progreso N/N.
