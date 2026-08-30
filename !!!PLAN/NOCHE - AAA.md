@@ -7,33 +7,37 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-021`
+- `ASSIGNMENT_ID: NIGHT-AAA-022`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F2 / 12.1 — cerrar residual cold/warm + taxonomy con evidencia literal`
+- `AREA: F2 / 12.1 — cerrar residual cold/warm + taxonomy/state con evidencia literal`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
-- `PREDECESSOR: NIGHT-AAA-020 DONE — PR #66 merged as 712b49b6689a31a47902dbe95e98622d001dab40.`
+- `PREDECESSOR: NIGHT-AAA-021 NOT_PROCESSED / SUPERSEDED_BY_JOBS — no RESULTADO DEL TURNO ni PR/handoff NIGHT-AAA-021 fue encontrado; no ejecutar 021 después de recibir 022.`
 
 ### PRIMARY
 
-1. Preflight GitHub vivo + duplicate-check. Verifica que integration siga en `712b49b...` o registra el nuevo baseline real.
-2. Reutiliza primero la instrumentación/taxonomía ya integrada por #58 y la navegación/windowing integrada por #66. No reimplementes pagination, lazy artwork ni atomic empty-index.
-3. Determina exactamente qué requisito literal de 12.1 sigue sin evidencia entre:
-   - comparación cuantificada cold vs warm del startup Web;
-   - separación honesta de estados empty / no-results / offline / auth / cloud failure.
-4. Cierra únicamente esos residuales con el cambio mínimo. Si la evidencia existente ya satisface un punto, documenta REUSE-FIRST y no abras código ceremonial.
-5. Si hace falta código/tests, usa una sola rama/PR nueva para este residual F2; scope limitado a Web/library startup-state/timing/taxonomy y sus tests. No backend billing, PostgreSQL, desktop packaging, infra, D13–D15 ni YouTube.
-6. Evidencia obligatoria: medición cold/warm reproducible con criterio explícito; tests de taxonomy/state cuando aplique; focused tests; fresh applicable exact-head CI; race-check antes de merge.
-7. Si los dos residuales quedan probados e integrados, puedes recomendar a JOBS cerrar 12.1. No cierres D13–D15 ni F2 completa.
-8. Handoff en este ledger + Issue #41 y STOP.
+1. Haz preflight GitHub vivo + duplicate-check. Si integration ya no está en `712b49b...`, registra y reconcilia el baseline nuevo antes de cualquier cambio.
+2. REUSE-FIRST: reutiliza #58/#66 y toda instrumentación/taxonomía ya integrada. No reimplementes pagination, windowing, lazy artwork, atomic empty-index ni navegación productiva.
+3. Produce comparación **cold vs warm** reproducible del startup Web: mismo escenario, criterio explícito, métricas cuantificadas y evidencia suficiente para distinguir cache/session warm de cold real.
+4. Verifica de forma literal la separación observable de estados `empty library`, `no-results`, `offline`, `auth required/expired` y `cloud failure`. Si el código/tests ya satisfacen un estado, documenta evidencia y no hagas cambio ceremonial.
+5. Cierra únicamente los gaps reales de 12.1. Si hace falta código/tests, usa una sola rama/PR F2 mínima y limitada a Web/library startup-state/timing/taxonomy + tests. No D13–D15, YouTube, billing, PostgreSQL, desktop packaging ni infra.
+6. Evidencia requerida si hay cambio: focused tests, medición cold/warm, tests de taxonomy/state aplicables, fresh applicable exact-head CI y race-check antes de merge. Si no hace falta cambio, evidencia reproducible + handoff pueden bastar para recomendar cierre.
+7. Si ambos residuales quedan demostrados, recomienda a JOBS cerrar únicamente 12.1. No cierres D13–D15 ni F2 completa.
+8. Escribe RESULTADO DEL TURNO en este ledger + handoff en Issue #41 y STOP.
 
-**Required evidence:** baseline/head/base, evidencia cuantificada cold/warm, taxonomy/state evidence aplicable, focused tests, exact-head CI, PR/merge SHA si hay integración.  
-**STOP:** baseline inesperado no reconciliable, evidencia no reproducible, scope creep, necesidad de tocar ownership F3/F4, CI rojo no atribuible o requisito que dependa de decisión externa.
+**Required evidence:** live baseline, branch/head si aplica, medición cold/warm cuantificada/reproducible, state-taxonomy evidence, focused tests, exact-head CI si aplica, PR/merge SHA si hay integración.  
+**STOP:** baseline inesperado no reconciliable, evidencia no reproducible, scope creep, necesidad de ownership F3/F4, CI rojo no atribuible o dependencia externa/RO.
 
 ### CI-FALLBACK
 
 `NONE`
 
-Reason: el siguiente trabajo F2 (D13–D15) amplía scope y comparte superficies de producto. No hay fallback independiente preautorizado.
+Reason: D13–D15 amplían scope de producto y no son un fallback materialmente independiente de 12.1. No inventar trabajo alterno.
+
+## RESULTADO PROCESADO — NIGHT-AAA-021
+
+- `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS`
+- `EVIDENCIA: al iniciar CYCLE 022, NOCHE-AAA no contenía RESULTADO DEL TURNO 021; búsqueda GitHub por NIGHT-AAA-021 no encontró artifact/handoff de BeatGaler.`
+- `ACCIÓN: 021 queda sustituida por NIGHT-AAA-022 para evitar que un assignment viejo pueda ejecutarse después y duplicar ownership.`
 
 ## RESULTADO DEL TURNO — NIGHT-AAA-020
 
@@ -47,7 +51,8 @@ Reason: el siguiente trabajo F2 (D13–D15) amplía scope y comparte superficies
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-021`: ASSIGNED — residual 12.1 cold/warm + taxonomy; CI-FALLBACK NONE.
+- `NIGHT-AAA-022`: ASSIGNED — residual 12.1 cold/warm + taxonomy/state; CI-FALLBACK NONE.
+- `NIGHT-AAA-021`: NOT_PROCESSED / SUPERSEDED_BY_JOBS — sin result/handoff observable al CYCLE 022.
 - `NIGHT-AAA-020`: DONE — #66 merged `712b49b6689...`; bounded pagination/window/memory + production navigation integrated.
 - `NIGHT-AAA-019`: PENDING — #66 implementation complete; CI later green.
 - `NIGHT-AAA-018`: PENDING — bounded window consumer + 10,321-beat continuity evidence.
