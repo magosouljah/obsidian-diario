@@ -4,80 +4,88 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 033:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 abierto solo por cold/warm runtime real; 13.1 conserva Web #69 frozen + server #70 frozen por safe-write tooling.
+**Baseline vivo CYCLE 034:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
 
-## Owners actuales
+## Estado actual
 
-**AAA — `NIGHT-AAA-032` — 12.1 runtime evidence — ACTIVE / UNCHANGED.** La asignación sigue sin resultado observable. REUSE-FIRST sobre instrumentación #58/#66; harness pequeño y aislado para startup Web real cold vs warm, con escenario reproducible y métricas cuantificadas. No tocar #69/App wiring.
+11.1, 11.2 y 12.2 están cerrados. 12.1 sigue abierto únicamente por cold/warm runtime real cuantificado. AAA032 encontró el harness real-browser ya integrado (`npm run test:web:smoke` → WDIO + Chrome headless + Vite preview), pero su runtime no pudo ejecutar checkout/npm/Chrome; no se fabricaron números.
 
-**WOZ — F2/13.1 server #70 — HOLDING / SAFE_WRITE_TOOLING_LIMIT.** NIGHT-WOZ-031 identificó el corrective exacto en `cloud-server/tests/postgres-live.integration.cjs`, pero la superficie de escritura disponible exigía reemplazo completo del archivo largo. Un intento no seguro creó `588f3895...` y fue revertido inmediatamente; rama/PR quedó restaurada exactamente a `5a99ebf2c54a9c0aaae7f20b2262160e55ca6ae7`. Live recheck mantiene Required CI y PostgreSQL live/recovery en FAILURE sobre ese mismo head. No repetir escritura destructiva. JOBS mueve a WOZ a F3/20.1 bajo `NIGHT-WOZ-032` mientras #70 queda frozen.
+13.1 sigue abierto:
+- Web / #69: coordinator Save All + CAS/partial summary probado, pero product wiring App/Review→`saveAllWebItems` falta. PR #69 sigue OPEN @ `b2ab75ae...` y quedó sobre baseline anterior después del merge #63.
+- Server / #70: orphan lifecycle candidate OPEN @ `5a99ebf2...`; corrective exacto conocido, pero safe-write tooling bloqueó aplicación segura. También quedó sobre baseline anterior.
 
-## Día 11 — Foundations y AccountGate
+## Owner actual
+
+**AAA — `NIGHT-AAA-033` — F2/13.1 SAME #69.**
+
+PRIMARY:
+1. Preflight contra baseline `02a40564...` y duplicate-check.
+2. Reutilizar SAME #69; no reemplazar ni abrir PR paralelo.
+3. Refresh/reconcile el candidate al baseline vivo antes de cualquier claim de integración.
+4. Aplicar únicamente el wiring productivo mínimo App/Review→`saveAllWebItems` si existe una superficie de patch/worktree segura; conservar saved/conflict/failed + retry/idempotence semantics.
+5. Si la única escritura disponible exige full-file replacement inseguro de `App.tsx`, STOP_WRITE_SURFACE sin mutación destructiva.
+6. No tocar #70, 13.2+, F3, F4 ni infra.
+
+CI-FALLBACK: `NONE`.
+
+## Día 11
 
 ### 11.1 — `[x] DONE / INTEGRATED`
-PR #47 merge `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
+PR #47.
 
 ### 11.2 — `[x] DONE / INTEGRATED`
-PR #54 merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
+PR #54.
 
-## Día 12 — Library, cards y primera cuenta Web
+## Día 12
 
-### 12.1 — `[ 🟡 ] RESIDUAL / RUNTIME EVIDENCE` — AAA `NIGHT-AAA-032`
-- [x] Índice vacío atómico — #64.
-- [x] Empty/no-results/offline/auth/cloud failure separados — #58 + NIGHT-AAA-022.
-- [x] Lazy artwork, paginación/ventana y presupuesto de memoria — #58/#66.
-- [ 🟡 ] Cold/warm startup real cuantificado — instrumentación existe; benchmark real/reproducible falta.
+### 12.1 — `[ 🟡 ] RUNTIME EVIDENCE`
+- [x] índice vacío atómico — #64;
+- [x] empty/no-results/offline/auth/cloud-failure separados — #58 + AAA022;
+- [x] lazy artwork + pagination/window/memory — #58/#66;
+- [ 🟡 ] cold/warm startup Web real cuantificado — harness localizado; runtime ejecutable faltante.
 
-No cerrar 12.1 ni fabricar benchmark sintético. Un harness aislado puede cerrar este residual si produce una pareja cold/warm real bajo el mismo escenario y evidencia reproducible.
+No cerrar 12.1 con benchmark sintético.
 
 ### 12.2 — `[x] DONE / INTEGRATED`
-PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
+PR #50.
 
-## Día 13 — Import, Review y bulk edit
+## Día 13
 
-### 13.1 — `[ 🟡 ] IN PROGRESS / HOLDING`
-- [ 🟡 ] Save All durable con resumen parcial — PR #69 helper green; product wiring App/Review al coordinator sigue pendiente. #69 queda **HOLDING/FROZEN** por write-surface blocker; no reemplazar ni duplicar.
-- [ 🟡 ] Bulk conflict-safe o deshabilitado honestamente — #69 CAS/durable por item probado; product wiring aún debe demostrar saved/conflict/failed + partial/retry semantics.
-- [ 🟡 ] Garbage journal limpia uploads huérfanos — #70 focused PASS histórico; live Required CI/PostgreSQL live siguen FAILURE porque el fixture legacy aún omite `isObjectStillOrphan`. Corrective exacto atribuido, pero aplicación bloqueada por safe-write tooling. #70 queda frozen en `5a99ebf2...` hasta disponer de patch seguro.
-
-**No overlap:** AAA032 no toca #69/#70; WOZ032 ya no toca F2 en su nueva asignación. `CI-FALLBACK: NONE`.
+### 13.1 — `[ 🟡 ] IN PROGRESS`
+- [ 🟡 ] Save All durable con resumen parcial — #69 helper probado; wiring productivo pendiente.
+- [ 🟡 ] Bulk conflict-safe — #69 CAS/item semantics probado; wiring productivo pendiente.
+- [ 🟡 ] Garbage journal — #70 candidate/focused evidence existe; corrective + refresh pendientes.
 
 ### 13.2
 - [ ] ReviewShell Import/Edit/Bulk, CTA fija y progreso N/N.
-- [ ] Errores item/retry/skip/cancel/confirmación durable.
+- [ ] errores item/retry/skip/cancel/confirmación durable.
 - [ ] E2E multi-file/conflicto/refresh/rollback.
 
 **Gate:** ninguna acción Web visible llama Tauri; 0 pérdida silenciosa.
 
-## Día 14 — Playback, queue y descargas
+## Día 14
 
 ### 14.1
 - [ ] MediaSource/Range + fallback seguro.
-- [ ] Evitar archivos gigantes completos en RAM.
-- [ ] Cancel/resume seguro y liberar buffers/object URLs.
+- [ ] evitar archivos gigantes completos en RAM.
+- [ ] cancel/resume seguro y liberar buffers/object URLs.
 
 ### 14.2
-- [ ] Índice activo/shortcuts/seek/shuffle/repeat/error recoverable.
-- [ ] Queue/volumen responsive.
-- [ ] Safari/Firefox/Chrome/iPhone, archivos pequeños/grandes, red degradada.
+- [ ] índice activo/shortcuts/seek/shuffle/repeat/error recoverable.
+- [ ] queue/volumen responsive.
+- [ ] Safari/Firefox/Chrome/iPhone, red degradada.
 
-## Día 15 — Settings, Trash, accesibilidad y YouTube Web
+## Día 15
 
 ### 15.1
 - [ ] SettingsShell desktop/móvil; Account/Plan/Preferences/Trash/legal.
-- [ ] State machines reales para catálogo/cache/Trash/updater.
-- [ ] Acciones peligrosas separadas, confirmadas y con reauth.
-- [ ] “Vaciar Trash” con borrado permanente, confirmación fuerte y recent reauth.
+- [ ] state machines catálogo/cache/Trash/updater.
+- [ ] acciones peligrosas confirmadas + reauth.
+- [ ] Vaciar Trash permanente + confirmación fuerte + recent reauth.
 
 ### 15.2
-- [ ] Dialog/focus restoration/live regions/labels/contraste/zoom/reduced motion.
-- [ ] Baseline visual S01–S59 alcanzables.
+- [ ] dialog/focus/live regions/labels/contraste/zoom/reduced motion.
+- [ ] baseline visual S01–S59 alcanzables.
 
 ### 15.3 — YouTube Web sin Tauri
-
-**Regla:** YouTube existe en Desktop y Web; Web nunca depende de Tauri/helper Desktop.
-
-Pendiente: contrato compartido, Desktop adapter, backend OAuth/jobs server-side, Web adapter puro, upload/schedule durable, UI compartida y evidencia unit/integration/E2E. Capability Web no se activa hasta gate real.
-
-**Dependencias reales:** auth/session + persistencia durable aptas para OAuth/provider data; 16.1 callbacks/entornos separados; 18.1 quotas/entitlements; 25.1 matriz cross-platform/browser.
+Pendiente contrato compartido, backend OAuth/jobs server-side, Web adapter puro, upload/schedule durable y evidencia real. Web nunca depende de Tauri/helper Desktop.
