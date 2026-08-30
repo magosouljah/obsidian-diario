@@ -2,33 +2,31 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 043:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Baseline vivo CYCLE 044:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado owner / candidates
 
 - PR #68 / 18.1 MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
-- PR #73 `woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb` sigue OPEN/Ready sobre base exacta `a9d35a3d...`, mergeable y exact-head verde.
-- `NIGHT-WOZ-040` revalidó scope + CI + race-check, pero terminó `BLOCKED / MERGE_FLOW_UNAVAILABLE`: el execution layer impidió la transacción antes de aceptación por GitHub. Integration no cambió.
-- No recrear, rebasar ni duplicar #73 mientras base/head sigan válidos. El blocker es de flujo de merge, no técnico.
-- `NIGHT-WOZ-041` creó PR #75 `woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f`, 4 files +156/-0, con observability contract software-only.
-- Recheck JOBS: Required CI / Test - Desktop Portability `33323457041` = FAILURE. Supply chain gate falla en `Verify every external GitHub Action is immutable`; el workflow nuevo usa `actions/checkout@v4` y `actions/setup-node@v4`.
-- `NIGHT-WOZ-042` corrige únicamente esos dos pins usando los SHAs inmutables canónicos del Required CI y exige fresh exact-head evidence antes de integración.
+- PR #73 `woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb` sigue OPEN/Ready, exact-head verde y holding por `MERGE_FLOW_UNAVAILABLE`. No recrear, rebasar ni tocar mientras siga válido.
+- PR #75 `woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f` sigue OPEN/Ready/mergeable sobre base exacta `a9d35a3d...`; head no cambió durante `NIGHT-WOZ-042` y no apareció handoff nuevo.
+- Required CI previo de #75 `33323457041` permanece FAILURE por supply-chain immutable-action gate: el workflow nuevo usa `actions/checkout@v4` y `actions/setup-node@v4`.
+- `NIGHT-WOZ-042` queda `NOT_PROCESSED / SUPERSEDED_BY_JOBS` para impedir ejecución tardía; el mismo correctivo mínimo sigue siendo el trabajo crítico y se reemite como `NIGHT-WOZ-043`.
 
 ## Owner actual
 
-**WOZ — `NIGHT-WOZ-042` — F3 / 20.1 SAME #75 supply-chain corrective.**
+**WOZ — `NIGHT-WOZ-043` — F3 / 20.1 SAME #75 supply-chain corrective.**
 
 ### PRIMARY
 
 1. Preflight live baseline + SAME #75 exact head/base + duplicate-check; no tocar #73.
-2. Reemplazar únicamente las referencias flotantes del workflow F3 20.1 por los pins ya usados por Required CI:
+2. Reemplazar únicamente las referencias flotantes del workflow F3 20.1 por los pins canónicos ya usados por Required CI:
    - `actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1`;
    - `actions/setup-node@820762786026740c76f36085b0efc47a31fe5020`.
-3. Preservar semántica del workflow y no cambiar producto/observability contract salvo lo estrictamente necesario para ese pinning.
-4. Focused observability test + fresh exact-head Required CI y workflow F3 20.1.
-5. Si todo queda verde y el merge flow está disponible, race-check + merge #75 y verificar merge SHA/post-merge integration HEAD.
+3. Preservar semántica del workflow y producto/observability contract.
+4. Focused observability test + fresh exact-head Required CI + workflow F3 20.1.
+5. Si todo queda verde, race-check. Si integration cambió, refresh/revalidate antes de cualquier merge; si sigue limpio y el merge flow está disponible, integrar #75 y verificar merge SHA/post-merge HEAD.
 6. Si aparece failure no atribuible al pinning o el merge flow vuelve a bloquear, reportar factual y STOP.
-7. Provider/on-call/status/retention/tracing/backend durable/product call-site wiring siguen abiertos; no reclamarlos con este slice.
+7. Product call-site wiring, tracing/backend durable, retention, provider alert delivery, on-call/escalation y public status siguen abiertos; no reclamarlos con este slice.
 
 **CI-FALLBACK:** `NONE`.
 
@@ -74,9 +72,9 @@ No convertir #73 en integrado ni 18.2 en `[x]` sin merge verificable y evidencia
 ## Día 20
 
 ### 20.1 — `[ 🟡 ] IN PROGRESS / INTERNAL SLICE`
-Gap map WOZ033: logs PARTIAL; metrics GAP; tracing GAP; error reporting PARTIAL/GAP; retention PARTIAL/EXTERNAL; alert routing GAP; backup alert PARTIAL; on-call/status externos; runbook PARTIAL; kill switches GAP.
+Gap map: logs PARTIAL; metrics GAP; tracing GAP; error reporting PARTIAL/GAP; retention PARTIAL/EXTERNAL; alert routing GAP; backup alert PARTIAL; on-call/status externos; runbook PARTIAL; kill switches GAP.
 
-PR #75 contiene un primer software slice para structured redacted events, bounded counters, explicit alert condition→route mapping, fail-closed kill switches, focused tests y internal runbook. Aún no está integrado y su Required CI está rojo por supply-chain pinning del workflow; `NIGHT-WOZ-042` corrige solo eso.
+PR #75 contiene un primer software slice para structured redacted events, bounded counters, explicit alert condition→route mapping, fail-closed kill switches, focused tests y runbook interno. Aún no está integrado. Su único fallo atribuido actual es supply-chain pinning del workflow; `NIGHT-WOZ-043` corrige solo eso.
 
 Aunque #75 llegue a integrarse, permanecen abiertos product call-site wiring, tracing/backend durable de error reporting/metrics, retention, provider alert resources/delivery, on-call/escalation y public status.
 
