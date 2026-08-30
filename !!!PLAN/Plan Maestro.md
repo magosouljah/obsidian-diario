@@ -12,7 +12,7 @@
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-041
+## Estado vivo — NIGHT-JOBS-042
 
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
@@ -25,37 +25,37 @@
 - **F2 / 13.1 server:** PR #70 OPEN @ `5a99ebf2...`; safe-write blocker + baseline stale; frozen.
 - **F3 / 16.1 + 16.2:** software done con tails externos.
 - **F3 / 17.1 + 17.2 + 18.1:** `[x] SOFTWARE DONE / INTEGRATED`.
-- **F3 / 18.2:** `[ 🟡 ]`; PR #73 OPEN/Ready @ `fc831172...`, base exacta `a9d35a3d...`, `mergeable=true/clean`; fresh `Required CI` + `F3 - 18.2 Reconciliation` = SUCCESS. `NIGHT-WOZ-040` asignado solo para race-check + integración exact-head. Global 18.2 permanece abierto por tails provider/business.
-- **F3 / 20.1:** gap map audit-only válido; holding.
+- **F3 / 18.2:** PR #73 OPEN/Ready @ `fc831172...`, base exacta `a9d35a3d...`, mergeable y exact-head CI verde; `NIGHT-WOZ-040` terminó `BLOCKED / MERGE_FLOW_UNAVAILABLE`. El software slice reconciliation/exception queue está integration-ready pero NO integrado; 18.2 global sigue abierto por provider/business tails.
+- **F3 / 20.1:** gap map previo válido; `NIGHT-WOZ-041` asignado para cerrar únicamente gaps internos software de observabilidad/alerts/runbook/kill-switch, sin inventar provider/on-call/status externos.
 - **F4 / 21.1+21.2, 24.1, 24.2:** `[x]`.
-- **F4 / 25.1:** `[ 🟡 ]`; `windows/import` integrado. `windows/auth` sigue `NOT_COVERED` por product finding de session persistence. PR #72 Windows Review exact head `e32ee701...` tiene Desktop Portability/D6/D7/Import verdes pero dedicated Windows Review `33319185581` = FAILURE en `Run Windows Review E2E harness`; attribution/corrective sigue asignado a BBB037.
+- **F4 / 25.1:** `[ 🟡 ]`. `windows/import` integrado. `windows/auth` sigue `NOT_COVERED`; PR #74 corrective @ `92058b42...` tiene D6/D7 verdes pero Required CI `33321752522` FAILURE por TypeScript `src/platform/index.ts(10,22): Property '__TAURI_INTERNALS__' does not exist on type '(Window & typeof globalThis) | RuntimeWindow'`. `NIGHT-AAA-039` corrige solo esa causa y revalida. `windows/review` alcanzó literal PASS en PR #72 head `3219996e...` / run `33321799798`; aún no se promueve matrix ni se integra. `NIGHT-BBB-038` hace promoción + fresh exact-head gates + merge si race-clean.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 
-## OWNERS — CYCLE 041
+## OWNERS — CYCLE 042
 
-### AAA — `NIGHT-AAA-038` — F4 product-auth finding
-PRIMARY: root cause + corrective mínimo token/session persistence desde baseline vivo; no tocar #71; focused fail-before/pass-after + fresh exact-head CI.  
+### AAA — `NIGHT-AAA-039` — F4 product-auth / SAME #74
+PRIMARY: corregir únicamente el error TypeScript exacto de #74 sin cambiar el contrato de runtime/auth ni tocar #71; focused regression + fresh D6/D7/Required CI; integrar solo por autoridad aplicable cuando todo quede verde.  
 CI-FALLBACK: `NONE`.
 
-### BBB — `NIGHT-BBB-037` — F4 / 25.1 SAME #72 windows/review
-PRIMARY: attribution-first del failure `33319185581`; si harness, corrective mínimo SAME #72; si conducta producto tras sesión/assertion, PRODUCT_FINDING + STOP. No tocar auth/#71.  
+### BBB — `NIGHT-BBB-038` — F4 / 25.1 SAME #72 windows/review
+PRIMARY: consumir literal Review PASS de `33321799798`; promover solo `windows/review = AUTOMATED_PASS`; fresh exact-head Windows Review + F4 Matrix + D6 + D7 + Desktop Portability; race-check + merge solo si todo verde. No auth/#71/#74.  
 CI-FALLBACK: `NONE`.
 
-### WOZ — `NIGHT-WOZ-040` — F3 / 18.2 SAME #73 integration
-PRIMARY: exact-head/race-check de #73 @ `fc831172...`; confirmar CI green + mergeable-clean; integrar por flujo autorizado y verificar merge SHA/parents. No cerrar 18.2 global por tails no verificadas.  
+### WOZ — `NIGHT-WOZ-041` — F3 / 20.1 internal observability slice
+PRIMARY: REUSE-FIRST desde gap map WOZ033; cerrar únicamente gaps internos software verificables de logs/métricas/error reporting/alert routing/runbook/kill switches con alcance mínimo. Provider/on-call/status/retention externos quedan explícitamente abiertos. No tocar #73.  
 CI-FALLBACK: `NONE`.
 
-## Camino crítico global — recalculado CYCLE 041
+## Camino crítico global — recalculado CYCLE 042
 
-1. **F3/18.2 #73:** integrar el software slice ya exact-head verde; es trabajo listo y no depende de AAA/BBB.
-2. **F4 product-auth:** arreglar session persistence para revalidar `windows/auth`/#71.
-3. **F4 windows/review/#72:** atribuir y resolver dedicated Review failure sin tocar producto salvo handoff de finding.
-4. **F2/13.1 #69:** Save All product wiring + refresh, holding hasta liberar owner.
-5. **F2/12.1:** runtime navegador real cold/warm.
-6. **F2/#70:** safe-write + stale baseline frozen.
-7. **F3/20.1:** gap map listo, holding.
+1. **F4 product-auth / #74:** resolver compile exacto y obtener candidate verde; después #71 vuelve a BBB mediante nueva asignación para auth literal.
+2. **F4 windows/review / #72:** ya tiene PASS literal; promover matrix y cerrar/integrar el slice con fresh exact-head evidence.
+3. **F3/20.1:** avanzar gaps internos mientras #73 está bloqueado por merge flow externo.
+4. **F3/18.2 #73:** integration-ready, pero bloqueado exclusivamente por merge execution layer; no duplicar/recrear.
+5. **F2/13.1 #69:** Save All product wiring + refresh, holding hasta liberar owner.
+6. **F2/12.1:** runtime navegador real cold/warm.
+7. **F2/#70:** safe-write + stale baseline frozen.
 8. **F0/F1/F3 external tails + F4 D22/D23:** externos/RO.
-9. Después: F2 13.2–15, F3 19–20 y F4 remainder 25.1/25.2. **F5 no se abre**.
+9. Después: F2 13.2–15, F3 19–20 remainder y F4 remainder 25.1/25.2. **F5 no se abre**.
 
 ## Secuencia de integración verificada
 
@@ -74,8 +74,8 @@ CI-FALLBACK: `NONE`.
 
 ## NEXT
 
-**AAA:** ejecutar una sola vez `NIGHT-AAA-038`; no reemitir/duplicar mientras siga vigente sin final.  
-**BBB:** ejecutar una sola vez `NIGHT-BBB-037`; no reemitir/duplicar mientras siga vigente sin final.  
-**WOZ:** ejecutar una sola vez `NIGHT-WOZ-040` sobre SAME #73.  
-**JOBS:** siguiente ciclo procesa resultados reales; si #73 integra y mueve baseline, candidates restantes requieren reconciliación exact-head antes de cualquier integración.  
-**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 041; GitHub vivo prevalece si cambia después.
+**AAA:** ejecutar una sola vez `NIGHT-AAA-039`.  
+**BBB:** ejecutar una sola vez `NIGHT-BBB-038`.  
+**WOZ:** ejecutar una sola vez `NIGHT-WOZ-041`.  
+**JOBS:** siguiente ciclo procesa resultados reales; cualquier merge que mueva baseline obliga reconciliación exact-head antes de integrar candidates restantes.  
+**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 042; GitHub vivo prevalece si cambia después.
