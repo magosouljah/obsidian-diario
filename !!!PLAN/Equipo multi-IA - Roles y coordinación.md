@@ -2,23 +2,23 @@
 
 > GitHub + `!!!PLAN` son memoria compartida. Modelo: ROMPECABEZAS CON OWNER FIJO. GitHub/runtime vivo prevalece.
 
-## Roles y ownership actual — CYCLE 035
+## Roles y ownership actual — CYCLE 036
 
 | Rol | Owner actual | PRIMARY | CI-FALLBACK |
 |---|---|---|---|
-| JOBS | coordinación | `!!!PLAN`, priorities, handoffs, gates; no código/infra | n/a |
-| AAA | F2 / 13.1 SAME #69 | `NIGHT-AAA-033`: refresh #69 a `02a40564...` + product wiring mínimo si safe-write | `NONE` |
-| BBB | F4 / 25.1 windows/auth | `NIGHT-BBB-032`: harness/evidencia Windows auth, single-row promotion only after literal PASS | `NONE` |
-| WOZ | F3 / 20.1 observability contract | `NIGHT-WOZ-034`: software contract A — canonical event/metric/alert taxonomy; no external observability claims | `NONE` |
+| JOBS | coordinación | `!!!PLAN`, prioridades, handoffs, gates; no código/infra | n/a |
+| AAA | F2 / 13.1 SAME #69 | `NIGHT-AAA-034`: refresh #69 a `02a40564...` + product wiring mínimo si safe-write | `NONE` |
+| BBB | F4 / 25.1 SAME #71 | `NIGHT-BBB-033`: attribution-first del Windows Auth FAILURE; corrective F4 mínimo o PRODUCT_FINDING | `NONE` |
+| WOZ | F3 / 18.1 SAME #68 | `NIGHT-WOZ-035`: refresh/revalidate #68 sobre baseline vivo; merge solo exact-head verde | `NONE` |
 
-**Baseline canónico CYCLE 035:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
+**Baseline canónico CYCLE 036:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
 
 ## Holding items
 
 - F2/12.1 cold/warm real: blocker de runtime navegador; harness localizado, evidencia aún no producida.
 - F2/13.1 server #70 @ `5a99ebf2...`: frozen por safe-write tooling y baseline viejo.
-- F3/18.1 #68 @ `2a988ec2...`: frozen por merge execution blocker y baseline viejo; necesita refresh/fresh CI si se reactiva.
-- F3/20.1 external half: dashboards/alert delivery/on-call/public status/observability retention/tracing backend siguen PENDING_EXTERNAL/UNVERIFIED.
+- F3/20.1: audit gap map de WOZ033 sigue válido; software slice queda holding este ciclo porque 18.1 es anterior y más crítico.
+- F3 external half de 20.1: dashboards/alert delivery/on-call/public status/observability retention/tracing backend siguen PENDING_EXTERNAL/UNVERIFIED.
 
 ## Reglas
 
@@ -41,18 +41,19 @@
 - Si no existe fallback seguro: `CI-FALLBACK: NONE`.
 - Worker nunca inventa fallback.
 
-## Night Shift Ledger — CYCLE 035
+## Night Shift Ledger — CYCLE 036
 
 ```text
 JOBS: integration remains 02a40564d85284a119281ff79995c9b9bcb5e833
-AAA033: still ASSIGNED / no new final result observed; retained to avoid duplicate work
-BBB032: still ASSIGNED / no new final result observed; retained to avoid duplicate work
-WOZ033: DONE/AUDIT_ONLY; 20.1 gap map produced, no code/PR, 20.1 remains open
-WOZ_NEW: NIGHT-WOZ-034 -> F3/20.1 software event/metric/alert taxonomy contract
-AAA_CURRENT: NIGHT-AAA-033 -> F2/13.1 SAME #69
-BBB_CURRENT: NIGHT-BBB-032 -> F4/25.1 windows/auth
+AAA033: no final result observed -> superseded by explicit fresh NIGHT-AAA-034; SAME #69 retained
+BBB032: worker closed WAITING_CI; JOBS final recheck resolved Windows Auth 33313675968 FAILURE at assertion step; generic gates green
+WOZ034: no final result observed -> superseded; recalculation moves owner to earlier F3/18.1 SAME #68 under NIGHT-WOZ-035
+AAA_NEW: NIGHT-AAA-034 -> F2/13.1 SAME #69
+BBB_NEW: NIGHT-BBB-033 -> F4/25.1 SAME #71 corrective
+WOZ_NEW: NIGHT-WOZ-035 -> F3/18.1 SAME #68 refresh/revalidate
 CI_FALLBACKS: NONE / NONE / NONE
-#68/#70: frozen + stale
+#70: frozen + stale
+F3/20.1: holding; gap map retained
 RELEASE: NO-GO
 ```
 
@@ -60,7 +61,7 @@ RELEASE: NO-GO
 
 - F0: técnico habilitado; 1.2/2.2 externos.
 - F1: D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- F2: 12.1 runtime residual; 13.1 Web #69 active under AAA033; server #70 frozen.
-- F3: 17.1/17.2 integrated; #68 stale/frozen; WOZ033 audit processed; WOZ034 owns the bounded 20.1 software contract slice.
-- F4: windows/import integrated by #63; BBB032 advances windows/auth; 25.1/25.2 remain open.
+- F2: 12.1 runtime residual; 13.1 Web #69 active under AAA034; server #70 frozen.
+- F3: 17.1/17.2 integrated; #68 active again under WOZ035 with mandatory refresh/fresh CI; 20.1 audit holding.
+- F4: windows/import integrated by #63; #71 Windows Auth red at literal assertion step; BBB033 owns corrective; 25.1/25.2 remain open.
 - JOBS: coordinación/plan; no producto/infra.
