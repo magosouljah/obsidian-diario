@@ -2,39 +2,39 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 049:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Baseline vivo CYCLE 050:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado owner / candidates
 
 - PR #68 / 18.1 MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
-- PR #73 `woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb` sigue OPEN/Ready/mergeable sobre base exacta `a9d35a3d...`; exact-head F3 reconciliation + D6/D7/compile/Required CI están verdes. `NIGHT-WOZ-048` es owner único para race-check + integración SAME #73.
-- PR #76 `legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070` apareció después del CYCLE 048: OPEN/Ready/mergeable sobre base exacta `a9d35a3d...`. Contiene Privacy/Terms v1 owner-approved, rutas públicas `/privacy` y `/terms` y links de entrada; Test - Desktop Portability `33330007495`, D6 `33330007538`, D7 `33330007493` SUCCESS; Upgrade `33330007497` SKIPPED/no aplicable. Sigue faltando reemplazar el copy legal temporal/placeholders/contacto viejo en `SettingsPanel.tsx`. `NIGHT-AAA-045` es owner único de SAME #76 para ese reuse mínimo + fresh CI.
-- PR #75 `woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f` sigue OPEN/Ready/mergeable. Corrective de immutable pins conocido; previous write flow blocker. Frozen.
-- `NIGHT-WOZ-047` no produjo RESULTADO DEL TURNO/handoff observable y queda superseded.
-- F3/20.2 harness se conserva únicamente como CI-FALLBACK independiente de WOZ048 si PRIMARY #73 entra realmente en WAITING_CI/review/merge.
+- PR #73 / 18.2 reconciliation **MERGED** como `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`, parents `a9d35a3d...` + `fc831172...`. Exact-head green evidence fue reutilizada por WOZ048. Cierra solo el software slice de reconciliation/exception queue; global 18.2 sigue abierto.
+- PR #76 `legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070` sigue OPEN/Ready pero tras #73 está diverged/mergeable=false desde merge-base `a9d35a3d...`. Canonical Privacy/Terms + public routes existen; Settings stale sigue pendiente. `NIGHT-AAA-046` es owner único para narrow refresh + canonical Settings reuse + fresh exact-head CI.
+- PR #75 `woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f` sigue frozen por corrective/write-flow blocker.
+- PR #77 `woz/night-20.2-capacity-harness @ 204a03fc48d161b6943f7b11bea2bfc16bf54b05` está CLOSED/unmerged. Su ejecución anterior fue prematura y no cuenta como evidencia. `NIGHT-WOZ-049` lo reutiliza explícitamente como PRIMARY; no crear artifact duplicado.
 
 ## Owners actuales
 
-**WOZ — `NIGHT-WOZ-048` — F3 / 18.2 SAME #73 integration.**  
-**AAA — `NIGHT-AAA-045` — F3 / 19.2 SAME #76 canonical legal Settings reuse.**
-
-### WOZ PRIMARY — #73
-
-1. Reuse exact-head green evidence on `fc831172...`.
-2. Race-check integration/head/base; merge only if evidence still applies.
-3. If baseline moved, narrow refresh + fresh applicable exact-head CI before merge.
-4. No claim de 18.2 completo: provider/payment scenario tails remain.
-
-**WOZ CI-FALLBACK:** F3/20.2 separate parameterized harness only while PRIMARY waits an external operation; no target invention, provider/infra load or #73/#75 overlap.
+**AAA — `NIGHT-AAA-046` — F3 / 19.2 SAME #76 refresh + canonical legal Settings reuse.**  
+**WOZ — `NIGHT-WOZ-049` — F3 / 20.2 REUSE SAME #77 harness.**
 
 ### AAA PRIMARY — #76
 
-1. Reuse canonical `docs/legal/PRIVACY.md` + `docs/legal/TERMS.md` and existing Settings legal surfaces; no second legal UI.
-2. Replace temporary August 11 placeholders/old contact in Settings with canonical v1 content/metadata only.
-3. Preserve public routes/links from #76; no policy invention.
-4. Focused tests + fresh exact-head applicable CI; merge only if race-clean and authorized.
+1. Narrow refresh SAME #76 onto `a306e3b3...`.
+2. Reuse canonical legal docs and existing Settings legal surfaces; no second UI or policy invention.
+3. Replace stale placeholders/old contact only with canonical v1 content/metadata.
+4. Focused tests + fresh exact-head applicable CI; merge only if race-clean.
 
-**AAA CI-FALLBACK:** F2/13.2 read-only gap map only while #76 PRIMARY waits CI/review/merge.
+**AAA CI-FALLBACK:** F2/13.2 read-only gap map only while PRIMARY waits CI/review/merge.
+
+### WOZ PRIMARY — #77
+
+1. Confirm #77 remains CLOSED/unmerged and delta is only the intended harness/test files.
+2. Reuse SAME #77; refresh onto `a306e3b3...`; reopen only if available.
+3. Preserve explicit target requirement and synthetic/local-only limitation.
+4. Focused deterministic tests + fresh exact-head CI.
+5. Maximum claim `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`; no provider/production load and no 20.2 PASS.
+
+**WOZ CI-FALLBACK:** NONE.
 
 ## Día 16
 
@@ -57,37 +57,37 @@ Health/readiness/shutdown/timeouts/proxy trust integrado por #59. Separación f�
 ### 18.1 — `[x] SOFTWARE DONE / INTEGRATED`
 PR #68 integró limits/entitlements server-side, reservation anti-race y subscription-state contract. Merge `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
-### 18.2 — `[ 🟡 ] SOFTWARE SLICE READY / GLOBAL OPEN`
-- [ 🟡 ] reconciliación provider↔BeatGaler + cola de excepciones: PR #73 exact-base/exact-head green, integración asignada WOZ048;
+### 18.2 — `[ 🟡 ] RECONCILIATION SOFTWARE INTEGRATED / GLOBAL OPEN`
+- [x] software reconciliation provider↔BeatGaler + exception queue slice: PR #73 merged as `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`;
 - [ ] 3DS/rechazo/pago tardío/renewal/cancel/upgrade/downgrade/refund con evidencia aplicable;
 - [ ] grace periods/productive billing behavior verificados donde corresponda.
+
+No convertir el merge de #73 en full 18.2 PASS.
 
 ## Día 19
 
 ### 19.1 — `[ 🟡 ] PARTIAL / EXTERNAL`
 - [ ] dominio/API/status/support URLs/sender domains con evidencia productiva;
 - [ ] DNS/TLS/redirects/callbacks OAuth exactos;
-- [ 🟡 ] public legal routes `/privacy` y `/terms` existen en candidate #76 pero aún no están integrados/deployed.
+- [ 🟡 ] public legal routes `/privacy` y `/terms` existen en #76 pero aún no están integrados/deployed.
 
-### 19.2 — `[ 🟡 ] CANONICAL LEGAL CANDIDATE / IN-APP SYNC ASSIGNED`
-- [ 🟡 ] Privacy Policy v1.0 + Terms v1.0 owner-approved están en PR #76, effective/updated 2026-08-30;
-- [ 🟡 ] rutas públicas + links de entrada existen en #76 y CI general está verde;
-- [ 🟡 ] SettingsPanel mantiene copy temporal viejo/placeholders/contacto anterior; AAA045 debe sustituirlo por los documentos canónicos sin crear UI duplicada;
-- [ ] independent legal review / production publication evidence permanece gate externo de release;
+### 19.2 — `[ 🟡 ] CANONICAL LEGAL CANDIDATE / REFRESH ASSIGNED`
+- [ 🟡 ] Privacy Policy v1.0 + Terms v1.0 owner-approved están en #76, effective/updated 2026-08-30;
+- [ 🟡 ] rutas públicas + links de entrada existen en #76;
+- [ 🟡 ] #76 quedó stale/diverged tras #73; AAA046 debe refrescar y sincronizar Settings con canonical docs;
+- [ ] independent legal review / production publication evidence permanece gate externo;
 - [ ] soporte con intake/severidad/SLA/escalación aún abierto.
-
-No marcar 19.2 `[x]` solo por tener documentos en un PR; falta integración, consistencia in-app y tails externos aplicables.
 
 ## Día 20
 
 ### 20.1 — `[ 🟡 ] IN PROGRESS / INTERNAL SLICE BLOCKED`
 PR #75 contiene structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno. Corrective de immutable pins conocido pero write flow previo bloqueado; no fresh PASS, no integración.
 
-### 20.2 — `[ 🟡 ] AUDIT DONE / CONDITIONAL HARNESS FALLBACK / NO PASS CLAIM`
+### 20.2 — `[ 🟡 ] HARNESS PRIMARY ASSIGNED / NO PASS CLAIM`
 Gap map vigente:
 - capacity envelope `PARTIAL`;
 - approved expected peak `GAP / prerequisite missing`;
-- load/stress harness `GAP`;
+- load/stress harness `GAP` hasta que #77 sea legítimamente refrescado/validado;
 - 2× peak proof `PENDING_EXTERNAL`;
 - latency `GAP`;
 - error/queue/recovery measurement `PARTIAL`;
@@ -95,6 +95,6 @@ Gap map vigente:
 - safety margin `GAP`;
 - durable user waitlist `GAP`.
 
-WOZ048 puede trabajar el harness solo como CI-FALLBACK independiente después de que PRIMARY #73 entre realmente en espera externa. Resultado máximo: `HARNESS_READY`; no selecciona expected peak ni ejecuta carga productiva.
+#77 aporta un harness sintético reusable con target explícito, concurrency/queue/latency/errors/recovery, pero su creación prematura fue invalidada. WOZ049 puede legitimarlo como SAME artifact; aun integrado, resultado máximo `HARNESS_READY`, nunca runtime capacity PASS.
 
 **Principio:** no falsear proveedor, capacidad, pagos, DNS, legal review o staging real sin evidencia externa/productiva.
