@@ -4,21 +4,23 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 031:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Integración estable CYCLE 032:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-030` (ASSIGNED).**
+**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-031` (ASSIGNED).**
 
-SAME #63 `bbb/task-25.1-windows-import` está OPEN/Ready/mergeable sobre base `3ad8f55a...`, promotion head `1b957eff98271f78809c6eeb5fd79fed311b3286`.
+SAME #63 `bbb/task-25.1-windows-import` está OPEN/Ready/mergeable sobre base `3ad8f55a...`, exact head `7a6b7443fc4821a9b10798e2a3823a9d931bc2df`.
 
-Estado exact-head observado:
-- **Windows Import functional journey `33305947664` — SUCCESS**;
-- **Required CI `33305947677` — SUCCESS**;
-- PostgreSQL live/recovery dentro de ese Required CI — SUCCESS;
-- **F4 Functional Matrix `33305947676` — FAILURE**, job `matrix-contract`, step `Validate dependency-safe matrix contract`.
+JOBS CYCLE 032 resolvió la espera de NIGHT-BBB-030 con GitHub vivo. Fresh exact-head checks observados sobre `7a6b7443...`:
+- `matrix-contract` — SUCCESS;
+- Windows import functional journey — SUCCESS;
+- Required CI — SUCCESS;
+- PostgreSQL live integration + recovery gate — SUCCESS;
+- portable Windows + macOS smoke + supply-chain/web-shared gates observados SUCCESS;
+- upgrade staging — SKIPPED/no aplicable.
 
-`NIGHT-BBB-029` no dejó RESULTADO DEL TURNO observable antes de CYCLE 031. JOBS lo supersede monotónicamente con `NIGHT-BBB-030` conservando SAME #63 y el mismo blocker reducido: atribuir/corregir únicamente el contrato de matriz. No reabrir Windows import harness sin evidencia nueva. Cualquier head nuevo exige F4 Matrix + Windows Import + D6 + D7 + Desktop Portability/Required CI fresh exact-head antes de race-check/merge.
+Por tanto el blocker de `matrix-contract` está corregido. `NIGHT-BBB-031` no debe modificar más el candidate: únicamente changed-file scope + race-check final + merge SAME #63 con expected-head guard si integration sigue compatible. Después verificar merge SHA + integration HEAD. No cerrar 25.1 completo: solo queda demostrada/integrable la fila `windows/import` y persisten otros gaps.
 
 ## Día 21 — Manifest e identidad únicos
 
@@ -66,20 +68,20 @@ Estado exact-head observado:
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] WINDOWS IMPORT PROMOTED / MATRIX CONTRACT RED` — BBB `NIGHT-BBB-030`
+### 25.1 — `[ 🟡 ] WINDOWS IMPORT SLICE EXACT-HEAD GREEN / MERGE PENDING` — BBB `NIGHT-BBB-031`
 
 #60 integró la matriz base como `7de7b57a508b3cf05cbded81501fbd3da63922a3`.
 
 SAME #63 estado vivo:
 - base `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`;
-- head `1b957eff98271f78809c6eeb5fd79fed311b3286`;
-- `windows/import` promovido a `AUTOMATED_PASS`;
-- Windows Import `33305947664` SUCCESS;
-- Required CI `33305947677` SUCCESS;
-- F4 Matrix `33305947676` FAILURE en `Validate dependency-safe matrix contract`;
+- head `7a6b7443fc4821a9b10798e2a3823a9d931bc2df`;
+- `windows/import` permanece `AUTOMATED_PASS`;
+- fresh `matrix-contract` SUCCESS;
+- fresh Windows Import SUCCESS;
+- fresh Required CI SUCCESS;
 - no merge todavía.
 
-BBB debe corregir solo el contrato de matriz si el fallo es atribuible a la promoción/evidenceCatalog; después fresh exact-head gates y race-check/merge. No se cierra 25.1 completa: persisten otros gaps y D22/D23 externos.
+BBB debe hacer solo final race-check/merge; no rerun ceremonial mientras head y baseline no cambien. Si integration cambia antes del merge, evidence-before-claim exige revalidar la combinación material.
 
 Persisten otros gaps reales: journeys core no demostrados cross-platform, iPhone runner/hardware externo, YouTube/billing donde la matriz marque gap y signing/notarization externos.
 
