@@ -7,21 +7,21 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-054`
+- `ASSIGNMENT_ID: NIGHT-WOZ-055`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F3 / 20.2 — SAME #78 exact-head race-check + integration`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`
 - `PRIMARY_PR: #78 @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a`
-- `PREDECESSOR: NIGHT-WOZ-053 produced no final RESULTADO DEL TURNO / Issue #41 handoff before JOBS CYCLE 055; SUPERSEDED and MUST NOT execute late.`
-- `FACTUAL_UPDATE_BY_JOBS: #78 remains OPEN/non-draft on exact base a306e3b3... with unchanged head 50aac3f0...; 13 check-runs observed and Required CI SUCCESS; integration HEAD remained a306e3b3... during CYCLE 055 preflight.`
-- `SERIALIZATION: BBB #79 is also green but intentionally not assigned for merge this cycle. WOZ/#78 owns the only integration mutation to avoid simultaneous exact-base races.`
+- `PREDECESSOR: NIGHT-WOZ-054 remained ASSIGNED with no final RESULTADO DEL TURNO / Issue #41 handoff observable during JOBS CYCLE 056; SUPERSEDED and MUST NOT execute late.`
+- `FACTUAL_UPDATE_BY_JOBS: #78 remains OPEN/non-draft/mergeable on exact base a306e3b3... with unchanged head 50aac3f0...; observed PR-triggered workflows are completed with no failure; integration HEAD remained a306e3b3... during CYCLE 056 preflight.`
+- `SERIALIZATION: #79 is also open/mergeable on the same exact base but remains hold-green. WOZ/#78 owns the only integration mutation authorized this cycle.`
 - `HOLD_PR: #75 @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f — frozen / DO NOT TOUCH.`
 
 ### PRIMARY
 
 1. Recheck live integration, #78 head/base, duplicate status and changed files immediately before integration.
 2. Require #78 to remain head `50aac3f0...`, base exact current live integration, exactly the two intended harness/test files and no unrelated drift.
-3. Verify fresh exact-head CI remains complete with no attributable failures/pending checks; do not reuse a stale head after any baseline change.
+3. Verify exact-head CI remains complete with no attributable failures/pending checks immediately before merge; do not reuse evidence after baseline/head drift.
 4. If race-clean and owner flow permits, merge #78 through WOZ's authorized integration flow.
 5. After merge, verify resulting integration SHA and merge parents. Record exact merge evidence.
 6. Maximum claim after successful merge: `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED` only. Global F3/20.2 remains open for approved peak, 2× runtime proof, latency, safety margin, provider/load evidence and durable waitlist.
@@ -41,8 +41,9 @@
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-WOZ-053`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no merge claim accepted.
-- `NIGHT-WOZ-052`: `PENDING / WAITING_CI`; replacement #78 opened exact-base; JOBS later verified exact-head Required CI SUCCESS.
+- `NIGHT-WOZ-054`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 056; no merge claim accepted.
+- `NIGHT-WOZ-053`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
+- `NIGHT-WOZ-052`: `PENDING / WAITING_CI`; replacement #78 opened exact-base; JOBS later verified green.
 - `NIGHT-WOZ-048`: `DONE / INTEGRATED` — #73.
 
 ## HOLDING
@@ -53,7 +54,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-054`: ASSIGNED — SAME #78 exact-head race-check + integration; CI-FALLBACK NONE.
-- `NIGHT-WOZ-053`: NO_RESULT / SUPERSEDED_BY_JOBS.
+- `NIGHT-WOZ-055`: ASSIGNED — SAME #78 exact-head race-check + integration; CI-FALLBACK NONE.
+- `NIGHT-WOZ-054`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-052`: PENDING / WAITING_CI — #78 opened exact-base; CI later green.
 - `NIGHT-WOZ-048`: DONE / INTEGRATED — #73.
