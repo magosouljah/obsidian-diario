@@ -8,35 +8,42 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-035`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F3 / 18.1 — reactivate SAME PR #68 on live baseline`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`
-- `REUSE_PR: #68 / woz/night-18.1-entitlements-reservation @ 2a988ec2a25d6ecfa927614fcc32cde689995103`
-- `PREDECESSOR: NIGHT-WOZ-034 NOT_PROCESSED / SUPERSEDED_BY_JOBS — no RESULTADO DEL TURNO/handoff final new observed; 20.1 returns to holding.`
-- `HOLDING_ITEM: F3/20.1 gap map remains valid; no active owner this cycle.`
+- `REUSE_PR: #68 / woz/night-18.1-entitlements-reservation`
 
 ### PRIMARY
 
-1. Preflight GitHub vivo + duplicate-check. Reuse SAME #68; no replacement branch/PR.
-2. Recalculate from live baseline `02a40564...`. #68 was built/tested on `3ad8f55a...`; old green CI is historical only.
-3. Refresh/reconcile #68 onto live integration preserving only its authorized 18.1 delta: server-side subscription-state authority, quota enforcement before reservation, PostgreSQL advisory-lock transaction for race-safe reservation and Billing Portal contract that never grants entitlement from redirect/session.
-4. REUSE-FIRST: preserve existing #68 implementation and tests; do not rewrite billing architecture or start 18.2.
-5. After refresh, run focused 18.1 tests plus fresh applicable exact-head D6/D7/Required CI/Desktop Portability and any dedicated 18.1 workflow. Evidence must correspond to the refreshed exact head.
-6. Race-check integration again before merge. Merge SAME #68 only if head/base/scope are exact and all applicable gates are green through the authorized owner flow.
-7. If the prior merge-execution/tooling blocker recurs after the candidate is fully green, record `PENDING_PROCESS_BLOCKER` with exact error and STOP; do not create a duplicate PR or force/bypass.
-8. No Stripe productive credentials/resources, 18.2, grace-period decisions, F2/F4, #70, 20.1 implementation, provider infra, costs or secrets.
-9. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
-
-**Evidence required:** live baseline, refreshed exact head, changed-file scope, focused tests, fresh applicable exact-head CI, race-check, merge SHA + post-merge integration HEAD if integration succeeds.  
-**STOP:** destructive/unsafe refresh, unrelated delta, stale CI, merge/process blocker, provider/external expansion, scope creep or non-attributable CI failure.
+- `Assignment ID: NIGHT-WOZ-035`
+- `STATUS: PENDING / WAITING_CI`
+- `baseline: integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`
+- `branch/head: woz/night-18.1-entitlements-reservation @ 68adaad4a5b1b2b50ba192c1b58325cbba0472e3`
+- `PR: #68 OPEN / Ready; base integration-v0.8.0-alpha.1 @ 02a40564...; changed_files=4`
+- `cambios: SAME #68 refreshed onto live baseline preserving exactly the four authorized 18.1 paths. Initial tree-only refresh attempt was detected as dropping live F4 files and was immediately replaced before CI by a correct union tree based on live baseline; final head contains live baseline plus only the four 18.1 files.`
+- `tests: focused 18.1 test contract preserved; no local runtime available through connector; fresh CI required on final exact head.`
+- `CI: immediate exact-head query for 68adaad4... returned zero workflow runs; historical green CI is not reused.`
+- `evidencia: live baseline 02a40564...; PR #68 final head 68adaad4...; final PR diff reports exactly 4 changed files / +178 -0 and no F4 deletions.`
+- `UNVERIFIED: fresh exact-head D6/D7/Required CI/Desktop Portability/dedicated 18.1 results; mergeability after GitHub recomputation; merge SHA.`
+- `blockers: external CI has not materialized yet for refreshed exact head.`
+- `condición de STOP alcanzada: WAITING_CI / stale CI prohibited.`
+- `recomendación para JOBS: keep SAME #68/head 68adaad4... assigned or pending; next cycle verify fresh exact-head CI and merge only if all applicable gates are green and integration baseline remains compatible.`
 
 ### CI-FALLBACK
 
-`NONE`
-
-**Alcance:** N/A.  
-**Evidencia requerida:** N/A.  
-**STOP:** no inventar fallback. 20.1 would be separate ownership/scope and 18.2 depends materially on 18.1.
+- `Assignment ID: NIGHT-WOZ-035`
+- `STATUS: NOT_RUN / NONE`
+- `baseline: N/A`
+- `branch/head: N/A`
+- `PR: N/A`
+- `cambios: none`
+- `tests: N/A`
+- `CI: N/A`
+- `evidencia: JOBS explicitly set CI-FALLBACK NONE.`
+- `UNVERIFIED: none`
+- `blockers: none`
+- `condición de STOP alcanzada: no inventar fallback.`
+- `recomendación para JOBS: none.`
 
 ## RESULTADO PROCESADO — NIGHT-WOZ-034
 
@@ -58,7 +65,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-035`: ASSIGNED — SAME #68 refresh/revalidate/integrate if green.
+- `NIGHT-WOZ-035`: PENDING / WAITING_CI — SAME #68 refreshed correctly to live baseline at `68adaad4...`; fresh exact-head CI pending.
 - `NIGHT-WOZ-034`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-033`: DONE / AUDIT_ONLY — 20.1 gap map.
 - `NIGHT-WOZ-031`: BLOCKED / SAFE_WRITE_TOOLING_LIMIT; #70 restored exactly.
