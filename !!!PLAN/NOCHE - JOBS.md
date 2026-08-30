@@ -3,84 +3,85 @@
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** JOBS — jefe de la noche.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.  
-**Ciclo:** `CYCLE 028`.
+**Ciclo:** `CYCLE 029`.
 
 ## META
 
 Terminar F0–F4 o reducirlas al mínimo número factual de blockers externos. Prioridad: (1) F0–F4, (2) sencillez, (3) limpieza. Evidence-before-claim; REUSE-FIRST; duplicate-check; exact-head; no rebajar gates.
 
-## BASELINE VIVO — CYCLE 028
+## BASELINE VIVO — CYCLE 029
 
 - BeatGaler integración verificada: `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
-- GitHub vivo no muestra merge posterior a #67.
-- PR #69: OPEN/Ready/mergeable, base `3ad8f55a...`, head `b2ab75ae1dbde4e3aba389da844f466920a5d6eb`; D6/D7/Desktop Portability exact-head SUCCESS. Helper Save All/bulk-safe probado; product wiring no reclamado aún.
-- PR #63: OPEN/Ready/mergeable, base `3ad8f55a...`, head `e14a3ab9a284484cace9b8fa98c293c7c15b5dce`; F4 Matrix/D6/D7/Desktop Portability y **Windows Import exact-head SUCCESS**.
-- PR #68: OPEN/Ready/mergeable, base `3ad8f55a...`, head `2a988ec2a25d6ecfa927614fcc32cde689995103`; exact-head applicable CI verde histórico aceptado; merge execution sigue bloqueado externamente.
+- GitHub vivo sigue sin merge posterior a #67.
+- PR #69: SAME Web candidate @ `b2ab75ae...`; helper Save All/bulk-safe con D6/D7/Desktop Portability exact-head SUCCESS; product wiring todavía pendiente.
+- PR #63: SAME F4 candidate @ `e14a3ab9...`; Windows Import + F4 Matrix + D6 + D7 + Desktop Portability exact-head SUCCESS; promotion/new-head transaction pendiente.
+- PR #70: server candidate @ `5a99ebf2...`; focused F2/13.1 workflow `33304798320` SUCCESS; Required CI/Test Desktop Portability `33304798363` FAILURE en PostgreSQL live integration + recovery gate.
+- PR #68: OPEN/Ready/mergeable @ `2a988ec2...`; exact-head green histórico; merge execution sigue bloqueado externamente.
 - Release público: 🔴 `NO-GO`.
 
 ## PREFLIGHT FACTUAL
 
-Leídos completos/obligatorios: Plan Maestro, F0–F4, Equipo multi-IA, protocolo nocturno, ledgers JOBS/AAA/BBB/WOZ, Registro de avances e Issue #41 completo mediante fetch paginado. GitHub actual fue autoridad.
+Leídos los canónicos requeridos: Plan Maestro; F0–F4; Equipo multi-IA; protocolo nocturno; ledgers JOBS/AAA/BBB/WOZ; Registro de avances; Issue #41 + comentarios paginados; GitHub actual. GitHub/runtime fue autoridad.
 
 Hechos verificados:
-1. integration sigue exactamente `3ad8f55a...`.
-2. AAA `NIGHT-AAA-027` cerró PENDING/WAITING_CI sobre SAME #69 @ `b2ab75ae...`; JOBS recheck confirmó D6 `33303237410`, D7 `33303237375`, Desktop Portability `33303237401` SUCCESS; Upgrade no aplicable.
-3. #69 continúa OPEN/Ready/mergeable. El artifact helper está probado; product Review/Import/Bulk wiring quedó UNVERIFIED por el propio worker.
-4. BBB `NIGHT-BBB-026` cerró PENDING/WAITING_CI sobre SAME #63 @ `e14a3ab9...` después de restaurar auto provisioning del launcher.
-5. JOBS recheck #63 exact-head confirmó F4 Matrix `33303300262`, D6 `33303300263`, D7 `33303300298`, Desktop Portability `33303300278` y **Windows Import `33303300259` = SUCCESS**.
-6. Windows Import SUCCESS demuestra el journey funcional existente en ese candidate head; matrix promotion todavía no ocurrió y cualquier promotion crea head nuevo que exige fresh exact-head CI.
-7. WOZ `NIGHT-WOZ-026` no tiene RESULTADO DEL TURNO ni artifact/handoff nuevo observable; se supersede con 027 para monotonicidad.
-8. #68 sigue OPEN/Ready/mergeable y frozen; no merge SHA nuevo.
-9. F0/F1 tails externos no tienen evidencia nueva de cierre.
+1. integration continúa exactamente `3ad8f55a...`.
+2. AAA `NIGHT-AAA-028` no tiene RESULTADO DEL TURNO observable; #69 no cambió. Se supersede con 029 sin duplicar artifact.
+3. BBB `NIGHT-BBB-027` no tiene RESULTADO DEL TURNO observable; #63 no cambió. Se supersede con 028 sin duplicar artifact.
+4. WOZ `NIGHT-WOZ-027` sí produjo PR #70 @ `5a99ebf2...`, server-only y sin overlap con AAA.
+5. `F2 - 13.1 Orphan Lifecycle` run `33304798320` terminó SUCCESS exact-head.
+6. Required CI/Test Desktop Portability run `33304798363` terminó FAILURE exact-head. El job PostgreSQL live integration + recovery falló en `Execute migrations and adversarial persistence checks on PostgreSQL`; Web/shared y Supply chain visibles pasaron.
+7. Por evidence-before-claim, #70 NO es PASS ni integration-ready hasta atribuir/resolver ese gate y obtener exact-head green aplicable.
+8. #68 sigue frozen y no se reintenta ceremonialmente.
+9. F0/F1 external tails no tienen evidencia nueva de cierre.
 
 ## RESULTADOS PROCESADOS
 
-### AAA / NIGHT-AAA-027
-`PENDING / WAITING_CI` procesado. CI exact-head terminó verde. Se emite `NIGHT-AAA-028` SAME #69 para comprobar/wirear el flujo productivo real y completar la integración Web sin tocar server journal.
+### AAA / NIGHT-AAA-028
+`NOT_PROCESSED / SUPERSEDED_BY_JOBS`. No resultado observable ni nuevo artifact. Nueva orden `NIGHT-AAA-029` conserva SAME #69 y exige product wiring factual.
 
-### BBB / NIGHT-BBB-026
-`PENDING / WAITING_CI` procesado. Fresh exact-head Windows Import y todos los gates aplicables terminaron SUCCESS. Se emite `NIGHT-BBB-027` SAME #63 para promover únicamente `windows/import` a `AUTOMATED_PASS`, obtener fresh exact-head CI en el nuevo head y merge solo si race-check verde.
+### BBB / NIGHT-BBB-027
+`NOT_PROCESSED / SUPERSEDED_BY_JOBS`. No resultado observable ni nuevo artifact. Nueva orden `NIGHT-BBB-028` conserva SAME #63 y la promotion transaction.
 
-### WOZ / NIGHT-WOZ-026
-`NOT_PROCESSED / SUPERSEDED_BY_JOBS`. No resultado observable. Se reemite la misma pieza independiente como `NIGHT-WOZ-027`; #68 continúa frozen.
+### WOZ / NIGHT-WOZ-027
+`PENDING / WAITING_CI` procesado. #70 existe y su focused workflow pasó, pero Required CI está rojo en PostgreSQL live/recovery. Nueva orden `NIGHT-WOZ-028` exige attribution-first y prohíbe cambiar producto si el fallo no es atribuible.
 
 ## CAMINO CRÍTICO GLOBAL — RECALCULADO DESDE CERO
 
-1. **F4 / 25.1 / #63:** Windows Import ya pasó literalmente. La acción de mayor retorno inmediato es promotion → fresh exact-head gates → race-check/merge del mismo PR.
-2. **F2 / 13.1:** AAA termina product wiring/integración de #69 y WOZ trabaja server garbage-journal/orphan cleanup en paralelo, sin overlap.
-3. **F3 / 18.1 / #68:** candidate técnicamente listo pero bloqueado por execution layer; preservar frozen hasta capacidad autorizada real.
-4. **F2 / 12.1:** cold/warm runtime Web real sigue pendiente; no fabricar benchmark.
-5. **F0/F1 + F3 external tails + D22/D23:** externos/RO; no repetir drills aceptados.
-6. Después: F2 13.2–15, F3 18.2–20 y resto F4 25.1/25.2. F5 sigue cerrada.
+1. **F4 / 25.1 / #63:** promotion → fresh exact-head Windows Import/F4/D6/D7/Desktop Portability → race-check/merge.
+2. **F2 / 13.1:** AAA #69 product wiring Web + WOZ #70 PG-gate attribution/fix en paralelo, sin overlap.
+3. **F3 / 18.1 / #68:** candidate green pero bloqueado por execution layer; preservar frozen.
+4. **F2 / 12.1:** cold/warm runtime Web real cuantificado.
+5. **F0/F1/F3 external tails + D22/D23:** externos/RO; no repetir drills aceptados.
+6. Después: F2 13.2–15, F3 18.2–20 y F4 25.2/otros gaps. F5 sigue cerrada.
 
 ## TABLERO AAA / BBB / WOZ
 
-| Worker | Estado factual CYCLE 028 | PRIMARY nuevo | CI-FALLBACK |
+| Worker | Estado factual CYCLE 029 | PRIMARY nuevo | CI-FALLBACK |
 |---|---|---|---|
-| AAA | #69 exact-head applicable CI green; product wiring unverified | `NIGHT-AAA-028` — SAME #69 product wiring + final Web integration | `NONE` |
-| BBB | #63 exact-head Windows Import + gates SUCCESS | `NIGHT-BBB-027` — SAME #63 matrix promotion + fresh CI + merge | `NONE` |
-| WOZ | 026 sin resultado | `NIGHT-WOZ-027` — F2/13.1 server garbage-journal/orphan cleanup | `NONE` |
+| AAA | 028 sin resultado; #69 unchanged | `NIGHT-AAA-029` — SAME #69 product wiring + final Web integration | `NONE` |
+| BBB | 027 sin resultado; #63 unchanged | `NIGHT-BBB-028` — SAME #63 promotion + fresh exact-head gates + merge | `NONE` |
+| WOZ | #70 focused PASS / Required CI PG gate FAILURE | `NIGHT-WOZ-028` — SAME #70 attribution/fix + integrate only if green | `NONE` |
 
-No overlap material: AAA=F2 frontend/product wiring; BBB=F4 matrix/harness transaction; WOZ=F2 server journal/reconciliation. #68 queda frozen sin owner concurrente activo.
+No overlap material: AAA=F2 frontend/product wiring; BBB=F4 matrix/harness transaction; WOZ=F2 server orphan lifecycle. #68 permanece frozen.
 
 ## PRIMARY / CI-FALLBACK EMITIDOS
 
-### AAA — `NIGHT-AAA-028`
-PRIMARY: SAME #69; reutilizar helper probado; confirmar/wirear el flujo productivo Review/Import/Bulk a Save All/progreso/resumen parcial/conflict-safe; fresh exact-head CI si cambia head; race-check/merge solo si verde. No cerrar 13.1 completo.  
+### AAA — `NIGHT-AAA-029`
+PRIMARY: SAME #69; demostrar/wirear Review/Import/Bulk productivo al helper Save All/progreso/resumen/conflict-safe; fresh exact-head CI si cambia head; race-check/merge solo si verde.  
 EVIDENCE: wiring real, focused tests, durable/CAS por item, exact-head CI, merge SHA si integra.  
-STOP: server journal/WOZ overlap, scope 13.2+, baseline race, CI rojo no atribuible.  
+STOP: server/#70, 13.2+, baseline race, CI rojo no atribuible.  
 CI-FALLBACK: `NONE`.
 
-### BBB — `NIGHT-BBB-027`
-PRIMARY: SAME #63; usar Windows Import literal PASS del head `e14a3ab9...`; promover solo `windows/import` a `AUTOMATED_PASS`; exigir Windows Import + F4 Matrix + D6 + D7 + Desktop Portability fresh exact-head en promotion head; race-check/merge solo si verde.  
-EVIDENCE: matrix delta mínimo, promotion-head exact SHA, fresh gates, race-check, merge SHA/integration HEAD si integra.  
-STOP: producto fuera de F4, otros matrix gaps, D22/D23/25.2, baseline race o CI no atribuible.  
+### BBB — `NIGHT-BBB-028`
+PRIMARY: SAME #63; promover solo `windows/import` a `AUTOMATED_PASS`; exigir Windows Import + F4 Matrix + D6 + D7 + Desktop Portability fresh exact-head en promotion head; race-check/merge solo si verde.  
+EVIDENCE: matrix delta mínimo, new head, fresh gates, race-check, merge SHA/integration HEAD.  
+STOP: producto fuera F4, otros matrix gaps, D22/D23/25.2, baseline race o CI no atribuible.  
 CI-FALLBACK: `NONE`.
 
-### WOZ — `NIGHT-WOZ-027`
-PRIMARY: REUSE-FIRST sobre garbage journal/reconciliation; demostrar o implementar el server contract mínimo Web-callable durable para registrar/reconciliar orphans, con persistencia/retry/idempotencia/fail-closed y protección committed/valid.  
-EVIDENCE: artifact reutilizado, gap exacto, focused tests, exact-head CI si hay candidate.  
-STOP: tocar frontend AAA, decisión RO/policy no definida, #68/billing/Desktop/infra, baseline race o CI no atribuible.  
+### WOZ — `NIGHT-WOZ-028`
+PRIMARY: SAME #70; aceptar focused run `33304798320` SUCCESS; diagnosticar Required CI `33304798363` PostgreSQL live/recovery failure; corregir solo si atribuible; si cambia head, focused + Required CI fresh exact-head; race-check/merge solo si todo aplicable queda green.  
+EVIDENCE: failure attribution, logs/repro, tests, exact-head CI, merge SHA si integra.  
+STOP: fallo externo/no atribuible, frontend AAA, #68/billing/Desktop/infra, baseline race o evidencia insuficiente.  
 CI-FALLBACK: `NONE`.
 
 ## BLOCKERS
@@ -90,54 +91,54 @@ CI-FALLBACK: `NONE`.
 3. F1/D10.1: copia real off-provider/off-account + read/checksum.
 4. F1/D10.2: decisión RO sobre alpha.
 5. F2/12.1: cold/warm runtime real cuantificado.
-6. F2/13.1: AAA product wiring/integration + WOZ server orphan cleanup.
-7. F3/18.1: #68 exact-head green pero merge bloqueado por execution layer; 18.2–20 abiertos; 16.1/16.2 tails externos.
-8. F4/25.1: Windows Import ya PASS; promotion/fresh-CI/merge pendiente; otros matrix gaps; D22/D23 externos; 25.2 abierto.
+6. F2/13.1: #69 product wiring/integration + #70 Required CI PG gate attribution/resolution.
+7. F3/18.1: #68 merge blocked by execution layer; 18.2–20 abiertos; 16.1/16.2 tails externos.
+8. F4/25.1: #63 promotion/fresh-CI/merge pendiente; otros matrix gaps; D22/D23 externos; 25.2 abierto.
 
 ## PROGRESO REAL F0–F4
 
 - **F0:** técnico interno cerrado; tails externos solamente.
 - **F1:** core técnico cerrado; D10.1 externo + D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; 12.1 solo cold/warm; 13.1 tiene helper Web green pero product wiring/integration y server cleanup aún abiertos.
+- **F2:** 11.1/11.2/12.2 cerrados; 12.1 solo cold/warm; 13.1 ahora tiene #69 Web candidate y #70 server candidate, pero #70 Required CI rojo.
 - **F3:** 16.1/16.2 software integrados con tails externos; 17.1/17.2 integrados; #68 green pero no merged; 18.2–20 abiertos.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; Windows Import literal PASS ya obtenido en #63; promotion/integration aún abierta; 25.1/25.2 abiertos; D22/D23 externos.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; Windows Import literal PASS ya existe en #63; promotion/integration aún abierta; 25.1/25.2 abiertos; D22/D23 externos.
 - **F5:** `NO ABRIR` todavía.
 
-## PLAN SYNC — CYCLE 028
+## PLAN SYNC — CYCLE 029
 
 Actualizados por JOBS:
-- `!!!PLAN/Plan Maestro.md` → CYCLE 028;
-- `!!!PLAN/Fase 2 - Web y UX.md` → #69 green + AAA 028 / WOZ 027;
-- `!!!PLAN/Fase 4 - Desktop y release chain.md` → Windows Import SUCCESS + BBB 027 promotion transaction;
-- `!!!PLAN/Equipo multi-IA - Roles y coordinación.md` → CYCLE 028;
-- `!!!PLAN/NOCHE - AAA.md` → `NIGHT-AAA-028`;
-- `!!!PLAN/NOCHE - BBB.md` → `NIGHT-BBB-027`;
-- `!!!PLAN/NOCHE - WOZ.md` → `NIGHT-WOZ-027`;
-- `!!!PLAN/NOCHE - JOBS.md` → CYCLE 028.
+- `!!!PLAN/Plan Maestro.md` → CYCLE 029;
+- `!!!PLAN/Fase 2 - Web y UX.md` → #70 focused PASS + Required CI PG failure, AAA029/WOZ028;
+- `!!!PLAN/Fase 4 - Desktop y release chain.md` → BBB028;
+- `!!!PLAN/Equipo multi-IA - Roles y coordinación.md` → CYCLE 029;
+- `!!!PLAN/NOCHE - AAA.md` → `NIGHT-AAA-029`;
+- `!!!PLAN/NOCHE - BBB.md` → `NIGHT-BBB-028`;
+- `!!!PLAN/NOCHE - WOZ.md` → `NIGHT-WOZ-028`;
+- `!!!PLAN/NOCHE - JOBS.md` → CYCLE 029.
 
-`Registro de avances.md` fue leído completo; no se añade entrada porque todavía no hubo nuevo merge/PASS de gate estable, solo candidatos exact-head green. F0/F1/F3 no se modifican porque no hay evidencia nueva que cambie sus estados. JOBS no modificó código BeatGaler ni infraestructura. `Plan Maestro 2208 copy DONT TOUCH .md` no fue tocado.
+`Registro de avances.md` fue leído; no se añade entrada porque no hubo nuevo merge/PASS de gate estable: #70 es candidate con Required CI rojo. F0/F1/F3 no se modifican porque sus estados no cambiaron. JOBS no modificó código BeatGaler ni infraestructura. `Plan Maestro 2208 copy DONT TOUCH .md` no fue tocado.
 
 ## SIGUIENTE CICLO
 
 1. Releer integration HEAD antes de claims.
-2. Procesar resultados AAA 028 / BBB 027 / WOZ 027 una sola vez.
-3. BBB: exigir fresh promotion-head Windows Import + applicable CI; si #63 integra, sincronizar baseline y revalidar #69/#68 por race/combinación material.
-4. AAA: no aceptar helper green como sustituto de product wiring; integrar #69 solo cuando el flujo real esté demostrado.
-5. WOZ: cerrar solo server half; no tocar #68 en 027.
+2. Procesar AAA029 / BBB028 / WOZ028 una sola vez.
+3. Si #63 o #69/#70 integran y mueven baseline, revalidar candidates restantes por combinación material.
+4. No aceptar focused #70 green como sustituto de Required CI.
+5. Mantener #68 frozen mientras la execution layer bloquee merge.
 6. Mantener 12.1 abierto hasta runtime cold/warm real.
 7. No abrir F5 hasta condiciones reales F0–F4.
 
 ## LOG
 
 ```text
-CYCLE_ID: NIGHT-JOBS-028
+CYCLE_ID: NIGHT-JOBS-029
 INTEGRATION_HEAD_OBSERVED: 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af
-AAA_027: PENDING/WAITING_CI -> applicable exact-head CI SUCCESS; #69 OPEN
-BBB_026: PENDING/WAITING_CI -> Windows Import 33303300259 SUCCESS + applicable gates SUCCESS
-WOZ_026: NOT_PROCESSED -> superseded
-AAA_NEW: NIGHT-AAA-028 ASSIGNED SAME #69 product wiring/final Web integration
-BBB_NEW: NIGHT-BBB-027 ASSIGNED SAME #63 promotion/fresh-CI/merge
-WOZ_NEW: NIGHT-WOZ-027 ASSIGNED F2/13.1 server half
+AAA_028: NO_RESULT -> superseded
+BBB_027: NO_RESULT -> superseded
+WOZ_027: #70 @ 5a99ebf2; focused F2 33304798320 SUCCESS; Required CI 33304798363 FAILURE at PostgreSQL live/recovery
+AAA_NEW: NIGHT-AAA-029 SAME #69
+BBB_NEW: NIGHT-BBB-028 SAME #63
+WOZ_NEW: NIGHT-WOZ-028 SAME #70 attribution/fix
 CI_FALLBACKS: AAA NONE; BBB NONE; WOZ NONE
 DUPLICATE_WORK: none
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
@@ -145,4 +146,4 @@ CODE_OR_INFRA_MUTATION_BY_JOBS: none
 RELEASE: NO-GO
 ```
 
-**STOP:** ciclo JOBS 028 completado. El próximo ciclo parte de GitHub vivo y de los resultados de `NIGHT-AAA-028`, `NIGHT-BBB-027` y `NIGHT-WOZ-027`.
+**STOP:** ciclo JOBS 029 completado.
