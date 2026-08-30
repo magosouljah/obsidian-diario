@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 049:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Integración estable CYCLE 050:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado actual
 
@@ -12,31 +12,23 @@ PR #63 fue MERGED y dejó `windows/import = AUTOMATED_PASS` integrado. 25.1 comp
 
 PR #71 permanece como regression proof: bajo sesión WebDriver real el Desktop login no persistió `beatgaler:account-session:v1`. `windows/auth` sigue `NOT_COVERED`.
 
-SAME PR #74 permanece factual:
-- OPEN/Ready/mergeable, no mergeado;
-- base exacta `a9d35a3d69dd9127029fb851d189f9bd3079d03b`;
-- head `14dfba52775f40f1956e3d1dcb343b07b147ba0c`;
-- evidencia exact-head previamente verde preservada.
-
-#74 queda frozen bajo el blocker previo de merge-flow; #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
+SAME PR #74 permanece OPEN/Ready/mergeable en su snapshot anterior, pero sigue frozen bajo el blocker previo de merge-flow. #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
 
 ### windows/review
 
-SAME #72 sigue factual:
-- PR #72 OPEN; draft=false; mergeable=true; merged=false;
-- base exacta `a9d35a3d...`;
+SAME #72 al preflight CYCLE 050:
+- OPEN; draft=false; merged=false;
 - head `904fbf3c0f81e6ff4c22e4ee717f337e5018fa5c`;
-- Windows Review `33327407530` SUCCESS;
-- F4 Functional Matrix `33327407521` SUCCESS;
-- D6 `33327407516` SUCCESS;
-- D7 `33327407519` SUCCESS;
-- Required CI `33327407533` SUCCESS;
-- Windows Import `33327407514` SUCCESS;
-- Upgrade `33327407526` SKIPPED/no aplicable.
+- base_sha registrada en PR: `a9d35a3d69dd9127029fb851d189f9bd3079d03b`;
+- live integration ya avanzó a `a306e3b3...` por merge #73;
+- compare live integration→#72 = `diverged`, merge-base `a9d35a3d...`, ahead 10 / behind 5;
+- GitHub reportó `mergeable=false` después del baseline move.
 
-`NIGHT-BBB-043` no dejó RESULTADO DEL TURNO/handoff observable antes de CYCLE 049 y queda superseded. `NIGHT-BBB-044` es owner único para race-check + integración SAME #72; si baseline cambia por un merge paralelo, refresh estrecho + fresh applicable CI antes de merge.
+El set verde anterior (Windows Review/Matrix/D6/D7/Required CI/Windows Import) se conserva como evidencia histórica del head/base anterior, **no** como autorización de merge actual.
 
-**CI-FALLBACK BBB:** F4/25.2 READ-ONLY readiness inventory solo si PRIMARY queda realmente esperando operación externa de merge/review/queue; sin rama/PR/commit/write y sin tocar #72/auth/legal/producto/matrix/docs. Recheck PRIMARY antes de cerrar.
+`NIGHT-BBB-044` no dejó RESULTADO DEL TURNO/handoff observable antes de CYCLE 050 y queda superseded. `NIGHT-BBB-045` es owner único para narrow refresh SAME #72 sobre `a306e3b3...`, fresh applicable exact-head CI y merge solo si vuelve a quedar race-clean/green.
+
+**CI-FALLBACK BBB:** F4/25.2 READ-ONLY readiness inventory solo si PRIMARY queda realmente esperando CI/merge/review/queue; sin writes; recheck PRIMARY antes de cerrar.
 
 ## Día 21
 
@@ -74,12 +66,12 @@ Integrated rows:
 - `macos/updater = AUTOMATED_PASS`.
 
 Active/holding:
-- `windows/auth = NOT_COVERED` — #74 candidate green/mergeable pero merge-flow bloqueado; #71 espera integración real + nueva assignment.
-- `windows/review` — #72 exact-head dedicated journey + matrix + required gates verdes; integración asignada BBB044.
+- `windows/auth = NOT_COVERED` — #74 holding; #71 waits integration + nueva assignment.
+- `windows/review` — #72 candidate quedó stale/diverged tras #73; refresh/fresh CI asignado BBB045.
 - otras Web/Windows/macOS journeys permanecen NOT_COVERED salvo evidencia dedicada.
 - iPhone rows permanecen PENDING_EXTERNAL.
 
-### 25.2 — `[ ] / READ-ONLY FALLBACK PREAUTHORIZED FOR BBB ONLY WHEN PRIMARY WAITS EXTERNAL MERGE/REVIEW/QUEUE`
+### 25.2 — `[ ] / READ-ONLY FALLBACK PREAUTHORIZED FOR BBB ONLY WHEN PRIMARY WAITS EXTERNAL OPERATION`
 - [ ] design freeze tokens/nav/library/drawer/player/settings/wizard;
 - [ ] backlog P2/P3;
 - [ ] guion beta/formulario/criterios.
