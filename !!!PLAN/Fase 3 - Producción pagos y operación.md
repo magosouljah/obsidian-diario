@@ -2,29 +2,28 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 040:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Baseline vivo CYCLE 041:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado owner / candidates
 
 - PR #68 / 18.1 MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`; candidate exact head `68adaad4a5b1b2b50ba192c1b58325cbba0472e3`.
 - WOZ037 verificó exact-head CI, race-check, merge SHA y parents. 18.1 está `[x] SOFTWARE DONE / INTEGRATED`.
-- `NIGHT-WOZ-038` no produjo resultado/handoff verificable al preflight CYCLE 040.
-- `NIGHT-WOZ-039` reemite 18.2 porque sigue siendo el siguiente trabajo F3 dependency-ready y no colisiona con AAA/BBB.
+- WOZ039 creó PR #73 `woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb` desde base exacta `a9d35a3d...`.
+- JOBS CYCLE 041 resolvió WAITING_CI: #73 sigue OPEN/Ready, `mergeable=true`, `mergeable_state=clean`; `Required CI` run `33320621865` = SUCCESS; `F3 - 18.2 Reconciliation` run `33320621931` = SUCCESS. No merge todavía.
+- `NIGHT-WOZ-040` asignado exclusivamente a race-check + integración SAME #73.
 - `NIGHT-WOZ-033` gap map de 20.1 sigue válido; 20.1 permanece holding.
 
 ## Owner actual
 
-**WOZ — `NIGHT-WOZ-039` — F3/18.2 reconciliation + exception-queue software contract.**
+**WOZ — `NIGHT-WOZ-040` — F3/18.2 SAME PR #73 integration transaction.**
 
 PRIMARY:
-1. Auditar primitives existentes de reconciliation/webhook/event-ledger/subscription/retry/idempotency.
-2. No crear infraestructura/recursos/credenciales Stripe ni inventar políticas RO.
-3. Si ya está satisfecho literalmente, handoff audit-only; sin PR ceremonial.
-4. Si hay gap interno, implementar solo reconciliación durable/idempotente + exception queue/retry fail-closed, sin entitlement por redirect/session.
-5. Focused tests: replay/idempotencia, divergence, exception/retry y no-grant ambiguo.
-6. Fresh applicable exact-head CI para nuevo head.
-7. No cerrar 18.2 completo si faltan casos negocio/proveedor literales.
-8. STOP ante decisión RO/proveedor/credencial, baseline race, scope drift o CI no atribuible.
+1. Recheck live integration/head/base/mergeability y exact-head CI de #73 antes de mutar.
+2. Si todo permanece válido, integrar #73 por flujo autorizado.
+3. Verificar merge SHA + parents + nuevo integration HEAD.
+4. No cerrar 18.2 global: el candidate cubre reconciliation + durable/idempotent exception queue/retry fail-closed, no casos productivos/provider/business restantes.
+5. No tocar provider credentials/resources, políticas RO, F2, F4 ni 20.1.
+6. Handoff Issue #41 + resultado nocturno y STOP.
 
 CI-FALLBACK: `NONE`.
 
@@ -49,10 +48,12 @@ Health/readiness/shutdown/timeouts/proxy trust integrado por #59. Separación f�
 ### 18.1 — `[x] SOFTWARE DONE / INTEGRATED`
 PR #68 integró limits/entitlements server-side, reservation anti-race y subscription-state contract. Merge `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
-### 18.2 — `[ 🟡 ] IN PROGRESS`
-- [ ] reconciliación Stripe↔BeatGaler + cola de excepciones;
+### 18.2 — `[ 🟡 ] SOFTWARE SLICE READY / GLOBAL OPEN`
+- [ 🟡 ] reconciliación Stripe↔BeatGaler + cola de excepciones: PR #73 exact-head verde, pendiente integración WOZ040;
 - [ ] 3DS/rechazo/pago tardío/renewal/cancel/upgrade/downgrade/refund;
 - [ ] grace periods aprobados.
+
+No convertir la integración de #73 en cierre global de 18.2 sin evidencia literal de los tails anteriores.
 
 ## Día 19
 
