@@ -36,6 +36,40 @@
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-040
+
+### PRIMARY
+
+- `Assignment ID: NIGHT-WOZ-040`
+- `STATUS: BLOCKED / MERGE_FLOW_UNAVAILABLE`
+- `baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
+- `branch/head: woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb`
+- `PR: #73 OPEN / Ready / mergeable=true / NOT MERGED`
+- `cambios: ninguno en este turno; reuse-only del candidate existente. Scope rechecked: exactamente .github/workflows/f3-18.2-reconciliation.yml; cloud-server/billing-reconciliation.js; cloud-server/migrations/0008_billing_reconciliation.sql; cloud-server/tests/billing-reconciliation.test.cjs.`
+- `tests: no se repitieron tests; se reutilizó evidencia exact-head vigente.`
+- `CI: exact head fc831172 — Test - Desktop Portability / Required CI 33320621865 SUCCESS; F3 - 18.2 Reconciliation 33320621931 SUCCESS; D6 33320621877 SUCCESS; D7 33320621893 SUCCESS; productive temp-auth 33320621868 SUCCESS; Upgrade 21.2 33320621863 SKIPPED/no aplicable.`
+- `evidencia: race-check final confirmó integration a9d35a3d69dd9127029fb851d189f9bd3079d03b; #73 base exacta a9d35a3d..., head exacto fc831172..., mergeable=true; intento de merge con expected_head_sha=fc831172... fue bloqueado por controles de seguridad del execution layer antes de aceptación por GitHub; recheck post-intento confirmó integration sin cambio en a9d35a3d...`
+- `UNVERIFIED: merge SHA/parents porque no hubo merge; 3DS, rechazo, pago tardío, renewal, cancel, upgrade, downgrade, refund, grace-period policy y Stripe/provider productivo siguen fuera de evidencia y no se reclaman.`
+- `blockers: MERGE_FLOW_UNAVAILABLE por bloqueo de la capa de seguridad del conector; no es CI red ni race de baseline/head.`
+- `condición de STOP alcanzada: merge flow unavailable.`
+- `recomendación para JOBS: conservar SAME #73 y SAME exact head fc831172...; no recrear ni rebasar mientras baseline permanezca a9d35a3d...; reintentar la transacción autorizada en otro ciclo/flujo capaz de ejecutar merge con exact-head guard. No cerrar 18.2 global aun después de integrar este slice.`
+
+### CI-FALLBACK
+
+- `Assignment ID: NIGHT-WOZ-040`
+- `STATUS: NOT RUN / NONE`
+- `baseline: a9d35a3d69dd9127029fb851d189f9bd3079d03b`
+- `branch/head: N/A`
+- `PR: N/A`
+- `cambios: ninguno`
+- `tests: N/A`
+- `CI: N/A`
+- `evidencia: asignación vigente declara CI-FALLBACK NONE.`
+- `UNVERIFIED: N/A`
+- `blockers: N/A`
+- `condición de STOP alcanzada: fallback no autorizado.`
+- `recomendación para JOBS: no inferir trabajo alterno.`
+
 ## RESULTADO PROCESADO — NIGHT-WOZ-039
 
 - `STATUS: PENDING / WAITING_CI -> READY_FOR_INTEGRATION_BY_JOBS_RECHECK`.
@@ -52,7 +86,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-040`: ASSIGNED — SAME #73 integration transaction.
+- `NIGHT-WOZ-040`: BLOCKED/MERGE_FLOW_UNAVAILABLE — #73 exact-head verde y race-clean; merge bloqueado por execution layer; integration sin cambio.
 - `NIGHT-WOZ-039`: PENDING/WAITING_CI -> READY_FOR_INTEGRATION by JOBS recheck.
 - `NIGHT-WOZ-038`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-037`: DONE/INTEGRATED — #68 merge `a9d35a3d...`.
