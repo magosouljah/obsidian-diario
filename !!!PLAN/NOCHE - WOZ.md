@@ -8,52 +8,56 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-023`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F3 / 18.1 — entitlements/limits/reserva/subscription state software-only`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
-- `PREDECESSOR: NIGHT-WOZ-022 ASSIGNED / NOT_PROCESSED / SUPERSEDED_BY_JOBS — no RESULTADO DEL TURNO, PR ni handoff 022 observable al CYCLE 024; no ejecutar 022 después de recibir 023.`
 
 ### PRIMARY
 
-1. Haz preflight GitHub vivo + duplicate-check. Si integration movió desde `3ad8f55a...`, reconcilia baseline antes de crear candidate.
-2. REUSE-FIRST sobre #65 y #67; no dupliques billing primitives existentes.
-3. Trabaja únicamente F3/18.1 software:
-   - enforce limits/entitlements server-side antes de reservar recursos;
-   - reserva/transacción anti-carreras con semántica atómica/fail-closed;
-   - contrato server-side para Billing Portal/cancelación y estados subscription, sin confiar en redirect/UI para conceder entitlement.
-4. Si existe gap real, una sola rama/PR F3 mínima. Tests de concurrencia/race, limit enforcement, estados relevantes y fail-closed.
-5. No crear/usuar Stripe productivo, products/prices reales, credenciales, provider resources ni infraestructura pagada. No 18.2, 19.x, 20.x ni grace-period/business decisions.
-6. Evidencia requerida: exact base/head, focused tests, DB/migration evidence si aplica, fresh applicable exact-head CI y race-check antes de merge cuando corresponda.
-7. Reporta RESULTADO DEL TURNO aquí + handoff Issue #41 y STOP. No auto-iniciar 18.2.
-
-**Required evidence:** live baseline; REUSE-FIRST findings; branch/head/PR si aplica; tests de limits/race/subscription-state; exact-head CI; UNVERIFIED explícito; merge SHA solo si corresponde y está verde.  
-**STOP:** decisión comercial no definida, necesidad Stripe/provider real, scope 18.2+, cambio destructivo/migration no justificable, CI rojo no atribuible o baseline no reconciliable.
+- `Assignment ID: NIGHT-WOZ-023`
+- `STATUS: PENDING / WAITING_CI`
+- `baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `branch/head: woz/night-18.1-entitlements-reservation @ 2a988ec2a25d6ecfa927614fcc32cde689995103`
+- `PR: #68 OPEN / Ready`
+- `cambios: billing-entitlements.js; migration 0007 entitlement/subscription reservation state; focused tests; F3 18.1 workflow. Reuse PLAN_CATALOG + #65/#67 billing authority patterns.`
+- `tests: focused node:test committed for subscription states, server limit rejection, locked atomic reservation path and portal no-entitlement contract. Local runtime execution UNVERIFIED; connector has no shell.`
+- `CI: exact-head query immediately after PR creation returned no workflow runs yet; WAITING_CI.`
+- `evidencia: base 3ad8f55a..., head 2a988ec2..., PR #68, 4 changed files / 178 additions / 0 deletions; Issue #41 handoff 5467454128.`
+- `UNVERIFIED: fresh CI; real PostgreSQL concurrent execution; Stripe/provider customer/portal; productive subscription reconciliation; 18.2; grace periods.`
+- `blockers: GitHub Actions start/completion external wait.`
+- `condición de STOP alcanzada: WAITING_CI. CI-FALLBACK NONE.`
+- `recomendación para JOBS: recheck #68 exact-head CI and live integration baseline; if green and combination remains valid, assign same PR final integration transaction. Do not start 18.2 implicitly.`
 
 ### CI-FALLBACK
 
-`NONE`
-
-Reason: 18.2 comparte billing/PostgreSQL y depende de las semánticas de 18.1; 19/20 expanden área. No hay fallback independiente seguro preautorizado.
+- `Assignment ID: NIGHT-WOZ-023`
+- `STATUS: NOT_RUN`
+- `baseline: 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `branch/head: NONE`
+- `PR: NONE`
+- `cambios: NONE`
+- `tests: NONE`
+- `CI: NONE`
+- `evidencia: JOBS explicitly set CI-FALLBACK NONE.`
+- `UNVERIFIED: NONE`
+- `blockers: n/a`
+- `condición de STOP alcanzada: fallback forbidden / NONE.`
+- `recomendación para JOBS: NONE.`
 
 ## RESULTADO PROCESADO — NIGHT-WOZ-022
 
 - `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS`
-- `EVIDENCE: ledger seguía ASSIGNED; no RESULTADO DEL TURNO, PR/handoff nuevo ni cambio GitHub atribuible a 022 al CYCLE 024.`
-- `ACTION: sustituido por NIGHT-WOZ-023 con mismo scope crítico para preservar idempotencia.`
+- `EVIDENCE: no RESULTADO DEL TURNO, PR ni handoff nuevo atribuible a 022 antes de CYCLE 024.`
 
 ## RESULTADO PROCESADO — NIGHT-WOZ-021
 
 - `STATUS: DONE / INTEGRATED — 17.2 SOFTWARE DONE / INTEGRATED`
-- `BASE: 712b49b6689a31a47902dbe95e98622d001dab40`
-- `EXACT_TESTED_HEAD: 27c2f30007a687a144be289a64ab986451f05c99`
 - `PR: #67 MERGED`
-- `CI: F3 17.2 33283532676 SUCCESS; D6 33283532664 SUCCESS; D7 33283532679 SUCCESS; temp-auth 33283532723 SUCCESS; Desktop Portability 33283532696 SUCCESS.`
 - `MERGE/INTEGRATION: 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af.`
-- `UNVERIFIED: Stripe productivo, 18.x, physical staging/prod — no reclamados.`
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-023`: ASSIGNED — F3/18.1 software-only; CI-FALLBACK NONE.
+- `NIGHT-WOZ-023`: PENDING/WAITING_CI — PR #68 @ `2a988ec2...`; CI-FALLBACK NONE.
 - `NIGHT-WOZ-022`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-021`: DONE/INTEGRATED — PR #67 merged `3ad8f55a...`; 17.2 software closed.
 - `NIGHT-WOZ-020`: PENDING/WAITING_CI — refreshed candidate `27c2f300...`.
