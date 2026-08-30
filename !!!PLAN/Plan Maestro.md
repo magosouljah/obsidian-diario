@@ -16,55 +16,58 @@ Reglas:
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-025
+## Estado vivo — NIGHT-JOBS-026
 
 - **Release público:** 🔴 `NO-GO`.
-- **Integración estable:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`; no merge posterior observable al #67.
+- **Integración estable:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`; GitHub vivo no muestra merge posterior a #67 al preflight CYCLE 026.
 - **F0:** trabajo técnico interno cerrado; 1.2 y 2.2 conservan tails externos/administrativos.
 - **F1:** D6/D7/D8/D9 PASS. D10.1 `PENDING_EXTERNAL_PROOF` por copia real off-provider/off-account + read/checksum. D10.2 requiere decisión RO.
 - **F2 / 11.1:** `[x]` #47. **11.2:** `[x]` #54. **12.2:** `[x]` #50.
-- **F2 / 12.1:** `[ 🟡 ] RESIDUAL`; taxonomy/state ya demostrado; único residual literal = startup Web cold vs warm real cuantificado/reproducible.
-- **F2 / 13.1:** dependency-safe y sigue siendo el mejor carril AAA; `NIGHT-AAA-025` ASSIGNED. 024 quedó `NOT_PROCESSED / SUPERSEDED_BY_JOBS` sin artifact nuevo.
-- **F3 / 16.1:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL`.
-- **F3 / 16.2:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL`.
+- **F2 / 12.1:** `[ 🟡 ] RESIDUAL / RUNTIME EVIDENCE`. Taxonomy/state ya está demostrado; queda solo comparación cold/warm Web real, cuantificada y reproducible.
+- **F2 / 13.1:** `[ 🟡 ] IN PROGRESS`. NIGHT-AAA-025 verificó que single-save durable + CAS por item y garbage-journal server-side existen, pero faltan Save All productivo/partial summary y bulk orchestration; orphan cleanup tiene boundary Web↔server. `NIGHT-AAA-026` limita AAA al carril Web Save All + bulk conflict-safe sin fingir cierre del server half.
+- **F3 / 16.1:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL`; separación física staging/prod externa.
+- **F3 / 16.2:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL`; deploy/staging/rollback reales externos.
 - **F3 / 17.1:** `[x] SOFTWARE DONE / INTEGRATED` — #65.
 - **F3 / 17.2:** `[x] SOFTWARE DONE / INTEGRATED` — #67 merge `3ad8f55a...`.
-- **F3 / 18.1:** PR #68 OPEN/Ready/mergeable @ `2a988ec2...`; exact-head F3 18.1 + D6 + D7 + temp-auth compile + Desktop Portability SUCCESS; `NIGHT-WOZ-024` ASSIGNED para final integration transaction. No marcar `[x]` hasta merge real.
+- **F3 / 18.1:** `[ 🟡 ] EXACT-HEAD GREEN / AWAITING OWNER INTEGRATION`. PR #68 sigue OPEN/Ready/mergeable, base `3ad8f55a...`, head `2a988ec2a25d6ecfa927614fcc32cde689995103`; exact-head F3 18.1/D6/D7/temp-auth/Desktop Portability = SUCCESS. `NIGHT-WOZ-025` es la transacción final de integración; no 18.2.
 - **F4 / 21.1+21.2:** `[x]` #51. **24.1:** `[x]` #55. **24.2:** `[x]` #57.
-- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. PR #63 sigue OPEN/Ready, base `3ad8f55a...`, head `033c2b55...`; Windows Import `33284981477` sigue FAILURE y `windows/import` sigue `NOT_COVERED`. `NIGHT-BBB-024` ASSIGNED. 023 quedó `NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
+- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. SAME #63 sigue OPEN/Ready, base `3ad8f55a...`, head vivo `ed03b806669373758d38bfd211e8f8905c86e269`. Fresh exact-head F4 Matrix/D6/D7/Desktop Portability = SUCCESS, pero Windows Import `33300992453` = **FAILURE** antes de assertions. El primer failure causal observado es launcher/session: Edge driver mismatch, luego `tauri-driver not found`, luego ausencia de browserName/hostname/port. `windows/import` sigue `NOT_COVERED`; `NIGHT-BBB-025` corrective mínimo sobre SAME #63.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 - **2.2:** `[ 🟡 ]` tail externo. **1.2:** `[ 🟡 ]` release externo; Apple Developer `PENDING — DEFERRED`.
 
-## OWNERS — CYCLE 025
+## OWNERS — CYCLE 026
 
-### AAA — `NIGHT-AAA-025` — F2 / 13.1
-PRIMARY: Save All durable con resumen parcial; bulk conflict-safe o deshabilitado honestamente; garbage journal/cleanup de uploads huérfanos. REUSE-FIRST; una sola rama/PR si hay gap real.  
+### AAA — `NIGHT-AAA-026` — F2 / 13.1 Web-only
+PRIMARY: Save All multi-item con resumen parcial + bulk conflict-safe usando durable commits/CAS existentes; no server-side garbage journal.  
 CI-FALLBACK: `NONE`.
 
-### BBB — `NIGHT-BBB-024` — F4 / 25.1 SAME #63
-PRIMARY: consumir el primer failure causal real de `33284981477` / job `99186491944`, aplicar únicamente el siguiente corrective F4/harness mínimo y exigir Windows Import literal PASS antes de cualquier promoción.  
+### BBB — `NIGHT-BBB-025` — F4 / 25.1 SAME #63
+PRIMARY: consumir failure `33300992453`/job `99228993010`, corregir launcher/session F4 mínimo hasta session + Windows Import literal PASS; no producto ni matrix promotion prematura.  
 CI-FALLBACK: `NONE`.
 
-### WOZ — `NIGHT-WOZ-024` — F3 / 18.1 PR #68 integration
-PRIMARY: revalidar integration HEAD + exact head #68 y, si no hay carrera material, ejecutar la integración autorizada de #68; verificar merge SHA/post-merge integration SHA; STOP sin iniciar 18.2.  
+### WOZ — `NIGHT-WOZ-025` — F3 / 18.1 PR #68
+PRIMARY: revalidar race/base/head y procesar integración exacta de #68; verificar merge SHA e integration post-merge; STOP sin 18.2.  
 CI-FALLBACK: `NONE`.
 
 ### JOBS
 Mantiene prioridades, `!!!PLAN`, handoffs y gates. No modifica código BeatGaler ni infraestructura.
 
-## Camino crítico global — recalculado CYCLE 025
+## Camino crítico global — recalculado CYCLE 026
 
-1. **F3 / 18.1 / #68:** CI ya está verde; el camino más corto ahora es cerrar la integración exacta por WOZ.
-2. **F4 / 25.1 / #63:** Windows Import sigue rojo; resolver el harness hasta assertion/PASS literal sigue siendo el blocker técnico más concreto.
-3. **F2 / 13.1:** durability de Save All/bulk/garbage journal avanza F2 sin bloquearse por el residual runtime 12.1.
-4. **F2 / 12.1 cold/warm:** sigue abierto; no fabricar benchmark sintético.
-5. **F0/F1 + D22/D23:** blockers externos/RO; no repetir drills técnicos ya aceptados.
-6. Después: F2 13.2–15, F3 18.2–20, resto F4 25.1 + 25.2 y tails externos. F5 no se abre todavía.
+1. **F3 / 18.1 / #68:** candidate exact-head verde y base viva sin carrera observada; integración por WOZ es la transacción más corta.
+2. **F4 / 25.1 / #63:** el cuello está reducido a launcher/session Windows antes de assertions; obtener PASS literal, no green genérico.
+3. **F2 / 13.1:** avanzar Save All + bulk Web mientras el orphan-journal server half queda separado y explícito.
+4. **F2 / 12.1:** cold/warm runtime real sigue abierto; no fabricar benchmark.
+5. **F0/F1/D22/D23:** blockers externos/RO; no repetir drills aceptados.
+6. Después: server half F2/13.1, 13.2–15, F3 18.2–20, resto F4 25.1/25.2. F5 no se abre.
 
-## Candidates vivos
+## Secuencia de integración verificada
 
-- #68 @ `2a988ec2a25d6ecfa927614fcc32cde689995103` — OPEN/Ready/mergeable, base `3ad8f55a...`, exact-head applicable CI green; awaiting WOZ integration transaction.
-- #63 @ `033c2b55a0c46471b7e7ddb3af57b626699ac6e6` — OPEN/Ready, base `3ad8f55a...`; Windows Import FAILURE; no merge.
+#47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; #58 → `58a6bf614...`; #60 → `7de7b57a...`; #61 → `55e0d875...`; #64 → `b114111caf...`; #65 → `ed6aab7e...`; #66 → `712b49b...`; #67 → `3ad8f55a...`.
+
+Candidates vivos:
+- #68 @ `2a988ec2...` — OPEN/Ready/mergeable; exact-head applicable CI green; awaiting owner integration.
+- #63 @ `ed03b806...` — OPEN/Ready; fresh Windows Import `33300992453` FAILURE before assertions.
 
 ## Invariantes
 
@@ -79,8 +82,8 @@ Mantiene prioridades, `!!!PLAN`, handoffs y gates. No modifica código BeatGaler
 
 ## NEXT
 
-**AAA:** ejecutar una sola vez `NIGHT-AAA-025`.  
-**BBB:** ejecutar una sola vez `NIGHT-BBB-024`.  
-**WOZ:** ejecutar una sola vez `NIGHT-WOZ-024`.  
-**JOBS:** siguiente ciclo procesa resultados reales; cualquier merge que mueva baseline obliga race revalidation/fresh exact-head a candidates restantes cuando la combinación cambie materialmente.  
-**PLAN_HEALTH:** sincronizado al estado GitHub observado en CYCLE 025; GitHub vivo prevalece si cambia después.
+**AAA:** ejecutar una sola vez `NIGHT-AAA-026`.  
+**BBB:** ejecutar una sola vez `NIGHT-BBB-025`.  
+**WOZ:** ejecutar una sola vez `NIGHT-WOZ-025`.  
+**JOBS:** siguiente ciclo procesa resultados reales; cualquier merge que mueva integration obliga race revalidation/fresh applicable exact-head para candidates afectados.  
+**PLAN_HEALTH:** sincronizado al estado GitHub observado en CYCLE 026; GitHub vivo prevalece si cambia después.
