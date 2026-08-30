@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE 048:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Baseline vivo CYCLE 049:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado actual
 
@@ -26,18 +26,18 @@ No cerrar 12.1 con benchmark sintético.
 - [ 🟡 ] Bulk conflict-safe — CAS/item semantics probado, wiring productivo pendiente.
 - [ 🟡 ] Garbage journal — candidate/focused evidence existe; corrective + refresh pendientes.
 
-### 13.2 — `[ 🟡 ] AUDIT ASSIGNED`
+### 13.2 — `[ 🟡 ] AUDIT QUEUED AS CONDITIONAL FALLBACK`
 
-`NIGHT-AAA-044` es owner único para un gap map **read-only** sobre baseline vivo:
+`NIGHT-AAA-044` no produjo RESULTADO DEL TURNO antes de CYCLE 049 y queda superseded. Para no perder el trabajo útil, el mismo audit **read-only** queda preautorizado únicamente como `CI-FALLBACK` de `NIGHT-AAA-045`, y solo si el PRIMARY #76 entra realmente en WAITING_CI/review/merge.
+
+Fallback permitido:
 - ReviewShell Import/Edit/Bulk;
 - CTA fija y progreso N/N;
 - errores item/retry/skip/cancel/confirmación durable;
 - E2E multi-file/conflicto/refresh/rollback;
 - dependencia exacta con #69/#70.
 
-Resultado permitido: matriz `EXISTS/PARTIAL/GAP/PENDING_DEPENDENCY` + slices mínimos/path/symbol/test. No branch/PR/commit/write y no PASS claim.
-
-**CI-FALLBACK AAA:** `NONE`.
+Resultado permitido: matriz `EXISTS/PARTIAL/GAP/PENDING_DEPENDENCY` + slices mínimos/path/symbol/test. No branch/PR/commit/write y no PASS claim. El worker debe recheckear #76 antes de cerrar turno.
 
 **Gate:** ninguna acción Web visible llama Tauri; 0 pérdida silenciosa.
 
