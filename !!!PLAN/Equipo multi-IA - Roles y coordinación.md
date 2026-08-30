@@ -2,20 +2,21 @@
 
 > GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership actual — CYCLE 032
+## Roles y ownership actual — CYCLE 033
 
 | Rol | Owner actual | PRIMARY vigente | CI-FALLBACK |
 |---|---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra | n/a |
-| **AAA** | F2 / 12.1 runtime evidence | `NIGHT-AAA-032`: harness cold/warm Web real reproducible; #69 frozen | `NONE` |
-| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-031`: final exact-head race/merge transaction on green head `7a6b7443...` | `NONE` |
-| **WOZ** | F2 / 13.1 server SAME #70 | `NIGHT-WOZ-031`: live-PG fixture corrective autorizado + fresh focused/Required CI + merge if green | `NONE` |
+| **AAA** | F2 / 12.1 runtime evidence | `NIGHT-AAA-032`: harness cold/warm Web real reproducible; sigue ASSIGNED; #69 frozen | `NONE` |
+| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-031`: final exact-head race/merge transaction on green head `7a6b7443...`; sigue ASSIGNED | `NONE` |
+| **WOZ** | F3 / 20.1 observability | `NIGHT-WOZ-032`: REUSE-FIRST gap map software-only; artifact mínimo solo si gap literal y safe-write | `NONE` |
 
 **Holding items:**
 - F2/13.1 Web PR #69 permanece owned por AAA pero frozen por `STOP_WRITE_SURFACE`; no reemplazar ni duplicar.
-- F3/18.1 PR #68 permanece owned técnicamente por WOZ pero frozen/bloqueado por execution layer; no mutación activa en CYCLE 032.
+- F2/13.1 server PR #70 permanece owned técnicamente por WOZ pero frozen por `SAFE_WRITE_TOOLING_LIMIT`; live Required CI/PostgreSQL live siguen FAILURE en head `5a99ebf2...`.
+- F3/18.1 PR #68 permanece owned técnicamente por WOZ pero frozen/bloqueado por execution layer; no mutación activa en CYCLE 033.
 
-**Baseline canónico CYCLE 032:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Baseline canónico CYCLE 033:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Modelo ROMPECABEZAS CON OWNER FIJO
 
@@ -51,17 +52,18 @@ No afirmar DONE/PASS/corregido/integrado/cerrado sin SHA/PR/test/CI/runtime/hand
 ### STOP conditions
 STOP/BLOCKED/STALLED/RO DECISION REQUIRED ante contradicción material, baseline inesperado, cambio destructivo, secretos fuera de procedimiento, decisión RO, scope creep, CI externo no atribuible, evidencia insuficiente o ausencia de asignación.
 
-## Night Shift Ledger — CYCLE 032
+## Night Shift Ledger — CYCLE 033
 
 ```text
 JOBS: integration sigue 3ad8f55a...; release NO-GO
-AAA: NIGHT-AAA-031 PENDING/STOP_WRITE_SURFACE; #69 frozen; NIGHT-AAA-032 -> 12.1 cold/warm runtime harness; fallback NONE
-BBB: NIGHT-BBB-030 PENDING/WAITING_CI -> JOBS recheck resolved all fresh exact-head gates green on 7a6b7443...; NIGHT-BBB-031 final race/merge; fallback NONE
-WOZ: NIGHT-WOZ-030 no result observable; #70 unchanged; NIGHT-WOZ-031 SAME attributed fixture corrective; fallback NONE
+AAA: NIGHT-AAA-032 sigue ASSIGNED / no result observable; 12.1 cold/warm runtime; #69 frozen
+BBB: NIGHT-BBB-031 sigue ASSIGNED / no result observable; #63 OPEN/Ready/mergeable @ 7a6b7443..., live check set sin failures
+WOZ: NIGHT-WOZ-031 BLOCKED/SAFE_WRITE_TOOLING_LIMIT; #70 restored exact 5a99ebf2...; live Required CI + PostgreSQL live FAILURE; NIGHT-WOZ-032 -> F3/20.1 observability gap map
 F3/18.1: #68 frozen exact-head green / external merge execution blocker
 D10.1: PENDING_EXTERNAL_PROOF only
 F2/12.1: AAA active on cold/warm runtime evidence
-F2/13.1 Web: #69 frozen; server #70 active
+F2/13.1 Web: #69 frozen; server #70 frozen by safe-write tooling
+F3/20.1: WOZ active REUSE-FIRST audit
 F3/16.1+16.2: external tails
 D22/D23: PENDING_EXTERNAL
 DUPLICATE_WORK: none
@@ -73,7 +75,7 @@ RELEASE: NO-GO
 
 - **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
 - **F1:** D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; 12.1 AAA runtime residual; 13.1 Web #69 frozen + server #70 corrective activo.
-- **F3:** 16.1/16.2 software integrado con external tails; 17.1/17.2 integrados; #68 exact-head green pero merge execution blocked.
+- **F2:** 11.1/11.2/12.2 cerrados; 12.1 AAA runtime residual; 13.1 Web #69 frozen + server #70 frozen por tooling.
+- **F3:** 16.1/16.2 software integrado con external tails; 17.1/17.2 integrados; #68 exact-head green pero merge execution blocked; WOZ032 audita 20.1.
 - **F4:** 21.1/21.2/24.1/24.2 cerrados; #63 exact-head green y pendiente solo de race/merge; otros gaps permanecen honestos.
 - **JOBS:** coordinación/plan; sin producto/infra.
