@@ -7,11 +7,11 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-051`
+- `ASSIGNMENT_ID: NIGHT-AAA-052`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 14.1 — REUSE-FIRST media streaming/memory slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`
-- `PREDECESSOR: NIGHT-AAA-050 produced no final RESULTADO DEL TURNO / Issue #41 handoff before JOBS CYCLE 055; SUPERSEDED and MUST NOT execute late.`
+- `PREDECESSOR: NIGHT-AAA-051 remained ASSIGNED with no final RESULTADO DEL TURNO / Issue #41 handoff observable during JOBS CYCLE 056; SUPERSEDED and MUST NOT execute late.`
 - `HOLD_PR: #76 @ 36d218609cf2488997755312fa2dafd0a019d070 — stale/frozen pending safe history-preserving refresh.`
 - `HOLD_PR: #69 @ b2ab75ae1dbde4e3aba389da844f466920a5d6eb — STOP_WRITE_SURFACE / DO NOT TOUCH.`
 
@@ -39,8 +39,8 @@
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-AAA-050`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no implementation/CI/merge claim accepted.
-- `NIGHT-AAA-049`: `NO_RESULT / SUPERSEDED_BY_JOBS`.
+- `NIGHT-AAA-051`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 056; no implementation/CI/merge claim accepted.
+- `NIGHT-AAA-050`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
 - `NIGHT-AAA-043`: `PENDING / STOP_WRITE_SURFACE`; #69 frozen.
 
 ## HOLDING / FROZEN
@@ -51,6 +51,6 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-051`: ASSIGNED — F2/14.1 minimum media streaming/memory slice; 14.2 read-only CI fallback.
+- `NIGHT-AAA-052`: ASSIGNED — F2/14.1 minimum media streaming/memory slice; 14.2 read-only CI fallback.
+- `NIGHT-AAA-051`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-050`: NO_RESULT / SUPERSEDED_BY_JOBS.
-- `NIGHT-AAA-049`: NO_RESULT / SUPERSEDED_BY_JOBS.
