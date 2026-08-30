@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE 039:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Baseline vivo CYCLE 046:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado actual
 
@@ -16,11 +16,11 @@
 
 No cerrar 12.1 con benchmark sintético.
 
-### 13.1 — `[ 🟡 ] IN PROGRESS / HOLDING`
+### 13.1 — `[ 🟡 ] IN PROGRESS`
 
-**Web / #69:** PR OPEN @ `b2ab75ae...`; coordinator Save All + CAS/partial summary probado; product wiring App/Review→`saveAllWebItems` sigue pendiente. Candidate ahora está stale frente a baseline `a9d35a3d...`. HOLDING porque AAA está explícitamente en product-auth F4; no existe segundo owner.
+**Web / #69:** PR OPEN/mergeable @ `b2ab75ae1dbde4e3aba389da844f466920a5d6eb`, base histórica `3ad8f55a...`; coordinator Save All + CAS/partial summary probado; product wiring App/Review/Import/Bulk + refresh al baseline vivo pendientes. `NIGHT-AAA-042` es owner activo y debe reutilizar SAME #69, no crear reemplazo.
 
-**Server / #70:** PR OPEN @ `5a99ebf2...`; corrective conocido, safe-write tooling blocker y baseline stale. Frozen.
+**Server / #70:** PR OPEN/mergeable @ `5a99ebf2...`; corrective conocido, safe-write tooling blocker y baseline stale. Frozen; no owner activo en CYCLE 046.
 
 - [ 🟡 ] Save All durable con resumen parcial — helper probado, wiring productivo pendiente.
 - [ 🟡 ] Bulk conflict-safe — CAS/item semantics probado, wiring productivo pendiente.
@@ -33,9 +33,9 @@ No cerrar 12.1 con benchmark sintético.
 
 **Gate:** ninguna acción Web visible llama Tauri; 0 pérdida silenciosa.
 
-## Owner CYCLE 039
+## Owner CYCLE 046
 
-AAA está en `NIGHT-AAA-037` resolviendo el product-auth blocker F4. #69 permanece HOLDING sin owner de implementación activo; no se transfiere automáticamente a BBB/WOZ.
+**AAA — `NIGHT-AAA-042` — SAME #69.** Refresh mínimo al baseline vivo, preservar coordinator/CAS ya probado y conectar `saveAllWebItems` al flujo Web real sin tocar #70 ni reimplementar single-item commit/server garbage journal. Focused tests + fresh exact-head CI. CI-FALLBACK `NONE`.
 
 ## Día 14
 
