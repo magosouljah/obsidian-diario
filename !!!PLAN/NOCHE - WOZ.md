@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-027`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F2 / 13.1 — server half: garbage journal + orphan reconciliation Web-callable`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
 - `PREDECESSOR: NIGHT-WOZ-026 ASSIGNED / no RESULTADO DEL TURNO observable at JOBS CYCLE 028 — superseded to preserve monotonic execution; do not run 026 after 027.`
@@ -34,6 +34,40 @@
 
 Reason: #68 sigue bloqueado por execution layer; 18.2 comparte billing; 13.2/D14/D15 ampliarían scope.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-027
+
+### PRIMARY
+
+- `Assignment ID: NIGHT-WOZ-027`
+- `STATUS: PENDING / WAITING_CI`
+- `baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af` — GitHub vivo verificado antes de escribir.
+- `branch/head: woz/night-13.1-orphan-lifecycle @ 5a99ebf2c54a9c0aaae7f20b2262160e55ca6ae7`
+- `PR: #70 OPEN / Ready`
+- `cambios:` REUSE-FIRST confirmó journal durable, direct_operations, discovery y worker existentes. Gap real: no había boundary Web-callable explícito para marcar uploads abandonados y el worker borraba un `orphan_upload` sin revalidar el INDEX autoritativo justo antes del delete. Se añadió `orphan-upload-lifecycle.js` que reutiliza `markOperationForReconcile`, `reconcileVault` y `processGarbageBatch`; el worker ahora exige revalidación positiva para borrar orphan uploads y ante INDEX cambiado/objeto committed marca el journal done sin borrar.
+- `tests:` `cloud-server/tests/orphan-upload-lifecycle.test.cjs` añadido: registro durable/idempotente; guard committed/valid; INDEX moved fail-safe; delete solo con revalidación positiva; ausencia de guard => retry durable/fail-closed. Ejecución CI pendiente.
+- `CI:` workflow exact-head `F2 - 13.1 Orphan Lifecycle` añadido; consulta inmediata sobre `5a99ebf2...` devolvió 0 runs todavía.
+- `evidencia:` PR #70, 4 changed files, base exacta `3ad8f55a...`, head `5a99ebf2...`.
+- `UNVERIFIED:` focused tests y CI todavía no ejecutados/observados por GitHub; no se reclama PASS ni integración.
+- `blockers:` espera externa de GitHub Actions para exact-head CI.
+- `condición de STOP alcanzada:` WAITING_CI.
+- `recomendación para JOBS:` conservar SAME #70/head; en siguiente ciclo verificar exact-head CI. Si verde y baseline sigue compatible, owner puede race-check + integrar; si baseline cambió materialmente, refresh/fresh CI. No tocar #68 desde esta asignación.
+
+### CI-FALLBACK
+
+- `Assignment ID: NIGHT-WOZ-027`
+- `STATUS: NOT_RUN`
+- `baseline: n/a`
+- `branch/head: n/a`
+- `PR: n/a`
+- `cambios: ninguno`
+- `tests: ninguno`
+- `CI: ninguno`
+- `evidencia: CI-FALLBACK = NONE explícito`
+- `UNVERIFIED: none`
+- `blockers: none`
+- `condición de STOP alcanzada: NONE / no inventar fallback`
+- `recomendación para JOBS: ninguna adicional`
+
 ## RESULTADO PROCESADO — NIGHT-WOZ-026
 
 - `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS CYCLE 028`.
@@ -49,7 +83,7 @@ Reason: #68 sigue bloqueado por execution layer; 18.2 comparte billing; 13.2/D14
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-027`: ASSIGNED — F2/13.1 server garbage-journal/orphan cleanup; fallback NONE.
+- `NIGHT-WOZ-027`: PENDING / WAITING_CI — #70 @ `5a99ebf2...`; fallback NONE.
 - `NIGHT-WOZ-026`: NOT_PROCESSED / SUPERSEDED.
 - `NIGHT-WOZ-025`: BLOCKED / MERGE_TOOL_REJECTED — #68 unchanged.
 - `NIGHT-WOZ-023`: #68 exact-head green candidate.
