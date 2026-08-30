@@ -4,43 +4,33 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 027:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Integración estable CYCLE 028:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-026` (ASSIGNED).**
+**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-027` (ASSIGNED).**
 
-`NIGHT-BBB-025` no produjo RESULTADO DEL TURNO ni nuevo head antes del preflight CYCLE 027 y quedó superseded para preservar ejecución monotónica. GitHub vivo conserva #63 OPEN/Ready/mergeable, base `3ad8f55a...`, head `ed03b806669373758d38bfd211e8f8905c86e269`.
+SAME #63 `bbb/task-25.1-windows-import` está OPEN/Ready/mergeable sobre base `3ad8f55a...`, head `e14a3ab9a284484cace9b8fa98c293c7c15b5dce`.
 
-21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. #60 integró la matriz dependency-safe de 25.1, pero 25.1 completo sigue abierto.
-
-Exact-head vigente sobre #63:
-- F4 Matrix `33300992450` — SUCCESS;
-- D6 `33300992447` — SUCCESS;
-- D7 `33300992444` — SUCCESS;
-- Desktop Portability `33300992437` — SUCCESS;
-- Windows Import `33300992453` — **FAILURE**;
+Fresh exact-head sobre ese head:
+- F4 Matrix `33303300262` — SUCCESS;
+- D6 `33303300263` — SUCCESS;
+- D7 `33303300298` — SUCCESS;
+- Desktop Portability `33303300278` — SUCCESS;
+- **Windows Import `33303300259` — SUCCESS**;
 - Upgrade 21.2 — SKIPPED/no aplicable.
 
-Job Windows Import `99228993010`: checkout/setup/npm/prepare embedded/build completan; `tauri-plugin-wdio-webdriver` compila. Antes de assertions, el servicio efectivo entra a `TauriLaunchService.onPrepare` y falla primero con Edge WebDriver mismatch (`Edge 151.0.4129.101`, driver `unknown`, recomendación del propio servicio `autoDownloadEdgeDriver: true`), luego reporta `tauri-driver not found` y termina con `No browserName defined in capabilities nor hostname or port found`.
+Esto demuestra por primera vez que el harness Windows llega y pasa literalmente las assertions existentes de import en el candidate actual. Sin embargo, la matrix todavía no se promueve automáticamente por el mero CI verde. `NIGHT-BBB-027` debe cambiar únicamente `windows/import` a `AUTOMATED_PASS`; ese cambio crea un head nuevo y exige un set fresh exact-head completo antes de race-check/merge.
 
-Por tanto:
-- no existe evidencia de bug productivo de import;
-- existe failure F4 launcher/session reproducible antes de assertions;
-- `windows/import` continúa `NOT_COVERED`;
-- no AUTOMATED_PASS ni merge.
-
-`NIGHT-BBB-026` trabaja SAME #63, verifica la config/provider/session **efectivamente consumida** y hace solo el corrective F4 mínimo que resuelva el primer failure causal. Si alcanza assertions y aparece bug de producto, registra `PRODUCT_FINDING` y STOP.
-
-CI-FALLBACK: `NONE`.
+No se cierra 25.1 completa: persisten otros gaps de la matriz y D22/D23 externos.
 
 ## Día 21 — Manifest e identidad únicos
 
 ### 21.1 — `[x] DONE / INTEGRATED`
-#51 incorporó el artifact histórico #48. Nombre visible `Galer`, bundle ID `com.beatgaler.app`, versión/endpoints/channel/capabilities coherentes y checks anti-drift.
+#51 incorporó identidad Galer + bundle ID `com.beatgaler.app`.
 
 ### 21.2 — `[x] DONE / INTEGRATED`
-#51 exact tested head `0fd9bee8117ca92fb9f713f0d55089f5707a2917`; D7/D6/Required CI/Upgrade Staging SUCCESS; merge `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.
+#51 merge `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858` con D7/D6/Required CI/Upgrade Staging SUCCESS.
 
 ## Día 22 — Windows firmado
 
@@ -73,24 +63,26 @@ CI-FALLBACK: `NONE`.
 ## Día 24 — Updater/procedencia/rollback
 
 ### 24.1 — `[x] DONE / INTEGRATED`
-#55 merge `672e133bc9cb8a47a29d4b34e13fc535290e5681` con Required CI/release-controls/D6/D7 SUCCESS.
+#55 merge `672e133bc9cb8a47a29d4b34e13fc535290e5681`.
 
 ### 24.2 — `[x] DONE / INTEGRATED`
-#57 merge `f73c9ee8d058df3c780170c8c2a3fabef975c54d` con Required CI/D6/D7 SUCCESS.
-
-Esto no cierra D22/D23 ni autoriza release público.
+#57 merge `f73c9ee8d058df3c780170c8c2a3fabef975c54d`.
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-026`
+### 25.1 — `[ 🟡 ] WINDOWS IMPORT PROVEN / PROMOTION PENDING` — BBB `NIGHT-BBB-027`
 
-#60 integró la matriz como `7de7b57a508b3cf05cbded81501fbd3da63922a3`. Conserva `NOT_COVERED`, `PENDING_EXTERNAL` y `PRODUCT_FINDING` honestos.
+#60 integró la matriz base como `7de7b57a508b3cf05cbded81501fbd3da63922a3`.
 
-SAME #63 intenta cerrar únicamente Windows/import reutilizando `test:e2e:import`:
-- head `ed03b806669373758d38bfd211e8f8905c86e269`;
+SAME #63 estado vivo:
 - base `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`;
-- Windows Import `33300992453` FAILURE en launcher/session antes de assertions;
-- no merge/no promoción a `AUTOMATED_PASS`.
+- head `e14a3ab9a284484cace9b8fa98c293c7c15b5dce`;
+- Windows Import `33303300259` SUCCESS literal;
+- F4 Matrix/D6/D7/Desktop Portability SUCCESS;
+- no merge todavía;
+- `windows/import` promotion a `AUTOMATED_PASS` pendiente de BBB.
+
+Después de la promoción, el nuevo head debe repetir Windows Import + F4 Matrix + D6 + D7 + Desktop Portability exact-head. Solo entonces race-check/merge.
 
 Persisten otros gaps reales: journeys core no demostrados cross-platform, iPhone runner/hardware externo, YouTube/billing donde la matriz marque gap y signing/notarization externos.
 
