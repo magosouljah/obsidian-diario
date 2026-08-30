@@ -4,16 +4,16 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 028:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 abierto solo por cold/warm runtime real; 13.1 activo con dos carriles independientes.
+**Baseline vivo CYCLE 029:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 abierto solo por cold/warm runtime real; 13.1 activo con carriles Web y server separados.
 
 ## Owners actuales — F2/13.1
 
-**AAA — `NIGHT-AAA-028` — carril Web / SAME #69:** #69 `aaa/night-13.1-web-save-all @ b2ab75ae...` OPEN/Ready/mergeable. D6 `33303237410`, D7 `33303237375` y Desktop Portability `33303237401` = SUCCESS; Upgrade no aplicable. Helper Save All secuencial por item, resumen saved/conflict/failed, retry unresolved y duplicate-id protection ya existe con focused tests. El turno 028 debe confirmar/wirear el flujo productivo real Review/Import/Bulk; no basta reclamar helper aislado. Si ya está wired, demostrarlo y no añadir cambio ceremonial. Si cambia head, fresh exact-head CI antes de merge.
+**AAA — `NIGHT-AAA-029` — carril Web / SAME #69:** #69 `aaa/night-13.1-web-save-all @ b2ab75ae...` permanece candidate con D6/D7/Desktop Portability exact-head SUCCESS. Helper Save All secuencial por item, resumen saved/conflict/failed, retry unresolved y duplicate-id protection ya existe. Falta confirmar/wirear el flujo productivo Review/Import/Bulk; si cambia head, fresh exact-head CI antes de merge.
 
-**WOZ — `NIGHT-WOZ-027` — carril server:** REUSE-FIRST sobre garbage journal/reconciliation existentes; demostrar o implementar el contrato mínimo Web-callable durable para registrar/reconciliar uploads huérfanos, idempotente/fail-closed y sin borrar uploads committed/valid. No tocar el frontend de AAA.
+**WOZ — `NIGHT-WOZ-028` — carril server / SAME #70:** #70 `woz/night-13.1-orphan-lifecycle @ 5a99ebf2...` OPEN/Ready sobre base `3ad8f55a...`. El workflow específico `F2 - 13.1 Orphan Lifecycle` run `33304798320` terminó SUCCESS y demuestra el focused contract del orphan lifecycle. Sin embargo, Required CI/Test Desktop Portability run `33304798363` terminó FAILURE por `PostgreSQL live integration + recovery gate`, en `Execute migrations and adversarial persistence checks on PostgreSQL`. WOZ debe aislar atribución y corregir solo si el fallo pertenece a #70; no se integra mientras ese gate siga rojo.
 
-No se cierra 13.1 hasta demostrar ambos lados sin pérdida silenciosa.
+No se cierra 13.1 hasta demostrar ambos lados sin pérdida silenciosa y obtener integración válida de los artifacts aplicables.
 
 ## Día 11 — Foundations y AccountGate
 
@@ -38,12 +38,12 @@ PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
 
 ## Día 13 — Import, Review y bulk edit
 
-### 13.1 — `[ 🟡 ] IN PROGRESS — AAA 028 + WOZ 027`
-- [ 🟡 ] Save All durable con resumen parcial — #69 candidate green; product wiring/integration factual aún pendiente.
-- [ 🟡 ] Bulk conflict-safe o deshabilitado honestamente — helper #69 usa CAS/durable por item; product wiring debe demostrarse.
-- [ 🟡 ] Garbage journal limpia uploads huérfanos — WOZ server owner.
+### 13.1 — `[ 🟡 ] IN PROGRESS — AAA 029 + WOZ 028`
+- [ 🟡 ] Save All durable con resumen parcial — #69 helper green; product wiring/integration factual pendiente.
+- [ 🟡 ] Bulk conflict-safe o deshabilitado honestamente — #69 usa CAS/durable por item; wiring debe demostrarse.
+- [ 🟡 ] Garbage journal limpia uploads huérfanos — #70 focused workflow PASS, pero Required CI rojo en gate PostgreSQL; integración pendiente.
 
-**No overlap:** AAA no modifica server journal/reconciliation. WOZ no modifica Save All/bulk frontend. `CI-FALLBACK: NONE` para ambos.
+**No overlap:** AAA no modifica server journal/#70. WOZ no modifica Save All/bulk frontend/#69. `CI-FALLBACK: NONE` para ambos.
 
 ### 13.2
 - [ ] ReviewShell Import/Edit/Bulk, CTA fija y progreso N/N.
