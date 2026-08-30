@@ -7,37 +7,40 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-043`
+- `ASSIGNMENT_ID: NIGHT-WOZ-044`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F3 / 20.1 — SAME PR #75 supply-chain pin corrective`
+- `AREA: F3 / 20.2 — REUSE-FIRST capacity/load readiness audit, READ ONLY`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
-- `REUSE_PR: #75 / woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f`
-- `PREDECESSOR: NIGHT-WOZ-042 had no worker result and no GitHub mutation; superseded by JOBS CYCLE 044 so it cannot execute late.`
-- `HOLD_PR: #73 / woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb — DO NOT TOUCH`
+- `PREDECESSOR: NIGHT-WOZ-043 BLOCKED / WRITE_TOOL_SAFETY on SAME #75; no GitHub mutation.`
+- `HOLD_PR: #75 / woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f — BLOCKED / DO NOT RETRY THIS TURN`
+- `HOLD_PR_2: #73 / woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb — DO NOT TOUCH`
 
 ### PRIMARY
 
-1. Preflight live integration + SAME #75 exact head/base + duplicate-check; no replacement PR and no #73 mutation.
-2. Reuse the attributed failure already established: Required CI `33323457041` failed only because the new F3 20.1 workflow used floating `actions/checkout@v4` and `actions/setup-node@v4` and the supply-chain gate requires immutable refs.
-3. Correct only `.github/workflows/f3-20.1-observability.yml`: use canonical immutable pins already used by Required CI: `actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1` and `actions/setup-node@820762786026740c76f36085b0efc47a31fe5020`.
-4. Preserve workflow/product/observability semantics. Do not broaden 20.1, wire production call-sites, touch provider resources, #73, F2/F4, auth, matrix, infrastructure, 20.2 or external tails.
-5. Run focused observability contract if applicable and obtain fresh exact-head Required CI + dedicated F3 20.1 workflow. Both must be green.
-6. If all applicable gates are green, race-check integration. If baseline moved, refresh/reconcile and revalidate before merge; if race-clean and merge flow is available, integrate SAME #75 and verify merge SHA/post-merge integration HEAD.
-7. If merge flow remains unavailable, report READY_FOR_INTEGRATION/BLOCKED with exact evidence and STOP; do not hop to #73.
-8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+1. Preflight live integration + duplicate-check. Confirm #75 and #73 remain untouched/owned as holding blockers; do not mutate either.
+2. Audit F3/20.2 REUSE-FIRST against the live integration tree and existing tests/workflows/docs for:
+   - capacity envelope or declared concurrency/load limits;
+   - load/stress harnesses and whether any demonstrate 2× expected peak;
+   - latency/error/queue/recovery measurements;
+   - admission control, per-bot ceiling, safety margin and waitlist behavior/evidence.
+3. Produce a literal gap map only: `EXISTS`, `PARTIAL`, `GAP`, `PENDING_EXTERNAL`. Distinguish software artifacts from real runtime/provider/capacity proof.
+4. Reuse existing evidence; do not rerun expensive/productive drills merely to create fresh evidence. Read-only inspection/tests metadata are allowed; no branch, PR, commit, code, workflow or infrastructure changes in this assignment.
+5. Do not invent expected peak, capacity target, provider limits or business numbers. If the plan/repo has no approved peak, record the missing prerequisite rather than selecting one.
+6. Do not close 20.2. Do not touch 20.1/#75, 18.2/#73, F2/F4, provider resources, bots, costs or secrets.
+7. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** exact base/head; two-pin diff only; focused test; fresh exact-head Required CI + F3 20.1 workflow; merge SHA only if actually integrated.  
-**STOP:** any non-pinning failure, semantic/product scope drift, baseline race requiring broad conflict work, merge-flow unavailable, provider/RO dependency or need to touch #73.
+**Required evidence:** exact baseline; paths/workflows/tests/docs inspected; existing literal capacity/load evidence if any; gap map separating software vs external proof; explicit UNVERIFIED items.  
+**STOP:** any required write, need to mutate #75/#73, provider/infra operation, costly load test, scope expansion or unverified number being treated as fact.
 
 ### CI-FALLBACK
 
 `NONE`
 
-**Alcance:** N/A.  
+**Alcance:** N/A — PRIMARY es audit-only y no entra en WAITING_CI por diseño.  
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback.
 
-## RESULTADO DEL TURNO — NIGHT-WOZ-043
+## RESULTADO PROCESADO — NIGHT-WOZ-043
 
 ### PRIMARY
 
@@ -53,30 +56,18 @@
 - `UNVERIFIED: corrective aplicado; focused test fresh; Required CI fresh; F3 20.1 fresh; merge SHA/post-merge HEAD`.
 - `blockers: GitHub write bloqueado por execution safety; no mutación BeatGaler`.
 - `condición de STOP alcanzada: write flow unavailable; no se amplía scope ni se toca #73`.
-- `recomendación para JOBS: reemitir SAME #75 / SAME pin-only corrective cuando el write flow esté disponible; no crear replacement PR ni saltar a #73`.
+- `recomendación para JOBS: no gastar el siguiente turno repitiendo la misma escritura mientras el blocker no cambie; mantener #75 congelado y reasignar trabajo independiente.`
 
 ### CI-FALLBACK
 
 - `Assignment ID: NIGHT-WOZ-043`.
 - `STATUS: NOT_RUN / NONE`.
-- `baseline: a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
-- `branch/head: N/A`.
-- `PR: N/A`.
-- `cambios: ninguno`.
-- `tests: N/A`.
-- `CI: N/A`.
 - `evidencia: CI-FALLBACK explícitamente NONE`.
-- `UNVERIFIED: N/A`.
-- `blockers: N/A`.
-- `condición de STOP alcanzada: no inventar fallback`.
-- `recomendación para JOBS: ninguna alternativa autoasignada`.
 
 ## RESULTADO PROCESADO / SUPERSEDED — NIGHT-WOZ-042
 
 - `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- Live #75 recheck in CYCLE 044: OPEN/Ready/mergeable, base `a9d35a3d...`, head still `bb493b3755ba1a42b4c5cfe7f3b885edc544c61f`.
-- No new commit, no new CI, no handoff and no integration attributable to 042.
-- Same minimal corrective remains globally useful, so it is reissued under unique current ID `NIGHT-WOZ-043`; 042 must not execute later.
+- #75 quedó unchanged; 043 intentó luego el mismo corrective y fue bloqueado por write safety.
 
 ## RESULTADO PROCESADO — NIGHT-WOZ-041
 
@@ -87,12 +78,14 @@
 
 ## HOLDING
 
-- F3/18.2 #73 exact-head green / merge-flow blocked; untouched.
+- F3/20.1 #75: exact pin corrective known but write-tool safety blocked it; do not retry under 044.
+- F3/18.2 #73: exact-head green / merge-flow blocked; untouched.
 - F2/#70 stale/frozen; outside scope.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-043`: BLOCKED/WRITE_TOOL_SAFETY — pin-only corrective verificado, write no aceptado; #75 unchanged.
+- `NIGHT-WOZ-044`: ASSIGNED — F3/20.2 REUSE-FIRST capacity/load audit-only.
+- `NIGHT-WOZ-043`: BLOCKED/WRITE_TOOL_SAFETY — #75 unchanged.
 - `NIGHT-WOZ-042`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-041`: WAITING_CI -> Required CI FAILURE attributable to floating action refs.
 - `NIGHT-WOZ-040`: BLOCKED/MERGE_FLOW_UNAVAILABLE — #73 green/race-clean, not merged.
