@@ -7,105 +7,49 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-021`
+- `ASSIGNMENT_ID: NIGHT-WOZ-022`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F3 / 17.2 — SAME PR #67 final exact-head gate + race/merge transaction`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
-- `REUSE_PR: #67 / woz/night-17.2-webhook-contract @ 27c2f30007a687a144be289a64ab986451f05c99`
+- `AREA: F3 / 18.1 — entitlements/limits/reserva/subscription state software-only`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `PREDECESSOR: NIGHT-WOZ-021 DONE / INTEGRATED — PR #67 merged. No repetir 021.`
 
 ### PRIMARY
 
-Assignment ID: NIGHT-WOZ-021
-STATUS: DONE / INTEGRATED — 17.2 SOFTWARE DONE / INTEGRATED
-baseline: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40
-branch/head: woz/night-17.2-webhook-contract @ 27c2f30007a687a144be289a64ab986451f05c99
-PR: #67 MERGED
-cambios: exactamente 5 paths autorizados: .github/workflows/f3-17.2-webhook-contract.yml; cloud-server/billing-webhook.js; cloud-server/migrations/0006_billing_webhooks.sql; cloud-server/tests/billing-webhook.test.cjs; cloud-server/tests/postgres-restore.verify.cjs. Restore verifier conserva expected ledger derivado de listMigrations().
-tests: focused 17.2/recovery cubierto por exact-head CI; no tests locales adicionales requeridos en este cierre.
-CI: exact head 27c2f300 — F3 17.2 run 33283532676 SUCCESS; D6 33283532664 SUCCESS; D7 33283532679 SUCCESS; productive temp-auth 33283532723 SUCCESS; Test - Desktop Portability 33283532696 SUCCESS; Upgrade 21.2 33283532704 SKIPPED/no aplicable.
-evidencia: pre-merge PR #67 OPEN/Ready/mergeable=true base 712b49b head 27c2f300; integration race-check permaneció 712b49b; merge ejecutado con expected_head_sha=27c2f300; merge SHA 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af; integration HEAD post-merge verificado = 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af.
-UNVERIFIED: Stripe productivo, recursos externos, 18.x entitlements, physical staging/prod — fuera de scope y no reclamados.
-blockers: NONE para software 17.2.
-condición de STOP alcanzada: PRIMARY DONE / INTEGRATED; no autoasignar siguiente tarea.
-recomendación para JOBS: aceptar 17.2 SOFTWARE DONE / INTEGRATED sobre 3ad8f55a; emitir nueva asignación explícita si corresponde continuar.
+1. Haz preflight GitHub vivo + duplicate-check. Si integration movió desde `3ad8f55a...`, reconcilia baseline antes de crear candidate.
+2. REUSE-FIRST sobre el software integrado en #65 (checkout/catalog contract) y #67 (webhook durable/idempotent ledger). No dupliques billing primitives existentes.
+3. Trabaja únicamente F3/18.1 software:
+   - enforce limits/entitlements server-side **antes** de reservar recursos;
+   - reserva/transacción anti-carreras con semántica atómica/fail-closed aplicable;
+   - contrato server-side para Billing Portal/cancelación y estados de subscription, sin confiar en redirect/UI para conceder entitlement.
+4. Si existe gap real, una sola rama/PR F3 mínima. Tests deben cubrir concurrencia/race, limit enforcement, estados relevantes y fail-closed.
+5. No crear/usuar Stripe productivo, products/prices reales, credenciales, provider resources ni infraestructura pagada. No 18.2, 19.x, 20.x ni grace-period/business decisions.
+6. Evidencia requerida: exact base/head, focused tests, DB/migration evidence si aplica, fresh applicable exact-head CI y race-check antes de merge cuando corresponda.
+7. Reporta RESULTADO DEL TURNO aquí + handoff Issue #41 y STOP. No auto-iniciar 18.2.
+
+**Required evidence:** live baseline; REUSE-FIRST findings; branch/head/PR si aplica; tests de limits/race/subscription-state; exact-head CI; UNVERIFIED explícito; merge SHA solo si corresponde y está verde.  
+**STOP:** decisión comercial no definida, necesidad Stripe/provider real, scope 18.2+, cambio destructivo/migration no justificable, CI rojo no atribuible o baseline no reconciliable.
 
 ### CI-FALLBACK
 
-Assignment ID: NIGHT-WOZ-021
-STATUS: NOT RUN / NONE
-baseline: 712b49b6689a31a47902dbe95e98622d001dab40
-branch/head: N/A
-PR: N/A
-cambios: ninguno
-tests: N/A
-CI: N/A
-evidencia: asignación vigente declara CI-FALLBACK NONE.
-UNVERIFIED: N/A
-blockers: N/A
-condición de STOP alcanzada: fallback no autorizado/no necesario.
-recomendación para JOBS: no inferir trabajo alterno.
+`NONE`
 
-## RESULTADO DEL TURNO — WAIT_FOR_ASSIGNMENT
+Reason: 18.2 comparte billing/PostgreSQL y depende de las semánticas de 18.1; 19/20 expanden área. No hay fallback independiente seguro preautorizado.
 
-- `LAST_PROCESSED_ASSIGNMENT: NIGHT-WOZ-021`
-- `TURN_STATUS: WAIT_FOR_ASSIGNMENT`
-- `BASE_BEFORE: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
-- `HEAD_AFTER: sin cambios`
-- `PR: #67 CLOSED / MERGED @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
-- `CHANGES: ninguno; duplicate-check confirmó que NIGHT-WOZ-021 ya tiene resultado final completo y JOBS no ha emitido un Assignment ID nuevo en este markdown.`
-- `TESTS: no ejecutados; no había scope nuevo autorizado.`
-- `CI: no ejecutado; no había exact-head candidate nuevo.`
-- `EVIDENCE: GitHub vivo confirma integration HEAD 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af y PR #67 merged; Issue #41 handoff 5465830968 ya registra NIGHT-WOZ-021 DONE/INTEGRATED y STOP.`
-- `UNVERIFIED: cualquier trabajo posterior a 17.2; no existe asignación JOBS vigente nueva para WOZ.`
-- `BLOCKERS: ausencia de nueva asignación explícita de JOBS.`
-- `STOP_CONDITION: WAIT_FOR_ASSIGNMENT; no autoasignar 18.x ni otra pieza.`
-- `RECOMMENDATION_TO_JOBS: procesar NIGHT-WOZ-021 y emitir un nuevo Assignment ID monotónico si WOZ debe continuar.`
+## RESULTADO PROCESADO — NIGHT-WOZ-021
 
-### PRIMARY
-
-Assignment ID: NONE NEW
-STATUS: WAIT_FOR_ASSIGNMENT
-baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af
-branch/head: N/A
-PR: N/A
-cambios: ninguno
-tests: N/A
-CI: N/A
-evidencia: assignment visible sigue siendo NIGHT-WOZ-021 y ya figura DONE/INTEGRATED.
-UNVERIFIED: siguiente scope de WOZ.
-blockers: JOBS no escribió una nueva asignación.
-condición de STOP alcanzada: WAIT_FOR_ASSIGNMENT.
-recomendación para JOBS: emitir NIGHT-WOZ-022 o superior únicamente si existe nuevo trabajo autorizado.
-
-### CI-FALLBACK
-
-Assignment ID: NONE NEW
-STATUS: NOT RUN
-baseline: 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af
-branch/head: N/A
-PR: N/A
-cambios: ninguno
-tests: N/A
-CI: N/A
-evidencia: no existe nueva asignación con fallback autorizado.
-UNVERIFIED: N/A
-blockers: N/A
-condición de STOP alcanzada: fallback no aplicable.
-recomendación para JOBS: no inferir fallback.
-
-## RESULTADO PROCESADO — NIGHT-WOZ-020
-
-- `Assignment ID: NIGHT-WOZ-020`
-- `WORKER_STATUS: PENDING / WAITING_CI`
-- `baseline: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
-- `branch/head: woz/night-17.2-webhook-contract @ 27c2f30007a687a144be289a64ab986451f05c99`
-- `PR: #67 OPEN / Ready / NOT MERGED / mergeable=true`
-- `scope: exactamente cinco paths F3/recovery; no #66 overwrite.`
+- `STATUS: DONE / INTEGRATED — 17.2 SOFTWARE DONE / INTEGRATED`
+- `BASE: 712b49b6689a31a47902dbe95e98622d001dab40`
+- `EXACT_TESTED_HEAD: 27c2f30007a687a144be289a64ab986451f05c99`
+- `PR: #67 MERGED`
+- `CI: F3 17.2 33283532676 SUCCESS; D6 33283532664 SUCCESS; D7 33283532679 SUCCESS; temp-auth 33283532723 SUCCESS; Desktop Portability 33283532696 SUCCESS.`
+- `MERGE/INTEGRATION: 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af.`
+- `UNVERIFIED: Stripe productivo, 18.x, physical staging/prod — no reclamados.`
+- `JOBS_ACTION: cerrar 17.2 software y emitir NIGHT-WOZ-022 para 18.1.`
 
 ## HISTORIAL COMPACTO
 
-- `WAIT_FOR_ASSIGNMENT`: duplicate-check de `NIGHT-WOZ-021` completo; integration vivo `3ad8f55a...`; sin nueva orden JOBS.
-- `NIGHT-WOZ-021`: DONE/INTEGRATED — PR #67 merged `3ad8f55a...`; 17.2 SOFTWARE DONE / INTEGRATED.
+- `NIGHT-WOZ-022`: ASSIGNED — F3/18.1 software-only; CI-FALLBACK NONE.
+- `NIGHT-WOZ-021`: DONE/INTEGRATED — PR #67 merged `3ad8f55a...`; 17.2 software closed.
 - `NIGHT-WOZ-020`: PENDING/WAITING_CI — refreshed candidate `27c2f300...`.
-- `NIGHT-WOZ-019`: PENDING/WAITING_CI — minimal recovery verifier corrective.
+- `NIGHT-WOZ-019`: PENDING/WAITING_CI — recovery verifier corrective.
 - `NIGHT-WOZ-017`: PR #65 merged; 17.1 SOFTWARE DONE / INTEGRATED.
