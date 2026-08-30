@@ -2,30 +2,30 @@
 
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** BBB — worker nocturno.  
-**Área:** F4 — Desktop / packaging / release chain.  
+**Área:** F4 — Desktop / functional matrix.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-038`
+- `ASSIGNMENT_ID: NIGHT-BBB-039`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F4 / 25.1 — SAME PR #72 windows/review promotion + integration transaction`
+- `AREA: F4 / 25.1 — SAME PR #72 post-promotion matrix-contract attribution/corrective`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
-- `REUSE_PR: #72 / bbb/night-25.1-windows-review @ 3219996e181ef3f53508b1ea1d272d84b73bc1a4`
-- `PREDECESSOR: NIGHT-BBB-037 PENDING/WAITING_CI; JOBS CYCLE 042 recheck resolved Windows Review to literal SUCCESS.`
+- `REUSE_PR: #72 / bbb/night-25.1-windows-review @ 56dc4adf206cc53f5260c71952f84ae67d994279`
+- `PREDECESSOR: NIGHT-BBB-038 PENDING/WAITING_CI -> FAILURE_RESOLVED_BY_JOBS_RECHECK in CYCLE 044.`
 
 ### PRIMARY
 
-1. Recheck live integration + SAME #72 exact head/base + duplicate-check; no replacement PR.
-2. Consume exact-head evidence on `3219996e...`: Windows Review `33321799798` SUCCESS; Windows Import `33321799800` SUCCESS; Desktop Portability `33321799802` SUCCESS; D6 `33321799792` SUCCESS; D7 `33321799819` SUCCESS; Upgrade 21.2 SKIPPED/no aplicable.
-3. Because the dedicated Review journey now has literal PASS, promote only `windows/review` from `NOT_COVERED` to `AUTOMATED_PASS` in the existing matrix. No other row changes.
-4. That promotion creates a new head. On that exact new head require fresh: Windows Review + F4 Functional Matrix + D6 + D7 + Desktop Portability. Do not reuse pre-promotion green as merge evidence.
-5. If all applicable gates are green, race-check integration/base/head and merge SAME #72 through authorized BBB flow; verify merge SHA + post-merge integration HEAD.
-6. Do not touch auth/#71/#74, product Review logic, signing/notarization, 25.2 or unrelated matrix rows.
+1. Preflight live integration + SAME #72 exact head/base + duplicate-check; no replacement PR and no auth/#71/#74 work.
+2. Consume the post-promotion exact-head evidence on `56dc4adf206cc53f5260c71952f84ae67d994279`: Windows Review `33324512156` SUCCESS; Windows Import `33324512159` SUCCESS; Required CI `33324512153` SUCCESS. The F4 Functional Matrix run `33324512174` is FAILURE specifically at step `Validate dependency-safe matrix contract`.
+3. Attribution-first: determine the literal matrix-contract violation produced by promoting only `windows/review = AUTOMATED_PASS`. Do not assume product failure. Preserve the literal Review PASS and the promotion unless the contract itself proves that row cannot legally be promoted yet.
+4. If the failure is a bounded matrix/workflow/test-contract inconsistency within #72 scope, apply only the minimum corrective on SAME #72. If it requires product logic, auth overlap, unrelated rows, signing/notarization, or a gate change, report `PRODUCT_FINDING/BLOCKED` and STOP.
+5. On any new head obtain fresh exact-head Windows Review + F4 Functional Matrix + D6 + D7 + Desktop Portability/Required CI. All applicable gates must be green.
+6. If all gates are green, race-check integration. If baseline changed, refresh/reconcile and revalidate; otherwise merge SAME #72 through authorized BBB flow and verify merge SHA/post-merge integration HEAD.
 7. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** pre-promotion PASS; promotion diff only for windows/review; new head SHA; fresh exact-head gate set; merge SHA/post-merge HEAD only if merged.  
-**STOP:** any new failure, baseline race, scope drift, merge flow unavailable, auth overlap or matrix contract failure not attributable.
+**Required evidence:** literal contract failure/root cause; minimal diff if any; exact new head; fresh Windows Review/F4 Matrix/D6/D7/Required CI; merge SHA only if actually integrated.  
+**STOP:** product finding, auth/#71/#74 overlap, unrelated matrix-row change, baseline race requiring broad conflict work, non-attributable CI red, merge-flow unavailable or gate relaxation.
 
 ### CI-FALLBACK
 
@@ -35,19 +35,21 @@
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback.
 
-## RESULTADO PROCESADO — NIGHT-BBB-037
+## RESULTADO PROCESADO — NIGHT-BBB-038
 
-- `STATUS: PENDING / WAITING_CI -> PASS_RESOLVED_BY_JOBS_RECHECK`.
-- SAME #72 OPEN/Ready/mergeable, base `a9d35a3d...`, head `3219996e181ef3f53508b1ea1d272d84b73bc1a4`.
-- Harness corrective was test-only: expected normalized key `f#m` instead of `F#m`; no product change.
-- Fresh exact-head Windows Review `33321799798` SUCCESS.
-- Windows Import `33321799800`, Desktop Portability `33321799802`, D6 `33321799792`, D7 `33321799819` all SUCCESS; Upgrade 21.2 SKIPPED.
-- Matrix row still NOT_COVERED and PR not merged at JOBS recheck.
+- `STATUS: PENDING / WAITING_CI -> FAILURE_RESOLVED_BY_JOBS_RECHECK`.
+- SAME #72 promoted only `windows/review` to `AUTOMATED_PASS`; Issue #41 handoff `5470100644`.
+- Current exact head: `56dc4adf206cc53f5260c71952f84ae67d994279`; base `a9d35a3d...`; OPEN/Ready/mergeable.
+- Windows Review `33324512156` SUCCESS.
+- Windows Import `33324512159` SUCCESS.
+- Required CI `33324512153` SUCCESS.
+- F4 Functional Matrix `33324512174` FAILURE; job `matrix-contract`, failing step exactly `Validate dependency-safe matrix contract`.
+- No merge; `windows/review` is not claimed integrated while this gate remains red.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-BBB-038`: ASSIGNED — SAME #72 promote windows/review + fresh post-promotion gates + merge if green.
-- `NIGHT-BBB-037`: PENDING/WAITING_CI; final recheck = literal Review PASS.
-- `NIGHT-BBB-036`: dedicated Review failure attributed in 037.
+- `NIGHT-BBB-039`: ASSIGNED — SAME #72 matrix-contract attribution/corrective.
+- `NIGHT-BBB-038`: WAITING_CI -> matrix-contract FAILURE after promotion.
+- `NIGHT-BBB-037`: literal Windows Review PASS on pre-promotion head.
 - `NIGHT-BBB-034`: PENDING / PRODUCT_FINDING windows/auth.
 - `NIGHT-BBB-031`: DONE/INTEGRATED — #63 merge `02a40564...`.
