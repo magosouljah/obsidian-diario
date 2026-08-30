@@ -7,13 +7,14 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-055`
+- `ASSIGNMENT_ID: NIGHT-WOZ-056`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F3 / 20.2 — SAME #78 exact-head race-check + integration`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`
 - `PRIMARY_PR: #78 @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a`
-- `PREDECESSOR: NIGHT-WOZ-054 remained ASSIGNED with no final RESULTADO DEL TURNO / Issue #41 handoff observable during JOBS CYCLE 056; SUPERSEDED and MUST NOT execute late.`
-- `FACTUAL_UPDATE_BY_JOBS: #78 remains OPEN/non-draft/mergeable on exact base a306e3b3... with unchanged head 50aac3f0...; observed PR-triggered workflows are completed with no failure; integration HEAD remained a306e3b3... during CYCLE 056 preflight.`
+- `PREDECESSOR: NIGHT-WOZ-055 remained ASSIGNED with no final RESULTADO DEL TURNO / Issue #41 handoff observable during JOBS CYCLE 057; SUPERSEDED and MUST NOT execute late.`
+- `RECALCULATION: selected again from zero because #78 remains the narrowest highest-impact merge-ready internal artifact on the global critical path; not inherited merely by continuity.`
+- `FACTUAL_UPDATE_BY_JOBS: #78 remains OPEN/non-draft/mergeable on exact base a306e3b3... with unchanged head 50aac3f0...; PR-triggered workflows remain completed without attributable failure; integration HEAD remained a306e3b3... during CYCLE 057 preflight.`
 - `SERIALIZATION: #79 is also open/mergeable on the same exact base but remains hold-green. WOZ/#78 owns the only integration mutation authorized this cycle.`
 - `HOLD_PR: #75 @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f — frozen / DO NOT TOUCH.`
 
@@ -41,8 +42,8 @@
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-WOZ-054`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 056; no merge claim accepted.
-- `NIGHT-WOZ-053`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
+- `NIGHT-WOZ-055`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 057; no merge claim accepted.
+- `NIGHT-WOZ-054`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
 - `NIGHT-WOZ-052`: `PENDING / WAITING_CI`; replacement #78 opened exact-base; JOBS later verified green.
 - `NIGHT-WOZ-048`: `DONE / INTEGRATED` — #73.
 
@@ -54,7 +55,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-055`: ASSIGNED — SAME #78 exact-head race-check + integration; CI-FALLBACK NONE.
-- `NIGHT-WOZ-054`: NO_RESULT / SUPERSEDED_BY_JOBS.
+- `NIGHT-WOZ-056`: ASSIGNED — SAME #78 exact-head race-check + integration; CI-FALLBACK NONE.
+- `NIGHT-WOZ-055`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-052`: PENDING / WAITING_CI — #78 opened exact-base; CI later green.
 - `NIGHT-WOZ-048`: DONE / INTEGRATED — #73.
