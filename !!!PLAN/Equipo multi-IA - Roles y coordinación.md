@@ -2,58 +2,54 @@
 
 > GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership actual — CYCLE 025
+## Roles y ownership actual — CYCLE 026
 
 | Rol | Owner actual | PRIMARY vigente | CI-FALLBACK |
 |---|---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra | n/a |
-| **AAA** | F2 / 13.1 | `NIGHT-AAA-025`: Save All durable + partial summary; bulk conflict-safe/honest disable; garbage journal | `NONE` |
-| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-024`: current failure causal + corrective mínimo harness + Windows Import literal PASS | `NONE` |
-| **WOZ** | F3 / 18.1 PR #68 | `NIGHT-WOZ-024`: final exact-head integration transaction for #68 | `NONE` |
+| **AAA** | F2 / 13.1 Web-only | `NIGHT-AAA-026`: Save All + partial summary + bulk conflict-safe usando durable/CAS existente; server garbage-journal fuera de scope | `NONE` |
+| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-025`: launcher/session corrective mínimo sobre failure `33300992453`; Windows Import literal PASS | `NONE` |
+| **WOZ** | F3 / 18.1 PR #68 | `NIGHT-WOZ-025`: final exact-head integration transaction for #68 | `NONE` |
 
 RO conserva alcance de producto, riesgo aceptado, decisiones/credenciales externas y go/no-go público. JOBS puede reorganizar roadmap, pero un cambio de owner/scope es explícito.
 
-**Baseline canónico CYCLE 025:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`. GitHub vivo manda si cambia después.
+**Baseline canónico CYCLE 026:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`. GitHub vivo manda si cambia después.
 
-D10.1 permanece external-only por copia real off-provider/off-account + read/checksum. F3/16.1 physical staging/prod separation continúa external-only. F3/16.2 software está DONE/INTEGRATED pero deploy/staging/rollback reales continúan externos. D22/D23 signing/notarization siguen externos.
+D10.1 permanece external-only por copia real off-provider/off-account + read/checksum. F3/16.1 physical staging/prod separation continúa external-only. F3/16.2 software DONE/INTEGRATED con deploy/staging/rollback reales externos. D22/D23 signing/notarization externos. F2/13.1 tiene boundary explícito: AAA posee carril Web; server half durable orphan-journal queda sin owner técnico asignado en este ciclo y no se falsea como cerrado.
 
 ## Modelo ROMPECABEZAS CON OWNER FIJO
 
-1. Se puede trabajar cross-phase cuando las dependencias reales lo permiten.
-2. Cada implementación/pieza material tiene un solo owner estable por ciclo.
-3. El owner hace preflight → implementación/audit → tests → fixes → CI → handoff.
+1. Se puede trabajar cross-phase cuando dependencias reales lo permiten.
+2. Cada implementación/pieza material tiene un solo owner por ciclo.
+3. Owner hace preflight → implementación/audit → tests → fixes → CI → handoff.
 4. Findings de otro agente son input; no transfieren ownership automáticamente.
-5. No hay hopping automático entre tareas.
-6. Si un owner queda bloqueado, reporta `BLOCKED`; JOBS decide si reasigna o amplía scope.
-7. Revisión independiente adicional existe solo por orden JOBS/RO o gate literal.
+5. No hopping automático.
+6. Si owner queda bloqueado, reporta `BLOCKED/PENDING`; JOBS decide reasignación/ampliación explícita.
+7. Revisión independiente adicional solo por orden JOBS/RO o gate literal.
 8. `READY_TO_WORK` ≠ `READY_TO_CLOSE` ≠ `READY_TO_RELEASE`.
-9. Ningún gate se marca `[x]` sin evidencia verificable.
+9. Ningún gate `[x]` sin evidencia verificable.
 10. Dependency-ready no equivale a assigned.
 
 ## Modo autónomo / turno nocturno
 
 ### Preflight factual obligatorio
-Verificar asignación vigente, baseline/rama/SHA, Plan Maestro + fase + Registro + Issue #41, dependencias, PR/rama existente, handoffs, CI y si el Assignment ID ya fue procesado. Dato material no verificable → `STOP / PENDING`. Sin asignación → `WAIT_FOR_ASSIGNMENT`.
+Verificar asignación, baseline/rama/SHA, Plan Maestro + fase + Registro + Issue #41, dependencias, PR/rama, handoffs, CI y duplicate-check. Dato material no verificable → `STOP / PENDING`. Sin asignación → `WAIT_FOR_ASSIGNMENT`.
 
 ### Idempotencia / REUSE-FIRST
-Antes de rama/PR/comentario/commit: buscar artefacto/evidencia existente; continuar ahí o no-op; nunca duplicar por nuevo ciclo; no repetir drill/CI productivo solo para recrear evidencia aceptada.
+Antes de rama/PR/comentario/commit buscar artefacto/evidencia existente; continuar ahí o no-op; nunca duplicar por nuevo ciclo; no repetir drill/CI aceptado solo para recrear evidencia.
 
 ### Evidence-before-claim / exact-head
-No afirmar DONE/PASS/corregido/integrado/cerrado sin SHA/PR/test/CI/runtime/handoff aplicable. Si cambia head o combinación material, refresh + CI aplicable sobre la combinación vigente.
+No afirmar DONE/PASS/corregido/integrado/cerrado sin SHA/PR/test/CI/runtime/handoff aplicable. Cambio material de head/combinación → refresh + CI aplicable.
 
 ### PRIMARY / CI-FALLBACK
-- `PRIMARY` siempre se ejecuta primero.
-- `CI-FALLBACK` solo existe si JOBS lo preautoriza explícitamente y solo puede empezar cuando PRIMARY entra realmente en `WAITING_CI` o `WAITING_EXTERNAL`.
-- Fallback debe ser independiente: distintos archivos/rama/PR/ownership material, no depender del PRIMARY, no adelantar un gate bloqueado, no duplicar otro owner y no ampliar alcance.
-- Cada fallback autorizado debe declarar scope exacto, evidencia requerida y STOP condition.
-- Si no existe fallback seguro y útil: `CI-FALLBACK: NONE`.
-- El worker nunca inventa fallback. Después de usar uno debe releer PRIMARY antes de cerrar el turno.
+- PRIMARY primero.
+- CI-FALLBACK solo si JOBS lo preautoriza y PRIMARY entra realmente en WAITING_CI/WAITING_EXTERNAL.
+- Fallback debe ser independiente en archivos/rama/PR/ownership/dependencias, no adelantar gate, duplicar owner ni ampliar alcance.
+- Si no existe fallback seguro: `CI-FALLBACK: NONE`.
+- Worker nunca inventa fallback.
 
 ### STOP conditions
 STOP/BLOCKED/STALLED/RO DECISION REQUIRED ante contradicción material, baseline inesperado, cambio destructivo, secretos fuera de procedimiento, decisión RO, scope creep, CI externo no atribuible, evidencia insuficiente o ausencia de asignación.
-
-### Corrective assignment
-2 ciclos sin progreso → JOBS precisa la orden dentro de la misma área. 3 ciclos sin progreso → `STALLED`. Progreso parcial real reinicia evaluación. Un blocker de autoridad demostrado puede resolverse con ampliación explícita de scope/owner.
 
 ### Handoff mínimo
 ```text
@@ -74,13 +70,13 @@ NEXT_WITHIN_AREA:
 END AI-HANDOFF
 ```
 
-## Night Shift Ledger — CYCLE 025
+## Night Shift Ledger — CYCLE 026
 
 ```text
-JOBS: integration remains 3ad8f55a...; #68 exact-head CI resolved green; #63 unchanged/red
-AAA: NIGHT-AAA-024 NOT_PROCESSED -> NIGHT-AAA-025 ASSIGNED F2/13.1; CI-FALLBACK NONE
-BBB: NIGHT-BBB-023 NOT_PROCESSED -> NIGHT-BBB-024 ASSIGNED SAME #63 corrective; CI-FALLBACK NONE
-WOZ: NIGHT-WOZ-023 PENDING/WAITING_CI -> CI GREEN -> NIGHT-WOZ-024 ASSIGNED #68 final integration; CI-FALLBACK NONE
+JOBS: integration remains 3ad8f55a...; #68 still exact-head green/open; #63 advanced to ed03b806... but Windows Import 33300992453 failed before assertions
+AAA: NIGHT-AAA-025 PENDING/STOP_OWNERSHIP_BOUNDARY -> NIGHT-AAA-026 ASSIGNED Web-only Save All/bulk; server orphan-journal boundary preserved; fallback NONE
+BBB: NIGHT-BBB-024 WAITING_CI -> JOBS recheck FAILURE -> NIGHT-BBB-025 ASSIGNED SAME #63 launcher/session corrective; fallback NONE
+WOZ: NIGHT-WOZ-024 no result -> superseded; NIGHT-WOZ-025 ASSIGNED SAME #68 final integration; fallback NONE
 D10.1: PENDING_EXTERNAL_PROOF only
 F2/12.1: cold/warm runtime evidence only
 F3/16.1 physical separation: PENDING_EXTERNAL
@@ -94,7 +90,7 @@ RELEASE: NO-GO
 
 - **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
 - **F1:** D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; 12.1 abierto solo por cold/warm real; AAA owner exclusivo de D13.1 bajo `NIGHT-AAA-025`.
-- **F3:** 16.1/16.2 software integrado con external tails; 17.1/17.2 software integrados; #68 exact-head green y WOZ owner exclusivo de su integración bajo `NIGHT-WOZ-024`.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo de SAME #63 bajo `NIGHT-BBB-024`; Windows Import sigue `NOT_COVERED`; D22/D23 externos; 25.1/25.2 abiertos.
+- **F2:** 11.1/11.2/12.2 cerrados; 12.1 solo cold/warm real; AAA owner exclusivo de Save All/bulk Web de 13.1 bajo `NIGHT-AAA-026`; server orphan-journal no asignado.
+- **F3:** 16.1/16.2 software integrado con external tails; 17.1/17.2 integrados; #68 exact-head green y WOZ owner exclusivo de integración bajo `NIGHT-WOZ-025`.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo SAME #63 bajo `NIGHT-BBB-025`; Windows Import `NOT_COVERED`; D22/D23 externos; 25.1/25.2 abiertos.
 - **JOBS:** coordinación/plan; sin producto/infra.
