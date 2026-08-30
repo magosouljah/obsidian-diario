@@ -7,11 +7,12 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-051`
+- `ASSIGNMENT_ID: NIGHT-BBB-052`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F4 / 25.1 — dedicated Web auth journey evidence`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`
-- `PREDECESSOR: NIGHT-BBB-050 remained ASSIGNED with no final RESULTADO DEL TURNO / Issue #41 handoff observable during JOBS CYCLE 056; SUPERSEDED and MUST NOT execute late.`
+- `PREDECESSOR: NIGHT-BBB-051 remained ASSIGNED with no final RESULTADO DEL TURNO / Issue #41 handoff observable during JOBS CYCLE 057; SUPERSEDED and MUST NOT execute late.`
+- `RECALCULATION: selected again from zero because Web/auth remains the highest-value independent F4 journey while #79 is serialized behind #78; not inherited merely by continuity.`
 - `HOLD_PR: #79 @ c6ec2910522370f2506beb71ad5e0fa0317d6a61 — OPEN exact-base; mergeable; prior exact-head CI green; intentionally HOLD_GREEN_PENDING_SERIAL_INTEGRATION while WOZ owns #78 integration.`
 - `HOLD_PR: #72 @ 904fbf3c0f81e6ff4c22e4ee717f337e5018fa5c — stale/frozen; DO NOT TOUCH.`
 
@@ -39,16 +40,17 @@
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-BBB-050`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 056; no implementation/CI/merge claim accepted.
+- `NIGHT-BBB-051`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 057; no dedicated Web/auth evidence accepted.
+- `NIGHT-BBB-050`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
 - `NIGHT-BBB-049`: `PENDING / WAITING_CI`; #79 exact-head CI later green; fallback residual map DONE read-only.
 
 ## HOLDING / FROZEN
 
-- #79: green exact-base candidate, intentionally serialized behind #78 integration; no mutation in BBB051.
+- #79: green exact-base candidate, intentionally serialized behind #78 integration; no mutation in BBB052.
 - #72/#74/#71: frozen by prior refresh/integration dependencies.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-BBB-051`: ASSIGNED — F4/25.1 dedicated Web/auth journey; fallback NONE.
-- `NIGHT-BBB-050`: NO_RESULT / SUPERSEDED_BY_JOBS.
+- `NIGHT-BBB-052`: ASSIGNED — F4/25.1 dedicated Web/auth journey; fallback NONE.
+- `NIGHT-BBB-051`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-BBB-049`: PENDING/WAITING_CI at close; #79 exact-head CI later green; fallback residual map DONE read-only.
