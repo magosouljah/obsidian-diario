@@ -16,49 +16,49 @@ Reglas:
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-027
+## Estado vivo — NIGHT-JOBS-028
 
 - **Release público:** 🔴 `NO-GO`.
-- **Integración estable:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`; GitHub vivo sigue sin merge posterior a #67 al preflight CYCLE 027.
+- **Integración estable:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`; GitHub vivo no muestra merge posterior a #67.
 - **F0:** trabajo técnico interno cerrado; 1.2 y 2.2 conservan tails externos/administrativos.
 - **F1:** D6/D7/D8/D9 PASS. D10.1 `PENDING_EXTERNAL_PROOF` por copia real off-provider/off-account + read/checksum. D10.2 requiere decisión RO.
 - **F2 / 11.1:** `[x]` #47. **11.2:** `[x]` #54. **12.2:** `[x]` #50.
 - **F2 / 12.1:** `[ 🟡 ] RESIDUAL / RUNTIME EVIDENCE`; queda solo comparación cold/warm Web real cuantificada/reproducible.
-- **F2 / 13.1:** `[ 🟡 ] IN PROGRESS`. Carriles separados: AAA conserva Save All/partial summary + bulk conflict-safe Web; WOZ toma explícitamente el server half de garbage journal/orphan cleanup. No se cierra 13.1 hasta demostrar ambos lados sin pérdida silenciosa.
+- **F2 / 13.1:** `[ 🟡 ] IN PROGRESS`. PR #69 `aaa/night-13.1-web-save-all @ b2ab75ae...` está OPEN/Ready/mergeable y sus gates exact-head D6/D7/Desktop Portability están SUCCESS. El helper Save All/bulk conflict-safe existe; falta confirmar/wirear el flujo productivo real y luego integrar por el owner. El server half garbage-journal/orphan cleanup sigue separado y owned por WOZ.
 - **F3 / 16.1:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL`; separación física staging/prod externa.
 - **F3 / 16.2:** `[ 🟡 ] SOFTWARE DONE + EXTERNAL TAIL`; deploy/staging/rollback reales externos.
 - **F3 / 17.1:** `[x] SOFTWARE DONE / INTEGRATED` — #65.
 - **F3 / 17.2:** `[x] SOFTWARE DONE / INTEGRATED` — #67 merge `3ad8f55a...`.
-- **F3 / 18.1:** `[ 🟡 ] EXACT-HEAD GREEN / BLOCKED_EXTERNAL_MERGE_EXECUTION`. `NIGHT-WOZ-025` revalidó #68 OPEN/Ready/mergeable, base `3ad8f55a...`, head `2a988ec2a25d6ecfa927614fcc32cde689995103`, CI aplicable verde y race-check limpio, pero el conector bloqueó la mutación antes de que GitHub aceptara el merge. No existe merge SHA; 18.1 NO está integrado. Candidate queda preservado/frozen para futura transacción autorizada.
+- **F3 / 18.1:** `[ 🟡 ] EXACT-HEAD GREEN / BLOCKED_EXTERNAL_MERGE_EXECUTION`. PR #68 sigue OPEN/Ready/mergeable, base `3ad8f55a...`, head `2a988ec2...`; no existe merge SHA aceptado.
 - **F4 / 21.1+21.2:** `[x]` #51. **24.1:** `[x]` #55. **24.2:** `[x]` #57.
-- **F4 / 25.1:** `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN`. SAME #63 sigue OPEN/Ready/mergeable, base `3ad8f55a...`, head `ed03b806669373758d38bfd211e8f8905c86e269`. F4 Matrix/D6/D7/Desktop Portability exact-head verdes; Windows Import `33300992453` sigue **FAILURE** antes de assertions por launcher/session. `windows/import` continúa `NOT_COVERED`.
+- **F4 / 25.1:** `[ 🟡 ] WINDOWS IMPORT PROVEN / PROMOTION PENDING`. SAME #63 OPEN/Ready/mergeable, base `3ad8f55a...`, head `e14a3ab9...`. Fresh exact-head F4 Matrix `33303300262`, D6 `33303300263`, D7 `33303300298`, Desktop Portability `33303300278` y **Windows Import `33303300259`** terminaron SUCCESS. `windows/import` no se promueve a `AUTOMATED_PASS` hasta que BBB actualice la matrix en un nuevo head y vuelva a obtener el set fresh exact-head requerido.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 - **2.2:** `[ 🟡 ]` tail externo. **1.2:** `[ 🟡 ]` release externo; Apple Developer `PENDING — DEFERRED`.
 
-## OWNERS — CYCLE 027
+## OWNERS — CYCLE 028
 
-### AAA — `NIGHT-AAA-027` — F2 / 13.1 Web-only
-PRIMARY: Save All multi-item con progreso/resumen parcial + bulk conflict-safe usando durable commits/CAS existentes; no server-side garbage journal.  
+### AAA — `NIGHT-AAA-028` — F2 / 13.1 Web-only
+PRIMARY: SAME #69. Reutilizar helper ya probado, comprobar si está realmente wired al flujo productivo Review/Import/Bulk; si falta, conectar únicamente Save All/progreso/resumen parcial/conflict-safe sin tocar server journal. Fresh exact-head CI y merge solo si todo verde/race-check limpio.  
 CI-FALLBACK: `NONE`.
 
-### BBB — `NIGHT-BBB-026` — F4 / 25.1 SAME #63
-PRIMARY: consumir failure `33300992453`/job `99228993010`, corregir launcher/session F4 mínimo hasta session + Windows Import literal PASS; no producto ni matrix promotion prematura.  
+### BBB — `NIGHT-BBB-027` — F4 / 25.1 SAME #63
+PRIMARY: aceptar Windows Import literal SUCCESS sobre `e14a3ab9...`; promover únicamente `windows/import` a `AUTOMATED_PASS`, creando nuevo head; exigir Windows Import + F4 Matrix + D6 + D7 + Desktop Portability fresh exact-head en ese nuevo head; race-check y merge solo si verde.  
 CI-FALLBACK: `NONE`.
 
-### WOZ — `NIGHT-WOZ-026` — F2 / 13.1 server half
-PRIMARY: REUSE-FIRST sobre garbage-journal/reconciliation server-side; demostrar o implementar el contrato mínimo Web-callable y durable para registrar/reconciliar uploads huérfanos, con cleanup idempotente y tests, sin tocar el carril frontend de AAA.  
+### WOZ — `NIGHT-WOZ-027` — F2 / 13.1 server half
+PRIMARY: reemitir el server half no procesado: REUSE-FIRST sobre garbage journal/reconciliation; demostrar o implementar contrato Web-callable durable para registrar/reconciliar orphans, idempotente/fail-closed y sin borrar committed/valid. No tocar #68 ni frontend AAA.  
 CI-FALLBACK: `NONE`.
 
-**Holding item WOZ:** PR #68 / F3 18.1 permanece exact-head green pero bloqueado por execution layer; no se recrea ni se reintenta ceremonialmente en este ciclo.
+**Holding item WOZ:** PR #68 / F3 18.1 permanece exact-head green pero bloqueado por execution layer; no se recrea ni se reintenta ceremonialmente.
 
 ### JOBS
 Mantiene prioridades, `!!!PLAN`, handoffs y gates. No modifica código BeatGaler ni infraestructura.
 
-## Camino crítico global — recalculado CYCLE 027
+## Camino crítico global — recalculado CYCLE 028
 
-1. **F4 / 25.1 / #63:** trabajo ejecutable inmediato; eliminar launcher/session failure y conseguir Windows Import literal PASS.
-2. **F2 / 13.1:** cerrar en paralelo los dos halves independientes: AAA Web Save All/bulk + WOZ server garbage-journal/orphan cleanup.
-3. **F3 / 18.1 / #68:** candidate listo pero bloqueado por capacidad de merge del execution layer; conservar exact head y no gastar ciclos repitiendo el mismo intento.
+1. **F4 / 25.1 / #63:** Windows Import ya pasó; cerrar la transacción de promoción + fresh exact-head + merge es el camino más corto a reducir un gap funcional real.
+2. **F2 / 13.1:** AAA completa wiring/integración Web de #69 mientras WOZ trabaja server garbage-journal/orphan cleanup en paralelo sin overlap.
+3. **F3 / 18.1 / #68:** candidate técnicamente listo pero bloqueado por execution layer; conservar frozen.
 4. **F2 / 12.1:** cold/warm runtime Web real sigue abierto; no fabricar benchmark.
 5. **F0/F1/F3 external tails + D22/D23:** externos/RO; no repetir drills aceptados.
 6. Después: 13.2–15, F3 18.2–20, resto F4 25.1/25.2. F5 no se abre.
@@ -68,8 +68,9 @@ Mantiene prioridades, `!!!PLAN`, handoffs y gates. No modifica código BeatGaler
 #47 → `489d81b...`; #54 → `3560dc844...`; #50 → `39e894c...`; #51 → `5b05ca845...`; #55 → `672e133bc...`; #56 → `f0d65aa...`; #57 → `f73c9ee...`; #59 → `be9e58c...`; #58 → `58a6bf614...`; #60 → `7de7b57a...`; #61 → `55e0d875...`; #64 → `b114111caf...`; #65 → `ed6aab7e...`; #66 → `712b49b...`; #67 → `3ad8f55a...`.
 
 Candidates vivos:
+- #69 @ `b2ab75ae...` — OPEN/Ready/mergeable; exact-head applicable CI green; product wiring todavía no reclamado.
 - #68 @ `2a988ec2...` — OPEN/Ready/mergeable; exact-head applicable CI green; merge execution blocked externally.
-- #63 @ `ed03b806...` — OPEN/Ready/mergeable; Windows Import `33300992453` FAILURE before assertions.
+- #63 @ `e14a3ab9...` — OPEN/Ready/mergeable; Windows Import + applicable CI exact-head SUCCESS; matrix promotion transaction pendiente.
 
 ## Invariantes
 
@@ -84,8 +85,8 @@ Candidates vivos:
 
 ## NEXT
 
-**AAA:** ejecutar una sola vez `NIGHT-AAA-027`.  
-**BBB:** ejecutar una sola vez `NIGHT-BBB-026`.  
-**WOZ:** ejecutar una sola vez `NIGHT-WOZ-026`; no tocar #68 durante este assignment.  
-**JOBS:** siguiente ciclo procesa resultados reales; si aparece capacidad autorizada de merge para #68, revalidar base/head/CI/race antes de transacción. Cualquier merge que mueva integration invalida claims exact-head stale de candidates afectados.  
-**PLAN_HEALTH:** sincronizado al estado GitHub observado en CYCLE 027; GitHub vivo prevalece si cambia después.
+**AAA:** ejecutar una sola vez `NIGHT-AAA-028`.  
+**BBB:** ejecutar una sola vez `NIGHT-BBB-027`.  
+**WOZ:** ejecutar una sola vez `NIGHT-WOZ-027`; no tocar #68 durante este assignment.  
+**JOBS:** siguiente ciclo procesa resultados reales; cualquier merge que mueva integration obliga revalidación fresh de candidates restantes cuando el cambio sea material.  
+**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 028; GitHub vivo prevalece si cambia después.
