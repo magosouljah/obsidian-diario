@@ -4,13 +4,13 @@
 
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-**Estado nocturno CYCLE 027:** baseline vivo `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Estado nocturno CYCLE 033:** baseline vivo `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Estado owner / bloqueo actual
 
-PR #68 / F3 18.1 conserva ownership técnico de WOZ pero queda **HOLDING / BLOCKED_EXTERNAL_MERGE_EXECUTION** después de `NIGHT-WOZ-025`. El candidate no se recrea ni se modifica en `NIGHT-WOZ-026`; WOZ usa ese turno en el server half independiente de F2/13.1.
+PR #68 / F3 18.1 conserva ownership técnico de WOZ pero queda **HOLDING / BLOCKED_EXTERNAL_MERGE_EXECUTION**. Candidate `2a988ec2...` sigue OPEN/Ready/mergeable; no existe merge SHA aceptado y no se reintenta ceremonialmente.
 
-NIGHT-WOZ-025 revalidó #68 OPEN/Ready/mergeable sobre base exacta `3ad8f55a...`, head `2a988ec2a25d6ecfa927614fcc32cde689995103`, exact-head CI verde y race-check limpio. El intento de merge con expected-head guard fue bloqueado por la execution/safety layer antes de que GitHub aceptara la mutación. Recheck posterior: integration siguió exactamente `3ad8f55a...`. No existe merge SHA; 18.1 NO está integrado.
+JOBS CYCLE 033 mueve la capacidad activa de WOZ a **F3/20.1 bajo `NIGHT-WOZ-032`** mientras #68 y F2/#70 permanecen bloqueados por mechanisms externos/tooling. El scope 20.1 es primero READ/AUDIT REUSE-FIRST: mapear requisito→evidencia existente→gap para observabilidad software, alerts, runbook/status/kill-switch sobre auth/API/DB/billing/provider/pool/queue/backup/release. Solo si aparece un gap literal pequeño, independiente y safely writable puede abrir una pieza software-only mínima con tests/CI. No crear provider resources, costos, secretos ni tocar #68/#70/F2/Desktop packaging.
 
 PR #59 está MERGED/DONE en su slice software; separación física staging/prod sigue externa. PR #61 está MERGED; 16.2 permanece SOFTWARE DONE / EXTERNAL TAIL. PR #65 está MERGED; 17.1 SOFTWARE DONE / INTEGRATED. PR #67 está MERGED como `3ad8f55a...`; 17.2 SOFTWARE DONE / INTEGRATED.
 
@@ -57,7 +57,7 @@ Exact-head `2a988ec2a25d6ecfa927614fcc32cde689995103`:
 - Desktop Portability `33299898130` SUCCESS;
 - Upgrade 21.2 SKIPPED/no aplicable.
 
-`NIGHT-WOZ-025`: race-check limpio + intento de merge bloqueado por execution layer; no mutación aceptada por GitHub. Candidate queda frozen. No marcar 18.1 `[x]` hasta merge real + post-merge integration SHA verificado. No afirmar Stripe/provider productivo.
+Race-check previo limpio + intento de merge bloqueado por execution layer; no mutación aceptada por GitHub. Candidate queda frozen. No marcar 18.1 `[x]` hasta merge real + post-merge integration SHA verificado. No afirmar Stripe/provider productivo.
 
 ### 18.2
 - [ ] reconciliación Stripe↔BeatGaler + cola de excepciones;
@@ -77,10 +77,12 @@ Exact-head `2a988ec2a25d6ecfa927614fcc32cde689995103`:
 
 ## Día 20 — Observabilidad, capacidad y recovery
 
-### 20.1
+### 20.1 — `[ 🟡 ] AUDIT ACTIVE` — WOZ `NIGHT-WOZ-032`
 - [ ] logs/métricas/tracing/error reporting/retention;
 - [ ] dashboards/alerts auth/API/DB/billing/provider/pool/queue/backup/release;
 - [ ] on-call/runbook/status/kill switches.
+
+Primero REUSE-FIRST: reutilizar evidencia software ya integrada (5.2 observabilidad/alarms/on-call, #59 health/readiness, #61 promotion/rollback y cualquier artifact existente). No marcar ítems `[x]` desde documentación antigua sin verificar que cubren literalmente el requisito. Si queda gap pequeño software-only, puede implementarse de forma aislada; infraestructura/provider/dashboard real sigue externa y no se falsea.
 
 ### 20.2
 - [ ] capacity envelope y load al doble del pico esperado;
