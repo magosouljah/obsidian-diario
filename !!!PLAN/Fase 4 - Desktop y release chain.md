@@ -4,13 +4,13 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 024:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Integración estable CYCLE 025:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-023` (ASSIGNED).**
+**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-024` (ASSIGNED).**
 
-`NIGHT-BBB-022` no produjo RESULTADO DEL TURNO ni head/handoff nuevo antes de CYCLE 024 y quedó `NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no debe ejecutarse después de 023.
+`NIGHT-BBB-023` no produjo RESULTADO DEL TURNO ni head/handoff nuevo antes de CYCLE 025 y quedó `NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no debe ejecutarse después de 024.
 
 21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. #60 integró la matriz dependency-safe de 25.1, pero 25.1 completo sigue abierto.
 
@@ -30,7 +30,7 @@ Job Windows Import `99186491944`: setup, exact checkout, Node, Rust, npm y `Prep
 - no se promueve matrix;
 - #63 no se integra todavía.
 
-`NIGHT-BBB-023` debe consumir el primer failure causal del run actual y aplicar únicamente el corrective F4/harness mínimo sobre SAME #63. Si llega a ejecutarse una assertion funcional y demuestra un bug de producto, registrar `PRODUCT_FINDING` y STOP para JOBS.
+`NIGHT-BBB-024` debe consumir el primer failure causal del run actual y aplicar únicamente el corrective F4/harness mínimo sobre SAME #63. Si llega a ejecutarse una assertion funcional y demuestra un bug de producto, registrar `PRODUCT_FINDING` y STOP para JOBS.
 
 CI-FALLBACK: `NONE`.
 
@@ -82,7 +82,7 @@ Esto no cierra D22/D23 ni autoriza release público.
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-023`
+### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-024`
 
 #60 integró la matriz como `7de7b57a508b3cf05cbded81501fbd3da63922a3`. Conserva `NOT_COVERED`, `PENDING_EXTERNAL` y `PRODUCT_FINDING` honestos.
 
