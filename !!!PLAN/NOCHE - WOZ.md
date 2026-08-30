@@ -2,31 +2,30 @@
 
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** WOZ — worker nocturno.  
-**Área:** F3 — billing/entitlements software-only.  
+**Área:** F3 — producción / operación técnica.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-040`
+- `ASSIGNMENT_ID: NIGHT-WOZ-041`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F3 / 18.2 — SAME PR #73 exact-head integration transaction`
+- `AREA: F3 / 20.1 — internal observability/software gaps`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
-- `REUSE_PR: #73 / woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb`
-- `PREDECESSOR: NIGHT-WOZ-039 PENDING/WAITING_CI; JOBS CYCLE 041 recheck resolved CI to green.`
+- `INPUT_EVIDENCE: NIGHT-WOZ-033 gap map; NIGHT-WOZ-040 #73 merge-flow blocker`
+- `HOLD_PR: #73 / woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb — DO NOT TOUCH`
 
 ### PRIMARY
 
-1. Recheck integration HEAD and SAME #73 exact head immediately before mutation; duplicate-check and race-check.
-2. Confirm #73 remains OPEN / Ready / mergeable-clean on base `a9d35a3d...` and head exactly `fc831172c4c86d97cadb03801a6777777fd345bb`.
-3. Confirm fresh applicable exact-head CI remains green, including at minimum `Required CI` and `F3 - 18.2 Reconciliation`; skipped non-applicable workflows are not failures.
-4. If baseline/head/CI remain valid, integrate #73 through the authorized owner flow. Do not bypass protections or rewrite unrelated history.
-5. Verify resulting merge SHA and parents after merge; publish handoff with exact evidence.
-6. Mark only the **software reconciliation/exception-queue slice** integrated. Do **not** mark global 18.2 `[x]` while provider/business cases remain unverified: 3DS/rechazo/pago tardío/renewal/cancel/upgrade/downgrade/refund and approved grace-period policy.
-7. Do not touch AAA product-auth, BBB #72 Review, F2 #69/#70, F3/20.1, provider credentials/resources, legal/RO policy or infrastructure.
+1. Preflight live integration + duplicate-check. #73 queda congelado: no recrear, rebasear, force-push, cerrar ni mutar.
+2. REUSE-FIRST sobre gap map WOZ033 y evidencia integrada existente de 5.2/16.x/17.x/18.x.
+3. Trabajar solo gaps internos software verificables de 20.1: logging estructurado útil, métricas internas faltantes, error reporting interno, condiciones/routing de alerts en software, runbook operativo software y kill switches fail-closed.
+4. Si un subrequisito ya tiene evidencia suficiente, documentarla y no abrir cambio ceremonial.
+5. Si hacen falta cambios, una sola rama/PR WOZ nueva desde baseline vivo, limitada a observability/operations software + tests/workflow aplicable.
+6. No crear provider resources, dashboards pagados, status page, on-call externo, DNS, credentials, retention externa, Stripe resources/policy, F2/F4 ni 20.2 load/capacity.
+7. Evidencia requerida: gap-before, cambios mínimos, focused tests, fresh applicable exact-head CI y lista explícita de tails `PENDING_EXTERNAL` que permanecen.
 8. Escribir RESULTADO DEL TURNO aquí + handoff Issue #41 y STOP.
 
-**Required evidence:** pre-merge base/head; exact-head CI set; merge SHA + parents; post-merge integration HEAD; UNVERIFIED provider/business tails.  
-**STOP:** baseline/head race; PR no mergeable; CI red/pending; merge flow unavailable; scope drift; evidence mismatch.
+**STOP:** overlap con #73/AAA/BBB, provider/RO decision, scope creep a 20.2, evidencia externa necesaria, CI rojo no atribuible o baseline race.
 
 ### CI-FALLBACK
 
@@ -36,59 +35,25 @@
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback.
 
-## RESULTADO DEL TURNO — NIGHT-WOZ-040
+## RESULTADO PROCESADO — NIGHT-WOZ-040
 
-### PRIMARY
-
-- `Assignment ID: NIGHT-WOZ-040`
-- `STATUS: BLOCKED / MERGE_FLOW_UNAVAILABLE`
-- `baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
-- `branch/head: woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb`
-- `PR: #73 OPEN / Ready / mergeable=true / NOT MERGED`
-- `cambios: ninguno en este turno; reuse-only del candidate existente. Scope rechecked: exactamente .github/workflows/f3-18.2-reconciliation.yml; cloud-server/billing-reconciliation.js; cloud-server/migrations/0008_billing_reconciliation.sql; cloud-server/tests/billing-reconciliation.test.cjs.`
-- `tests: no se repitieron tests; se reutilizó evidencia exact-head vigente.`
-- `CI: exact head fc831172 — Test - Desktop Portability / Required CI 33320621865 SUCCESS; F3 - 18.2 Reconciliation 33320621931 SUCCESS; D6 33320621877 SUCCESS; D7 33320621893 SUCCESS; productive temp-auth 33320621868 SUCCESS; Upgrade 21.2 33320621863 SKIPPED/no aplicable.`
-- `evidencia: race-check final confirmó integration a9d35a3d69dd9127029fb851d189f9bd3079d03b; #73 base exacta a9d35a3d..., head exacto fc831172..., mergeable=true; intento de merge con expected_head_sha=fc831172... fue bloqueado por controles de seguridad del execution layer antes de aceptación por GitHub; recheck post-intento confirmó integration sin cambio en a9d35a3d...`
-- `UNVERIFIED: merge SHA/parents porque no hubo merge; 3DS, rechazo, pago tardío, renewal, cancel, upgrade, downgrade, refund, grace-period policy y Stripe/provider productivo siguen fuera de evidencia y no se reclaman.`
-- `blockers: MERGE_FLOW_UNAVAILABLE por bloqueo de la capa de seguridad del conector; no es CI red ni race de baseline/head.`
-- `condición de STOP alcanzada: merge flow unavailable.`
-- `recomendación para JOBS: conservar SAME #73 y SAME exact head fc831172...; no recrear ni rebasar mientras baseline permanezca a9d35a3d...; reintentar la transacción autorizada en otro ciclo/flujo capaz de ejecutar merge con exact-head guard. No cerrar 18.2 global aun después de integrar este slice.`
-
-### CI-FALLBACK
-
-- `Assignment ID: NIGHT-WOZ-040`
-- `STATUS: NOT RUN / NONE`
-- `baseline: a9d35a3d69dd9127029fb851d189f9bd3079d03b`
-- `branch/head: N/A`
-- `PR: N/A`
-- `cambios: ninguno`
-- `tests: N/A`
-- `CI: N/A`
-- `evidencia: asignación vigente declara CI-FALLBACK NONE.`
-- `UNVERIFIED: N/A`
-- `blockers: N/A`
-- `condición de STOP alcanzada: fallback no autorizado.`
-- `recomendación para JOBS: no inferir trabajo alterno.`
-
-## RESULTADO PROCESADO — NIGHT-WOZ-039
-
-- `STATUS: PENDING / WAITING_CI -> READY_FOR_INTEGRATION_BY_JOBS_RECHECK`.
-- PR #73 OPEN / Ready, base exacta `a9d35a3d69dd9127029fb851d189f9bd3079d03b`, head exacto `fc831172c4c86d97cadb03801a6777777fd345bb`.
-- GitHub CYCLE 041: `mergeable=true`, `mergeable_state=clean`.
-- Exact-head CI fresh: `Required CI` run `33320621865` = SUCCESS; `F3 - 18.2 Reconciliation` run `33320621931` = SUCCESS. Non-applicable Upgrade 21.2 = SKIPPED.
-- No merge todavía; integration sigue `a9d35a3d...`.
-- Software slice queda integration-ready; 18.2 global continúa abierto por provider/business tails.
+- `STATUS: BLOCKED / MERGE_FLOW_UNAVAILABLE`.
+- #73 OPEN/Ready/mergeable, base `a9d35a3d...`, exact head `fc831172c4c86d97cadb03801a6777777fd345bb`.
+- Required CI `33320621865`, F3 18.2 `33320621931`, D6 `33320621877`, D7 `33320621893`, productive temp-auth `33320621868` SUCCESS; Upgrade 21.2 SKIPPED.
+- Race-check limpio; integration siguió `a9d35a3d...`.
+- Merge intent was blocked by execution layer before GitHub acceptance; no merge SHA, no integration change, no claim of 18.2 integrated.
+- #73 queda holding intacto hasta un flujo capaz de ejecutar merge con exact-head guard.
 
 ## HOLDING
 
-- F3/20.1 gap map WOZ033 válido, unassigned.
+- F3/18.2 #73 exact-head green / merge-flow blocked.
 - F2/#70 stale/frozen; fuera de scope.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-040`: BLOCKED/MERGE_FLOW_UNAVAILABLE — #73 exact-head verde y race-clean; merge bloqueado por execution layer; integration sin cambio.
+- `NIGHT-WOZ-041`: ASSIGNED — F3/20.1 internal observability slice.
+- `NIGHT-WOZ-040`: BLOCKED/MERGE_FLOW_UNAVAILABLE — #73 green/race-clean, not merged.
 - `NIGHT-WOZ-039`: PENDING/WAITING_CI -> READY_FOR_INTEGRATION by JOBS recheck.
-- `NIGHT-WOZ-038`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-037`: DONE/INTEGRATED — #68 merge `a9d35a3d...`.
 - `NIGHT-WOZ-033`: DONE/AUDIT_ONLY — 20.1 gap map.
 - `NIGHT-WOZ-021`: #67 merged `3ad8f55a...`.
