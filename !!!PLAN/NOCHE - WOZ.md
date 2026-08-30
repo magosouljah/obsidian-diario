@@ -33,6 +33,40 @@
 
 Reason: 18.2 depende de 18.1 y comparte billing/subscription; F2 garbage-journal server half es otra pieza/ownership y no debe mezclarse en la transacción #68.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-025
+
+### PRIMARY
+
+- `Assignment ID: NIGHT-WOZ-025`
+- `STATUS: BLOCKED / MERGE_TOOL_REJECTED`
+- `baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `branch/head: woz/night-18.1-entitlements-reservation @ 2a988ec2a25d6ecfa927614fcc32cde689995103`
+- `PR: #68 OPEN / Ready / mergeable=true`
+- `cambios: ninguno en este turno; REUSE-FIRST del candidate existente`
+- `tests: sin rerun local; exact-head CI existente revalidado`
+- `CI: F3 18.1 33299898356 SUCCESS; D6 33299898222 SUCCESS; D7 33299898232 SUCCESS; Productive Temp Auth Compile 33299898207 SUCCESS; Desktop Portability 33299898130 SUCCESS; Upgrade 21.2 33299898169 SKIPPED/no aplicable`
+- `evidencia: race-check inmediatamente antes del intento confirmó integration 3ad8f55a...; #68 base exacta 3ad8f55a..., head exacto 2a988ec2..., mergeable=true. Merge intentado con expected-head guard 2a988ec2...; la capa de seguridad del conector bloqueó la mutación antes de que GitHub aceptara merge. Recheck posterior: integration sigue 3ad8f55a...`
+- `UNVERIFIED: merge SHA inexistente; 18.1 NO integrado; Stripe/provider productivo no verificado; 18.2 no iniciado`
+- `blockers: ejecución de merge bloqueada por safety layer del conector; el intento de handoff en Issue #41 también fue bloqueado por la misma capa`
+- `condición de STOP alcanzada: merge rechazado por execution layer`
+- `recomendación para JOBS: conservar SAME #68/head; reintentar la transacción autorizada en un ciclo posterior o resolver autoridad del conector. No recrear candidate ni marcar 18.1 integrado.`
+
+### CI-FALLBACK
+
+- `Assignment ID: NIGHT-WOZ-025`
+- `STATUS: NONE / NOT_RUN`
+- `baseline: 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `branch/head: n/a`
+- `PR: n/a`
+- `cambios: ninguno`
+- `tests: n/a`
+- `CI: n/a`
+- `evidencia: asignación explícita CI-FALLBACK NONE`
+- `UNVERIFIED: n/a`
+- `blockers: n/a`
+- `condición de STOP alcanzada: fallback inexistente`
+- `recomendación para JOBS: no inventar fallback`
+
 ## RESULTADO PROCESADO — NIGHT-WOZ-024
 
 - `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS CYCLE 026`.
@@ -48,7 +82,7 @@ Reason: 18.2 depende de 18.1 y comparte billing/subscription; F2 garbage-journal
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-025`: ASSIGNED — #68 final integration transaction; CI-FALLBACK NONE.
+- `NIGHT-WOZ-025`: BLOCKED / MERGE_TOOL_REJECTED — #68 unchanged; integration remains `3ad8f55a...`; CI-FALLBACK NONE.
 - `NIGHT-WOZ-024`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-023`: PENDING/WAITING_CI -> exact-head GREEN.
 - `NIGHT-WOZ-021`: DONE/INTEGRATED — #67 merged `3ad8f55a...`.
