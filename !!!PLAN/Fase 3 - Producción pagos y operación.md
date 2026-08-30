@@ -2,28 +2,28 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 039:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Baseline vivo CYCLE 040:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado owner / candidates
 
-- PR #68 / 18.1 fue MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`; candidate exact head `68adaad4a5b1b2b50ba192c1b58325cbba0472e3`, 4 changed files / +178 -0.
-- Exact-head evidence previa al merge: 5 workflows `SUCCESS` + 1 `SKIPPED`, 0 failure/pending; dedicated `F3 - 18.1 Entitlements` y Required CI aplicable verdes.
-- WOZ037 verificó race-check, merge SHA, parents y new integration HEAD. 18.1 se procesa `[x] SOFTWARE DONE / INTEGRATED`.
-- `NIGHT-WOZ-038` toma 18.2 software-only con REUSE-FIRST; no proveedor/credenciales ni decisiones de grace/refund inventadas.
+- PR #68 / 18.1 MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`; candidate exact head `68adaad4a5b1b2b50ba192c1b58325cbba0472e3`.
+- WOZ037 verificó exact-head CI, race-check, merge SHA y parents. 18.1 está `[x] SOFTWARE DONE / INTEGRATED`.
+- `NIGHT-WOZ-038` no produjo resultado/handoff verificable al preflight CYCLE 040.
+- `NIGHT-WOZ-039` reemite 18.2 porque sigue siendo el siguiente trabajo F3 dependency-ready y no colisiona con AAA/BBB.
 - `NIGHT-WOZ-033` gap map de 20.1 sigue válido; 20.1 permanece holding.
 
 ## Owner actual
 
-**WOZ — `NIGHT-WOZ-038` — F3/18.2 reconciliation + exception-queue software contract.**
+**WOZ — `NIGHT-WOZ-039` — F3/18.2 reconciliation + exception-queue software contract.**
 
 PRIMARY:
 1. Auditar primitives existentes de reconciliation/webhook/event-ledger/subscription/retry/idempotency.
-2. No crear recursos Stripe/credenciales/productos/precios ni infraestructura.
-3. Si ya está satisfecho literalmente, handoff audit-only; no PR ceremonial.
-4. Si hay gap interno, implementar solo reconciliación durable/idempotente + cola de excepciones/retry fail-closed, sin conceder entitlement por redirect/session.
+2. No crear infraestructura/recursos/credenciales Stripe ni inventar políticas RO.
+3. Si ya está satisfecho literalmente, handoff audit-only; sin PR ceremonial.
+4. Si hay gap interno, implementar solo reconciliación durable/idempotente + exception queue/retry fail-closed, sin entitlement por redirect/session.
 5. Focused tests: replay/idempotencia, divergence, exception/retry y no-grant ambiguo.
 6. Fresh applicable exact-head CI para nuevo head.
-7. No cerrar 18.2 si faltan casos de negocio/proveedor literales.
+7. No cerrar 18.2 completo si faltan casos negocio/proveedor literales.
 8. STOP ante decisión RO/proveedor/credencial, baseline race, scope drift o CI no atribuible.
 
 CI-FALLBACK: `NONE`.
@@ -47,7 +47,7 @@ Health/readiness/shutdown/timeouts/proxy trust integrado por #59. Separación f�
 ## Día 18
 
 ### 18.1 — `[x] SOFTWARE DONE / INTEGRATED`
-PR #68 integró limits/entitlements server-side, reservation anti-race y subscription-state contract. Merge `a9d35a3d69dd9127029fb851d189f9bd3079d03b`; WOZ037 verificó exact-head/race-check/parents.
+PR #68 integró limits/entitlements server-side, reservation anti-race y subscription-state contract. Merge `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ### 18.2 — `[ 🟡 ] IN PROGRESS`
 - [ ] reconciliación Stripe↔BeatGaler + cola de excepciones;
