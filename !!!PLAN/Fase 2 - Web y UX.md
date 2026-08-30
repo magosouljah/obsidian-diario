@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE 049:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Baseline vivo CYCLE 051:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado actual
 
@@ -18,7 +18,7 @@ No cerrar 12.1 con benchmark sintético.
 
 ### 13.1 — `[ 🟡 ] IN PROGRESS / BLOCKED ON WRITE SURFACE`
 
-**Web / #69:** PR OPEN/Ready/mergeable @ `b2ab75ae1dbde4e3aba389da844f466920a5d6eb`, base histórica `3ad8f55a...`; coordinator Save All + CAS/partial summary probado. `NIGHT-AAA-043` revalidó que integration y #69 divergen desde ese merge-base y que integration cambia fuera de los dos archivos de #69. No pudo hacer refresh/product wiring de forma segura con la superficie de escritura disponible y terminó `PENDING / STOP_WRITE_SURFACE`. #69 queda frozen/unowned hasta superficie patch-capable.
+**Web / #69:** PR OPEN/Ready/mergeable @ `b2ab75ae1dbde4e3aba389da844f466920a5d6eb`, base histórica `3ad8f55a...`; coordinator Save All + CAS/partial summary probado. `NIGHT-AAA-043` revalidó divergencia y terminó `PENDING / STOP_WRITE_SURFACE`. #69 queda frozen/unowned hasta superficie patch-capable.
 
 **Server / #70:** PR OPEN/mergeable @ `5a99ebf2...`; corrective conocido, safe-write tooling blocker y baseline stale. Frozen/unowned.
 
@@ -28,7 +28,7 @@ No cerrar 12.1 con benchmark sintético.
 
 ### 13.2 — `[ 🟡 ] AUDIT QUEUED AS CONDITIONAL FALLBACK`
 
-`NIGHT-AAA-044` no produjo RESULTADO DEL TURNO antes de CYCLE 049 y queda superseded. Para no perder el trabajo útil, el mismo audit **read-only** queda preautorizado únicamente como `CI-FALLBACK` de `NIGHT-AAA-045`, y solo si el PRIMARY #76 entra realmente en WAITING_CI/review/merge.
+El audit **read-only** queda preautorizado únicamente como `CI-FALLBACK` de `NIGHT-AAA-047`, y solo si PRIMARY #76 entra realmente en `WAITING_CI`/review/merge después de quedar code-complete.
 
 Fallback permitido:
 - ReviewShell Import/Edit/Bulk;
