@@ -2,7 +2,7 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 056:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Baseline vivo CYCLE 057:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado owner / candidates
 
@@ -11,15 +11,14 @@
 - PR #76 `legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070` sigue OPEN/Ready/mergeable con base snapshot `a9d35a3d...`, stale contra live integration. Frozen hasta refresh history-preserving seguro. Canonical Privacy/Terms + public routes existen; Settings canonical sync sigue pendiente.
 - PR #75 `woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f` sigue frozen por corrective/write-flow blocker.
 - PR #77 sigue CLOSED/unmerged y no puede reabrirse.
-- Replacement PR #78 `woz/night-20.2-capacity-harness @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a` está OPEN/non-draft/mergeable sobre base exacta `a306e3b3...`; 2 archivos/+139. CYCLE 056 observó workflows PR-triggered completos sin failure. `NIGHT-WOZ-054` no produjo resultado final y fue superseded; `NIGHT-WOZ-055` es owner único para race-check + integración.
+- Replacement PR #78 `woz/night-20.2-capacity-harness @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a` sigue OPEN/non-draft/mergeable sobre base exacta `a306e3b3...`; 2 archivos/+139. Workflows exact-head observados completos sin failure. `NIGHT-WOZ-055` no produjo resultado final y fue superseded; `NIGHT-WOZ-056` es owner único para race-check + integración.
 - PR #79 / F4 readiness sigue OPEN/mergeable exact-base, pero queda fuera de WOZ y serializado para no competir por el mismo baseline de integration.
 
 ## Owners actuales
 
-**WOZ — `NIGHT-WOZ-055` — F3 / 20.2 SAME #78 exact-head race-check + integration.**
+**WOZ — `NIGHT-WOZ-056` — F3 / 20.2 SAME #78 exact-head race-check + integration.**
 
 ### WOZ PRIMARY
-
 1. Recheck live integration, #78 exact head/base, mergeability and two-file delta.
 2. Revalidate exact-head CI immediately before merge; no stale-head reuse.
 3. Merge only through WOZ authorized flow if race-clean.
@@ -80,7 +79,7 @@ PR #75 contiene structured redacted events, bounded counters, condition→route 
 Gap map vigente:
 - capacity envelope `PARTIAL`;
 - approved expected peak `GAP / prerequisite missing`;
-- deterministic local/synthetic harness candidate #78 exact-head, integration pendiente bajo `NIGHT-WOZ-055`;
+- deterministic local/synthetic harness candidate #78 exact-head, integration pendiente bajo `NIGHT-WOZ-056`;
 - 2× peak proof `PENDING_EXTERNAL`;
 - latency `GAP` hasta ejecución aplicable;
 - error/queue/recovery measurement `PARTIAL`;
