@@ -4,54 +4,50 @@
 
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-**Estado nocturno CYCLE 025:** baseline vivo `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Estado nocturno CYCLE 026:** baseline vivo `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Owner actual
 
-**WOZ — F3 / 18.1 / PR #68 final integration — `NIGHT-WOZ-024` (ASSIGNED).**
+**WOZ — F3 / 18.1 / PR #68 final integration — `NIGHT-WOZ-025` (ASSIGNED).**
 
-`NIGHT-WOZ-023` produjo PR #68 `woz/night-18.1-entitlements-reservation @ 2a988ec2a25d6ecfa927614fcc32cde689995103` y cerró PENDING/WAITING_CI. JOBS CYCLE 025 verificó que #68 sigue OPEN/Ready/mergeable sobre base exacta `3ad8f55a...` y que toda la CI aplicable del exact head terminó verde.
+NIGHT-WOZ-024 no produjo resultado/merge nuevo antes del preflight CYCLE 026 y quedó superseded para preservar ejecución monotónica. GitHub vivo sigue mostrando #68 OPEN/Ready/mergeable sobre base exacta `3ad8f55a...`, head `2a988ec2a25d6ecfa927614fcc32cde689995103`, con exact-head CI aplicable verde.
 
-PR #59 quedó **MERGED / DONE** en su slice software; separación física staging/prod sigue externa. PR #61 quedó **MERGED**; 16.2 permanece SOFTWARE DONE / EXTERNAL TAIL.
-
-PR #65 quedó **CLOSED / MERGED** como `ed6aab7e964686cdb5fb1b84eac0198ca67f8892`. 17.1 está SOFTWARE DONE / INTEGRATED.
-
-PR #67 quedó **CLOSED / MERGED** como `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`. 17.2 está SOFTWARE DONE / INTEGRATED.
+PR #59 está MERGED/DONE en su slice software; separación física staging/prod sigue externa. PR #61 está MERGED; 16.2 permanece SOFTWARE DONE / EXTERNAL TAIL. PR #65 está MERGED; 17.1 SOFTWARE DONE / INTEGRATED. PR #67 está MERGED como `3ad8f55a...`; 17.2 SOFTWARE DONE / INTEGRATED.
 
 ## Día 16 — Staging y producción reproducibles
 
 ### 16.1 — `[ 🟡 ] SOFTWARE DONE / EXTERNAL TAIL`
-- [ ] Entornos físicamente separados con provider ownership, DB, storage, bots, OAuth callbacks y secretos separados. **PENDING_EXTERNAL**.
+- [ ] Entornos físicamente separados con provider ownership, DB, storage, bots, OAuth callbacks y secretos separados — PENDING_EXTERNAL.
 - [ ] Provider final/ownership real donde aplique.
-- [x] Health/readiness/dependency checks; graceful shutdown, timeouts y proxy trust — DONE/INTEGRATED por #59.
+- [x] Health/readiness/dependency checks; graceful shutdown, timeouts y proxy trust — #59.
 
-**Regla:** no crear infraestructura pagada, provider projects, buckets/bots/OAuth projects ni recursos con costo sin aprobación RO.
+No crear infraestructura pagada/proyectos/buckets/bots/OAuth ni recursos con costo sin aprobación RO.
 
 ### 16.2 — `[ 🟡 ] SOFTWARE DONE / EXTERNAL TAIL`
-Integrado por #61 como `55e0d875...`: promoción dependency-safe PR→preview→staging→producción con mismo source/artifact SHA, smoke y rollback fail-closed.
+#61 integró promoción dependency-safe PR→preview→staging→producción con mismo source/artifact SHA, smoke y rollback fail-closed.
 
 **Pendiente externo:** deploy/staging/production reales, provider ownership, DNS/TLS productivo y rollback real.
 
 ## Día 17 — Stripe Checkout y webhooks
 
 ### 17.1 — `[x] SOFTWARE DONE / INTEGRATED`
-- [x] IDs internos/catalog contract server-owned en software.
+- [x] IDs internos/catalog contract server-owned.
 - [x] Checkout Session abstraction server-side.
-- [x] idempotency key y rechazo de precio/plan/currency/trial controlado por cliente.
+- [x] Idempotency y rechazo de precio/plan/currency/trial controlado por cliente.
 
 ### 17.2 — `[x] SOFTWARE DONE / INTEGRATED`
-- [x] firma webhook sobre raw-body antes de parse/mutate;
-- [x] event ID durable/idempotente + async/retry/failure state;
-- [x] duplicados/desorden/timeouts/eventos relevantes con semántica segura.
+- [x] firma webhook raw-body;
+- [x] event ID durable/idempotente + retry/failure state;
+- [x] duplicados/desorden/timeouts/eventos relevantes seguros.
 
 ## Día 18 — Entitlements, portal y reconciliación
 
-### 18.1 — `[ 🟡 ] EXACT-HEAD GREEN / AWAITING OWNER INTEGRATION — WOZ NIGHT-WOZ-024`
+### 18.1 — `[ 🟡 ] EXACT-HEAD GREEN / AWAITING OWNER INTEGRATION — WOZ NIGHT-WOZ-025`
 
-PR #68 implementa software-only:
+PR #68 software-only implementa:
 - [x] limits/entitlements server-side antes de reservar recursos;
 - [x] transacción/reserva anti-carreras mediante PostgreSQL transaction + advisory xact lock;
-- [x] contrato server-side de Billing Portal/cancel/subscription states sin conceder entitlement desde redirect/session.
+- [x] contrato server-side Billing Portal/cancel/subscription states sin conceder entitlement desde redirect/session.
 
 Exact-head `2a988ec2a25d6ecfa927614fcc32cde689995103`:
 - F3 18.1 `33299898356` SUCCESS;
@@ -59,9 +55,9 @@ Exact-head `2a988ec2a25d6ecfa927614fcc32cde689995103`:
 - D7 `33299898232` SUCCESS;
 - Productive Temp Auth Compile `33299898207` SUCCESS;
 - Desktop Portability `33299898130` SUCCESS;
-- Upgrade 21.2 `33299898169` SKIPPED/no aplicable.
+- Upgrade 21.2 SKIPPED/no aplicable.
 
-No marcar 18.1 `[x]` hasta merge real y post-merge SHA verificado. No afirma Stripe/provider productivo.
+No marcar 18.1 `[x]` hasta merge real + post-merge integration SHA verificado. No afirmar Stripe/provider productivo.
 
 ### 18.2
 - [ ] reconciliación Stripe↔BeatGaler + cola de excepciones;
@@ -91,4 +87,4 @@ No marcar 18.1 `[x]` hasta merge real y post-merge SHA verificado. No afirma Str
 - [ ] medir latency/errors/queue/recovery;
 - [ ] admission control/per-bot ceiling/margen/waitlist.
 
-**Principio:** no falsear proveedor, capacidad, Stripe, DNS, legal o staging real sin evidencia productiva/externa correspondiente.
+**Principio:** no falsear proveedor, capacidad, Stripe, DNS, legal o staging real sin evidencia productiva/externa.
