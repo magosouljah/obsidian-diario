@@ -4,33 +4,33 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 025:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Integración estable CYCLE 026:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-024` (ASSIGNED).**
-
-`NIGHT-BBB-023` no produjo RESULTADO DEL TURNO ni head/handoff nuevo antes de CYCLE 025 y quedó `NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no debe ejecutarse después de 024.
+**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-025` (ASSIGNED).**
 
 21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. #60 integró la matriz dependency-safe de 25.1, pero 25.1 completo sigue abierto.
 
-PR #63 `bbb/task-25.1-windows-import @ 033c2b55a0c46471b7e7ddb3af57b626699ac6e6` sigue OPEN/Ready y su base viva es `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+PR #63 `bbb/task-25.1-windows-import @ ed03b806669373758d38bfd211e8f8905c86e269` sigue OPEN/Ready, base viva `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
-Evidencia exact-head vigente:
-- F4 Matrix `33284981451` — SUCCESS;
-- D6 `33284981429` — SUCCESS;
-- D7 `33284981377` — SUCCESS;
-- Windows Import `33284981477` — **FAILURE**;
-- Desktop Portability de ese head no sustituye el failure funcional;
+Fresh exact-head CYCLE 026:
+- F4 Matrix `33300992450` — SUCCESS;
+- D6 `33300992447` — SUCCESS;
+- D7 `33300992444` — SUCCESS;
+- Desktop Portability `33300992437` — SUCCESS;
+- Windows Import `33300992453` — **FAILURE**;
 - Upgrade 21.2 — SKIPPED/no aplicable.
 
-Job Windows Import `99186491944`: setup, exact checkout, Node, Rust, npm y `Prepare isolated embedded Tauri WebDriver` terminaron SUCCESS; `Run existing Windows import E2E harness` terminó FAILURE. Por tanto:
-- no existe PASS literal de import;
-- `windows/import` continúa `NOT_COVERED`;
-- no se promueve matrix;
-- #63 no se integra todavía.
+Job Windows Import `99228993010`: checkout/setup/npm/prepare embedded/build completan; `tauri-plugin-wdio-webdriver` compila. Antes de assertions, el servicio efectivo entra a `TauriLaunchService.onPrepare` y falla primero con Edge WebDriver mismatch (`Edge 151.0.4129.101`, driver `unknown`, recomendación del propio servicio `autoDownloadEdgeDriver: true`), luego reporta `tauri-driver not found` y termina con `No browserName defined in capabilities nor hostname or port found`.
 
-`NIGHT-BBB-024` debe consumir el primer failure causal del run actual y aplicar únicamente el corrective F4/harness mínimo sobre SAME #63. Si llega a ejecutarse una assertion funcional y demuestra un bug de producto, registrar `PRODUCT_FINDING` y STOP para JOBS.
+Por tanto:
+- no existe evidencia de bug productivo de import;
+- existe failure F4 launcher/session reproducible antes de assertions;
+- `windows/import` continúa `NOT_COVERED`;
+- no AUTOMATED_PASS ni merge.
+
+`NIGHT-BBB-025` debe trabajar SAME #63, verificar la config/provider/session **efectivamente consumida** y hacer solo el corrective F4 mínimo que resuelva el primer failure causal. Si alcanza assertions y aparece bug de producto, registrar PRODUCT_FINDING y STOP.
 
 CI-FALLBACK: `NONE`.
 
@@ -40,7 +40,7 @@ CI-FALLBACK: `NONE`.
 #51 incorporó el artifact histórico #48. Nombre visible `Galer`, bundle ID `com.beatgaler.app`, versión/endpoints/channel/capabilities coherentes y checks anti-drift.
 
 ### 21.2 — `[x] DONE / INTEGRATED`
-#51 exact tested head `0fd9bee8117ca92fb9f713f0d55089f5707a2917`; D7 `33243436937`, D6 `33243436890`, Required CI `33243436894`, Upgrade Staging `33243436914` SUCCESS; merge `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.
+#51 exact tested head `0fd9bee8117ca92fb9f713f0d55089f5707a2917`; D7/D6/Required CI/Upgrade Staging SUCCESS; merge `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.
 
 ## Día 22 — Windows firmado
 
@@ -54,7 +54,7 @@ CI-FALLBACK: `NONE`.
 - [ ] SmartScreen/AV/paths/red/sleep;
 - [ ] DAWs/versiones/updater válido e inválido.
 
-**Estado:** certificado/signing siguen externos y no se inventan.
+**Estado:** certificado/signing siguen externos.
 
 ## Día 23 — macOS firmado/notarizado
 
@@ -73,23 +73,23 @@ CI-FALLBACK: `NONE`.
 ## Día 24 — Updater/procedencia/rollback
 
 ### 24.1 — `[x] DONE / INTEGRATED`
-#55 exact tested head `ba83c87dab8a56163601e913f7764c7f8682b7a6`; Required CI `33248059804`, F4 Release Controls `33248059891`, D6 `33248059823`, D7 `33248059990` SUCCESS; merge `672e133bc9cb8a47a29d4b34e13fc535290e5681`.
+#55 merge `672e133bc9cb8a47a29d4b34e13fc535290e5681` con Required CI/release-controls/D6/D7 SUCCESS.
 
 ### 24.2 — `[x] DONE / INTEGRATED`
-#57 exact tested head `4e251cae84ff55116c89c8398e78f04aecb78e3c`; Required CI/Desktop Portability `33255401498`, D6 `33255401544`, D7 `33255401512` SUCCESS; merge `f73c9ee8d058df3c780170c8c2a3fabef975c54d`.
+#57 merge `f73c9ee8d058df3c780170c8c2a3fabef975c54d` con Required CI/D6/D7 SUCCESS.
 
 Esto no cierra D22/D23 ni autoriza release público.
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-024`
+### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-025`
 
 #60 integró la matriz como `7de7b57a508b3cf05cbded81501fbd3da63922a3`. Conserva `NOT_COVERED`, `PENDING_EXTERNAL` y `PRODUCT_FINDING` honestos.
 
-SAME #63 intenta cerrar únicamente Windows/import reutilizando `test:e2e:import`. Estado vivo:
-- head `033c2b55a0c46471b7e7ddb3af57b626699ac6e6`;
+SAME #63 intenta cerrar únicamente Windows/import reutilizando `test:e2e:import`:
+- head `ed03b806669373758d38bfd211e8f8905c86e269`;
 - base `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`;
-- Windows Import `33284981477` FAILURE en E2E harness;
+- Windows Import `33300992453` FAILURE en launcher/session antes de assertions;
 - no merge/no promoción a `AUTOMATED_PASS`.
 
 Persisten otros gaps reales: journeys core no demostrados cross-platform, iPhone runner/hardware externo, YouTube/billing donde la matriz marque gap y signing/notarization externos.
@@ -101,4 +101,4 @@ Persisten otros gaps reales: journeys core no demostrados cross-platform, iPhone
 
 **Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido.
 
-**Regla:** trabajo técnico dependency-safe puede avanzar cross-phase, pero firma/notarización/release/beta siguen bloqueadas por sus prerequisitos reales.
+**Regla:** trabajo técnico dependency-safe puede avanzar cross-phase, pero firma/notarización/release/beta siguen bloqueadas por prerequisitos reales.
