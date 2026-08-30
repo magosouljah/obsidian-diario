@@ -4,7 +4,7 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 036:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
+**Baseline vivo CYCLE 037:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
 
 ## Estado actual
 
@@ -16,7 +16,7 @@
 
 ## Owner actual
 
-**AAA — `NIGHT-AAA-034` — F2/13.1 SAME #69.**
+**AAA — `NIGHT-AAA-035` — F2/13.1 SAME #69.**
 
 PRIMARY:
 1. Preflight contra `02a40564...` + duplicate-check.
