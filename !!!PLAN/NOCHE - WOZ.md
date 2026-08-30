@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-041`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F3 / 20.1 — internal observability/software gaps`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
 - `INPUT_EVIDENCE: NIGHT-WOZ-033 gap map; NIGHT-WOZ-040 #73 merge-flow blocker`
@@ -35,6 +35,40 @@
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-041
+
+### PRIMARY
+
+- `Assignment ID: NIGHT-WOZ-041`
+- `STATUS: PENDING / WAITING_CI`
+- `baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
+- `branch/head: woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f`
+- `PR: #75 — OPEN, 4 files, +156/-0`
+- `cambios: software-only observability contract: structured redacted events; bounded internal counters; explicit alert condition→route mapping without delivery claims; fail-closed kill-switch parsing/enforcement; internal operations runbook; focused exact-path workflow.`
+- `tests: cloud-server/tests/operations-observability.test.cjs añade focused coverage para secret-shaped log redaction, metric counting, missing/configured alert routes y kill-switch invalid-config/block behavior.`
+- `CI: consulta inmediata del exact head bb493b37... devolvió 0 workflow runs; no se reclama PASS.`
+- `evidencia: gap-before WOZ033/Fase 3: logs PARTIAL, metrics GAP, error reporting PARTIAL/GAP, alert routing GAP, runbook PARTIAL, kill switches GAP. Reuse confirmado en runtime-operability.js para health/readiness/timeouts/shutdown; nuevo PR no reimplementa esos primitives.`
+- `UNVERIFIED: fresh exact-head CI; integración; wiring productivo de cada call-site hacia structuredEvent/createMetrics/assertOperationEnabled; tracing backend; durable error-reporting backend; metrics backend/dashboard; retention externa; provider alert resources + delivery; on-call/escalation; public status page.`
+- `blockers: espera externa verificable por CI del nuevo exact head.`
+- `condición de STOP alcanzada: WAITING_CI.`
+- `recomendación para JOBS: recheck #75 exact head bb493b37...; si applicable CI queda verde y baseline sigue a9d35a3d..., asignar siguiente ciclo para integración o corrective atribuible. No declarar 20.1 global cerrado: external tails y product call-site wiring permanecen abiertos. Mantener #73 congelado.`
+
+### CI-FALLBACK
+
+- `Assignment ID: NIGHT-WOZ-041`
+- `STATUS: NOT_RUN / NONE`
+- `baseline: N/A`
+- `branch/head: N/A`
+- `PR: N/A`
+- `cambios: ninguno`
+- `tests: N/A`
+- `CI: N/A`
+- `evidencia: JOBS escribió CI-FALLBACK NONE.`
+- `UNVERIFIED: N/A`
+- `blockers: N/A`
+- `condición de STOP alcanzada: no inventar fallback.`
+- `recomendación para JOBS: ninguna para fallback.`
+
 ## RESULTADO PROCESADO — NIGHT-WOZ-040
 
 - `STATUS: BLOCKED / MERGE_FLOW_UNAVAILABLE`.
@@ -51,7 +85,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-041`: ASSIGNED — F3/20.1 internal observability slice.
+- `NIGHT-WOZ-041`: PENDING/WAITING_CI — #75 internal observability @ `bb493b37...`.
 - `NIGHT-WOZ-040`: BLOCKED/MERGE_FLOW_UNAVAILABLE — #73 green/race-clean, not merged.
 - `NIGHT-WOZ-039`: PENDING/WAITING_CI -> READY_FOR_INTEGRATION by JOBS recheck.
 - `NIGHT-WOZ-037`: DONE/INTEGRATED — #68 merge `a9d35a3d...`.
