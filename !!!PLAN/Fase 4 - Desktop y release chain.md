@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 045:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Integración estable CYCLE 046:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado actual
 
@@ -13,38 +13,30 @@ PR #63 fue MERGED y dejó `windows/import = AUTOMATED_PASS` integrado. 25.1 comp
 PR #71 permanece como regression proof: bajo sesión WebDriver real el Desktop login no persistió `beatgaler:account-session:v1`. `windows/auth` sigue `NOT_COVERED`.
 
 SAME PR #74 permanece factual:
-- PR #74 OPEN/Ready, no mergeado;
+- OPEN/Ready/mergeable, no mergeado;
 - base exacta `a9d35a3d69dd9127029fb851d189f9bd3079d03b`;
-- head exacto `14dfba52775f40f1956e3d1dcb343b07b147ba0c`;
-- D6 `33324138675` — SUCCESS;
-- D7 `33324138676` — SUCCESS;
-- Test - Desktop Portability / Required CI `33324138689` — SUCCESS;
-- Upgrade `33324138691` — SKIPPED/no aplicable.
+- head `14dfba52775f40f1956e3d1dcb343b07b147ba0c`;
+- D6 `33324138675` SUCCESS; D7 `33324138676` SUCCESS; Required CI `33324138689` SUCCESS; Upgrade `33324138691` SKIPPED/no aplicable.
 
-El corrective conserva `__TAURI_INTERNALS__` como señal primaria, packaged Tauri origins como fallback y Web/localhost ordinario como Web. No se reclama integración: integration HEAD sigue `a9d35a3d...`.
-
-`NIGHT-AAA-040` no produjo RESULTADO DEL TURNO/handoff observable antes del CYCLE 045 y queda `NOT_PROCESSED / SUPERSEDED_BY_JOBS` para impedir ejecución tardía duplicada.
-
-**AAA — `NIGHT-AAA-041`:** SAME #74; preflight/race-check + integración únicamente si la evidencia exact-head sigue válida. Si baseline cambia, refresh/revalidate antes de merge. No tocar #71. Después de integración real, #71 necesita nueva asignación explícita para revalidación literal Windows Auth.
+`NIGHT-AAA-041` hizo race-check y el merge expected-head fue bloqueado antes de mutación por la superficie de seguridad del connector. #74 queda `STOP_MERGE_FLOW_BLOCKED`/frozen; no repetir el mismo intento sin cambio factual. #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
 
 ### windows/review
 
-SAME #72 continúa:
-- PR #72 OPEN/Ready, no mergeado;
+SAME #72 ahora está factual y completamente verde:
+- PR #72 OPEN/Ready/mergeable, no mergeado;
 - base exacta `a9d35a3d...`;
-- head `56dc4adf206cc53f5260c71952f84ae67d994279`;
-- Windows Review `33324512156` — SUCCESS;
-- Windows Import `33324512159` — SUCCESS;
-- Required CI `33324512153` — SUCCESS;
-- F4 Functional Matrix `33324512174` — **FAILURE**, job `matrix-contract`, paso exacto `Validate dependency-safe matrix contract`.
+- head `904fbf3c0f81e6ff4c22e4ee717f337e5018fa5c`;
+- Windows Review `33327407530` SUCCESS;
+- F4 Functional Matrix `33327407521` SUCCESS;
+- D6 `33327407516` SUCCESS;
+- D7 `33327407519` SUCCESS;
+- Test - Desktop Portability / Required CI `33327407533` SUCCESS;
+- Windows Import `33327407514` SUCCESS;
+- Upgrade `33327407526` SKIPPED/no aplicable.
 
-Por tanto `windows/review` **NO se considera integrado** y #72 no puede mergearse todavía. El fallo debe atribuirse antes de cambiar nada más; no se asume bug de producto ni se rebaja el contrato.
+El fallo previo del matrix-contract fue atribuido a una referencia de evidencia interpretada como path; BBB corrigió únicamente el prefijo de esa referencia sin relajar el contrato ni cambiar producto. `NIGHT-BBB-041` es race-check + integración SAME #72; si baseline cambia, fresh reconciliation/CI antes de merge.
 
-`NIGHT-BBB-039` no produjo RESULTADO DEL TURNO/handoff observable antes del CYCLE 045 y queda `NOT_PROCESSED / SUPERSEDED_BY_JOBS` para impedir ejecución tardía duplicada.
-
-**BBB — `NIGHT-BBB-040`:** SAME #72; attribution-first del matrix-contract failure, corrective mínimo solo si pertenece al contrato/matriz/workflow/test de #72, fresh exact-head Windows Review + F4 Matrix + D6 + D7 + Required CI y merge únicamente si todo verde/race-clean. No tocar auth/#71/#74.
-
-**CI-FALLBACK BBB:** solo si PRIMARY entra realmente `WAITING_CI`, auditoría **READ-ONLY** de 25.2 design-freeze readiness; sin rama/PR/commit, sin tocar #72/auth ni cambiar producto/matrix/docs. Debe producir solo inventario factual `EXISTS/PARTIAL/GAP/PENDING_EXTERNAL` y volver a recheck PRIMARY antes de cerrar.
+**CI-FALLBACK BBB:** F4/25.2 READ-ONLY readiness inventory solo si PRIMARY queda realmente esperando una operación externa de merge/review/queue; sin rama/PR/commit/write y sin tocar #72/auth/producto/matrix/docs. Recheck PRIMARY antes de cerrar.
 
 CI-FALLBACK AAA: `NONE`.
 
@@ -84,17 +76,17 @@ Integrated rows:
 - `macos/updater = AUTOMATED_PASS`.
 
 Active/holding:
-- `windows/auth = NOT_COVERED` — #74 corrective exact-head green pero aún no integrado; AAA041 asignado para la transacción de integración. #71 solo se revalida después de ese merge real y una nueva asignación.
-- `windows/review` — candidate #72 contiene la promoción y dedicated PASS, pero matrix-contract está rojo; BBB040 asignado. No reclamar integración.
+- `windows/auth = NOT_COVERED` — #74 exact-head green pero merge-flow blocked; #71 espera integración real + nueva assignment.
+- `windows/review` — #72 exact-head dedicated journey + matrix + required gates verdes; integración pendiente bajo BBB041.
 - otras Web/Windows/macOS journeys permanecen NOT_COVERED salvo evidencia dedicada.
 - iPhone rows permanecen PENDING_EXTERNAL.
 
-### 25.2 — `[ ] / READ-ONLY FALLBACK PREAUTHORIZED FOR BBB ONLY WHEN WAITING_CI`
+### 25.2 — `[ ] / READ-ONLY FALLBACK PREAUTHORIZED FOR BBB ONLY WHEN PRIMARY WAITS EXTERNAL MERGE/REVIEW/QUEUE`
 - [ ] design freeze tokens/nav/library/drawer/player/settings/wizard;
 - [ ] backlog P2/P3;
 - [ ] guion beta/formulario/criterios.
 
-BBB puede inventariar evidencia/gaps de 25.2 únicamente bajo la condición de activación de su CI-FALLBACK; esa auditoría no cierra 25.2 ni autoriza implementación automática.
+La auditoría fallback no cierra 25.2 ni autoriza implementación automática.
 
 **Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido.
 
