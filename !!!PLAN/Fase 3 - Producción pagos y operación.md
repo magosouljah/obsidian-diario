@@ -2,7 +2,7 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 054:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Baseline vivo CYCLE 055:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado owner / candidates
 
@@ -11,11 +11,12 @@
 - PR #76 `legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070` sigue OPEN/Ready/mergeable con base snapshot `a9d35a3d...`, stale contra live integration. Frozen hasta refresh history-preserving seguro. Canonical Privacy/Terms + public routes existen; Settings canonical sync sigue pendiente.
 - PR #75 `woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f` sigue frozen por corrective/write-flow blocker.
 - PR #77 sigue CLOSED/unmerged y no puede reabrirse.
-- Replacement PR #78 `woz/night-20.2-capacity-harness @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a` está OPEN/non-draft/mergeable=true sobre base exacta `a306e3b3...`; 2 archivos/+139. En CYCLE 054, exact-head CI ya materializó 13 check-runs sin failure/pending/null y `Required CI = SUCCESS`. `NIGHT-WOZ-053` es owner único para race-check + integración exact-head.
+- Replacement PR #78 `woz/night-20.2-capacity-harness @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a` está OPEN/non-draft sobre base exacta `a306e3b3...`; 2 archivos/+139. En CYCLE 055 Required CI sigue SUCCESS y no se observó nuevo merge de integration. `NIGHT-WOZ-053` no produjo resultado final y fue superseded; `NIGHT-WOZ-054` es owner único para race-check + integración.
+- PR #79 / F4 readiness también está green exact-base, pero queda fuera de WOZ y serializado para no competir por el mismo baseline de integration.
 
 ## Owners actuales
 
-**WOZ — `NIGHT-WOZ-053` — F3 / 20.2 SAME #78 exact-head race-check + integration.**
+**WOZ — `NIGHT-WOZ-054` — F3 / 20.2 SAME #78 exact-head race-check + integration.**
 
 ### WOZ PRIMARY
 
@@ -79,7 +80,7 @@ PR #75 contiene structured redacted events, bounded counters, condition→route 
 Gap map vigente:
 - capacity envelope `PARTIAL`;
 - approved expected peak `GAP / prerequisite missing`;
-- deterministic local/synthetic harness candidate #78 exact-head CI green, integration pendiente bajo `NIGHT-WOZ-053`;
+- deterministic local/synthetic harness candidate #78 exact-head CI green, integration pendiente bajo `NIGHT-WOZ-054`;
 - 2× peak proof `PENDING_EXTERNAL`;
 - latency `GAP` hasta ejecución aplicable;
 - error/queue/recovery measurement `PARTIAL`;
