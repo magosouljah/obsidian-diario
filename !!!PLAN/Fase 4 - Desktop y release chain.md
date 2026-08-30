@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 047:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+**Integración estable CYCLE 048:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado actual
 
@@ -18,23 +18,23 @@ SAME PR #74 permanece factual:
 - head `14dfba52775f40f1956e3d1dcb343b07b147ba0c`;
 - evidencia exact-head previamente verde preservada.
 
-`NIGHT-AAA-041` intentó la transacción de merge expected-head y fue bloqueada antes de mutación. #74 queda frozen bajo el blocker previo; no repetir sin cambio factual. #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
+#74 queda frozen bajo el blocker previo de merge-flow; #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
 
 ### windows/review
 
-SAME #72 sigue factual y completamente verde:
-- PR #72 OPEN/Ready/mergeable, no mergeado;
+SAME #72 sigue factual:
+- PR #72 OPEN; draft=false; merged_at=null;
 - base exacta `a9d35a3d...`;
 - head `904fbf3c0f81e6ff4c22e4ee717f337e5018fa5c`;
 - Windows Review `33327407530` SUCCESS;
 - F4 Functional Matrix `33327407521` SUCCESS;
 - D6 `33327407516` SUCCESS;
 - D7 `33327407519` SUCCESS;
-- Test - Desktop Portability / Required CI `33327407533` SUCCESS;
+- Required CI `33327407533` SUCCESS;
 - Windows Import `33327407514` SUCCESS;
 - Upgrade `33327407526` SKIPPED/no aplicable.
 
-`NIGHT-BBB-041` no dejó RESULTADO DEL TURNO/handoff observable y queda superseded para impedir ejecución tardía duplicada. `NIGHT-BBB-042` es owner único para race-check + integración SAME #72; si baseline cambia, refresh estrecho + fresh applicable CI antes de merge.
+`NIGHT-BBB-042` no dejó RESULTADO DEL TURNO/handoff observable antes de CYCLE 048 y queda superseded. `NIGHT-BBB-043` es owner único para race-check + integración SAME #72; si baseline cambia, refresh estrecho + fresh applicable CI antes de merge.
 
 **CI-FALLBACK BBB:** F4/25.2 READ-ONLY readiness inventory solo si PRIMARY queda realmente esperando operación externa de merge/review/queue; sin rama/PR/commit/write y sin tocar #72/auth/producto/matrix/docs. Recheck PRIMARY antes de cerrar.
 
@@ -75,7 +75,7 @@ Integrated rows:
 
 Active/holding:
 - `windows/auth = NOT_COVERED` — #74 candidate green/mergeable pero merge-flow bloqueado; #71 espera integración real + nueva assignment.
-- `windows/review` — #72 exact-head dedicated journey + matrix + required gates verdes; integración pendiente bajo BBB042.
+- `windows/review` — #72 exact-head dedicated journey + matrix + required gates verdes; integración pendiente bajo BBB043.
 - otras Web/Windows/macOS journeys permanecen NOT_COVERED salvo evidencia dedicada.
 - iPhone rows permanecen PENDING_EXTERNAL.
 
@@ -87,5 +87,3 @@ Active/holding:
 La auditoría fallback no cierra 25.2 ni autoriza implementación automática.
 
 **Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido.
-
-**Regla:** no convertir findings/product gaps/external prerequisites en PASS por conveniencia; exact-head + race-check antes de integración.
