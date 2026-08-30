@@ -1,26 +1,32 @@
 # Fase 4 — Artefactos desktop confiables y release chain
 
-> Leer `Plan Maestro.md`. Bajo ROMPECABEZAS, trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
+> Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 032:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Integración estable CYCLE 034:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
+
+## Estado actual
+
+PR #63 `bbb/task-25.1-windows-import` fue **MERGED** con exact tested head `7a6b7443fc4821a9b10798e2a3823a9d931bc2df`; merge SHA `02a40564d85284a119281ff79995c9b9bcb5e833`.
+
+Evidencia exact-head reutilizada antes de merge:
+- Windows Import `33308327283` SUCCESS;
+- F4 Functional Matrix `33308327295` SUCCESS;
+- D6 `33308327262` SUCCESS;
+- D7 `33308327271` SUCCESS;
+- Desktop Portability `33308327289` SUCCESS;
+- Upgrade 21.2 SKIPPED/no aplicable.
+
+Esto integra **solo** la fila `windows/import = AUTOMATED_PASS`; 25.1 completo permanece abierto.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-031` (ASSIGNED).**
+**BBB — `NIGHT-BBB-032` — F4 / 25.1 `windows/auth`.**
 
-SAME #63 `bbb/task-25.1-windows-import` está OPEN/Ready/mergeable sobre base `3ad8f55a...`, exact head `7a6b7443fc4821a9b10798e2a3823a9d931bc2df`.
+PRIMARY: REUSE-FIRST sobre `desktop_e2e` + shared auth coverage. Demostrar literalmente el journey Windows/auth mediante harness/workflow mínimo F4. No tocar producto salvo que un assertion real revele un bug; en ese caso registrar `PRODUCT_FINDING` y STOP. Promover únicamente la fila `windows/auth` después de PASS literal + fresh exact-head applicable CI + race-check limpio.
 
-JOBS CYCLE 032 resolvió la espera de NIGHT-BBB-030 con GitHub vivo. Fresh exact-head checks observados sobre `7a6b7443...`:
-- `matrix-contract` — SUCCESS;
-- Windows import functional journey — SUCCESS;
-- Required CI — SUCCESS;
-- PostgreSQL live integration + recovery gate — SUCCESS;
-- portable Windows + macOS smoke + supply-chain/web-shared gates observados SUCCESS;
-- upgrade staging — SKIPPED/no aplicable.
-
-Por tanto el blocker de `matrix-contract` está corregido. `NIGHT-BBB-031` no debe modificar más el candidate: únicamente changed-file scope + race-check final + merge SAME #63 con expected-head guard si integration sigue compatible. Después verificar merge SHA + integration HEAD. No cerrar 25.1 completo: solo queda demostrada/integrable la fila `windows/import` y persisten otros gaps.
+CI-FALLBACK: `NONE`.
 
 ## Día 21 — Manifest e identidad únicos
 
@@ -28,7 +34,7 @@ Por tanto el blocker de `matrix-contract` está corregido. `NIGHT-BBB-031` no de
 #51 incorporó identidad Galer + bundle ID `com.beatgaler.app`.
 
 ### 21.2 — `[x] DONE / INTEGRATED`
-#51 merge `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858` con D7/D6/Required CI/Upgrade Staging SUCCESS.
+#51 merge `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`.
 
 ## Día 22 — Windows firmado
 
@@ -42,7 +48,7 @@ Por tanto el blocker de `matrix-contract` está corregido. `NIGHT-BBB-031` no de
 - [ ] SmartScreen/AV/paths/red/sleep;
 - [ ] DAWs/versiones/updater válido e inválido.
 
-**Estado:** certificado/signing siguen externos.
+**Estado:** signing/certificado externos.
 
 ## Día 23 — macOS firmado/notarizado
 
@@ -56,7 +62,7 @@ Por tanto el blocker de `matrix-contract` está corregido. `NIGHT-BBB-031` no de
 - [ ] Intel + Apple Silicon + macOS mínimo declarado;
 - [ ] DAWs/updater/app-data.
 
-**Estado:** Apple Developer/certificados siguen externos/deferred.
+**Estado:** Apple Developer/certificados externos/deferred.
 
 ## Día 24 — Updater/procedencia/rollback
 
@@ -68,22 +74,18 @@ Por tanto el blocker de `matrix-contract` está corregido. `NIGHT-BBB-031` no de
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] WINDOWS IMPORT SLICE EXACT-HEAD GREEN / MERGE PENDING` — BBB `NIGHT-BBB-031`
+### 25.1 — `[ 🟡 ] IN PROGRESS`
 
-#60 integró la matriz base como `7de7b57a508b3cf05cbded81501fbd3da63922a3`.
+#60 integró la matriz base. #63 integró `windows/import = AUTOMATED_PASS`.
 
-SAME #63 estado vivo:
-- base `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`;
-- head `7a6b7443fc4821a9b10798e2a3823a9d931bc2df`;
-- `windows/import` permanece `AUTOMATED_PASS`;
-- fresh `matrix-contract` SUCCESS;
-- fresh Windows Import SUCCESS;
-- fresh Required CI SUCCESS;
-- no merge todavía.
+Gaps honestos restantes incluyen:
+- Web browser auth/import/review/playback/edit/trash/offline;
+- Windows auth/review/playback/edit/trash/offline;
+- macOS auth/import/review/playback/edit/trash/offline;
+- YouTube/billing donde no existe evidencia dedicada;
+- iPhone = `PENDING_EXTERNAL` por runner/hardware/credenciales.
 
-BBB debe hacer solo final race-check/merge; no rerun ceremonial mientras head y baseline no cambien. Si integration cambia antes del merge, evidence-before-claim exige revalidar la combinación material.
-
-Persisten otros gaps reales: journeys core no demostrados cross-platform, iPhone runner/hardware externo, YouTube/billing donde la matriz marque gap y signing/notarization externos.
+`NIGHT-BBB-032` toma únicamente `windows/auth` por ser un slice harness-backed y no externo.
 
 ### 25.2
 - [ ] design freeze tokens/nav/library/drawer/player/settings/wizard;
@@ -92,4 +94,4 @@ Persisten otros gaps reales: journeys core no demostrados cross-platform, iPhone
 
 **Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido.
 
-**Regla:** trabajo técnico dependency-safe puede avanzar cross-phase, pero firma/notarización/release/beta siguen bloqueadas por prerequisitos reales.
+**Regla:** firma/notarización/release/beta siguen bloqueadas por prerequisitos reales. No convertir gaps externos en PASS.
