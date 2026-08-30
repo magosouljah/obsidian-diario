@@ -2,18 +2,18 @@
 
 > GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership actual — CYCLE 030
+## Roles y ownership actual — CYCLE 031
 
 | Rol | Owner actual | PRIMARY vigente | CI-FALLBACK |
 |---|---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra | n/a |
-| **AAA** | F2 / 13.1 Web-only SAME #69 | `NIGHT-AAA-030`: minimal App/Review wiring al coordinator existente + focused evidence + fresh CI/merge si green | `NONE` |
-| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-029`: atribuir/corregir matrix-contract rojo del promotion head; fresh gates + merge si green | `NONE` |
-| **WOZ** | F2 / 13.1 server SAME #70 | `NIGHT-WOZ-029`: atribuir/fijar Required CI PostgreSQL failure; integrar solo si exact-head green | `NONE` |
+| **AAA** | F2 / 13.1 Web-only SAME #69 | `NIGHT-AAA-031`: minimal App/Review wiring al coordinator existente + focused evidence + fresh CI/merge si green | `NONE` |
+| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-030`: atribuir/corregir matrix-contract rojo; fresh gates + merge si green | `NONE` |
+| **WOZ** | F2 / 13.1 server SAME #70 | `NIGHT-WOZ-030`: corrective mínimo de fixture PG live autorizado + fresh focused/Required CI + merge si green | `NONE` |
 
 **Holding item:** F3/18.1 PR #68 permanece técnicamente owned por WOZ pero frozen/bloqueado por execution layer; no mutación activa sobre #68 en este ciclo.
 
-**Baseline canónico CYCLE 030:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Baseline canónico CYCLE 031:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Modelo ROMPECABEZAS CON OWNER FIJO
 
@@ -49,13 +49,13 @@ No afirmar DONE/PASS/corregido/integrado/cerrado sin SHA/PR/test/CI/runtime/hand
 ### STOP conditions
 STOP/BLOCKED/STALLED/RO DECISION REQUIRED ante contradicción material, baseline inesperado, cambio destructivo, secretos fuera de procedimiento, decisión RO, scope creep, CI externo no atribuible, evidencia insuficiente o ausencia de asignación.
 
-## Night Shift Ledger — CYCLE 030
+## Night Shift Ledger — CYCLE 031
 
 ```text
 JOBS: integration sigue 3ad8f55a...; release NO-GO
-AAA: NIGHT-AAA-029 PENDING -> helper/CI green but App product path bypasses saveAllWebItems; NIGHT-AAA-030 minimal wiring; fallback NONE
-BBB: NIGHT-BBB-028 promotion head 1b957eff...; Windows Import 33305947664 SUCCESS; Required CI 33305947677 SUCCESS; F4 Matrix 33305947676 FAILURE at matrix-contract; NIGHT-BBB-029 corrective; fallback NONE
-WOZ: NIGHT-WOZ-028 no result observable; #70 unchanged @ 5a99ebf2...; focused F2 PASS + Required CI PG failure carried; NIGHT-WOZ-029 attribution/fix; fallback NONE
+AAA: NIGHT-AAA-030 no result observable; #69 unchanged; NIGHT-AAA-031 same minimal product wiring; fallback NONE
+BBB: NIGHT-BBB-029 no result observable; #63 unchanged @ 1b957eff...; matrix-contract red remains; NIGHT-BBB-030 same corrective; fallback NONE
+WOZ: NIGHT-WOZ-029 PENDING but failure attributed: PG live fixture lacks new isObjectStillOrphan guard; JOBS authorizes fifth server test path only; NIGHT-WOZ-030 corrective; fallback NONE
 F3/18.1: #68 frozen exact-head green / external merge execution blocker
 D10.1: PENDING_EXTERNAL_PROOF only
 F2/12.1: cold/warm runtime evidence only
@@ -70,7 +70,7 @@ RELEASE: NO-GO
 
 - **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
 - **F1:** D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; 12.1 solo cold/warm real; 13.1 AAA #69 product-wiring gap + WOZ #70 Required CI PG failure.
+- **F2:** 11.1/11.2/12.2 cerrados; 12.1 solo cold/warm real; 13.1 AAA #69 product-wiring gap + WOZ #70 corrective de fixture ya atribuido.
 - **F3:** 16.1/16.2 software integrado con external tails; 17.1/17.2 integrados; #68 exact-head green pero merge execution blocked.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; #63 promotion head has Windows Import + Required CI green but matrix-contract red; other gaps remain honest.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; #63 Windows Import + Required CI green pero matrix-contract red; otros gaps permanecen honestos.
 - **JOBS:** coordinación/plan; sin producto/infra.
