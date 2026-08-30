@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-AAA-022`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F2 / 12.1 — cerrar residual cold/warm + taxonomy/state con evidencia literal`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
 - `PREDECESSOR: NIGHT-AAA-021 NOT_PROCESSED / SUPERSEDED_BY_JOBS — no RESULTADO DEL TURNO ni PR/handoff NIGHT-AAA-021 fue encontrado; no ejecutar 021 después de recibir 022.`
@@ -33,6 +33,37 @@
 
 Reason: D13–D15 amplían scope de producto y no son un fallback materialmente independiente de 12.1. No inventar trabajo alterno.
 
+## RESULTADO DEL TURNO — NIGHT-AAA-022
+
+### PRIMARY
+
+- `STATUS: PENDING / STOP_EVIDENCE_NOT_REPRODUCIBLE`
+- `baseline: asignado 712b49b6689a31a47902dbe95e98622d001dab40; GitHub vivo reconciliado a integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af (merge PR #67, F3-only).`
+- `branch/head: NONE — no cambio ceremonial.`
+- `PR: NONE.`
+- `cambios: ninguno. REUSE-FIRST encontró la taxonomía residual ya implementada y testeada.`
+- `tests: evidencia integrada existente en tests/component-dom/webLibrary.test.ts: empty, no-results, auth-failure, offline, cloud-failure; timing reproducible de instrumentación y lazy artwork. No se inventó un benchmark cold/warm sintético.`
+- `CI: no candidate/head AAA nuevo; fresh exact-head CI no aplica sin cambio.`
+- `evidencia: src/features/library/webLibrary.ts declara ready/empty/no-results/offline/auth-failure/cloud-failure y classifiers literales. tests/component-dom/webLibrary.test.ts los afirma literalmente. La prueba de timing 25 ms demuestra instrumentación, pero NO distingue cold real de warm cache/session.`
+- `UNVERIFIED: comparación cold vs warm real, mismo escenario, con cache/session cold vs warm explícitos y métricas cuantificadas.`
+- `blockers: STOP literal por evidencia cold/warm no reproducible desde la superficie GitHub disponible sin fabricar/simular performance evidence.`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_EXECUTED — NONE explícito por JOBS.`
+- `branch/head si aplica: N/A.`
+- `PR si aplica: N/A.`
+- `cambios: ninguno.`
+- `tests: ninguno.`
+- `evidencia: CI-FALLBACK = NONE en Assignment NIGHT-AAA-022.`
+- `UNVERIFIED: N/A.`
+- `blockers: fallback no autorizado.`
+- `STOP alcanzado: sí; PRIMARY no llegó a WAITING_CI/WAITING_EXTERNAL y además no existe fallback.`
+
+**Recomendación para JOBS:** tratar taxonomy/state como demostrado por evidencia integrada existente y mantener abierto únicamente el residual cold/warm de 12.1. Para cerrarlo hace falta una superficie/harness que pueda ejecutar dos startups Web reales bajo el mismo escenario, uno cold (cache/session limpiados) y uno warm (cache/session preservados), y capturar las observaciones cuantificadas. No abrir D13–D15 por este turno.
+
+**Issue #41:** handoff intentado en este turno, pero la escritura fue bloqueada por la capa de seguridad del conector; queda `UNVERIFIED / NOT_POSTED` y JOBS debe reintentar/publicarlo si corresponde.
+
 ## RESULTADO PROCESADO — NIGHT-AAA-021
 
 - `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS`
@@ -51,7 +82,7 @@ Reason: D13–D15 amplían scope de producto y no son un fallback materialmente 
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-022`: ASSIGNED — residual 12.1 cold/warm + taxonomy/state; CI-FALLBACK NONE.
+- `NIGHT-AAA-022`: PENDING — taxonomy/state demostrado; cold/warm real sigue sin evidencia reproducible; CI-FALLBACK NONE.
 - `NIGHT-AAA-021`: NOT_PROCESSED / SUPERSEDED_BY_JOBS — sin result/handoff observable al CYCLE 022.
 - `NIGHT-AAA-020`: DONE — #66 merged `712b49b6689...`; bounded pagination/window/memory + production navigation integrated.
 - `NIGHT-AAA-019`: PENDING — #66 implementation complete; CI later green.
