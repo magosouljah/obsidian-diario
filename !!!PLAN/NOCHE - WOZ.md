@@ -36,6 +36,40 @@
 **Evidencia requerida:** separate branch/head/PR, changed-files proving independence, focused deterministic tests + fresh exact-head CI, result at most `HARNESS_READY`; `RUNTIME_CAPACITY_UNVERIFIED` remains.  
 **STOP:** target invention, provider/infra/load operation, overlap with #73/#75, broad transport redesign, secret/cost exposure or non-attributable CI failure. Recheck PRIMARY before closing.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-048
+
+### PRIMARY
+
+- `Assignment ID: NIGHT-WOZ-048`
+- `STATUS: DONE / INTEGRATED`
+- `baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
+- `branch/head: woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb`
+- `PR: #73 — merged`
+- `cambios: no code changes this turn; reused SAME #73 and performed authorized exact-head integration transaction.`
+- `tests: reused exact-head evidence; no invented rerun.`
+- `CI: F3 18.2 Reconciliation 33320621931 SUCCESS; D7 33320621893 SUCCESS; D6 33320621877 SUCCESS; Productive Temp Auth Compile 33320621868 SUCCESS; Test - Desktop Portability 33320621865 SUCCESS; Upgrade 33320621863 SKIPPED/non-applicable.`
+- `evidencia: pre-merge #73 OPEN/Ready/mergeable; exact base a9d35a3d...; exact head fc831172...; merge transaction guarded by expected_head_sha; merge SHA a306e3b3f6b4a6cf9d678e325b6e529b5344fffe; post-merge integration HEAD a306e3b3f6b4a6cf9d678e325b6e529b5344fffe with parents a9d35a3d... + fc831172... .`
+- `UNVERIFIED: full F3/18.2 remains open for 3DS/rejection/late payment/renewal/cancel/upgrade/downgrade/refund, approved grace-period policy and productive provider evidence.`
+- `blockers: none for the #73 software reconciliation/exception-queue slice.`
+- `condición de STOP alcanzada: PRIMARY integrated; do not self-assign next work.`
+- `recomendación para JOBS: accept #73 software slice as integrated at a306e3b3...; keep global 18.2 open for residual provider/business-policy evidence.`
+
+### CI-FALLBACK
+
+- `Assignment ID: NIGHT-WOZ-048 / CI-FALLBACK F3/20.2`
+- `STATUS: NOT_EXECUTED / CONDITION_NOT_MET`
+- `baseline: PRIMARY never entered WAITING_CI/WAITING_EXTERNAL.`
+- `branch/head: NONE accepted for fallback.`
+- `PR: #77 was created prematurely while reading superseded NIGHT-WOZ-047; it was immediately CLOSED WITHOUT MERGE once current NIGHT-WOZ-048 was read. Head 204a03fc48d161b6943f7b11bea2bfc16bf54b05 is not accepted evidence.`
+- `cambios: no fallback changes integrated; #77 closed to neutralize late/superseded execution.`
+- `tests: none accepted.`
+- `CI: none accepted.`
+- `evidencia: #77 CLOSED, merged=false.`
+- `UNVERIFIED: F3/20.2 runtime capacity remains unverified.`
+- `blockers: fallback condition was not met.`
+- `condición de STOP alcanzada: PRIMARY completed before any legitimate fallback wait.`
+- `recomendación para JOBS: ignore/leave #77 closed; do not count it as HARNESS_READY.`
+
 ## RESULTADO PROCESADO — NIGHT-WOZ-047
 
 - `STATUS: NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
@@ -49,7 +83,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-048`: ASSIGNED — SAME #73 integration; independent 20.2 harness fallback only while waiting.
+- `NIGHT-WOZ-048`: DONE/INTEGRATED — SAME #73 merged as a306e3b3f6b4a6cf9d678e325b6e529b5344fffe; fallback not executed; accidental superseded #77 closed unmerged.
 - `NIGHT-WOZ-047`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-046`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-045`: DONE/AUDIT_ONLY — 20.2 gap map.
