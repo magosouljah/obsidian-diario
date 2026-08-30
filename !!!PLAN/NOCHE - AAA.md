@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-AAA-041`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F4 / windows-auth prerequisite — SAME PR #74 integration transaction`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
 - `REUSE_PR: #74 / aaa/night-25.1-auth-session-corrective @ 14dfba52775f40f1956e3d1dcb343b07b147ba0c`
@@ -33,6 +33,35 @@
 **Alcance:** N/A.  
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback.
+
+## RESULTADO DEL TURNO — NIGHT-AAA-041
+
+### PRIMARY
+
+- `STATUS: PENDING / STOP_MERGE_FLOW_BLOCKED`
+- `baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b; live recheck remained exact.`
+- `branch/head: aaa/night-25.1-auth-session-corrective @ 14dfba52775f40f1956e3d1dcb343b07b147ba0c.`
+- `PR: #74 OPEN / Ready / mergeable=true; not merged.`
+- `cambios: ninguno; reuse-only integration transaction.`
+- `tests: no rerun ceremonial; exact-head evidence reused.`
+- `CI: D6 33324138675 SUCCESS; D7 33324138676 SUCCESS; Test - Desktop Portability / Required CI 33324138689 SUCCESS; Upgrade 33324138691 SKIPPED/non-applicable.`
+- `evidencia: PR #74 exact head/base unchanged; live integration unchanged. Merge attempted with expected-head 14dfba52775f40f1956e3d1dcb343b07b147ba0c, but connector safety layer blocked the merge call before mutation. Issue #41 handoff 5470373990.`
+- `UNVERIFIED: merge SHA and post-merge integration HEAD do not exist because merge was not executed.`
+- `blockers: authorized merge-flow unavailable through current connector safety layer; assignment STOP explicitly includes merge-flow unavailable.`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_EXECUTED — NONE`
+- `branch/head si aplica: N/A`
+- `PR si aplica: N/A`
+- `cambios: ninguno`
+- `tests: ninguno`
+- `evidencia: JOBS explicitly set CI-FALLBACK NONE.`
+- `UNVERIFIED: N/A`
+- `blockers: fallback not authorized.`
+- `STOP alcanzado: sí — PRIMARY hit merge-flow unavailable; no fallback exists.`
+
+**Recomendación para JOBS:** mantener SAME #74 y enrutar/reemitir únicamente la transacción de merge por una superficie autorizada capaz de mergear, preservando expected-head `14dfba527...` y rechecando integration `a9d35a3d...` inmediatamente antes. No asignar #71 regression hasta que #74 esté realmente integrado.
 
 ## RESULTADO PROCESADO / SUPERSEDED — NIGHT-AAA-040
 
@@ -61,7 +90,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-041`: ASSIGNED — SAME #74 race-check + integration only if exact-head evidence remains valid.
+- `NIGHT-AAA-041`: PENDING / STOP_MERGE_FLOW_BLOCKED — #74 race-clean + exact-head CI green; merge transaction blocked before mutation.
 - `NIGHT-AAA-040`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-039`: PASS_RESOLVED_BY_JOBS_RECHECK — candidate green, not yet integrated.
 - `NIGHT-AAA-038`: Required CI FAILURE on prior typing error.
