@@ -2,18 +2,18 @@
 
 > GitHub + `!!!PLAN` son la memoria compartida. El modelo operativo es **ROMPECABEZAS CON OWNER FIJO**. GitHub/runtime más reciente prevalece sobre snapshots viejos.
 
-## Roles y ownership actual — CYCLE 024
+## Roles y ownership actual — CYCLE 025
 
 | Rol | Owner actual | PRIMARY vigente | CI-FALLBACK |
 |---|---|---|---|
 | **JOBS** | coordinación | `!!!PLAN`, prioridades, owners, handoffs, gates; no código BeatGaler/infra | n/a |
-| **AAA** | F2 / 13.1 | `NIGHT-AAA-024`: Save All durable + partial summary; bulk conflict-safe/honest disable; garbage journal | `NONE` |
-| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-023`: current failure causal + corrective mínimo harness + Windows Import literal PASS | `NONE` |
-| **WOZ** | F3 / 18.1 software | `NIGHT-WOZ-023`: limits/entitlements server-side + race-safe reservation + portal/subscription-state contract | `NONE` |
+| **AAA** | F2 / 13.1 | `NIGHT-AAA-025`: Save All durable + partial summary; bulk conflict-safe/honest disable; garbage journal | `NONE` |
+| **BBB** | F4 / 25.1 SAME #63 | `NIGHT-BBB-024`: current failure causal + corrective mínimo harness + Windows Import literal PASS | `NONE` |
+| **WOZ** | F3 / 18.1 PR #68 | `NIGHT-WOZ-024`: final exact-head integration transaction for #68 | `NONE` |
 
 RO conserva alcance de producto, riesgo aceptado, decisiones/credenciales externas y go/no-go público. JOBS puede reorganizar roadmap, pero un cambio de owner/scope es explícito.
 
-**Baseline canónico CYCLE 024:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`. GitHub vivo manda si cambia después.
+**Baseline canónico CYCLE 025:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`. GitHub vivo manda si cambia después.
 
 D10.1 permanece external-only por copia real off-provider/off-account + read/checksum. F3/16.1 physical staging/prod separation continúa external-only. F3/16.2 software está DONE/INTEGRATED pero deploy/staging/rollback reales continúan externos. D22/D23 signing/notarization siguen externos.
 
@@ -74,13 +74,13 @@ NEXT_WITHIN_AREA:
 END AI-HANDOFF
 ```
 
-## Night Shift Ledger — CYCLE 024
+## Night Shift Ledger — CYCLE 025
 
 ```text
-JOBS: no new product merge since #67; integration remains 3ad8f55a...; prior unprocessed assignments superseded monotonically
-AAA: NIGHT-AAA-023 NOT_PROCESSED -> NIGHT-AAA-024 ASSIGNED F2/13.1; CI-FALLBACK NONE
-BBB: NIGHT-BBB-022 NOT_PROCESSED -> NIGHT-BBB-023 ASSIGNED SAME #63 corrective; CI-FALLBACK NONE
-WOZ: NIGHT-WOZ-022 NOT_PROCESSED -> NIGHT-WOZ-023 ASSIGNED F3/18.1 software; CI-FALLBACK NONE
+JOBS: integration remains 3ad8f55a...; #68 exact-head CI resolved green; #63 unchanged/red
+AAA: NIGHT-AAA-024 NOT_PROCESSED -> NIGHT-AAA-025 ASSIGNED F2/13.1; CI-FALLBACK NONE
+BBB: NIGHT-BBB-023 NOT_PROCESSED -> NIGHT-BBB-024 ASSIGNED SAME #63 corrective; CI-FALLBACK NONE
+WOZ: NIGHT-WOZ-023 PENDING/WAITING_CI -> CI GREEN -> NIGHT-WOZ-024 ASSIGNED #68 final integration; CI-FALLBACK NONE
 D10.1: PENDING_EXTERNAL_PROOF only
 F2/12.1: cold/warm runtime evidence only
 F3/16.1 physical separation: PENDING_EXTERNAL
@@ -94,7 +94,7 @@ RELEASE: NO-GO
 
 - **F0:** técnico habilitado; 1.2/2.2 tails externos `[ 🟡 ]`.
 - **F1:** D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- **F2:** 11.1/11.2/12.2 cerrados; 12.1 abierto solo por cold/warm real; AAA owner exclusivo de D13.1 bajo `NIGHT-AAA-024`.
-- **F3:** 16.1/16.2 software integrado con external tails; 17.1/17.2 software integrados; WOZ owner exclusivo de 18.1 bajo `NIGHT-WOZ-023`.
-- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo de SAME #63 bajo `NIGHT-BBB-023`; Windows Import sigue `NOT_COVERED`; D22/D23 externos; 25.1/25.2 abiertos.
+- **F2:** 11.1/11.2/12.2 cerrados; 12.1 abierto solo por cold/warm real; AAA owner exclusivo de D13.1 bajo `NIGHT-AAA-025`.
+- **F3:** 16.1/16.2 software integrado con external tails; 17.1/17.2 software integrados; #68 exact-head green y WOZ owner exclusivo de su integración bajo `NIGHT-WOZ-024`.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; #60 matrix integrado; BBB owner exclusivo de SAME #63 bajo `NIGHT-BBB-024`; Windows Import sigue `NOT_COVERED`; D22/D23 externos; 25.1/25.2 abiertos.
 - **JOBS:** coordinación/plan; sin producto/infra.
