@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE 053:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Baseline vivo CYCLE 054:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado actual
 
@@ -28,20 +28,20 @@ No cerrar 12.1 con benchmark sintético.
 
 ### 13.2 — `[ 🟡 ] AUDIT NOT EXECUTED / UNASSIGNED`
 
-AAA048 no produjo resultado final antes de CYCLE 053, por lo que su fallback 13.2 no se promueve ni se conserva como owner. Requiere futura asignación explícita.
+No existe resultado final aceptable que cierre este audit. Requiere futura asignación explícita.
 
 **Gate:** ninguna acción Web visible llama Tauri; 0 pérdida silenciosa.
 
 ## Día 14
 
-### 14.1 — `[ 🟡 ] ASSIGNED AAA049`
+### 14.1 — `[ 🟡 ] ASSIGNED AAA050`
 - [ ] MediaSource/Range o equivalente progresivo + fallback seguro.
 - [ ] evitar archivos gigantes completos en RAM.
 - [ ] cancel/resume seguro y liberar buffers/object URLs.
 
-`NIGHT-AAA-049` hace REUSE-FIRST sobre live integration y solo puede implementar el slice mínimo literal que falte. No debe rediseñar Player ni tocar #69/#70.
+`NIGHT-AAA-049` no produjo resultado final antes de CYCLE 054 y queda superseded. `NIGHT-AAA-050` recalcula el mismo slice como trabajo interno dependency-safe: REUSE-FIRST sobre live integration y solo implementación mínima literal; no Player redesign ni #69/#70.
 
-### 14.2 — `[ ] / CONDITIONAL READ-ONLY FALLBACK AAA049`
+### 14.2 — `[ ] / CONDITIONAL READ-ONLY FALLBACK AAA050`
 - [ ] índice activo/shortcuts/seek/shuffle/repeat/error recoverable.
 - [ ] queue/volumen responsive.
 - [ ] Safari/Firefox/Chrome/iPhone, red degradada.
