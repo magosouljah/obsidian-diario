@@ -8,48 +8,66 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-AAA-029`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F2 / 13.1 — SAME PR #69: product wiring + final integration of Save All/bulk-safe Web lane`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
 - `REUSE_PR: #69 / aaa/night-13.1-web-save-all @ b2ab75ae1dbde4e3aba389da844f466920a5d6eb`
-- `PREDECESSOR: NIGHT-AAA-028 ASSIGNED / no RESULTADO DEL TURNO observable at JOBS CYCLE 029 — superseded for monotonic execution; do not run 028 after 029.`
+- `PREDECESSOR: NIGHT-AAA-028 superseded by JOBS; do not execute after 029.`
 
 ### PRIMARY
 
 1. Preflight GitHub vivo + duplicate-check. Reutiliza SAME #69; no replacement branch/PR.
-2. Evidencia ya aceptada sobre `b2ab75ae...`: D6 `33303237410`, D7 `33303237375`, Desktop Portability `33303237401` = SUCCESS; Upgrade no aplicable. No rerun ceremonial si head/combinación no cambió.
-3. REUSE-FIRST: `webBulkSave.ts` + focused tests ya cubren Save All secuencial por item, saved/conflict/failed, continuation after partial failure, retry unresolved y duplicate-id protection. No reimplementar helper.
-4. Audita si Review/Import/Bulk productivo consume realmente el coordinator y expone progreso/resumen parcial/conflictos. Si ya está wired, demuestra el wiring sin cambio ceremonial. Si falta, añade únicamente el mínimo wiring Web dentro de SAME #69.
-5. Conserva durable commit/CAS por item y cero silent loss. No tocar server garbage journal/orphan lifecycle de WOZ/#70.
-6. Si cambia head, focused tests + D6 + D7 + Desktop Portability fresh exact-head antes de integración.
-7. Race-check final; merge SAME #69 solo si el carril Web queda satisfecho, CI aplicable verde y no hay baseline race material.
-8. Aunque #69 integre, no cierres 13.1 completo: server half sigue separado en WOZ/#70.
-9. Reporta RESULTADO DEL TURNO aquí + handoff Issue #41 y STOP.
+2. Reuse exact-head evidence on `b2ab75ae...`; no ceremonial rerun if unchanged.
+3. Reuse `webBulkSave.ts` + focused tests; do not reimplement coordinator.
+4. Audit product Review/Import/Bulk wiring. If missing, only minimal Web wiring in SAME #69.
+5. Preserve durable/CAS per item; do not touch server journal/#70.
+6. If product wiring is not proven, add only the minimal focused wiring test.
+7. Race-check and merge SAME #69 only when Web lane is satisfied and applicable CI is green.
+8. Do not close 13.1 complete; server half remains WOZ/#70.
+9. Report here + Issue #41 and STOP.
 
-**Required evidence:** base/head; wiring productivo real; total/partial/conflict/retry tests; durable/CAS por item; exact-head CI aplicable; merge SHA si integra; UNVERIFIED explícito.  
-**STOP:** tocar server journal/#70, 13.2/D14/D15, baseline race, CI rojo no atribuible o evidencia insuficiente.
+**Required evidence:** base/head; real product wiring; total/partial/conflict/retry tests; durable/CAS per item; exact-head CI; merge SHA if integrated; explicit UNVERIFIED.  
+**STOP:** server journal/#70, 13.2/D14/D15, baseline race, non-attributable red CI, or insufficient evidence.
 
 ### CI-FALLBACK
 
 `NONE`
 
-Reason: #70/server half pertenece a WOZ; 13.2/D14/D15 ampliarían scope.
+## RESULTADO DEL TURNO — NIGHT-AAA-029
 
-## RESULTADO PROCESADO — NIGHT-AAA-027
+### PRIMARY
 
-- `STATUS: PENDING / WAITING_CI`.
-- `branch/head: aaa/night-13.1-web-save-all @ b2ab75ae1dbde4e3aba389da844f466920a5d6eb`.
-- `PR: #69 OPEN / Ready / mergeable=true`.
-- JOBS confirmó D6/D7/Desktop Portability exact-head SUCCESS.
-- `UNVERIFIED`: product UI/Review/Import/Bulk wiring; no merge.
-- Issue #41 handoff: `5467799353`.
+- `STATUS: PENDING / STOP_EVIDENCE_INSUFFICIENT`
+- `baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `branch/head: aaa/night-13.1-web-save-all @ b2ab75ae1dbde4e3aba389da844f466920a5d6eb`
+- `PR: #69 OPEN / Ready; NOT MERGED`
+- `cambios: ninguno en este turno. REUSE-FIRST conservó el coordinator y tests ya presentes; no se fabricó wiring ni evidencia ceremonial.`
+- `tests: tests/unit/webBulkSave.test.ts ya cubre secuencial por item, saved/conflict/failed, continuación tras fallo parcial, retry solo unresolved y duplicate-id protection. Auditoría productiva encontró que App.tsx todavía usa handleReviewedSaveAll como ruta separada y no consume saveAllWebItems.`
+- `CI: exact-head b2ab75ae... completó verde: Desktop Portability 33303237401 SUCCESS; D6 33303237410 SUCCESS; D7 33303237375 SUCCESS; Upgrade 33303237419 SKIPPED/no aplicable.`
+- `evidencia: src/App.tsx pasa onSaveAll={handleReviewedSaveAll} al Drawer de Review. Ese handler mantiene implementación propia basada en saveBeatMeta/cloudifyImportedBeats y agrupa fallos genéricos en nameConflicts; no existe consumo productivo demostrado de saveAllWebItems ni exposición literal del summary failed/conflict del coordinator. Issue #41 handoff 5468039685.`
+- `UNVERIFIED: wiring mínimo App/Review hacia el coordinator existente; resumen/progreso parcial y conflictos productivos compatibles; focused wiring test; fresh exact-head CI después de ese cambio; race-check/merge.`
+- `blockers: evidence-before-claim impide merge #69 mientras la ruta productiva no demuestre que usa/respeta el coordinator. No es válido declarar el helper unit-tested como product wiring.`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_EXECUTED — NONE explícito por JOBS`
+- `branch/head si aplica: N/A`
+- `PR si aplica: N/A`
+- `cambios: ninguno`
+- `tests: ninguno`
+- `evidencia: CI-FALLBACK = NONE para NIGHT-AAA-029.`
+- `UNVERIFIED: N/A`
+- `blockers: fallback no autorizado.`
+- `STOP alcanzado: sí; PRIMARY alcanzó STOP_EVIDENCE_INSUFFICIENT y no existe fallback.`
+
+**Recomendación para JOBS:** mantener SAME #69. La siguiente autoridad AAA debe hacer únicamente el wiring productivo mínimo App/Review al coordinator existente, añadir focused wiring evidence, ejecutar fresh exact-head CI y race-check, y mergear solo si queda verde. No cerrar 13.1: WOZ/#70 sigue siendo el server half separado.
+
+**Issue #41:** handoff `5468039685`.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-029`: ASSIGNED — SAME #69 product wiring/final Web integration; fallback NONE.
-- `NIGHT-AAA-028`: SUPERSEDED / no result observable at CYCLE 029.
-- `NIGHT-AAA-027`: PENDING/WAITING_CI -> applicable exact-head CI SUCCESS; #69 sigue OPEN.
-- `NIGHT-AAA-026`: superseded; same artifact reconciliado bajo 027.
+- `NIGHT-AAA-029`: PENDING — CI exact-head verde; product wiring al coordinator no demostrado; #69 no merged.
+- `NIGHT-AAA-027`: PENDING / WAITING_CI — #69 creado con coordinator/tests, head `b2ab75ae...`.
 - `NIGHT-AAA-025`: PENDING / STOP_OWNERSHIP_BOUNDARY.
-- `NIGHT-AAA-022`: taxonomy/state demostrado; cold/warm real sigue abierto.
+- `NIGHT-AAA-022`: PENDING — taxonomy/state demostrado; cold/warm real abierto.
 - `NIGHT-AAA-020`: DONE — #66 merged `712b49b6689...`.
