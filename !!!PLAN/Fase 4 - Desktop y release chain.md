@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 054:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Integración estable CYCLE 055:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado actual
 
@@ -12,11 +12,11 @@ PR #63 fue MERGED y dejó `windows/import = AUTOMATED_PASS` integrado. 25.1 comp
 
 PR #71 permanece como regression proof: bajo sesión WebDriver real el Desktop login no persistió `beatgaler:account-session:v1`. `windows/auth` sigue `NOT_COVERED`.
 
-PR #74 permanece OPEN/Ready/mergeable en snapshot anterior pero frozen por el blocker de merge/refresh. #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
+PR #74 permanece OPEN/Ready/mergeable en snapshot anterior pero frozen por blocker de merge/refresh. #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
 
 ### windows/review
 
-BBB047 verificó #72 OPEN/Ready/mergeable head `904fbf3c0f81e6ff4c22e4ee717f337e5018fa5c`, base snapshot `a9d35a3d...` vs live `a306e3b3...`; no existe safe update-branch/history-preserving refresh en el flujo disponible. #72 sigue frozen; no historical CI promotion.
+#72 sigue OPEN/Ready/mergeable sobre snapshot antiguo; no existe safe update-branch/history-preserving refresh en el flujo disponible. Frozen; no historical CI promotion.
 
 ## Día 21
 
@@ -53,24 +53,23 @@ Integrated rows:
 - `windows/updater = AUTOMATED_PASS`;
 - `macos/updater = AUTOMATED_PASS`.
 
-Active/holding:
-- `windows/auth = NOT_COVERED` — #74/#71 frozen on refresh/integration dependency.
-- `windows/review = CANDIDATE_FROZEN` — #72 stale; safe history-preserving refresh unavailable.
-- otras Web/Windows/macOS journeys permanecen NOT_COVERED salvo evidencia dedicada.
-- iPhone rows permanecen PENDING_EXTERNAL.
+BBB049 residual map verified on live integration:
+- Web: auth/import/review/playback/edit/trash/offline/youtube/updater/billing = `NOT_COVERED`;
+- Windows: import/updater `AUTOMATED_PASS`; auth/review/playback/edit/trash/offline/youtube/billing = `NOT_COVERED`;
+- macOS: updater `AUTOMATED_PASS`; auth/import/review/playback/edit/trash/offline/youtube/billing = `NOT_COVERED`;
+- iPhone: all ten rows = `PENDING_EXTERNAL`.
 
-**AAA/BBB/JOBS no deben promover historical CI como fresh exact-head evidence.**
+`NIGHT-BBB-050` owns exactly one independent next row: **Web/auth dedicated journey**. It must prefer existing implementation + deterministic test/harness evidence, use fresh exact-head CI for changes, and stop on overlap/broad product defect. This does not promote any other row.
 
-### 25.2 — `[ 🟡 ] IMPLEMENTATION ASSIGNED BBB049`
+### 25.2 — `[ 🟡 ] GREEN CANDIDATE / SERIALIZED HOLD`
 
-BBB047 read-only inventory established:
-- EXISTS: design foundations/tokens/primitives; library navigation bridge; Drawer/Player/SettingsPanel/SetupModal; focused component tests.
-- PARTIAL: release controls/matrices exist but no literal complete design-freeze 25.2 artifact.
-- GAP: no dedicated P2/P3 beta backlog artifact.
-- GAP: no literal beta script/form/entry-exit criteria artifact.
+BBB049 materialized the previously missing internal readiness artifact:
+- PR #79 `bbb/f4-25.2-beta-readiness @ c6ec2910522370f2506beb71ad5e0fa0317d6a61`;
+- exact base `a306e3b3...`;
+- exactly one docs-only file `docs/beta/0.9.0-beta.1-readiness.md` (+84);
+- compact P2/P3 beta backlog + beta test script/result form/entry-exit criteria;
+- no product behavior/release/signing/provider mutation or tester PII.
 
-`NIGHT-BBB-048` produced no final result before CYCLE 054 and is superseded. `NIGHT-BBB-049` PRIMARY may materialize only those missing internal readiness artifacts by reusing existing evidence. No public release/signing/notarization/product mutation. Fresh exact-head CI required for repository changes.
+JOBS CYCLE 055 verified exact-head checks complete without failure/in-progress and `Required CI = SUCCESS`. #79 is still OPEN/unmerged. It is intentionally `HOLD_GREEN_PENDING_SERIAL_INTEGRATION` while WOZ owns #78 as the only integration mutation in this cycle; this avoids simultaneous exact-base races. After integration moves, #79 must be reconciled and revalidated before merge. External beta/tester/signing evidence remains open regardless.
 
-**BBB CI-FALLBACK:** F4/25.1 residual journey map READ-ONLY only while BBB049 PRIMARY genuinely waits CI/review/merge; no promotion without literal evidence.
-
-**Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido. 25.2 is not closed by inventory or documents alone unless all literal requirements are evidenced.
+**Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido. 25.2 is not closed by the readiness document alone.
