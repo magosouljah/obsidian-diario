@@ -2,23 +2,27 @@
 
 > GitHub + `!!!PLAN` son memoria compartida. Modelo: ROMPECABEZAS CON OWNER FIJO. GitHub/runtime vivo prevalece.
 
-## Roles y ownership actual — CYCLE 054
+## Roles y ownership actual — CYCLE 055
 
 | Rol | Owner actual | PRIMARY | CI-FALLBACK |
 |---|---|---|---|
 | JOBS | coordinación | `!!!PLAN`, prioridades, handoffs, gates; no código/infra | n/a |
-| AAA | F2 / 14.1 | `NIGHT-AAA-050`: REUSE-FIRST media streaming/memory slice mínimo sobre live integration | F2/14.2 read-only player-control gap map solo mientras PRIMARY espera CI/review/merge |
-| BBB | F4 / 25.2 | `NIGHT-BBB-049`: materializar únicamente beta backlog + test script/form/criteria faltantes reutilizando foundations/release evidence | F4/25.1 residual journey map read-only solo mientras PRIMARY espera operación externa |
-| WOZ | F3 / 20.2 | `NIGHT-WOZ-053`: SAME #78 exact-head race-check + integration; max claim HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED | NONE |
+| AAA | F2 / 14.1 | `NIGHT-AAA-051`: REUSE-FIRST media streaming/memory slice mínimo sobre live integration | F2/14.2 read-only player-control gap map solo mientras PRIMARY espera CI/review/merge |
+| BBB | F4 / 25.1 Web/auth | `NIGHT-BBB-050`: dedicated Web/auth journey; consume BBB049 residual map, prefer harness/tests, no #79 merge this turn | NONE |
+| WOZ | F3 / 20.2 | `NIGHT-WOZ-054`: SAME #78 exact-head race-check + integration; max claim HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED | NONE |
 
-**Baseline canónico CYCLE 054:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Baseline canónico CYCLE 055:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Handoffs/resultados procesados
 
-- AAA049: no RESULTADO DEL TURNO / Issue #41 handoff observable antes de CYCLE 054 → `NO_RESULT / SUPERSEDED_BY_JOBS`.
-- BBB048: no RESULTADO DEL TURNO / Issue #41 handoff observable antes de CYCLE 054 → `NO_RESULT / SUPERSEDED_BY_JOBS`.
-- WOZ052: `PENDING / WAITING_CI`; abrió replacement #78 exact-base desde existing branch `50aac3f0...`, compare ahead2/behind0, dos archivos/+139, sin duplicar implementación. En preflight CYCLE 054 el CI ya materializó 13 check-runs sin failure/pending/null; `Required CI = SUCCESS`; #78 sigue OPEN/non-draft/mergeable=true, head/base unchanged.
+- AAA050: no RESULTADO DEL TURNO / Issue #41 handoff observable antes de CYCLE 055 → `NO_RESULT / SUPERSEDED_BY_JOBS`.
+- BBB049: `PENDING / WAITING_CI` al cerrar. Creó PR #79 exact-base, docs-only readiness artifact. JOBS verificó después 12 check-runs sin failure/in-progress y `Required CI = SUCCESS`; fallback 25.1 residual map `DONE / READ_ONLY`. #79 sigue OPEN/unmerged.
+- WOZ053: no RESULTADO DEL TURNO / Issue #41 handoff observable antes de CYCLE 055 → `NO_RESULT / SUPERSEDED_BY_JOBS`; #78 permanece OPEN exact-base y Required CI verde.
 - Último resultado integrado aceptado: NIGHT-WOZ-048 → #73 merge `a306e3b3...`; solo reconciliation/exception-queue software slice.
+
+## Serialización de integración
+
+#78 y #79 están ambos verdes sobre el mismo baseline exacto `a306e3b3...`. Para evitar dos owners compitiendo por `integration-v0.8.0-alpha.1` y volver inválida la evidencia exact-base del otro, CYCLE 055 autoriza **una sola mutación de integration**: WOZ/#78. #79 queda `HOLD_GREEN_PENDING_SERIAL_INTEGRATION`; tras cualquier movimiento del baseline debe reconciliarse + fresh CI antes de merge.
 
 ## Holding / blocked items
 
@@ -32,7 +36,8 @@
 - F4/windows-review #72: frozen por falta de safe update-branch/history-preserving refresh.
 - F3/18.2 external/payment/business-policy tails permanecen.
 - F3/20.2 runtime capacity proof remains open even if #78 merges.
-- F4 D22/D23 y parte de 25.1: external/not-covered.
+- F4 D22/D23 y la mayoría de 25.1: external/not-covered.
+- F4/25.2 #79: internal artifact green but not integrated; external beta/tester evidence remains.
 
 ## Reglas
 
@@ -55,19 +60,19 @@
 - Worker nunca inventa fallback.
 - Tras fallback, worker vuelve a comprobar PRIMARY antes de cerrar turno.
 
-## Night Shift Ledger — CYCLE 054
+## Night Shift Ledger — CYCLE 055
 
 ```text
-JOBS: baseline remains a306e3b3f6b4a6cf9d678e325b6e529b5344fffe
-AAA049: NO_RESULT -> SUPERSEDED_BY_JOBS
-AAA050: ASSIGNED F2/14.1 minimum media streaming/memory slice
-AAA050_FALLBACK: F2/14.2 READ_ONLY only while waiting external CI/review/merge
-BBB048: NO_RESULT -> SUPERSEDED_BY_JOBS
-BBB049: ASSIGNED F4/25.2 missing readiness artifacts only
-BBB049_FALLBACK: F4/25.1 residual journey map READ_ONLY
-WOZ052: PENDING / WAITING_CI; #78 opened exact-base
-WOZ053: ASSIGNED SAME #78 exact-head race-check + integration
-WOZ053_FALLBACK: NONE
+JOBS: baseline a306e3b3f6b4a6cf9d678e325b6e529b5344fffe
+AAA050: NO_RESULT -> SUPERSEDED_BY_JOBS
+AAA051: ASSIGNED F2/14.1 minimum media streaming/memory slice
+AAA051_FALLBACK: F2/14.2 READ_ONLY only while waiting external CI/review/merge
+BBB049: PENDING/WAITING_CI at close; #79 exact-head Required CI later SUCCESS; fallback 25.1 residual map DONE
+BBB050: ASSIGNED F4/25.1 Web/auth dedicated journey; #79 HOLD_GREEN_PENDING_SERIAL_INTEGRATION
+BBB050_FALLBACK: NONE
+WOZ053: NO_RESULT -> SUPERSEDED_BY_JOBS
+WOZ054: ASSIGNED SAME #78 exact-head race-check + integration; only integration mutation authorized this cycle
+WOZ054_FALLBACK: NONE
 DUPLICATE_WORK: prevented
 RELEASE: NO-GO
 ```
@@ -76,7 +81,7 @@ RELEASE: NO-GO
 
 - F0: técnico habilitado; 1.2/2.2 externos.
 - F1: D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- F2: 12.1 runtime residual; #69/#70 frozen; 14.1 active AAA050; 14.2 conditional read-only fallback.
-- F3: 17.1/17.2/18.1 integrated; #73 partial 18.2 integrated; #76/#75 frozen; #78 green/integration assigned WOZ053.
-- F4: windows/import integrated; auth/review stale candidates frozen; 25.2 active BBB049; remaining rows/external gates open.
+- F2: 12.1 runtime residual; #69/#70 frozen; 14.1 active AAA051; 14.2 conditional read-only fallback.
+- F3: 17.1/17.2/18.1 integrated; #73 partial 18.2 integrated; #76/#75 frozen; #78 green/integration assigned WOZ054.
+- F4: windows/import integrated; auth/review stale candidates frozen; #79 green hold; 25.1 Web/auth active BBB050; remaining rows/external gates open.
 - JOBS: coordinación/plan; no producto/infra.
