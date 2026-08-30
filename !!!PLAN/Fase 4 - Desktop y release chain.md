@@ -4,33 +4,33 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 021:** `integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`.
+**Integración estable CYCLE 024:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
 ## Owner actual
 
-**BBB — F4 / 25.1 SAME PR #63 refresh + Windows session corrective — `NIGHT-BBB-020` (ASSIGNED).**
+**BBB — F4 / 25.1 SAME PR #63 — `NIGHT-BBB-023` (ASSIGNED).**
+
+`NIGHT-BBB-022` no produjo RESULTADO DEL TURNO ni head/handoff nuevo antes de CYCLE 024 y quedó `NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no debe ejecutarse después de 023.
 
 21.1 + 21.2, 24.1 y 24.2 están cerrados/integrados. D22/D23 conservan dependencias externas de signing/notarization. #60 integró la matriz dependency-safe de 25.1, pero 25.1 completo sigue abierto.
 
-PR #63 `bbb/task-25.1-windows-import @ ea00d85d7946da8a27fe336bf738afb9a4bd72d0` sigue OPEN/Ready, pero quedó stale frente al baseline vivo `712b49b6689a31a47902dbe95e98622d001dab40` después del merge #66.
+PR #63 `bbb/task-25.1-windows-import @ 033c2b55a0c46471b7e7ddb3af57b626699ac6e6` sigue OPEN/Ready y su base viva es `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
-Evidencia histórica exact-head del candidate previo:
-- F4 Matrix `33277733635` — SUCCESS;
-- D6 `33277733621` — SUCCESS;
-- D7 `33277733651` — SUCCESS;
-- Desktop Portability / Required CI `33277733647` — SUCCESS;
-- Windows Import `33277733650` — **FAILURE**;
+Evidencia exact-head vigente:
+- F4 Matrix `33284981451` — SUCCESS;
+- D6 `33284981429` — SUCCESS;
+- D7 `33284981377` — SUCCESS;
+- Windows Import `33284981477` — **FAILURE**;
+- Desktop Portability de ese head no sustituye el failure funcional;
 - Upgrade 21.2 — SKIPPED/no aplicable.
 
-Diagnóstico factual del job Windows Import `99167313710`: pasó setup, exact checkout, Node/Rust/npm, build y bootstrap oficial Tauri/Edge. `tauri-driver` y `msedgedriver` arrancaron, pero WDIO no pudo crear sesión y falló con `session not created: DevToolsActivePort file doesn't exist` antes de ejecutar cualquier assertion de `tests/e2e/import-flow.e2e.mjs`.
-
-Por tanto:
-- no existe evidencia de bug de producto import;
-- sí existe un failure F4 runner/session-bootstrap;
+Job Windows Import `99186491944`: setup, exact checkout, Node, Rust, npm y `Prepare isolated embedded Tauri WebDriver` terminaron SUCCESS; `Run existing Windows import E2E harness` terminó FAILURE. Por tanto:
+- no existe PASS literal de import;
 - `windows/import` continúa `NOT_COVERED`;
-- el old exact-head CI no autoriza merge contra `712b49b...`.
+- no se promueve matrix;
+- #63 no se integra todavía.
 
-`NIGHT-BBB-020` debe reutilizar SAME #63, refresh onto live baseline, aplicar únicamente el corrective F4 mínimo para que las assertions funcionales corran, exigir Windows Import PASS literal + fresh applicable exact-head CI y merge solo con race-check verde. Si aparece bug de producto fuera de F4, registrar `PRODUCT_FINDING` y STOP para JOBS.
+`NIGHT-BBB-023` debe consumir el primer failure causal del run actual y aplicar únicamente el corrective F4/harness mínimo sobre SAME #63. Si llega a ejecutarse una assertion funcional y demuestra un bug de producto, registrar `PRODUCT_FINDING` y STOP para JOBS.
 
 CI-FALLBACK: `NONE`.
 
@@ -82,14 +82,14 @@ Esto no cierra D22/D23 ni autoriza release público.
 
 ## Día 25 — Matriz/freeze
 
-### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-020`
+### 25.1 — `[ 🟡 ] ARTIFACT INTEGRATED / FUNCTIONAL GAPS OPEN` — BBB `NIGHT-BBB-023`
 
 #60 integró la matriz como `7de7b57a508b3cf05cbded81501fbd3da63922a3`. Conserva `NOT_COVERED`, `PENDING_EXTERNAL` y `PRODUCT_FINDING` honestos.
 
 SAME #63 intenta cerrar únicamente Windows/import reutilizando `test:e2e:import`. Estado vivo:
-- head `ea00d85d7946da8a27fe336bf738afb9a4bd72d0`;
-- stale frente al live baseline `712b49b6689...`;
-- Windows Import failure reducido a WDIO session bootstrap antes de assertions;
+- head `033c2b55a0c46471b7e7ddb3af57b626699ac6e6`;
+- base `3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`;
+- Windows Import `33284981477` FAILURE en E2E harness;
 - no merge/no promoción a `AUTOMATED_PASS`.
 
 Persisten otros gaps reales: journeys core no demostrados cross-platform, iPhone runner/hardware externo, YouTube/billing donde la matriz marque gap y signing/notarization externos.
