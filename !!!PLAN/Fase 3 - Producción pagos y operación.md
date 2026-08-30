@@ -2,20 +2,20 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 051:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Baseline vivo CYCLE 052:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado owner / candidates
 
 - PR #68 / 18.1 MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
-- PR #73 / 18.2 reconciliation **MERGED** como `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`, parents `a9d35a3d...` + `fc831172...`. Cierra solo el software slice de reconciliation/exception queue; global 18.2 sigue abierto.
-- PR #76 `legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070` sigue OPEN sin cambio de head desde CYCLE 050. Compare contra live integration conserva merge-base `a9d35a3d...`; el candidate sigue stale/diverged. Canonical Privacy/Terms + public routes existen; Settings stale sigue pendiente. `NIGHT-AAA-047` es owner único para narrow refresh + canonical Settings reuse + fresh exact-head CI.
+- PR #73 / 18.2 reconciliation MERGED como `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`, parents `a9d35a3d...` + `fc831172...`. Cierra solo software slice de reconciliation/exception queue; global 18.2 sigue abierto.
+- PR #76 `legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070` sigue OPEN/Ready/mergeable con base_sha `a9d35a3d...`, stale contra live integration. Canonical Privacy/Terms + public routes existen; Settings stale sigue pendiente. `NIGHT-AAA-048` es owner único para narrow refresh + canonical Settings reuse + fresh exact-head CI.
 - PR #75 `woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f` sigue frozen por corrective/write-flow blocker.
-- PR #77 `woz/night-20.2-capacity-harness @ 204a03fc48d161b6943f7b11bea2bfc16bf54b05` sigue CLOSED/unmerged y sin cambio de head. Su ejecución prematura anterior no cuenta como evidencia. `NIGHT-WOZ-050` lo reutiliza explícitamente como PRIMARY; no crear artifact duplicado.
+- PR #77 sigue CLOSED/unmerged y no puede reabrirse. WOZ050 refrescó SAME branch `woz/night-20.2-capacity-harness` a `50aac3f0c700a88e1f058372c23ee1d96ecf247a`; compare live integration→branch = ahead 2 / behind 0 / merge-base exacto live integration, exactamente dos archivos harness/test (+139/-0). `NIGHT-WOZ-051` autoriza una sola replacement PR desde ese source artifact.
 
 ## Owners actuales
 
-**AAA — `NIGHT-AAA-047` — F3 / 19.2 SAME #76 refresh + canonical legal Settings reuse.**  
-**WOZ — `NIGHT-WOZ-050` — F3 / 20.2 REUSE SAME #77 harness.**
+**AAA — `NIGHT-AAA-048` — F3 / 19.2 SAME #76 refresh + canonical legal Settings reuse.**  
+**WOZ — `NIGHT-WOZ-051` — F3 / 20.2 one authorized replacement PR from refreshed #77 branch.**
 
 ### AAA PRIMARY — #76
 
@@ -26,10 +26,10 @@
 
 **AAA CI-FALLBACK:** F2/13.2 read-only gap map only while PRIMARY waits CI/review/merge.
 
-### WOZ PRIMARY — #77
+### WOZ PRIMARY — replacement continuation after #77 reopen failure
 
-1. Confirm #77 remains CLOSED/unmerged and delta is only intended harness/test files.
-2. Reuse SAME #77; refresh onto `a306e3b3...`; reopen only if available.
+1. Verify source branch remains `50aac3f0...`, ahead 2 / behind 0 from live integration, exact two-file harness delta.
+2. Create exactly one replacement PR against live integration; document #77 as CLOSED/unmerged predecessor and this PR as explicitly authorized continuation.
 3. Preserve explicit target requirement and synthetic/local-only limitation.
 4. Focused deterministic tests + fresh exact-head CI.
 5. Maximum claim `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`; no provider/production load and no 20.2 PASS.
@@ -62,7 +62,7 @@ PR #68 integró limits/entitlements server-side, reservation anti-race y subscri
 - [ ] 3DS/rechazo/pago tardío/renewal/cancel/upgrade/downgrade/refund con evidencia aplicable;
 - [ ] grace periods/productive billing behavior verificados donde corresponda.
 
-No convertir el merge de #73 en full 18.2 PASS.
+No convertir merge de #73 en full 18.2 PASS.
 
 ## Día 19
 
@@ -74,7 +74,7 @@ No convertir el merge de #73 en full 18.2 PASS.
 ### 19.2 — `[ 🟡 ] CANONICAL LEGAL CANDIDATE / REFRESH ASSIGNED`
 - [ 🟡 ] Privacy Policy v1.0 + Terms v1.0 owner-approved están en #76, effective/updated 2026-08-30;
 - [ 🟡 ] rutas públicas + links de entrada existen en #76;
-- [ 🟡 ] #76 sigue stale/diverged tras #73; AAA047 debe refrescar y sincronizar Settings con canonical docs;
+- [ 🟡 ] #76 sigue stale contra live integration; AAA048 debe refrescar y sincronizar Settings con canonical docs;
 - [ ] independent legal review / production publication evidence permanece gate externo;
 - [ ] soporte con intake/severidad/SLA/escalación aún abierto.
 
@@ -83,18 +83,18 @@ No convertir el merge de #73 en full 18.2 PASS.
 ### 20.1 — `[ 🟡 ] IN PROGRESS / INTERNAL SLICE BLOCKED`
 PR #75 contiene structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno. Corrective de immutable pins conocido pero write flow previo bloqueado; no fresh PASS, no integración.
 
-### 20.2 — `[ 🟡 ] HARNESS PRIMARY ASSIGNED / NO PASS CLAIM`
+### 20.2 — `[ 🟡 ] REPLACEMENT PR AUTHORIZED / NO PASS CLAIM`
 Gap map vigente:
 - capacity envelope `PARTIAL`;
 - approved expected peak `GAP / prerequisite missing`;
-- load/stress harness `GAP` hasta que #77 sea legítimamente refrescado/validado;
+- load/stress harness `READY_FOR_REPLACEMENT_PR` desde source branch `50aac3f0...`;
 - 2× peak proof `PENDING_EXTERNAL`;
-- latency `GAP`;
+- latency `GAP` hasta ejecución aplicable;
 - error/queue/recovery measurement `PARTIAL`;
 - admission control + per-bot ceiling `EXISTS (software)`;
 - safety margin `GAP`;
 - durable user waitlist `GAP`.
 
-#77 aporta un harness sintético reusable con target explícito, concurrency/queue/latency/errors/recovery, pero su creación prematura fue invalidada. WOZ050 puede legitimarlo como SAME artifact; aun integrado, resultado máximo `HARNESS_READY`, nunca runtime capacity PASS.
+#77 no puede reabrirse, pero WOZ050 dejó el source branch limpio exactamente sobre live integration. WOZ051 puede abrir una sola replacement PR para legitimar ese mismo harness. Aun integrado, resultado máximo `HARNESS_READY`, nunca runtime capacity PASS.
 
 **Principio:** no falsear proveedor, capacidad, pagos, DNS, legal review o staging real sin evidencia externa/productiva.
