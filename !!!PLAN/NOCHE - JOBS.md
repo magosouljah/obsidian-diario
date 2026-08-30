@@ -3,7 +3,7 @@
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** JOBS — jefe de la noche.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.  
-**Ciclo:** `CYCLE 053`.
+**Ciclo:** `CYCLE 054`.
 
 ## META
 
@@ -12,87 +12,83 @@ Terminar F0–F4 o reducirlos al mínimo factual de blockers externos. Prioridad
 ## BASELINE VIVO
 
 - `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
-- Último merge material: PR #73; parents `a9d35a3d...` + `fc831172...`.
-- No merge posterior observado durante el preflight CYCLE 053.
+- Último merge material verificado: PR #73.
+- No merge posterior observado durante el preflight CYCLE 054.
 - Release público: 🔴 `NO-GO`.
 
 ## PREFLIGHT FACTUAL
 
-Leídos: Plan Maestro; F0–F4; Equipo multi-IA; protocolo nocturno; JOBS/AAA/BBB/WOZ; Registro de avances; Issue #41 + comentarios; GitHub vivo de integration y candidates. GitHub/runtime prevaleció sobre snapshots viejos.
+Leídos completos: Plan Maestro; F0–F4; Equipo multi-IA; protocolo nocturno; JOBS/AAA/BBB/WOZ; Registro de avances; Issue #41 + comentarios; GitHub vivo de integration y candidates. GitHub/runtime prevaleció sobre snapshots viejos.
 
 Hechos verificados:
-1. Integration continúa en `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`; no hay merge posterior a #73 en el preflight.
-2. AAA048 no dejó RESULTADO DEL TURNO / handoff observable; #76 sigue OPEN head `36d218609...`, base snapshot `a9d35a3d...`, stale contra live integration. No implementation/CI/merge claim.
-3. BBB047 sí dejó resultado final: `WAITING_EXTERNAL / STOP_MERGE_FLOW_UNAVAILABLE`. #72 sigue OPEN/Ready/mergeable head `904fbf3c...`, base snapshot `a9d35a3d...`; no fresh CI ni merge. El flujo disponible no ofrece safe update-branch/merge-base-into-head preservando historia.
-4. BBB047 ejecutó el CI-FALLBACK autorizado F4/25.2 read-only: design foundations/components/tests EXISTS; release controls/matrices PARTIAL; dedicated P2/P3 beta backlog GAP; literal beta script/form/criteria GAP. 25.2 no cerrado.
-5. WOZ051 no dejó resultado final ni replacement PR observable. Search de PRs solo devolvió #77 como artifact 20.2 conocido; #77 sigue CLOSED/unmerged.
-6. Source branch 20.2 `50aac3f0...` permanece como artifact reutilizable previamente verificado exact-base/ahead2/behind0/dos archivos. Cualquier WOZ052 debe fresh-compare antes de actuar.
-7. #76 y #72 comparten factualmentе el riesgo de stale-base refresh; insistir simultáneamente en ambos sin safe history-preserving operation sería trabajo desperdiciado.
-8. #69/#70/#74/#75 no recibieron cambio factual que justifique reintento ciego.
-9. F0/F1 no recibieron evidencia externa nueva; Registro no gana un nuevo merge/PASS.
-10. F5 sigue cerrada.
+1. Integration continúa en `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe` durante el preflight.
+2. `NIGHT-AAA-049` no dejó RESULTADO DEL TURNO / handoff observable. No se conserva por inercia: queda `NO_RESULT / SUPERSEDED_BY_JOBS`.
+3. `NIGHT-BBB-048` tampoco dejó RESULTADO DEL TURNO / handoff observable. Queda `NO_RESULT / SUPERSEDED_BY_JOBS`.
+4. `NIGHT-WOZ-052` sí dejó resultado: `PENDING / WAITING_CI`. Reutilizó branch `woz/night-20.2-capacity-harness @ 50aac3f0...`, fresh compare ahead 2 / behind 0, merge-base exact live integration y solo dos archivos harness/test (+139). Abrió exactamente una replacement PR #78 contra base exacta `a306e3b3...`.
+5. Después del cierre WOZ052, Actions materializó exact-head CI para #78. Se observaron 13 check-runs; no failure, no in-progress y no conclusión null. `Required CI = SUCCESS` sobre `50aac3f0...`.
+6. PR #78 sigue OPEN, non-draft, mergeable=true, head `50aac3f0...`, base `a306e3b3...`, 2 files/+139. No merge todavía.
+7. #69/#70/#72/#74/#75/#76 no recibieron cambio factual que justifique reintento ciego; permanecen frozen por blockers documentados.
+8. F0/F1 no recibieron evidencia externa nueva; Registro de avances no gana merge/PASS nuevo.
+9. F5 sigue cerrada.
 
 ## RESULTADOS PROCESADOS
 
-### AAA / NIGHT-AAA-048
+### AAA / NIGHT-AAA-049
 `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- #76 head unchanged.
-- No claim de implementation, CI, merge o 19.2 PASS.
-- #76 se congela hasta safe history-preserving refresh.
+- No implementation, tests, CI, PR ni merge claim aceptado.
+- Reasignación fresca `NIGHT-AAA-050` porque F2/14.1 sigue siendo dependency-safe y materialmente útil.
 
-### BBB / NIGHT-BBB-047
-`WAITING_EXTERNAL / STOP_MERGE_FLOW_UNAVAILABLE`.
-- #72 unchanged at `904fbf3c...`, stale against live base.
-- Historical green set no se promovió.
-- No candidate mutation, fresh CI ni merge.
-- Fallback 25.2 read-only procesado: foundations/components EXISTS; complete freeze PARTIAL; backlog + beta script/form/criteria GAP.
-- #72 se congela hasta cambio factual del blocker de refresh.
-
-### WOZ / NIGHT-WOZ-051
+### BBB / NIGHT-BBB-048
 `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- No replacement PR encontrado antes de CYCLE 053.
-- No tests/CI/merge claim.
-- Existing source artifact se conserva para WOZ052; no se crea implementación duplicada.
+- No artifact, tests, CI, PR ni merge claim aceptado.
+- Reasignación fresca `NIGHT-BBB-049` porque BBB047 ya había demostrado gaps internos literales en 25.2.
 
-Último resultado material integrado aceptado: `NIGHT-WOZ-048 DONE / INTEGRATED` → #73 merged as `a306e3b3...`; solo reconciliation/exception-queue software slice, no full F3/18.2 PASS.
+### WOZ / NIGHT-WOZ-052
+`PENDING / WAITING_CI`.
+- Replacement #78 creado exact-base desde existing artifact; no implementación duplicada.
+- Worker cerró cuando CI aún no aparecía.
+- JOBS verificó después: exact-head CI ya existe y `Required CI` SUCCESS; #78 permanece OPEN/mergeable, sin scope drift observable.
+- No se promueve merge ni full 20.2 PASS: siguiente owner transaction es WOZ053.
+
+Último resultado material integrado aceptado sigue siendo `NIGHT-WOZ-048 DONE / INTEGRATED` → #73 merged as `a306e3b3...`; solo partial F3/18.2 software slice.
 
 ## CAMINO CRÍTICO GLOBAL — RECALCULADO DESDE CERO
 
-1. **F3/20.2 / source `50aac3f0...`:** único candidate conocido ya reconciliado al live base que puede convertirse en replacement PR sin reimplementar; reduce gap a HARNESS_READY, no runtime PASS.
-2. **F2/14.1:** trabajo Web interno dependency-safe que no depende de #69/#70/#76; cerrar un slice real de streaming/memory safety reduce F2 sin esperar tool blockers.
-3. **F4/25.2:** BBB047 ya localizó gaps literales internos; materializar backlog + beta script/form/criteria es trabajo limpio mientras #72/#74 siguen congelados.
-4. **F3 #76 / 19.2 legal:** frozen hasta safe history-preserving refresh; no blind retry.
-5. **F4 #72 / windows-review:** frozen por same class of refresh blocker; no historical CI reuse.
-6. **F4 #74 → #71 / windows-auth:** frozen hasta cambio factual de integration/refresh dependency.
+1. **F3/20.2 / PR #78:** exact-base, narrow y exact-head CI verde; requiere race-check + merge owner-only. Incluso mergeado, claim máximo HARNESS_READY.
+2. **F2/14.1:** slice interno Web dependency-safe independiente de #69/#70/#76.
+3. **F4/25.2:** artifacts internos faltantes ya demostrados por BBB047; progreso limpio mientras #72/#74 están frozen.
+4. **F3 #76 / 19.2:** frozen hasta safe history-preserving refresh.
+5. **F4 #72 / windows-review:** frozen por refresh blocker; no historical CI reuse.
+6. **F4 #74 → #71 / windows-auth:** frozen hasta cambio factual de integración/refresh.
 7. **F3 #75 / 20.1:** frozen por write-flow blocker.
-8. **F2 / 12.1:** real-browser cold/warm runtime evidence.
+8. **F2 / 12.1:** real browser cold/warm runtime evidence.
 9. **F2 #69/#70:** write/safe-write blockers.
 10. **F2 14.2–15 + remaining F4 25.1 rows:** residual interno posterior.
-11. **F0/F1/F3 external tails + F4 D22/D23:** blockers externos/RO siguen prerequisites. F5 permanece CLOSED.
+11. **F0/F1/F3 external tails + F4 D22/D23:** external/RO prerequisites. F5 permanece CLOSED.
 
 ## TABLERO AAA / BBB / WOZ
 
 | Worker | Resultado procesado | PRIMARY nuevo | CI-FALLBACK |
 |---|---|---|---|
-| AAA | 048 NO_RESULT → superseded | `NIGHT-AAA-049`: F2/14.1 REUSE-FIRST media streaming/memory slice mínimo | F2/14.2 READ-ONLY solo mientras PRIMARY espera CI/review/merge |
-| BBB | 047 WAITING_EXTERNAL; 25.2 inventory done RO | `NIGHT-BBB-048`: F4/25.2 materializar únicamente backlog + beta script/form/criteria faltantes | F4/25.1 residual journey map READ-ONLY solo mientras PRIMARY espera operación externa |
-| WOZ | 051 NO_RESULT → superseded | `NIGHT-WOZ-052`: una replacement PR autorizada desde existing `50aac3f0...` si fresh compare sigue limpio | NONE |
+| AAA | 049 NO_RESULT → superseded | `NIGHT-AAA-050`: F2/14.1 REUSE-FIRST media streaming/memory slice mínimo | F2/14.2 READ-ONLY solo mientras PRIMARY espera CI/review/merge |
+| BBB | 048 NO_RESULT → superseded | `NIGHT-BBB-049`: F4/25.2 beta backlog + script/form/criteria faltantes | F4/25.1 residual journey map READ-ONLY solo mientras PRIMARY espera operación externa |
+| WOZ | 052 PENDING/WAITING_CI; #78 exact-head CI now green | `NIGHT-WOZ-053`: SAME #78 race-check + integration | NONE |
 
-No overlap material: AAA Web media; BBB release/beta readiness artifacts; WOZ capacity harness tests. #76/#72/#69/#70/#74/#75 frozen y sin owner de escritura en este ciclo.
+No overlap material: AAA Web media; BBB readiness artifacts; WOZ capacity harness candidate. Frozen PRs quedan sin owner de escritura.
 
 ## PRIMARY / CI-FALLBACK EMITIDOS
 
-### AAA — NIGHT-AAA-049
-PRIMARY: live integration only; audit existing Web media implementation first, then implement only smallest literal 14.1 gap around progressive/Range-style playback, giant-file memory safety and cleanup/cancel. Focused tests + fresh exact-head CI; no Player redesign.  
-CI-FALLBACK: F2/14.2 READ-ONLY only after PRIMARY code-complete `WAITING_CI`/review/merge. Alcance: active index/shortcuts/seek/shuffle/repeat/recoverable error/queue/volume/browser-test gap map; no writes and no PRIMARY files. Evidencia: exact baseline + literal paths/symbols/tests + `EXISTS/PARTIAL/GAP/PENDING_EXTERNAL`. STOP on write/overlap/dependency abuse; recheck PRIMARY.
+### AAA — NIGHT-AAA-050
+PRIMARY: live integration only; audit/reuse existing Web media code, then implement only smallest literal 14.1 gap around progressive/Range-style playback, giant-file memory safety and cleanup/cancel. Focused tests + fresh exact-head CI; no Player redesign.  
+CI-FALLBACK: F2/14.2 READ-ONLY only after PRIMARY is code-complete and genuinely waiting external CI/review/merge. Alcance: active index/shortcuts/seek/shuffle/repeat/recoverable error/queue/volume/browser-test matrix; no writes/no PRIMARY files. Evidencia: exact baseline + literal paths/tests + EXISTS/PARTIAL/GAP/PENDING_EXTERNAL. STOP on write/overlap/dependency abuse; recheck PRIMARY.
 
-### BBB — NIGHT-BBB-048
-PRIMARY: reuse BBB047 inventory and existing design/release artifacts. Materialize only missing P2/P3 beta backlog and beta test script/form/entry-exit criteria; no public release/signing/notarization/product behavior. Fresh exact-head CI for repository changes.  
-CI-FALLBACK: F4/25.1 READ-ONLY only after PRIMARY code-complete waiting CI/review/merge. Alcance: row-by-row residual functional journeys on live integration; no writes/no historical promotion. Evidencia: literal dedicated evidence only. STOP on write/overlap/insufficient evidence; recheck PRIMARY.
+### BBB — NIGHT-BBB-049
+PRIMARY: reuse BBB047 inventory and existing design/release evidence. Materialize only missing P2/P3 beta backlog and beta test script/form/entry-exit criteria. Fresh exact-head CI for repository changes; no public release/signing/notarization/product behavior.  
+CI-FALLBACK: F4/25.1 READ-ONLY only after PRIMARY becomes code-complete waiting external CI/review/merge. Alcance: residual functional journey rows on live integration; no writes/no historical promotion. Evidencia: literal dedicated evidence only. STOP on write/overlap/insufficient evidence; recheck PRIMARY.
 
-### WOZ — NIGHT-WOZ-052
-PRIMARY: fresh compare `a306e3b3...` vs existing source `50aac3f0...`; if still narrow/exact and duplicate-check clean, create exactly one replacement PR, run focused deterministic tests + fresh exact-head CI. Merge only race-clean. Maximum claim `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`; no invented peak/provider load/20.2 PASS.  
-CI-FALLBACK: NONE. No secondary task may be invented while waiting.
+### WOZ — NIGHT-WOZ-053
+PRIMARY: SAME #78 only. Recheck live integration, exact head/base, two-file delta, mergeability and fresh exact-head CI immediately before integration. Merge only race-clean through WOZ's authorized flow, then verify resulting integration SHA + parents. Maximum claim `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`; no approved peak/provider load/2× proof/full 20.2 PASS invented.  
+CI-FALLBACK: NONE. No secondary work may be invented.
 
 ## BLOCKERS
 
@@ -101,28 +97,28 @@ CI-FALLBACK: NONE. No secondary task may be invented while waiting.
 3. F1/D10.1: off-provider/off-account copy + read/checksum.
 4. F1/D10.2: RO decision.
 5. F2/12.1: real browser cold/warm runtime.
-6. F2/13.1 #69: patch-capable write surface + refresh/product wiring.
+6. F2/13.1 #69: patch-capable write surface + product wiring.
 7. F2/13.1 #70: safe-write blocker + stale baseline.
-8. F3/18.2: provider/payment/business-policy evidence remains after integrated #73 software slice.
-9. F3/19.1/19.2: #76 stale and frozen; production DNS/deploy/support/legal-review tails remain.
-10. F3/20.1 #75: pin corrective + write blocker; external observability tails open.
-11. F3/20.2: replacement PR/tests/CI pending; approved peak + real 2× runtime proof + safety margin/waitlist remain.
+8. F3/18.2: provider/payment/business-policy evidence remains after integrated #73 slice.
+9. F3/19.1/19.2: #76 stale/frozen; production DNS/deploy/support/legal-review tails remain.
+10. F3/20.1 #75: immutable-pin corrective + write-flow blocker; external observability tails open.
+11. F3/20.2: #78 integration pending; approved peak + real 2× runtime proof + latency + safety margin + durable waitlist remain even after merge.
 12. F4/windows-auth: #74/#71 stale/frozen.
-13. F4/windows-review: #72 safe refresh unavailable; fresh CI pending until blocker changes.
-14. F4/25.1: other rows NOT_COVERED/PENDING_EXTERNAL.
-15. F4/25.2: internal artifacts assigned BBB048; external beta/tester evidence not fabricated.
+13. F4/windows-review: #72 safe refresh unavailable.
+14. F4/25.1: remaining rows NOT_COVERED/PENDING_EXTERNAL.
+15. F4/25.2: internal artifacts assigned BBB049; real beta/tester evidence remains separate.
 16. F4 D22/D23: signing/notarization/hardware external/open.
 
 ## PROGRESO REAL F0–F4
 
 - **F0:** técnico interno cerrado; tails externos.
 - **F1:** core técnico cerrado; D10.1 externo + D10.2 RO.
-- **F2:** 12.1 runtime residual; 13.1 frozen; 14.1 activo AAA049; 14.2–15 abiertos.
-- **F3:** 17.1/17.2/18.1 integrated; 18.2 software slice integrated but global open; #76/#75 frozen; 20.2 continuation WOZ052.
-- **F4:** windows/import integrated; auth/review frozen; 25.2 active BBB048; remaining 25.1 + D22/D23 open.
+- **F2:** 12.1 runtime residual; 13.1 frozen; 14.1 activo AAA050; 14.2–15 abiertos.
+- **F3:** 17.1/17.2/18.1 integrated; 18.2 partial software integrated/global open; #76/#75 frozen; #78 green awaiting WOZ053 integration; runtime capacity remains unverified.
+- **F4:** windows/import integrated; auth/review frozen; 25.2 activo BBB049; remaining 25.1 + D22/D23 open.
 - **F5:** `NO ABRIR`.
 
-## PLAN SYNC — CYCLE 053
+## PLAN SYNC — CYCLE 054
 
 Actualizados por JOBS:
 - `!!!PLAN/Plan Maestro.md`;
@@ -130,32 +126,32 @@ Actualizados por JOBS:
 - `!!!PLAN/Fase 3 - Producción pagos y operación.md`;
 - `!!!PLAN/Fase 4 - Desktop y release chain.md`;
 - `!!!PLAN/Equipo multi-IA - Roles y coordinación.md`;
-- `!!!PLAN/NOCHE - AAA.md` → `NIGHT-AAA-049`;
-- `!!!PLAN/NOCHE - BBB.md` → `NIGHT-BBB-048`;
-- `!!!PLAN/NOCHE - WOZ.md` → `NIGHT-WOZ-052`;
-- `!!!PLAN/NOCHE - JOBS.md` → CYCLE 053.
+- `!!!PLAN/NOCHE - AAA.md` → `NIGHT-AAA-050`;
+- `!!!PLAN/NOCHE - BBB.md` → `NIGHT-BBB-049`;
+- `!!!PLAN/NOCHE - WOZ.md` → `NIGHT-WOZ-053`;
+- `!!!PLAN/NOCHE - JOBS.md` → CYCLE 054.
 
-F0/F1 y Registro de avances fueron leídos y no se reescribieron: no hubo nuevo merge/PASS/evidencia externa. `Plan Maestro 2208 copy DONT TOUCH .md` untouched. JOBS no modificó código BeatGaler ni infraestructura.
+F0/F1 y Registro de avances fueron leídos y no reescritos: no hubo nuevo merge/PASS/evidencia externa. `Plan Maestro 2208 copy DONT TOUCH .md` untouched. JOBS no modificó código BeatGaler ni infraestructura.
 
 ## SIGUIENTE CICLO
 
 1. Releer integration HEAD.
-2. Procesar AAA049/BBB048/WOZ052 una sola vez.
-3. Cualquier merge que mueva baseline obliga exact-head/race reconciliation de candidates restantes.
+2. Procesar AAA050/BBB049/WOZ053 una sola vez.
+3. Si #78 mergea y mueve baseline, reconciliar cualquier candidate restante antes de confiar en CI previo.
 4. #69/#70/#72/#74/#75/#76 no se reintentan mientras sus blockers no cambien factual.
 5. Procesar solo evidencia externa real para F0/F1/F3/F4; no fabricar PASS.
 6. No abrir F5.
 
 ```text
-CYCLE_ID: NIGHT-JOBS-053
+CYCLE_ID: NIGHT-JOBS-054
 INTEGRATION_HEAD_PRE_FINAL_RACECHECK: a306e3b3f6b4a6cf9d678e325b6e529b5344fffe
-AAA_RESULT_PROCESSED: NIGHT-AAA-048 NO_RESULT -> SUPERSEDED
-BBB_RESULT_PROCESSED: NIGHT-BBB-047 WAITING_EXTERNAL / STOP_MERGE_FLOW_UNAVAILABLE
-WOZ_RESULT_PROCESSED: NIGHT-WOZ-051 NO_RESULT -> SUPERSEDED
+AAA_RESULT_PROCESSED: NIGHT-AAA-049 NO_RESULT -> SUPERSEDED
+BBB_RESULT_PROCESSED: NIGHT-BBB-048 NO_RESULT -> SUPERSEDED
+WOZ_RESULT_PROCESSED: NIGHT-WOZ-052 PENDING / WAITING_CI; #78 exact-head CI later green
 MERGE_ACCEPTED_THIS_CYCLE: none
-AAA_NEW: NIGHT-AAA-049
-BBB_NEW: NIGHT-BBB-048
-WOZ_NEW: NIGHT-WOZ-052
+AAA_NEW: NIGHT-AAA-050
+BBB_NEW: NIGHT-BBB-049
+WOZ_NEW: NIGHT-WOZ-053
 CI_FALLBACKS: F2-14.2-READ_ONLY / F4-25.1-READ_ONLY / NONE
 DUPLICATE_WORK: prevented
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
@@ -163,4 +159,4 @@ CODE_OR_INFRA_MUTATION_BY_JOBS: none
 RELEASE: NO-GO
 ```
 
-**STOP:** ciclo JOBS 053 termina después del final race-check y publicación del handoff de coordinación.
+**STOP:** ciclo JOBS 054 termina después del final race-check y publicación del handoff de coordinación.
