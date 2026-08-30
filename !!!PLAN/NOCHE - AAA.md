@@ -7,11 +7,11 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-023`
+- `ASSIGNMENT_ID: NIGHT-AAA-024`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.1 — Save All durable + bulk conflict safety + garbage journal`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
-- `PREDECESSOR: NIGHT-AAA-022 PENDING / PROCESSED_BY_JOBS — taxonomy/state demostrado; cold/warm real queda como residual 12.1 separado. No repetir 022.`
+- `PREDECESSOR: NIGHT-AAA-023 ASSIGNED / NOT_PROCESSED / SUPERSEDED_BY_JOBS — no RESULTADO DEL TURNO, PR ni handoff 023 observable al CYCLE 024; no ejecutar 023 después de recibir 024.`
 
 ### PRIMARY
 
@@ -35,6 +35,12 @@
 
 Reason: 13.2/D14/D15 ampliarían scope y podrían solapar la misma superficie de Review/Import. No existe fallback independiente seguro preautorizado.
 
+## RESULTADO PROCESADO — NIGHT-AAA-023
+
+- `STATUS: NOT_PROCESSED / SUPERSEDED_BY_JOBS`
+- `EVIDENCE: ledger seguía ASSIGNED; no RESULTADO DEL TURNO, PR/handoff nuevo ni cambio GitHub atribuible a 023 al CYCLE 024.`
+- `ACTION: sustituido por NIGHT-AAA-024 con mismo scope crítico para preservar idempotencia.`
+
 ## RESULTADO PROCESADO — NIGHT-AAA-022
 
 - `STATUS: PENDING / STOP_EVIDENCE_NOT_REPRODUCIBLE`
@@ -42,12 +48,12 @@ Reason: 13.2/D14/D15 ampliarían scope y podrían solapar la misma superficie de
 - `CHANGES: none; REUSE-FIRST.`
 - `EVIDENCE_ACCEPTED: taxonomy/state ready/empty/no-results/offline/auth-failure/cloud-failure ya está implementado y testeado literalmente.`
 - `OPEN_RESIDUAL: comparación cold vs warm real, mismo escenario, cache/session cold vs preservados y métricas cuantificadas/reproducibles.`
-- `JOBS_ACTION: no cerrar 12.1; mover AAA a D13.1 dependency-safe para evitar tiempo muerto.`
 - `CI-FALLBACK: NONE.`
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-023`: ASSIGNED — F2/13.1; CI-FALLBACK NONE.
+- `NIGHT-AAA-024`: ASSIGNED — F2/13.1; CI-FALLBACK NONE.
+- `NIGHT-AAA-023`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-022`: PENDING — taxonomy/state demostrado; cold/warm real sigue abierto.
 - `NIGHT-AAA-021`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-020`: DONE — #66 merged `712b49b6689...`; bounded pagination/window/memory + production navigation integrated.
