@@ -2,28 +2,29 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 038:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
+**Baseline vivo CYCLE 039:** `integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 
 ## Estado owner / candidates
 
-- PR #68 / 18.1 sigue OPEN / Ready / mergeable @ `68adaad4a5b1b2b50ba192c1b58325cbba0472e3`, base exacta `02a40564...`, 4 changed files / +178 -0.
-- Fresh exact-head workflows: 6 totales = 5 `SUCCESS` + 1 `SKIPPED`; 0 `FAILURE`, 0 `IN_PROGRESS`, 0 `QUEUED`. Dedicated `F3 - 18.1 Entitlements` y Required CI aplicable están verdes.
-- No hubo merge nuevo en CYCLE 038; 18.1 no se marca `[x]` todavía.
-- `NIGHT-WOZ-037` sustituye la orden 036 no procesada y conserva SAME #68 para race-check + merge, sin nueva implementación.
+- PR #68 / 18.1 fue MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`; candidate exact head `68adaad4a5b1b2b50ba192c1b58325cbba0472e3`, 4 changed files / +178 -0.
+- Exact-head evidence previa al merge: 5 workflows `SUCCESS` + 1 `SKIPPED`, 0 failure/pending; dedicated `F3 - 18.1 Entitlements` y Required CI aplicable verdes.
+- WOZ037 verificó race-check, merge SHA, parents y new integration HEAD. 18.1 se procesa `[x] SOFTWARE DONE / INTEGRATED`.
+- `NIGHT-WOZ-038` toma 18.2 software-only con REUSE-FIRST; no proveedor/credenciales ni decisiones de grace/refund inventadas.
 - `NIGHT-WOZ-033` gap map de 20.1 sigue válido; 20.1 permanece holding.
 
 ## Owner actual
 
-**WOZ — `NIGHT-WOZ-037` — F3/18.1 SAME PR #68 race-check + merge.**
+**WOZ — `NIGHT-WOZ-038` — F3/18.2 reconciliation + exception-queue software contract.**
 
 PRIMARY:
-1. Preflight + duplicate-check; revalidar integration vivo y exact head.
-2. Verificar #68 OPEN/Ready/mergeable, base `02a40564...`, head `68adaad4...`, 4 files/+178/-0.
-3. Reutilizar exact-head CI ya terminado; no rerun ceremonial salvo cambio material.
-4. Si race-check permanece limpio, integrar SAME #68 por flujo autorizado del owner.
-5. Verificar merge SHA + integration HEAD post-merge.
-6. Si baseline/head/CI cambia o aparece blocker de proceso, STOP; no bypass/replacement PR.
-7. No iniciar 18.2/20.1 automáticamente.
+1. Auditar primitives existentes de reconciliation/webhook/event-ledger/subscription/retry/idempotency.
+2. No crear recursos Stripe/credenciales/productos/precios ni infraestructura.
+3. Si ya está satisfecho literalmente, handoff audit-only; no PR ceremonial.
+4. Si hay gap interno, implementar solo reconciliación durable/idempotente + cola de excepciones/retry fail-closed, sin conceder entitlement por redirect/session.
+5. Focused tests: replay/idempotencia, divergence, exception/retry y no-grant ambiguo.
+6. Fresh applicable exact-head CI para nuevo head.
+7. No cerrar 18.2 si faltan casos de negocio/proveedor literales.
+8. STOP ante decisión RO/proveedor/credencial, baseline race, scope drift o CI no atribuible.
 
 CI-FALLBACK: `NONE`.
 
@@ -45,10 +46,10 @@ Health/readiness/shutdown/timeouts/proxy trust integrado por #59. Separación f�
 
 ## Día 18
 
-### 18.1 — `[ 🟡 ] READY_FOR_OWNER_MERGE`
-PR #68 contiene limits/entitlements server-side, reservation anti-race y subscription-state contract. Candidate refreshed + exact-head green; falta merge SHA real.
+### 18.1 — `[x] SOFTWARE DONE / INTEGRATED`
+PR #68 integró limits/entitlements server-side, reservation anti-race y subscription-state contract. Merge `a9d35a3d69dd9127029fb851d189f9bd3079d03b`; WOZ037 verificó exact-head/race-check/parents.
 
-### 18.2
+### 18.2 — `[ 🟡 ] IN PROGRESS`
 - [ ] reconciliación Stripe↔BeatGaler + cola de excepciones;
 - [ ] 3DS/rechazo/pago tardío/renewal/cancel/upgrade/downgrade/refund;
 - [ ] grace periods aprobados.
