@@ -8,7 +8,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-045`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: DONE`
 - `AREA: F3 / 20.2 — REUSE-FIRST capacity/load readiness audit, READ ONLY`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
 - `PREDECESSOR: NIGHT-WOZ-044 had no RESULTADO DEL TURNO/handoff observable by JOBS CYCLE 046 and is superseded explicitly to prevent late duplicate execution.`
@@ -40,6 +40,53 @@
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-045
+
+### PRIMARY
+
+- `Assignment ID: NIGHT-WOZ-045`
+- `STATUS: DONE / AUDIT_ONLY / 20.2 REMAINS OPEN`
+- `baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
+- `branch/head: NONE — read-only assignment`
+- `PR: NONE`
+- `cambios: ninguno en BeatGaler; #75 y #73 confirmados OPEN/Ready/mergeable y sin mutación, heads bb493b3755ba1a42b4c5cfe7f3b885edc544c61f y fc831172c4c86d97cadb03801a6777777fd345bb respectivamente.`
+- `tests: no rerun; inspección metadata de cloud-server/tests confirma suites funcionales/integration existentes pero ningún harness dedicado de load/stress/capacity 20.2 observable por nombre; no se ejecutó carga costosa.`
+- `CI: N/A para assignment audit-only; no workflow nuevo.`
+- `evidencia inspeccionada: cloud-server/direct-transport-control.js; cloud-server/TELEGRAM-DIRECT.md; cloud-server/tests directory; .github/workflows tree; Plan Maestro/Fase 3/Equipo multi-IA; Issue #41 handoff JOBS CYCLE 046.`
+- `gap map:`
+  - `capacity envelope: PARTIAL` — existe software ceiling por bot mediante DIRECT_MAX_ACTIVE_VAULTS_PER_BOT con default 4 y MASTER_VAULT_SOFT_LIMIT, pero no constituye envelope aprobado de sistema ni throughput/concurrency probado de end-to-end.`
+  - `approved expected peak: GAP / prerequisite missing` — no se observó cifra aprobada de pico esperado; por regla no se inventó.`
+  - `load/stress harness: GAP` — no se observó workflow/test dedicado que demuestre carga al 2× del pico aprobado.`
+  - `2x peak proof: PENDING_EXTERNAL` — imposible demostrarlo sin peak aprobado y ejecución runtime/load controlada.`
+  - `latency measurement: GAP` — diagnostics/metrics actuales no aportan distribución/percentiles de latencia de capacity test.`
+  - `error measurement: PARTIAL` — hay errores/códigos operativos explícitos y diagnostics, pero no evidencia agregada bajo carga.`
+  - `queue measurement: PARTIAL` — existe queue interna de bots y métricas simples por bot; no hay métricas de profundidad/espera/SLO bajo carga.`
+  - `recovery measurement: PARTIAL` — existen heartbeat timeout, stale cleanup, quarantine/rotation recovery paths y errores explícitos, pero no medición de recovery time bajo load.`
+  - `admission control: EXISTS (software)` — leaseNextBot filtra bots no disponibles y rechaza cuando todos alcanzan ceiling con TRANSPORT_CAPACITY_REACHED.`
+  - `per-bot ceiling: EXISTS (software)` — MAX_ACTIVE_VAULTS_PER_BOT configurable, default 4; fair load-level FIFO distribuye por menor número de leases antes de incrementar nivel.`
+  - `safety margin: GAP` — no se observó reserva/margen aprobado por debajo del ceiling ni fórmula derivada de capacidad medida.`
+  - `waitlist: GAP` — la queue observada ordena bots para asignación; cuando no hay eligible bots el software devuelve capacity error. No es un waitlist durable de solicitudes/usuarios.`
+- `UNVERIFIED: capacidad productiva real; provider/bot rate limits efectivos; throughput sostenido; latency p50/p95/p99; error rate bajo carga; queue depth/wait time; recovery time; peak esperado aprobado; margen operativo; comportamiento de waitlist de producto.`
+- `blockers: falta prerequisite de expected peak aprobado y falta evidencia runtime/load controlada; cualquier cierre de 20.2 requerirá definir target autorizado y ejecutar prueba no destructiva con medición literal.`
+- `condición de STOP alcanzada: audit read-only completo; cualquier siguiente paso requiere nueva asignación y, para prueba 2×, target aprobado + operación de carga/runtime.`
+- `recomendación para JOBS: separar siguiente trabajo en (A) decisión/registro del expected peak y safety margin aprobados; (B) harness software de load/metrics si no existe; (C) ejecución runtime controlada para 2× peak con latency/errors/queue/recovery. No marcar 20.2 PASS hasta C.`
+
+### CI-FALLBACK
+
+- `Assignment ID: NIGHT-WOZ-045`
+- `STATUS: NOT_RUN / NONE`
+- `baseline: a9d35a3d69dd9127029fb851d189f9bd3079d03b`
+- `branch/head: N/A`
+- `PR: N/A`
+- `cambios: ninguno`
+- `tests: N/A`
+- `CI: N/A`
+- `evidencia: CI-FALLBACK explícitamente NONE`
+- `UNVERIFIED: N/A`
+- `blockers: N/A`
+- `condición de STOP alcanzada: no inventar fallback`
+- `recomendación para JOBS: ninguna; procesar PRIMARY audit map.`
+
 ## RESULTADO PROCESADO / SUPERSEDED — NIGHT-WOZ-044
 
 - `STATUS: NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
@@ -63,7 +110,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-045`: ASSIGNED — F3/20.2 REUSE-FIRST capacity/load audit-only.
+- `NIGHT-WOZ-045`: DONE/AUDIT_ONLY — 20.2 gap map; no PASS claim.
 - `NIGHT-WOZ-044`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-043`: BLOCKED/WRITE_TOOL_SAFETY — #75 unchanged.
 - `NIGHT-WOZ-042`: NOT_PROCESSED / SUPERSEDED_BY_JOBS.
