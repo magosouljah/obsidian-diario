@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 052:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Integración estable CYCLE 053:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado actual
 
@@ -12,20 +12,18 @@ PR #63 fue MERGED y dejó `windows/import = AUTOMATED_PASS` integrado. 25.1 comp
 
 PR #71 permanece como regression proof: bajo sesión WebDriver real el Desktop login no persistió `beatgaler:account-session:v1`. `windows/auth` sigue `NOT_COVERED`.
 
-SAME PR #74 permanece OPEN/Ready/mergeable en su snapshot anterior, pero sigue frozen bajo el blocker previo de merge-flow. #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
+PR #74 permanece OPEN/Ready/mergeable en snapshot anterior pero frozen por el blocker de merge/refresh. #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
 
 ### windows/review
 
-SAME #72 al preflight CYCLE 052:
-- OPEN; draft=false; merged=false; mergeable=true;
-- head `904fbf3c0f81e6ff4c22e4ee717f337e5018fa5c`, sin cambio desde CYCLE 050;
-- base SHA registrada en PR: `a9d35a3d69dd9127029fb851d189f9bd3079d03b`;
-- live integration sigue `a306e3b3...` por merge #73;
-- old green evidence es histórica y no autoriza merge sobre live baseline.
+BBB047 verificó:
+- #72 OPEN / Ready / mergeable=true;
+- head `904fbf3c0f81e6ff4c22e4ee717f337e5018fa5c`;
+- PR base snapshot `a9d35a3d69dd9127029fb851d189f9bd3079d03b` vs live integration `a306e3b3...`;
+- delta sigue limitado a cinco archivos workflow/matrix/test harness;
+- no existe en el flujo disponible una operación segura update-branch/merge-base-into-head que preserve historia.
 
-`NIGHT-BBB-046` no dejó RESULTADO DEL TURNO/handoff observable antes de CYCLE 052 y queda superseded. `NIGHT-BBB-047` es owner único para narrow refresh SAME #72 sobre `a306e3b3...`, fresh applicable exact-head CI y merge solo si vuelve a quedar race-clean/green.
-
-**CI-FALLBACK BBB:** F4/25.2 READ-ONLY readiness inventory solo si PRIMARY queda realmente esperando CI/merge/review/queue; sin writes; recheck PRIMARY antes de cerrar.
+Resultado `NIGHT-BBB-047`: `WAITING_EXTERNAL / STOP_MERGE_FLOW_UNAVAILABLE`. No fresh CI ni merge claim; #72 queda frozen hasta cambio factual de ese blocker.
 
 ## Día 21
 
@@ -63,16 +61,23 @@ Integrated rows:
 - `macos/updater = AUTOMATED_PASS`.
 
 Active/holding:
-- `windows/auth = NOT_COVERED` — #74 holding; #71 waits integration + nueva assignment.
-- `windows/review` — #72 candidate sigue stale tras #73; refresh/fresh CI asignado BBB047.
+- `windows/auth = NOT_COVERED` — #74/#71 frozen on refresh/integration dependency.
+- `windows/review = CANDIDATE_FROZEN` — #72 stale; safe history-preserving refresh unavailable.
 - otras Web/Windows/macOS journeys permanecen NOT_COVERED salvo evidencia dedicada.
 - iPhone rows permanecen PENDING_EXTERNAL.
 
-### 25.2 — `[ ] / READ-ONLY FALLBACK PREAUTHORIZED FOR BBB ONLY WHEN PRIMARY WAITS EXTERNAL OPERATION`
-- [ ] design freeze tokens/nav/library/drawer/player/settings/wizard;
-- [ ] backlog P2/P3;
-- [ ] guion beta/formulario/criterios.
+**AAA/BBB/JOBS no deben promover historical CI como fresh exact-head evidence.**
 
-La auditoría fallback no cierra 25.2 ni autoriza implementación automática.
+### 25.2 — `[ 🟡 ] IMPLEMENTATION ASSIGNED BBB048`
 
-**Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido.
+BBB047 read-only inventory established:
+- EXISTS: design foundations/tokens/primitives; library navigation bridge; Drawer/Player/SettingsPanel/SetupModal; focused component tests.
+- PARTIAL: release controls/matrices exist but no literal complete design-freeze 25.2 artifact.
+- GAP: no dedicated P2/P3 beta backlog artifact.
+- GAP: no literal beta script/form/entry-exit criteria artifact.
+
+`NIGHT-BBB-048` PRIMARY may materialize only those missing internal readiness artifacts by reusing existing design/release evidence. No public release/signing/notarization/product mutation. Fresh exact-head CI required for repository changes.
+
+**BBB CI-FALLBACK:** F4/25.1 residual journey map READ-ONLY only while BBB048 PRIMARY genuinely waits CI/review/merge; no promotion without literal evidence.
+
+**Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido. 25.2 is not closed by inventory or documents alone unless all literal requirements are evidenced.
