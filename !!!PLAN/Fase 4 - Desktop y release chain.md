@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 055:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Integración estable CYCLE 056:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado actual
 
@@ -59,17 +59,17 @@ BBB049 residual map verified on live integration:
 - macOS: updater `AUTOMATED_PASS`; auth/import/review/playback/edit/trash/offline/youtube/billing = `NOT_COVERED`;
 - iPhone: all ten rows = `PENDING_EXTERNAL`.
 
-`NIGHT-BBB-050` owns exactly one independent next row: **Web/auth dedicated journey**. It must prefer existing implementation + deterministic test/harness evidence, use fresh exact-head CI for changes, and stop on overlap/broad product defect. This does not promote any other row.
+`NIGHT-BBB-050` no produjo resultado final antes de CYCLE 056 y queda superseded. `NIGHT-BBB-051` owns exactly one independent next row: **Web/auth dedicated journey**. It must prefer existing implementation + deterministic test/harness evidence, use fresh exact-head CI for changes, and stop on overlap/broad product defect. This does not promote any other row.
 
 ### 25.2 — `[ 🟡 ] GREEN CANDIDATE / SERIALIZED HOLD`
 
-BBB049 materialized the previously missing internal readiness artifact:
-- PR #79 `bbb/f4-25.2-beta-readiness @ c6ec2910522370f2506beb71ad5e0fa0317d6a61`;
+PR #79 remains OPEN/non-draft/mergeable:
+- branch `bbb/f4-25.2-beta-readiness @ c6ec2910522370f2506beb71ad5e0fa0317d6a61`;
 - exact base `a306e3b3...`;
 - exactly one docs-only file `docs/beta/0.9.0-beta.1-readiness.md` (+84);
 - compact P2/P3 beta backlog + beta test script/result form/entry-exit criteria;
 - no product behavior/release/signing/provider mutation or tester PII.
 
-JOBS CYCLE 055 verified exact-head checks complete without failure/in-progress and `Required CI = SUCCESS`. #79 is still OPEN/unmerged. It is intentionally `HOLD_GREEN_PENDING_SERIAL_INTEGRATION` while WOZ owns #78 as the only integration mutation in this cycle; this avoids simultaneous exact-base races. After integration moves, #79 must be reconciled and revalidated before merge. External beta/tester/signing evidence remains open regardless.
+#79 remains intentionally `HOLD_GREEN_PENDING_SERIAL_INTEGRATION` while WOZ owns #78 as the only integration mutation in CYCLE 056. If integration moves, #79 must be reconciled and revalidated before merge. External beta/tester/signing evidence remains open regardless.
 
 **Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido. 25.2 is not closed by the readiness document alone.
