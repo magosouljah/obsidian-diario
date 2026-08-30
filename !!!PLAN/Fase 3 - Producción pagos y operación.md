@@ -4,13 +4,13 @@
 
 **Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-**Estado nocturno CYCLE 026:** baseline vivo `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
+**Estado nocturno CYCLE 027:** baseline vivo `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.
 
-## Owner actual
+## Estado owner / bloqueo actual
 
-**WOZ — F3 / 18.1 / PR #68 final integration — `NIGHT-WOZ-025` (ASSIGNED).**
+PR #68 / F3 18.1 conserva ownership técnico de WOZ pero queda **HOLDING / BLOCKED_EXTERNAL_MERGE_EXECUTION** después de `NIGHT-WOZ-025`. El candidate no se recrea ni se modifica en `NIGHT-WOZ-026`; WOZ usa ese turno en el server half independiente de F2/13.1.
 
-NIGHT-WOZ-024 no produjo resultado/merge nuevo antes del preflight CYCLE 026 y quedó superseded para preservar ejecución monotónica. GitHub vivo sigue mostrando #68 OPEN/Ready/mergeable sobre base exacta `3ad8f55a...`, head `2a988ec2a25d6ecfa927614fcc32cde689995103`, con exact-head CI aplicable verde.
+NIGHT-WOZ-025 revalidó #68 OPEN/Ready/mergeable sobre base exacta `3ad8f55a...`, head `2a988ec2a25d6ecfa927614fcc32cde689995103`, exact-head CI verde y race-check limpio. El intento de merge con expected-head guard fue bloqueado por la execution/safety layer antes de que GitHub aceptara la mutación. Recheck posterior: integration siguió exactamente `3ad8f55a...`. No existe merge SHA; 18.1 NO está integrado.
 
 PR #59 está MERGED/DONE en su slice software; separación física staging/prod sigue externa. PR #61 está MERGED; 16.2 permanece SOFTWARE DONE / EXTERNAL TAIL. PR #65 está MERGED; 17.1 SOFTWARE DONE / INTEGRATED. PR #67 está MERGED como `3ad8f55a...`; 17.2 SOFTWARE DONE / INTEGRATED.
 
@@ -42,7 +42,7 @@ No crear infraestructura pagada/proyectos/buckets/bots/OAuth ni recursos con cos
 
 ## Día 18 — Entitlements, portal y reconciliación
 
-### 18.1 — `[ 🟡 ] EXACT-HEAD GREEN / AWAITING OWNER INTEGRATION — WOZ NIGHT-WOZ-025`
+### 18.1 — `[ 🟡 ] EXACT-HEAD GREEN / BLOCKED_EXTERNAL_MERGE_EXECUTION`
 
 PR #68 software-only implementa:
 - [x] limits/entitlements server-side antes de reservar recursos;
@@ -57,7 +57,7 @@ Exact-head `2a988ec2a25d6ecfa927614fcc32cde689995103`:
 - Desktop Portability `33299898130` SUCCESS;
 - Upgrade 21.2 SKIPPED/no aplicable.
 
-No marcar 18.1 `[x]` hasta merge real + post-merge integration SHA verificado. No afirmar Stripe/provider productivo.
+`NIGHT-WOZ-025`: race-check limpio + intento de merge bloqueado por execution layer; no mutación aceptada por GitHub. Candidate queda frozen. No marcar 18.1 `[x]` hasta merge real + post-merge integration SHA verificado. No afirmar Stripe/provider productivo.
 
 ### 18.2
 - [ ] reconciliación Stripe↔BeatGaler + cola de excepciones;
