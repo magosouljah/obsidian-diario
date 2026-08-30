@@ -12,7 +12,7 @@
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-035
+## Estado vivo — NIGHT-JOBS-036
 
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
@@ -20,55 +20,41 @@
 - **F0:** técnico interno cerrado; 1.2 y 2.2 siguen tails externos/administrativos.
 - **F1:** D6–D9 PASS. D10.1 `PENDING_EXTERNAL_PROOF` por copia off-provider/off-account + read/checksum. D10.2 requiere decisión RO.
 - **F2 / 11.1, 11.2, 12.2:** `[x]`.
-- **F2 / 12.1:** `[ 🟡 ] RUNTIME EVIDENCE`; harness real-browser localizado, pero cold/warm real cuantificado sigue abierto por runtime ejecutable ausente en el turno AAA032.
-- **F2 / 13.1 Web:** `[ 🟡 ]`; PR #69 OPEN @ `b2ab75ae...`, Save All coordinator/CAS probado, product wiring App/Review pendiente y candidate stale tras #63. `NIGHT-AAA-033` sigue owner activo; no hay resultado final nuevo observable.
+- **F2 / 12.1:** `[ 🟡 ] RUNTIME EVIDENCE`; cold/warm real cuantificado sigue bloqueado por runtime navegador ejecutable.
+- **F2 / 13.1 Web:** `[ 🟡 ]`; SAME PR #69 OPEN @ `b2ab75ae...`, Save All coordinator/CAS probado, product wiring App/Review pendiente y candidate stale respecto a `02a40564...`. `NIGHT-AAA-034` owner activo.
 - **F2 / 13.1 server:** PR #70 OPEN @ `5a99ebf2...`; corrective conocido, safe-write blocker y baseline stale. Frozen.
 - **F3 / 16.1 + 16.2:** software done con tails externos.
 - **F3 / 17.1 + 17.2:** `[x] SOFTWARE DONE / INTEGRATED`.
-- **F3 / 18.1:** PR #68 OPEN @ `2a988ec2...`; exact-head green histórico pero stale frente a `02a40564...`, además de blocker previo de merge execution. Frozen.
-- **F3 / 20.1:** WOZ033 terminó `DONE / AUDIT_ONLY` y produjo gap map literal; 20.1 sigue abierto. `NIGHT-WOZ-034` toma únicamente el primer software slice: taxonomía canónica de eventos/métricas/alerts. External dashboards/delivery/on-call/status/retention/tracing backend siguen sin probarse.
+- **F3 / 18.1:** SAME PR #68 OPEN @ `2a988ec2...`; candidate históricamente verde sobre `3ad8f55a...` pero stale frente a `02a40564...`. `NIGHT-WOZ-035` reactiva este candidate con refresh + fresh exact-head CI; no usar evidencia vieja para merge.
+- **F3 / 20.1:** gap map audit-only de WOZ033 sigue válido, pero el software slice 20.1 queda en holding este ciclo porque 18.1 es anterior y más crítico.
 - **F4 / 21.1+21.2, 24.1, 24.2:** `[x]`.
-- **F4 / 25.1:** `[ 🟡 ]`; `windows/import` integrado. `NIGHT-BBB-032` sigue owner de `windows/auth`; no hay resultado final nuevo observable.
+- **F4 / 25.1:** `[ 🟡 ]`; `windows/import` integrado. SAME PR #71 OPEN @ `29656aa0...` para `windows/auth`. Final exact-head recheck: Windows Auth workflow `33313675968` = **FAILURE** en `Run isolated Windows auth assertions`; setup/checkout/toolchains/npm/embedded preparation pasaron. Required CI/D6/D7/Desktop Portability e Import regression quedaron verdes. `windows/auth` sigue `NOT_COVERED`; `NIGHT-BBB-033` hace attribution-first/corrective mínimo.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 
-## OWNERS — CYCLE 035
+## OWNERS — CYCLE 036
 
-### AAA — `NIGHT-AAA-033` — F2 / 13.1 SAME #69
-PRIMARY: refresh/reconcile SAME #69 contra `02a40564...`; REUSE-FIRST del coordinator existente. Cerrar únicamente el product wiring Save All App/Review→`saveAllWebItems` si existe superficie de patch/worktree segura, preservando saved/conflict/failed y retry semantics. No reemplazar PR ni tocar #70/13.2+/F3/F4.  
+### AAA — `NIGHT-AAA-034` — F2 / 13.1 SAME #69
+PRIMARY: refresh/reconcile SAME #69 contra `02a40564...`; REUSE-FIRST del coordinator existente; cerrar únicamente product wiring App/Review→`saveAllWebItems` si existe superficie segura, preservando saved/conflict/failed + retry semantics. No reemplazar PR ni tocar #70/13.2+/F3/F4.  
 CI-FALLBACK: `NONE`.
 
-### BBB — `NIGHT-BBB-032` — F4 / 25.1 windows/auth
-PRIMARY: REUSE-FIRST sobre `desktop_e2e` + shared auth coverage; demostrar literal Windows auth assertions; solo después promover esa única fila a `AUTOMATED_PASS`; fresh exact-head matrix + D6 + D7 + Required CI/Desktop Portability antes de merge. Product bug => `PRODUCT_FINDING` + STOP.  
+### BBB — `NIGHT-BBB-033` — F4 / 25.1 SAME #71
+PRIMARY: procesar failure exacto `33313675968`; atribuir primero harness vs producto. Si harness, corrective mínimo F4; si assertion demuestra bug de producto, `PRODUCT_FINDING` + STOP. No promover `windows/auth` hasta PASS literal; después fresh post-promotion matrix/D6/D7/Required CI antes de merge.  
 CI-FALLBACK: `NONE`.
 
-### WOZ — `NIGHT-WOZ-034` — F3 / 20.1 software observability contract A
-PRIMARY: sobre `02a40564...`, REUSE-FIRST del gap map WOZ033 y superficies integradas. Crear o demostrar una fuente canónica pequeña para taxonomía eventos/métricas/alerts de auth/API/DB/billing/provider/pool/queue/backup/release, reutilizando `backup.failure`/naming existente. Una pieza aditiva pequeña solo si gap literal y safe-write; focused tests + fresh applicable CI si hay código. No provider dashboards/delivery/tracing/status/on-call/retention, no #68/#70/F2/F4. No cerrar 20.1 completo.  
+### WOZ — `NIGHT-WOZ-035` — F3 / 18.1 SAME #68
+PRIMARY: refresh/reconcile SAME #68 desde baseline viejo `3ad8f55a...` al vivo `02a40564...`, preservar solo delta 18.1, ejecutar focused tests + fresh applicable exact-head CI y merge únicamente con race-check verde. Si reaparece el blocker de merge execution, registrar error exacto y STOP; no duplicar PR/bypass.  
 CI-FALLBACK: `NONE`.
 
-## Camino crítico global — recalculado CYCLE 035
+## Camino crítico global — recalculado CYCLE 036
 
-1. **F2 / 13.1 / #69:** product wiring sigue siendo el mayor gap interno Web cercano; refresh obligatorio tras #63.
-2. **F4 / 25.1 remainder:** `windows/auth` es el siguiente slice F4 automatable y ya tiene owner.
-3. **F3 / 20.1:** gap map ya existe; reducir ahora un solo slice software literal sin falsear la mitad externa.
+1. **F3 / 18.1 / #68:** es una pieza anterior a 20.1, ya implementada y reutilizable; refresh/fresh CI puede cerrar un gate grande sin arquitectura nueva.
+2. **F2 / 13.1 / #69:** coordinator probado; falta product wiring + refresh.
+3. **F4 / 25.1 / #71:** Windows Auth llegó a assertions y falló; attribution/corrective es el camino mínimo al siguiente row PASS.
 4. **F2 / 12.1:** requiere runtime navegador real; blocker factual.
-5. **#70 / #68:** stale + blockers previos; frozen hasta tooling/merge mechanism seguro + revalidación.
-6. **F0/F1/F3 external tails + D22/D23:** externos/RO.
-7. Después: F2 13.2–15, F3 18.2–20 y F4 remainder 25.1/25.2. F5 no se abre.
-
-## F3 / 20.1 — gap map procesado
-
-- logs: PARTIAL; structured service-wide production logging + retention no demostrados;
-- metrics: GAP;
-- tracing: GAP;
-- error reporting: PARTIAL/GAP;
-- retention: PARTIAL/EXTERNAL;
-- alerts auth/API/DB/billing/provider/pool/queue/release: GAP como matriz completa; backup alert = PARTIAL SOFTWARE CONTRACT;
-- on-call: GAP/PENDING_EXTERNAL;
-- runbook: PARTIAL;
-- public status: GAP/PENDING_EXTERNAL;
-- kill switches: GAP.
-
-Evidencia reutilizada: `cloud-server/runtime-operability.js`, `cloud-server/server.js`, `cloud-server/deployment-promotion-contract.mjs`, `cloud-server/d10-backup-readiness-contract.mjs`. Handoff WOZ033: Issue #41 `5468767913`.
+5. **F2 #70:** stale + safe-write blocker; frozen.
+6. **F3 / 20.1:** gap map listo; vuelve después de 18.1 salvo cambio factual.
+7. **F0/F1/F3 external tails + D22/D23:** externos/RO.
+8. Después: F2 13.2–15, F3 18.2–20 y F4 remainder 25.1/25.2. F5 no se abre.
 
 ## Secuencia de integración verificada
 
@@ -87,8 +73,8 @@ Evidencia reutilizada: `cloud-server/runtime-operability.js`, `cloud-server/serv
 
 ## NEXT
 
-**AAA:** terminar una sola vez `NIGHT-AAA-033`; no duplicar mientras siga ASSIGNED.  
-**BBB:** terminar una sola vez `NIGHT-BBB-032`; no duplicar mientras siga ASSIGNED.  
-**WOZ:** ejecutar una sola vez `NIGHT-WOZ-034`.  
-**JOBS:** procesar únicamente resultados nuevos; cualquier candidate basado en `3ad8f55a...` requiere refresh/revalidación material antes de merge.  
-**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 035; GitHub vivo prevalece si cambia después.
+**AAA:** ejecutar una sola vez `NIGHT-AAA-034`.  
+**BBB:** ejecutar una sola vez `NIGHT-BBB-033`.  
+**WOZ:** ejecutar una sola vez `NIGHT-WOZ-035`.  
+**JOBS:** siguiente ciclo procesa resultados reales; cualquier merge que mueva baseline obliga race revalidation/fresh applicable exact-head en candidatos restantes.  
+**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 036; GitHub vivo prevalece si cambia después.
