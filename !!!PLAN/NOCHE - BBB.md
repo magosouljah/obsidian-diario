@@ -36,6 +36,35 @@
 **Evidencia requerida:** exact baseline + literal paths/artifacts + `EXISTS/PARTIAL/GAP/PENDING_EXTERNAL`; do not close 25.2.  
 **STOP:** any write, overlap with #72/#74/#71/#76, dependency on unmerged candidate, scope expansion or insufficient evidence. Recheck PRIMARY before closing.
 
+## RESULTADO DEL TURNO — NIGHT-BBB-047
+
+### PRIMARY
+
+- `STATUS: WAITING_EXTERNAL / STOP_MERGE_FLOW_UNAVAILABLE`.
+- `baseline: integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+- `branch/head: bbb/night-25.1-windows-review @ 904fbf3c0f81e6ff4c22e4ee717f337e5018fa5c`.
+- `PR: #72 OPEN / Ready / mergeable=true; PR base snapshot a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
+- `cambios: ninguno en producto ni PR; duplicate-check confirma head sin movimiento desde assignment. Changed files exactos: .github/workflows/f4-25.1-windows-review.yml; release/f4-25.1-functional-matrix.json; scripts/run-review-e2e.mjs; tests/e2e-harness/E2EReviewHarness.tsx; tests/e2e/review-flow.e2e.mjs.`
+- `tests: no se relanzaron; el candidato no pudo refrescarse al live base, por lo que evidencia histórica no se promovió como exact-head fresca.`
+- `CI: NOT_RUN_FRESH; bloqueado antes del refresh.`
+- `evidencia: live integration a306e3b3...; #72 head 904fbf3c... y base snapshot a9d35a3d...; mergeable=true; conector disponible permite merge PR/ref update pero no crear el merge commit de refresh/update-branch requerido sin reescribir historia. STOP aplicado por merge-flow unavailable, sin force ni bypass.`
+- `UNVERIFIED: comportamiento del candidato tras reconciliar a a306e3b3...; fresh exact-head Windows Review/F4 Matrix/Required CI/D6/D7/Windows Import.`
+- `blockers: falta una operación autorizada de update-branch/merge-base-into-head para reconciliar SAME #72 preservando historia; no es válido mover el ref directamente a live base ni integrar con evidencia histórica.`
+
+### CI-FALLBACK
+
+- `STATUS: COMPLETED_READ_ONLY / INVENTORY_ONLY / 25.2_NOT_CLOSED`.
+- `branch/head si aplica: N/A; read-only sobre a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+- `PR si aplica: N/A`.
+- `cambios: ninguno.`
+- `tests: ninguno; inventario literal solamente.`
+- `evidencia: EXISTS — docs/DESIGN-FOUNDATIONS-11.1.md, src/styles/design-foundations.css, src/components/ui/DesignPrimitives.tsx; EXISTS — src/features/library/LibraryUxBridge.tsx + webLibraryNavigation.ts; EXISTS — src/components/Drawer.tsx, Player.tsx, SettingsPanel.tsx, SetupModal.tsx; EXISTS — tests/component-dom/designFoundations.test.tsx y libraryUxBridge.test.ts; PARTIAL — release contiene controles/matrices de F4 pero no artefacto literal de design-freeze 25.2; GAP — no se observó artefacto literal beta script/form/criteria ni backlog P2/P3 dedicado en el árbol del baseline.`
+- `UNVERIFIED: suficiencia semántica de App.tsx/nav y SetupModal como wizard; criterios externos de beta y backlog fuera del repo.`
+- `blockers: P2/P3 y beta script/form/criteria no están materializados como artefactos literales verificables en el baseline inspeccionado.`
+- `STOP alcanzado: sí; inventario read-only terminado sin writes ni cierre de 25.2.`
+
+**Recomendación para JOBS:** habilitar/autorizar una transacción de update-branch que fusione `a306e3b3...` en SAME #72 sin reescritura; después exigir fresh exact-head CI antes de merge. Para 25.2, tratar beta script/form/criteria y backlog P2/P3 como GAP/PENDING hasta que existan artefactos explícitos.
+
 ## RESULTADO PROCESADO — NIGHT-BBB-046
 
 - `STATUS: NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
@@ -44,7 +73,7 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-BBB-047`: ASSIGNED — SAME #72 narrow refresh + fresh CI + exact-head integration; 25.2 read-only fallback while waiting external operation.
+- `NIGHT-BBB-047`: WAITING_EXTERNAL — SAME #72 refresh bloqueado por update-branch/merge-flow no disponible; 25.2 fallback read-only inventariado.
 - `NIGHT-BBB-046`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-BBB-045`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-BBB-044`: NO_RESULT / SUPERSEDED_BY_JOBS.
