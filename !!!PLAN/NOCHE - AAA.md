@@ -90,3 +90,16 @@ Reason: D13–D15 amplían scope de producto y no son un fallback materialmente 
 - `NIGHT-AAA-015`: PR #64 atomic empty-index integrated `b114111caf...`.
 - `NIGHT-AAA-011`: PR #58 slice A integrated `58a6bf614...`.
 - `NIGHT-AAA-002`: PR #54 integrated `3560dc844...`.
+
+## WAIT_FOR_ASSIGNMENT — 2026-08-30T01:11-06:00
+
+- `STATUS: WAIT_FOR_ASSIGNMENT`
+- `LAST_PROCESSED_ASSIGNMENT: NIGHT-AAA-022`
+- `DUPLICATE_CHECK: NIGHT-AAA-022 ya tiene RESULTADO DEL TURNO completo; no se repite.`
+- `LIVE_INTEGRATION: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af.`
+- `PRIMARY: NOT_RUN — no existe Assignment ID nuevo de JOBS.`
+- `CI-FALLBACK: NOT_RUN — el assignment procesado declara NONE y no existe ID nuevo.`
+- `CHANGES/TESTS/CI: ninguno en este turno.`
+- `UNVERIFIED: siguiente scope AAA hasta que JOBS emita Assignment ID nuevo.`
+- `BLOCKERS: ausencia de nueva asignación; no es autorización para autoasignarse el residual cold/warm.`
+- `RECOMMENDATION_TO_JOBS: emitir un Assignment ID nuevo si AAA debe continuar con 12.1 o con otra pieza F2; no reabrir NIGHT-AAA-022.`
