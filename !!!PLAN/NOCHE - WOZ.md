@@ -7,25 +7,26 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-041`
-- `ASSIGNMENT_STATUS: PENDING`
-- `AREA: F3 / 20.1 — internal observability/software gaps`
+- `ASSIGNMENT_ID: NIGHT-WOZ-042`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F3 / 20.1 — SAME PR #75 supply-chain pin corrective`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
-- `INPUT_EVIDENCE: NIGHT-WOZ-033 gap map; NIGHT-WOZ-040 #73 merge-flow blocker`
+- `REUSE_PR: #75 / woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f`
+- `PREDECESSOR: NIGHT-WOZ-041 PENDING/WAITING_CI; JOBS recheck resolved Required CI to FAILURE attributable to workflow pinning.`
 - `HOLD_PR: #73 / woz/night-18.2-reconciliation @ fc831172c4c86d97cadb03801a6777777fd345bb — DO NOT TOUCH`
 
 ### PRIMARY
 
-1. Preflight live integration + duplicate-check. #73 queda congelado: no recrear, rebasear, force-push, cerrar ni mutar.
-2. REUSE-FIRST sobre gap map WOZ033 y evidencia integrada existente de 5.2/16.x/17.x/18.x.
-3. Trabajar solo gaps internos software verificables de 20.1: logging estructurado útil, métricas internas faltantes, error reporting interno, condiciones/routing de alerts en software, runbook operativo software y kill switches fail-closed.
-4. Si un subrequisito ya tiene evidencia suficiente, documentarla y no abrir cambio ceremonial.
-5. Si hacen falta cambios, una sola rama/PR WOZ nueva desde baseline vivo, limitada a observability/operations software + tests/workflow aplicable.
-6. No crear provider resources, dashboards pagados, status page, on-call externo, DNS, credentials, retention externa, Stripe resources/policy, F2/F4 ni 20.2 load/capacity.
-7. Evidencia requerida: gap-before, cambios mínimos, focused tests, fresh applicable exact-head CI y lista explícita de tails `PENDING_EXTERNAL` que permanecen.
-8. Escribir RESULTADO DEL TURNO aquí + handoff Issue #41 y STOP.
+1. Preflight live integration + SAME #75 exact head/base + duplicate-check; no replacement PR and no #73 mutation.
+2. Consume exact failure from Required CI run `33323457041`: Supply chain gate failed only at `Verify every external GitHub Action is immutable`.
+3. Correct only `.github/workflows/f3-20.1-observability.yml`: replace floating `actions/checkout@v4` and `actions/setup-node@v4` with the exact immutable SHAs already used by canonical Required CI: `actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1` and `actions/setup-node@820762786026740c76f36085b0efc47a31fe5020`. Preserve workflow semantics and product code unchanged.
+4. Do not broaden observability scope, wire new production call-sites, touch provider resources, #73, F2/F4, auth, matrix, infra, 20.2 or external tails.
+5. Run focused observability contract if available and obtain fresh exact-head applicable CI. Required CI must become green and the dedicated F3 20.1 workflow must pass.
+6. If all applicable gates are green and integration authority/flow for #75 is available, race-check and integrate SAME #75; verify merge SHA + post-merge integration HEAD. If merge flow is unavailable, report READY_FOR_INTEGRATION/BLOCKED with exact evidence and STOP.
+7. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**STOP:** overlap con #73/AAA/BBB, provider/RO decision, scope creep a 20.2, evidencia externa necesaria, CI rojo no atribuible o baseline race.
+**Required evidence:** exact base/head; two-action pin diff only; focused test; fresh exact-head Required CI + F3 20.1 workflow; merge SHA only if actually integrated.  
+**STOP:** any non-pinning failure, semantic/product scope drift, baseline race, merge-flow unavailable, provider/RO dependency or need to touch #73.
 
 ### CI-FALLBACK
 
@@ -35,48 +36,25 @@
 **Evidencia requerida:** N/A.  
 **STOP:** no inventar fallback.
 
-## RESULTADO DEL TURNO — NIGHT-WOZ-041
+## RESULTADO PROCESADO — NIGHT-WOZ-041
 
-### PRIMARY
-
-- `Assignment ID: NIGHT-WOZ-041`
-- `STATUS: PENDING / WAITING_CI`
-- `baseline: integration-v0.8.0-alpha.1 @ a9d35a3d69dd9127029fb851d189f9bd3079d03b`
-- `branch/head: woz/night-20.1-observability @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f`
-- `PR: #75 — OPEN, 4 files, +156/-0`
-- `cambios: software-only observability contract: structured redacted events; bounded internal counters; explicit alert condition→route mapping without delivery claims; fail-closed kill-switch parsing/enforcement; internal operations runbook; focused exact-path workflow.`
-- `tests: cloud-server/tests/operations-observability.test.cjs añade focused coverage para secret-shaped log redaction, metric counting, missing/configured alert routes y kill-switch invalid-config/block behavior.`
-- `CI: consulta inmediata del exact head bb493b37... devolvió 0 workflow runs; no se reclama PASS.`
-- `evidencia: gap-before WOZ033/Fase 3: logs PARTIAL, metrics GAP, error reporting PARTIAL/GAP, alert routing GAP, runbook PARTIAL, kill switches GAP. Reuse confirmado en runtime-operability.js para health/readiness/timeouts/shutdown; nuevo PR no reimplementa esos primitives.`
-- `UNVERIFIED: fresh exact-head CI; integración; wiring productivo de cada call-site hacia structuredEvent/createMetrics/assertOperationEnabled; tracing backend; durable error-reporting backend; metrics backend/dashboard; retention externa; provider alert resources + delivery; on-call/escalation; public status page.`
-- `blockers: espera externa verificable por CI del nuevo exact head.`
-- `condición de STOP alcanzada: WAITING_CI.`
-- `recomendación para JOBS: recheck #75 exact head bb493b37...; si applicable CI queda verde y baseline sigue a9d35a3d..., asignar siguiente ciclo para integración o corrective atribuible. No declarar 20.1 global cerrado: external tails y product call-site wiring permanecen abiertos. Mantener #73 congelado.`
-
-### CI-FALLBACK
-
-- `Assignment ID: NIGHT-WOZ-041`
-- `STATUS: NOT_RUN / NONE`
-- `baseline: N/A`
-- `branch/head: N/A`
-- `PR: N/A`
-- `cambios: ninguno`
-- `tests: N/A`
-- `CI: N/A`
-- `evidencia: JOBS escribió CI-FALLBACK NONE.`
-- `UNVERIFIED: N/A`
-- `blockers: N/A`
-- `condición de STOP alcanzada: no inventar fallback.`
-- `recomendación para JOBS: ninguna para fallback.`
+- `STATUS: PENDING / WAITING_CI -> FAILURE_RESOLVED_BY_JOBS_RECHECK`.
+- PR #75 OPEN/Ready/mergeable @ `bb493b3755ba1a42b4c5cfe7f3b885edc544c61f`, base `a9d35a3d...`; 4 files, +156/-0.
+- Candidate software-only: structured redacted events, bounded internal counters, explicit condition→route mapping without delivery claims, fail-closed kill switches, focused tests y runbook interno.
+- Required CI / Test - Desktop Portability run `33323457041` = FAILURE.
+- Root cause literal: `Supply chain gate` falla en `Verify every external GitHub Action is immutable`.
+- Patch del workflow confirma `actions/checkout@v4` y `actions/setup-node@v4`; canonical Required CI ya usa pins inmutables `3d3c42e...` y `820762786...`.
+- PostgreSQL live/recovery y otros jobs observados no convierten el Required CI global en PASS.
+- No integración; 20.1 global sigue abierto.
+- PENDING_EXTERNAL/UNVERIFIED continúa: product call-site wiring, tracing/backend durable de errores/métricas, retention, provider alert resources/delivery, on-call/escalation y public status.
 
 ## RESULTADO PROCESADO — NIGHT-WOZ-040
 
 - `STATUS: BLOCKED / MERGE_FLOW_UNAVAILABLE`.
 - #73 OPEN/Ready/mergeable, base `a9d35a3d...`, exact head `fc831172c4c86d97cadb03801a6777777fd345bb`.
-- Required CI `33320621865`, F3 18.2 `33320621931`, D6 `33320621877`, D7 `33320621893`, productive temp-auth `33320621868` SUCCESS; Upgrade 21.2 SKIPPED.
-- Race-check limpio; integration siguió `a9d35a3d...`.
-- Merge intent was blocked by execution layer before GitHub acceptance; no merge SHA, no integration change, no claim of 18.2 integrated.
-- #73 queda holding intacto hasta un flujo capaz de ejecutar merge con exact-head guard.
+- Exact-head CI verde y race-check limpio; integration siguió `a9d35a3d...`.
+- Merge intent bloqueado por execution layer antes de aceptación por GitHub; no merge SHA.
+- #73 queda holding intacto hasta un flujo capaz de ejecutar merge.
 
 ## HOLDING
 
@@ -85,7 +63,8 @@
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-041`: PENDING/WAITING_CI — #75 internal observability @ `bb493b37...`.
+- `NIGHT-WOZ-042`: ASSIGNED — SAME #75 immutable-action pins + fresh CI.
+- `NIGHT-WOZ-041`: PENDING/WAITING_CI; final recheck = Required CI FAILURE atribuible a floating action refs.
 - `NIGHT-WOZ-040`: BLOCKED/MERGE_FLOW_UNAVAILABLE — #73 green/race-clean, not merged.
 - `NIGHT-WOZ-039`: PENDING/WAITING_CI -> READY_FOR_INTEGRATION by JOBS recheck.
 - `NIGHT-WOZ-037`: DONE/INTEGRATED — #68 merge `a9d35a3d...`.
