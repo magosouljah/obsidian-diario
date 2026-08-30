@@ -7,72 +7,49 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-021`
-- `ASSIGNMENT_STATUS: PENDING`
-- `AREA: F4 / 25.1 — SAME PR #63: activar realmente embedded WDIO y alcanzar Windows Import assertion`
-- `BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 712b49b6689a31a47902dbe95e98622d001dab40`
-- `LIVE_BASE_AT_CLOSE: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `ASSIGNMENT_ID: NIGHT-BBB-022`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F4 / 25.1 — SAME PR #63: consumir fallo exact-head y siguiente corrective mínimo`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
 - `REUSE_PR: #63 / bbb/task-25.1-windows-import @ 033c2b55a0c46471b7e7ddb3af57b626699ac6e6`
-- `CI-FALLBACK: NONE`
-
-## RESULTADO DEL TURNO — WAIT_FOR_ASSIGNMENT
-
-- `STATUS: WAIT_FOR_ASSIGNMENT`
-- `OBSERVED_ASSIGNMENT_ID: NIGHT-BBB-021`
-- `OBSERVED_ASSIGNMENT_STATUS: PENDING`
-- `LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-021`
-- `baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
-- `PRIMARY: NOT_EXECUTED — Assignment ID already processed; no new ASSIGNED ID from JOBS.`
-- `CI-FALLBACK: NOT_EXECUTED — current assignment declares NONE.`
-- `duplicate-check: no new BBB assignment in Issue #41; latest JOBS assignment remains NIGHT-BBB-021; prior handoff 5465920408 already reports that turn.`
-- `cambios: none in BeatGaler; no branch/PR/CI mutation.`
-- `tests: none.`
-- `CI: not reprocessed under old Assignment ID.`
-- `evidencia: protocol requires ASSIGNMENT_STATUS=ASSIGNED and an unprocessed ID; current ledger is PENDING with LAST_PROCESSED_ASSIGNMENT=NIGHT-BBB-021.`
-- `UNVERIFIED: current completion result of Windows Import run 33284981477 intentionally not processed without a new JOBS assignment.`
-- `blockers: waiting for JOBS to issue a new monotonic BBB Assignment ID.`
-- `RECOMMENDATION_TO_JOBS: process NIGHT-BBB-021 result and CI state, then issue a new BBB Assignment ID if #63 is to continue.`
-- `STOP alcanzado: yes.`
-
-## RESULTADO DEL TURNO — NIGHT-BBB-021
-
-`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-021`  
-`TURN_STATUS: PENDING / WAITING_CI`
+- `PREDECESSOR: NIGHT-BBB-021 PENDING / WAITING_CI — procesado por JOBS; CI ya terminó FAILURE. No repetir 021.`
 
 ### PRIMARY
 
-- `STATUS: WAITING_CI`
-- `baseline: assignment 712b49b6689a31a47902dbe95e98622d001dab40; integration moved during the turn by merge #67 to 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af. Compare 712b49b...→3ad8f55a... showed only F3 files, zero overlap with #63 F4 scope, so SAME lineage was safely refreshed to the new live baseline.`
-- `branch/head: bbb/task-25.1-windows-import @ 033c2b55a0c46471b7e7ddb3af57b626699ac6e6`
-- `PR: #63 OPEN / Ready / NOT MERGED; SAME canonical lineage. GitHub auto-closed it transiently when the branch was reset exactly to integration during refresh; it was reopened after the same 3-file F4 delta was reapplied. No replacement PR/branch was created.`
-- `cambios: only scripts/prepare-f4-25.1-embedded-driver.mjs changed in the corrective logic; final PR delta remains exactly 3 F4 files: .github/workflows/f4-25.1-windows-import.yml, release/f4-25.1-functional-matrix.json, scripts/prepare-f4-25.1-embedded-driver.mjs. The prep now selects driverProvider=embedded, embeddedPort=4445, adds a per-capability wdio:tauriServiceOptions embedded override, injects tauri-plugin-wdio-webdriver + Rust registration + ACL only into the isolated E2E build, and passes TAURI_WEBDRIVER_PORT/WDIO_EMBEDDED_PORT=4445 to WDIO. No F2/F3/product import logic changed.`
-- `tests: no local product test invented. New exact-head Windows Import run 33284981477 is the authoritative functional test. At close, exact checkout passed and Rust setup was in progress; the harness/assertion step had not executed yet.`
-- `CI: exact head 033c2b55... — F4 Matrix 33284981451 SUCCESS; D6 33284981429 SUCCESS; D7 33284981377 SUCCESS; Windows Import 33284981477 IN_PROGRESS; Desktop Portability 33284981371 QUEUED; Upgrade 33284981508 SKIPPED/no aplicable.`
-- `evidencia: prior failed job 99178054699 proved the embedded WebDriver Rust plugin compiled successfully but the effective service still entered legacy/external launcher and failed before assertions. Current WebdriverIO 1.3.0 documentation identifies driverProvider=embedded and TAURI_WEBDRIVER_PORT/WDIO_EMBEDDED_PORT as Windows/Linux embedded-provider signals, with embeddedPort default 4445; the corrective makes all selection signals explicit. Issue #41 JOBS handoff explicitly assigns NIGHT-BBB-021 for this exact effective-provider problem. PR #51 revalidated CLOSED/MERGED, draft=false, merge 5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858. Duplicate #62 revalidated CLOSED/NOT MERGED.`
-- `UNVERIFIED: no evidence yet that run 33284981477 creates an embedded WebDriver session; no literal import assertion PASS yet; windows/import remains NOT_COVERED; no AUTOMATED_PASS promotion; Desktop Portability not complete on final head; no race-check/merge authorization.`
-- `blockers: external CI is actively running. Evidence-before-claim forbids matrix promotion or merge until Windows Import literal PASS and all fresh applicable exact-head gates are green.`
+1. Haz preflight GitHub vivo + duplicate-check. Reutiliza exclusivamente SAME PR #63; no replacement PR/branch.
+2. Consume la evidencia del Windows Import exact-head run `33284981477`, job `99186491944`, sobre head `033c2b55a0c46471b7e7ddb3af57b626699ac6e6`.
+3. Hecho ya aceptado por JOBS: checkout/setup Node/Rust/npm y `Prepare isolated embedded Tauri WebDriver` terminaron SUCCESS; `Run existing Windows import E2E harness` terminó FAILURE. No vuelvas a diagnosticar desde un log anterior como si fuera el actual.
+4. Identifica el **primer failure causal del run actual** y aplica únicamente el corrective F4/harness mínimo necesario para llegar a sesión efectiva y ejecutar las assertions existentes de import.
+5. No cambies lógica productiva de import salvo que una assertion funcional llegue a ejecutarse y demuestre un `PRODUCT_FINDING`; si eso ocurre, documenta finding y STOP para JOBS en vez de expandir scope.
+6. `windows/import` permanece `NOT_COVERED` hasta PASS literal. No promociones la matrix antes de ese PASS.
+7. Si el corrective crea head nuevo: exige Windows Import literal PASS y fresh applicable exact-head F4 Matrix + D6 + D7 + Desktop Portability. Race-check contra integration antes de merge; si baseline cambió materialmente, refresh y revalidación.
+8. Escribe RESULTADO DEL TURNO aquí + handoff Issue #41 y STOP. No iniciar 25.2/signing/notarization.
+
+**Required evidence:** exact failure causal del job 99186491944; branch/head; delta mínimo; Windows Import assertion/PASS literal o nuevo blocker factual; applicable exact-head CI; matrix permanece honesta; merge SHA solo si autorizado y verde.  
+**STOP:** bug productivo fuera de F4 demostrado, scope 25.2/D22/D23, cambio global de packages no justificado, CI rojo no atribuible, baseline no reconciliable o necesidad RO.
 
 ### CI-FALLBACK
 
-- `STATUS: NOT_EXECUTED`
-- `branch/head: n/a`
-- `PR: n/a`
-- `cambios: none`
-- `tests: none`
-- `evidencia: JOBS explicitly set CI-FALLBACK: NONE for NIGHT-BBB-021.`
-- `UNVERIFIED: n/a`
-- `blockers: fallback not authorized; 25.2/other F4 gaps would expand or overlap scope.`
-- `STOP alcanzado: yes — PRIMARY entered WAITING_CI and no fallback exists.`
+`NONE`
 
-`RECOMMENDATION_TO_JOBS: recheck Windows Import 33284981477 on exact head 033c2b55... first. If it reaches a literal session + existing import assertions PASS, continue SAME #63 by promoting only windows/import to AUTOMATED_PASS; that promotion creates a new head and therefore requires a fresh Windows Import + F4 Matrix + D6 + D7 + Desktop Portability set before race-check/merge. If 33284981477 fails before assertions, use only its new log for the next corrective. Do not open a second PR or begin 25.2.`
+Reason: 25.2 y otros gaps F4 ampliarían scope; no hay fallback materialmente independiente seguro mientras #63 requiere corrective activo.
+
+## RESULTADO PROCESADO — NIGHT-BBB-021
+
+- `STATUS_AT_WORKER_CLOSE: PENDING / WAITING_CI`
+- `BASELINE_LIVE: 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
+- `PR: #63 OPEN/Ready / head 033c2b55a0c46471b7e7ddb3af57b626699ac6e6`
+- `CI_RECHECK_BY_JOBS: Windows Import 33284981477 = COMPLETED / FAILURE.`
+- `JOB 99186491944: setup/checkout/Node/Rust/npm/embedded-prepare SUCCESS; existing Windows import E2E harness FAILURE.`
+- `CLAIM: no literal import PASS; windows/import remains NOT_COVERED; no matrix promotion; no merge.`
+- `JOBS_ACTION: emitir NIGHT-BBB-022 sobre SAME #63 para consumir exclusivamente el failure actual.`
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-BBB-021`: PENDING / WAITING_CI — effective embedded selection made explicit; SAME #63 refreshed to 3ad8f55a...; exact-head CI running.
-- `NIGHT-BBB-020`: PENDING — exact-head Windows Import failed before assertions; other gates green.
-- `NIGHT-BBB-019`: PENDING — baseline movement STOP; DevToolsActivePort diagnosis.
-- `NIGHT-BBB-018`: PENDING — Windows Import gate red.
-- `NIGHT-BBB-017`: PENDING — prior refresh / official driver bootstrap.
+- `NIGHT-BBB-022`: ASSIGNED — SAME #63 current-run corrective; CI-FALLBACK NONE.
+- `NIGHT-BBB-021`: PENDING/WAITING_CI -> JOBS recheck resolved to FAILURE run 33284981477.
+- `NIGHT-BBB-020`: PENDING — prior exact-head Windows Import failed before assertions.
+- `NIGHT-BBB-019`: PENDING — baseline STOP + DevToolsActivePort diagnosis.
 - `NIGHT-BBB-012`: #60 matrix integrated `7de7b57a...`.
 - `NIGHT-BBB-008`: #57 integrated `f73c9ee...`.
 - `NIGHT-BBB-005`: #55 integrated `672e133...`.
