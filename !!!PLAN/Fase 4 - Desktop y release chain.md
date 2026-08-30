@@ -4,7 +4,7 @@
 
 **Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
 
-**Integración estable CYCLE 036:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
+**Integración estable CYCLE 037:** `integration-v0.8.0-alpha.1 @ 02a40564d85284a119281ff79995c9b9bcb5e833`.
 
 ## Estado actual
 
@@ -22,13 +22,14 @@ Esto integra **solo** la fila `windows/import = AUTOMATED_PASS`; 25.1 completo p
 
 ## Owner actual
 
-**BBB — `NIGHT-BBB-033` — F4 / 25.1 SAME #71 `windows/auth`.**
+**BBB — `NIGHT-BBB-034` — F4 / 25.1 SAME #71 `windows/auth`.**
 
-PR #71 sigue OPEN / Ready, base `02a40564...`, head `29656aa0a040043934380c97e0145608c69e8daf`.
+PR #71 sigue OPEN / Ready / mergeable, base `02a40564...`, head `29656aa0a040043934380c97e0145608c69e8daf`.
 
-Final exact-head recheck del turno anterior:
+Último authoritative exact-head:
 - Windows Auth `33313675968` — **FAILURE**;
-- job `99263095638`: setup, exact checkout, pinned Node/Rust, locked npm graph y prepare isolated embedded Tauri WebDriver = SUCCESS; fallo en `Run isolated Windows auth assertions`;
+- setup, exact checkout, pinned Node/Rust, locked npm graph y prepare isolated embedded Tauri WebDriver = SUCCESS;
+- fallo en `Run isolated Windows auth assertions`;
 - Required CI / Desktop Portability `33313676131` — SUCCESS;
 - D6 `33313675921` — SUCCESS;
 - D7 `33313675911` — SUCCESS;
@@ -98,7 +99,7 @@ Gaps honestos restantes incluyen:
 - YouTube/billing donde no existe evidencia dedicada;
 - iPhone = `PENDING_EXTERNAL` por runner/hardware/credenciales.
 
-`NIGHT-BBB-033` toma únicamente `windows/auth`. La primera ejecución exact-head de #71 llegó al paso de assertions pero falló; no hay promoción hasta PASS literal.
+`NIGHT-BBB-034` toma únicamente `windows/auth`. La ejecución exact-head de #71 llegó al paso de assertions pero falló; no hay promoción hasta PASS literal.
 
 ### 25.2
 - [ ] design freeze tokens/nav/library/drawer/player/settings/wizard;
