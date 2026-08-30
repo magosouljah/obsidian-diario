@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 051:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
+**Integración estable CYCLE 052:** `integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`.
 
 ## Estado actual
 
@@ -16,16 +16,14 @@ SAME PR #74 permanece OPEN/Ready/mergeable en su snapshot anterior, pero sigue f
 
 ### windows/review
 
-SAME #72 al preflight CYCLE 051:
-- OPEN; draft=false; merged=false;
+SAME #72 al preflight CYCLE 052:
+- OPEN; draft=false; merged=false; mergeable=true;
 - head `904fbf3c0f81e6ff4c22e4ee717f337e5018fa5c`, sin cambio desde CYCLE 050;
 - base SHA registrada en PR: `a9d35a3d69dd9127029fb851d189f9bd3079d03b`;
 - live integration sigue `a306e3b3...` por merge #73;
-- compare live integration→#72 conserva merge-base `a9d35a3d...`; el candidate sigue stale/diverged.
+- old green evidence es histórica y no autoriza merge sobre live baseline.
 
-El set verde anterior se conserva como evidencia histórica del head/base anterior, **no** como autorización de merge actual.
-
-`NIGHT-BBB-045` no dejó RESULTADO DEL TURNO/handoff observable antes de CYCLE 051 y queda superseded. `NIGHT-BBB-046` es owner único para narrow refresh SAME #72 sobre `a306e3b3...`, fresh applicable exact-head CI y merge solo si vuelve a quedar race-clean/green.
+`NIGHT-BBB-046` no dejó RESULTADO DEL TURNO/handoff observable antes de CYCLE 052 y queda superseded. `NIGHT-BBB-047` es owner único para narrow refresh SAME #72 sobre `a306e3b3...`, fresh applicable exact-head CI y merge solo si vuelve a quedar race-clean/green.
 
 **CI-FALLBACK BBB:** F4/25.2 READ-ONLY readiness inventory solo si PRIMARY queda realmente esperando CI/merge/review/queue; sin writes; recheck PRIMARY antes de cerrar.
 
@@ -66,7 +64,7 @@ Integrated rows:
 
 Active/holding:
 - `windows/auth = NOT_COVERED` — #74 holding; #71 waits integration + nueva assignment.
-- `windows/review` — #72 candidate sigue stale/diverged tras #73; refresh/fresh CI asignado BBB046.
+- `windows/review` — #72 candidate sigue stale tras #73; refresh/fresh CI asignado BBB047.
 - otras Web/Windows/macOS journeys permanecen NOT_COVERED salvo evidencia dedicada.
 - iPhone rows permanecen PENDING_EXTERNAL.
 
