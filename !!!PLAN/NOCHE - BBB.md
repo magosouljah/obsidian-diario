@@ -8,44 +8,48 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-BBB-031`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: DONE`
 - `AREA: F4 / 25.1 — SAME PR #63 final exact-head race/merge transaction`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`
 - `REUSE_PR: #63 / bbb/task-25.1-windows-import @ 7a6b7443fc4821a9b10798e2a3823a9d931bc2df`
-- `PREDECESSOR: NIGHT-BBB-030 PENDING / WAITING_CI; JOBS CYCLE 032 resolved the wait from GitHub live.`
+- `CI-FALLBACK: NONE`
+
+## RESULTADO DEL TURNO — NIGHT-BBB-031
+
+`LAST_PROCESSED_ASSIGNMENT: NIGHT-BBB-031`  
+`TURN_STATUS: DONE / INTEGRATED`
 
 ### PRIMARY
 
-1. Preflight GitHub vivo + duplicate-check. Reutiliza SAME #63; no rama/PR alterno.
-2. Acepta la evidencia fresh exact-head ya observada por JOBS sobre `7a6b7443...`: `matrix-contract` SUCCESS; Windows Import functional journey SUCCESS; Required CI SUCCESS; PostgreSQL live/recovery SUCCESS; portable Windows/macOS/supply-chain gates observados SUCCESS; upgrade staging SKIPPED/no aplicable.
-3. No hagas rerun ceremonial y no reabras el harness/matrix corrective si el head sigue exactamente `7a6b7443...`.
-4. Verifica que PR #63 siga OPEN, Ready, mergeable, base `3ad8f55a...`, head exacto `7a6b7443...`, y que integration siga exactamente `3ad8f55a...` antes del merge.
-5. Verifica changed-file scope: solo los tres paths F4 ya autorizados. Si aparece delta adicional, STOP.
-6. Si race-check permanece limpio, integra SAME #63 por el flujo técnico autorizado con expected-head guard; luego verifica merge SHA + nuevo integration HEAD.
-7. La integración de #63 solo cierra el slice `windows/import` dentro de 25.1; NO cierres 25.1 completo, 25.2, D22/D23 ni release.
-8. Reporta RESULTADO DEL TURNO aquí + handoff Issue #41 y STOP.
-
-**Required evidence:** PR base/head/mergeable, exact-head green set, changed-file scope, race-check, merge SHA, integration HEAD post-merge.  
-**STOP:** head/baseline cambia, cualquier applicable gate deja de estar green, changed-file scope inesperado, merge tool rechaza la mutación o aparece blocker externo.
+- `STATUS: DONE / INTEGRATED`
+- `baseline: integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af; race-check confirmed unchanged immediately before merge.`
+- `branch/head: bbb/task-25.1-windows-import @ 7a6b7443fc4821a9b10798e2a3823a9d931bc2df`
+- `PR: #63 merged with expected-head guard; merge SHA 02a40564d85284a119281ff79995c9b9bcb5e833.`
+- `cambios: no new code changes this turn. Reused SAME #63. Changed-file scope verified exactly three authorized F4 paths: .github/workflows/f4-25.1-windows-import.yml; release/f4-25.1-functional-matrix.json; scripts/prepare-f4-25.1-embedded-driver.mjs.`
+- `tests: no ceremonial rerun. Reused fresh exact-head evidence on 7a6b7443...: Windows Import 33308327283 SUCCESS; F4 Functional Matrix 33308327295 SUCCESS; D6 33308327262 SUCCESS; D7 33308327271 SUCCESS; Desktop Portability 33308327289 SUCCESS; Upgrade 33308327291 SKIPPED/no aplicable.`
+- `CI: applicable exact-head set green before merge.`
+- `evidencia: pre-merge #63 OPEN/Ready/mergeable=true, base 3ad8f55a..., exact head 7a6b7443...; integration remained 3ad8f55a... at race-check; expected-head merge succeeded; post-merge integration verified at 02a40564d85284a119281ff79995c9b9bcb5e833. Issue #41 handoff 5468611912.`
+- `UNVERIFIED: integration closes only the windows/import slice inside 25.1. It does not close 25.1 complete, 25.2, D22/D23, signing/notarization, remaining matrix gaps, beta or public release.`
+- `blockers: none for NIGHT-BBB-031.`
 
 ### CI-FALLBACK
 
-`NONE`
+- `STATUS: NOT_EXECUTED`
+- `branch/head: n/a`
+- `PR: n/a`
+- `cambios: none`
+- `tests: none`
+- `evidencia: JOBS explicitly set CI-FALLBACK: NONE; PRIMARY was merge-ready, not waiting on external CI.`
+- `UNVERIFIED: n/a`
+- `blockers: fallback not authorized.`
+- `STOP alcanzado: yes — PRIMARY integrated successfully.`
 
-Reason: PRIMARY ya no está esperando CI; cualquier trabajo 25.2/D22/D23 ampliaría scope o adelantaría gates.
-
-## RESULTADO PROCESADO — NIGHT-BBB-030
-
-- `STATUS: PENDING / WAITING_CI`.
-- `HEAD_AFTER: 7a6b7443fc4821a9b10798e2a3823a9d931bc2df`.
-- Corrective matrix-only: removió evidenciaCatalog no-path y preservó `windows/import = AUTOMATED_PASS` con evidencia repo-path válida.
-- Handoff Issue #41 `5468330364`.
-- JOBS CYCLE 032 recheck: fresh exact-head `matrix-contract` SUCCESS, Windows Import SUCCESS, Required CI SUCCESS y demás applicable checks observados verdes; espera resuelta.
+`RECOMMENDATION_TO_JOBS: synchronize #63 merge 02a40564... and windows/import AUTOMATED_PASS into canonical plan state, while keeping 25.1 overall open for remaining honest gaps. Emit a new monotonic BBB assignment only if another F4 slice is explicitly authorized.`
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-BBB-031`: ASSIGNED — final exact-head race/merge SAME #63.
-- `NIGHT-BBB-030`: PENDING/WAITING_CI — corrective matrix-only; CI posteriormente green.
+- `NIGHT-BBB-031`: DONE/INTEGRATED — #63 merged `02a40564d85284a119281ff79995c9b9bcb5e833`; windows/import slice integrated.
+- `NIGHT-BBB-030`: PENDING/WAITING_CI — corrective matrix-only; CI subsequently green.
 - `NIGHT-BBB-028`: promotion head; Windows Import/Required CI green, matrix red.
-- `NIGHT-BBB-026`: Windows Import literal PASS antes de promotion.
+- `NIGHT-BBB-026`: Windows Import literal PASS before promotion.
 - `NIGHT-BBB-012`: #60 matrix integrated `7de7b57a...`.
