@@ -4,20 +4,18 @@
 
 **Objetivo:** paridad funcional honesta, responsive y accesible para los flujos principales.
 
-**Baseline vivo CYCLE 025:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
-**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 sigue abierto únicamente por cold/warm real cuantificado; D13–D15 no cerrados.
+**Baseline vivo CYCLE 026:** `integration-v0.8.0-alpha.1 @ 3ad8f55a9efe907eddbefb7c99d62d0cbdca87af`.  
+**Estado F2:** 11.1, 11.2 y 12.2 cerrados; 12.1 abierto solo por cold/warm runtime real; 13.1 activo con boundary Web↔server explícito; D13–D15 no cerrados.
 
 ## Owner actual
 
-**AAA — F2 / 13.1 — `NIGHT-AAA-025` (ASSIGNED).**
+**AAA — F2 / 13.1 carril Web — `NIGHT-AAA-026` (ASSIGNED).**
 
-`NIGHT-AAA-024` no produjo RESULTADO DEL TURNO, PR ni handoff observable antes de CYCLE 025 y quedó `NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no debe ejecutarse después de 025.
-
-El residual 12.1 permanece abierto por evidencia runtime cold/warm. AAA trabaja 13.1 porque es dependency-safe e independiente y repetir 12.1 sin superficie ejecutable sería tiempo muerto.
+NIGHT-AAA-025 terminó `PENDING / STOP_OWNERSHIP_BOUNDARY`: REUSE-FIRST confirmó single-save durable, CAS por item y componentes server-side de garbage journal ya existentes. El gap se dividió limpiamente: AAA puede implementar Save All/partial summary + bulk conflict-safe en Web, pero no puede declarar cerrado `garbage journal limpia uploads huérfanos` sin contrato Web-callable server-side o owner explícito de ese server half.
 
 PR #58 quedó integrada como `58a6bf61441f08bf68aa63673c0d5f2994b220d9`; PR #64 atomic empty-index como `b114111cafb29b4aa50cdce014059c66a75bddf2`; PR #66 pagination/windowing como `712b49b6689a31a47902dbe95e98622d001dab40`.
 
-`NIGHT-AAA-022` verificó evidencia literal existente: `ready / empty / no-results / offline / auth-failure / cloud-failure` están implementados y testeados. Taxonomy/state queda demostrado. El único residual de 12.1 es comparar startup Web cold vs warm real bajo el mismo escenario, con cache/session cold vs preservados y métricas cuantificadas/reproducibles.
+NIGHT-AAA-022 demostró taxonomy/state `ready / empty / no-results / offline / auth-failure / cloud-failure`. El único residual 12.1 es startup Web cold vs warm real, mismo escenario, cache/session cold vs preservados, con métricas cuantificadas/reproducibles.
 
 ## Día 11 — Foundations y AccountGate
 
@@ -30,24 +28,24 @@ PR #54 merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`.
 ## Día 12 — Library, cards y primera cuenta Web
 
 ### 12.1 — `[ 🟡 ] RESIDUAL / RUNTIME EVIDENCE`
-- [x] Índice vacío atómico en control plane — #64.
-- [x] Separar empty/no-results/offline/auth/cloud failure — #58 + NIGHT-AAA-022.
-- [x] Thumbnails/lazy artwork, paginación/ventana y presupuesto de memoria — #58/#66.
-- [ 🟡 ] Instrumentar startup por fases, comparar cold/warm y corregir regresión inicial — instrumentación existe; falta comparación cold/warm real.
+- [x] Índice vacío atómico — #64.
+- [x] Empty/no-results/offline/auth/cloud failure separados — #58 + NIGHT-AAA-022.
+- [x] Lazy artwork, paginación/ventana y presupuesto de memoria — #58/#66.
+- [ 🟡 ] Cold/warm startup real cuantificado — instrumentación existe; benchmark real falta.
 
-No cerrar 12.1 hasta esa evidencia. No fabricar benchmark sintético.
+No cerrar 12.1 ni fabricar benchmark sintético.
 
 ### 12.2 — `[x] DONE / INTEGRATED`
 PR #50 merge `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
 
 ## Día 13 — Import, Review y bulk edit
 
-### 13.1 — `[ 🟡 ] ASSIGNED — AAA NIGHT-AAA-025`
-- [ ] Save All durable con resumen parcial.
-- [ ] Bulk conflict-safe o deshabilitado honestamente.
-- [ ] Garbage journal limpia uploads huérfanos.
+### 13.1 — `[ 🟡 ] IN PROGRESS — AAA NIGHT-AAA-026`
+- [ 🟡 ] Save All durable con resumen parcial — AAA autorizado a implementar carril Web reutilizando commits durables existentes.
+- [ 🟡 ] Bulk conflict-safe o deshabilitado honestamente — AAA autorizado a usar CAS por item; cero pérdida silenciosa.
+- [ ] Garbage journal limpia uploads huérfanos — **BOUNDARY SERVER-SIDE PENDIENTE**; no sustituir con journal frontend-only.
 
-**Scope 025:** solo 13.1, REUSE-FIRST, una sola rama/PR si existe gap real. No 13.2, D14/D15, YouTube, billing, Desktop ni infra. CI-FALLBACK `NONE`.
+**Scope 026:** AAA solo Save All + bulk Web. No server journal/cleanup, 13.2, D14/D15, YouTube, billing, Desktop ni infra. CI-FALLBACK `NONE`.
 
 ### 13.2
 - [ ] ReviewShell Import/Edit/Bulk, CTA fija y progreso N/N.
