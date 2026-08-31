@@ -12,7 +12,7 @@
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-058
+## Estado vivo — NIGHT-JOBS-059
 
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable observada:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
@@ -22,42 +22,43 @@
 - **F2 / 11.1, 11.2, 12.2:** `[x]`.
 - **F2 / 12.1:** `[ 🟡 ] RUNTIME EVIDENCE`; cold/warm real sigue sin prueba literal.
 - **F2 / 13.1:** #69 frozen por `STOP_WRITE_SURFACE`; #70 frozen por safe-write + stale baseline.
-- **F2 / 14.1:** AAA053 no dejó resultado final verificable antes del ciclo; `NIGHT-AAA-054` queda owner único del slice REUSE-FIRST de streaming/memory safety.
+- **F2 / 14.1:** AAA054 no dejó resultado final verificable antes de este ciclo; `NIGHT-AAA-055` queda owner único del slice REUSE-FIRST de streaming/memory safety.
 - **F3 / 17.1 + 17.2 + 18.1:** `[x] SOFTWARE DONE / INTEGRATED`.
 - **F3 / 18.2:** #73 reconciliation/exception-queue software slice INTEGRATED; global 18.2 sigue abierto por provider/payment/business-policy evidence.
 - **F3 / 19.2:** #76 OPEN pero stale/frozen.
-- **F3 / 20.1:** #75 OPEN, 4-file software slice, stale; corrective de immutable pins sigue conocido. `NIGHT-WOZ-057` audita y refresca únicamente este candidate si puede hacerlo history-preserving y sin competir por integration.
+- **F3 / 20.1:** #75 OPEN/stale; live→candidate diverged `ahead 4 / behind 8`, cuatro intended files; historical observability job green pero Desktop Portability rojo en el head viejo. `NIGHT-WOZ-058` audita/corrige immutable pins y refresca solo si puede hacerlo history-preserving; no integra este ciclo.
 - **F3 / 20.2:** PR #78 `[x] HARNESS SOFTWARE INTEGRATED`; esto NO es runtime capacity PASS. Approved peak, 2× runtime proof, latency, safety margin y durable waitlist siguen abiertos.
 - **F4 / 21.1+21.2, 24.1, 24.2:** `[x]`.
 - **F4 / windows/auth:** #74/#71 frozen; `NOT_COVERED`.
 - **F4 / windows/review:** #72 stale/frozen.
-- **F4 / 25.1:** Web/auth sigue `NOT_COVERED`; BBB052 no dejó resultado verificable.
-- **F4 / 25.2:** PR #79 permanece OPEN pero ahora está stale/diverged tras #78 (`ahead 1 / behind 3`, merge-base `a306e3b3...`) y no puede usar CI histórica. `NIGHT-BBB-053` es owner único para refresh narrow + fresh exact-head CI + integración solo si race-clean.
+- **F4 / 25.1:** Web/auth sigue `NOT_COVERED`; BBB053 no dejó resultado verificable.
+- **F4 / 25.2:** PR #79 sigue OPEN/mergeable pero diverged contra live integration (`ahead 1 / behind 3`, merge-base `a306e3b3...`), exactamente un docs-only artifact. `NIGHT-BBB-054` es owner único para refresh narrow + fresh exact-head CI + integración solo si race-clean.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 
-## RESULTADOS PROCESADOS — CYCLE 058
+## RESULTADOS PROCESADOS — CYCLE 059
 
-- `NIGHT-AAA-053`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- `NIGHT-BBB-052`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- `NIGHT-WOZ-056`: no hubo handoff estructurado observable, pero GitHub real prueba cumplimiento material del PRIMARY: PR #78 MERGED exact head `50aac3f0...` como `63c9f8c9...`; accepted as `DONE / INTEGRATED` con claim máximo `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
+- `NIGHT-AAA-054`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
+- `NIGHT-BBB-053`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
+- `NIGHT-WOZ-057`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
+- No se promovió DONE/PASS/merge nuevo; integration permanece en #78.
 
-## OWNERS — CYCLE 058
+## OWNERS — CYCLE 059
 
-### AAA — `NIGHT-AAA-054` — F2 / 14.1
+### AAA — `NIGHT-AAA-055` — F2 / 14.1
 PRIMARY: live integration only; REUSE-FIRST sobre media Web y cerrar únicamente el menor gap literal de progressive/Range-style playback, giant-file memory safety y cleanup/cancel; focused tests + fresh exact-head CI; sin Player redesign.  
 CI-FALLBACK: F2/14.2 READ-ONLY player-control gap map solo si PRIMARY queda code-complete esperando CI/review/merge; cero writes; recheck PRIMARY.
 
-### BBB — `NIGHT-BBB-053` — F4 / 25.2 / SAME #79
+### BBB — `NIGHT-BBB-054` — F4 / 25.2 / SAME #79
 PRIMARY: reconciliar #79 preservando su único docs-only artifact sobre `63c9f8c9...`; confirmar delta exacto, fresh exact-head CI y merge solo race-clean. No cerrar 25.2 con el documento: beta/tester/signing evidence permanece externa.  
 CI-FALLBACK: F4/25.1 Web/auth READ-ONLY evidence map únicamente durante WAITING_CI/review/merge; sin writes; STOP ante overlap/duplicación.
 
-### WOZ — `NIGHT-WOZ-057` — F3 / 20.1 / SAME #75
-PRIMARY: REUSE-FIRST sobre #75; comprobar stale delta y aplicar solo corrective de immutable Action pins + history-preserving refresh al live baseline si el flujo seguro lo permite; focused/fresh exact-head CI. No merge en este ciclo mientras BBB/#79 posee la única mutación de integration.  
+### WOZ — `NIGHT-WOZ-058` — F3 / 20.1 / SAME #75
+PRIMARY: REUSE-FIRST sobre #75; conservar cuatro intended files, aplicar solo corrective de immutable Action pins y history-preserving refresh al live baseline si el flujo seguro lo permite; focused/fresh exact-head CI. No merge en este ciclo mientras BBB/#79 posee la única mutación de integration.  
 CI-FALLBACK: F3/20.2 READ-ONLY residual capacity gap map (approved peak, 2× runtime, latency, safety margin, durable waitlist) solo durante WAITING_CI; no writes/no runtime claims; recheck PRIMARY.
 
-## Camino crítico global — recalculado desde cero CYCLE 058
+## Camino crítico global — recalculado desde cero CYCLE 059
 
-1. **F4/25.2 / #79:** candidate pequeño ya existente; refresh + fresh CI + integración es el próximo merge seguro.
+1. **F4/25.2 / #79:** candidate mínimo existente; refresh + fresh CI + integración es el próximo merge seguro.
 2. **F2/14.1:** Web media streaming/memory safety interno dependency-safe.
 3. **F3/20.1 / #75:** recuperar el software observability candidate con corrective mínimo; integración serializada después de #79.
 4. **F4/25.1 Web/auth** y luego demás journeys no cubiertos.
@@ -82,8 +83,8 @@ CI-FALLBACK: F3/20.2 READ-ONLY residual capacity gap map (approved peak, 2× run
 
 ## NEXT
 
-**AAA:** ejecutar una sola vez `NIGHT-AAA-054`; 053 está superseded.  
-**BBB:** ejecutar una sola vez `NIGHT-BBB-053`; SAME #79, única mutación de integration autorizada del ciclo.  
-**WOZ:** ejecutar una sola vez `NIGHT-WOZ-057`; SAME #75, preparar/validar candidate pero no mergear mientras #79 posee integration.  
+**AAA:** ejecutar una sola vez `NIGHT-AAA-055`; 054 está superseded.  
+**BBB:** ejecutar una sola vez `NIGHT-BBB-054`; SAME #79, única mutación de integration autorizada del ciclo.  
+**WOZ:** ejecutar una sola vez `NIGHT-WOZ-058`; SAME #75, preparar/validar candidate pero no mergear mientras #79 posee integration.  
 **JOBS:** siguiente ciclo procesa resultados reales y vuelve a serializar cualquier candidate contra el baseline vivo.  
-**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 058; GitHub vivo prevalece si cambia después.
+**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 059; GitHub vivo prevalece si cambia después.
