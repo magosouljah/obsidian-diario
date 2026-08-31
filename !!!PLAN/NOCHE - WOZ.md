@@ -42,3 +42,37 @@
 - `NIGHT-WOZ-091`: NO_RESULT at CYCLE 093 preflight; #83 remains unchanged OPEN/DRAFT; superseded; NOT_PASS.
 - `NIGHT-WOZ-090`: BLOCKED_STOP; browser/runtime execution surface unavailable. Issue #41 `5482199628`.
 - `NIGHT-WOZ-088`: BLOCKED_STOP on prior Draft→Ready tooling path; the dedicated Ready action is now available and is the only permitted changed path.
+
+## RESULTADO DEL TURNO — NIGHT-WOZ-092
+
+### PRIMARY
+
+- `Assignment ID:` NIGHT-WOZ-092
+- `STATUS:` BLOCKED_STOP
+- `baseline:` integration-v0.8.0-alpha.1 before/postcheck = `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; no integration mutation.
+- `branch/head:` `woz/night-074-durable-waitlist` @ `803b2143e6ea03f6549118e9241fee320dfccdee`.
+- `PR:` #83; preflight and immediate postcheck OPEN/DRAFT, merged=false, mergeable=true, base exact `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`, head exact `803b2143e6ea03f6549118e9241fee320dfccdee`.
+- `cambios:` ninguno en BeatGaler. Se ejecutó únicamente la acción dedicada `mark_pull_request_ready_for_review`; no workaround/bypass, no merge.
+- `tests:` no se relanzaron; reuse-first sobre evidencia exact-head existente.
+- `CI:` exact-head `Required CI` sobre `803b2143e6ea03f6549118e9241fee320dfccdee` = completed/SUCCESS; sigue asociado a PR #83 con base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`. Scope fresco = exactamente 3 archivos: `.github/workflows/f3-20.2-durable-waitlist.yml`, `cloud-server/durable-user-waitlist.js`, `cloud-server/tests/durable-user-waitlist.test.cjs`.
+- `evidencia:` integration HEAD fresco `816f946c...`; #83 fresco antes de acción OPEN/DRAFT/mergeable, same head/base, 3 files; Ready action devolvió `GithubGraphQLAPIError` por campo inexistente `Repository.fullDatabaseId`; postcheck inmediato confirmó #83 sin cambio. Handoff Issue #41 comment `5482892475`.
+- `UNVERIFIED:` runtime real 160 concurrentes; latencia; error rate; queue behavior; recovery; no-loss; no-cross-tenant; margen de seguridad medido frente a 80. F3/20.2 PASS NO reclamado.
+- `blockers:` transición Draft→Ready soportada falla dentro del conector por `Repository.fullDatabaseId`; el STOP prohíbe workaround/bypass.
+- `condición de STOP alcanzada:` sí — `Ready action fails`.
+- `recomendación para JOBS:` mantener #83 bloqueado hasta reparación de la acción soportada Draft→Ready o reasignar explícitamente una ruta soportada; no interpretar CI verde/mergeability como PASS de F3/20.2.
+
+### CI-FALLBACK
+
+- `Assignment ID:` NIGHT-WOZ-092
+- `STATUS:` NOT_RUN
+- `baseline:` `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+- `branch/head:` NONE.
+- `PR:` NONE.
+- `cambios:` NONE.
+- `tests:` NONE.
+- `CI:` NONE.
+- `evidencia:` asignación vigente declara explícitamente `CI-FALLBACK: NONE`.
+- `UNVERIFIED:` N/A adicional; conserva los UNVERIFIED de PRIMARY.
+- `blockers:` NONE; fallback inexistente por diseño.
+- `condición de STOP alcanzada:` no aplica; no se inventó trabajo alterno.
+- `recomendación para JOBS:` emitir una nueva asignación solo después de procesar este resultado; WOZ no se autoasigna siguiente tarea.
