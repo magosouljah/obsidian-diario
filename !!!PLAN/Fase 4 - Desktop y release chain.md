@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 061:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
+**Integración estable CYCLE 062:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
 
 ## Estado actual
 
@@ -45,7 +45,7 @@ Apple Developer/certificados/notarization/hardware permanecen externos/deferred.
 Integrated rows: `windows/import`, `windows/updater`, `macos/updater` = `AUTOMATED_PASS`.
 Web/auth y múltiples journeys siguen `NOT_COVERED`; iPhone sigue `PENDING_EXTERNAL`.
 
-### 25.2 — `[ 🟡 ] PR #79 STALE / ASSIGNED BBB056`
+### 25.2 — `[ 🟡 ] PR #79 STALE / CONDITIONAL FALLBACK BBB057`
 
 PR #79 remains OPEN/non-draft/mergeable:
 - branch `bbb/f4-25.2-beta-readiness @ c6ec2910522370f2506beb71ad5e0fa0317d6a61`;
@@ -53,10 +53,10 @@ PR #79 remains OPEN/non-draft/mergeable:
 - live integration = `63c9f8c9...`;
 - exactly one intended docs-only file `docs/beta/0.9.0-beta.1-readiness.md` (+84).
 
-`NIGHT-BBB-055` no produjo resultado final verificable y queda superseded. `NIGHT-BBB-056` owns SAME #79: history-preserving narrow refresh onto live integration observed at execution, verify exact one-file delta and fresh exact-head CI. **NO MERGE CYCLE 061** because WOZ/#75 owns the only integration mutation.
+`NIGHT-BBB-056` no produjo resultado final verificable antes de CYCLE 062 y queda superseded. La nueva decisión RO de F3/20.2 hizo ejecutable un carril de mayor valor: BBB057 tiene PRIMARY en capacity runtime 80 expected / 160 validation.
+
+#79 queda preautorizado únicamente como **CI-FALLBACK de BBB057** si el PRIMARY entra realmente en `WAITING_EXTERNAL/WAITING_RUNTIME`: history-preserving narrow refresh sobre live integration, verificar delta exacto de un solo archivo y fresh exact-head CI. **NO MERGE CYCLE 062** y no cerrar 25.2.
 
 Even if #79 later merges, 25.2 remains open for real beta/tester/signing evidence.
-
-**BBB056 CI-FALLBACK:** F4/25.1 Web/auth READ-ONLY map only while PRIMARY genuinely waits CI/review; no writes and no matrix promotion.
 
 **Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido. 25.2 is not closed by the readiness document alone.
