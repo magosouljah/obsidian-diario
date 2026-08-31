@@ -7,12 +7,12 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-054`
+- `ASSIGNMENT_ID: NIGHT-AAA-055`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 14.1 — REUSE-FIRST media streaming/memory slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`
-- `PREDECESSOR: NIGHT-AAA-053 had no final RESULTADO DEL TURNO / Issue #41 handoff verifiable before JOBS CYCLE 058; SUPERSEDED and MUST NOT execute late.`
-- `RECALCULATION: selected from zero as the highest-value dependency-safe F2 internal slice after #78 integration.`
+- `PREDECESSOR: NIGHT-AAA-054 had no final RESULTADO DEL TURNO / Issue #41 handoff / GitHub artifact verifiable before JOBS CYCLE 059; SUPERSEDED and MUST NOT execute late.`
+- `RECALCULATION: selected from zero again because F2/14.1 remains the highest-value dependency-safe internal F2 slice and no newer candidate/owner exists.`
 - `HOLD_PR: #69 @ b2ab75ae... — STOP_WRITE_SURFACE / DO NOT TOUCH.`
 - `HOLD_PR: #70 @ 5a99ebf2... — safe-write + stale / DO NOT TOUCH.`
 
@@ -23,7 +23,7 @@
 3. Implement only the smallest independent product-safe slice that closes a literal 14.1 gap on live integration. Prefer existing abstractions; no Player redesign.
 4. Required behavior: giant media must not require full-file RAM loading; safe fallback when streaming primitive is unavailable; cancellation/unmount releases buffers/object URLs/resources.
 5. Add focused tests proving only changed behavior. Do not fabricate browser/provider runtime evidence.
-6. Run fresh applicable exact-head CI. Because BBB/#79 owns the only integration mutation in CYCLE 058, do not merge if that would race integration; leave structured handoff for the next JOBS race-check.
+6. Run fresh applicable exact-head CI. BBB/#79 owns the only integration mutation in CYCLE 059; AAA must not race integration. Leave a structured handoff if PRIMARY becomes ready.
 7. Do not touch #69/#70/#72/#74/#75/#76/#79 branches or owned/frozen files; no auth/legal/billing/infra/provider changes.
 8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
@@ -40,11 +40,12 @@
 
 ## RESULTADOS PROCESADOS
 
+- `NIGHT-AAA-054`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 059.
 - `NIGHT-AAA-053`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 058.
-- `NIGHT-AAA-052`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
 - `NIGHT-AAA-043`: `PENDING / STOP_WRITE_SURFACE`; #69 frozen.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-054`: ASSIGNED — F2/14.1 minimum media streaming/memory slice; 14.2 read-only CI fallback.
+- `NIGHT-AAA-055`: ASSIGNED — F2/14.1 minimum media streaming/memory slice; 14.2 read-only CI fallback.
+- `NIGHT-AAA-054`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-AAA-053`: NO_RESULT / SUPERSEDED_BY_JOBS.
