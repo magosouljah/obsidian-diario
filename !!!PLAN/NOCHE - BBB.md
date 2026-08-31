@@ -7,14 +7,14 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-062`
+- `ASSIGNMENT_ID: NIGHT-BBB-063`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F3 / 20.2 — applicable 160-concurrent capacity proof using integrated harness`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`
 - `RO_DECISION: expected peak 80 simultaneous users; required validation target 160 simultaneous users (2×). Target selection is NOT PASS.`
-- `PREDECESSOR: NIGHT-BBB-061 had no final RESULTADO DEL TURNO, Issue #41 handoff, runtime evidence or attributable artifact before JOBS CYCLE 067; SUPERSEDED and MUST NOT execute late.`
+- `PREDECESSOR: NIGHT-BBB-062 had no final RESULTADO DEL TURNO, Issue #41 handoff, runtime evidence or attributable artifact before JOBS CYCLE 068; SUPERSEDED and MUST NOT execute late.`
 - `RECALCULATION: selected from zero because target 80/160 remains fixed and runtime capacity proof remains a direct F0-F4 closure blocker.`
-- `SERIALIZATION: BBB MUST NOT merge or move integration in CYCLE 067.`
+- `SERIALIZATION: BBB MUST NOT merge or move integration in CYCLE 068.`
 
 ### PRIMARY
 
@@ -41,6 +41,6 @@
 
 ## RESULTADOS PROCESADOS
 
+- `NIGHT-BBB-062`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 068.
 - `NIGHT-BBB-061`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 067.
-- `NIGHT-BBB-060`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 066.
 - `NIGHT-BBB-049`: #79 docs-only artifact exists; historical CI does not authorize integration on current baseline.
