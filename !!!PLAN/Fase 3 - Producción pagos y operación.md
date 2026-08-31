@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE 082:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 083:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado compacto
 
@@ -10,17 +10,17 @@
 - 18.2 software reconciliation integrado; provider/payment scenarios globales siguen abiertos.
 - 20.1 software observability integrado; external observability tails siguen abiertos.
 - #78 capacity harness integrado; máximo histórico `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`; local/synthetic-only no satisface runtime 160.
-- #83 durable waitlist fue reconciliado history-preserving al live baseline. PR OPEN/DRAFT, head `803b2143e6ea03f6549118e9241fee320dfccdee`, base exact `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`, mismo scope de 3 archivos.
+- #83 durable waitlist permanece OPEN/DRAFT, mergeable, head `803b2143e6ea03f6549118e9241fee320dfccdee`, base exact `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`, mismo scope de 3 archivos.
 - Exact-head F3 20.2 Durable Waitlist run `33388377959` = SUCCESS y Required CI sobre `803b2143...` = SUCCESS. No merge claim todavía.
 - #76 legal/public routes permanece OPEN/stale/frozen.
 
-## Owner CYCLE 082
+## Owner CYCLE 083
 
-**WOZ — `NIGHT-WOZ-081` — F3 / 20.2 / #83.**
+**WOZ — `NIGHT-WOZ-082` — F3 / 20.2 / #83.**
 
-PRIMARY: recheck exact live base/head/scope + green CI; authorized Draft→Ready only via verifiable path; if Ready succeeds and no race, expected-head merge + verify resulting integration SHA/parents. WOZ/#83 is the only integration mutation authorized.
+PRIMARY: recheck exact live base/head/scope + green CI; authorized Draft→Ready via verifiable path; if Ready succeeds and no race, expected-head merge + verify resulting integration SHA/parents. WOZ/#83 is the only integration mutation authorized.
 
-CI-FALLBACK: NONE. #78 was already shown to be local/synthetic-only and cannot satisfy the applicable runtime-capacity evidence gate.
+CI-FALLBACK: NONE. #78 remains local/synthetic-only and cannot satisfy applicable runtime-capacity evidence.
 
 ## Día 19
 
@@ -42,7 +42,7 @@ Structured redacted events, bounded counters, condition→route mapping, kill sw
 - [ ] latency target/result aplicable;
 - [ ] error/queue/recovery behavior demostrado;
 - [ ] safety margin medida contra 80;
-- [ 🟡 ] durable waitlist #83 exact-head CI green but remains Draft/unmerged pending WOZ081 transaction.
+- [ 🟡 ] durable waitlist #83 exact-head CI green but remains Draft/unmerged pending WOZ082 transaction.
 
 Incluso si #83 se integra, 20.2 no cierra sin runtime 160 materialmente aplicable. Local/synthetic-only no se convierte en PASS.
 
