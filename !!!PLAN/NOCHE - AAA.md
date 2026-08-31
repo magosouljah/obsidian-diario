@@ -7,7 +7,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-AAA-068`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: PENDING`
 - `AREA: F2 / 14.1 — SAME #81 baseline reconciliation + reuse-first test consolidation`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 5e117d69dba852d544cc1fee805eff55ffa820eb`
 - `PREDECESSOR: NIGHT-AAA-067 = BLOCKED / STOP_BASELINE_RACE; candidate #81 @ bfa2f96bfaa8362eefaecb9d73602b06dea105fa retained; do not open a duplicate PR.`
@@ -34,7 +34,39 @@
 **Evidencia requerida:** exact baseline + `EXISTS/PARTIAL/GAP/PENDING_EXTERNAL` with literal paths/tests and one minimum next slice.  
 **STOP:** any write, overlap, dependency on unmerged #81 behavior, or attempt to close 14.2 from audit alone. Recheck PRIMARY before closing.
 
+## RESULTADO DEL TURNO — NIGHT-AAA-068
+
+### PRIMARY
+
+- `STATUS: PENDING / WAITING_CI + HISTORY_RECONCILIATION_UNAVAILABLE`
+- `baseline: integration-v0.8.0-alpha.1 @ 5e117d69dba852d544cc1fee805eff55ffa820eb; PR metadata base exact.`
+- `branch/head: aaa/night-067-web-playback-memory @ 709151082c7afe51ff531764309316f3b21cb9e3.`
+- `PR: #81 OPEN / Ready; NO MERGE per serialization.`
+- `cambios: REUSE-FIRST; preservado MediaSource progressive path. Consolidada la cobertura del límite de fallback no-MediaSource en tests/component-dom/webPlaybackSource.test.ts; eliminado tests/integration/webPlaybackSource.test.ts duplicado.`
+- `tests: focused coverage consolidada en el suite component-dom existente; PASS final queda pendiente de CI exact-head.`
+- `CI: fresh exact-head 709151082... — D6 33367194381 IN_PROGRESS; D7 33367194376 QUEUED; Desktop Portability 33367194407 PENDING; Upgrade 33367194446 SKIPPED.`
+- `evidencia: compare live base 5e117d69... vs head 709151082... contiene solo src/features/playback/webPlaybackSource.ts (20 additions/2 deletions) + tests/component-dom/webPlaybackSource.test.ts (27 additions), pero history sigue diverged: merge-base 63c9f8c..., head 7 commits behind live base. La superficie disponible no expone merge/rebase history-preserving para reconciliar esa rama sin fabricar historia.`
+- `UNVERIFIED: focused final PASS hasta cierre CI; navegador real/provider playback; history reconciliation efectiva sobre 5e117d69... .`
+- `blockers: espera CI real + ausencia de operación history-preserving merge/rebase en la superficie disponible; no se forzó ref ni se reescribió historia.`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_RUN / DUPLICATE_EVIDENCE`
+- `branch/head si aplica: N/A — read-only.`
+- `PR si aplica: N/A.`
+- `cambios: ninguno.`
+- `tests: ninguno.`
+- `evidencia: NIGHT-AAA-067 ya dejó completado el mismo mapa read-only 14.2; repetirlo durante este WAITING_CI violaría reuse-first/no trabajo duplicado.`
+- `UNVERIFIED: sin cambio respecto del mapa 067.`
+- `blockers: ninguno material; fallback omitido por duplicate-check.`
+- `STOP alcanzado: sí — PRIMARY queda WAITING_CI y no se duplica fallback ya producido.`
+
+**Recomendación para JOBS:** conservar SAME #81 y NO MERGE. Cuando el CI exact-head 709151082... cierre, reconciliar history-preservingly la rama sobre live 5e117d69... desde una superficie con merge/rebase real; después exigir fresh exact-head CI del head reconciliado. No reabrir test duplicado ni repetir el mapa 14.2.
+
+**Issue #41:** handoff `5474987467`.
+
 ## RESULTADOS PROCESADOS
 
+- `NIGHT-AAA-068`: `PENDING / WAITING_CI + HISTORY_RECONCILIATION_UNAVAILABLE`; SAME #81 head 709151082..., tests consolidados; no merge; fallback 14.2 omitido por duplicate-check.
 - `NIGHT-AAA-067`: `BLOCKED / STOP_BASELINE_RACE`; PR #81 retained. D6/D7 green; Desktop Portability was still in progress at handoff. Read-only 14.2 map completed.
 - Older results remain historical in Issue #41 and git history.
