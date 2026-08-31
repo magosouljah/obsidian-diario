@@ -6,14 +6,14 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-087`
+- `ASSIGNMENT_ID: NIGHT-AAA-088`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — Review Save/Save All durable action-boundary corrective slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-AAA-086 had no final RESULTADO DEL TURNO nor matching material Issue #41 handoff at JOBS CYCLE 091 preflight; superseded, NOT_PASS.`
+- `PREDECESSOR: NIGHT-AAA-087 had no final RESULTADO DEL TURNO nor matching material Issue #41 handoff at JOBS CYCLE 092 preflight; superseded, NOT_PASS.`
 - `REUSE_EVIDENCE: Issue #41 5478129410 + NIGHT-AAA-071 + #69 helper semantics only.`
-- `DUPLICATE_CHECK: no newer open AAA 13.2 candidate observed at CYCLE 091 preflight; re-check before mutation.`
-- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB086 owns F4/#74+#84; WOZ090 owns F2/12.1 read-only.`
+- `DUPLICATE_CHECK: no newer open AAA F2/13.2 candidate observed at CYCLE 092 preflight; re-check before mutation.`
+- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB087 owns F4/#74+#84; WOZ091 exclusively owns #83 Ready/exact-head/integration transaction.`
 
 ### PRIMARY
 
@@ -34,11 +34,11 @@
 
 ### CI-FALLBACK
 
-`CI-FALLBACK: NONE` — no safe independent fallback without colliding with WOZ090/F2-12.1 or widening F2 scope.
+`CI-FALLBACK: NONE` — no safe independent fallback without widening F2 scope or colliding with other owners.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-086`: NO_RESULT at CYCLE 091 preflight; superseded; NOT_PASS.
-- `NIGHT-AAA-085`: NO_RESULT at CYCLE 090; superseded; NOT_PASS.
+- `NIGHT-AAA-087`: NO_RESULT at CYCLE 092 preflight; superseded; NOT_PASS.
+- `NIGHT-AAA-086`: NO_RESULT at CYCLE 091; superseded; NOT_PASS.
 - Late `NIGHT-AAA-074` Issue #41 `5478129410`: reusable current-baseline finding only.
 - `NIGHT-AAA-071`: DONE / AUDIT_ONLY; reusable context.
