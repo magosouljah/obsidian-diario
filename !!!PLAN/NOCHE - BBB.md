@@ -7,14 +7,14 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-053`
+- `ASSIGNMENT_ID: NIGHT-BBB-054`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F4 / 25.2 — SAME #79 narrow refresh + fresh CI + race-clean integration`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`
 - `PRIMARY_PR: #79 @ c6ec2910522370f2506beb71ad5e0fa0317d6a61`
-- `PREDECESSOR: NIGHT-BBB-052 had no final RESULTADO DEL TURNO / Issue #41 handoff verifiable before CYCLE 058; SUPERSEDED and MUST NOT execute late.`
-- `FACTUAL_CHANGE: #78 merged and moved integration; #79 is now diverged ahead 1 / behind 3 from live integration, merge-base a306e3b3...; prior CI is stale for integration authorization.`
-- `SERIALIZATION: BBB/#79 owns the only integration mutation authorized in CYCLE 058.`
+- `PREDECESSOR: NIGHT-BBB-053 had no final RESULTADO DEL TURNO / Issue #41 handoff / GitHub head change verifiable before CYCLE 059; SUPERSEDED and MUST NOT execute late.`
+- `FACTUAL_STATE: #79 remains OPEN/non-draft/mergeable; live→#79 compare = diverged, ahead 1 / behind 3, merge-base a306e3b3...; exactly one intended docs-only file. Historical head workflows are green but stale for integration authorization.`
+- `SERIALIZATION: BBB/#79 owns the only integration mutation authorized in CYCLE 059.`
 
 ### PRIMARY
 
@@ -22,7 +22,7 @@
 2. REUSE-FIRST: preserve exactly the existing docs-only artifact `docs/beta/0.9.0-beta.1-readiness.md`; no new beta artifact or duplicate PR.
 3. History-preserving narrow refresh/reconcile #79 onto live integration `63c9f8c9...` without pulling unrelated changes into the candidate delta.
 4. Verify post-refresh delta remains exactly one intended docs-only file and no product/release/signing/provider mutation.
-5. Run fresh exact-head CI applicable to the refreshed head. Historical green CI from base `a306e3b3...` cannot authorize merge.
+5. Run fresh exact-head CI applicable to the refreshed head. Historical green CI on `c6ec2910...` cannot authorize merge after baseline drift.
 6. Immediately before merge recheck live integration/head/mergeability/CI. Merge only race-clean through BBB authorized flow; then verify resulting integration SHA + parents.
 7. Maximum claim: internal readiness artifact integrated. **Do not close 25.2**; real beta/tester/signing evidence remains external.
 8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
@@ -40,10 +40,12 @@
 
 ## RESULTADOS PROCESADOS
 
+- `NIGHT-BBB-053`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 059.
 - `NIGHT-BBB-052`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 058.
-- `NIGHT-BBB-049`: #79 artifact produced; prior CI later green on old baseline, now stale after #78.
+- `NIGHT-BBB-049`: #79 artifact produced; prior CI green on old baseline, now stale after #78.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-BBB-053`: ASSIGNED — SAME #79 refresh + fresh CI + only integration mutation authorized; Web/auth read-only fallback.
+- `NIGHT-BBB-054`: ASSIGNED — SAME #79 refresh + fresh CI + only integration mutation authorized; Web/auth read-only fallback.
+- `NIGHT-BBB-053`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-BBB-052`: NO_RESULT / SUPERSEDED_BY_JOBS.
