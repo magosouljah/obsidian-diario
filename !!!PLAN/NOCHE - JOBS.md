@@ -3,7 +3,7 @@
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** JOBS — jefe de la noche.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.  
-**Ciclo:** `CYCLE 063`.
+**Ciclo:** `CYCLE 064`.
 
 ## META
 
@@ -17,14 +17,14 @@ Terminar F0–F4 o reducirlos al mínimo factual de blockers externos. Prioridad
 
 ## PREFLIGHT FACTUAL
 
-Leídos completos: Plan Maestro; F0–F4; Equipo multi-IA; protocolo nocturno; JOBS/AAA/BBB/WOZ; Registro de avances; Issue #41 completo disponible + handoffs recientes; GitHub vivo de integration y candidates relevantes. GitHub/runtime prevaleció sobre snapshots viejos.
+Leídos: Plan Maestro; F0–F4; Equipo multi-IA; protocolo nocturno; JOBS/AAA/BBB/WOZ; Registro de avances; Issue #41 y handoffs recientes; GitHub vivo de integration y candidates relevantes. GitHub/runtime prevaleció sobre snapshots viejos.
 
 Hechos verificados:
 1. Integration sigue exactamente en `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; no existe merge posterior a #78.
-2. `NIGHT-AAA-058` no dejó RESULTADO DEL TURNO, handoff Issue #41, branch/PR/head change ni artifact atribuible antes de este ciclo.
-3. `NIGHT-BBB-057` no dejó RESULTADO DEL TURNO, handoff Issue #41, runtime evidence ni artifact atribuible antes de este ciclo.
-4. `NIGHT-WOZ-061` no dejó RESULTADO DEL TURNO, handoff Issue #41 ni accepted merge antes de este ciclo.
-5. PR #75 está OPEN/non-draft/mergeable @ exact head `40e39393247dbdd506ac01edefa84fd0b0add94c`; GitHub reports `base_sha = 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`, 4 changed files. Workflows exact-head: F3 20.1, D6, D7, Productive Temp Auth Compile y Desktop Portability = SUCCESS; Upgrade 21.2 = skipped/non-applicable.
+2. `NIGHT-AAA-059` no dejó RESULTADO DEL TURNO, handoff Issue #41, branch/PR/head change ni artifact atribuible antes de este ciclo.
+3. `NIGHT-BBB-058` no dejó RESULTADO DEL TURNO, handoff Issue #41, runtime evidence ni artifact atribuible antes de este ciclo.
+4. `NIGHT-WOZ-062` no dejó RESULTADO DEL TURNO, handoff Issue #41 ni accepted merge antes de este ciclo.
+5. PR #75 sigue OPEN/non-draft/mergeable @ exact head `40e39393247dbdd506ac01edefa84fd0b0add94c`; `base_sha = 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; exactamente 4 archivos intended. No hay evidencia de scope drift ni merge posterior.
 6. PR #79 sigue OPEN/non-draft/mergeable @ `c6ec2910522370f2506beb71ad5e0fa0317d6a61`, historical base `a306e3b3...`, exactamente un docs-only file (+84). Sigue stale respecto al live integration.
 7. RO/OWNER decision `5472774681` sigue canónica: F3/20.2 = **80 simultaneous expected / 160 validation**; no es capacity PASS.
 8. #69/#70/#72/#74/#76 no recibieron cambio factual suficiente para reintento ciego.
@@ -32,24 +32,24 @@ Hechos verificados:
 
 ## RESULTADOS PROCESADOS
 
-### AAA / NIGHT-AAA-058
+### AAA / NIGHT-AAA-059
 `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- Reasignación fresca `NIGHT-AAA-059` sobre F2/14.1.
+- Nueva asignación `NIGHT-AAA-060` sobre F2/14.1.
 
-### BBB / NIGHT-BBB-057
+### BBB / NIGHT-BBB-058
 `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- Reasignación fresca `NIGHT-BBB-058` a F3/20.2 capacity runtime 80/160.
+- Nueva asignación `NIGHT-BBB-059` a F3/20.2 capacity runtime 80/160.
 - #79 permanece CI-FALLBACK condicionado, refresh+CI únicamente, sin merge.
 
-### WOZ / NIGHT-WOZ-061
+### WOZ / NIGHT-WOZ-062
 `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- #75 sigue factual exact-base/exact-head/mergeable/green pero unmerged.
-- Reasignación fresca `NIGHT-WOZ-062` para una única fresh race-check + exact-head merge transaction.
+- #75 sigue factual exact-base/exact-head/mergeable/unmerged.
+- Nueva asignación `NIGHT-WOZ-063` para una única fresh race-check + exact-head merge transaction.
 
 ## CAMINO CRÍTICO GLOBAL — RECALCULADO DESDE CERO
 
-1. **F3/20.1 / #75:** exact-base + exact-head + mergeable + green; es el paso material de integración más corto. WOZ062 es owner único de integration mutation.
-2. **F3/20.2:** target decidido. BBB058 debe probar 160 concurrentes con runtime aplicable y medir latency/error/queue/recovery + safety margin + durable waitlist.
+1. **F3/20.1 / #75:** exact-base + exact-head + mergeable; es el paso material de integración más corto. WOZ063 es owner único de integration mutation.
+2. **F3/20.2:** target decidido. BBB059 debe probar 160 concurrentes con runtime aplicable y medir latency/error/queue/recovery + safety margin + durable waitlist.
 3. **F2/14.1:** Web media streaming/memory safety sigue como slice independiente interno de mayor valor para AAA.
 4. **F4/25.2 / #79:** preparación fallback únicamente; stale y docs-only.
 5. **F4/25.1 Web/auth** y demás journeys `NOT_COVERED`.
@@ -60,11 +60,11 @@ Hechos verificados:
 
 | Worker | Resultado procesado | PRIMARY nuevo | CI-FALLBACK |
 |---|---|---|---|
-| AAA | 058 NO_RESULT → superseded | `NIGHT-AAA-059`: F2/14.1 REUSE-FIRST media streaming/memory slice mínimo; no merge | F2/14.2 READ-ONLY solo mientras espera CI/review |
-| BBB | 057 NO_RESULT → superseded | `NIGHT-BBB-058`: F3/20.2 runtime proof con target 80 expected / 160 validation | F4/25.2 SAME #79 refresh docs-only + fresh CI solo durante WAITING_EXTERNAL/RUNTIME; NO MERGE |
-| WOZ | 061 NO_RESULT → superseded | `NIGHT-WOZ-062`: SAME #75 exact-head race-check + merge transaction | NONE |
+| AAA | 059 NO_RESULT → superseded | `NIGHT-AAA-060`: F2/14.1 REUSE-FIRST media streaming/memory slice mínimo; no merge | F2/14.2 READ-ONLY solo mientras espera CI/review |
+| BBB | 058 NO_RESULT → superseded | `NIGHT-BBB-059`: F3/20.2 runtime proof con target 80 expected / 160 validation | F4/25.2 SAME #79 refresh docs-only + fresh CI solo durante WAITING_EXTERNAL/RUNTIME; NO MERGE |
+| WOZ | 062 NO_RESULT → superseded | `NIGHT-WOZ-063`: SAME #75 exact-head race-check + merge transaction | NONE |
 
-No overlap material: AAA Web media; BBB capacity/runtime; WOZ observability merge transaction. Solo WOZ/#75 puede mutar integration en CYCLE 063.
+No overlap material: AAA Web media; BBB capacity/runtime; WOZ observability merge transaction. Solo WOZ/#75 puede mutar integration en CYCLE 064.
 
 ## BLOCKERS
 
@@ -76,7 +76,7 @@ No overlap material: AAA Web media; BBB capacity/runtime; WOZ observability merg
 6. F2/13.1 #69/#70: write/safe-write blockers + stale candidates.
 7. F3/18.2: provider/payment/business-policy evidence.
 8. F3/19.1/19.2: #76 stale/frozen + production/legal external tails.
-9. F3/20.1: #75 merge transaction; after software integration, external observability backend/retention/delivery/on-call/status remains.
+9. F3/20.1: #75 merge transaction; external observability backend/retention/delivery/on-call/status remains after software integration.
 10. F3/20.2: 160 runtime proof + latency/error/queue/recovery + measured safety margin + durable user waitlist.
 11. F4/windows-auth #74/#71 and windows-review #72: frozen.
 12. F4/25.1: many rows NOT_COVERED/PENDING_EXTERNAL.
@@ -87,12 +87,12 @@ No overlap material: AAA Web media; BBB capacity/runtime; WOZ observability merg
 
 - **F0:** técnico interno cerrado; tails externos.
 - **F1:** core técnico cerrado; D10.1 externo + D10.2 RO.
-- **F2:** 12.1 runtime residual; 13.1 frozen; 14.1 activo AAA059; 14.2–15 abiertos.
-- **F3:** 17.1/17.2/18.1 integrated; 18.2 partial software integrated/global open; #78 harness integrated; target 80/160 decided but runtime unverified; #75 exact-base/exact-head green but unmerged.
+- **F2:** 12.1 runtime residual; 13.1 frozen; 14.1 activo AAA060; 14.2–15 abiertos.
+- **F3:** 17.1/17.2/18.1 integrated; 18.2 partial software integrated/global open; #78 harness integrated; target 80/160 decidido pero runtime unverified; #75 exact-base/exact-head mergeable pero unmerged.
 - **F4:** windows/import integrated; auth/review frozen; #79 fallback-only; remaining 25.1 + D22/D23 open.
 - **F5:** `NO ABRIR`.
 
-## PLAN SYNC — CYCLE 063
+## PLAN SYNC — CYCLE 064
 
 Actualizados por JOBS:
 - `!!!PLAN/Plan Maestro.md`;
@@ -100,17 +100,17 @@ Actualizados por JOBS:
 - `!!!PLAN/Fase 3 - Producción pagos y operación.md`;
 - `!!!PLAN/Fase 4 - Desktop y release chain.md`;
 - `!!!PLAN/Equipo multi-IA - Roles y coordinación.md`;
-- `!!!PLAN/NOCHE - AAA.md` → `NIGHT-AAA-059`;
-- `!!!PLAN/NOCHE - BBB.md` → `NIGHT-BBB-058`;
-- `!!!PLAN/NOCHE - WOZ.md` → `NIGHT-WOZ-062`;
-- `!!!PLAN/NOCHE - JOBS.md` → CYCLE 063.
+- `!!!PLAN/NOCHE - AAA.md` → `NIGHT-AAA-060`;
+- `!!!PLAN/NOCHE - BBB.md` → `NIGHT-BBB-059`;
+- `!!!PLAN/NOCHE - WOZ.md` → `NIGHT-WOZ-063`;
+- `!!!PLAN/NOCHE - JOBS.md` → CYCLE 064.
 
-F0/F1 no cambiaron porque no hubo nueva evidencia externa. Registro de avances fue leído; no se añadió PASS/merge inexistente. `Plan Maestro 2208 copy DONT TOUCH .md` untouched. JOBS no modificó código BeatGaler ni infraestructura.
+F0/F1 no cambian porque no hubo nueva evidencia externa. Registro de avances fue leído; no se añade PASS/merge inexistente. `Plan Maestro 2208 copy DONT TOUCH .md` untouched. JOBS no modificó código BeatGaler ni infraestructura.
 
 ## SIGUIENTE CICLO
 
 1. Releer integration HEAD.
-2. Procesar AAA059/BBB058/WOZ062 una sola vez.
+2. Procesar AAA060/BBB059/WOZ063 una sola vez.
 3. Si #75 mergea, cualquier candidate restante debe reconciliarse al nuevo baseline antes de integración.
 4. Para 20.2, aceptar solo evidencia realmente atribuible a 160; synthetic/local-only no cierra capacidad.
 5. No reintentar #69/#70/#72/#74/#76 mientras blockers no cambien factual.
@@ -118,15 +118,15 @@ F0/F1 no cambiaron porque no hubo nueva evidencia externa. Registro de avances f
 7. No abrir F5.
 
 ```text
-CYCLE_ID: NIGHT-JOBS-063
+CYCLE_ID: NIGHT-JOBS-064
 INTEGRATION_HEAD: 63c9f8c948b1e05c30b12378ab1f31ceb04259c2
-AAA_RESULT_PROCESSED: NIGHT-AAA-058 NO_RESULT -> SUPERSEDED
-BBB_RESULT_PROCESSED: NIGHT-BBB-057 NO_RESULT -> SUPERSEDED
-WOZ_RESULT_PROCESSED: NIGHT-WOZ-061 NO_RESULT -> SUPERSEDED
+AAA_RESULT_PROCESSED: NIGHT-AAA-059 NO_RESULT -> SUPERSEDED
+BBB_RESULT_PROCESSED: NIGHT-BBB-058 NO_RESULT -> SUPERSEDED
+WOZ_RESULT_PROCESSED: NIGHT-WOZ-062 NO_RESULT -> SUPERSEDED
 MERGE_ACCEPTED_THIS_CYCLE: none
-AAA_NEW: NIGHT-AAA-059
-BBB_NEW: NIGHT-BBB-058
-WOZ_NEW: NIGHT-WOZ-062
+AAA_NEW: NIGHT-AAA-060
+BBB_NEW: NIGHT-BBB-059
+WOZ_NEW: NIGHT-WOZ-063
 CI_FALLBACKS: F2-14.2-READ_ONLY / F4-25.2-#79-REFRESH-CI-NO-MERGE / NONE
 SERIALIZED_INTEGRATION: #75 only
 DUPLICATE_WORK: prevented
@@ -135,4 +135,4 @@ CODE_OR_INFRA_MUTATION_BY_JOBS: none
 RELEASE: NO-GO
 ```
 
-**STOP:** ciclo JOBS 063 termina después del final race-check y publicación del handoff de coordinación.
+**STOP:** ciclo JOBS 064 termina después del final race-check y publicación del handoff de coordinación.
