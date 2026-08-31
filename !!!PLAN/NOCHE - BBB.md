@@ -6,63 +6,48 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-079`
+- `ASSIGNMENT_ID: NIGHT-BBB-080`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F4 / 25.1 — Windows auth authoritative journey on refreshed #74`
+- `AREA: F4 / 25.1 — make Windows auth harness attributable to refreshed #74 lineage`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-BBB-078 = WAITING_CI; refresh itself is accepted as factual work, but WINDOWS_AUTH_CURRENT_EVIDENCE_READY was NOT earned.`
-- `REUSE_EVIDENCE: #71 fail-before; #74 refreshed head b3468003a80288109e2d537a7aa3f25a7269927c.`
-- `POSTCHECK_BY_JOBS: exact-head runs on b3468003... completed: Desktop Portability 33396503472 SUCCESS; D6 33396503463 SUCCESS; D7 33396503465 SUCCESS; Web Production Build 33396503570 SUCCESS; Upgrade 21.2 Staging 33396503568 SKIPPED.`
+- `PREDECESSOR: NIGHT-BBB-079 = BLOCKED_STOP; historical #71 Windows auth harness cannot prove refreshed #74 because it executes old/diverged head.`
+- `REUSE_EVIDENCE: #71 fail-before run 33313675968 / job 99263095638; #74 refreshed head b3468003a80288109e2d537a7aa3f25a7269927c; exact-head generic CI green.`
 - `SERIALIZATION: BBB MUST NOT mutate integration. WOZ/#83 owns the only integration mutation.`
 
 ### PRIMARY
 
-**F4 / 25.1 — run the literal packaged Windows auth journey against refreshed corrective lineage.**
+**F4 / 25.1 — bounded test-only/history-preserving exact-lineage Windows auth proof.**
 
-1. Fresh preflight integration + Issue #41 + #74 exact base/head + duplicate-check.
-2. Reuse #71 harness and fail-before evidence; do not rebuild the harness unless a minimal attributable compatibility fix is strictly required.
-3. Prove the authoritative packaged Windows Desktop login session-persistence/reauth journey against #74 head `b3468003...` (or its exact successor only if BBB itself must make a bounded test-only compatibility change).
-4. Evidence must show the literal prior failure is gone: returned session token persists through the packaged Tauri runtime path and the auth gate exits as expected.
-5. If any head changes, run fresh exact-head applicable CI before claiming readiness.
-6. NO MERGE. Do not touch #83, F3/20.2, AAA F2/13.2, #72, signing/notarization or provider resources.
-7. Maximum claim: `F4/25.1 WINDOWS_AUTH_CURRENT_EVIDENCE_READY`; not global 25.1 closure.
-8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+1. Fresh preflight integration + Issue #41 + #71/#74 exact heads + duplicate-check.
+2. Do not accept generic #74 CI as auth evidence and do not rerun the old #71 job as proof for #74.
+3. Create or refresh only the minimum BBB-owned test/workflow lineage **from exact #74 head `b3468003...`** needed to run the existing #71 packaged Windows auth journey without altering #74 product logic.
+4. Prefer reuse/cherry-pick of harness/workflow-only commits or an existing workflow-dispatch mechanism. No product auth rewrite unless a new factual harness-only incompatibility makes execution impossible; in that case STOP and report.
+5. Run the literal packaged Windows/Tauri auth assertions attributable to that exact lineage: returned session token persists and auth gate exits; include reauth/session persistence as already encoded by the harness where applicable.
+6. If the test-only head moves, require fresh exact-head applicable CI before claiming readiness.
+7. **NO MERGE.** Do not touch #83, F3/20.2, AAA F2/13.2, #72, signing/notarization or provider resources.
+8. Maximum claim: `F4/25.1 WINDOWS_AUTH_CURRENT_EVIDENCE_READY`; not global 25.1 closure.
+9. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** exact base/head; packaged Windows environment; #71 harness identity; literal auth assertions; run/job IDs/log excerpt; exact-head CI if head moved; explicit remaining NOT_COVERED journeys.  
-**STOP:** external hardware/credential dependency, harness cannot be attributed to refreshed lineage, product scope beyond #74 corrective, integration race, duplicate owner, or non-attributable CI failure.
+**Required evidence:** exact #74 product head; exact BBB test-only head; changed files proving harness/workflow-only scope; packaged Windows environment; #71 harness identity; literal auth assertions; run/job IDs/log excerpt; exact-head CI; explicit remaining NOT_COVERED journeys.  
+**STOP:** test-only portability cannot be achieved without product changes outside #74, external hardware/credential dependency, duplicate owner, integration mutation would be required, scope overlaps AAA Review/#72, or CI failure cannot be attributed.
 
 ### CI-FALLBACK
 
-`CI-FALLBACK: NONE` — no safe independent F4 lane is both useful and non-overlapping while windows/auth is active; #72 Review materially depends on active AAA Review work and remains frozen.
+`CI-FALLBACK: NONE` — no independent F4 lane is both useful and non-overlapping while windows/auth is active; #72 Review materially depends on active AAA Review work and remains frozen.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
 ### NIGHT-BBB-079
 
-PRIMARY:
 - `STATUS: BLOCKED_STOP`
 - `baseline: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `branch/head: #74 bbb/task-25.1-auth-corrective @ b3468003a80288109e2d537a7aa3f25a7269927c; #71 harness branch bbb/night-25.1-windows-auth @ 29656aa0a040043934380c97e0145608c69e8daf`
-- `PR: #74 corrective lineage + #71 harness; NO MERGE`
-- `cambios: none. Preflight/duplicate-check read-only; no integration mutation and no speculative harness rebuild.`
-- `tests: reused #71 fail-before run 33313675968 / job 99263095638. Literal Windows runner reached packaged Tauri auth assertion and failed: "Desktop login did not persist the returned session token." #74 post-refresh generic exact-head checks are green per JOBS, but they do not execute the authoritative auth journey.`
-- `CI: no valid fresh auth run attributable to b3468003 was available. Re-running job 99263095638 would execute old exact head 29656aa and cannot prove refreshed #74.`
-- `evidencia: integration fresh head remained 816f946c09d998ee5a045b3e70b2fe4f3a4160d0. #71 is OPEN/Ready at 29656aa0... with historical Windows Auth run 33313675968 FAILURE. Comparison b3468003...29656aa is diverged (merge-base 02a40564...), so the old harness run cannot be attributed to refreshed corrective head. Historical failure is specifically token persistence at tests/e2e/auth-flow.e2e.mjs:64 after packaged Windows/Tauri build.`
-- `UNVERIFIED: returned session token persistence on b3468003; auth gate exit on b3468003; reauth/session persistence across refreshed packaged Windows runtime; remaining 25.1 journeys not promoted by this turn.`
-- `blockers: assignment STOP condition reached: harness cannot presently be attributed to refreshed lineage using a valid exact-head Windows auth execution without changing lineage/trigger. A rerun of historical #71 is invalid evidence; integration mutation is forbidden and owned by WOZ/#83.`
+- `#74: b3468003a80288109e2d537a7aa3f25a7269927c`
+- `#71 harness: 29656aa0a040043934380c97e0145608c69e8daf`
+- `fail-before: run 33313675968 / job 99263095638 — Desktop login did not persist returned session token`
+- `finding: #71 and #74 histories diverge; rerunning historical #71 cannot prove refreshed #74.`
+- `UNVERIFIED: token persistence + gate exit on refreshed #74 packaged Windows lineage.`
+- `RECOMMENDATION_TO_JOBS: authorize bounded successor making #71 harness executable on exact #74 lineage.`
+- `CI-FALLBACK: NONE / NOT_EXECUTED`.
 
-CI-FALLBACK:
-- `STATUS: NOT_EXECUTED`
-- `branch/head: n/a`
-- `PR: n/a`
-- `cambios: none`
-- `tests: none`
-- `evidencia: JOBS explicitly wrote CI-FALLBACK: NONE.`
-- `UNVERIFIED: n/a`
-- `blockers: fallback absent by explicit assignment.`
-- `STOP alcanzado: yes — PRIMARY attribution STOP; fallback NONE.`
-
-**Recomendación para JOBS:** keep `WINDOWS_AUTH_CURRENT_EVIDENCE_READY` false. Issue a bounded successor that makes the #71 harness executable on the exact #74 corrective lineage (test-only/history-preserving if appropriate) or provides an authorized exact-head workflow-dispatch path for b3468003; then require literal Windows auth PASS showing token persistence + gate exit. Do not accept generic green #74 CI as substitute and do not merge from this result.
-
-- `NIGHT-BBB-078`: `WAITING_CI` after safe history-preserving #74 refresh to `b3468003...`; post-turn CI is now green, but authoritative Windows auth journey remains UNVERIFIED.
+- `NIGHT-BBB-078`: safe history-preserving #74 refresh to `b3468003...`; exact-head Desktop Portability/D6/D7/Web Build later green, but auth journey unverified.
 - `NIGHT-BBB-075`: PASS for #79 docs-only readiness artifact merge only; no global 25.2 closure.
