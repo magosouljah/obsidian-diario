@@ -7,7 +7,7 @@
 ## ASIGNACIÓN VIGENTE
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-094`
-- `ASSIGNMENT_STATUS: ASSIGNED`
+- `ASSIGNMENT_STATUS: BLOCKED`
 - `AREA: F2 / 15.1 — Trash destructive-action gap, audit-first/minimum corrective`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
 - `PREDECESSOR: NIGHT-WOZ-093 has no final RESULTADO DEL TURNO or matching material Issue #41 handoff at JOBS CYCLE 095 preflight; superseded / NOT_PASS.`
@@ -40,8 +40,43 @@
 - **Evidence required:** dated lookup/source for each fact; explicit `UNVERIFIED` for anything requiring AWS/provider console, secret OAuth configuration, sender verification or deployment credentials.
 - **STOP:** any action would change DNS/provider/infra, require credentials/secrets, touch #76/legal copy, infer a private provider fact, or overlap another owner. Return to PRIMARY after the CI wait and recheck its exact head/status before closing.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-094
+
+### PRIMARY
+
+- `Assignment ID:` `NIGHT-WOZ-094`
+- `STATUS:` `BLOCKED_STOP / F2-15.1 EMPTY_TRASH_AUDIT`
+- `baseline:` `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0` verified live.
+- `branch/head:` none / exact baseline.
+- `PR:` none.
+- `cambios:` none. REUSE-FIRST audit found the existing beat purge path; no second architecture created.
+- `tests:` not run; STOP was reached before an authorized candidate existed.
+- `CI:` not run; no changed head exists.
+- `evidencia:` current `SettingsPanel.emptyTrash()` checks online state, immediately clears visible Trash, then calls `platform.trash.purgeBeats()` and reconciles through `platform.trash.listBeats()`. Its own source comment states the action has no native confirmation dialog. Failure attempts to restore the real Trash list. `PlatformTrashPort` already exposes `purgeBeats/listBeats/restoreBeat`, but exposes no recent-reauth capability. `emptyPresetTrash()` separately uses `confirm(...)`, so beat Empty Trash is materially weaker. Current AccountGate/session surface inspected does not expose a bounded recent-reauth API reusable from SettingsPanel without auth/session implementation work. Issue #41 handoff: `5483612373`.
+- `UNVERIFIED:` server/provider permanent-delete semantics beyond the existing client contract; any private/backend recent-reauth capability not exposed by the inspected frontend/platform contract; full remainder of F2/15.1.
+- `blockers:` strong confirmation and recent reauth are not satisfied. Satisfying recent reauth requires auth/session ownership work forbidden to WOZ by this assignment. Immediate optimistic row removal before purge completion also fails the requested deterministic/no-false-success action boundary despite later reconciliation.
+- `condición de STOP alcanzada:` auth/session implementation change needed to satisfy recent-reauth requirement.
+- `recomendación para JOBS:` route/provide a bounded reusable recent-reauth API under the auth owner, then reassign only minimum SettingsPanel confirmation + reauth wiring + deterministic non-optimistic success/failure tests. Preserve existing Trash purge architecture. No merge/integration mutation.
+
+### CI-FALLBACK
+
+- `Assignment ID:` `NIGHT-WOZ-094 / F3-19.1 fallback`
+- `STATUS:` `NOT_EXECUTED`
+- `baseline:` same exact live baseline.
+- `branch/head:` none.
+- `PR:` none.
+- `cambios:` none.
+- `tests:` n/a.
+- `CI:` n/a.
+- `evidencia:` PRIMARY never entered `WAITING_CI` or `WAITING_EXTERNAL`; it hit its explicit auth/session STOP during audit.
+- `UNVERIFIED:` unchanged F3/19.1 private/provider facts.
+- `blockers:` fallback activation condition was not met.
+- `condición de STOP alcanzada:` fallback forbidden unless PRIMARY genuinely waits on CI/external validation.
+- `recomendación para JOBS:` no fallback credit; process PRIMARY blocker only.
+
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
+- `NIGHT-WOZ-094`: BLOCKED_STOP / F2-15.1 Empty Trash audit; existing purge reused, but strong confirmation + recent-reauth gap proven; auth/session change required and out of scope.
 - `NIGHT-WOZ-093`: NO_RESULT at CYCLE 095 preflight; no material Trash candidate/handoff; superseded; NOT_PASS.
 - `NIGHT-WOZ-092`: BLOCKED_STOP / TOOLING_EXTERNAL on #83 supported Draft→Ready connector failure; #83 remains parked and must not be retried absent a material path change.
 - `NIGHT-WOZ-090`: BLOCKED_STOP on unavailable real-browser execution surface.
