@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 093:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Integración estable CYCLE 094:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -17,14 +17,14 @@
 - #74 es la única product-corrective lineage actual, head `d1593d368e1015abb6a25bf98e5fa8586664ac95`, base `816f946c...`. La corrective vigente reconoce `window.__TAURI__` además de `__TAURI_INTERNALS__` y origins Tauri-owned.
 - #84 es el único evidence candidate exact-lineage actual, head `c6c5ecb17e1efd055cb9a8f2bc42105ef3838d61`, OPEN/Ready/mergeable, base `816f946c...`.
 - Compare exacto prueba que #84 **contiene** el head actual #74 `d1593d3...` y está 3 commits por delante; por tanto la evidencia no está probando una corrective vieja.
-- Exact #84 head: Desktop Portability `33423712599` SUCCESS; D6 `33423712621` SUCCESS; D7 `33423712587` SUCCESS; Web Production Build `33423712565` SUCCESS; Windows Import Journey `33423712584` SUCCESS.
+- Exact #84 head: Desktop Portability / Required CI `33423712599` SUCCESS; D6 `33423712621` SUCCESS; D7 `33423712587` SUCCESS; Web Production Build `33423712565` SUCCESS; Windows Import Journey `33423712584` SUCCESS.
 - Literal Windows Auth Journey `33423712589` / job `99592060690` = **FAILURE**. El runner empaquetado llegó a `tests/e2e/auth-flow.e2e.mjs:64` y falló: `Desktop login did not persist the returned session token.`
-- `NIGHT-BBB-087` produjo movimiento factual de la lineage pero no dejó un resultado final correctamente etiquetado en el night ledger. Su WAITING_CI ya no es actual: CI resolvió rojo. Procesado PARTIAL_LIVE_EVIDENCE / NOT_PASS.
-- `NIGHT-BBB-088` recibe ownership exclusivo #74/#84 para atribuir el **primer límite causal** del fallo actual antes de otro cambio, hacer como máximo la corrección mínima demostrada, refrescar #84 exacto y exigir token persistence + AccountGate exit con fresh exact-head CI. **NO MERGE.**
+- `NIGHT-BBB-088` no dejó resultado final/handoff y #74/#84 no muestran movimiento posterior a los hechos ya procesados en CYCLE 093. Procesado `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-BBB-089` recibe ownership exclusivo #74/#84 para atribuir el **primer límite causal** del fallo actual antes de otro cambio, hacer como máximo la corrección mínima demostrada, refrescar #84 exacto y exigir token persistence + AccountGate exit con fresh exact-head CI. **NO MERGE.**
 
 ### windows/review
 
-#72 sigue OPEN/stale/frozen. No pertenece a BBB088 y su Review surface materialmente overlap con AAA089.
+#72 sigue OPEN/stale/frozen. No pertenece a BBB089 y su Review surface materialmente overlap con AAA090.
 
 ## Día 22 / 23
 
@@ -38,4 +38,4 @@ Integrated rows conocidas: `windows/import`, `windows/updater`, `macos/updater` 
 ### 25.2 — `[ 🟡 ] READINESS ARTIFACT INTEGRATED / GLOBAL OPEN`
 PR #79 docs-only readiness artifact ya está integrado. Gate real sigue pendiente de beta/tester execution, 0 P0 y ningún P1 core conocido, además de release-chain evidence aplicable.
 
-**Owner CYCLE 093:** BBB `NIGHT-BBB-088` sobre la lineage #74/#84. Autoridad limitada a diagnóstico causal + producto auth mínimo atribuible + evidencia packaged Windows exact-head. BBB no está autorizado a mutar integration.
+**Owner CYCLE 094:** BBB `NIGHT-BBB-089` sobre la lineage #74/#84. Autoridad limitada a diagnóstico causal + producto auth mínimo atribuible + evidencia packaged Windows exact-head. BBB no está autorizado a mutar integration. CI-FALLBACK NONE.
