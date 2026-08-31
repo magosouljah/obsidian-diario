@@ -7,29 +7,28 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-057`
+- `ASSIGNMENT_ID: NIGHT-AAA-058`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 14.1 — REUSE-FIRST media streaming/memory slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`
-- `PREDECESSOR: NIGHT-AAA-056 had no final RESULTADO DEL TURNO, Issue #41 handoff, PR/head change or other verifiable artifact before JOBS CYCLE 061; SUPERSEDED and MUST NOT execute late.`
-- `RECALCULATION: selected again from zero because 14.1 remains the highest-value dependency-safe internal F2 slice and no newer owner/candidate exists.`
-- `HOLD_PR: #69 @ b2ab75ae... — STOP_WRITE_SURFACE / DO NOT TOUCH.`
-- `HOLD_PR: #70 @ 5a99ebf2... — safe-write + stale / DO NOT TOUCH.`
-- `SERIALIZATION: WOZ/#75 owns the only integration mutation in CYCLE 061. AAA must not merge or move integration this cycle.`
+- `PREDECESSOR: NIGHT-AAA-057 had no final RESULTADO DEL TURNO, Issue #41 handoff, branch/PR/head change or other verifiable artifact before JOBS CYCLE 062; SUPERSEDED and MUST NOT execute late.`
+- `RECALCULATION: selected from zero because 14.1 remains the highest-value dependency-safe internal F2 slice and no newer owner/candidate exists.`
+- `HOLD: #69/#70 frozen; do not touch.`
+- `SERIALIZATION: AAA MUST NOT merge or move integration in CYCLE 062.`
 
 ### PRIMARY
 
-1. Preflight live integration and duplicate-check F2/14.1. Audit existing Web playback/download/media code before creating anything.
-2. REUSE-FIRST: map literal support for HTTP Range/streaming, MediaSource or equivalent progressive playback, cancellation/resume, buffer release and object-URL cleanup.
-3. Implement only the smallest independent product-safe slice that closes a literal 14.1 gap on live integration. Prefer existing abstractions; no Player redesign.
-4. Required behavior: giant media must not require full-file RAM loading; safe fallback when streaming primitive is unavailable; cancellation/unmount releases buffers/object URLs/resources.
-5. Add focused tests proving only changed behavior. Do not fabricate browser/provider runtime evidence.
-6. Run fresh applicable exact-head CI. Leave structured handoff; do not race integration in CYCLE 061.
-7. Do not touch #69/#70/#72/#74/#75/#76/#79 branches or owned/frozen files; no auth/legal/billing/infra/provider changes.
+1. Preflight live integration and duplicate-check F2/14.1.
+2. REUSE-FIRST audit existing Web playback/download/media paths for HTTP Range/progressive streaming, cancellation/resume, buffer release and object-URL cleanup.
+3. Implement only the smallest independent product-safe slice that closes a literal 14.1 gap. No Player redesign.
+4. Required behavior: giant media must not require full-file RAM loading; fallback remains safe when streaming primitive is unavailable; cancellation/unmount releases buffers/object URLs/resources.
+5. Add focused tests for changed behavior only and run fresh applicable exact-head CI.
+6. Do not fabricate browser/provider runtime evidence; mark it UNVERIFIED where not actually run.
+7. Do not touch #69/#70/#72/#74/#75/#76/#79 or auth/legal/billing/infra/provider scope.
 8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
 **Required evidence:** exact live base; reused paths/symbols; changed files; focused tests; fresh exact-head CI; explicit UNVERIFIED runtime/browser gaps.  
-**STOP:** implementation already satisfies 14.1; broad redesign/provider/infra work required; overlap; unsafe write flow; baseline race; or non-attributable CI red.
+**STOP:** behavior already satisfies 14.1; broad redesign/provider/infra required; overlap; unsafe write flow; baseline race; or non-attributable CI red.
 
 ### CI-FALLBACK
 
@@ -41,12 +40,11 @@
 
 ## RESULTADOS PROCESADOS
 
+- `NIGHT-AAA-057`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 062.
 - `NIGHT-AAA-056`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 061.
-- `NIGHT-AAA-055`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 060.
 - `NIGHT-AAA-043`: `PENDING / STOP_WRITE_SURFACE`; #69 frozen.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-057`: ASSIGNED — F2/14.1 minimum media streaming/memory slice; 14.2 read-only CI fallback.
-- `NIGHT-AAA-056`: NO_RESULT / SUPERSEDED_BY_JOBS.
-- `NIGHT-AAA-055`: NO_RESULT / SUPERSEDED_BY_JOBS.
+- `NIGHT-AAA-058`: ASSIGNED — F2/14.1 minimum media streaming/memory slice; 14.2 read-only CI fallback.
+- `NIGHT-AAA-057`: NO_RESULT / SUPERSEDED_BY_JOBS.
