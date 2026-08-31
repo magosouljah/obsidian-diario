@@ -39,8 +39,43 @@
 **Evidencia requerida:** exact baseline; scenario → existing code/test/provider-proof mapping; `PASS_SOFTWARE / GAP_PROVIDER / GAP_TEST / UNVERIFIED`; smallest independent next evidence action.  
 **STOP:** any write/provider call; overlap with waitlist paths; attempt to close 18.2 without provider evidence; PRIMARY leaves waiting state. Recheck PRIMARY before closing.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-074
+
+### PRIMARY
+
+- `Assignment ID:` NIGHT-WOZ-074
+- `STATUS:` WAITING_CI
+- `baseline:` integration-v0.8.0-alpha.1 @ `957f97771b7a15554cf6e002fe9eb215c71a65cc` (fresh preflight matched assignment baseline).
+- `branch/head:` `woz/night-074-durable-waitlist` @ `52b58f56d66430db1ecdce9f572680c61d5d9fe3`.
+- `PR:` #83 draft/open; NO MERGE.
+- `cambios:` added `cloud-server/durable-user-waitlist.js`, `cloud-server/tests/durable-user-waitlist.test.cjs`, `.github/workflows/f3-20.2-durable-waitlist.yml`. Store is atomic JSON with mode 0600, schema v1 containing only `id`, `tenant_id`, `user_id`, `enqueued_at`, `claimed_at`; idempotent tenant/user enqueue, FIFO tenant claim, stale-claim recovery, tenant-scoped dequeue, strict corrupt/unknown-field fail-closed parsing. Existing #78 capacity harness and transport logic were not rebuilt.
+- `tests:` focused exact-head test executed by workflow and PASS; covers persistence across re-instantiation/restart, FIFO order, duplicate suppression, tenant isolation, cross-tenant dequeue denial, stale-claim recovery, no token/secret/media/payload/storageChatId persistence, corrupt JSON and forbidden-field fail-closed.
+- `CI:` dedicated `F3 20.2 Durable Waitlist` run `33374728945` on exact head = SUCCESS. PR-wide checks/Required CI were still external/in-progress at the one allowed final recheck; PRIMARY therefore remains WAITING_CI.
+- `evidencia:` PR #83 exact base/head; workflow run `33374728945`; Issue #41 handoff `5476019571`. Duplicate-check found historical #26 in-memory bounded waitlist but no equivalent durable user waitlist on live tree; #79 is F4/25.2 docs-only and does not overlap changed paths.
+- `UNVERIFIED:` real 160-concurrent runtime; latency/error/queue/recovery measurements; safety margin; production/admission runtime wiring of this isolated store; completion of full PR Required CI.
+- `blockers:` external PR CI only for this turn; serialization explicitly forbids WOZ integration mutation this cycle.
+- `condición de STOP alcanzada:` PRIMARY code-complete entered verifiable WAITING_CI; after independent fallback, one factual recheck still showed PR-wide checks in progress. No merge attempted.
+- `recomendación para JOBS:` keep #83 unmerged until exact-head required CI is green; then explicitly assign the integration/runtime-wiring decision. Do not mark F3/20.2 PASS until real 160-concurrent runtime/latency/error/queue/recovery/safety-margin evidence exists.
+
+### CI-FALLBACK
+
+- `Assignment ID:` NIGHT-WOZ-074 / CI-FALLBACK
+- `STATUS:` DONE_READ_ONLY
+- `baseline:` integration-v0.8.0-alpha.1 @ `957f97771b7a15554cf6e002fe9eb215c71a65cc`.
+- `branch/head:` none; read-only against live baseline.
+- `PR:` none.
+- `cambios:` none.
+- `tests:` no tests executed; inspected existing billing checkout/reconciliation tests only.
+- `CI:` N/A read-only.
+- `evidencia:` existing software proves server-owned checkout metadata/idempotency/fail-closed provider errors plus reconciliation match/divergence/replay/ambiguous/provider-failure behavior. Scenario map: `3DS = GAP_PROVIDER/GAP_TEST`; `rejection = GAP_PROVIDER` (software provider-error fail-closed exists, no provider scenario proof); `late payment = GAP_PROVIDER/GAP_TEST`; `renewal = GAP_PROVIDER/GAP_TEST`; `cancel = GAP_PROVIDER/GAP_TEST`; `upgrade = GAP_PROVIDER/GAP_TEST`; `downgrade = GAP_PROVIDER/GAP_TEST`; `refund = GAP_PROVIDER/GAP_TEST`; `grace periods = GAP_PROVIDER/GAP_TEST`.
+- `UNVERIFIED:` all nine real provider scenario outcomes; no provider calls were made.
+- `blockers:` provider/sandbox evidence absent by design; fallback authority was READ-ONLY.
+- `condición de STOP alcanzada:` completed literal evidence-gap map without writes/provider calls and did not claim 18.2 closure; returned to PRIMARY and rechecked once.
+- `recomendación para JOBS:` smallest independent next evidence action for 18.2 is an isolated provider sandbox scenario matrix/evidence run when explicitly assigned; software tests alone must not be promoted to provider PASS.
+
 ## RESULTADOS PROCESADOS
 
+- `NIGHT-WOZ-074`: WAITING_CI / PR #83 exact head `52b58f56d66430db1ecdce9f572680c61d5d9fe3`; dedicated CI PASS, full PR CI pending; fallback 18.2 gap map DONE_READ_ONLY.
 - `NIGHT-WOZ-073`: NO_RESULT before this cycle; superseded by JOBS074 after fresh critical-path recalculation, not PASS.
 - `NIGHT-WOZ-072`: NO_RESULT; superseded historically.
 - `NIGHT-WOZ-070`: DONE / INTEGRATED; PR #75 merged as `5e117d69dba852d544cc1fee805eff55ffa820eb`; F3/20.1 software observability integrated; external tails remain UNVERIFIED.
