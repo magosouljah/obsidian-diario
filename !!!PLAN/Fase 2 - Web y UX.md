@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE 064:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
+**Baseline vivo CYCLE 065:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
 
 ## Estado actual
 
@@ -33,14 +33,14 @@ No existe resultado final aceptable que cierre este audit.
 
 ## Día 14
 
-### 14.1 — `[ 🟡 ] ASSIGNED AAA060`
+### 14.1 — `[ 🟡 ] ASSIGNED AAA061`
 - [ ] MediaSource/Range o equivalente progresivo + fallback seguro.
 - [ ] evitar archivos gigantes completos en RAM.
 - [ ] cancel/resume seguro y liberar buffers/object URLs.
 
-`NIGHT-AAA-059` no produjo resultado final verificable antes de CYCLE 064 y queda superseded. `NIGHT-AAA-060` fue recalculado desde cero como el slice F2 interno dependency-safe de mayor valor. REUSE-FIRST sobre live integration; solo implementación mínima literal; no Player redesign ni #69/#70. AAA no puede mutar integration en CYCLE 064.
+`NIGHT-AAA-060` no produjo resultado final verificable antes de CYCLE 065 y queda superseded. `NIGHT-AAA-061` fue recalculado desde cero como el slice F2 interno dependency-safe de mayor valor. REUSE-FIRST sobre live integration; solo implementación mínima literal; no Player redesign ni #69/#70. AAA no puede mutar integration en CYCLE 065.
 
-### 14.2 — `[ ] / CONDITIONAL READ-ONLY FALLBACK AAA060`
+### 14.2 — `[ ] / CONDITIONAL READ-ONLY FALLBACK AAA061`
 - [ ] índice activo/shortcuts/seek/shuffle/repeat/error recoverable.
 - [ ] queue/volumen responsive.
 - [ ] Safari/Firefox/Chrome/iPhone, red degradada.
