@@ -41,3 +41,37 @@
 - `NIGHT-WOZ-087`: NO_RESULT at CYCLE 089 preflight; superseded; NOT_PASS.
 - `NIGHT-WOZ-086`: BLOCKED_STOP / F3 19.1 evidence reconciled. Intended `beatgaler.com` surface identified from #76 but live DNS/TLS/API/status/OAuth/sender/deployment proof remains MISSING/UNVERIFIED; external owner/provider inventory/action required. No mutation.
 - `NIGHT-WOZ-085`: BLOCKED_STOP — #83 exact/green; old Ready action failed on connector GraphQL `Repository.fullDatabaseId`; no merge.
+
+## RESULTADO DEL TURNO — NIGHT-WOZ-088
+
+### PRIMARY
+
+- `Assignment ID:` NIGHT-WOZ-088
+- `STATUS:` BLOCKED_STOP
+- `baseline:` integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0; fresh preflight confirmed unchanged.
+- `branch/head:` woz/night-074-durable-waitlist @ 803b2143e6ea03f6549118e9241fee320dfccdee.
+- `PR:` #83 OPEN/DRAFT, mergeable=true, merged=false; exact base 816f946c09d998ee5a045b3e70b2fe4f3a4160d0; exact head 803b2143e6ea03f6549118e9241fee320dfccdee; changed_files=3.
+- `cambios:` no code changes and no integration mutation. Invoked only the dedicated authorized Draft→Ready action; it failed. Postcheck preserved identical PR state/head/base/scope.
+- `tests:` no new tests run; reuse-first of exact-head CI evidence.
+- `CI:` F3 20.2 Durable Waitlist run 33388377959 = completed/SUCCESS on exact head 803b2143e6ea03f6549118e9241fee320dfccdee and exact base 816f946c09d998ee5a045b3e70b2fe4f3a4160d0. Assignment records Desktop Portability 33388377963, D6 33388377952 and D7 33388377964 SUCCESS.
+- `evidencia:` fresh integration branch read; fresh PR #83 metadata; exact changed filenames `.github/workflows/f3-20.2-durable-waitlist.yml`, `cloud-server/durable-user-waitlist.js`, `cloud-server/tests/durable-user-waitlist.test.cjs`; workflow run 33388377959 exact-head SUCCESS; dedicated Ready action returned connector GraphQL error `Repository.fullDatabaseId` undefined; fresh post-action PR read remains OPEN/DRAFT and unmerged; Issue #41 handoff comment 5481554738.
+- `UNVERIFIED:` F3/20.2 runtime 160; latency/error/queue/recovery; no-loss/no-cross-tenant; measured safety margin versus 80. No claim of F3/20.2 closure.
+- `blockers:` dedicated Draft→Ready connector action fails because its GraphQL response selection requests nonexistent `Repository.fullDatabaseId`.
+- `condición de STOP alcanzada:` YES — explicit `Ready action failure` STOP. No workaround/bypass and therefore no merge attempted.
+- `recomendación para JOBS:` treat #83 exact-head integration transaction as externally/tooling blocked until the dedicated Ready action works; preserve candidate and exact-head evidence; do not claim durable waitlist integrated or F3/20.2 closed.
+
+### CI-FALLBACK
+
+- `Assignment ID:` NIGHT-WOZ-088
+- `STATUS:` NOT_EXECUTED
+- `baseline:` integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0.
+- `branch/head:` NONE.
+- `PR:` NONE.
+- `cambios:` NONE.
+- `tests:` NONE.
+- `CI:` NONE.
+- `evidencia:` assignment explicitly states `CI-FALLBACK: NONE`.
+- `UNVERIFIED:` no fallback evidence generated.
+- `blockers:` fallback intentionally absent; runtime 160 depends on successful #83 integration and F3/19.1 requires external owner/provider facts.
+- `condición de STOP alcanzada:` PRIMARY Ready action failure; no fallback authorized.
+- `recomendación para JOBS:` do not invent alternate work; issue a new assignment only after this result is processed.
