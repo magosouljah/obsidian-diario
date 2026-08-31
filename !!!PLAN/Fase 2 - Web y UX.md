@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas. GitHub/runtime vivo prevalece.
 
-**Baseline vivo CYCLE 098:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 100:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -16,7 +16,7 @@
 
 `NIGHT-WOZ-090` terminó `BLOCKED_STOP` sobre exact `816f946c...`: confirmó que el harness real usa Vite/WebdriverIO/headless Chrome, pero la superficie conectada disponible no puede lanzar checkout/Vite/WebdriverIO/Chrome. No hubo timings cold/warm, browser build ni runtime logs atribuibles. Issue #41 `5482199628`.
 
-**Owner CYCLE 098:** ninguno para 12.1. No reciclarlo en una superficie incapaz de ejecutar navegador real.
+**Owner CYCLE 100:** ninguno para 12.1. No reciclarlo en una superficie incapaz de ejecutar navegador real.
 
 ### 13.1 — `[ 🟡 ] IN PROGRESS / FROZEN`
 
@@ -32,20 +32,20 @@ No revivir #69/#70 automáticamente. Reuse helper-level solo dentro de assignmen
 Evidencia reusable:
 - `NIGHT-AAA-071`: auditoría READ-ONLY; gap de exhaustive executable Web/Tauri proof + Save All no-silent-loss.
 - Issue #41 `5478129410`: gap concreto en `src/App.tsx`: Review single Save y Save All pueden cerrar/avanzar antes de durable cloud completion/failure.
-- `NIGHT-AAA-093`: sin resultado final/handoff/candidate material al preflight CYCLE 098; superseded; NOT_PASS.
+- `NIGHT-AAA-095`: sin resultado final/handoff/candidate material al preflight CYCLE 100; superseded; NOT_PASS.
 
-**Owner CYCLE 098:** `NIGHT-AAA-094`.
+**Owner CYCLE 100:** `NIGHT-AAA-096`.
 - PRIMARY: mínimo corrective slice Review Save/Save All: esperar durable Web persistence, distinguir `saved/conflict/failed`, retry/no-silent-loss y focused executable tests + Web/Tauri/Desktop call-spies.
 - Puede reutilizar semantics/helper de #69 sin revivir ni apropiarse del PR.
 - Nueva branch/PR AAA bounded solo si duplicate-check sigue limpio; fresh exact-head CI; NO MERGE.
 - CI-FALLBACK: NONE.
 
-13.2 permanece OPEN aunque AAA094 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles.
+13.2 permanece OPEN aunque AAA096 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles.
 
 ## Día 14
 
 ### 14.1 — `[ 🟡 ] PARKED / #81 STALE`
-PR #81 conserva trabajo material limitado de playback Web, pero su historia/base está stale. No reabrir ni mutar mientras 13.2 tiene owner activo y el resto del camino crítico es más urgente.
+PR #81 conserva trabajo material limitado de playback Web, pero su base `5e117d69...` está stale respecto a integración viva. No reabrir ni mutar mientras 13.2 tiene owner activo y el camino crítico sigue por delante.
 
 ### 14.2 — `[ ]`
 - [ ] índice activo/shortcuts/seek/shuffle/repeat/error recoverable.
@@ -68,10 +68,10 @@ PR #81 conserva trabajo material limitado de playback Web, pero su historia/base
 - current AccountGate/session surface inspeccionado no expone una bounded reusable recent-reauth seam para SettingsPanel sin cambios auth/session.
 - Issue #41 `5483612373`.
 
-**Owner CYCLE 098:** ninguno para implementación 15.1.  
-**Blocker exacto:** proper auth/session owner debe exponer/reusar una seam bounded de recent reauth; después se puede reasignar la mínima wiring de strong confirmation + recent reauth + non-optimistic deterministic purge result. No cruzar BBB093 mientras éste sea owner de la investigación Windows auth actual.
+**Owner CYCLE 100:** ninguno para implementación 15.1.  
+**Blocker exacto:** proper auth/session owner debe exponer/reusar una seam bounded de recent reauth; después se puede reasignar la mínima wiring de strong confirmation + recent reauth + non-optimistic deterministic purge result. No cruzar BBB095 mientras éste sea owner de la investigación Windows auth actual.
 
-Esta evidencia no cierra 15.1 completo.
+Esta evidencia no cierra 15.1 completo. WOZ099 puede tocar únicamente la superficie legal de SettingsPanel bajo #76; no adquiere ownership de Trash/auth/session.
 
 ### 15.2
 - [ ] dialog/focus/live regions/labels/contraste/zoom/reduced motion.
