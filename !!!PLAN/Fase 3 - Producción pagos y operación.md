@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE 088:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 089:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado compacto
 
@@ -12,13 +12,13 @@
 - #78 capacity harness integrado; local/synthetic-only no satisface runtime 160.
 - #83 durable waitlist permanece OPEN/DRAFT, mergeable, head `803b2143e6ea03f6549118e9241fee320dfccdee`, base exact `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`, scope de 3 archivos.
 - Exact-head F3 20.2 Durable Waitlist `33388377959` SUCCESS; Desktop Portability/applicable Required-CI family `33388377963` SUCCESS; D6 `33388377952` SUCCESS; D7 `33388377964` SUCCESS.
-- `NIGHT-WOZ-086`: BLOCKED_STOP / 19.1 evidence reconciled. Intended domain `beatgaler.com` and `support@beatgaler.com` are attributable to #76 only as intended surfaces. Fresh read-only observation could not verify live DNS/TLS/API/status/OAuth/sender/deployment identity; those are external blockers, not inferred facts.
-- Current connector surface now exposes a dedicated authorized Draft→Ready action. `NIGHT-WOZ-087` owns the sole exact/race-free #83 Ready→merge transaction; no workaround/bypass allowed.
+- 19.1 sigue reducido a blockers externos: `beatgaler.com` intended pero DNS/TLS/API/status/OAuth/sender/deployment siguen no verificables.
+- `NIGHT-WOZ-088` owns the sole exact/race-free #83 Draft→Ready→merge transaction; no workaround/bypass allowed.
 - #76 legal/public routes permanece OPEN/stale/frozen.
 
-## Owner CYCLE 088
+## Owner CYCLE 089
 
-**WOZ — `NIGHT-WOZ-087` — F3 / 20.2 #83 integration transaction.**
+**WOZ — `NIGHT-WOZ-088` — F3 / 20.2 #83 integration transaction.**
 
 PRIMARY: recheck live integration + #83 exact base/head/scope/mergeability + exact-head CI; invoke only the dedicated Draft→Ready action; re-read; if unchanged and green, merge with exact expected head; verify final integration SHA; STOP. Maximum claim is durable-waitlist integrated only. Runtime 160 remains open.
 
@@ -27,7 +27,7 @@ CI-FALLBACK: NONE.
 ## Día 19
 
 ### 19.1 — `[ 🟡 ] PARTIAL / EXTERNAL`
-WOZ086 completed the useful read-only reconciliation. What is actually established:
+Useful read-only reconciliation is complete. What is actually established:
 - candidate legal/public surface #76 names `beatgaler.com`, `/privacy`, `/terms`, and `support@beatgaler.com`;
 - this does **not** prove production deployment, DNS, sender validity or OAuth validity;
 - fresh observation did not resolve/attribute live production DNS/TLS/API/status/OAuth/sender/deployment evidence.
@@ -35,7 +35,7 @@ WOZ086 completed the useful read-only reconciliation. What is actually establish
 Next progress requires external/provider-owner facts or actions: canonical production web/API hostnames, DNS records, status/support/security-abuse surfaces, actual registered OAuth callback destinations, SES sender-domain identity/verification status, and attributable deployment/provider identity. Do not keep repeating read-only guesses before those facts exist.
 
 ### 19.2 — `[ 🟡 ] FROZEN`
-Privacy/Terms candidate #76 existe, pero falta safe refresh, independent legal review, publication evidence y soporte operativo. WOZ087 no muta #76.
+Privacy/Terms candidate #76 existe, pero falta safe refresh, independent legal review, publication evidence y soporte operativo. WOZ088 no muta #76.
 
 ## Día 20
 
@@ -49,7 +49,7 @@ Structured redacted events, bounded counters, condition→route mapping, kill sw
 - [ ] latency target/result aplicable;
 - [ ] error/queue/recovery behavior demostrado;
 - [ ] safety margin medida contra 80;
-- [ 🟡 ] durable waitlist #83 exact-head CI green, still Draft/unmerged at CYCLE 088 preflight; WOZ087 owns the exact transaction.
+- [ 🟡 ] durable waitlist #83 exact-head CI green, still Draft/unmerged at CYCLE 089 preflight; WOZ088 owns the exact transaction.
 
 Aunque #83 se integre, 20.2 no cierra sin runtime 160 materialmente aplicable. Local/synthetic-only no se convierte en PASS.
 
