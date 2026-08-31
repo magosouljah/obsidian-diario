@@ -6,81 +6,47 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-078`
+- `ASSIGNMENT_ID: NIGHT-WOZ-079`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F3 / 20.2 — SAME #83 readiness/reconcile transaction; NO MERGE`
+- `AREA: F3 / 20.2 — real 160-concurrent runtime evidence, REUSE #78 harness; READ-ONLY/product-no-write unless literal evidence collection requires no repo mutation`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc`
-- `PRIMARY_PR: #83 draft/open @ 52b58f56d66430db1ecdce9f572680c61d5d9fe3`
-- `PREDECESSOR: NIGHT-WOZ-077 produced no RESULTADO DEL TURNO / new Issue #41 handoff before JOBS CYCLE 079; superseded, not PASS.`
-- `JOBS_PREFLIGHT_CYCLE_079: #83 exact base 957f9777... / exact head 52b58f56...; changed files only .github/workflows/f3-20.2-durable-waitlist.yml, cloud-server/durable-user-waitlist.js, cloud-server/tests/durable-user-waitlist.test.cjs; Required CI exact-head COMPLETED/SUCCESS.`
-- `SERIALIZATION: WOZ MUST NOT merge or mutate integration. BBB/#79 alone owns the possible integration mutation in CYCLE 079.`
+- `PREDECESSOR: NIGHT-WOZ-078 = BLOCKED_STOP. #83 remained exact/scoped + exact-head CI green but Draft→Ready connector path failed with Repository.fullDatabaseId schema error. No integration mutation.`
+- `PARKED_PR: #83 @ 52b58f56d66430db1ecdce9f572680c61d5d9fe3 remains OPEN/DRAFT on exact base 957f9777...; do not mutate it in this assignment.`
+- `SERIALIZATION: BBB/#79 alone may mutate integration in CYCLE 080. WOZ must not merge or modify #83/#79.`
 
 ### PRIMARY
 
-**F3 / 20.2 — preserve SAME #83 and make it ready against the live baseline without racing #79.**
+**F3 / 20.2 — obtain the missing materially applicable capacity evidence using the already-integrated #78 harness; do not build another harness.**
 
-1. Fresh preflight live integration, #83 exact base/head/delta, Issue #41 and duplicate-check.
-2. If integration is still exactly `957f97771b7a15554cf6e002fe9eb215c71a65cc`, reconfirm exact-head applicable CI remains green and transition Draft→Ready only if the authorized flow succeeds without head/base movement. Do not merge.
-3. If BBB/#79 has already moved integration, treat #83's old base as stale. Perform only the minimal history-preserving reconciliation of SAME #83 onto the new live integration; no force-push/rewrite. Resolve only literal conflicts within #83 ownership.
-4. After any reconciliation, verify delta remains limited to durable waitlist + its tests/workflow and obtain fresh exact-head applicable CI. Do not merge.
-5. Maximum claim: `#83 READY_FOR_INTEGRATION` only when base/head/delta and exact-head CI are verified. Never claim F3/20.2 PASS: real 160-concurrent runtime + latency/error/queue/recovery + measured safety margin remain mandatory.
-6. Do not touch #79/#81/#76/#69/#70 or provider/payment/signing resources.
-7. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+1. Fresh preflight integration + Issue #41 + duplicate-check; confirm #78 harness is already integrated and do not recreate it.
+2. Execute the existing capacity path only if the available environment is materially applicable to the canonical target: **80 expected simultaneous users / 160 validation users**.
+3. Collect verifiable results for: 160 concurrent users reached; latency distribution/target; error rate/types; queue/admission behavior; recovery behavior; unauthorized/cross-tenant behavior; data loss; and measured safety margin relative to 80 expected.
+4. Preserve exact runtime/environment identity and commands/config used, but do not expose secrets.
+5. If the only available execution is synthetic/local-only in a way that the plan already rejects as closing evidence, record `PENDING_EXTERNAL_RUNTIME` rather than manufacturing PASS.
+6. Do not touch #83 durable-waitlist candidate, #79, payment/provider config, infrastructure, DNS, or F2 files. No repo/code changes are authorized by PRIMARY.
+7. Maximum claim: `20.2 RUNTIME_EVIDENCE_PASS` only if evidence is materially applicable and all literal runtime criteria pass; otherwise `GAP`/`PENDING_EXTERNAL_RUNTIME`. Even a runtime PASS does not integrate #83 or close 20.2 while durable waitlist remains unintegrated.
+8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** live integration SHA; exact #83 base/head before/after; changed-file scope; reconciliation method if needed; exact-head workflow conclusions including Required CI; draft/ready state; explicit remaining runtime gaps.  
-**STOP:** conflict outside #83 ownership; head/base race; CI failure; scope drift; Draft→Ready flow blocked after green CI; any need to merge integration or rewrite history.
-
-### CI-FALLBACK
-
-**F3 / 19.1 — READ-ONLY deployment/domain evidence map.** Execute only if PRIMARY genuinely enters `WAITING_CI` after a reconciled/fresh #83 head has been established.
-
-- **Scope:** inspect existing production/public deployment evidence only for domain/API/status/support URLs, DNS/TLS, redirect/callback exactness and sender-domain evidence. No DNS/provider/resource mutations; no #76 changes.
-- **Required evidence:** exact public endpoints/config references observable safely from repo/GitHub/runtime, `PASS / GAP / UNVERIFIED` per 19.1 item, and smallest external action needed for each gap.
-- **STOP:** provider credential/action required; evidence cannot be observed safely; overlap with another owner; PRIMARY CI finishes, then return to PRIMARY before closing.
-- Fallback cannot close 19.1 and cannot substitute production/provider evidence.
-
-## RESULTADO DEL TURNO
-
-### PRIMARY
-
-- `Assignment ID:` `NIGHT-WOZ-078`
-- `STATUS:` `BLOCKED_STOP`
-- `baseline:` `integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc` (fresh preflight; unchanged from assignment).
-- `branch/head:` `woz/night-074-durable-waitlist @ 52b58f56d66430db1ecdce9f572680c61d5d9fe3`.
-- `PR:` `#83`, open, mergeable, still Draft; base SHA `957f97771b7a15554cf6e002fe9eb215c71a65cc`.
-- `cambios:` none in code/history/integration during this turn. Authorized Draft→Ready transition attempted once; connector action failed before transition.
-- `tests:` no new tests required because head/base did not move. Existing exact-head evidence retained.
-- `CI:` exact-head `Required CI` for `52b58f56d66430db1ecdce9f572680c61d5d9fe3` = `COMPLETED/SUCCESS`. Other observed applicable checks did not invalidate this conclusion.
-- `evidencia:` fresh integration branch read = exact `957f9777...`; PR #83 exact base/head verified; changed files exactly `.github/workflows/f3-20.2-durable-waitlist.yml`, `cloud-server/durable-user-waitlist.js`, `cloud-server/tests/durable-user-waitlist.test.cjs`; Issue #41 handoff comment `5477209087`; Draft→Ready action returned GraphQL schema/tooling error: `Repository.fullDatabaseId` undefined.
-- `UNVERIFIED:` real 160-concurrent runtime; latency/error/queue/recovery measurements; measured safety margin; F3/20.2 PASS remains explicitly unclaimed.
-- `blockers:` connected GitHub Draft→Ready transition path is currently broken by GraphQL schema mismatch. No product/CI blocker observed on exact head.
-- `condición de STOP alcanzada:` YES — `Draft→Ready flow blocked after green CI`.
-- `recomendación para JOBS:` treat #83 as scoped + exact-head Required CI green but still Draft due tooling transition blocker. Reassign only the minimal Ready transition or use an independently verified GitHub path; preserve SAME #83 and do not infer F3/20.2 PASS.
+**Required evidence:** exact live baseline; environment/runtime identity; 160 concurrency proof; latency/error/queue/recovery results; safety-margin calculation versus 80; no-data-loss/no-unauthorized-cross-tenant result; explicit limitations/UNVERIFIED.  
+**STOP:** applicable runtime requires unavailable credential/provider mutation/infra change; environment is only non-applicable synthetic/local; overlap; #78 harness is missing/broken in a way that requires code changes; integration moves and invalidates applicability materially.
 
 ### CI-FALLBACK
 
-- `Assignment ID:` `NIGHT-WOZ-078 / F3-19.1 fallback`
-- `STATUS:` `NOT_EXECUTED`
-- `baseline:` same live baseline `957f97771b7a15554cf6e002fe9eb215c71a65cc`.
-- `branch/head:` N/A — READ-ONLY fallback.
-- `PR:` N/A.
-- `cambios:` none.
-- `tests:` none.
-- `CI:` N/A.
-- `evidencia:` fallback authorization requires PRIMARY to genuinely enter `WAITING_CI` after a fresh/reconciled #83 head. PRIMARY instead hit explicit STOP on Draft→Ready tooling failure after already-green exact-head CI.
-- `UNVERIFIED:` all F3/19.1 production/provider evidence remains outside this turn.
-- `blockers:` eligibility condition not met.
-- `condición de STOP alcanzada:` fallback not started; no alternate work invented.
-- `recomendación para JOBS:` do not count any 19.1 progress from this turn.
+**F3 / 19.1 — READ-ONLY deployment/domain evidence map.** Execute only if PRIMARY genuinely enters `WAITING_EXTERNAL_RUNTIME` because an already-triggered external environment/build/verification must complete and there is safe idle time.
+
+- **Scope:** inspect existing public/deployment evidence only for domain/API/status/support URLs, DNS/TLS, redirects/callback exactness and sender-domain evidence. No provider/DNS/resource mutations; no #76 changes.
+- **Required evidence:** `PASS / GAP / UNVERIFIED` per 19.1 item with exact observable source and smallest external action for each gap.
+- **STOP:** credential/provider action required; unsafe visibility; overlap; PRIMARY external wait resolves, then recheck PRIMARY before closing.
+- Fallback cannot close 19.1 and cannot substitute productive provider evidence.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-`NIGHT-WOZ-078`: PRIMARY `BLOCKED_STOP` on Draft→Ready tooling path after exact-head Required CI SUCCESS; CI-FALLBACK not eligible/not executed; no integration mutation.
+`NIGHT-WOZ-078`: `BLOCKED_STOP`; #83 exact/scoped, Required CI exact-head success, still Draft because connected Draft→Ready action failed before mutation. Fallback not eligible/not executed.
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-WOZ-078`: BLOCKED_STOP / #83 exact-head green and scoped, still Draft because Draft→Ready connector action failed; no fallback.
-- `NIGHT-WOZ-077`: NO_RESULT before CYCLE 079; superseded by JOBS078, not PASS.
-- `NIGHT-WOZ-074`: WAITING_CI / PR #83 candidate created; dedicated waitlist workflow PASS; JOBS later verified Required CI exact-head SUCCESS.
+- `NIGHT-WOZ-078`: BLOCKED_STOP / #83 exact-head green and scoped, still Draft due connector tooling; no fallback, no integration mutation.
+- `NIGHT-WOZ-077`: NO_RESULT before CYCLE 079; superseded, not PASS.
+- `NIGHT-WOZ-074`: WAITING_CI / PR #83 candidate created; waitlist workflow PASS; JOBS later verified applicable exact-head CI success.
 - `NIGHT-WOZ-070`: DONE / PR #75 integrated; F3/20.1 software observability integrated.
 - Older results remain historical in Issue #41 and git history.
