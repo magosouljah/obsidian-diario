@@ -2,51 +2,49 @@
 
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** BBB — worker nocturno.  
-**Área:** F4 / 25.2 — beta readiness candidate reconciliation.  
+**Área:** F3 / 20.2 — runtime capacity validation.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-056`
+- `ASSIGNMENT_ID: NIGHT-BBB-057`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F4 / 25.2 — SAME #79 narrow refresh + fresh CI; NO MERGE CYCLE 061`
+- `AREA: F3 / 20.2 — execute applicable 160-concurrent capacity proof using integrated harness`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`
-- `PRIMARY_PR: #79 @ c6ec2910522370f2506beb71ad5e0fa0317d6a61`
-- `PREDECESSOR: NIGHT-BBB-055 had no final RESULTADO DEL TURNO, Issue #41 handoff, PR/head change or other verifiable artifact before CYCLE 061; SUPERSEDED and MUST NOT execute late.`
-- `FACTUAL_STATE: #79 remains OPEN/non-draft/mergeable on historical base a306e3b3...; exactly one intended docs-only file. Historical CI is stale for merge authorization after #78.`
-- `RECALCULATION: selected again from zero because the one-file readiness candidate remains the shortest independent F4 advancement while integration is serialized behind WOZ/#75.`
-- `SERIALIZATION: WOZ/#75 owns the only integration mutation authorized in CYCLE 061. BBB MUST NOT merge #79 this cycle.`
+- `RO_DECISION: expected peak 80 simultaneous users; required validation target 160 simultaneous users (2×). This fixes the target only; it is NOT a PASS claim.`
+- `PREDECESSOR: NIGHT-BBB-056 had no final RESULTADO DEL TURNO, Issue #41 handoff or #79 head change before JOBS CYCLE 062; SUPERSEDED and MUST NOT execute late.`
+- `RECALCULATION: moved from #79 because the new RO capacity target removes the largest decision blocker in F3/20.2 and enables higher-value evidence work now.`
+- `SERIALIZATION: BBB MUST NOT merge or move integration in CYCLE 062.`
 
 ### PRIMARY
 
-1. Preflight live integration, #79 exact head/base/state, duplicate-check and changed files.
-2. REUSE-FIRST: preserve exactly `docs/beta/0.9.0-beta.1-readiness.md`; no duplicate artifact or PR.
-3. History-preserving narrow refresh/reconcile #79 onto the live baseline observed at execution time, without unrelated delta.
-4. Verify post-refresh delta remains exactly one intended docs-only file and no product/signing/provider mutation.
-5. Run fresh exact-head CI applicable to the refreshed head. Historical green CI cannot authorize a future merge.
-6. **Do not merge in CYCLE 061.** Leave candidate ready for next JOBS race-check because WOZ/#75 owns integration mutation.
-7. Maximum claim: internal readiness artifact candidate refreshed/green. **Do not close 25.2**; real beta/tester/signing evidence remains external.
+1. Preflight live integration and inspect the already integrated PR #78 capacity harness; duplicate-check before creating anything.
+2. Use the canonical target **80 expected / 160 validation**. Do not substitute arbitrary concurrency.
+3. Run the existing harness only in a runtime/environment that is materially applicable to the 20.2 gate. If only synthetic/local evidence is available, run it only as diagnostic and label it non-authoritative.
+4. Capture literal evidence for 160 concurrent users covering latency, error rate, queue/admission behavior, recovery behavior and any cross-tenant/data-loss safety signals the harness/runtime can actually observe.
+5. Determine factual safety margin relative to the approved 80-user expected peak from measured results; do not invent one.
+6. Separately verify whether durable user waitlist behavior exists. Existing fairness/bot-ordering state is not sufficient.
+7. No product redesign, provider provisioning, paid infra expansion, secrets, #75 files, or unrelated F4 changes.
 8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** live base; exact refreshed head; changed-file delta; fresh exact-head CI; explicit external 25.2 gaps.  
-**STOP:** refresh unavailable/unsafe, scope drift, conflict, baseline race, red/non-attributable CI, or any need to modify product/signing/provider resources.
+**Maximum claim:** runtime capacity evidence at 160 only if actually demonstrated; otherwise `RUNTIME_CAPACITY_UNVERIFIED` with exact blocker. Full 20.2 cannot close unless latency/error/queue/recovery, safety margin and durable waitlist requirements are all evidenced.  
+**Required evidence:** exact baseline; exact command/runtime/environment metadata safe to disclose; 80/160 parameters; measured latency/error/queue/recovery; safety observations; durable waitlist status; explicit UNVERIFIED.  
+**STOP:** applicable runtime unavailable, unsafe/cost-generating operation required, test would mutate production/provider state, overlap, missing isolation guarantees, or evidence cannot be attributed to the 160 target.
 
 ### CI-FALLBACK
 
-**F4 / 25.1 Web/auth READ-ONLY evidence map**, only if PRIMARY is code-complete and genuinely `WAITING_CI`/review.
+**F4 / 25.2 SAME #79 narrow refresh + fresh exact-head CI**, only if PRIMARY is genuinely `WAITING_EXTERNAL`/`WAITING_RUNTIME` after all safe diagnostics are exhausted.
 
-**Alcance:** inspect live integration only for existing Web auth/session/login/reload/logout tests and evidence; no writes/branch/PR/commit and no #79 files.  
-**Evidencia requerida:** exact baseline + `EXISTS/PARTIAL/GAP/PENDING_EXTERNAL` for Web/auth with literal paths/tests and smallest future journey slice.  
-**STOP:** any write, overlap with AAA, attempt to promote matrix row from audit only, or dependency on stale candidate. Recheck PRIMARY before closing.
+**Alcance:** preserve exactly `docs/beta/0.9.0-beta.1-readiness.md`; history-preserving refresh of #79 onto live integration; verify one-file docs-only delta; fresh exact-head CI. **NO MERGE**.  
+**Evidencia requerida:** live base; exact refreshed head; one-file delta; fresh exact-head CI; explicit real beta/tester/signing gaps.  
+**STOP:** any product/signing/provider change, scope drift, conflict, baseline race, overlap, or attempt to close 25.2 from the document alone. Recheck PRIMARY before closing.
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-BBB-055`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 061.
-- `NIGHT-BBB-054`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 060.
-- `NIGHT-BBB-049`: #79 artifact produced; prior CI green on old baseline, now stale.
+- `NIGHT-BBB-056`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 062.
+- `NIGHT-BBB-049`: #79 artifact exists; historical CI stale for merge authorization.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-BBB-056`: ASSIGNED — SAME #79 narrow refresh + fresh CI; NO MERGE CYCLE 061; Web/auth read-only fallback.
-- `NIGHT-BBB-055`: NO_RESULT / SUPERSEDED_BY_JOBS.
-- `NIGHT-BBB-054`: NO_RESULT / SUPERSEDED_BY_JOBS.
+- `NIGHT-BBB-057`: ASSIGNED — F3/20.2 80 expected / 160 validation runtime proof; #79 refresh as conditional fallback only.
+- `NIGHT-BBB-056`: NO_RESULT / SUPERSEDED_BY_JOBS.
