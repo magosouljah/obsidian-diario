@@ -2,7 +2,7 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 060:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
+**Baseline vivo CYCLE 061:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
 
 ## Estado owner / candidates
 
@@ -10,12 +10,12 @@
 - PR #73 / 18.2 reconciliation MERGED como `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`; cierra solo software reconciliation/exception-queue slice.
 - PR #78 / 20.2 capacity harness MERGED como `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; claim máximo `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
 - PR #76 sigue OPEN/stale/frozen. Canonical Privacy/Terms + public routes existen; Settings canonical sync sigue pendiente.
-- PR #75 `woz/night-20.1-observability @ 40e39393247dbdd506ac01edefa84fd0b0add94c` está OPEN/non-draft/mergeable sobre live integration, exactamente cuatro intended observability files. Fresh exact-head F3 20.1, D6, D7, Productive Temp Auth Compile y Desktop Portability son SUCCESS; Upgrade 21.2 SKIPPED/not applicable. `NIGHT-WOZ-059` posee race-check + integración exact-head en CYCLE 060.
+- PR #75 `woz/night-20.1-observability @ 40e39393247dbdd506ac01edefa84fd0b0add94c` está OPEN/non-draft/mergeable sobre live integration, exactamente cuatro intended observability files. Exact-head Required CI y applicable workflows siguen SUCCESS. `NIGHT-WOZ-060` posee race-check + integración exact-head en CYCLE 061.
 - PR #77 CLOSED/unmerged; superseded por #78.
 
 ## Owners actuales
 
-**WOZ — `NIGHT-WOZ-059` — F3 / 20.1 SAME #75.**
+**WOZ — `NIGHT-WOZ-060` — F3 / 20.1 SAME #75.**
 
 ### WOZ PRIMARY
 1. Recheck live integration y #75 exact head `40e3939...`.
@@ -70,8 +70,8 @@ PR #68.
 
 ## Día 20
 
-### 20.1 — `[ 🟡 ] EXACT-HEAD GREEN / ASSIGNED WOZ059`
-PR #75 contiene structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno. Immutable pins + history-preserving refresh completados en WOZ058. Exact-head CI aplicable terminó verde. Falta únicamente race-check + integración; external observability tails no se cierran con este PR.
+### 20.1 — `[ 🟡 ] EXACT-HEAD GREEN / ASSIGNED WOZ060`
+PR #75 contiene structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno. Immutable pins + history-preserving refresh completados previamente. Exact-head CI aplicable permanece verde. Falta race-check + integración; external observability tails no se cierran con este PR.
 
 ### 20.2 — `[ 🟡 ] HARNESS SOFTWARE INTEGRATED / RUNTIME CAPACITY UNVERIFIED`
 - [x] deterministic local/synthetic parameterized harness: PR #78 merged;
