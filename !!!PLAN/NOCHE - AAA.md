@@ -6,25 +6,26 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-082`
+- `ASSIGNMENT_ID: NIGHT-AAA-083`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — Review Save/Save All durable action-boundary corrective slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-AAA-081 has no final RESULTADO DEL TURNO or matching material Issue #41 handoff at JOBS CYCLE 086; superseded, NOT_PASS.`
+- `PREDECESSOR: NIGHT-AAA-082 has no final RESULTADO DEL TURNO nor matching material Issue #41 handoff at JOBS CYCLE 087; superseded, NOT_PASS.`
 - `REUSE_EVIDENCE: Issue #41 5478129410 + NIGHT-AAA-071 + #69 helper semantics only.`
-- `SERIALIZATION: AAA MUST NOT merge or mutate integration. WOZ/#83 owns the only integration mutation.`
+- `DUPLICATE_CHECK: no newer open AAA candidate observed; do not create a duplicate if one appears during preflight.`
+- `SERIALIZATION: AAA MUST NOT merge or mutate integration; no integration mutation is authorized in CYCLE 087.`
 
 ### PRIMARY
 
 **F2 / 13.2 — implement the minimum proven durable-completion/no-silent-loss fix.**
 
-1. Fresh preflight live integration + Issue #41 + duplicate-check; STOP if another candidate already owns this exact slice.
+1. Fresh preflight live integration + Issue #41 + open PRs; STOP if another owner/candidate already owns this exact slice.
 2. Reuse the proven gap: Review single Save / Save All can advance or close before `cloudifyImportedBeats(...)` durable completion.
 3. Reuse helper/semantics from #69 only as bounded input; do not revive or take ownership of #69.
 4. Change only the minimum Review Save/Save All product wiring so visible success/advance waits for durable Web persistence.
 5. Surface per-beat `saved/conflict/failed` sufficient for retry and zero silent loss.
 6. Add focused executable evidence for single Save + Save All partial failure/conflict/retry plus call-spies proving touched Web paths never call Tauri/Desktop-only APIs.
-7. Use one new bounded AAA branch/PR only if no duplicate candidate exists; record exact base/head, scope map, focused tests and fresh exact-head applicable CI. **NO MERGE.**
+7. Use one bounded AAA branch/PR only if no duplicate exists; record exact base/head, scope map, focused tests and fresh exact-head applicable CI. **NO MERGE.**
 8. Maximum claim: `F2/13.2 DURABLE_SAVE_BOUNDARY_CANDIDATE_READY`; global 13.2 remains OPEN unless every literal Web-action family is evidenced.
 9. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
@@ -42,7 +43,7 @@ Execute ONLY while PRIMARY is genuinely `WAITING_CI` / remote-build wait. Do not
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
+- `NIGHT-AAA-082`: NO_RESULT at CYCLE 087; superseded; NOT_PASS.
 - `NIGHT-AAA-081`: NO_RESULT at CYCLE 086; superseded; NOT_PASS.
-- `NIGHT-AAA-080`: NO_RESULT at prior cycle; superseded; NOT_PASS.
 - Late `NIGHT-AAA-074` Issue #41 `5478129410`: reusable current-baseline finding only.
 - `NIGHT-AAA-071`: DONE / AUDIT_ONLY; reusable context.
