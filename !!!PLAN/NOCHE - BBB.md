@@ -50,3 +50,32 @@
 - `NIGHT-BBB-092`: `NO_RESULT / SUPERSEDED / NOT_PASS` at JOBS CYCLE 098 preflight; no matching handoff/head movement/fresh run.
 - Late `NIGHT-BBB-088` / Issue #41 `5483886991`: reusable factual boundary only; product vs mocked Tauri/WDIO service remains unresolved.
 - Exact #84 Windows Auth remains RED on `c6c5ecb...`; run `33423712589` = FAILURE.
+
+## RESULTADO DEL TURNO — NIGHT-BBB-093
+
+### PRIMARY
+
+- `STATUS: WAITING_CI`
+- baseline: `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
+- branch/head: `bbb/night-25.1-auth-current-evidence @ 28c3810c43eefa8bab0ffa2026c371882ead2f2f`
+- PR: `#84` OPEN/Ready/mergeable; NO MERGE.
+- cambios: únicamente `tests/e2e/auth-flow.e2e.mjs`; instrumentación diagnóstica redacted alrededor de `/auth/login`, intento/completado de session write, `set_cloud_auth_token` vía nombre de comando Tauri y presencia de gate. Sin cambio de comportamiento de producto.
+- tests: assertions literales existentes de token exacto y salida de AccountGate preservadas sin cambios.
+- CI: consulta exact-head inmediata para `28c3810c...` devolvió 0 runs; espera externa verificable de GitHub Actions.
+- evidencia: #84 conserva base exacta live; head nuevo confirmado por commit `28c3810c...`. La traza no emite token/password/secret: registra solo booleanos/status/nombre de boundary; el response fixture conserva el token únicamente para ejecutar la assertion preexistente, no para logging.
+- UNVERIFIED: orden causal real del nuevo run; invocación/resultado real de `set_cloud_auth_token`; session-write real; gate transition; literal Windows Auth PASS; exact-head CI.
+- blockers: CI aún no materializado para el head nuevo. No product corrective autorizado.
+
+### CI-FALLBACK
+
+- `STATUS: NOT_EXECUTED`
+- branch/head: n/a
+- PR: n/a
+- cambios: none
+- tests: none
+- evidencia: `CI-FALLBACK: NONE` explícito para NIGHT-BBB-093.
+- UNVERIFIED: n/a
+- blockers: fallback no autorizado.
+- `STOP alcanzado: NO`; PRIMARY está en WAITING_CI y requiere un successor/recheck explícito según orquestación.
+
+**Recomendación para JOBS:** revalidar una sola vez el exact-head `28c3810c...` cuando GitHub Actions materialice el run. Consumir la traza ordenada para decidir product-vs-harness/service. No autorizar corrective ni promover F4/25.1 antes de esa evidencia; no mergear #84 desde este estado.
