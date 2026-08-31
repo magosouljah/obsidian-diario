@@ -7,14 +7,14 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-053`
+- `ASSIGNMENT_ID: NIGHT-AAA-054`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 14.1 — REUSE-FIRST media streaming/memory slice`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`
-- `PREDECESSOR: NIGHT-AAA-052 remained ASSIGNED with no final RESULTADO DEL TURNO / Issue #41 handoff observable during JOBS CYCLE 057; SUPERSEDED and MUST NOT execute late.`
-- `RECALCULATION: selected again from zero because it remains the highest-value dependency-safe F2 slice; not inherited merely by continuity.`
-- `HOLD_PR: #76 @ 36d218609cf2488997755312fa2dafd0a019d070 — stale/frozen pending safe history-preserving refresh.`
-- `HOLD_PR: #69 @ b2ab75ae1dbde4e3aba389da844f466920a5d6eb — STOP_WRITE_SURFACE / DO NOT TOUCH.`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`
+- `PREDECESSOR: NIGHT-AAA-053 had no final RESULTADO DEL TURNO / Issue #41 handoff verifiable before JOBS CYCLE 058; SUPERSEDED and MUST NOT execute late.`
+- `RECALCULATION: selected from zero as the highest-value dependency-safe F2 internal slice after #78 integration.`
+- `HOLD_PR: #69 @ b2ab75ae... — STOP_WRITE_SURFACE / DO NOT TOUCH.`
+- `HOLD_PR: #70 @ 5a99ebf2... — safe-write + stale / DO NOT TOUCH.`
 
 ### PRIMARY
 
@@ -23,11 +23,11 @@
 3. Implement only the smallest independent product-safe slice that closes a literal 14.1 gap on live integration. Prefer existing abstractions; no Player redesign.
 4. Required behavior: giant media must not require full-file RAM loading; safe fallback when streaming primitive is unavailable; cancellation/unmount releases buffers/object URLs/resources.
 5. Add focused tests proving only changed behavior. Do not fabricate browser/provider runtime evidence.
-6. Run fresh applicable exact-head CI. Integrate only through AAA's authorized flow if exact-head green and race-clean; otherwise structured handoff.
-7. Do not touch #69/#70/#72/#74/#75/#76/#78/#79 branches or owned/frozen files; no auth/legal/billing/infra/provider changes.
+6. Run fresh applicable exact-head CI. Because BBB/#79 owns the only integration mutation in CYCLE 058, do not merge if that would race integration; leave structured handoff for the next JOBS race-check.
+7. Do not touch #69/#70/#72/#74/#75/#76/#79 branches or owned/frozen files; no auth/legal/billing/infra/provider changes.
 8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** exact live base; reused paths/symbols; changed files; focused tests; fresh exact-head CI; merge SHA only if actually merged; explicit UNVERIFIED runtime/browser gaps.  
+**Required evidence:** exact live base; reused paths/symbols; changed files; focused tests; fresh exact-head CI; explicit UNVERIFIED runtime/browser gaps.  
 **STOP:** implementation already satisfies 14.1; broad redesign/provider/infra work required; overlap; unsafe write flow; baseline race; or non-attributable CI red.
 
 ### CI-FALLBACK
@@ -40,18 +40,11 @@
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-AAA-052`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 057; no implementation/CI/merge claim accepted.
-- `NIGHT-AAA-051`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
+- `NIGHT-AAA-053`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 058.
+- `NIGHT-AAA-052`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
 - `NIGHT-AAA-043`: `PENDING / STOP_WRITE_SURFACE`; #69 frozen.
-
-## HOLDING / FROZEN
-
-- F3/19.2 #76: frozen until safe history-preserving refresh exists.
-- F2/13.1 Web #69: frozen pending patch-capable surface.
-- F2/13.1 server #70: frozen by safe-write + stale baseline.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-053`: ASSIGNED — F2/14.1 minimum media streaming/memory slice; 14.2 read-only CI fallback.
-- `NIGHT-AAA-052`: NO_RESULT / SUPERSEDED_BY_JOBS.
-- `NIGHT-AAA-051`: NO_RESULT / SUPERSEDED_BY_JOBS.
+- `NIGHT-AAA-054`: ASSIGNED — F2/14.1 minimum media streaming/memory slice; 14.2 read-only CI fallback.
+- `NIGHT-AAA-053`: NO_RESULT / SUPERSEDED_BY_JOBS.
