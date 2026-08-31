@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE 092:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 093:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado compacto
 
@@ -12,9 +12,9 @@
 - #78 capacity harness integrado; local/synthetic-only no satisface runtime 160.
 - #83 durable waitlist permanece OPEN/DRAFT, mergeable, head `803b2143e6ea03f6549118e9241fee320dfccdee`, base exact `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`, scope de 3 archivos.
 - Exact-head F3 20.2 Durable Waitlist `33388377959` SUCCESS; Desktop Portability `33388377963` SUCCESS; D6 `33388377952` SUCCESS; D7 `33388377964` SUCCESS.
-- Blocker previo: `NIGHT-WOZ-088` terminó `BLOCKED_STOP` porque el dedicated Draft→Ready path falló en connector GraphQL `Repository.fullDatabaseId`; no hubo bypass ni merge.
-- Cambio material CYCLE 092: el conector ahora expone una acción dedicada `mark_pull_request_ready_for_review`. Esto satisface la condición de no repetir el mismo path fallido y permite una nueva transacción legítima.
-- `NIGHT-WOZ-091` es owner exclusivo para #83: dedicated Ready → postcheck mismo head/base/scope/mergeability + exact CI → merge solo si race-free. Solo WOZ091 puede mutar integration en este ciclo.
+- El connector expone `mark_pull_request_ready_for_review`; no se permite workaround GraphQL/bypass.
+- `NIGHT-WOZ-091` no dejó resultado final/handoff material y #83 no se movió; superseded/NOT_PASS.
+- `NIGHT-WOZ-092` es owner exclusivo para #83: dedicated Ready → postcheck mismo head/base/scope/mergeability + exact CI → expected-head merge solo si race-free. Solo WOZ092 puede mutar integration en CYCLE 093.
 - Runtime 160 + latency/error/queue/recovery/no-loss/no-cross-tenant + safety margin siguen UNVERIFIED aun si #83 integra.
 - 19.1 sigue reducido a blockers externos de DNS/TLS/API/status/OAuth/sender/deployment.
 - #76 legal/public routes permanece OPEN/stale/frozen.
@@ -32,14 +32,14 @@ Established: candidate #76 names `beatgaler.com`, `/privacy`, `/terms`, `support
 ### 20.1 — `[x] SOFTWARE DONE / INTEGRATED`
 Structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno integrados por #75. External provider/on-call/status/retention proof no se infiere.
 
-### 20.2 — `[ 🟡 ] HARNESS INTEGRATED / WAITLIST EXACT-HEAD GREEN / READY PATH RESTORED / RUNTIME UNVERIFIED`
+### 20.2 — `[ 🟡 ] HARNESS INTEGRATED / WAITLIST EXACT-HEAD GREEN / READY PATH AVAILABLE / RUNTIME UNVERIFIED`
 - [x] deterministic parameterized harness #78;
 - [x] expected peak aprobado: **80 simultaneous users**;
 - [ ] validation **160 simultaneous users (2×)** con runtime aplicable;
 - [ ] latency target/result aplicable;
 - [ ] error/queue/recovery behavior demostrado;
 - [ ] safety margin medida contra 80;
-- [ 🟡 ] durable waitlist #83 exact-head CI green, todavía OPEN/DRAFT/unmerged al preflight CYCLE 092; WOZ091 autorizado a resolverlo por dedicated Ready action y exact-head transaction.
+- [ 🟡 ] durable waitlist #83 exact-head CI green, todavía OPEN/DRAFT/unmerged al preflight CYCLE 093; WOZ092 autorizado a resolverlo por dedicated Ready action y exact-head transaction.
 
 No cerrar 20.2 por CI software ni por un harness local/sintético. Integrar #83 no sustituye runtime 160 aplicable.
 
