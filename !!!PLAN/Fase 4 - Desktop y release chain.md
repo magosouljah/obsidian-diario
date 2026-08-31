@@ -1,63 +1,37 @@
 # Fase 4 — Artefactos desktop confiables y release chain
 
-> Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
+> GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 080:** `integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc`.
+**Integración estable CYCLE 081:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
-PR #63 fue MERGED y dejó `windows/import = AUTOMATED_PASS` integrado. 25.1 completo permanece abierto.
+- 21.1 / 21.2 `[x]`.
+- 24.1 / 24.2 `[x]`.
+- 25.1 permanece `[ 🟡 ]`.
+- PR #79 / F4 25.2 readiness docs fue integrado como `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; parents `957f97771b7a15554cf6e002fe9eb215c71a65cc` + `a3c4d56e8317d7711832154ecc72afe581d2b309`.
+- Ese merge NO demuestra tester execution, signing/notarization ni global 25.2 closure.
 
 ### windows/auth
-PR #71 permanece como regression proof: bajo sesión WebDriver real el Desktop login no persistió `beatgaler:account-session:v1`. `windows/auth` sigue `NOT_COVERED`.
-PR #74 permanece OPEN/Ready sobre snapshot anterior pero frozen. #71 solo se revalida después de integración real de #74 y nueva asignación JOBS.
+
+- #71 conserva regression proof: Desktop login no persistió `beatgaler:account-session:v1` bajo la sesión probada.
+- #74 es candidate histórico OPEN/Ready sobre snapshot anterior; no se presume integrable sin reconciliation segura.
+- `NIGHT-BBB-076` posee esta pieza en CYCLE 081: REUSE #71/#74, safe history-preserving refresh si literalmente seguro, fresh CI + authoritative Windows auth journey, NO MERGE.
 
 ### windows/review
-#72 sigue OPEN sobre snapshot antiguo; frozen hasta refresh seguro.
 
-## Día 21
+#72 sigue OPEN/stale/frozen hasta refresh seguro; no pertenece a BBB076 salvo que JOBS lo reasigne en otro ciclo.
 
-### 21.1 — `[x] DONE / INTEGRATED`
-#51.
+## Día 22 / 23
 
-### 21.2 — `[x] DONE / INTEGRATED`
-#51.
-
-## Día 22
-### 22.1 / 22.2
-Signing/certificado/SmartScreen/AV/hardware permanecen externos/abiertos.
-
-## Día 23
-### 23.1 / 23.2
-Apple Developer/certificados/notarization/hardware permanecen externos/deferred.
-
-## Día 24
-
-### 24.1 — `[x] DONE / INTEGRATED`
-#55.
-
-### 24.2 — `[x] DONE / INTEGRATED`
-#57.
+Signing Windows, SmartScreen/AV/hardware, Apple Developer, certificados/notarization/stapling/hardware permanecen externos/abiertos.
 
 ## Día 25
 
 ### 25.1 — `[ 🟡 ] IN PROGRESS`
-Integrated rows: `windows/import`, `windows/updater`, `macos/updater` = `AUTOMATED_PASS`.
-Web/auth y múltiples journeys siguen `NOT_COVERED`; iPhone sigue `PENDING_EXTERNAL`.
+Integrated rows conocidas: `windows/import`, `windows/updater`, `macos/updater` = automated evidence. `windows/auth` y múltiples journeys permanecen sin evidencia actual completa; iPhone sigue external.
 
-### 25.2 — `[ 🟡 ] EXACT CANDIDATE / BBB075`
+### 25.2 — `[ 🟡 ] READINESS ARTIFACT INTEGRATED / GLOBAL OPEN`
+PR #79 docs-only readiness artifact ya está integrado. Gate real sigue pendiente de beta/tester execution, 0 P0 y ningún P1 core conocido, además de release-chain evidence aplicable.
 
-GitHub CYCLE 080 confirma PR #79 OPEN/non-draft/mergeable:
-- branch `bbb/f4-25.2-beta-readiness @ a3c4d56e8317d7711832154ecc72afe581d2b309`;
-- exact base SHA `957f97771b7a15554cf6e002fe9eb215c71a65cc` = live integration al preflight;
-- changed_files = 1; scope docs-only `docs/beta/0.9.0-beta.1-readiness.md`;
-- exact-head workflow runs observados: Test - Desktop Portability SUCCESS; D6 SUCCESS; D7 SUCCESS; Upgrade 21.2 Staging SKIPPED.
-
-`NIGHT-BBB-074` no dejó resultado verificable antes de CYCLE 080 y queda superseded, no PASS.
-
-**Owner CYCLE 080:** `NIGHT-BBB-075`.
-PRIMARY: fresh race-check de integration/base/head/file-delta/CI y, solo si todo sigue exacto, expected-head merge de SAME #79 + verify merge SHA/parents. BBB/#79 es la única integración mutation autorizada del ciclo. CI-FALLBACK: NONE.
-
-Incluso si #79 se integra, 25.2 permanece abierto por beta/tester/signing evidence real. El readiness document no cierra el gate por sí solo.
-
-**Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido; tester execution y release-chain evidence aplicable siguen pendientes.
+**Owner CYCLE 081:** BBB `NIGHT-BBB-076` sobre F4/25.1 windows/auth. BBB no está autorizado a mutar integration este ciclo.
