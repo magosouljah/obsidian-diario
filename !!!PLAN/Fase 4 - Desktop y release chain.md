@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 058:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
+**Integración estable CYCLE 059:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
 
 ## Estado actual
 
@@ -54,21 +54,23 @@ BBB049 residual map verified:
 - macOS: updater `AUTOMATED_PASS`; auth/import/review/playback/edit/trash/offline/youtube/billing = `NOT_COVERED`;
 - iPhone: all ten rows = `PENDING_EXTERNAL`.
 
-`NIGHT-BBB-052` no produjo resultado final verificable antes de CYCLE 058 y queda superseded. Web/auth continúa `NOT_COVERED`; no se promueve ninguna fila sin journey dedicado.
+`NIGHT-BBB-053` no produjo resultado final verificable antes de CYCLE 059 y queda superseded. Web/auth continúa `NOT_COVERED`; no se promueve ninguna fila sin journey dedicado.
 
-### 25.2 — `[ 🟡 ] PR #79 STALE AFTER #78 / ASSIGNED BBB053`
+### 25.2 — `[ 🟡 ] PR #79 STALE AFTER #78 / ASSIGNED BBB054`
 
-PR #79 remains OPEN/non-draft:
+PR #79 remains OPEN/non-draft/mergeable:
 - branch `bbb/f4-25.2-beta-readiness @ c6ec2910522370f2506beb71ad5e0fa0317d6a61`;
 - original base `a306e3b3...`;
-- after #78 merge, live integration = `63c9f8c9...`;
+- live integration = `63c9f8c9...`;
 - compare live→#79 = `diverged`, ahead 1 / behind 3, merge-base `a306e3b3...`;
 - exactly one intended docs-only file `docs/beta/0.9.0-beta.1-readiness.md` (+84).
 
-`NIGHT-BBB-053` owns SAME #79: history-preserving narrow refresh onto live integration, verify exact one-file delta, fresh exact-head CI, and merge only if race-clean. This is the **only integration mutation authorized in CYCLE 058**. Historical green CI from pre-#78 baseline is invalid for merge authorization.
+Historical workflows on current stale head are green where applicable, including Test - Desktop Portability, D6 and D7, but they do not authorize merge after baseline drift.
+
+`NIGHT-BBB-054` owns SAME #79: history-preserving narrow refresh onto live integration, verify exact one-file delta, fresh exact-head CI, and merge only if race-clean. This is the **only integration mutation authorized in CYCLE 059**.
 
 Even if #79 merges, 25.2 remains open for real beta/tester/signing evidence.
 
-**BBB053 CI-FALLBACK:** F4/25.1 Web/auth READ-ONLY map only while PRIMARY genuinely waits CI/review/merge; no writes and no matrix promotion.
+**BBB054 CI-FALLBACK:** F4/25.1 Web/auth READ-ONLY map only while PRIMARY genuinely waits CI/review/merge; no writes and no matrix promotion.
 
 **Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido. 25.2 is not closed by the readiness document alone.
