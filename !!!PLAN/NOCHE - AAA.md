@@ -6,39 +6,37 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-096`
+- `ASSIGNMENT_ID: NIGHT-AAA-097`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — Review Save/Save All durable action boundary`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-AAA-095 dejó no final RESULTADO DEL TURNO, no matching Issue #41 handoff y no new F2/13.2 open candidate al preflight JOBS CYCLE 100; SUPERSEDED / NOT_PASS.`
-- `WHY_ASSIGNED: recalculado desde GitHub vivo; el gap probado de durable completion/no-silent-loss en Review sigue siendo el segundo blocker técnico ejecutable más crítico y no tiene owner/candidate duplicado.`
-- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB095 owns #84 Windows-auth causal attribution. WOZ099 owns #76 legal/public-route reconciliation. Do not touch #74/#84/#83/#76/#72/#81 or auth/session/Trash implementation.`
+- `PREDECESSOR: NIGHT-AAA-096 no dejó RESULTADO DEL TURNO, matching Issue #41 handoff ni candidate material al preflight JOBS CYCLE 101; SUPERSEDED / NOT_PASS.`
+- `WHY_ASSIGNED: recalculado desde GitHub vivo; 13.2 sigue siendo la slice F2 técnica ejecutable de mayor valor que no colisiona con BBB auth ni WOZ legal.`
+- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB096 owns #84 diagnostics. WOZ100 owns #76 legal reconciliation. Do not touch #74/#84/#83/#76/auth/session/Trash.`
 
 ### PRIMARY
 
-**F2 / 13.2 — minimum durable Review Save/Save All correction, no scope expansion.**
+**F2 / 13.2 — minimum durable Review Save/Save All candidate.**
 
-1. Fresh preflight live integration, Issue #41 and open PRs; STOP on duplicate owner/candidate or material baseline movement invalidating scope.
-2. Reuse the proven `src/App.tsx` Review gap: single Save / Save All must not close or advance before `cloudifyImportedBeats(...)` durable completion.
-3. Reuse #69 semantics only as bounded reference; do not revive/take ownership of #69.
-4. Change only the minimum Review Save/Save All wiring needed to await durable Web persistence and expose per-beat `saved/conflict/failed`, retry and zero silent loss.
-5. Add focused executable tests for single Save plus Save All partial failure/conflict/retry and call-spies proving touched Web paths do not invoke Tauri/Desktop-only APIs.
-6. One bounded AAA branch/PR only if duplicate-check stays clean. Record exact base/head, changed files/functions, focused tests and fresh exact-head applicable CI. **NO MERGE.**
-7. Maximum claim: `F2/13.2 DURABLE_SAVE_BOUNDARY_CANDIDATE_READY`; global 13.2 remains OPEN unless literal visible-Web-action coverage is sufficient.
-8. Write RESULTADO DEL TURNO here + Issue #41 handoff, then STOP.
+1. Fresh preflight integration + Issue #41 + open PRs; duplicate-check antes de mutar.
+2. Reuse el gap probado en `src/App.tsx`: single Save y Save All no deben cerrar/avanzar antes de durable `cloudifyImportedBeats(...)` completion.
+3. Reuse #69 únicamente como referencia semántica/helper; no revivir ni apropiarse de #69.
+4. Cambiar solo wiring mínimo para esperar persistencia Web durable y exponer por beat `saved/conflict/failed`, retry y cero silent loss.
+5. Añadir pruebas enfocadas de single Save y Save All con partial failure/conflict/retry y call-spies que prueben que la ruta Web tocada no invoca APIs Tauri/Desktop-only.
+6. Un solo branch/PR bounded si duplicate-check queda limpio; registrar base/head exactos, changed files/functions, tests y fresh exact-head CI. **NO MERGE.**
+7. Maximum claim: `F2/13.2 DURABLE_SAVE_BOUNDARY_CANDIDATE_READY`; no cerrar 13.2 global sin cobertura literal suficiente de acciones Web visibles.
+8. Escribir RESULTADO DEL TURNO aquí + handoff Issue #41 y STOP.
 
-**Required evidence:** exact base/head; before/after semantics; per-beat result/retry assertions; Web/Tauri call-spies; focused tests; exact-head CI; explicit UNVERIFIED action families.  
-**STOP:** backend/F3 ownership needed, overlap with frozen candidates, material redesign, provider/runtime credentials, duplicate candidate, scope expansion, integration mutation or non-attributable broad CI failure.
+**Required evidence:** exact base/head; before/after semantics; per-beat result/retry assertions; Web/no-Tauri call-spies; focused tests; exact-head CI; UNVERIFIED explícito.  
+**STOP:** duplicate candidate/owner, backend/F3/auth/session ownership needed, material redesign, provider/runtime credentials, baseline movement que invalide scope, integration mutation o broad CI no atribuible.
 
 ### CI-FALLBACK
 
 `CI-FALLBACK: NONE`.
 
-**Reason:** no genuinely independent browser-capable fallback is verified; other open F2 pieces overlap, require blocked recent-reauth, or widen scope.
-
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-095`: `NO_RESULT / SUPERSEDED / NOT_PASS` at JOBS CYCLE 100 preflight; no final result, matching Issue #41 handoff or new F2/13.2 candidate.
-- `NIGHT-AAA-094`: `NO_RESULT / SUPERSEDED / NOT_PASS` at JOBS CYCLE 099 preflight.
+- `NIGHT-AAA-096`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 101; no final result, matching Issue #41 handoff ni new 13.2 candidate.
+- `NIGHT-AAA-095`: `NO_RESULT / SUPERSEDED / NOT_PASS` en CYCLE 100.
 - Issue #41 `5478129410`: reusable proven Review durable-completion gap.
-- `NIGHT-AAA-071`: DONE / AUDIT_ONLY; reusable context only.
+- `NIGHT-AAA-071`: DONE / AUDIT_ONLY; contexto reusable.
