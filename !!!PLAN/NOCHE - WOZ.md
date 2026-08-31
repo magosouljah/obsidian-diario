@@ -2,60 +2,50 @@
 
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** WOZ — worker nocturno.  
-**Área:** F3 / 20.2 — capacity harness integration.  
+**Área:** F3 / 20.1 — observability software candidate recovery.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-056`
+- `ASSIGNMENT_ID: NIGHT-WOZ-057`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F3 / 20.2 — SAME #78 exact-head race-check + integration`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`
-- `PRIMARY_PR: #78 @ 50aac3f0c700a88e1f058372c23ee1d96ecf247a`
-- `PREDECESSOR: NIGHT-WOZ-055 remained ASSIGNED with no final RESULTADO DEL TURNO / Issue #41 handoff observable during JOBS CYCLE 057; SUPERSEDED and MUST NOT execute late.`
-- `RECALCULATION: selected again from zero because #78 remains the narrowest highest-impact merge-ready internal artifact on the global critical path; not inherited merely by continuity.`
-- `FACTUAL_UPDATE_BY_JOBS: #78 remains OPEN/non-draft/mergeable on exact base a306e3b3... with unchanged head 50aac3f0...; PR-triggered workflows remain completed without attributable failure; integration HEAD remained a306e3b3... during CYCLE 057 preflight.`
-- `SERIALIZATION: #79 is also open/mergeable on the same exact base but remains hold-green. WOZ/#78 owns the only integration mutation authorized this cycle.`
-- `HOLD_PR: #75 @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f — frozen / DO NOT TOUCH.`
+- `AREA: F3 / 20.1 — SAME #75 corrective + history-preserving refresh`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`
+- `PRIMARY_PR: #75 @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f`
+- `PREDECESSOR: NIGHT-WOZ-056 has no structured RESULTADO DEL TURNO visible, but GitHub real proves its PRIMARY completed: #78 merged exact head 50aac3f0... as 63c9f8c9...; accepted by JOBS as DONE/INTEGRATED.`
+- `FACTUAL_CHANGE: #75 is stale against live integration; compare = ahead 4 / behind 8, merge-base a9d35a3d..., with exactly four intended observability files.`
+- `SERIALIZATION: BBB/#79 owns the only integration mutation in CYCLE 058. WOZ may prepare/validate #75 but MUST NOT merge it this cycle.`
 
 ### PRIMARY
 
-1. Recheck live integration, #78 head/base, duplicate status and changed files immediately before integration.
-2. Require #78 to remain head `50aac3f0...`, base exact current live integration, exactly the two intended harness/test files and no unrelated drift.
-3. Verify exact-head CI remains complete with no attributable failures/pending checks immediately before merge; do not reuse evidence after baseline/head drift.
-4. If race-clean and owner flow permits, merge #78 through WOZ's authorized integration flow.
-5. After merge, verify resulting integration SHA and merge parents. Record exact merge evidence.
-6. Maximum claim after successful merge: `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED` only. Global F3/20.2 remains open for approved peak, 2× runtime proof, latency, safety margin, provider/load evidence and durable waitlist.
-7. Do not touch #75/#76/#72/#74/#71/#69/#70/#79 or provider/infra resources.
+1. Recheck live integration, #75 exact head/base/state, duplicate-check and changed files.
+2. REUSE-FIRST: keep exactly the existing four intended observability files; no replacement PR unless the existing PR is unusable and JOBS explicitly authorizes later.
+3. Apply only the known corrective for immutable external Action pins and perform a history-preserving narrow refresh onto live integration if the safe flow permits.
+4. Run focused tests and fresh exact-head CI. Preserve software-only claims: structured redacted events, bounded counters, condition→route mapping, kill switches and runbook.
+5. Do not claim external metrics/tracing backend, retention, provider alert delivery, on-call delivery, public status or production runtime evidence.
+6. **Do not merge #75 in CYCLE 058.** Leave a race-check-ready candidate/handoff for next JOBS cycle after #79 outcome is known.
+7. Do not touch #76/#79/#72/#74/#71/#69/#70 or provider/infra resources.
 8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** pre-merge live base; #78 exact head/base; changed files; complete exact-head CI; merge SHA + parents only if actually merged; post-merge integration HEAD; explicit `RUNTIME_CAPACITY_UNVERIFIED`.  
-**STOP:** baseline/head drift, scope drift, duplicate/closed PR, pending/red attributable CI, mergeability loss, unsafe merge flow, or overlap with another owner.
+**Required evidence:** exact live base; #75 pre/post head; four-file delta; immutable pin corrective; focused tests; fresh exact-head CI; explicit external observability gaps.  
+**STOP:** safe refresh unavailable, scope drift, replacement PR would be required without JOBS authorization, overlap, baseline race, or non-attributable CI red.
 
 ### CI-FALLBACK
 
-`NONE`.
+**F3 / 20.2 READ-ONLY residual capacity gap map**, only if PRIMARY is code-complete and genuinely `WAITING_CI`/review.
 
-**Alcance:** none preauthorized.  
-**Evidencia requerida:** n/a.  
-**STOP:** if PRIMARY becomes externally blocked, do not invent secondary work; report factual blocker and stop.
+**Alcance:** live integration only; approved expected peak, 2× runtime proof, latency, safety margin, durable user waitlist and existing admission-control evidence. No writes/branch/PR/commit, no provider load, no runtime claim.  
+**Evidencia requerida:** exact baseline + `EXISTS/PARTIAL/GAP/PENDING_EXTERNAL` matrix with literal paths/tests/contracts and minimum future slices.  
+**STOP:** any write, attempt to promote 20.2 PASS, overlap or dependency on stale/unmerged work. Recheck PRIMARY before closing.
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-WOZ-055`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 057; no merge claim accepted.
-- `NIGHT-WOZ-054`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- `NIGHT-WOZ-052`: `PENDING / WAITING_CI`; replacement #78 opened exact-base; JOBS later verified green.
+- `NIGHT-WOZ-056`: `DONE / INTEGRATED` by GitHub factual evidence — PR #78 merged `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; max claim `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
+- `NIGHT-WOZ-055`: `NO_RESULT / SUPERSEDED_BY_JOBS`.
+- `NIGHT-WOZ-052`: `PENDING / WAITING_CI`; opened #78.
 - `NIGHT-WOZ-048`: `DONE / INTEGRATED` — #73.
-
-## HOLDING
-
-- F3/20.1 #75: corrective known, write-flow blocker; untouched.
-- F3/18.2 residual provider/payment scenarios: external/business-policy evidence remains open.
-- F4/25.2 #79: green candidate owned by BBB/JOBS sequencing; WOZ must not touch.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-056`: ASSIGNED — SAME #78 exact-head race-check + integration; CI-FALLBACK NONE.
-- `NIGHT-WOZ-055`: NO_RESULT / SUPERSEDED_BY_JOBS.
-- `NIGHT-WOZ-052`: PENDING / WAITING_CI — #78 opened exact-base; CI later green.
-- `NIGHT-WOZ-048`: DONE / INTEGRATED — #73.
+- `NIGHT-WOZ-057`: ASSIGNED — SAME #75 corrective + refresh; no merge this cycle; 20.2 read-only fallback.
+- `NIGHT-WOZ-056`: DONE/INTEGRATED by GitHub evidence — #78.
