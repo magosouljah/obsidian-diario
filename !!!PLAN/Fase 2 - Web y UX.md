@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas. GitHub/runtime vivo prevalece.
 
-**Baseline vivo CYCLE 093:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 094:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -16,7 +16,7 @@
 
 `NIGHT-WOZ-090` terminó `BLOCKED_STOP` sobre exact `816f946c...`: confirmó que el harness real usa Vite/WebdriverIO/headless Chrome, pero la superficie conectada disponible no puede lanzar checkout/Vite/WebdriverIO/Chrome. No hubo timings cold/warm, browser build ni runtime logs atribuibles. Issue #41 `5482199628`.
 
-**Owner CYCLE 093:** ninguno para 12.1. No reciclarlo en una superficie incapaz de ejecutar navegador real.
+**Owner CYCLE 094:** ninguno para 12.1. No reciclarlo en una superficie incapaz de ejecutar navegador real.
 
 ### 13.1 — `[ 🟡 ] IN PROGRESS / FROZEN`
 
@@ -32,15 +32,15 @@ No revivir #69/#70 automáticamente. Reuse helper-level solo dentro de assignmen
 Evidencia reusable:
 - `NIGHT-AAA-071`: auditoría READ-ONLY; gap de exhaustive executable Web/Tauri proof + Save All no-silent-loss.
 - Issue #41 `5478129410`: gap concreto en `src/App.tsx`: Review single Save y Save All pueden cerrar/avanzar antes de durable cloud completion/failure.
-- `NIGHT-AAA-088`: sin resultado final, handoff material ni nuevo PR F2/13.2 verificable al preflight CYCLE 093; superseded; NOT_PASS.
+- `NIGHT-AAA-089`: sin resultado final, handoff material ni nuevo candidate verificable al preflight CYCLE 094; superseded; NOT_PASS.
 
-**Owner CYCLE 093:** `NIGHT-AAA-089`.
+**Owner CYCLE 094:** `NIGHT-AAA-090`.
 - PRIMARY: mínimo corrective slice Review Save/Save All: esperar durable Web persistence, distinguir `saved/conflict/failed`, retry/no-silent-loss y focused executable tests + Tauri/Desktop call-spies.
 - Puede reutilizar semantics/helper de #69 sin revivir ni apropiarse del PR.
 - Nueva branch/PR AAA bounded solo si duplicate-check sigue limpio; fresh exact-head CI; NO MERGE.
 - CI-FALLBACK: NONE.
 
-13.2 permanece OPEN aunque AAA089 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles.
+13.2 permanece OPEN aunque AAA090 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles.
 
 ## Día 14
 
@@ -54,11 +54,20 @@ PR #81 conserva trabajo material limitado de playback Web, pero su historia/base
 
 ## Día 15
 
-### 15.1
+### 15.1 — `[ 🟡 ] IN PROGRESS`
 - [ ] SettingsShell desktop/móvil; Account/Plan/Preferences/Trash/legal.
 - [ ] state machines catálogo/cache/Trash/updater.
 - [ ] acciones peligrosas confirmadas + reauth.
 - [ ] Vaciar Trash permanente + confirmación fuerte + recent reauth.
+
+**Owner CYCLE 094 para subgate destructivo:** `NIGHT-WOZ-093`.
+- Audit-first sobre comportamiento actual: `SettingsPanel` ya contiene lifecycle/purge de Trash, por lo que no se permite crear una segunda arquitectura sin probar gap.
+- Reuse de APIs Trash y recent-reauth existentes; si falta algo, corrección mínima solo para wording permanente, confirmación fuerte, recent reauth y estado success/failure sin false success.
+- Scope: `src/components/SettingsPanel.tsx`, contratos/adapters Trash existentes y focused tests estrictamente necesarios. Privacy/Terms, AccountGate/auth/session implementation y provider/server semantics quedan OUT_OF_SCOPE.
+- Si recent reauth exige modificar auth/session, STOP con blocker exacto y devolver a JOBS; no cruzar BBB ownership.
+- NO MERGE; CI-FALLBACK NONE.
+
+Esta asignación no cierra 15.1 completo por sí sola.
 
 ### 15.2
 - [ ] dialog/focus/live regions/labels/contraste/zoom/reduced motion.
