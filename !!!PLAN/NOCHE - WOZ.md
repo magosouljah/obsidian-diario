@@ -7,45 +7,43 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-060`
+- `ASSIGNMENT_ID: NIGHT-WOZ-061`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F3 / 20.1 — SAME #75 exact-head race-check + integration`
+- `AREA: F3 / 20.1 — SAME #75 exact-head merge retry after safety-layer block`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`
 - `PRIMARY_PR: #75 @ 40e39393247dbdd506ac01edefa84fd0b0add94c`
-- `PREDECESSOR: NIGHT-WOZ-059 had no final RESULTADO DEL TURNO or Issue #41 handoff before CYCLE 061; no merge occurred. SUPERSEDED and MUST NOT execute late.`
-- `FACTUAL_STATE: #75 is OPEN/non-draft/mergeable; base resolves to live integration; changed_files=4; exact-head Required CI and applicable workflows remain completed/success.`
-- `RECALCULATION: selected again from zero because #75 is still the shortest race-clean material integration step across F0-F4.`
-- `SERIALIZATION: WOZ/#75 owns the only integration mutation authorized in CYCLE 061.`
+- `PREDECESSOR: NIGHT-WOZ-060 ended BLOCKED / MERGE_FLOW_UNAVAILABLE. Preflight, exact four-file delta and applicable exact-head CI were green; GitHub never accepted the merge, so no integration claim exists.`
+- `RECALCULATION: SAME #75 remains the shortest race-clean material integration step. Retry is authorized only as the exact-head transaction; do not rebuild or duplicate the candidate.`
+- `SERIALIZATION: WOZ/#75 owns the only integration mutation authorized in CYCLE 062.`
 
 ### PRIMARY
 
-1. Recheck live integration immediately before acting. If live HEAD moved from `63c9f8c9...`, STOP unless a history-preserving refresh + complete exact-head revalidation remains safely within this SAME #75 scope.
-2. Recheck #75 exact head `40e3939...`, OPEN/non-draft/mergeable state, four changed files and duplicate-check.
-3. Confirm fresh exact-head applicable CI remains complete/green, including Required CI and the dedicated F3/20.1 coverage; skipped non-applicable jobs are not failures.
-4. Confirm changed paths remain exactly: `.github/workflows/f3-20.1-observability.yml`, `cloud-server/OPERATIONS-OBSERVABILITY.md`, `cloud-server/operations-observability.js`, `cloud-server/tests/operations-observability.test.cjs`.
-5. Merge #75 through the authorized exact-head flow only if race-clean; use expected head SHA and verify resulting integration SHA + parents after merge.
-6. Maximum claim: F3/20.1 **software observability slice integrated**. Do NOT claim external metrics/tracing backend, provider alert delivery, retention, on-call delivery, public status or production observability runtime.
-7. Do not touch #79/#76/#72/#74/#71/#69/#70 or provider/infra resources.
-8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+1. Fresh race-check live integration immediately before acting. If HEAD moved from `63c9f8c9...`, STOP unless a history-preserving SAME-#75 refresh + full exact-head revalidation can safely remain within scope.
+2. Verify #75 remains OPEN/non-draft/mergeable at exact head `40e39393247dbdd506ac01edefa84fd0b0add94c`.
+3. Confirm changed paths remain exactly: `.github/workflows/f3-20.1-observability.yml`, `cloud-server/OPERATIONS-OBSERVABILITY.md`, `cloud-server/operations-observability.js`, `cloud-server/tests/operations-observability.test.cjs`.
+4. Confirm all applicable exact-head CI remains complete/green; skipped non-applicable jobs are not failures.
+5. Retry only the authorized exact-head merge transaction using expected head SHA. Do not alter code to work around connector/safety behavior.
+6. If GitHub accepts merge, verify resulting integration SHA and parents before claiming integration.
+7. Maximum claim: F3/20.1 **software observability slice integrated**. External metrics/tracing backend, alert delivery, retention, on-call, public status and production observability runtime remain UNVERIFIED.
+8. Do not touch BBB057 capacity work, #79/#76/#72/#74/#71/#69/#70 or provider/infra resources.
+9. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** pre-merge live integration; exact #75 head; four-file delta; exact-head CI; merge result SHA + verified parents; explicit external UNVERIFIED tails.  
-**STOP:** baseline/head moved unsafely, scope drift, mergeability changed, any applicable CI red/pending, or integration race.
+**Required evidence:** pre-merge integration SHA; exact #75 head; four-file delta; exact-head CI; merge SHA + parents if accepted; exact blocker if merge flow remains unavailable.  
+**STOP:** baseline/head changes unsafely, scope drift, mergeability changes, applicable CI red/pending, integration race, or safety layer blocks before GitHub acceptance.
 
 ### CI-FALLBACK
 
 `CI-FALLBACK: NONE`.
 
-Reason: PRIMARY is already exact-head green and has no useful independent wait lane. Do not invent fallback.
+Reason: #75 is already green and merge-ready; BBB057 independently owns the newly unblocked F3/20.2 capacity evidence lane. WOZ must not duplicate it.
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-WOZ-059`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 061; #75 remained unmerged.
-- `NIGHT-WOZ-058`: `PENDING / WAITING_CI` processed in CYCLE 060; exact-head CI later all green.
+- `NIGHT-WOZ-060`: `BLOCKED / MERGE_FLOW_UNAVAILABLE`; no GitHub merge accepted, #75 remains unmerged.
+- `NIGHT-WOZ-058`: `PENDING / WAITING_CI`; exact-head CI later green.
 - `NIGHT-WOZ-056`: `DONE / INTEGRATED` — PR #78 merge `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; max claim `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
-- `NIGHT-WOZ-048`: `DONE / INTEGRATED` — #73.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-060`: ASSIGNED — SAME #75 exact-head race-check + integration; CI-FALLBACK NONE.
-- `NIGHT-WOZ-059`: NO_RESULT / SUPERSEDED_BY_JOBS.
-- `NIGHT-WOZ-058`: PENDING/WAITING_CI — corrective + refresh; later CI completed green.
+- `NIGHT-WOZ-061`: ASSIGNED — SAME #75 exact-head merge retry; CI-FALLBACK NONE.
+- `NIGHT-WOZ-060`: BLOCKED / MERGE_FLOW_UNAVAILABLE.
