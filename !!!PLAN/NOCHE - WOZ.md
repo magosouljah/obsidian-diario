@@ -7,14 +7,14 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-057`
+- `ASSIGNMENT_ID: NIGHT-WOZ-058`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F3 / 20.1 — SAME #75 corrective + history-preserving refresh`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`
 - `PRIMARY_PR: #75 @ bb493b3755ba1a42b4c5cfe7f3b885edc544c61f`
-- `PREDECESSOR: NIGHT-WOZ-056 has no structured RESULTADO DEL TURNO visible, but GitHub real proves its PRIMARY completed: #78 merged exact head 50aac3f0... as 63c9f8c9...; accepted by JOBS as DONE/INTEGRATED.`
-- `FACTUAL_CHANGE: #75 is stale against live integration; compare = ahead 4 / behind 8, merge-base a9d35a3d..., with exactly four intended observability files.`
-- `SERIALIZATION: BBB/#79 owns the only integration mutation in CYCLE 058. WOZ may prepare/validate #75 but MUST NOT merge it this cycle.`
+- `PREDECESSOR: NIGHT-WOZ-057 had no final RESULTADO DEL TURNO / Issue #41 handoff / GitHub head change verifiable before CYCLE 059; SUPERSEDED and MUST NOT execute late.`
+- `FACTUAL_STATE: #75 remains OPEN/stale; live→#75 compare = diverged, ahead 4 / behind 8, merge-base a9d35a3d..., exactly four intended observability files. Historical F3 observability job is green but Test - Desktop Portability on old head is FAILURE; no old CI may authorize merge.`
+- `SERIALIZATION: BBB/#79 owns the only integration mutation in CYCLE 059. WOZ may prepare/validate #75 but MUST NOT merge it this cycle.`
 
 ### PRIMARY
 
@@ -23,7 +23,7 @@
 3. Apply only the known corrective for immutable external Action pins and perform a history-preserving narrow refresh onto live integration if the safe flow permits.
 4. Run focused tests and fresh exact-head CI. Preserve software-only claims: structured redacted events, bounded counters, condition→route mapping, kill switches and runbook.
 5. Do not claim external metrics/tracing backend, retention, provider alert delivery, on-call delivery, public status or production runtime evidence.
-6. **Do not merge #75 in CYCLE 058.** Leave a race-check-ready candidate/handoff for next JOBS cycle after #79 outcome is known.
+6. **Do not merge #75 in CYCLE 059.** Leave a race-check-ready candidate/handoff for the next JOBS cycle after #79 outcome is known.
 7. Do not touch #76/#79/#72/#74/#71/#69/#70 or provider/infra resources.
 8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
@@ -40,12 +40,12 @@
 
 ## RESULTADOS PROCESADOS
 
+- `NIGHT-WOZ-057`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 059.
 - `NIGHT-WOZ-056`: `DONE / INTEGRATED` by GitHub factual evidence — PR #78 merged `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; max claim `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
-- `NIGHT-WOZ-055`: `NO_RESULT / SUPERSEDED_BY_JOBS`.
-- `NIGHT-WOZ-052`: `PENDING / WAITING_CI`; opened #78.
 - `NIGHT-WOZ-048`: `DONE / INTEGRATED` — #73.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-WOZ-057`: ASSIGNED — SAME #75 corrective + refresh; no merge this cycle; 20.2 read-only fallback.
+- `NIGHT-WOZ-058`: ASSIGNED — SAME #75 corrective + refresh; no merge this cycle; 20.2 read-only fallback.
+- `NIGHT-WOZ-057`: NO_RESULT / SUPERSEDED_BY_JOBS.
 - `NIGHT-WOZ-056`: DONE/INTEGRATED by GitHub evidence — #78.
