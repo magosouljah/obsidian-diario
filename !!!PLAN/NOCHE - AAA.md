@@ -6,11 +6,11 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-072`
+- `ASSIGNMENT_ID: NIGHT-AAA-073`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — Web action-boundary + silent-loss audit`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc`
-- `PREDECESSOR: NIGHT-AAA-071 produced no RESULTADO DEL TURNO / Issue #41 handoff before JOBS CYCLE 076; superseded after fresh critical-path recalculation, not PASS.`
+- `PREDECESSOR: NIGHT-AAA-072 produced no RESULTADO DEL TURNO / new Issue #41 handoff before JOBS CYCLE 077; superseded after fresh critical-path recalculation, not PASS.`
 - `SERIALIZATION: READ-ONLY. AAA MUST NOT merge or mutate integration. #81/#69/#70 remain out of scope.`
 
 ### PRIMARY
@@ -38,6 +38,7 @@
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-AAA-071`: NO_RESULT before CYCLE 076; superseded by JOBS072, not PASS.
+- `NIGHT-AAA-072`: NO_RESULT before CYCLE 077; superseded by JOBS073, not PASS.
+- `NIGHT-AAA-071`: NO_RESULT before CYCLE 076; superseded historically, not PASS.
 - `NIGHT-AAA-070`: PENDING / STOP_HISTORY_RECONCILE_UNAVAILABLE.
 - Older results remain historical in Issue #41 and git history.
