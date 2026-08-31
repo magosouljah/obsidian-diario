@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 081:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Integración estable CYCLE 082:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -16,11 +16,12 @@
 
 - #71 conserva regression proof: Desktop login no persistió `beatgaler:account-session:v1` bajo la sesión probada.
 - #74 es candidate histórico OPEN/Ready sobre snapshot anterior; no se presume integrable sin reconciliation segura.
-- `NIGHT-BBB-076` posee esta pieza en CYCLE 081: REUSE #71/#74, safe history-preserving refresh si literalmente seguro, fresh CI + authoritative Windows auth journey, NO MERGE.
+- `NIGHT-BBB-076` no dejó resultado final antes de CYCLE 082; not PASS.
+- `NIGHT-BBB-077` posee esta pieza: REUSE #71/#74, safe history-preserving refresh si literalmente limpio, fresh exact-head CI + authoritative Windows auth journey, NO MERGE.
 
 ### windows/review
 
-#72 sigue OPEN/stale/frozen hasta refresh seguro; no pertenece a BBB076 salvo que JOBS lo reasigne en otro ciclo.
+#72 sigue OPEN/stale/frozen hasta refresh seguro; no pertenece a BBB077 salvo reasignación futura explícita.
 
 ## Día 22 / 23
 
@@ -34,4 +35,4 @@ Integrated rows conocidas: `windows/import`, `windows/updater`, `macos/updater` 
 ### 25.2 — `[ 🟡 ] READINESS ARTIFACT INTEGRATED / GLOBAL OPEN`
 PR #79 docs-only readiness artifact ya está integrado. Gate real sigue pendiente de beta/tester execution, 0 P0 y ningún P1 core conocido, además de release-chain evidence aplicable.
 
-**Owner CYCLE 081:** BBB `NIGHT-BBB-076` sobre F4/25.1 windows/auth. BBB no está autorizado a mutar integration este ciclo.
+**Owner CYCLE 082:** BBB `NIGHT-BBB-077` sobre F4/25.1 windows/auth. BBB no está autorizado a mutar integration este ciclo.
