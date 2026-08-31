@@ -1,76 +1,57 @@
 # Fase 1 — Seguridad, cuentas y datos durables
 
-> Leer `Plan Maestro.md`. D8 y D9 están cerrados. D10.1 sigue abierto únicamente por evidencia real off-provider; su artifact técnico ya quedó integrado por PR #56.
+> GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Estado:** D8 `[x] / PASS`; D9 `[x] / PASS`; D10.1 `[ 🟡 ] / PENDING_EXTERNAL_PROOF`.  
-**Integración estable:** `integration-v0.8.0-alpha.1` @ `f0d65aa66988e3e1a026e237b65c65a56b098aa9`.  
+**Baseline vivo CYCLE 101:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.  
+**Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[ 🟡 ] RO / ALPHA DECISION`.  
 **Release público:** 🔴 `NO-GO`.
 
 ## D6 — `[x] PASS`
 
-- 6.1 / PR #43 integrado `23bded948c4377b28fc48a72378816968d4cd413`.
-- 6.2 / PR #44 integrado `9dd76a9d43e72c2295667a3661ce5a1cff7a4826`.
-- compile #128 `33194215442` SUCCESS; cross-process #4 `33194215463` SUCCESS; Required CI #363 `33194215450` SUCCESS.
-- WOZ gate transaction Issue #41 `5455677550` PASS.
+PR #43 integrado `23bded948c4377b28fc48a72378816968d4cd413`; PR #44 integrado `9dd76a9d43e72c2295667a3661ce5a1cff7a4826`; D6 cross-process + compile + Required CI aceptados. WOZ gate Issue #41 `5455677550`.
 
 ## D7 — `[x] PASS`
 
-- PR #46 exact tested head `6477fa6f6c4f04813acbbe5dbd43302347072adb`; merge `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
-- D7 `33205320953`, D6 `33205320957`, Productive Temp Auth Compile `33205321000`, Required CI #402 `33205320950`: SUCCESS.
-- WOZ gate Issue #41 `5457172823`: PASS.
+PR #46 exact tested head `6477fa6f6c4f04813acbbe5dbd43302347072adb`; merge `e25c60429e453d7b8cb8ef294d89a01ef7511103`; D7/D6/temp-auth/Required CI SUCCESS. WOZ gate `5457172823`.
 
 ## D8 — `[x] PASS / CLOSED`
 
-Baseline de cierre `6c4499d124a64d138e791ea4abf0091766dde7e9`.
+8.1 PR #49 integrado `14002b29c5101232c0ca8f8b85d808c8214975fb`; 8.2 PR #52 integrado `c25ec6a824bc0ae60fbf65858d53be26d453f205`; RO resolutions PR #53 integrado `6c4499d124a64d138e791ea4abf0091766dde7e9`. Gate D8 PASS Issue #41 `5460381842`.
 
-- 8.1 / PR #49 exact head `f8ae2d1dedf0b4f977b4aedcaef5ac4ea83acdff`; merge `14002b29c5101232c0ca8f8b85d808c8214975fb`; handoff `5458273984` DONE.
-- 8.2 / PR #52 exact head `f5ae901fb48444b6ea845048fb86f4dd482d75ec`; Required CI #443, D6 #81, D7 #53, compile #171 SUCCESS; merge `c25ec6a824bc0ae60fbf65858d53be26d453f205`.
-- Resoluciones RO / PR #53 exact head `ab952c464f351aac736405c8559f5b85f421bc0c`; Amazon SES; deletion retention 0 días; provider-only recent reauth; Required CI #455, D6 #91, D7 #65, compile #175 SUCCESS; merge `6c4499d124a64d138e791ea4abf0091766dde7e9`.
-- Gate D8 PASS por Issue #41 `5460381842`.
+Follow-up fuera de D8: F2/15.1 Vaciar Trash sigue requiriendo confirmación fuerte + recent reauth + action boundary determinista.
 
-Follow-up fuera de D8: F2/15.1 debe incluir “Vaciar Trash” con borrado permanente, confirmación fuerte y recent reauth.
+## D9 — `[x] PASS / CLOSED`
 
-## D9 — PostgreSQL/migración reversible — `[x] PASS / CLOSED`
-
-WOZ cerró D9 por REUSE-FIRST en Issue #41 handoff `5460959369` (`STATUS: DONE`, `RESULT: PASS`) sin crear rama/PR ceremonial.
-
-Requisitos aceptados mediante evidencia existente verificada:
-- [x] migrations/constraints/indexes/transacciones;
-- [x] importer dry-run/checksums/idempotencia/quarantine/reporte;
-- [x] MFA/OAuth protegidos + hashes sesión no reversibles;
-- [x] staging/conteos/checks + rollback sin pérdida + corrupción fail-closed;
-- [x] PostgreSQL permanece autoridad productiva; ningún JSON es autoridad productiva.
+WOZ cerró D9 REUSE-FIRST en Issue #41 `5460959369`. PostgreSQL sigue autoridad durable; migraciones/checksums/idempotencia/quarantine/rollback y protección de secretos/sesiones fueron aceptados. No reabrir por ceremonia.
 
 ## D10 — Restore y alpha
 
-### 10.1 — `[ 🟡 ] PENDING_EXTERNAL_PROOF`
+### 10.1 — `[x] PASS / CLOSED`
 
-Evidencia reutilizada y aceptada:
-- [x] restore aislado + RPO/RTO + core flows: PITR aislado real, RPO ~7 min <=15 min, RTO `3643 s` <=7200 s;
-- [x] access/retention cubiertos por evidencia ya aceptada.
+Evidencia técnica reusable ya aceptada:
+- restore aislado real + RPO ~7 min <=15 min + RTO `3643 s` <=7200 s;
+- access/retention aceptados;
+- PR #56 `test(data): add D10.1 backup readiness contract`, exact tested head `0abe39e096d10d992764a2d24874e46529109a70`, integrado como `f0d65aa66988e3e1a026e237b65c65a56b098aa9`;
+- strategy control-config + index + media y backup-failure condition/routing contract = PASS.
 
-Artifact técnico integrado:
-- PR #56 `test(data): add D10.1 backup readiness contract`;
-- exact tested head `0abe39e096d10d992764a2d24874e46529109a70` sobre base `672e133bc9cb8a47a29d4b34e13fc535290e5681`;
-- self-test local `PASS_LOCAL_CONTRACT`;
-- estrategia control-config + index + media = PASS;
-- backup-failure condition+routing contract = PASS;
-- Test - Desktop Portability `33250824435` SUCCESS;
-- D7 `33250824401` SUCCESS;
-- D6 `33250824418` SUCCESS;
-- Productive Temp Auth Compile `33250824441` SUCCESS;
-- PR #56 MERGED como `f0d65aa66988e3e1a026e237b65c65a56b098aa9`, parents `672e133...` + `0abe39e...`.
+**External proof consumido en CYCLE 101 — Issue #41 `5470149521`:**
+- fuente PostgreSQL productiva AWS RDS; `pg_restore --list` PASS;
+- dump SHA-256 `a130f5c0317a8cd39a34b344af94314b5f91c3dcd01e601fbe58d1ae433f6cc8`, readback desde AWS/CloudShell con mismo checksum;
+- destino off-provider autorizado: Google Drive, fuera del primary provider/account failure domain;
+- ZIP cifrado SHA-256 `0003c26ecb15979fa4d1689326e84de5b04e477862e5efc807a8e847b528039a` antes de upload;
+- archivo privado/owner-only; download/readback desde Google Drive produjo exactamente el mismo SHA-256.
 
-Único requisito literal pendiente:
-- [ 🟡 ] **off-provider copy proof real:** RO debe seleccionar/autorizar un destino fuera del primary provider/account failure domain y ejecutar copia mínima + read/checksum verification.
+Conclusión factual: el único blocker restante de D10.1 quedó satisfecho. **No repetir PITR/restore/cutover/restart/migrations/rotation.** D10.1 PASS no autoriza alpha ni release público.
 
-La integración del artifact **no** convierte ese requisito externo en PASS. D10.1 no se marca `[x]` hasta evidencia real. REUSE-FIRST estricto: no repetir restore/cutover/restart/migrations/rotation.
+### 10.2 — `[ 🟡 ] RO / ALPHA DECISION`
 
-WOZ ya no tiene trabajo técnico interno útil en D10.1 y fue reasignado explícitamente por JOBS a F3/16.1 bajo `NIGHT-WOZ-007`. El blocker externo permanece owned por RO/operación hasta autorización/evidencia.
+Owner ya aprobó como intención una alpha interna 3–5 cuentas invite-only, sin release público ni tester charges, condicionada a gates D2–D10/P0 y evidencia aplicable. La ejecución/autorización final sigue siendo decisión RO independiente.
 
-### 10.2 — `NOT STARTED`
-- [ ] revisar gates D2–D10/P0/evidencia requerida;
-- [ ] si pasa: alpha interna 3–5 usuarios sintéticos, invite-only, sin pagos;
-- [ ] si falla: demo local/deslizamiento sin scope creep.
+- [ ] reconciliar gates D2–D10/P0 actuales contra evidencia viva;
+- [ ] clasificar blockers externos/RO restantes;
+- [ ] ejecutar alpha solo tras autorización RO explícita y prerequisitos satisfechos;
+- [ ] si no pasa, mantener demo/local sin scope creep.
 
-RO decide alpha final. Cerrar F1 no autoriza release público.
+`NIGHT-WOZ-100` puede producir únicamente un decision map READ-ONLY como CI-FALLBACK si su PRIMARY #76 entra en `WAITING_CI`. No puede lanzar alpha ni mutar provider/infra.
+
+**Principio:** cierre de F1 no equivale a release público; F5 permanece cerrado hasta que F0–F4 cumplan sus gates reales.
