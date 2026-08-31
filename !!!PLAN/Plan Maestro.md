@@ -12,7 +12,7 @@
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-060
+## Estado vivo — NIGHT-JOBS-061
 
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable observada:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
@@ -22,44 +22,44 @@
 - **F2 / 11.1, 11.2, 12.2:** `[x]`.
 - **F2 / 12.1:** `[ 🟡 ] RUNTIME EVIDENCE`; cold/warm real sigue sin prueba literal.
 - **F2 / 13.1:** #69 frozen por `STOP_WRITE_SURFACE`; #70 frozen por safe-write + stale baseline.
-- **F2 / 14.1:** AAA055 no dejó resultado verificable; `NIGHT-AAA-056` queda owner único del slice mínimo streaming/memory safety. No integration mutation este ciclo.
+- **F2 / 14.1:** AAA056 no dejó resultado verificable; `NIGHT-AAA-057` queda owner único del slice mínimo streaming/memory safety. No integration mutation este ciclo.
 - **F3 / 17.1 + 17.2 + 18.1:** `[x] SOFTWARE DONE / INTEGRATED`.
 - **F3 / 18.2:** #73 reconciliation/exception-queue software slice INTEGRATED; global 18.2 sigue abierto por provider/payment/business-policy evidence.
 - **F3 / 19.2:** #76 OPEN/stale/frozen.
-- **F3 / 20.1:** #75 OPEN/non-draft/mergeable @ `40e39393247dbdd506ac01edefa84fd0b0add94c`; exactamente 4 archivos intended. Fresh exact-head F3 20.1, D6, D7, Productive Temp Auth Compile y Desktop Portability = SUCCESS; live integration no se movió. `NIGHT-WOZ-059` posee la única mutación de integration para race-check + merge exact-head.
-- **F3 / 20.2:** PR #78 `[x] HARNESS SOFTWARE INTEGRATED`; approved peak, 2× runtime proof, latency, safety margin y durable user waitlist siguen abiertos. Audit WOZ058 confirma durable user waitlist = GAP.
+- **F3 / 20.1:** #75 OPEN/non-draft/mergeable @ `40e39393247dbdd506ac01edefa84fd0b0add94c`, exactamente cuatro intended files. Exact-head Required CI y applicable workflows siguen SUCCESS. `NIGHT-WOZ-060` posee la única mutación de integration para race-check + merge exact-head.
+- **F3 / 20.2:** PR #78 `[x] HARNESS SOFTWARE INTEGRATED`; approved peak, 2× runtime proof, latency, safety margin y durable user waitlist siguen abiertos.
 - **F4 / 21.1+21.2, 24.1, 24.2:** `[x]`.
 - **F4 / windows/auth:** #74/#71 frozen; `NOT_COVERED`.
 - **F4 / windows/review:** #72 stale/frozen.
 - **F4 / 25.1:** Web/auth sigue `NOT_COVERED`.
-- **F4 / 25.2:** #79 sigue OPEN/non-draft/mergeable @ `c6ec2910522370f2506beb71ad5e0fa0317d6a61`, un docs-only artifact sobre baseline histórico. BBB054 no dejó resultado; `NIGHT-BBB-055` lo refresca + CI fresca pero **NO MERGE CYCLE 060** porque WOZ/#75 posee integration.
+- **F4 / 25.2:** #79 sigue OPEN/non-draft/mergeable @ `c6ec2910522370f2506beb71ad5e0fa0317d6a61`, un docs-only artifact sobre baseline histórico. BBB055 no dejó resultado; `NIGHT-BBB-056` lo refresca + CI fresca pero **NO MERGE CYCLE 061** porque WOZ/#75 posee integration.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 
-## RESULTADOS PROCESADOS — CYCLE 060
+## RESULTADOS PROCESADOS — CYCLE 061
 
-- `NIGHT-AAA-055`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- `NIGHT-BBB-054`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- `NIGHT-WOZ-058`: `PENDING / WAITING_CI` procesado. Corrective de immutable pins + refresh history-preserving completados; exact-head CI terminó verde después del cierre del worker. No merge previo.
-- No se promovió merge nuevo durante JOBS; integration permanece en #78.
+- `NIGHT-AAA-056`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
+- `NIGHT-BBB-055`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
+- `NIGHT-WOZ-059`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`; #75 permanece OPEN/unmerged.
+- No se promovió merge, PASS ni integración nueva; integration permanece en #78.
 
-## OWNERS — CYCLE 060
+## OWNERS — CYCLE 061
 
-### AAA — `NIGHT-AAA-056` — F2 / 14.1
+### AAA — `NIGHT-AAA-057` — F2 / 14.1
 PRIMARY: live integration only; REUSE-FIRST sobre media Web y cerrar únicamente el menor gap literal de progressive/Range-style playback, giant-file memory safety y cleanup/cancel; focused tests + fresh exact-head CI; sin Player redesign; NO merge este ciclo.  
 CI-FALLBACK: F2/14.2 READ-ONLY player-control gap map solo si PRIMARY queda code-complete esperando CI/review; cero writes; recheck PRIMARY.
 
-### BBB — `NIGHT-BBB-055` — F4 / 25.2 / SAME #79
-PRIMARY: reconciliar #79 preservando su único docs-only artifact sobre el live baseline observado; confirmar delta exacto + fresh exact-head CI; **NO MERGE CYCLE 060**. No cerrar 25.2.  
+### BBB — `NIGHT-BBB-056` — F4 / 25.2 / SAME #79
+PRIMARY: reconciliar #79 preservando su único docs-only artifact sobre el live baseline observado; confirmar delta exacto + fresh exact-head CI; **NO MERGE CYCLE 061**. No cerrar 25.2.  
 CI-FALLBACK: F4/25.1 Web/auth READ-ONLY evidence map únicamente durante WAITING_CI/review; sin writes; STOP ante overlap/duplicación.
 
-### WOZ — `NIGHT-WOZ-059` — F3 / 20.1 / SAME #75
-PRIMARY: race-check exact-head `40e3939...`; confirmar 4 paths intended + CI exact-head green + live baseline unchanged; merge solo con expected head y verificar merge SHA/parents. Claim máximo: software observability integrated; external observability permanece UNVERIFIED.  
+### WOZ — `NIGHT-WOZ-060` — F3 / 20.1 / SAME #75
+PRIMARY: race-check exact-head `40e3939...`; confirmar cuatro paths intended + CI exact-head green + live baseline unchanged; merge solo con expected head y verificar merge SHA/parents. Claim máximo: software observability integrated; external observability permanece UNVERIFIED.  
 CI-FALLBACK: NONE.
 
-## Camino crítico global — recalculado desde cero CYCLE 060
+## Camino crítico global — recalculado desde cero CYCLE 061
 
-1. **F3/20.1 / #75:** ya exact-head green y race-clean contra live observado; integración es el siguiente paso material más corto.
-2. **F4/25.2 / #79:** refresh docs-only + fresh CI preparado en paralelo, serializado detrás de #75.
+1. **F3/20.1 / #75:** exact-head green + mergeable sobre live observado; integración es el siguiente paso material más corto.
+2. **F4/25.2 / #79:** refresh docs-only + fresh CI en paralelo, serializado detrás de #75.
 3. **F2/14.1:** Web media streaming/memory safety dependency-safe.
 4. **F4/25.1 Web/auth** y luego demás journeys no cubiertos.
 5. **F3/20.2 residual:** approved peak + 2× runtime + latency + safety margin + durable user waitlist.
@@ -83,8 +83,8 @@ CI-FALLBACK: NONE.
 
 ## NEXT
 
-**AAA:** ejecutar una sola vez `NIGHT-AAA-056`; 055 está superseded.  
-**BBB:** ejecutar una sola vez `NIGHT-BBB-055`; SAME #79 refresh/CI, sin merge mientras #75 posee integration.  
-**WOZ:** ejecutar una sola vez `NIGHT-WOZ-059`; SAME #75 exact-head race-check + integración.  
+**AAA:** ejecutar una sola vez `NIGHT-AAA-057`; 056 está superseded.  
+**BBB:** ejecutar una sola vez `NIGHT-BBB-056`; SAME #79 refresh/CI, sin merge mientras #75 posee integration.  
+**WOZ:** ejecutar una sola vez `NIGHT-WOZ-060`; SAME #75 exact-head race-check + integración.  
 **JOBS:** siguiente ciclo procesa resultados reales; si #75 mergea, refrescar cualquier candidate restante contra el nuevo baseline antes de integración.  
-**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 060; GitHub vivo prevalece si cambia después.
+**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 061; GitHub vivo prevalece si cambia después.
