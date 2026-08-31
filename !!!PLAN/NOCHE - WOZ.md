@@ -6,73 +6,46 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-092`
+- `ASSIGNMENT_ID: NIGHT-WOZ-093`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F3 / 20.2 — PR #83 Draft→Ready + exact-head integration transaction`
+- `AREA: F2 / 15.1 — Trash destructive-action gap, audit-first/minimum corrective`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PR: #83 @ 803b2143e6ea03f6549118e9241fee320dfccdee; OPEN/DRAFT/mergeable; base exact 816f946c09d998ee5a045b3e70b2fe4f3a4160d0.`
-- `EXACT_HEAD_EVIDENCE: F3 20.2 Durable Waitlist 33388377959 SUCCESS; Desktop Portability 33388377963 SUCCESS; D6 33388377952 SUCCESS; D7 33388377964 SUCCESS.`
-- `PREDECESSOR: NIGHT-WOZ-091 left no final RESULTADO DEL TURNO or matching material handoff by CYCLE 093 preflight; #83 has not moved and remains Draft. Superseded, NOT_PASS.`
-- `MATERIAL_PATH: dedicated connector action mark_pull_request_ready_for_review remains available; use only that supported action, no GraphQL workaround/bypass.`
-- `SERIALIZATION: WOZ092 is the ONLY worker authorized to mutate integration in CYCLE 093, and only for exact PR #83 after all same-head/base/scope/CI/race gates.`
+- `PREDECESSOR: NIGHT-WOZ-092 = BLOCKED_STOP. PR #83 remains exact/open/draft/green; the explicitly supported Draft→Ready action failed inside connector on Repository.fullDatabaseId. Do not retry the same operation this cycle.`
+- `DUPLICATE_CHECK: open PR scan found no current Trash/Empty-Trash candidate. SettingsPanel already contains Trash lifecycle/purge state, so REUSE-FIRST audit is mandatory before any mutation.`
+- `SERIALIZATION: WOZ MUST NOT touch #83, #74, #84, #72, #76, #69/#70/#81 or integration. AAA090 owns Review Save/Save All; BBB089 owns Windows auth. No integration mutator is authorized in CYCLE 094.`
 
 ### PRIMARY
 
-**F3 / 20.2 — finish the bounded #83 process transaction, not the global capacity gate.**
+**F2 / 15.1 — close or sharply reduce the literal “Vaciar Trash” destructive-action gap without widening account/auth/legal scope.**
 
-1. Fresh preflight integration HEAD, #83 head/base/scope, Issue #41 and exact checks. STOP on unexpected material movement or scope expansion.
-2. Reuse the existing exact-head CI only if it still belongs to exact head `803b2143...` over base `816f946c...` and remains applicable/green.
-3. Use only the dedicated Draft→Ready action. No workaround/bypass.
-4. Immediately postcheck #83 is OPEN/Ready, same head/base/scope, mergeable and race-free.
-5. If head/base/scope changed, require history-preserving reconciliation and fresh applicable exact-head CI before any merge.
-6. If state is unchanged and all gates remain green, merge #83 through normal authorized flow using expected head; verify PR merged state and new integration SHA.
-7. Do **not** claim F3/20.2 PASS from merge/CI. Runtime 160 + latency/error/queue/recovery/no-loss/no-cross-tenant + measured safety margin vs expected 80 remain separately UNVERIFIED.
-8. Do not touch AAA089/BBB088 scopes or attempt F2/12.1 browser timing on a non-executable surface.
+1. Fresh preflight integration + Issue #41 + open PRs + current `SettingsPanel`/platform Trash contracts. STOP if a duplicate owner/candidate exists.
+2. Audit current behavior before changing anything: determine whether permanent beat Trash purge already exists end-to-end and whether the visible action has strong confirmation and a proven recent-reauth gate.
+3. REUSE existing platform Trash APIs and existing recent-reauth capability if they already satisfy the contract. Do not create a second purge architecture.
+4. If a bounded gap is proven, change only the minimum Trash UI/wiring/tests required for: explicit permanent-delete wording, strong confirmation, recent reauth before destructive execution, deterministic success/failure state, and no false-success removal from UI.
+5. Scope is limited to `src/components/SettingsPanel.tsx`, existing Trash platform contracts/adapters and focused tests strictly needed by this action. Do not edit Privacy/Terms copy in the same file.
+6. Do not modify AccountGate/auth/session implementation. If current recent-reauth API is insufficient and auth changes would be required, STOP with exact blocker/evidence rather than crossing BBB ownership.
+7. New bounded WOZ branch/PR only if a real uncovered slice exists and duplicate-check remains clean; fresh exact-head applicable CI. **NO MERGE.**
+8. Maximum claim: `F2/15.1 EMPTY_TRASH_DESTRUCTIVE_ACTION_CANDIDATE_READY` or `REUSE_PASS_FOR_THIS_SUBGATE` only if literal existing evidence already proves it. Do not close all 15.1 unless every requirement is actually covered.
 9. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** before/after integration SHA; #83 before/after draft/state/head/base/scope; Ready action result; exact CI applicability; expected-head merge result/merge SHA if integrated; explicit runtime-160 UNVERIFIED list.  
-**STOP:** Ready action fails, unexpected head/base/scope movement, CI no longer exact/applicable/green, mergeability changes, integration race, or any requirement for workaround/bypass.
+**Required evidence:** exact integration/base/head; current Trash call chain; confirmation behavior; recent-reauth call/evidence; success/failure UI semantics; changed files/functions if any; focused tests; exact-head CI; explicit UNVERIFIED 15.1 remainder.  
+**STOP:** auth/session implementation change needed; server/provider destructive semantics missing; legal copy/#76 touched; AAA/BBB scope overlap; duplicate candidate; broad redesign; integration mutation; or unavailable runtime/provider credential needed for literal proof.
 
 ### CI-FALLBACK
 
-`CI-FALLBACK: NONE` — PRIMARY is a serialized integration transaction; runtime-160 depends materially on #83 integration and therefore is not an independent fallback.
+`CI-FALLBACK: NONE`.
+
+**Reason:** #83 remains materially blocked on the broken supported Ready transition and runtime-160 depends on its integration; retry/readiness mutation would repeat a verified blocker. Other F2/F3 work would broaden ownership or depend on external execution surfaces.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-WOZ-091`: NO_RESULT at CYCLE 093 preflight; #83 remains unchanged OPEN/DRAFT; superseded; NOT_PASS.
-- `NIGHT-WOZ-090`: BLOCKED_STOP; browser/runtime execution surface unavailable. Issue #41 `5482199628`.
-- `NIGHT-WOZ-088`: BLOCKED_STOP on prior Draft→Ready tooling path; the dedicated Ready action is now available and is the only permitted changed path.
+### `NIGHT-WOZ-092` — `BLOCKED_STOP`
 
-## RESULTADO DEL TURNO — NIGHT-WOZ-092
+- Integration before/postcheck: `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; no mutation.
+- PR #83: OPEN/DRAFT, merged=false, mergeable=true, base exact `816f946c...`, head `803b2143e6ea03f6549118e9241fee320dfccdee`, exact 3-file scope.
+- Exact-head Required CI remains SUCCESS.
+- Dedicated `mark_pull_request_ready_for_review` was attempted exactly once as authorized and failed with `GithubGraphQLAPIError` because `Repository.fullDatabaseId` is undefined; immediate postcheck showed no state/head/base/scope change.
+- No workaround/bypass and no merge. Issue #41 `5482892475`.
+- F3/20.2 runtime 160, latency/error/queue/recovery, no-loss/no-cross-tenant and measured margin vs expected 80 remain UNVERIFIED.
 
-### PRIMARY
-
-- `Assignment ID:` NIGHT-WOZ-092
-- `STATUS:` BLOCKED_STOP
-- `baseline:` integration-v0.8.0-alpha.1 before/postcheck = `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; no integration mutation.
-- `branch/head:` `woz/night-074-durable-waitlist` @ `803b2143e6ea03f6549118e9241fee320dfccdee`.
-- `PR:` #83; preflight and immediate postcheck OPEN/DRAFT, merged=false, mergeable=true, base exact `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`, head exact `803b2143e6ea03f6549118e9241fee320dfccdee`.
-- `cambios:` ninguno en BeatGaler. Se ejecutó únicamente la acción dedicada `mark_pull_request_ready_for_review`; no workaround/bypass, no merge.
-- `tests:` no se relanzaron; reuse-first sobre evidencia exact-head existente.
-- `CI:` exact-head `Required CI` sobre `803b2143e6ea03f6549118e9241fee320dfccdee` = completed/SUCCESS; sigue asociado a PR #83 con base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`. Scope fresco = exactamente 3 archivos: `.github/workflows/f3-20.2-durable-waitlist.yml`, `cloud-server/durable-user-waitlist.js`, `cloud-server/tests/durable-user-waitlist.test.cjs`.
-- `evidencia:` integration HEAD fresco `816f946c...`; #83 fresco antes de acción OPEN/DRAFT/mergeable, same head/base, 3 files; Ready action devolvió `GithubGraphQLAPIError` por campo inexistente `Repository.fullDatabaseId`; postcheck inmediato confirmó #83 sin cambio. Handoff Issue #41 comment `5482892475`.
-- `UNVERIFIED:` runtime real 160 concurrentes; latencia; error rate; queue behavior; recovery; no-loss; no-cross-tenant; margen de seguridad medido frente a 80. F3/20.2 PASS NO reclamado.
-- `blockers:` transición Draft→Ready soportada falla dentro del conector por `Repository.fullDatabaseId`; el STOP prohíbe workaround/bypass.
-- `condición de STOP alcanzada:` sí — `Ready action fails`.
-- `recomendación para JOBS:` mantener #83 bloqueado hasta reparación de la acción soportada Draft→Ready o reasignar explícitamente una ruta soportada; no interpretar CI verde/mergeability como PASS de F3/20.2.
-
-### CI-FALLBACK
-
-- `Assignment ID:` NIGHT-WOZ-092
-- `STATUS:` NOT_RUN
-- `baseline:` `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
-- `branch/head:` NONE.
-- `PR:` NONE.
-- `cambios:` NONE.
-- `tests:` NONE.
-- `CI:` NONE.
-- `evidencia:` asignación vigente declara explícitamente `CI-FALLBACK: NONE`.
-- `UNVERIFIED:` N/A adicional; conserva los UNVERIFIED de PRIMARY.
-- `blockers:` NONE; fallback inexistente por diseño.
-- `condición de STOP alcanzada:` no aplica; no se inventó trabajo alterno.
-- `recomendación para JOBS:` emitir una nueva asignación solo después de procesar este resultado; WOZ no se autoasigna siguiente tarea.
+Earlier relevant: `NIGHT-WOZ-090` BLOCKED_STOP on unavailable real-browser execution surface.
