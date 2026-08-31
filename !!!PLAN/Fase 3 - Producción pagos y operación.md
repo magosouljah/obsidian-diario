@@ -2,7 +2,7 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 062:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
+**Baseline vivo CYCLE 063:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
 
 ## Estado owner / candidates
 
@@ -10,17 +10,17 @@
 - PR #73 / 18.2 reconciliation MERGED como `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`; cierra solo software reconciliation/exception-queue slice.
 - PR #78 / 20.2 capacity harness MERGED como `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; claim máximo `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
 - PR #76 sigue OPEN/stale/frozen. Canonical Privacy/Terms + public routes existen; Settings canonical sync sigue pendiente.
-- PR #75 `woz/night-20.1-observability @ 40e39393247dbdd506ac01edefa84fd0b0add94c` sigue OPEN/non-draft/mergeable. WOZ060 confirmó cuatro intended observability files y CI exact-head aplicable verde, pero la transacción de merge fue bloqueada por `MERGE_FLOW_UNAVAILABLE` antes de aceptación GitHub. `NIGHT-WOZ-061` posee el retry exact-head; no reimplementar ni duplicar candidate.
+- PR #75 `woz/night-20.1-observability @ 40e39393247dbdd506ac01edefa84fd0b0add94c` sigue OPEN/non-draft/mergeable. CYCLE 063 confirma `base_sha = 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`, 4 intended files y applicable exact-head CI verde. `NIGHT-WOZ-061` no dejó resultado; `NIGHT-WOZ-062` posee la única transacción exact-head autorizada.
 - PR #77 CLOSED/unmerged; superseded por #78.
 
 ## Owners actuales
 
-**WOZ — `NIGHT-WOZ-061` — F3 / 20.1 SAME #75.**  
-PRIMARY: fresh race-check + retry de la transacción exact-head de #75; sin workaround de código. Solo si GitHub acepta, verificar merge SHA + parents.  
+**WOZ — `NIGHT-WOZ-062` — F3 / 20.1 SAME #75.**  
+PRIMARY: fresh race-check + exact-head merge transaction de #75; sin workaround ni reimplementación. Solo si GitHub acepta, verificar merge SHA + parents.  
 CI-FALLBACK: `NONE`.
 
-**BBB — `NIGHT-BBB-057` — F3 / 20.2 runtime capacity.**  
-PRIMARY: reutilizar el harness #78 integrado con target canónico **80 usuarios esperados / 160 usuarios de validación**; obtener evidencia runtime aplicable para 160 y requisitos literales.  
+**BBB — `NIGHT-BBB-058` — F3 / 20.2 runtime capacity.**  
+PRIMARY: reutilizar harness #78 integrado con target canónico **80 usuarios esperados / 160 usuarios de validación**; obtener evidencia runtime materialmente aplicable a 160 para requisitos literales.  
 CI-FALLBACK: #79/F4-25.2 refresh docs-only + fresh CI, únicamente si PRIMARY queda esperando runtime/external; no merge.
 
 ## Día 16
@@ -66,8 +66,8 @@ PR #68.
 
 ## Día 20
 
-### 20.1 — `[ 🟡 ] EXACT-HEAD GREEN / MERGE-FLOW BLOCKED / ASSIGNED WOZ061`
-PR #75 contiene structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno. Immutable pins + history-preserving refresh completados. WOZ060 volvió a confirmar exact-head CI aplicable verde y cuatro-file delta; GitHub no aceptó el merge porque la capa de ejecución bloqueó la transacción antes de llegar al proveedor. WOZ061 solo reintenta el merge exact-head después de fresh race-check. External observability tails no se cierran con este PR.
+### 20.1 — `[ 🟡 ] EXACT-BASE / EXACT-HEAD GREEN / ASSIGNED WOZ062`
+PR #75 contiene structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno. CYCLE 063 verificó GitHub real: OPEN/non-draft/mergeable; exact head `40e39393247dbdd506ac01edefa84fd0b0add94c`; `base_sha` exactamente igual al live integration `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; 4 files; workflows F3 20.1, D6, D7, Productive Temp Auth Compile y Desktop Portability = SUCCESS; Upgrade 21.2 = skipped/non-applicable. No existe merge aceptado todavía. WOZ062 posee únicamente la transacción exact-head. External observability tails no se cierran con este PR.
 
 ### 20.2 — `[ 🟡 ] HARNESS SOFTWARE INTEGRATED / TARGET APPROVED / RUNTIME CAPACITY UNVERIFIED`
 - [x] deterministic local/synthetic parameterized harness: PR #78 merged;
@@ -79,8 +79,6 @@ PR #75 contiene structured redacted events, bounded counters, condition→route 
 - [ ] safety margin medida contra 80 expected;
 - [ ] durable user waitlist.
 
-La decisión RO 80/160 fija el target; **no es PASS**. BBB057 posee el carril de evidencia runtime a 160. Si solo existe evidencia local/sintética, debe quedar explícitamente no autoritativa. 20.2 solo puede cerrar con evidencia aplicable de 160 + latency/error/queue/recovery + safety margin + durable admission/waitlist, sin data loss ni cross-tenant unauthorized behavior.
-
-WOZ058 read-only fallback confirmó que la cola existente es fairness/bot-ordering state, no durable user waitlist. #78 por sí solo no autoriza full 20.2 PASS.
+`NIGHT-BBB-057` no produjo resultado verificable antes de CYCLE 063 y queda superseded. `NIGHT-BBB-058` fue recalculado desde cero porque el target 80/160 ya está fijado y la evidencia runtime sigue siendo blocker directo. Synthetic/local-only no cierra capacidad. 20.2 solo puede cerrar con evidencia aplicable de 160 + latency/error/queue/recovery + safety margin + durable admission/waitlist, sin data loss ni cross-tenant unauthorized behavior.
 
 **Principio:** no falsear proveedor, capacidad, pagos, DNS, legal review o staging real sin evidencia externa/productiva.
