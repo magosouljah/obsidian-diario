@@ -2,30 +2,30 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 059:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
+**Baseline vivo CYCLE 060:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
 
 ## Estado owner / candidates
 
 - PR #68 / 18.1 MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
 - PR #73 / 18.2 reconciliation MERGED como `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`; cierra solo software reconciliation/exception-queue slice.
 - PR #78 / 20.2 capacity harness MERGED como `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; claim máximo `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
-- PR #76 `legal/privacy-terms-v1 @ 36d218609...` sigue OPEN/stale/frozen. Canonical Privacy/Terms + public routes existen; Settings canonical sync sigue pendiente.
-- PR #75 `woz/night-20.1-observability @ bb493b375...` sigue OPEN/stale. Live→candidate = diverged, ahead 4 / behind 8, merge-base `a9d35a3d...`; cuatro intended observability files. Historical F3 observability job es verde, pero Desktop Portability del head viejo es FAILURE y no autoriza integración. `NIGHT-WOZ-058` es owner único para corrective immutable pins + refresh seguro; no merge este ciclo mientras BBB/#79 posee integration.
+- PR #76 sigue OPEN/stale/frozen. Canonical Privacy/Terms + public routes existen; Settings canonical sync sigue pendiente.
+- PR #75 `woz/night-20.1-observability @ 40e39393247dbdd506ac01edefa84fd0b0add94c` está OPEN/non-draft/mergeable sobre live integration, exactamente cuatro intended observability files. Fresh exact-head F3 20.1, D6, D7, Productive Temp Auth Compile y Desktop Portability son SUCCESS; Upgrade 21.2 SKIPPED/not applicable. `NIGHT-WOZ-059` posee race-check + integración exact-head en CYCLE 060.
 - PR #77 CLOSED/unmerged; superseded por #78.
 
 ## Owners actuales
 
-**WOZ — `NIGHT-WOZ-058` — F3 / 20.1 SAME #75.**
+**WOZ — `NIGHT-WOZ-059` — F3 / 20.1 SAME #75.**
 
 ### WOZ PRIMARY
-1. Recheck live integration y duplicate-check #75.
-2. REUSE-FIRST: conservar únicamente los 4 files intended de observability software.
-3. Aplicar solo corrective de immutable Action pins y history-preserving refresh al live baseline si el flujo seguro lo permite.
-4. Focused tests + fresh exact-head CI; no external observability claims.
-5. **No mergear en CYCLE 059**: BBB/#79 es la única mutación de integration autorizada. Dejar candidate listo para próximo race-check.
+1. Recheck live integration y #75 exact head `40e3939...`.
+2. Confirmar exactamente los cuatro paths intended y ningún scope drift.
+3. Confirmar CI exact-head aplicable completa/verde.
+4. Merge solo race-clean con expected head; verificar merge SHA + parents.
+5. Claim máximo: software observability slice integrated; external metrics/tracing/backend/retention/alert delivery/on-call/status permanecen UNVERIFIED.
 
 ### WOZ CI-FALLBACK
-F3/20.2 READ-ONLY residual gap map únicamente si PRIMARY queda genuinamente `WAITING_CI`/review: approved peak, 2× runtime, latency, safety margin, durable waitlist. Sin writes, sin provider load, sin PASS claim. STOP ante overlap y recheck PRIMARY.
+`NONE`.
 
 ## Día 16
 
@@ -49,11 +49,9 @@ Health/readiness/shutdown/timeouts/proxy trust integrado por #59. Separación f�
 PR #68.
 
 ### 18.2 — `[ 🟡 ] RECONCILIATION SOFTWARE INTEGRATED / GLOBAL OPEN`
-- [x] software reconciliation provider↔BeatGaler + exception queue slice: PR #73 merged as `a306e3b3...`;
+- [x] software reconciliation provider↔BeatGaler + exception queue slice: PR #73 merged;
 - [ ] 3DS/rechazo/pago tardío/renewal/cancel/upgrade/downgrade/refund con evidencia aplicable;
 - [ ] grace periods/productive billing behavior verificados donde corresponda.
-
-No convertir #73 en full 18.2 PASS.
 
 ## Día 19
 
@@ -63,20 +61,20 @@ No convertir #73 en full 18.2 PASS.
 - [ 🟡 ] public legal routes `/privacy` y `/terms` existen en #76 pero no están integrados/deployed.
 
 ### 19.2 — `[ 🟡 ] CANONICAL LEGAL CANDIDATE / FROZEN ON SAFE REFRESH`
-- [ 🟡 ] Privacy Policy v1.0 + Terms v1.0 owner-approved están en #76, effective/updated 2026-08-30;
+- [ 🟡 ] Privacy Policy v1.0 + Terms v1.0 owner-approved están en #76;
 - [ 🟡 ] rutas públicas + links de entrada existen en #76;
-- [ 🟡 ] Settings sigue con contenido temporal; sincronización canónica pendiente;
+- [ 🟡 ] Settings sigue con contenido temporal;
 - [ ] safe history-preserving refresh de #76 sobre live baseline;
 - [ ] independent legal review / production publication evidence;
 - [ ] soporte con intake/severidad/SLA/escalación.
 
 ## Día 20
 
-### 20.1 — `[ 🟡 ] IN PROGRESS / ASSIGNED WOZ058`
-PR #75 contiene structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno. Corrective de immutable pins conocido; candidate stale. No fresh PASS ni integración todavía.
+### 20.1 — `[ 🟡 ] EXACT-HEAD GREEN / ASSIGNED WOZ059`
+PR #75 contiene structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno. Immutable pins + history-preserving refresh completados en WOZ058. Exact-head CI aplicable terminó verde. Falta únicamente race-check + integración; external observability tails no se cierran con este PR.
 
 ### 20.2 — `[ 🟡 ] HARNESS SOFTWARE INTEGRATED / RUNTIME CAPACITY UNVERIFIED`
-- [x] deterministic local/synthetic parameterized harness: PR #78 merged `63c9f8c9...`;
+- [x] deterministic local/synthetic parameterized harness: PR #78 merged;
 - [ ] approved expected peak;
 - [ ] real/applicable 2× peak proof;
 - [ ] latency target/result;
@@ -85,6 +83,6 @@ PR #75 contiene structured redacted events, bounded counters, condition→route 
 - [ ] safety margin;
 - [ ] durable user waitlist.
 
-#78 no autoriza full 20.2 PASS.
+WOZ058 read-only fallback confirmó explícitamente que la cola existente es fairness/bot-ordering state, no durable user waitlist. #78 no autoriza full 20.2 PASS.
 
 **Principio:** no falsear proveedor, capacidad, pagos, DNS, legal review o staging real sin evidencia externa/productiva.
