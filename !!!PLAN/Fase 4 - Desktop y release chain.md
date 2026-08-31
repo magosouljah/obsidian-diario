@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 064:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
+**Integración estable CYCLE 065:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
 
 ## Estado actual
 
@@ -45,17 +45,17 @@ Apple Developer/certificados/notarization/hardware permanecen externos/deferred.
 Integrated rows: `windows/import`, `windows/updater`, `macos/updater` = `AUTOMATED_PASS`.
 Web/auth y múltiples journeys siguen `NOT_COVERED`; iPhone sigue `PENDING_EXTERNAL`.
 
-### 25.2 — `[ 🟡 ] PR #79 STALE / CONDITIONAL FALLBACK BBB059`
+### 25.2 — `[ 🟡 ] PR #79 STALE / CONDITIONAL FALLBACK BBB060`
 
-GitHub CYCLE 064 confirms PR #79 remains OPEN/non-draft/mergeable:
+GitHub CYCLE 065 confirms PR #79 remains OPEN/non-draft/mergeable:
 - branch `bbb/f4-25.2-beta-readiness @ c6ec2910522370f2506beb71ad5e0fa0317d6a61`;
 - historical base SHA `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`;
 - live integration = `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`;
 - exactly one intended docs-only file `docs/beta/0.9.0-beta.1-readiness.md` (+84).
 
-`NIGHT-BBB-058` did not produce a final result before CYCLE 064 and is superseded. BBB059 has PRIMARY in F3/20.2 runtime capacity because the approved 80/160 target makes that lane more closure-critical.
+`NIGHT-BBB-059` did not produce a final result before CYCLE 065 and is superseded. BBB060 has PRIMARY in F3/20.2 runtime capacity because the approved 80/160 target makes that lane more closure-critical.
 
-#79 is preauthorized only as **CI-FALLBACK of BBB059** if PRIMARY truly enters `WAITING_EXTERNAL/WAITING_RUNTIME`: history-preserving narrow refresh onto live integration, verify exact one-file docs-only delta, fresh exact-head CI. **NO MERGE CYCLE 064** and do not close 25.2.
+#79 is preauthorized only as **CI-FALLBACK of BBB060** if PRIMARY truly enters `WAITING_EXTERNAL/WAITING_RUNTIME`: history-preserving narrow refresh onto live integration, verify exact one-file docs-only delta, fresh exact-head CI. **NO MERGE CYCLE 065** and do not close 25.2.
 
 Even if #79 later merges, 25.2 remains open for real beta/tester/signing evidence.
 
