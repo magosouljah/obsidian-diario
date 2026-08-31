@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas. GitHub/runtime vivo prevalece.
 
-**Baseline vivo CYCLE 087:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 088:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -14,7 +14,7 @@
 - [x] lazy artwork + pagination/window/memory — #58/#66;
 - [ 🟡 ] cold/warm startup Web real cuantificado — harness localizado (`npm run test:web:smoke`), falta evidencia runtime real aplicable.
 
-No cerrar 12.1 con benchmark sintético. `NIGHT-AAA-083` puede ejecutar este punto solo como CI-FALLBACK READ-ONLY durante una espera externa real de su PRIMARY, sin cambios de código.
+No cerrar 12.1 con benchmark sintético. `NIGHT-AAA-084` puede ejecutar este punto solo como CI-FALLBACK READ-ONLY durante una espera externa real de su PRIMARY, sin cambios de código.
 
 ### 13.1 — `[ 🟡 ] IN PROGRESS / FROZEN`
 
@@ -30,20 +30,20 @@ No revivir #69/#70 automáticamente. Reuse helper-level solo dentro de assignmen
 Evidencia reusable:
 - `NIGHT-AAA-071`: auditoría READ-ONLY; gap de exhaustive executable Web/Tauri proof + Save All no-silent-loss.
 - Issue #41 `5478129410`: gap concreto en `src/App.tsx`: Review single Save y Save All llaman `cloudifyImportedBeats(...)` de forma que el flujo puede cerrar/avanzar antes de durable cloud completion/failure.
-- `NIGHT-AAA-082`: no resultado final verificable al inicio de CYCLE 087; superseded; NOT_PASS.
+- `NIGHT-AAA-083`: no resultado final verificable al inicio de CYCLE 088; superseded; NOT_PASS.
 
-**Owner CYCLE 087:** `NIGHT-AAA-083`.
+**Owner CYCLE 088:** `NIGHT-AAA-084`.
 - PRIMARY: mínimo corrective slice Review Save/Save All: esperar durable Web persistence, distinguir `saved/conflict/failed`, retry/no-silent-loss y focused executable tests + Tauri/Desktop call-spies.
 - Puede reutilizar semantics/helper de #69 sin revivir ni apropiarse del PR.
 - Nueva branch/PR AAA bounded solo si duplicate-check sigue limpio; fresh exact-head CI; NO MERGE.
 - CI-FALLBACK: 12.1 READ-ONLY browser cold/warm evidence únicamente durante espera externa real.
 
-13.2 permanece OPEN aunque AAA083 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles.
+13.2 permanece OPEN aunque AAA084 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles.
 
 ## Día 14
 
 ### 14.1 — `[ 🟡 ] PARKED / #81 STALE`
-PR #81 conserva trabajo material limitado de playback Web, pero su historia/base está stale. No reabrir ni mutar mientras AAA083 trabaja 13.2.
+PR #81 conserva trabajo material limitado de playback Web, pero su historia/base está stale. No reabrir ni mutar mientras AAA084 trabaja 13.2.
 
 ### 14.2 — `[ ]`
 - [ ] índice activo/shortcuts/seek/shuffle/repeat/error recoverable.
