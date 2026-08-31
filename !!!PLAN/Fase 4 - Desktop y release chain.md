@@ -2,40 +2,42 @@
 
 > GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 100:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Integración estable CYCLE 101:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
 - 21.1 / 21.2 `[x]`.
 - 24.1 / 24.2 `[x]`.
-- 25.1 permanece `[ 🟡 ]`.
-- PR #79 / F4 25.2 readiness docs fue integrado como `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; ese merge NO demuestra tester execution, signing/notarization ni global 25.2 closure.
+- 25.1 `[ 🟡 ]`.
+- #79 / F4 25.2 readiness docs integrado como `816f946c...`; no demuestra tester execution, signing/notarization ni cierre global 25.2.
 
 ### windows/auth
 
-- #71 conserva fail-before autoritativo histórico.
-- #74 es la única product-corrective lineage actual, head `d1593d368e1015abb6a25bf98e5fa8586664ac95`, base exact `816f946c...`, OPEN/Ready/mergeable.
-- #84 es el único evidence candidate exact-lineage actual, head `28c3810c43eefa8bab0ffa2026c371882ead2f2f`, OPEN/Ready/mergeable, base exact `816f946c...`.
-- Exact #84 head `28c3810c...`: F4 - 25.1 Windows Auth Journey run `33439899177` / job `99645269221` = **FAILURE**. D6, D7, Web Production Build, Test - Desktop Portability y Windows Import observados SUCCESS en ese exact head.
-- Trace reusable: repeated `boundary=unexpected-request`, `gatePresent=true`, `tokenPresent=false`; literal error `Desktop login did not persist the returned session token.`
-- Esta evidencia todavía NO atribuye el mismatch a harness/mock/config, Tauri/WDIO service o producto.
-- `NIGHT-BBB-094` no dejó resultado final ni matching Issue #41 handoff/material #84 movement al preflight CYCLE 100; se procesa `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- `NIGHT-BBB-095` recibe ownership exclusivo para identificar el primer request inesperado y atribuirlo. Solo si se prueba `HARNESS_ONLY` puede corregir mínimamente el harness #84 y rerun con assertions literales intactas. Si producto está implicado, STOP `PRODUCT_SIDE_PROVEN`; si service impide atribución, STOP `HARNESS_SERVICE_BLOCKED`. **NO MERGE.**
+- #71 conserva fail-before histórico.
+- #74 única product-corrective lineage: `d1593d368e1015abb6a25bf98e5fa8586664ac95`, OPEN/Ready/mergeable, base exact live.
+- #84 única evidence lineage: `28c3810c43eefa8bab0ffa2026c371882ead2f2f`, OPEN/Ready/mergeable, base exact live.
+- Exact #84 Windows Auth Journey `33439899177` / job `99645269221` = **FAILURE**. D6/D7/Web Production Build/Desktop Portability/Windows Import fueron observados verdes en ese head.
+- Reusable trace: repeated `unexpected-request`, `gatePresent=true`, `tokenPresent=false`; literal token-persistence assertion red.
+- `NIGHT-BBB-095` terminó `BLOCKED_STOP / HARNESS_SERVICE_BLOCKED`: current harness intercepta fetch y convierte non `/auth/health`/`/auth/login` en synthetic 500, pero la traza no identifica method/path del primer request; por tanto no está probado harness-only ni product-side.
+
+**Owner CYCLE 101: `NIGHT-BBB-096`.** Diagnostic-only: registrar primer unexpected request como `{method, pathname/requestClass}` sanitizado, sin query/body/headers/token/password; fresh packaged Windows journey; solo si la nueva traza prueba harness rejection legítima puede hacerse minimum harness correction. Product-side ⇒ STOP y nueva autorización JOBS. **NO PRODUCT MUTATION / NO MERGE.** CI-FALLBACK NONE.
 
 ### windows/review
 
-#72 sigue OPEN/stale/frozen. No pertenece a BBB095 y su Review surface materialmente overlap con AAA096.
+#72 sigue OPEN/stale/frozen; no pertenece a BBB096 y overlap con AAA097 Review.
 
 ## Día 22 / 23
 
-Signing Windows, SmartScreen/AV/hardware, Apple Developer, certificados/notarization/stapling/hardware permanecen externos/abiertos.
+Signing Windows, SmartScreen/AV/hardware, Apple Developer, certificados/notarization/stapling/hardware siguen externos/abiertos. Owner decidió no pagar Apple Developer/certificados ahora; no describir builds como signed/notarized sin evidencia.
 
 ## Día 25
 
 ### 25.1 — `[ 🟡 ] IN PROGRESS`
-Integrated rows conocidas: `windows/import`, `windows/updater`, `macos/updater` = automated evidence. `windows/auth` conserva exact-lineage packaged evidence ejecutable y roja sobre #84 head `28c3810c...`; causal ownership del `unexpected-request` sigue pendiente de BBB095. Múltiples journeys permanecen sin evidencia actual completa; iPhone sigue external.
+
+Integrated rows conocidas: `windows/import`, `windows/updater`, `macos/updater` automated evidence. `windows/auth` sigue roja sobre exact #84; múltiples journeys continúan sin evidencia actual completa; iPhone external.
 
 ### 25.2 — `[ 🟡 ] READINESS ARTIFACT INTEGRATED / GLOBAL OPEN`
-PR #79 docs-only readiness artifact ya está integrado. Gate real sigue pendiente de beta/tester execution, 0 P0 y ningún P1 core conocido, además de release-chain evidence aplicable.
 
-**Owner CYCLE 100:** BBB `NIGHT-BBB-095` sobre #84 causal-boundary localization. Autoridad limitada a diagnostics y, solo si se prueba harness-only, corrección mínima del harness + fresh packaged Windows evidence. No product corrective, no integration mutation. CI-FALLBACK NONE.
+#79 docs-only readiness artifact integrado. Gate real requiere beta/tester execution, 0 P0, ningún P1 core conocido y release-chain evidence aplicable.
+
+**Principio:** exact-head evidence-before-claim; CI genérico no sustituye el journey literal rojo.
