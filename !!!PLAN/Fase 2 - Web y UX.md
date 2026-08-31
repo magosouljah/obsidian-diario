@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas. GitHub/runtime vivo prevalece sobre snapshots históricos.
 
-**Baseline vivo CYCLE 079:** `integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc`.
+**Baseline vivo CYCLE 080:** `integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc`.
 
 ## Estado actual
 
@@ -27,17 +27,17 @@ No cerrar 12.1 con benchmark sintético.
 
 No revivir #69/#70 automáticamente. Cualquier write slice nuevo requiere owner JOBS explícito.
 
-### 13.2 — `[ 🟡 ] AUDIT CONSUMED / EXECUTABLE EVIDENCE GAP`
+### 13.2 — `[ 🟡 ] EXECUTABLE EVIDENCE GAP`
 
 **Gate literal:** ninguna acción Web visible llama Tauri/Desktop; 0 pérdida silenciosa.
 
 Evidencia reusable confirmada:
 - `NIGHT-AAA-071` completó auditoría READ-ONLY sobre baseline `957f97771b7a15554cf6e002fe9eb215c71a65cc`.
-- No justificó cierre: detectó una brecha plausible en Save All para resumen de fallo parcial/conflicto/retry y faltó prueba exhaustiva ejecutable de que las acciones Web visibles no invocan Tauri/Desktop.
-- El menor siguiente paso recomendado por AAA071 fue un browser/component journey con call-spies sobre `invoke`/`listen` y assertions explícitas de Save All partial-failure/conflict summary + retry/no-silent-loss.
+- No justificó cierre: detectó brecha plausible en Save All para resumen de fallo parcial/conflicto/retry y faltó prueba ejecutable exhaustiva de que acciones Web visibles no invocan Tauri/Desktop.
+- `NIGHT-AAA-075` no dejó resultado verificable antes de CYCLE 080 y queda superseded, no PASS.
 
-**Owner CYCLE 079:** `NIGHT-AAA-075`.
-- PRIMARY: convertir ese gap ya conocido en evidencia ejecutable; no repetir la auditoría amplia.
+**Owner CYCLE 080:** `NIGHT-AAA-076`.
+- PRIMARY: REUSE AAA071; construir mínimo browser/component journey con call-spies `invoke`/`listen` para familias Web visibles ejercitables y assertions Save All partial-failure/conflict/retry/no-silent-loss.
 - Puede aplicar únicamente la corrección F2 mínima si el test demuestra un gap literal.
 - Sin #69/#70/#81, sin redesign y sin merge de integración.
 - CI-FALLBACK: NONE.
@@ -51,7 +51,7 @@ Evidencia reusable confirmada:
 - [ ] evitar archivos gigantes completos en RAM.
 - [ ] cancel/resume seguro y liberar buffers/object URLs.
 
-PR #81 conserva trabajo material limitado de playback Web, pero su historia/base está stale y la superficie segura de reconciliation no ha sido demostrada. No reabrir ni mutar mientras AAA075 trabaja 13.2.
+PR #81 conserva trabajo material limitado de playback Web, pero su historia/base está stale y la superficie segura de reconciliation no ha sido demostrada. No reabrir ni mutar mientras AAA076 trabaja 13.2.
 
 ### 14.2 — `[ ]`
 - [ ] índice activo/shortcuts/seek/shuffle/repeat/error recoverable.
