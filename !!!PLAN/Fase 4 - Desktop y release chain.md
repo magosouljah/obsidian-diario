@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 095:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Integración estable CYCLE 096:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -13,17 +13,18 @@
 
 ### windows/auth
 
-- #71 conserva fail-before autoritativo histórico: Desktop login no persistió `beatgaler:account-session:v1` en run `33313675968` / job `99263095638`.
+- #71 conserva fail-before autoritativo histórico.
 - #74 es la única product-corrective lineage actual, head `d1593d368e1015abb6a25bf98e5fa8586664ac95`, base exact `816f946c...`, OPEN/Ready/mergeable.
 - #84 es el único evidence candidate exact-lineage actual, head `c6c5ecb17e1efd055cb9a8f2bc42105ef3838d61`, OPEN/Ready/mergeable, base exact `816f946c...`.
-- Exact #84 head: Desktop Portability / Required CI `33423712599` SUCCESS; D6 `33423712621` SUCCESS; D7 `33423712587` SUCCESS; Web Production Build `33423712565` SUCCESS; Windows Import Journey `33423712584` SUCCESS.
-- Literal Windows Auth Journey `33423712589` = **FAILURE**: `Desktop login did not persist the returned session token.` Broad green does not override this literal gate.
-- `NIGHT-BBB-089` no dejó resultado final/handoff ni movimiento de #74/#84 al preflight CYCLE 095. Procesado `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- `NIGHT-BBB-090` recibe ownership exclusivo #74/#84 para atribuir el **primer límite causal** del fallo actual antes de otro cambio, hacer como máximo la corrección mínima demostrada, refrescar #84 exacto y exigir token persistence + AccountGate exit con fresh exact-head CI. **NO MERGE.**
+- Exact #84 head: broad Required CI/Desktop Portability permanece verde según evidencia ya registrada, pero literal Windows Auth Journey `33423712589` / job `99592060690` = **FAILURE**.
+- Job exacto: setup/checkout/node/rust/npm/embedded driver PASS; fallo ocurre en step `Run isolated Windows auth assertions`.
+- Literal failure conocida: `Desktop login did not persist the returned session token.` Broad green does not override this literal gate.
+- `NIGHT-BBB-090` no dejó resultado final/handoff ni movimiento de #74/#84 al preflight CYCLE 096. Procesado `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-BBB-091` recibe ownership exclusivo #74/#84 para extraer el **primer límite causal** del exact failed job antes de otro cambio, hacer como máximo la corrección mínima demostrada, refrescar #84 exacto y exigir token persistence + AccountGate exit con fresh exact-head CI. **NO MERGE.**
 
 ### windows/review
 
-#72 sigue OPEN/stale/frozen. No pertenece a BBB090 y su Review surface materialmente overlap con AAA091.
+#72 sigue OPEN/stale/frozen. No pertenece a BBB091 y su Review surface materialmente overlap con AAA092.
 
 ## Día 22 / 23
 
@@ -37,4 +38,4 @@ Integrated rows conocidas: `windows/import`, `windows/updater`, `macos/updater` 
 ### 25.2 — `[ 🟡 ] READINESS ARTIFACT INTEGRATED / GLOBAL OPEN`
 PR #79 docs-only readiness artifact ya está integrado. Gate real sigue pendiente de beta/tester execution, 0 P0 y ningún P1 core conocido, además de release-chain evidence aplicable.
 
-**Owner CYCLE 095:** BBB `NIGHT-BBB-090` sobre la lineage #74/#84. Autoridad limitada a diagnóstico causal + producto auth mínimo atribuible + evidencia packaged Windows exact-head. BBB no está autorizado a mutar integration. CI-FALLBACK NONE.
+**Owner CYCLE 096:** BBB `NIGHT-BBB-091` sobre la lineage #74/#84. Autoridad limitada a diagnóstico causal + producto auth mínimo atribuible + evidencia packaged Windows exact-head. BBB no está autorizado a mutar integration. CI-FALLBACK NONE.
