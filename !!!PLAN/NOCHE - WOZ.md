@@ -39,12 +39,47 @@
 - **STOP:** provider credential/action required; evidence cannot be observed safely; overlap with another owner; PRIMARY CI finishes, then return to PRIMARY before closing.
 - Fallback cannot close 19.1 and cannot substitute production/provider evidence.
 
+## RESULTADO DEL TURNO
+
+### PRIMARY
+
+- `Assignment ID:` `NIGHT-WOZ-078`
+- `STATUS:` `BLOCKED_STOP`
+- `baseline:` `integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc` (fresh preflight; unchanged from assignment).
+- `branch/head:` `woz/night-074-durable-waitlist @ 52b58f56d66430db1ecdce9f572680c61d5d9fe3`.
+- `PR:` `#83`, open, mergeable, still Draft; base SHA `957f97771b7a15554cf6e002fe9eb215c71a65cc`.
+- `cambios:` none in code/history/integration during this turn. Authorized Draft→Ready transition attempted once; connector action failed before transition.
+- `tests:` no new tests required because head/base did not move. Existing exact-head evidence retained.
+- `CI:` exact-head `Required CI` for `52b58f56d66430db1ecdce9f572680c61d5d9fe3` = `COMPLETED/SUCCESS`. Other observed applicable checks did not invalidate this conclusion.
+- `evidencia:` fresh integration branch read = exact `957f9777...`; PR #83 exact base/head verified; changed files exactly `.github/workflows/f3-20.2-durable-waitlist.yml`, `cloud-server/durable-user-waitlist.js`, `cloud-server/tests/durable-user-waitlist.test.cjs`; Issue #41 handoff comment `5477209087`; Draft→Ready action returned GraphQL schema/tooling error: `Repository.fullDatabaseId` undefined.
+- `UNVERIFIED:` real 160-concurrent runtime; latency/error/queue/recovery measurements; measured safety margin; F3/20.2 PASS remains explicitly unclaimed.
+- `blockers:` connected GitHub Draft→Ready transition path is currently broken by GraphQL schema mismatch. No product/CI blocker observed on exact head.
+- `condición de STOP alcanzada:` YES — `Draft→Ready flow blocked after green CI`.
+- `recomendación para JOBS:` treat #83 as scoped + exact-head Required CI green but still Draft due tooling transition blocker. Reassign only the minimal Ready transition or use an independently verified GitHub path; preserve SAME #83 and do not infer F3/20.2 PASS.
+
+### CI-FALLBACK
+
+- `Assignment ID:` `NIGHT-WOZ-078 / F3-19.1 fallback`
+- `STATUS:` `NOT_EXECUTED`
+- `baseline:` same live baseline `957f97771b7a15554cf6e002fe9eb215c71a65cc`.
+- `branch/head:` N/A — READ-ONLY fallback.
+- `PR:` N/A.
+- `cambios:` none.
+- `tests:` none.
+- `CI:` N/A.
+- `evidencia:` fallback authorization requires PRIMARY to genuinely enter `WAITING_CI` after a fresh/reconciled #83 head. PRIMARY instead hit explicit STOP on Draft→Ready tooling failure after already-green exact-head CI.
+- `UNVERIFIED:` all F3/19.1 production/provider evidence remains outside this turn.
+- `blockers:` eligibility condition not met.
+- `condición de STOP alcanzada:` fallback not started; no alternate work invented.
+- `recomendación para JOBS:` do not count any 19.1 progress from this turn.
+
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-`NIGHT-WOZ-077`: NO_RESULT before CYCLE 079; superseded by JOBS078 after fresh recalculation, not PASS.
+`NIGHT-WOZ-078`: PRIMARY `BLOCKED_STOP` on Draft→Ready tooling path after exact-head Required CI SUCCESS; CI-FALLBACK not eligible/not executed; no integration mutation.
 
 ## RESULTADOS PROCESADOS
 
+- `NIGHT-WOZ-078`: BLOCKED_STOP / #83 exact-head green and scoped, still Draft because Draft→Ready connector action failed; no fallback.
 - `NIGHT-WOZ-077`: NO_RESULT before CYCLE 079; superseded by JOBS078, not PASS.
 - `NIGHT-WOZ-074`: WAITING_CI / PR #83 candidate created; dedicated waitlist workflow PASS; JOBS later verified Required CI exact-head SUCCESS.
 - `NIGHT-WOZ-070`: DONE / PR #75 integrated; F3/20.1 software observability integrated.
