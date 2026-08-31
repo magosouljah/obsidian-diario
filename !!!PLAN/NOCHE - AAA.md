@@ -6,13 +6,13 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-097`
+- `ASSIGNMENT_ID: NIGHT-AAA-098`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — Review Save/Save All durable action boundary`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-AAA-096 no dejó RESULTADO DEL TURNO, matching Issue #41 handoff ni candidate material al preflight JOBS CYCLE 101; SUPERSEDED / NOT_PASS.`
-- `WHY_ASSIGNED: recalculado desde GitHub vivo; 13.2 sigue siendo la slice F2 técnica ejecutable de mayor valor que no colisiona con BBB auth ni WOZ legal.`
-- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB096 owns #84 diagnostics. WOZ100 owns #76 legal reconciliation. Do not touch #74/#84/#83/#76/auth/session/Trash.`
+- `PREDECESSOR: NIGHT-AAA-097 no dejó RESULTADO DEL TURNO, matching Issue #41 handoff ni candidate material al preflight JOBS CYCLE 102; SUPERSEDED / NOT_PASS.`
+- `WHY_ASSIGNED: recalculado desde GitHub vivo; el gap durable Review sigue probado y es la slice F2 técnica ejecutable de mayor valor sin colisión con BBB auth ni WOZ D10.2.`
+- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB097 owns #84 diagnostics. WOZ101 owns D10.2 READ-ONLY. Do not touch #74/#84/#83/#76/#85/auth/session/Trash/legal/deploy.`
 
 ### PRIMARY
 
@@ -20,7 +20,7 @@
 
 1. Fresh preflight integration + Issue #41 + open PRs; duplicate-check antes de mutar.
 2. Reuse el gap probado en `src/App.tsx`: single Save y Save All no deben cerrar/avanzar antes de durable `cloudifyImportedBeats(...)` completion.
-3. Reuse #69 únicamente como referencia semántica/helper; no revivir ni apropiarse de #69.
+3. Reuse #69 únicamente como referencia semántica/helper; no revivirlo.
 4. Cambiar solo wiring mínimo para esperar persistencia Web durable y exponer por beat `saved/conflict/failed`, retry y cero silent loss.
 5. Añadir pruebas enfocadas de single Save y Save All con partial failure/conflict/retry y call-spies que prueben que la ruta Web tocada no invoca APIs Tauri/Desktop-only.
 6. Un solo branch/PR bounded si duplicate-check queda limpio; registrar base/head exactos, changed files/functions, tests y fresh exact-head CI. **NO MERGE.**
@@ -36,7 +36,7 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-096`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 101; no final result, matching Issue #41 handoff ni new 13.2 candidate.
-- `NIGHT-AAA-095`: `NO_RESULT / SUPERSEDED / NOT_PASS` en CYCLE 100.
+- `NIGHT-AAA-097`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 102; no final result, matching Issue #41 handoff ni candidate material.
+- `NIGHT-AAA-096`: `NO_RESULT / SUPERSEDED / NOT_PASS` en CYCLE 101.
 - Issue #41 `5478129410`: reusable proven Review durable-completion gap.
 - `NIGHT-AAA-071`: DONE / AUDIT_ONLY; contexto reusable.
