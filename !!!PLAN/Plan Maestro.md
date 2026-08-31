@@ -12,44 +12,44 @@
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-092
+## Estado vivo — NIGHT-JOBS-093
 
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable verificada:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 - **Último merge material:** PR #79 → `816f946c...`; docs-only F4/25.2 readiness artifact.
 - **F0:** núcleo técnico interno cerrado; 1.2 y 2.2 tails externos/administrativos.
 - **F1:** D6–D9 PASS; D10.1 requiere off-provider/off-account proof real; D10.2 decisión RO.
-- **F2:** 11.1/11.2/12.2 cerrados. 12.1 browser cold/warm sigue abierto: `NIGHT-WOZ-090` terminó BLOCKED_STOP porque la superficie conectada no puede lanzar Vite/WebdriverIO/Chrome; no hay timings reales. 13.1 frozen. 13.2 conserva brecha factual Review Save/Save All durable-completion/no-silent-loss; `NIGHT-AAA-088` owns the minimum corrective candidate; NO MERGE. 14.1 #81 parked/stale.
-- **F3:** 17.1/17.2/18.1 cerrados; 18.2 global abierto; 20.1 software integrated. #83 sigue OPEN/DRAFT, exact base `816f946c...`, head `803b2143...`, mergeable y exact-head green. El blocker anterior era tooling Draft→Ready, pero CYCLE 092 verificó que ahora existe una acción dedicada `mark_pull_request_ready_for_review`; esto constituye cambio material del path y `NIGHT-WOZ-091` recibe la única autorización de Ready→recheck exact-head→merge para #83. Runtime 160 permanece UNVERIFIED aun si #83 integra.
-- **F4:** 21.1/21.2 y 24.1/24.2 cerrados; 25.1 incompleto. #84 sigue OPEN/Ready/mergeable en `d13a1969...`; Required CI `33407580663` SUCCESS pero literal Windows auth `33407580887` / job `99538870371` FAILURE: `Desktop login did not persist the returned session token.` `NIGHT-BBB-087` owns the minimum #74/#84 product-auth corrective/evidence lineage; NO MERGE.
+- **F2:** 11.1/11.2/12.2 cerrados. 12.1 browser cold/warm sigue abierto y execution-surface-blocked. 13.1 frozen. 13.2 conserva brecha factual Review Save/Save All durable-completion/no-silent-loss; AAA088 no produjo candidato verificable y `NIGHT-AAA-089` recibe la slice mínima; NO MERGE. 14.1 #81 parked/stale.
+- **F3:** 17.1/17.2/18.1 cerrados; 18.2 global abierto; 20.1 software integrated. #83 sigue OPEN/DRAFT, exact base `816f946c...`, head `803b2143...`, mergeable y exact-head green. `NIGHT-WOZ-092` es único owner para supported Draft→Ready→exact/race recheck→expected-head merge. Runtime 160 permanece UNVERIFIED aun si #83 integra.
+- **F4:** 21.1/21.2 y 24.1/24.2 cerrados; 25.1 incompleto. #74 actual `d1593d3...`; #84 actual `c6c5ecb...`. Compare exacto prueba que #84 contiene #74 y está 3 commits ahead. Fresh exact-head broad checks son verdes, pero literal Windows Auth run `33423712589` / job `99592060690` sigue FAILURE en `tests/e2e/auth-flow.e2e.mjs:64`: `Desktop login did not persist the returned session token.` `NIGHT-BBB-088` owns causal attribution + mínimo corrective/evidence; NO MERGE.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 - **F5:** `NO ABRIR`.
 
-## RESULTADOS PROCESADOS — CYCLE 092
+## RESULTADOS PROCESADOS — CYCLE 093
 
-- `NIGHT-AAA-087`: `NO_RESULT / SUPERSEDED / NOT_PASS`; no matching final ledger result or material Issue #41 handoff.
-- `NIGHT-BBB-086`: `NO_RESULT / SUPERSEDED / NOT_PASS`; no matching final ledger result or material Issue #41 handoff.
-- `NIGHT-WOZ-090`: `BLOCKED_STOP`; exact baseline/harness confirmed, but no executable browser/runtime surface, so cold/warm timings remain UNVERIFIED. Issue #41 `5482199628`.
-- No BeatGaler merge or PASS claim in this JOBS cycle; baseline unchanged.
+- `NIGHT-AAA-088`: `NO_RESULT / SUPERSEDED / NOT_PASS`; no matching final result/handoff or new material F2/13.2 PR.
+- `NIGHT-BBB-087`: no correctly labelled final night result; live bounded branch work exists. #74 moved to `d1593d3...`, #84 to `c6c5ecb...`; current exact packaged Windows Auth resolved RED. Processed `PARTIAL_LIVE_EVIDENCE / NOT_PASS`; any earlier WAITING_CI is obsolete.
+- `NIGHT-WOZ-091`: `NO_RESULT / SUPERSEDED / NOT_PASS`; #83 remains unchanged OPEN/DRAFT.
+- No BeatGaler merge or PASS claim in this JOBS cycle; integration baseline unchanged.
 
-## OWNERS — CYCLE 092
+## OWNERS — CYCLE 093
 
-### AAA — `NIGHT-AAA-088` — F2 / 13.2
+### AAA — `NIGHT-AAA-089` — F2 / 13.2
 PRIMARY: minimum Review Save/Save All durable action-boundary correction; per-beat saved/conflict/failed + retry/no-silent-loss + focused executable Tauri/Desktop call-spies; bounded candidate/fresh exact-head CI; NO MERGE.  
 CI-FALLBACK: NONE.
 
-### BBB — `NIGHT-BBB-087` — F4 / 25.1 windows/auth
-PRIMARY: sole bounded owner of #74/#84 product-auth lineage. Correct only minimum product logic behind missing packaged-Tauri session-token persistence, refresh #84 onto corrected exact #74 lineage, then require fresh exact-head packaged Windows assertions for token persistence and AccountGate exit. NO MERGE.  
+### BBB — `NIGHT-BBB-088` — F4 / 25.1 windows/auth
+PRIMARY: sole bounded owner of current #74/#84 lineage. Attribute the first causal boundary of the current exact packaged-auth failure before modifying product; only then apply the minimum attributable platform/session correction, refresh #84 exact lineage, and require literal token persistence + AccountGate exit plus fresh exact-head CI. NO MERGE.  
 CI-FALLBACK: NONE.
 
-### WOZ — `NIGHT-WOZ-091` — F3 / 20.2 #83 integration transaction
-PRIMARY: use newly available dedicated Draft→Ready action on exact #83; postcheck same head/base/scope/mergeability and exact CI; if unchanged/race-free, merge #83 and verify integration SHA. Do not claim 20.2 PASS; runtime 160 remains separate.  
+### WOZ — `NIGHT-WOZ-092` — F3 / 20.2 #83 integration transaction
+PRIMARY: dedicated Draft→Ready on exact #83; same-head/base/scope/mergeability + exact CI/race postcheck; expected-head merge only if unchanged/green. Do not claim 20.2 PASS; runtime 160 remains separate.  
 CI-FALLBACK: NONE.
 
-## Camino crítico global — CYCLE 092
+## Camino crítico global — CYCLE 093
 
-1. F3/20.2 #83 Ready→exact-head recheck→integration now that the dedicated Ready action exists; this unblocks the durable-waitlist prerequisite for meaningful runtime capacity work.
-2. F4/25.1 minimum #74 product-auth correction + refreshed #84 exact packaged Windows evidence; current literal journey is red on session-token persistence.
+1. F3/20.2 #83 supported Ready→exact-head/race recheck→integration; prerequisite for meaningful durable-waitlist capacity validation.
+2. F4/25.1 current exact #74/#84 failure: causal attribution → minimum corrective → literal packaged Windows proof.
 3. F2/13.2 Review Save/Save All durable completion/no-silent-loss correction + executable evidence.
 4. F3/20.2 post-#83 materially applicable runtime 160 + latency/error/queue/recovery/no-loss/no-cross-tenant + measured safety margin vs expected 80.
 5. F2/12.1 real-browser cold/warm evidence on a surface that can actually run Vite/WebdriverIO/Chrome.
@@ -70,4 +70,4 @@ CI-FALLBACK: NONE.
 
 ## NEXT
 
-AAA executes `NIGHT-AAA-088`; BBB executes `NIGHT-BBB-087`; WOZ executes `NIGHT-WOZ-091`. Only WOZ091 may mutate integration, and only for exact #83 under its stated race/exact-head gates. `PLAN_HEALTH`: synced CYCLE 092; GitHub live prevails if it moves afterward.
+AAA executes `NIGHT-AAA-089`; BBB executes `NIGHT-BBB-088`; WOZ executes `NIGHT-WOZ-092`. Only WOZ092 may mutate integration, and only for exact #83 under stated race/exact-head gates. `PLAN_HEALTH`: synced CYCLE 093; GitHub live prevails if it moves afterward.
