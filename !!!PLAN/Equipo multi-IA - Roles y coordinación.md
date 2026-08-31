@@ -2,44 +2,44 @@
 
 > GitHub + `!!!PLAN` son memoria compartida. GitHub/runtime vivo prevalece.
 
-## Roles y ownership actual — CYCLE 102
+## Roles y ownership actual — CYCLE 103
 
 | Rol | Owner actual | PRIMARY | CI-FALLBACK |
 |---|---|---|---|
-| JOBS | coordinación | `!!!PLAN`, priorities, handoffs, gates; no BeatGaler code/infra | n/a |
-| AAA | F2 / 13.2 | `NIGHT-AAA-098`: durable Review Save/Save All boundary + no-silent-loss/Web-no-Tauri evidence; NO MERGE | NONE |
-| BBB | F4 / 25.1 | `NIGHT-BBB-097`: #84 first unexpected-request sanitized causal localization; no product mutation; NO MERGE | NONE |
-| WOZ | F1 / D10.2 | `NIGHT-WOZ-101`: alpha-readiness decision map READ-ONLY; no alpha/provider/infra mutation | NONE |
+| JOBS | coordinación | `!!!PLAN`, prioridades, handoffs, gates; no BeatGaler code/infra | n/a |
+| AAA | F2 / 12.1 | `NIGHT-AAA-099`: public Web `Loading Galer` bootstrap/runtime blocker; bounded Web-only corrective, tests + no-Tauri + exact-head CI; NO MERGE | NONE |
+| BBB | F4 / 25.1 | `NIGHT-BBB-098`: consume exact failed #84 auth diagnostic; classify first sanitized tuple; harness correction only if HARNESS_ONLY_PROVEN; NO PRODUCT MUTATION / NO MERGE | NONE |
+| WOZ | F1 / D10.2 | `NIGHT-WOZ-102`: refreshed alpha-readiness decision map READ-ONLY; no alpha/provider/infra mutation | NONE |
 
 **Baseline canónico:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
-## Handoffs/resultados procesados — CYCLE 102
+## Handoffs/resultados procesados — CYCLE 103
 
-- AAA097: no final result/handoff/candidate → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- BBB096: no final result/handoff → `NO_RESULT / SUPERSEDED / NOT_PASS`; #84 unchanged and literal Windows Auth remains red.
-- WOZ100: `BLOCKED_STOP / PREFLIGHT_COMPLETE / NO_MUTATION`; Issue #41 `5485787222`. #76 remains stale because supported write surface lacks history-preserving branch refresh.
-- PR #85 appeared externally owner-owned at exact live base: `owner/web-deploy-powershell-fix @ 5225fae856ac8e5e094bc76f4a70383296fa224b`; one-file deploy-script corrective. Night workers must not claim or mutate it while external ownership is active.
-- #83 remains exact OPEN/DRAFT/mergeable with Ready tooling blocker unchanged.
-- #79 remains latest material integration merge.
+- AAA098: no final result/handoff/candidate → `NO_RESULT / SUPERSEDED / NOT_PASS`; durable Review gap remains open but loses priority this cycle to public startup blocker.
+- BBB097: Issue #41 `5486012736` = `WAITING_CI` on diagnostic-only #84 head `f53d46f...`; GitHub post-turn exact run `33449587244` / job `99676242317` finished FAILURE. CI wait resolved; `NOT_PASS`.
+- WOZ101: no final result/handoff → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- Owner Issue #41 `5485984669`: public Web infra proven (`web-health`, auth-health, www→apex, TLS), but apex stalls at `Loading Galer`; functional bug separated from deploy.
+- PR #85 remains external/owner-owned, OPEN/Ready, exact base live; live head `ab25e89570de66189612c7a4677161a73bbe5d5d`. Night workers do not mutate it.
+- #83 remains exact OPEN/DRAFT with tooling blocker; #76 remains stale legal candidate blocked on history-preserving refresh surface.
 
 ## Serialización
 
-**No worker is authorized to mutate integration in CYCLE 102.** #74/#84 remain BBB auth lineages without merge authority. #76 parked until a supported refresh-capable surface exists. #83 remains PARKED. #85 is external/owner-owned. AAA owns no auth/session/Trash/legal/deploy files.
+**No worker is authorized to mutate integration in CYCLE 103.** AAA owns only public Web bootstrap/runtime functional slice and must STOP before shared auth/session/provider/deploy ownership. BBB owns only #84 evidence/harness. WOZ102 is READ-ONLY D10.2. #85 external owner remains separate. #76/#83 stay parked.
 
 ## Holding / blocked items
 
 - F0 1.2/2.2 external/admin.
-- F1 D10.1 CLOSED; D10.2 = WOZ101 READ-ONLY map, RO decision remains authoritative.
-- F2/12.1 real-browser runtime needs executable browser surface.
-- F2/13.1 #69/#70 frozen except helper-level reuse explicit in AAA098.
-- F2/13.2 = AAA098.
+- F1 D10.1 CLOSED; D10.2 = WOZ102 READ-ONLY map, RO decision remains authoritative.
+- F2/12.1 public startup bug = AAA099; cold/warm real timings remain separate after startup works.
+- F2/13.1 #69/#70 frozen.
+- F2/13.2 durable Review gap open, unowned CYCLE 103.
 - F2/14.1 #81 stale/parked.
-- F2/15.1 strong confirmation + recent-reauth + deterministic purge gaps; paused while BBB097 owns auth boundary.
+- F2/15.1 strong confirmation + recent-reauth + deterministic purge gaps; paused while BBB098 owns auth evidence boundary.
 - F3/18.2 provider/payment live/staging proof external.
-- F3/19.1 owner-owned #85 may reduce deployment blocker; workers do not collide with it.
-- F3/19.2 #76 blocked on refresh-capable execution surface; external legal review/deployment separate.
-- F3/20.2 #83 Ready process blocked; runtime 160 required after integration.
-- F4/25.1 #74/#84 = BBB097 diagnostic-only; no product corrective without subsequent JOBS authorization.
+- F3/19.1 public infra proven; direct legal/public-route/support/OAuth tails remain; #85 external owner.
+- F3/19.2 #76 blocked on refresh-capable execution surface.
+- F3/20.2 #83 Ready process blocked; runtime 160 required after applicable integration.
+- F4/25.1 #74/#84 = BBB098 evidence/harness only; exact packaged Windows Auth red.
 - F4 signing/notarization/hardware/tester execution external.
 
 ## Reglas
@@ -52,17 +52,19 @@
 6. Worker never invents fallback/next task.
 7. `READY_TO_WORK` ≠ `READY_TO_CLOSE` ≠ `READY_TO_RELEASE`.
 
-## Night Shift Ledger — CYCLE 102
+## Night Shift Ledger — CYCLE 103
 
 ```text
 JOBS: baseline-start 816f946c09d998ee5a045b3e70b2fe4f3a4160d0
-AAA097: NO_RESULT -> SUPERSEDED / NOT_PASS
-AAA098: ASSIGNED F2/13.2 durable Review boundary; FALLBACK NONE
-BBB096: NO_RESULT -> SUPERSEDED / NOT_PASS
-BBB097: ASSIGNED #84 sanitized first-request diagnostic; FALLBACK NONE
-WOZ100: BLOCKED_STOP / NO_MUTATION / #76 refresh tooling unavailable
-WOZ101: ASSIGNED F1/D10.2 READ-ONLY decision map; FALLBACK NONE
+AAA098: NO_RESULT -> SUPERSEDED / NOT_PASS
+AAA099: ASSIGNED F2/12.1 public Loading Galer bootstrap blocker; FALLBACK NONE
+BBB097: WAITING_CI -> post-turn exact-head FAILURE / NOT_PASS
+BBB098: ASSIGNED #84 first sanitized tuple causal attribution; FALLBACK NONE
+WOZ101: NO_RESULT -> SUPERSEDED / NOT_PASS
+WOZ102: ASSIGNED F1/D10.2 READ-ONLY decision map; FALLBACK NONE
 PR85: EXTERNAL_OWNER_ACTIVE / DO_NOT_COLLIDE
+PUBLIC_WEB_INFRA: PROVEN_OWNER_RUNTIME
+PUBLIC_WEB_STARTUP: BLOCKED_LOADING_GALER
 INTEGRATION_MUTATION: NONE
 RELEASE: NO-GO
 F5: CLOSED
