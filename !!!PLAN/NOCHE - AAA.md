@@ -7,14 +7,14 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-059`
+- `ASSIGNMENT_ID: NIGHT-AAA-060`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 14.1 — REUSE-FIRST media streaming/memory slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`
-- `PREDECESSOR: NIGHT-AAA-058 had no final RESULTADO DEL TURNO, Issue #41 handoff, branch/PR/head change or attributable artifact before JOBS CYCLE 063; SUPERSEDED and MUST NOT execute late.`
-- `RECALCULATION: selected again from zero because 14.1 remains the highest-value dependency-safe internal F2 slice; GitHub shows no newer 14.1 owner/candidate.`
+- `PREDECESSOR: NIGHT-AAA-059 had no final RESULTADO DEL TURNO, Issue #41 handoff, branch/PR/head change or attributable artifact before JOBS CYCLE 064; SUPERSEDED and MUST NOT execute late.`
+- `RECALCULATION: selected again from zero because 14.1 remains the highest-value dependency-safe internal F2 slice and GitHub shows no newer 14.1 owner/candidate.`
 - `HOLD: #69/#70 frozen; do not touch.`
-- `SERIALIZATION: AAA MUST NOT merge or move integration in CYCLE 063.`
+- `SERIALIZATION: AAA MUST NOT merge or move integration in CYCLE 064.`
 
 ### PRIMARY
 
@@ -40,11 +40,11 @@
 
 ## RESULTADOS PROCESADOS
 
+- `NIGHT-AAA-059`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 064.
 - `NIGHT-AAA-058`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 063.
-- `NIGHT-AAA-057`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS` in CYCLE 062.
 - `NIGHT-AAA-043`: `PENDING / STOP_WRITE_SURFACE`; #69 frozen.
 
 ## HISTORIAL COMPACTO
 
-- `NIGHT-AAA-059`: ASSIGNED — F2/14.1 minimum media streaming/memory slice; 14.2 read-only CI fallback.
-- `NIGHT-AAA-058`: NO_RESULT / SUPERSEDED_BY_JOBS.
+- `NIGHT-AAA-060`: ASSIGNED — F2/14.1 minimum media streaming/memory slice; 14.2 read-only CI fallback.
+- `NIGHT-AAA-059`: NO_RESULT / SUPERSEDED_BY_JOBS.
