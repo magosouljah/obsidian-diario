@@ -6,37 +6,42 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-073`
+- `ASSIGNMENT_ID: NIGHT-WOZ-074`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F3 / 19.1 — SAME #76 legal candidate reconciliation + canonical in-app wiring`
+- `AREA: F3 / 20.2 — durable user waitlist minimal internal slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc`
-- `PRIMARY_PR: #76 @ 36d218609cf2488997755312fa2dafd0a019d070`
-- `PREDECESSOR: NIGHT-WOZ-072 had no final RESULTADO DEL TURNO or new Issue #41 handoff visible before CYCLE 074; superseded by JOBS.`
-- `SERIALIZATION: WOZ MUST NOT merge #76 this cycle. BBB alone owns the possible integration mutation (#79).`
+- `PREDECESSOR: NIGHT-WOZ-073 produced no RESULTADO DEL TURNO or new Issue #41 handoff before this JOBS cycle and is superseded after critical-path recalculation, not PASS.`
+- `DUPLICATE_CHECK: #78 capacity harness is already integrated; Issue #41 continues to record durable user waitlist as GAP; no separate waitlist implementation was found by current repo search.`
+- `SERIALIZATION: WOZ MUST NOT merge or mutate integration this cycle. BBB/#79 alone owns the possible integration mutation.`
 
 ### PRIMARY
 
-1. Fresh preflight live integration + duplicate-check #76; reuse SAME PR/branch only.
-2. History-preserving reconcile #76 onto live `957f97771b7a15554cf6e002fe9eb215c71a65cc` if conflict-free; keep scope F3/19.1 only.
-3. Reuse owner-approved Privacy/Terms documents and public routes already in #76; do not rewrite approved policy.
-4. Close only the literal internal software gap: replace temporary/placeholder Settings Privacy/Terms surfaces with canonical source linkage/content while preserving one source of truth where practical.
-5. Account for #82 deploy/config artifacts only for route tests/baseline conflicts; do not mutate deployment/infra lane.
-6. Add/adjust focused tests for public routes + in-app legal consistency and direct SPA route contract where testable without provider/runtime claims.
-7. Obtain fresh applicable exact-head CI on final refreshed head. **NO MERGE.** Hand off exact-head candidate.
-8. Maximum claim: refreshed software/legal candidate ready. DNS/TLS/actual hosting, counsel review, provider/business evidence remain UNVERIFIED unless directly demonstrated.
-9. Do not touch #79/#81, 20.2 capacity, signing/notarization or provider resources.
-10. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+**F3 / 20.2 — implement only the missing durable user-waitlist control-plane slice.**
 
-**Required evidence:** exact base/head; changed paths; canonical source consistency; focused tests; fresh applicable exact-head CI; explicit external tails.  
-**STOP:** legal ambiguity; conflict/scope drift; baseline race; history-preserving reconcile unavailable; product CI red/pending; provider/deployment mutation required; overlap.
+1. Fresh preflight live integration + Issue #41 + #78 artifacts + duplicate-check. REUSE-FIRST: preserve existing admission control/per-bot ceiling and harness; do not rebuild them.
+2. Identify the smallest durable control-plane representation needed for users who cannot receive transport capacity immediately. It must survive process restart and be tenant/user scoped without leaking credentials or media payloads.
+3. Implement only queue persistence + minimal enqueue/dequeue/claim/recovery semantics needed to make the waitlist durable and safe. No UI redesign, no provider capacity increase, no billing, no runtime load claim.
+4. Keep behavior fail-closed on corrupt/ambiguous state and compatible with the existing 80 expected / 160 validation capacity contract.
+5. Add focused tests proving persistence/restart recovery, ordering/duplicate handling as applicable, tenant isolation and no secret/media persistence in the waitlist record.
+6. Run focused tests and fresh applicable exact-head CI on the candidate. **NO MERGE.** Hand off exact base/head/paths/tests/CI.
+7. Maximum claim: durable-waitlist software slice ready. **Do not claim F3/20.2 PASS**: real 160-concurrent runtime, latency/error/queue/recovery measurement and safety margin remain separate evidence.
+8. Do not touch #79/#81/#76, F2/13.2, payment provider scenarios, signing/notarization or infrastructure/provider resources.
+9. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+
+**Required evidence:** exact live base; duplicate-check; changed paths; persistence schema/format or reuse rationale; focused persistence/restart/isolation tests; fresh exact-head CI; explicit remaining 160-runtime gaps.  
+**STOP:** an existing equivalent durable waitlist is found; required change overlaps active #79 or frozen owned work; persistence authority is ambiguous; scope expands into provider/runtime/infra; baseline race; product CI red; safe minimal slice cannot be isolated.
 
 ### CI-FALLBACK
 
-`CI-FALLBACK: NONE` — no independent secondary write/audit currently beats the risk of duplicate work. Remain on PRIMARY wait and recheck exact status before closing.
+**F3 / 18.2 READ-ONLY billing-scenario evidence gap map**, only if PRIMARY becomes code-complete and genuinely `WAITING_CI`/review.
+
+**Alcance:** live integration and existing tests/docs only; map literal evidence for 3DS, rejection, late payment, renewal, cancel, upgrade, downgrade, refund and grace periods. No provider calls, no writes, no payment mutations.  
+**Evidencia requerida:** exact baseline; scenario → existing code/test/provider-proof mapping; `PASS_SOFTWARE / GAP_PROVIDER / GAP_TEST / UNVERIFIED`; smallest independent next evidence action.  
+**STOP:** any write/provider call; overlap with waitlist paths; attempt to close 18.2 without provider evidence; PRIMARY leaves waiting state. Recheck PRIMARY before closing.
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-WOZ-072`: NO_RESULT before CYCLE 074; superseded by JOBS after fresh duplicate-check; #76 unchanged/open/stale.
-- `NIGHT-WOZ-071`: no final result before prior baseline move; superseded.
-- `NIGHT-WOZ-070`: `DONE / INTEGRATED`; PR #75 merged as `5e117d69dba852d544cc1fee805eff55ffa820eb`; F3/20.1 software observability integrated, external tails remain UNVERIFIED.
+- `NIGHT-WOZ-073`: NO_RESULT before this cycle; superseded by JOBS074 after fresh critical-path recalculation, not PASS.
+- `NIGHT-WOZ-072`: NO_RESULT; superseded historically.
+- `NIGHT-WOZ-070`: DONE / INTEGRATED; PR #75 merged as `5e117d69dba852d544cc1fee805eff55ffa820eb`; F3/20.1 software observability integrated; external tails remain UNVERIFIED.
 - Older results remain historical in Issue #41 and git history.
