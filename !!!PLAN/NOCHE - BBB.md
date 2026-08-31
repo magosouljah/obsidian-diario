@@ -6,37 +6,39 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-067`
+- `ASSIGNMENT_ID: NIGHT-BBB-068`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F4 / 25.2 — SAME #79 exact-head docs integration transaction`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 5e117d69dba852d544cc1fee805eff55ffa820eb`
+- `AREA: F4 / 25.2 — SAME #79 refresh after owner baseline move, then single integration transaction`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc`
 - `PRIMARY_PR: #79 @ 60c2fb542eb1e46b8dae154835c5e1783ad8b5bf`
-- `PREDECESSOR: NIGHT-BBB-066 PRIMARY = WAITING_RUNTIME / RUNTIME_CAPACITY_UNVERIFIED; 20.2 is now external/runtime-blocked. Its authorized fallback refreshed #79 to the live base and fresh exact-head CI is now fully green.`
-- `OWNER_CHANGE: BBB moves off blocked F3/20.2 to F4/25.2; no concurrent owner remains on #79.`
-- `SERIALIZATION: BBB may merge ONLY #79 after fresh race-check; no other integration mutation.`
+- `PREDECESSOR: NIGHT-BBB-067 had no final RESULTADO DEL TURNO before this JOBS cycle and is superseded because owner PR #82 moved integration.`
+- `BASELINE_EVENT: PR #82 merged as 957f9777..., so #79's prior base 5e117d69... is stale even though its old CI was green.`
+- `SERIALIZATION: BBB is the ONLY worker authorized to mutate integration this cycle, and only through #79 after fresh exact-head evidence.`
 
 ### PRIMARY
 
-1. Fresh race-check integration immediately before acting.
-2. Verify #79 remains OPEN/non-draft/mergeable at exact head `60c2fb54...`, base SHA exactly `5e117d69...`, and delta exactly one file: `docs/beta/0.9.0-beta.1-readiness.md` (+84/−0).
-3. Reuse existing exact-head CI only if still attributable to unchanged head/base: D6 SUCCESS, D7 SUCCESS, Desktop Portability SUCCESS, Upgrade 21.2 SKIPPED/no aplica.
-4. If all facts remain exact, merge #79 using expected-head protection and verify resulting integration SHA + parents.
-5. Maximum claim: internal F4/25.2 beta-readiness artifact integrated. Do NOT claim real beta sessions, tester evidence, signing/notarization or release GO.
-6. Do not touch #81, F3/20.2 runtime, legal #76, auth/review candidates or provider/signing resources.
-7. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+1. Fresh race-check integration + duplicate-check #79. Reuse SAME PR/branch only.
+2. Reconcile history-preservingly onto live `957f9777...` if conflict-free and verify the delta remains exactly the beta-readiness docs artifact only.
+3. Obtain fresh applicable exact-head CI for the refreshed head; old green CI from base `5e117d69...` is not sufficient after the baseline move.
+4. If final base/head/delta remain exact and fresh applicable CI is fully green, perform final race-check and merge #79 using expected-head protection.
+5. Verify resulting integration SHA + parents. Maximum claim: internal F4/25.2 beta-readiness artifact integrated.
+6. Do NOT claim real beta sessions, tester evidence, signing/notarization, release GO, or close 25.2 globally.
+7. Do not touch #81/#76, F3/20.2 runtime, auth/review candidates, provider/signing resources or PR #82 lane.
+8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
-**Required evidence:** pre-merge integration SHA; exact #79 base/head/delta; exact-head CI; merge SHA + parents if accepted.  
-**STOP:** integration/head/base race; scope drift; CI red/pending; mergeability changes; merge flow blocked.
+**Required evidence:** pre-merge integration SHA; exact refreshed #79 base/head/delta; fresh exact-head CI; merge SHA + parents if accepted.  
+**STOP:** integration/head/base race; scope drift; CI red/pending; mergeability changes; history-preserving refresh unavailable; merge flow blocked.
 
 ### CI-FALLBACK
 
-**F4 / 25.1 READ-ONLY remaining functional matrix gap map**, only if PRIMARY enters genuine merge/review/queue wait.
+**F4 / 25.1 READ-ONLY remaining functional matrix gap map**, only during genuine `WAITING_CI`/merge-review/queue wait.
 
-**Alcance:** live integration only; identify remaining NOT_COVERED/PENDING_EXTERNAL rows after already integrated windows/import work and frozen auth/review candidates. No writes, no candidate refresh.  
+**Alcance:** live integration only; identify remaining `NOT_COVERED/PENDING_EXTERNAL` rows after integrated windows/import/updater work and frozen auth/review candidates. No writes, no candidate refresh.  
 **Evidencia requerida:** exact baseline + literal row/status/evidence + smallest independent next journey.  
-**STOP:** any write, overlap with #79, auth/review mutation, signing/provider action, or attempt to promote matrix from audit only. Recheck PRIMARY before closing.
+**STOP:** any write, overlap with #79, auth/review mutation, signing/provider action, or attempt to promote matrix from audit alone. Recheck PRIMARY before closing.
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-BBB-066`: PRIMARY `WAITING_RUNTIME / RUNTIME_CAPACITY_UNVERIFIED`; local 160 synthetic diagnostic is non-authoritative. CI-FALLBACK refreshed #79 to `60c2fb54...` on live base. JOBS recheck now confirms D6/D7/Desktop Portability SUCCESS and Upgrade 21.2 SKIPPED.
+- `NIGHT-BBB-067`: no final result observed before JOBS reassignment; superseded due live baseline move by owner PR #82.
+- `NIGHT-BBB-066`: PRIMARY `WAITING_RUNTIME / RUNTIME_CAPACITY_UNVERIFIED`; local 160 synthetic diagnostic non-authoritative. Fallback refreshed #79 to `60c2fb54...` on former base `5e117d69...` with green CI, now stale after #82.
 - Older results remain historical in Issue #41 and git history.
