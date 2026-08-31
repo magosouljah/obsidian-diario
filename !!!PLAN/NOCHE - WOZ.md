@@ -6,15 +6,15 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-087`
+- `ASSIGNMENT_ID: NIGHT-WOZ-088`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F3 / 20.2 — PR #83 exact-head Ready→merge transaction`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
 - `CANDIDATE: PR #83 OPEN/DRAFT, mergeable, exact base 816f946c..., head 803b2143e6ea03f6549118e9241fee320dfccdee, 3 files.`
 - `EXACT_HEAD_CI: F3 20.2 Durable Waitlist run 33388377959 SUCCESS; Test - Desktop Portability 33388377963 SUCCESS; D6 33388377952 SUCCESS; D7 33388377964 SUCCESS.`
-- `PREDECESSOR: NIGHT-WOZ-086 BLOCKED_STOP / F3 19.1 evidence reconciled; external domain/provider blocker map processed by JOBS.`
-- `PROCESS_CHANGE: current connector surface exposes a dedicated authorized Draft→Ready action; prior Repository.fullDatabaseId failure must not be bypassed or assumed resolved until the direct action succeeds.`
-- `SERIALIZATION: WOZ087 is the only worker authorized to mutate integration this cycle, and only for #83 if every exact-head/race condition remains satisfied.`
+- `PREDECESSOR: NIGHT-WOZ-087 has no final RESULTADO DEL TURNO nor matching material Issue #41 handoff at JOBS CYCLE 089 preflight; superseded, NOT_PASS.`
+- `PROCESS_CHANGE: current connector surface exposes a dedicated authorized Draft→Ready action; no generic GraphQL workaround/bypass is permitted.`
+- `SERIALIZATION: WOZ088 is the only worker authorized to mutate integration this cycle, and only for #83 if every exact-head/race condition remains satisfied.`
 
 ### PRIMARY
 
@@ -38,6 +38,6 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
+- `NIGHT-WOZ-087`: NO_RESULT at CYCLE 089 preflight; superseded; NOT_PASS.
 - `NIGHT-WOZ-086`: BLOCKED_STOP / F3 19.1 evidence reconciled. Intended `beatgaler.com` surface identified from #76 but live DNS/TLS/API/status/OAuth/sender/deployment proof remains MISSING/UNVERIFIED; external owner/provider inventory/action required. No mutation.
 - `NIGHT-WOZ-085`: BLOCKED_STOP — #83 exact/green; old Ready action failed on connector GraphQL `Repository.fullDatabaseId`; no merge.
-- `NIGHT-WOZ-084`: NO_RESULT; superseded; NOT_PASS.
