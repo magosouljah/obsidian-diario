@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas. GitHub/runtime vivo prevalece sobre snapshots históricos.
 
-**Baseline vivo CYCLE 082:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 083:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -34,16 +34,16 @@ No revivir #69/#70 automáticamente. Reuse de helpers/semantics solo dentro de u
 Evidencia reusable:
 - `NIGHT-AAA-071`: auditoría READ-ONLY; dejó gap de exhaustive executable Web/Tauri proof + Save All no-silent-loss.
 - Issue #41 `5478129410`, handoff tardío `NIGHT-AAA-074`, revalidó sobre baseline vivo `816f946c...` un gap concreto en `src/App.tsx`: Review single Save y Save All llaman `cloudifyImportedBeats(...)` fire-and-forget y el flujo puede cerrar/avanzar antes de durable cloud completion/failure.
-- Ese handoff no corresponde a AAA077 y no lo convierte en PASS; sí es evidencia reusable factual del gap actual.
-- `NIGHT-AAA-077`: no resultado final antes de CYCLE 082; not PASS.
+- Ese handoff sigue siendo evidencia factual reutilizable; no equivale a cierre.
+- `NIGHT-AAA-078`: no resultado final antes de CYCLE 083; superseded; not PASS.
 
-**Owner CYCLE 082:** `NIGHT-AAA-078`.
-- PRIMARY: mínimo corrective slice del Review Save/Save All action boundary: esperar durable Web persistence, distinguir `saved/conflict/failed`, exponer retry/no-silent-loss y añadir focused executable tests + Tauri/Desktop call-spy para los paths tocados.
+**Owner CYCLE 083:** `NIGHT-AAA-079`.
+- PRIMARY: mínimo corrective slice del Review Save/Save All action boundary: esperar durable Web persistence, distinguir `saved/conflict/failed`, exponer retry/no-silent-loss y focused executable tests + Tauri/Desktop call-spies para paths tocados.
 - Puede reutilizar semantics/helper de #69 sin revivir ni apropiarse del PR.
 - Nueva branch/PR AAA bounded; fresh exact-head CI; NO MERGE.
 - CI-FALLBACK: NONE.
 
-13.2 permanece OPEN aunque AAA078 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles, no solo el corrective slice.
+13.2 permanece OPEN aunque AAA079 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles.
 
 ## Día 14
 
@@ -52,7 +52,7 @@ Evidencia reusable:
 - [ ] evitar archivos gigantes completos en RAM.
 - [ ] cancel/resume seguro y liberar buffers/object URLs.
 
-PR #81 conserva trabajo material limitado de playback Web, pero su historia/base está stale y la superficie segura de reconciliation no ha sido demostrada. No reabrir ni mutar mientras AAA078 trabaja 13.2.
+PR #81 conserva trabajo material limitado de playback Web, pero su historia/base está stale y la superficie segura de reconciliation no ha sido demostrada. No reabrir ni mutar mientras AAA079 trabaja 13.2.
 
 ### 14.2 — `[ ]`
 - [ ] índice activo/shortcuts/seek/shuffle/repeat/error recoverable.
