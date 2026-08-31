@@ -6,15 +6,15 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-091`
+- `ASSIGNMENT_ID: NIGHT-AAA-092`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — Review Save/Save All durable action-boundary corrective slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-AAA-090 has no final RESULTADO DEL TURNO, no matching material Issue #41 handoff and no new F2/13.2 candidate at JOBS CYCLE 095 preflight; superseded / NOT_PASS.`
-- `WHY_REASSIGNED: global path was recalculated from live GitHub; the proven durable Review boundary remains the highest-value executable F2 internal gap. It is reissued because live evidence still demands it, not because the previous assignment existed.`
-- `REUSE_EVIDENCE: Issue #41 5478129410 + NIGHT-AAA-071 + #69 helper semantics only.`
-- `DUPLICATE_CHECK: open PR scan found no newer F2/13.2 owner/candidate; #69 remains frozen reusable input only.`
-- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB090 owns #74/#84. WOZ094 owns only F2/15.1 Trash destructive-action slice. #83 is parked and has no mutation owner this cycle.`
+- `PREDECESSOR: NIGHT-AAA-091 has no final RESULTADO DEL TURNO or matching material Issue #41 handoff at JOBS CYCLE 096 preflight; superseded / NOT_PASS.`
+- `WHY_ASSIGNED: global path recalculated from live GitHub. The proven Review durable-completion/no-silent-loss gap remains executable, high-value and independent of BBB/WOZ.`
+- `REUSE_EVIDENCE: Issue #41 5478129410 + NIGHT-AAA-071 + helper semantics from #69 only.`
+- `DUPLICATE_CHECK: no newer open F2/13.2 candidate/owner found; #69 remains frozen reusable input, not an owned PR.`
+- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB091 owns #74/#84 Windows auth. WOZ095 owns only F3/19.1 public-surface READ-ONLY. #83 is parked; F2/15.1 Trash has no implementation owner this cycle.`
 
 ### PRIMARY
 
@@ -37,11 +37,11 @@
 
 `CI-FALLBACK: NONE`.
 
-**Reason:** F2/12.1 is already proven execution-surface-blocked on the available agent surface; #81/#72/other Review work would create overlap or widen scope. No genuinely independent fallback is safe.
+**Reason:** F2/12.1 still requires a browser-capable execution surface; #81/#72/other Review work overlaps or widens scope. No genuinely independent safe fallback exists.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-090`: NO_RESULT at CYCLE 095 preflight; no material candidate/handoff; superseded; NOT_PASS.
-- `NIGHT-AAA-089`: NO_RESULT at CYCLE 094; superseded; NOT_PASS.
+- `NIGHT-AAA-091`: NO_RESULT at CYCLE 096 preflight; no matching material handoff/candidate; superseded; NOT_PASS.
+- `NIGHT-AAA-090`: NO_RESULT at CYCLE 095; superseded; NOT_PASS.
 - Issue #41 `5478129410`: reusable current-baseline finding for Review durable completion.
 - `NIGHT-AAA-071`: DONE / AUDIT_ONLY; reusable context.
