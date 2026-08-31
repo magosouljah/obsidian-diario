@@ -6,15 +6,15 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-092`
+- `ASSIGNMENT_ID: NIGHT-AAA-093`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — Review Save/Save All durable action-boundary corrective slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-AAA-091 has no final RESULTADO DEL TURNO or matching material Issue #41 handoff at JOBS CYCLE 096 preflight; superseded / NOT_PASS.`
-- `WHY_ASSIGNED: global path recalculated from live GitHub. The proven Review durable-completion/no-silent-loss gap remains executable, high-value and independent of BBB/WOZ.`
+- `PREDECESSOR: NIGHT-AAA-092 has no final RESULTADO DEL TURNO or matching material Issue #41 handoff at JOBS CYCLE 097 preflight; superseded / NOT_PASS.`
+- `WHY_ASSIGNED: recalculation from live GitHub still places the proven Review durable-completion/no-silent-loss gap on the critical path; no newer candidate/owner exists.`
 - `REUSE_EVIDENCE: Issue #41 5478129410 + NIGHT-AAA-071 + helper semantics from #69 only.`
 - `DUPLICATE_CHECK: no newer open F2/13.2 candidate/owner found; #69 remains frozen reusable input, not an owned PR.`
-- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB091 owns #74/#84 Windows auth. WOZ095 owns only F3/19.1 public-surface READ-ONLY. #83 is parked; F2/15.1 Trash has no implementation owner this cycle.`
+- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB092 owns only #84 diagnostic instrumentation for Windows auth. WOZ096 owns only F3/19.1 public-surface READ-ONLY. #83 is parked; F2/15.1 Trash has no implementation owner this cycle.`
 
 ### PRIMARY
 
@@ -41,7 +41,7 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-091`: NO_RESULT at CYCLE 096 preflight; no matching material handoff/candidate; superseded; NOT_PASS.
-- `NIGHT-AAA-090`: NO_RESULT at CYCLE 095; superseded; NOT_PASS.
+- `NIGHT-AAA-092`: NO_RESULT at CYCLE 097 preflight; no matching material handoff/candidate; superseded; NOT_PASS.
+- `NIGHT-AAA-091`: NO_RESULT at CYCLE 096; superseded; NOT_PASS.
 - Issue #41 `5478129410`: reusable current-baseline finding for Review durable completion.
 - `NIGHT-AAA-071`: DONE / AUDIT_ONLY; reusable context.
