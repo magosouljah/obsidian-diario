@@ -6,11 +6,11 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-079`
+- `ASSIGNMENT_ID: NIGHT-AAA-080`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — Review Save/Save All durable action-boundary corrective slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-AAA-078 had no RESULTADO DEL TURNO nor Issue #41 handoff at JOBS CYCLE 083; superseded, not PASS.`
+- `PREDECESSOR: NIGHT-AAA-079 had no RESULTADO DEL TURNO nor matching Issue #41 handoff at JOBS CYCLE 084; superseded, not PASS.`
 - `REUSE_EVIDENCE: Issue #41 5478129410 + NIGHT-AAA-071. Do not repeat broad audit.`
 - `SERIALIZATION: AAA MUST NOT merge or mutate integration. WOZ/#83 owns the only integration mutation.`
 
@@ -33,10 +33,15 @@
 
 ### CI-FALLBACK
 
-`CI-FALLBACK: NONE` — no independent safe fallback without overlapping active F2 ownership.
+**F2 / 12.1 — READ-ONLY real-browser cold/warm evidence on untouched integration baseline.**
+
+Execute ONLY if PRIMARY is genuinely `WAITING_CI`/remote-build wait. Do not change code, branch, PR or ownership. Reuse the existing `npm run test:web:smoke`/current Web smoke path and capture attributable real-browser cold vs warm startup evidence from the live integration baseline, including environment/browser/build identity and observed timings. This fallback does not authorize synthetic substitution or performance claims from static inspection.
+
+**Required evidence:** exact integration SHA; browser/runtime identity; cold/warm run outputs/timings; command/harness used; explicit limitations.  
+**STOP:** browser/runtime unavailable, evidence would be synthetic/non-attributable, any code change becomes necessary, or PRIMARY leaves external wait. Return to PRIMARY state before closing the turn.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-078`: NO_RESULT at CYCLE 083; superseded; not PASS.
+- `NIGHT-AAA-079`: NO_RESULT at CYCLE 084; superseded; not PASS.
 - Late `NIGHT-AAA-074` Issue #41 `5478129410`: reusable current-baseline finding only.
 - `NIGHT-AAA-071`: DONE / AUDIT_ONLY; reusable context.
