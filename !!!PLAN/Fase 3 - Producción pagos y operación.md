@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE 085:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 087:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado compacto
 
@@ -12,24 +12,26 @@
 - #78 capacity harness integrado; local/synthetic-only no satisface runtime 160.
 - #83 durable waitlist permanece OPEN/DRAFT, mergeable, head `803b2143e6ea03f6549118e9241fee320dfccdee`, base exact `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`, scope de 3 archivos.
 - Exact-head F3 20.2 Durable Waitlist `33388377959` SUCCESS; Desktop Portability/applicable Required-CI family `33388377963` SUCCESS; D6 `33388377952` SUCCESS; D7 `33388377964` SUCCESS.
-- `NIGHT-WOZ-083`: no final result at CYCLE 085; superseded; NOT_PASS.
+- `NIGHT-WOZ-085`: BLOCKED_STOP. Authorized Ready-for-review connector action failed on GraphQL schema `Repository.fullDatabaseId`; no merge, no workaround.
 - #76 legal/public routes permanece OPEN/stale/frozen.
 
-## Owner CYCLE 085
+## Owner CYCLE 087
 
-**WOZ — `NIGHT-WOZ-084` — F3 / 20.2 / #83.**
+**WOZ — `NIGHT-WOZ-086` — F3 / 19.1 production surface evidence, READ-ONLY.**
 
-PRIMARY: fresh exact recheck; use current authorized GitHub Ready-for-review action; if Ready is verified and base/head/scope/CI remain exact/race-free, merge with expected head `803b2143...` and verify resulting integration SHA/parents. WOZ/#83 is the only integration mutation authorized.
+PRIMARY: verify current observable domain/API/status/support/security-abuse/sender-domain surfaces, DNS/TLS/redirects/OAuth callback destinations and deployment identity where safely readable; produce VERIFIED vs MISSING blocker map. No infrastructure, product, GitHub integration or #76 mutation.
 
-CI-FALLBACK: NONE. Runtime 160 must be measured on the post-#83 integration state if #83 lands.
+CI-FALLBACK: NONE.
+
+#83 remains parked on the process blocker. Do not repeat the same known-broken Ready action ceremonially. Runtime 160 remains dependency-ordered after #83 integration.
 
 ## Día 19
 
 ### 19.1 — `[ 🟡 ] PARTIAL / EXTERNAL`
-Dominio/API/status/support URLs/sender domains, DNS/TLS/redirects/callbacks OAuth y despliegue real siguen requiriendo evidencia productiva. #76 no está integrado.
+Dominio/API/status/support URLs/sender domains, DNS/TLS/redirects/callbacks OAuth y despliegue real siguen requiriendo evidencia productiva. `NIGHT-WOZ-086` reconciles only evidence that is observable read-only and must leave mutations as explicit blockers. #76 no está integrado.
 
 ### 19.2 — `[ 🟡 ] FROZEN`
-Privacy/Terms candidate #76 existe, pero falta safe refresh, independent legal review, publication evidence y soporte operativo.
+Privacy/Terms candidate #76 existe, pero falta safe refresh, independent legal review, publication evidence y soporte operativo. WOZ086 no muta #76.
 
 ## Día 20
 
@@ -43,7 +45,7 @@ Structured redacted events, bounded counters, condition→route mapping, kill sw
 - [ ] latency target/result aplicable;
 - [ ] error/queue/recovery behavior demostrado;
 - [ ] safety margin medida contra 80;
-- [ 🟡 ] durable waitlist #83 exact-head CI green but remains Draft/unmerged pending WOZ084 transaction.
+- [ 🟡 ] durable waitlist #83 exact-head CI green but remains Draft/unmerged due process/tooling blocker.
 
 Aunque #83 se integre, 20.2 no cierra sin runtime 160 materialmente aplicable. Local/synthetic-only no se convierte en PASS.
 
