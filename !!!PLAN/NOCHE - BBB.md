@@ -35,10 +35,36 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-`NIGHT-BBB-074`: NO_RESULT before CYCLE 080; superseded by JOBS075 after fresh recalculation, not PASS.
+### NIGHT-BBB-075
+
+PRIMARY:
+- STATUS: `PASS`
+- baseline: `integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc` immediately before merge.
+- branch/head: `bbb/f4-25.2-beta-readiness @ a3c4d56e8317d7711832154ecc72afe581d2b309`.
+- PR: `#79`, OPEN/non-draft at race-check; merged through expected-head protected owner flow.
+- cambios: reconfirmed exactly one file, `docs/beta/0.9.0-beta.1-readiness.md`, +84/-0; no product/runtime delta. Merge produced integration `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+- tests: no new local tests required for docs-only transaction; exact-head workflow evidence reused and rechecked.
+- CI: exact-head `a3c4d56e...` workflows fully concluded: Test - Desktop Portability `SUCCESS`; D6 `SUCCESS`; D7 `SUCCESS`; Upgrade 21.2 Staging `SKIPPED`.
+- evidencia: GitHub accepted merge #79 with expected head `a3c4d56e...`; merge commit `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; parents verified exactly `957f97771b7a15554cf6e002fe9eb215c71a65cc` and `a3c4d56e8317d7711832154ecc72afe581d2b309`; Issue #41 handoff comment `5477503306`.
+- UNVERIFIED: tester execution; signing/notarization; release GO; global Task 25.2 closure.
+- blockers: none within assigned transaction.
+
+CI-FALLBACK:
+- STATUS: `NOT_RUN` (`CI-FALLBACK: NONE`).
+- branch/head si aplica: N/A.
+- PR si aplica: N/A.
+- cambios: none.
+- tests: none.
+- evidencia: JOBS explicitly assigned `CI-FALLBACK: NONE`; PRIMARY did not enter external wait during this turn.
+- UNVERIFIED: N/A.
+- blockers: fallback intentionally unavailable by assignment.
+- STOP alcanzado: yes; PRIMARY merged, evidence verified, handoff published.
+
+**Recomendación para JOBS:** recalculate from live integration `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; maximum claim remains **F4/25.2 internal beta-readiness artifact integrated**. Do not infer tester execution, signing/notarization, release GO, or global 25.2 closure.
 
 ## RESULTADOS PROCESADOS
 
+- `NIGHT-BBB-075`: PASS; #79 integrated as `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; docs-only F4/25.2 readiness artifact.
 - `NIGHT-BBB-074`: NO_RESULT before CYCLE 080; superseded by JOBS075, not PASS.
 - `NIGHT-BBB-073`: NO_RESULT before CYCLE 079; superseded, not PASS.
 - `NIGHT-BBB-069`: WAITING_CI; SAME #79 history-preserving refresh complete; JOBS later verified exact-head CI success; no merge claim.
