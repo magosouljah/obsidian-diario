@@ -6,73 +6,38 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-086`
-- `ASSIGNMENT_STATUS: BLOCKED`
-- `AREA: F3 / 19.1 — production surface evidence / blocker reduction, READ-ONLY`
+- `ASSIGNMENT_ID: NIGHT-WOZ-087`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F3 / 20.2 — PR #83 exact-head Ready→merge transaction`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-WOZ-085 BLOCKED_STOP; #83 remains OPEN/DRAFT at 803b2143... because authorized Ready-for-review connector mutation fails on Repository.fullDatabaseId.`
-- `PARKED_DEPENDENCY: #83 remains exact and green but no repeated identical Ready attempt is authorized this turn.`
-- `SERIALIZATION: no integration mutation is authorized in CYCLE 087.`
+- `CANDIDATE: PR #83 OPEN/DRAFT, mergeable, exact base 816f946c..., head 803b2143e6ea03f6549118e9241fee320dfccdee, 3 files.`
+- `EXACT_HEAD_CI: F3 20.2 Durable Waitlist run 33388377959 SUCCESS; Test - Desktop Portability 33388377963 SUCCESS; D6 33388377952 SUCCESS; D7 33388377964 SUCCESS.`
+- `PREDECESSOR: NIGHT-WOZ-086 BLOCKED_STOP / F3 19.1 evidence reconciled; external domain/provider blocker map processed by JOBS.`
+- `PROCESS_CHANGE: current connector surface exposes a dedicated authorized Draft→Ready action; prior Repository.fullDatabaseId failure must not be bypassed or assumed resolved until the direct action succeeds.`
+- `SERIALIZATION: WOZ087 is the only worker authorized to mutate integration this cycle, and only for #83 if every exact-head/race condition remains satisfied.`
 
 ### PRIMARY
 
-**F3 / 19.1 — verify the real production/public surface that can be verified without changing infrastructure.**
+**F3 / 20.2 — finish the bounded #83 process/integration transaction, nothing more.**
 
-1. Fresh preflight live integration, Issue #41, F3 plan and existing #76/public-route evidence; duplicate-check.
-2. READ-ONLY only. Do not modify DNS, AWS/provider resources, deployment, OAuth callbacks, sender configuration, GitHub integration, #76 or product code.
-3. Inventory the currently intended/observable public surfaces needed by 19.1: product domain, API hostname, status/support/security-abuse endpoints or addresses, sender-domain surface, TLS, redirects and OAuth callback destinations where discoverable.
-4. For each real hostname/endpoint that exists, capture attributable current evidence: DNS resolution/record class where visible, HTTPS/TLS availability, certificate/expiry identity where available, HTTP status/redirect chain, and deployment/provider identifier only if already safely readable.
-5. Separate VERIFIED from MISSING/UNVERIFIED. Do not infer deployment from configuration files alone and do not claim sender/OAuth validity from mere strings.
-6. Produce the minimum blocker map required to make 19.1 executable next: exact missing domain/record/callback/deployment/owner action, without performing it.
-7. #76 legal/public routes stays frozen; independent legal review is outside this assignment.
-8. Maximum claim: `F3/19.1 PRODUCTION_SURFACE_EVIDENCE_RECONCILED`; 19.1 closes only if every literal production requirement is actually evidenced.
-9. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+1. Fresh preflight integration HEAD, #83 state/base/head/mergeability, changed-file scope, Issue #41 and exact-head workflow state.
+2. STOP if integration moved from `816f946c...`, #83 head/base/scope changed, mergeability changed adversely, CI is no longer exact/green, or another owner mutated the candidate.
+3. If still OPEN/DRAFT and exact, invoke only the dedicated authorized Draft→Ready action. Do not use GraphQL workarounds or manual bypasses.
+4. Re-read #83 after Ready. Require OPEN/non-draft, same head `803b2143...`, same exact base `816f946c...`, mergeable, same 3-file scope and exact-head applicable green CI.
+5. If all conditions remain true, merge #83 using exact expected head. No unrelated merge and no force/bypass.
+6. Verify resulting integration HEAD/merge SHA and record it in RESULTADO DEL TURNO + Issue #41.
+7. Maximum claim: `F3/20.2 DURABLE_WAITLIST_INTEGRATED`. **Do not close 20.2**: runtime 160, latency/error/queue/recovery/no-loss/no-cross-tenant and measured safety margin remain independently required.
+8. Do not start runtime-160 work, #76, DNS/provider mutations, payments, AAA/BBB work or any next task after merge. STOP.
 
-**Required evidence:** observation timestamp; exact hostname/endpoint; DNS/TLS/HTTP/redirect evidence; certificate details when available; deployment/provider ID only when safely readable; explicit MISSING/UNVERIFIED matrix; no secrets.  
-**STOP:** any mutation/credential is required, only synthetic/local evidence exists, public target cannot be identified factually, scope reaches legal text/#76 mutation, or evidence becomes ambiguous/stale during observation.
+**Required evidence:** pre/post integration SHA; #83 exact base/head/draft/mergeable/scope; exact-head workflow IDs/conclusions; Ready transition result; exact expected-head merge result; final integration SHA; explicit runtime-160 UNVERIFIED.  
+**STOP:** any race/head/base/scope movement, Ready action failure, CI regression, mergeability conflict, unexpected integration movement or any need for workaround/bypass.
 
 ### CI-FALLBACK
 
-`CI-FALLBACK: NONE` — PRIMARY is read-only external/runtime reconciliation and does not create a legitimate CI wait lane.
+`CI-FALLBACK: NONE` — post-#83 runtime 160 materially depends on successful #83 integration and therefore is not independent; F3/19.1 now requires external owner/provider facts.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-WOZ-086`: BLOCKED_STOP — READ-ONLY F3/19.1 reconciliation completed to the first factual external blocker; intended product domain `beatgaler.com` is evidenced by #76 but did not resolve from the observation runtime; no attributable production API/status hostname, OAuth callback destination, SES sender identity, deployment/provider ID, TLS certificate or redirect chain could be verified. No mutation performed.
-- `NIGHT-WOZ-085`: BLOCKED_STOP — #83 exact/green; authorized Ready action failed on connector GraphQL `Repository.fullDatabaseId`; no merge; runtime 160 remains unverified.
+- `NIGHT-WOZ-086`: BLOCKED_STOP / F3 19.1 evidence reconciled. Intended `beatgaler.com` surface identified from #76 but live DNS/TLS/API/status/OAuth/sender/deployment proof remains MISSING/UNVERIFIED; external owner/provider inventory/action required. No mutation.
+- `NIGHT-WOZ-085`: BLOCKED_STOP — #83 exact/green; old Ready action failed on connector GraphQL `Repository.fullDatabaseId`; no merge.
 - `NIGHT-WOZ-084`: NO_RESULT; superseded; NOT_PASS.
-- `NIGHT-WOZ-082`: prior same process blocker; no merge.
-
-## RESULTADO DEL TURNO — NIGHT-WOZ-086
-
-### PRIMARY
-
-- `Assignment ID`: `NIGHT-WOZ-086`
-- `STATUS`: `BLOCKED_STOP / F3/19.1 PRODUCTION_SURFACE_EVIDENCE_RECONCILED`
-- `baseline`: `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `branch/head`: READ-ONLY; no BeatGaler branch created or mutated.
-- `PR`: none. #76 inspected as frozen evidence only; #83 parked and untouched.
-- `cambios`: none to BeatGaler code, DNS, provider resources, deployment, OAuth, sender config, GitHub integration or #76. Only this WOZ ledger result is written.
-- `tests`: no product tests applicable. External observation attempted at `2026-08-31T15:49:48Z`.
-- `CI`: N/A; assignment is READ-ONLY and created no candidate.
-- `evidencia`: live integration tree resolves to `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`. PR #76 explicitly names production hosting target `beatgaler.com`, public `/privacy` and `/terms`, and support/privacy address `support@beatgaler.com`; #76 remains OPEN/frozen and therefore does not prove deployment. Current integration `cloud-server/.env.example` contains only placeholder `BEATGALER_OAUTH_PUBLIC_BASE=https://your-beatgaler-cloud.example.com`, blank `BEATGALER_SES_FROM_EMAIL`, and examples for allowed origins; configuration strings were not treated as runtime proof. Fresh read-only network observation from the available runtime returned no address for `beatgaler.com`, `www.beatgaler.com` or `api.beatgaler.com`; consequently HTTPS/TLS/certificate/HTTP/redirect evidence could not be attributed. No search result exposed a live BeatGaler public surface.
-- `VERIFIED`: intended product domain string `beatgaler.com` and support/privacy address `support@beatgaler.com` are attributable to #76 only as intended candidate surfaces; integration baseline is verified. These are NOT deployment/sender-validity claims.
-- `MISSING/UNVERIFIED`: authoritative DNS records and record class for product domain; live HTTPS/TLS certificate identity/expiry; HTTP status and redirect chain; factual production API hostname; factual status URL; security/abuse endpoint/address; actual SES sender identity/domain verification; exact Google/X OAuth callback destinations registered at providers; production deployment/provider identifier; production hosting of `/privacy` and `/terms`; whether `www.beatgaler.com`, `api.beatgaler.com`, or `status.beatgaler.com` are intended production names at all.
-- `blockers`: production target inventory is not yet factually published/observable enough to continue without guessing. Minimum owner actions: identify the canonical production web hostname and API hostname; publish/confirm their DNS records; identify status/support/security-abuse surfaces; expose the actual registered Google/X callback destinations; provide non-secret SES sender-domain identity/verification status; provide attributable deployment/provider ID. Then rerun read-only DNS/TLS/HTTP checks. No legal-text change is requested.
-- `condición de STOP alcanzada`: yes — public target beyond the intended `beatgaler.com` string cannot be identified factually and the intended product hostname itself was non-resolving from the observation runtime; continuing would require guessing or provider/credential access/mutation.
-- `recomendación para JOBS`: keep F3/19.1 OPEN/PARTIAL. Assign the minimum provider/domain-owner evidence action above; do not mutate #76 and do not infer deployment, sender validity or OAuth validity from repository strings. Once canonical targets exist, a fresh READ-ONLY verification can capture DNS/TLS/cert/HTTP/redirect evidence.
-
-### CI-FALLBACK
-
-- `Assignment ID`: `NIGHT-WOZ-086`
-- `STATUS`: `NOT_EXECUTED`
-- `baseline`: `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `branch/head`: N/A
-- `PR`: N/A
-- `cambios`: none
-- `tests`: none
-- `CI`: N/A
-- `evidencia`: assignment explicitly says `CI-FALLBACK: NONE`.
-- `UNVERIFIED`: N/A
-- `blockers`: N/A
-- `condición de STOP alcanzada`: PRIMARY hit its explicit external/factual-target STOP; no fallback lane exists.
-- `recomendación para JOBS`: do not invent fallback work; issue a new Assignment ID only after processing this blocker map.
