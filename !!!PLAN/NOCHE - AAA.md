@@ -6,15 +6,15 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-090`
+- `ASSIGNMENT_ID: NIGHT-AAA-091`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — Review Save/Save All durable action-boundary corrective slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-AAA-089 has no final RESULTADO DEL TURNO, no matching material Issue #41 handoff and no new F2/13.2 candidate at JOBS CYCLE 094 preflight; superseded / NOT_PASS.`
-- `WHY_REASSIGNED: recalculated path still makes the proven durable Review boundary one of the highest-priority executable internal gaps; this is not retained merely because it existed previously.`
+- `PREDECESSOR: NIGHT-AAA-090 has no final RESULTADO DEL TURNO, no matching material Issue #41 handoff and no new F2/13.2 candidate at JOBS CYCLE 095 preflight; superseded / NOT_PASS.`
+- `WHY_REASSIGNED: global path was recalculated from live GitHub; the proven durable Review boundary remains the highest-value executable F2 internal gap. It is reissued because live evidence still demands it, not because the previous assignment existed.`
 - `REUSE_EVIDENCE: Issue #41 5478129410 + NIGHT-AAA-071 + #69 helper semantics only.`
 - `DUPLICATE_CHECK: open PR scan found no newer F2/13.2 owner/candidate; #69 remains frozen reusable input only.`
-- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB089 owns #74/#84. WOZ093 owns only F2/15.1 Trash destructive-action slice. #83 is parked on external connector blocker and has no mutation owner this cycle.`
+- `SERIALIZATION: AAA MUST NOT merge or mutate integration. BBB090 owns #74/#84. WOZ094 owns only F2/15.1 Trash destructive-action slice. #83 is parked and has no mutation owner this cycle.`
 
 ### PRIMARY
 
@@ -41,7 +41,7 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-089`: NO_RESULT at CYCLE 094 preflight; no material candidate/handoff; superseded; NOT_PASS.
-- `NIGHT-AAA-088`: NO_RESULT at CYCLE 093; superseded; NOT_PASS.
+- `NIGHT-AAA-090`: NO_RESULT at CYCLE 095 preflight; no material candidate/handoff; superseded; NOT_PASS.
+- `NIGHT-AAA-089`: NO_RESULT at CYCLE 094; superseded; NOT_PASS.
 - Issue #41 `5478129410`: reusable current-baseline finding for Review durable completion.
 - `NIGHT-AAA-071`: DONE / AUDIT_ONLY; reusable context.
