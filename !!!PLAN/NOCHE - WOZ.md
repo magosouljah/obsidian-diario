@@ -34,8 +34,43 @@
 
 `CI-FALLBACK: NONE` — runtime 160 must be measured on the post-#83 integration state if #83 lands, and no other independent F3 task is dependency-safe enough to preauthorize.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-085
+
+### PRIMARY
+
+- `Assignment ID:` NIGHT-WOZ-085
+- `STATUS:` BLOCKED_STOP
+- `baseline:` integration-v0.8.0-alpha.1 @ `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; preflight confirmed unchanged.
+- `branch/head:` `woz/night-074-durable-waitlist` @ `803b2143e6ea03f6549118e9241fee320dfccdee`.
+- `PR:` #83; OPEN/DRAFT at preflight; exact base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; unmerged.
+- `cambios:` no code changes; reuse-only. Exact 3-file scope reconfirmed: `.github/workflows/f3-20.2-durable-waitlist.yml`, `cloud-server/durable-user-waitlist.js`, `cloud-server/tests/durable-user-waitlist.test.cjs`.
+- `tests:` reused exact-head dedicated durable-waitlist evidence; no new tests required before transaction.
+- `CI:` `F3 20.2 Durable Waitlist` run `33388377959` @ exact head = SUCCESS; applicable exact-head Required CI = SUCCESS.
+- `evidencia:` integration/base/head/scope exact; authorized Ready-for-review action attempted. Mutation failed with GitHub connector GraphQL schema error: `Repository.fullDatabaseId` does not exist. Per STOP, no workaround and no merge attempted. Issue #41 handoff comment `5480070026`.
+- `UNVERIFIED:` runtime 160 capacity; latency/error/queue/recovery; no-loss/no-cross-tenant; measured safety margin. `F3/20.2 DURABLE_WAITLIST_INTEGRATED` NOT claimed; 20.2 remains OPEN.
+- `blockers:` authorized Ready-for-review connector action is nonfunctional due to GraphQL schema mismatch.
+- `condición de STOP alcanzada:` YES — Ready action failed.
+- `recomendación para JOBS:` preserve #83 exact head/base and reassign only when authorized Ready action works or an explicitly authorized verified owner flow is available; do not infer Ready or merge.
+
+### CI-FALLBACK
+
+- `Assignment ID:` NIGHT-WOZ-085
+- `STATUS:` NOT_EXECUTED
+- `baseline:` same factual preflight baseline `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+- `branch/head:` NONE.
+- `PR:` NONE.
+- `cambios:` none.
+- `tests:` none.
+- `CI:` none.
+- `evidencia:` assignment explicitly says `CI-FALLBACK: NONE`.
+- `UNVERIFIED:` unchanged from PRIMARY.
+- `blockers:` none applicable; fallback not authorized.
+- `condición de STOP alcanzada:` PRIMARY STOP terminated the turn; no fallback invented.
+- `recomendación para JOBS:` do not assign runtime-160 measurement until #83 lands, per dependency stated in assignment.
+
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
+- `NIGHT-WOZ-085`: BLOCKED_STOP — exact #83 preflight/CI green; authorized Ready action failed on connector GraphQL `Repository.fullDatabaseId`; no merge/integration mutation; CI-FALLBACK NONE.
 - `NIGHT-WOZ-084`: NO_RESULT at CYCLE 086; superseded; NOT_PASS.
 - `NIGHT-WOZ-083`: no final result/handoff observed before supersession; NOT_PASS.
 - `NIGHT-WOZ-082`: BLOCKED_STOP — prior Ready tooling failure only; #83 unchanged OPEN/DRAFT/unmerged with exact-head CI green.
