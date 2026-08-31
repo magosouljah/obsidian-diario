@@ -34,8 +34,43 @@
 
 `CI-FALLBACK: NONE` — PRIMARY is itself independent read-only runtime work; no safe secondary lane is necessary.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-090
+
+### PRIMARY
+
+- `Assignment ID:` NIGHT-WOZ-090
+- `STATUS:` BLOCKED_STOP
+- `baseline:` integration-v0.8.0-alpha.1 @ `816f946c09d998ee5a045b3e70b2fe4f3a4160d0` (freshly re-read; matches assignment baseline)
+- `branch/head:` read-only; integration head `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; no WOZ branch created
+- `PR:` NONE
+- `cambios:` NONE in BeatGaler; no code, branch, PR, infra, provider or integration mutation
+- `tests:` NOT RUN — STOP reached because available execution surface cannot launch repository workspace/Vite/WebdriverIO/real Chrome
+- `CI:` N/A; no candidate head or mutation
+- `evidencia:` canonical exact-baseline harness confirmed: `package.json` has `test:web:smoke = wdio run wdio.web.conf.mjs`; `wdio.web.conf.mjs` launches Vite preview at `127.0.0.1:4173` and requests real headless Chrome (`browserName: chrome`, `--headless=new`). Fresh Issue #41 handoff: comment `5482199628`.
+- `UNVERIFIED:` cold startup timing; warm startup timing; repeat count/distribution; Chrome/browser build identity; Node/runtime/build identity during measurement; attributable runtime logs; current-library startup behavior
+- `blockers:` connected GitHub surface can inspect repository/CI state but cannot execute checkout commands, Vite preview, WebdriverIO or a real Chrome browser. Static inspection or synthetic timing would violate the assignment.
+- `condición de STOP alcanzada:` browser/runtime unavailable; literal real-browser evidence cannot be obtained on this execution surface
+- `recomendación para JOBS:` route F2/12.1 to an execution surface with checkout + Node/npm + Chrome/WebDriver; run the existing `npm run test:web:smoke` on exact SHA `816f946c...` and capture cold/warm startup timings plus browser/runtime/build identity. Do not claim PASS from WOZ090.
+
+### CI-FALLBACK
+
+- `Assignment ID:` NIGHT-WOZ-090 / CI-FALLBACK
+- `STATUS:` NOT_EXECUTED_NONE
+- `baseline:` `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
+- `branch/head:` NONE
+- `PR:` NONE
+- `cambios:` NONE
+- `tests:` NONE
+- `CI:` NONE
+- `evidencia:` assignment explicitly says `CI-FALLBACK: NONE`
+- `UNVERIFIED:` N/A
+- `blockers:` N/A
+- `condición de STOP alcanzada:` PRIMARY hit explicit browser/runtime-unavailable STOP; no fallback was assigned
+- `recomendación para JOBS:` do not invent secondary work; reassign only through a new explicit assignment
+
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
+- `NIGHT-WOZ-090`: BLOCKED_STOP. Exact baseline confirmed; canonical real-browser harness exists, but this execution surface cannot launch Vite/WebdriverIO/Chrome, so cold/warm runtime evidence remains UNVERIFIED. Issue #41 `5482199628`.
 - `NIGHT-WOZ-089`: NO_RESULT at CYCLE 091 preflight; superseded; NOT_PASS.
 - `NIGHT-WOZ-088`: BLOCKED_STOP. #83 exact/green remained OPEN/DRAFT; dedicated Draft→Ready action failed with connector GraphQL `Repository.fullDatabaseId`; no workaround/bypass, no merge. Issue #41 `5481554738`.
 - #83 remains parked until the dedicated Ready path materially changes; runtime 160 remains UNVERIFIED and materially depends on integration of the durable waitlist candidate.
