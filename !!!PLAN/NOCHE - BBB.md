@@ -6,16 +6,16 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-096`
+- `ASSIGNMENT_ID: NIGHT-BBB-097`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F4 / 25.1 — sanitize and identify first unexpected auth request on #84`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
 - `PRODUCT_LINEAGE: PR #74 @ d1593d368e1015abb6a25bf98e5fa8586664ac95; OPEN/Ready/mergeable; exact live base.`
 - `EVIDENCE_CANDIDATE: PR #84 @ 28c3810c43eefa8bab0ffa2026c371882ead2f2f; OPEN/Ready/mergeable; exact live base.`
-- `PREDECESSOR: NIGHT-BBB-095 = BLOCKED_STOP / HARNESS_SERVICE_BLOCKED; Issue #41 5485389606.`
+- `PREDECESSOR: NIGHT-BBB-096 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff al preflight JOBS CYCLE 102; SUPERSEDED / NOT_PASS.`
 - `AUTHORITATIVE_FAILURE: Windows Auth Journey 33439899177 / job 99645269221 = FAILURE; repeated unexpected-request, gatePresent=true, tokenPresent=false.`
-- `WHY_ASSIGNED: BBB095 proved the next safe causal step precisely: current trace is too redacted to identify the first unexpected request, so no harness or product correction is yet justified.`
-- `SERIALIZATION: BBB owns #84 diagnostics only. AAA097 owns F2/13.2. WOZ100 owns #76. Do not touch Review/Trash/#83/#76/provider/payment/integration.`
+- `WHY_ASSIGNED: la siguiente operación segura sigue siendo causal y diagnostic-only; no existe evidencia que autorice product correction.`
+- `SERIALIZATION: BBB owns #84 diagnostics only. AAA098 owns F2/13.2. WOZ101 owns D10.2 READ-ONLY. Do not touch Review/Trash/#83/#76/#85/provider/payment/integration.`
 
 ### PRIMARY
 
@@ -41,5 +41,6 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-BBB-095`: `BLOCKED_STOP / HARNESS_SERVICE_BLOCKED`; exact #84 `28c3810c...`, run `33439899177` / job `99645269221` red. Current harness converts every non `/auth/health` or `/auth/login` fetch to synthetic 500 but does not expose first request method/path, so harness correction is not causally proven. Issue #41 `5485389606`.
+- `NIGHT-BBB-096`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 102; no final result ni matching handoff.
+- `NIGHT-BBB-095`: `BLOCKED_STOP / HARNESS_SERVICE_BLOCKED`; exact #84 `28c3810c...`, run `33439899177` / job `99645269221` red. Issue #41 `5485389606`.
 - `NIGHT-BBB-093`: diagnostic trace introduced; literal auth remained NOT_PASS.
