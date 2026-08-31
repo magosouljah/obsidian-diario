@@ -2,81 +2,58 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE 100:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 101:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado compacto
 
 - 17.1 / 17.2 / 18.1 `[x]`.
-- 18.2 software reconciliation integrado; provider/payment scenarios globales siguen abiertos. `NIGHT-WOZ-098` produjo evidence-gap map factual y cerró su lane sin PASS.
+- 18.2: reconciliation core/exception queue `PROVEN_SOFTWARE`; provider/payment scenarios globales siguen abiertos.
+- 19.1: `PARTIAL / EXTERNAL`; no inferir producción desde código/docs.
+- 19.2: #76 es candidate reusable pero stale y contradictorio con eligibility canónica 18+; `NIGHT-WOZ-100` es owner exclusivo de reconciliación, **NO MERGE**.
 - 20.1 software observability integrado; external observability tails siguen abiertos.
-- #78 capacity harness integrado; local/synthetic-only no satisface runtime 160.
-- #83 durable waitlist permanece OPEN/DRAFT, mergeable, head `803b2143e6ea03f6549118e9241fee320dfccdee`, base exact `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; exact-head F3 20.2 Durable Waitlist `33388377959` SUCCESS y otros gates observados verdes, pero supported Draft→Ready path sigue materialmente bloqueado. No owner de mutación en CYCLE 100.
-- Runtime 160 + latency/error/queue/recovery/no-loss/no-cross-tenant + safety margin siguen UNVERIFIED aun si #83 integra después.
-- 19.1 queda reducido a blockers externos de DNS/TLS/API/status/OAuth/sender/deployment después de WOZ096.
-- #76 legal/public routes permanece OPEN/Ready/mergeable pero stale; CYCLE 100 encontró contradicción material de eligibility 13+ en #76 vs requisito canónico v1 18+, además del in-app SettingsPanel legal copy gap reconocido por el propio PR. `NIGHT-WOZ-099` es owner exclusivo de reconciliar ese candidate existente. NO MERGE.
+- #78 capacity harness integrado; no sustituye runtime real.
+- #83 durable waitlist sigue OPEN/DRAFT/mergeable @ `803b2143e6ea03f6549118e9241fee320dfccdee`, exact base `816f946c...`; supported Draft→Ready path continúa materialmente bloqueado. PARKED.
+- Runtime target aprobado: expected 80 simultaneous users; validation exacta 160. Latency/error/queue/recovery/no-loss/no-cross-tenant + safety margin siguen UNVERIFIED.
 
-## Día 18
+## 18.2 — `[ 🟡 ] GLOBAL PROVIDER/PAYMENT EVIDENCE OPEN`
 
-### 18.2 — `[ 🟡 ] GLOBAL PROVIDER/PAYMENT EVIDENCE OPEN`
+`NIGHT-WOZ-098` = `BLOCKED_STOP / EVIDENCE_GAP_MAP_UPDATED`:
+- reconciliation core + durable exception queue = `PROVEN_SOFTWARE`;
+- cancel/status vocabulary = `PARTIAL`;
+- 3DS, rejection, late payment, renewal failure, cancel E2E, upgrade/downgrade, refund, provider webhooks, financial outcomes y full sandbox reconciliation = `UNVERIFIED_EXTERNAL`.
 
-`NIGHT-WOZ-098` terminó `BLOCKED_STOP / F3/18.2 EVIDENCE_GAP_MAP_UPDATED` READ-ONLY.
+Owner-approved billing policy exists en Issue #41 (grace 3 días, fallback Free/no deletion, cancel period-end, upgrade immediate after confirmed payment, downgrade next cycle, refund rules). Eso es decisión RO, no provider/runtime PASS.
 
-Clasificación reusable:
-- reconciliation core + durable exception queue: `PROVEN_SOFTWARE` mediante `cloud-server/billing-reconciliation.js` y `cloud-server/tests/billing-reconciliation.test.cjs`;
-- cancel/status vocabulary: `PARTIAL` — estados aceptados no prueban lifecycle/provider/financial outcome;
-- 3DS, rechazo, pago tardío, renewal failed real, cancel E2E, upgrade/downgrade, refund, provider webhook real/staging, ledger/financial outcomes, grace-period policy aprobada y 100% expected sandbox reconciliation: `UNVERIFIED_EXTERNAL`.
+## 19.1 — `[ 🟡 ] PARTIAL / EXTERNAL`
 
-Issue #41 `5485068226`.
+Canonical domain/contact intent: `beatgaler.com`, `support@beatgaler.com`, OAuth callback values ya decididos. Issue #41 contiene evidencia previa de `api.beatgaler.com` TLS/Let's Encrypt, pero DNS/TLS/HTTP/status/support/mail/OAuth/deployment completo actual no queda demostrado por la superficie conectada usada en WOZ096. No repetir un lookup incapaz ni degradar evidencia previa.
 
-**Owner CYCLE 100:** ninguno para 18.2. Siguiente avance útil requiere Stripe/provider staging autorizado y/o decisión RO; no repetir inspección software para fabricar PASS.
+## 19.2 — `[ 🟡 ] IN PROGRESS / #76 RECONCILIATION`
 
-## Día 19
+PR #76 `legal/privacy-terms-v1 @ 36d218609cf2488997755312fa2dafd0a019d070`:
+- OPEN/Ready/mergeable;
+- base stale `a9d35a3...` vs live `816f946c...`;
+- Privacy/Terms dicen 13+/minimum age, contradiciendo v1 canónico **18+**;
+- PR body reconoce SettingsPanel legal copy/placeholders viejos;
+- `/privacy` y `/terms` route intent existe, deployment/SPA fallback no probado.
 
-### 19.1 — `[ 🟡 ] PARTIAL / EXTERNAL`
-Established: candidate #76 names `beatgaler.com`, `/privacy`, `/terms`, `support@beatgaler.com`; esto no prueba deployment/DNS/sender/OAuth.
+**Owner CYCLE 101: `NIGHT-WOZ-100`.** Reuse #76; reconciliar 18+, decisiones legales/business ya aprobadas y una fuente canónica para Settings/public; history-preserving refresh + focused tests/build + exact-head CI; **NO MERGE**. External legal review/public deployment permanecen UNVERIFIED.
 
-`NIGHT-WOZ-096` terminó `BLOCKED_STOP / F3/19.1 PUBLIC_SURFACE_EVIDENCE_BOUNDED`:
-- no hizo mutaciones;
-- bounded public lookup no produjo DNS autoritativo, TLS/certificate ni HTTP status verificable;
-- resolver disponible devolvió `Temporary failure in name resolution`, por lo que no se fabricó claim NXDOMAIN;
-- provider/deployment/OAuth/sender privados siguen `UNVERIFIED`.
+CI-FALLBACK solo si PRIMARY entra realmente en WAITING_CI: F1/D10.2 alpha-readiness decision map READ-ONLY. D10.1 ya está PASS.
 
-**Owner CYCLE 100:** ninguno para 19.1. No repetir la misma superficie incapaz ni inferir producción desde código/docs.
+## 20.1 — `[x] SOFTWARE DONE / INTEGRATED`
 
-### 19.2 — `[ 🟡 ] IN PROGRESS / #76 RECONCILIATION`
+Structured redacted events, bounded counters, condition→route mapping, kill switches, tests/runbook internos integrados por #75. External provider/on-call/status/retention proof no se infiere.
 
-PR #76 `legal/privacy-terms-v1` @ `36d218609cf2488997755312fa2dafd0a019d070` es material reusable pero no integrable tal cual:
-- base histórica `a9d35a3...` vs integración viva `816f946c...`;
-- Privacy/Terms permiten 13+/minimum age mientras F0 canonical business decision fija v1 **18+**;
-- el PR reconoce que `src/components/SettingsPanel.tsx` conserva copy legal temporal/placeholders/old contact y no está reconciliado con canonical docs;
-- `/privacy` y `/terms` existen como candidate intent, pero deployment/SPA fallback no está probado.
+## 20.2 — `[ 🟡 ] HARNESS INTEGRATED / WAITLIST GREEN / TOOLING-BLOCKED / RUNTIME UNVERIFIED`
 
-**Owner CYCLE 100:** `NIGHT-WOZ-099`.
-- REUSE-FIRST sobre #76, no segundo PR;
-- reconciliar solo decisiones ya canónicas, incluyendo eligibility 18+, current operator/contact/billing decisions y hidden implementation-provider vocabulary;
-- preferir una fuente canónica para in-app/public legal copy;
-- history-preserving refresh contra baseline vivo + focused tests/build + exact-head CI;
-- NO MERGE;
-- independent legal review y production deployment siguen UNVERIFIED.
-
-CI-FALLBACK de WOZ099, únicamente si #76 entra en WAITING_CI: F1/D10.2 decision map READ-ONLY, completamente independiente de #76.
-
-## Día 20
-
-### 20.1 — `[x] SOFTWARE DONE / INTEGRATED`
-Structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno integrados por #75. External provider/on-call/status/retention proof no se infiere.
-
-### 20.2 — `[ 🟡 ] HARNESS INTEGRATED / WAITLIST EXACT-HEAD GREEN / TOOLING-BLOCKED / RUNTIME UNVERIFIED`
 - [x] deterministic parameterized harness #78;
-- [x] expected peak aprobado: **80 simultaneous users**;
-- [ ] validation **160 simultaneous users (2×)** con runtime aplicable;
-- [ ] latency target/result aplicable;
-- [ ] error/queue/recovery behavior demostrado;
-- [ ] safety margin medida contra 80;
-- [ 🟡 ] durable waitlist #83 exact-head CI green, todavía OPEN/DRAFT/unmerged; supported Draft→Ready path failed before mutation in WOZ092.
+- [x] expected peak = **80 simultaneous users**;
+- [ ] validation **160 simultaneous users (2×)** en runtime aplicable;
+- [ ] latency/error/queue/recovery result aplicable;
+- [ ] safety margin medida;
+- [ 🟡 ] #83 exact-head green pero OPEN/DRAFT/unmerged.
 
-**Regla CYCLE 100:** no repetir la misma Ready action, no usar GraphQL workaround/bypass y no asignar runtime-160 como si #83 ya estuviera integrado. Reabrir la transacción #83 solo cuando exista un cambio material verificable en la ruta soportada.
+No repetir Draft→Ready con el mismo connector failure; reabrir solo con cambio material verificable en supported tooling. Integrar #83 tampoco cerraría runtime 160.
 
-No cerrar 20.2 por CI software ni por harness local/sintético. Integrar #83 tampoco sustituirá runtime 160 aplicable.
-
-**Principio:** no falsear proveedor, capacidad, pagos, DNS, legal review o staging real sin evidencia externa/productiva.
+**Principio:** no falsear provider, capacity, payments, DNS, legal review o staging sin evidencia externa/productiva.
