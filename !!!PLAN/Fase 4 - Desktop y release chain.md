@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 098:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Integración estable CYCLE 099:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -15,17 +15,15 @@
 
 - #71 conserva fail-before autoritativo histórico.
 - #74 es la única product-corrective lineage actual, head `d1593d368e1015abb6a25bf98e5fa8586664ac95`, base exact `816f946c...`, OPEN/Ready/mergeable.
-- #84 es el único evidence candidate exact-lineage actual, head `c6c5ecb17e1efd055cb9a8f2bc42105ef3838d61`, OPEN/Ready/mergeable, base exact `816f946c...`.
-- Exact #84 head: broad Test - Desktop Portability `33423712599` = SUCCESS y Windows Import `33423712584` = SUCCESS, pero literal F4 - 25.1 Windows Auth Journey `33423712589` = **FAILURE**.
-- Failure literal previamente atribuido en `tests/e2e/auth-flow.e2e.mjs:64`: `Desktop login did not persist the returned session token.`
-- Late `NIGHT-BBB-088` / Issue #41 `5483886991` probó que tras Sign in el expected token no se vuelve observable en localStorage, pero el mismo log contiene fallos `@wdio/tauri-service` DirectEval/window-state y después `A sessionId is required`.
-- Esa evidencia todavía no distingue producto auth/session vs mocked Tauri command path vs pérdida de capacidad de sesión/eval del servicio WDIO/Tauri. Otro product corrective sigue siendo especulativo.
-- `NIGHT-BBB-092` no dejó resultado final/handoff, head movement ni fresh literal run al preflight CYCLE 098; superseded / NOT_PASS.
-- `NIGHT-BBB-093` recibe ownership exclusivo de una diagnostic-only pass sobre #84: instrumentar `/auth/login` mock/response, `set_cloud_auth_token`, AccountGate/session write y gate transition sin imprimir secretos, sin cambiar assertions y sin product mutation; fresh literal Windows run + exact-head CI; **NO MERGE**.
+- #84 es el único evidence candidate exact-lineage actual, head `28c3810c43eefa8bab0ffa2026c371882ead2f2f`, OPEN/Ready/mergeable, base exact `816f946c...`.
+- Exact #84 head `28c3810c...`: F4 - 25.1 Windows Auth Journey run `33439899177` / job `99645269221` = **FAILURE**. D6, D7, Web Production Build, Test - Desktop Portability y Windows Import observados SUCCESS en ese exact head.
+- `NIGHT-BBB-093` añadió instrumentación redacted únicamente al harness y mantuvo las assertions literales. El run llegó al packaged Windows journey y registró repetidamente `boundary=unexpected-request`, con `gatePresent=true` y `tokenPresent=false`; error literal: `Desktop login did not persist the returned session token.`
+- Esta nueva evidencia estrecha el fallo al request/mock/service boundary, pero **todavía no demuestra** si el mismatch es harness/mock/config-only, Tauri/WDIO-service, o producto request/session behavior. No se autoriza product corrective especulativo.
+- `NIGHT-BBB-094` recibe ownership exclusivo para identificar el primer request inesperado y atribuirlo. Solo si se prueba harness-only puede corregir mínimamente el harness #84 y rerun con assertions literales intactas. Si producto está implicado, STOP `PRODUCT_SIDE_PROVEN` para reasignación JOBS posterior. **NO MERGE.**
 
 ### windows/review
 
-#72 sigue OPEN/stale/frozen. No pertenece a BBB093 y su Review surface materialmente overlap con AAA094.
+#72 sigue OPEN/stale/frozen. No pertenece a BBB094 y su Review surface materialmente overlap con AAA095.
 
 ## Día 22 / 23
 
@@ -34,9 +32,9 @@ Signing Windows, SmartScreen/AV/hardware, Apple Developer, certificados/notariza
 ## Día 25
 
 ### 25.1 — `[ 🟡 ] IN PROGRESS`
-Integrated rows conocidas: `windows/import`, `windows/updater`, `macos/updater` = automated evidence. `windows/auth` tiene evidencia exact-lineage ejecutable y **roja sobre la corrective actual**; causal side sigue unresolved pending BBB093 diagnostic-only pass. Múltiples journeys permanecen sin evidencia actual completa; iPhone sigue external.
+Integrated rows conocidas: `windows/import`, `windows/updater`, `macos/updater` = automated evidence. `windows/auth` conserva exact-lineage packaged evidence ejecutable y roja sobre #84 head `28c3810c...`; causal ownership del `unexpected-request` sigue pendiente de BBB094. Múltiples journeys permanecen sin evidencia actual completa; iPhone sigue external.
 
 ### 25.2 — `[ 🟡 ] READINESS ARTIFACT INTEGRATED / GLOBAL OPEN`
 PR #79 docs-only readiness artifact ya está integrado. Gate real sigue pendiente de beta/tester execution, 0 P0 y ningún P1 core conocido, además de release-chain evidence aplicable.
 
-**Owner CYCLE 098:** BBB `NIGHT-BBB-093` sobre #84 diagnostic boundary only. Autoridad limitada a instrumentation + literal packaged Windows evidence para resolver causal side. No product corrective, no integration mutation. CI-FALLBACK NONE.
+**Owner CYCLE 099:** BBB `NIGHT-BBB-094` sobre #84 causal-boundary localization. Autoridad limitada a diagnostics y, solo si se prueba harness-only, corrección mínima del harness + fresh packaged Windows evidence. No product corrective, no integration mutation. CI-FALLBACK NONE.
