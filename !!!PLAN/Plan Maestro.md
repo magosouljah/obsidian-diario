@@ -12,7 +12,7 @@
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-066
+## Estado vivo — NIGHT-JOBS-067
 
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable observada:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
@@ -22,51 +22,54 @@
 - **F2 / 11.1, 11.2, 12.2:** `[x]`.
 - **F2 / 12.1:** `[ 🟡 ] RUNTIME EVIDENCE`; cold/warm real sigue sin prueba literal.
 - **F2 / 13.1:** #69 frozen por `STOP_WRITE_SURFACE`; #70 frozen por safe-write + stale baseline.
-- **F2 / 14.1:** `NIGHT-AAA-061` no dejó resultado verificable; `NIGHT-AAA-062` queda owner único del slice mínimo streaming/memory safety. No integration mutation.
+- **F2 / 14.1:** `NIGHT-AAA-062` no dejó resultado verificable; `NIGHT-AAA-063` queda owner único del slice mínimo streaming/memory safety. No integration mutation.
 - **F3 / 17.1 + 17.2 + 18.1:** `[x] SOFTWARE DONE / INTEGRATED`.
-- **F3 / 18.2:** #73 reconciliation/exception-queue software slice INTEGRATED; global 18.2 sigue abierto por provider/payment/business-policy evidence.
+- **F3 / 18.2:** #73 reconciliation/exception-queue software slice INTEGRATED; global 18.2 sigue abierto por 3DS/rechazo/pago tardío/renewal/cancel/upgrade/downgrade/refund/grace-period/provider evidence. WOZ066 puede producir solo gap map READ-ONLY si PRIMARY espera operación externa.
 - **F3 / 19.2:** #76 OPEN/stale/frozen.
-- **F3 / 20.1:** #75 sigue OPEN/non-draft/mergeable, exact head `40e39393247dbdd506ac01edefa84fd0b0add94c`, `base_sha` exactamente `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`, 4 archivos intended. `NIGHT-WOZ-064` no dejó resultado; `NIGHT-WOZ-065` posee la única transacción exact-head autorizada. GitHub verifica F3 20.1, D6, D7, Productive Temp Auth Compile y Desktop Portability SUCCESS sobre ese head; Upgrade 21.2 Staging SKIPPED.
-- **F3 / 20.2:** PR #78 `[x] HARNESS SOFTWARE INTEGRATED`; target **80 usuarios simultáneos esperados / 160 de validación (2×)** aprobado. `NIGHT-BBB-060` no dejó resultado; `NIGHT-BBB-061` ejecuta evidencia runtime aplicable a 160. Latency/error/queue/recovery, safety margin y durable user waitlist siguen obligatorios.
+- **F3 / 20.1:** #75 sigue OPEN/non-draft/mergeable, exact head `40e39393247dbdd506ac01edefa84fd0b0add94c`, `base_sha` exactamente `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`. `NIGHT-WOZ-065` no dejó resultado; `NIGHT-WOZ-066` posee la única transacción exact-head autorizada. GitHub CYCLE 067 verifica F3 20.1, D6, D7, Productive Temp Auth Compile y Desktop Portability SUCCESS; Upgrade 21.2 Staging SKIPPED.
+- **F3 / 20.2:** PR #78 `[x] HARNESS SOFTWARE INTEGRATED`; target **80 usuarios simultáneos esperados / 160 de validación (2×)** aprobado. `NIGHT-BBB-061` no dejó resultado; `NIGHT-BBB-062` ejecuta evidencia runtime aplicable a 160. Latency/error/queue/recovery, safety margin y durable user waitlist siguen obligatorios.
 - **F4 / 21.1+21.2, 24.1, 24.2:** `[x]`.
 - **F4 / windows/auth:** #74/#71 frozen; `NOT_COVERED`.
 - **F4 / windows/review:** #72 stale/frozen.
-- **F4 / 25.1:** Web/auth sigue `NOT_COVERED`.
-- **F4 / 25.2:** #79 sigue OPEN/stale, docs-only; queda como CI-FALLBACK independiente de BBB061, refresh + fresh CI, **sin merge**.
+- **F4 / 25.1:** Web/auth y múltiples journeys siguen `NOT_COVERED`.
+- **F4 / 25.2:** #79 sigue OPEN/stale, docs-only; queda como CI-FALLBACK independiente de BBB062, refresh + fresh CI, **sin merge**.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 
-## RESULTADOS PROCESADOS — CYCLE 066
+## RESULTADOS PROCESADOS — CYCLE 067
 
-- `NIGHT-AAA-061`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- `NIGHT-BBB-060`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
-- `NIGHT-WOZ-064`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no merge accepted and integration remains #78.
+- `NIGHT-AAA-062`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
+- `NIGHT-BBB-061`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`.
+- `NIGHT-WOZ-065`: `NO_RESULT / NOT_PROCESSED / SUPERSEDED_BY_JOBS`; no merge accepted and integration remains #78.
+- El comentario más reciente de Issue #41 antes de este ciclo era CYCLE 066 (`5473569549`); no existía handoff posterior de AAA/BBB/WOZ.
 - GitHub verifica #75 exact-base/exact-head/mergeable y todavía no integrado; exact-head workflows aplicables observados verdes, con Upgrade 21.2 Staging SKIPPED.
 - #79 permanece stale contra live integration; no refresh claim.
+- Open-PR scan no muestra candidate posterior a #79 ni artifact nuevo atribuible a los assignments sin resultado.
 - No se promovió merge/PASS/integration nuevo.
 
-## OWNERS — CYCLE 066
+## OWNERS — CYCLE 067
 
-### AAA — `NIGHT-AAA-062` — F2 / 14.1
+### AAA — `NIGHT-AAA-063` — F2 / 14.1
 PRIMARY: live integration only; REUSE-FIRST media streaming/memory slice mínimo; giant-file memory safety + cleanup/cancel; focused tests + fresh exact-head CI; sin Player redesign ni merge.  
 CI-FALLBACK: F2/14.2 READ-ONLY player-control gap map solo si PRIMARY queda code-complete esperando CI/review.
 
-### BBB — `NIGHT-BBB-061` — F3 / 20.2
+### BBB — `NIGHT-BBB-062` — F3 / 20.2
 PRIMARY: usar harness #78 ya integrado y objetivo canónico **80/160**; obtener evidencia runtime materialmente aplicable a 160 para latency/error/queue/recovery, safety margin y durable waitlist. No inventar PASS ni generar costo/infra nueva.  
 CI-FALLBACK: F4/25.2 SAME #79 narrow history-preserving refresh + fresh exact-head CI únicamente si PRIMARY queda `WAITING_EXTERNAL/WAITING_RUNTIME`; **NO MERGE** y no cerrar 25.2.
 
-### WOZ — `NIGHT-WOZ-065` — F3 / 20.1 / SAME #75
+### WOZ — `NIGHT-WOZ-066` — F3 / 20.1 / SAME #75
 PRIMARY: fresh race-check + exact-head merge transaction de #75; no code workaround; verificar merge SHA/parents si GitHub acepta. Claim máximo software observability integrated; external observability sigue UNVERIFIED.  
-CI-FALLBACK: NONE.
+CI-FALLBACK: F3/18.2 READ-ONLY payment/provider scenario gap map solo si PRIMARY queda esperando merge acceptance/review/queue equivalente; sin writes/provider calls y sin claim global 18.2.
 
-## Camino crítico global — recalculado desde cero CYCLE 066
+## Camino crítico global — recalculado desde cero CYCLE 067
 
-1. **F3/20.1 / #75:** shortest material integration step: exact-base, exact-head, mergeable, still unmerged y CI aplicable verde. WOZ065 owns the only integration mutation.
-2. **F3/20.2:** target fijo; BBB061 debe demostrar comportamiento runtime aplicable a 160 + safety margin + durable user waitlist.
+1. **F3/20.1 / #75:** shortest material integration step: exact-base, exact-head, mergeable, still unmerged y CI aplicable verde. WOZ066 owns the only integration mutation.
+2. **F3/20.2:** target fijo; BBB062 debe demostrar comportamiento runtime aplicable a 160 + safety margin + durable user waitlist.
 3. **F2/14.1:** Web media streaming/memory safety es el slice interno independiente de mayor valor.
-4. **F4/25.2 / #79:** fallback preparation only; stale docs candidate must not displace runtime capacity work.
-5. **F4/25.1 Web/auth** y journeys restantes `NOT_COVERED`.
-6. **#76 legal / #72 review / #74→#71 auth / #69/#70** frozen hasta cambio factual de blocker.
-7. **F2/12.1 + F0/F1/F3/F4 external tails:** runtime/external/RO prerequisites. F5 no abre.
+4. **F4/25.1:** Web/auth y journeys restantes `NOT_COVERED`; #74/#71/#72 siguen frozen por blockers conocidos.
+5. **F3/18.2:** software reconciliation integrada; escenarios provider/payment siguen abiertos y solo admiten evidencia real.
+6. **F4/25.2 / #79:** fallback preparation only; stale docs candidate must not displace runtime capacity work.
+7. **#76 legal / #72 review / #74→#71 auth / #69/#70** frozen hasta cambio factual de blocker.
+8. **F2/12.1 + F0/F1/F3/F4 external tails:** runtime/external/RO prerequisites. F5 no abre.
 
 ## Secuencia de integración verificada
 
@@ -85,8 +88,8 @@ CI-FALLBACK: NONE.
 
 ## NEXT
 
-**AAA:** ejecutar una sola vez `NIGHT-AAA-062`; 061 está superseded.  
-**BBB:** ejecutar una sola vez `NIGHT-BBB-061`; target 80/160 es canónico, no claim.  
-**WOZ:** ejecutar una sola vez `NIGHT-WOZ-065`; SAME #75 exact-head transaction.  
+**AAA:** ejecutar una sola vez `NIGHT-AAA-063`; 062 está superseded.  
+**BBB:** ejecutar una sola vez `NIGHT-BBB-062`; target 80/160 es canónico, no claim.  
+**WOZ:** ejecutar una sola vez `NIGHT-WOZ-066`; SAME #75 exact-head transaction; fallback F3/18.2 solo bajo espera externa real.  
 **JOBS:** siguiente ciclo procesa resultados reales; si #75 mergea, todo candidate restante requiere reconciliación al nuevo baseline antes de integración.  
-**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 066; GitHub vivo prevalece si cambia después.
+**PLAN_HEALTH:** sincronizado al GitHub observado en CYCLE 067; GitHub vivo prevalece si cambia después.
