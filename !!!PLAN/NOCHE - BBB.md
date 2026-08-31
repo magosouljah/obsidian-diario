@@ -6,15 +6,15 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-083`
+- `ASSIGNMENT_ID: NIGHT-BBB-084`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F4 / 25.1 — exact-lineage Windows auth failure triage/correction on PR #84`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
 - `PRODUCT_CORRECTIVE: PR #74 @ b3468003a80288109e2d537a7aa3f25a7269927c.`
-- `EVIDENCE_CANDIDATE: PR #84 @ d13a1969aef1ca53ee7fbed0bcba241ceb766d42; OPEN/Ready; harness/workflow-only delta from exact #74 lineage.`
-- `PREDECESSOR: NIGHT-BBB-082 has no final RESULTADO DEL TURNO nor material Issue #41 handoff at JOBS CYCLE 088; superseded, NOT_PASS.`
+- `EVIDENCE_CANDIDATE: PR #84 @ d13a1969aef1ca53ee7fbed0bcba241ceb766d42; OPEN/Ready/mergeable; harness/workflow-only delta from exact #74 lineage.`
+- `PREDECESSOR: NIGHT-BBB-083 has no final RESULTADO DEL TURNO nor material Issue #41 handoff at JOBS CYCLE 089 preflight; superseded, NOT_PASS.`
 - `LIVE_CI: Windows auth functional journey run 33407580887 / job 99538870371 = FAILURE at step Run isolated Windows auth assertions; Required CI run 33407580663 = SUCCESS.`
-- `SERIALIZATION: BBB MUST NOT merge or mutate integration. WOZ087 alone owns the #83 integration transaction.`
+- `SERIALIZATION: BBB MUST NOT merge or mutate integration. WOZ088 alone owns the #83 integration transaction.`
 
 ### PRIMARY
 
@@ -40,6 +40,6 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
+- `NIGHT-BBB-083`: NO_RESULT at CYCLE 089 preflight; superseded; NOT_PASS.
 - `NIGHT-BBB-082`: NO_RESULT at CYCLE 088; superseded; NOT_PASS.
 - `NIGHT-BBB-081`: #84 exact head `d13a1969...`; Required CI SUCCESS, but `Windows auth functional journey` run `33407580887` / job `99538870371` = FAILURE at isolated auth assertions. NOT_PASS; no merge.
-- `NIGHT-BBB-080`: NO_RESULT; superseded; NOT_PASS.
