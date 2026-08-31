@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas. GitHub/runtime vivo prevalece.
 
-**Baseline vivo CYCLE 096:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 097:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -16,7 +16,7 @@
 
 `NIGHT-WOZ-090` terminó `BLOCKED_STOP` sobre exact `816f946c...`: confirmó que el harness real usa Vite/WebdriverIO/headless Chrome, pero la superficie conectada disponible no puede lanzar checkout/Vite/WebdriverIO/Chrome. No hubo timings cold/warm, browser build ni runtime logs atribuibles. Issue #41 `5482199628`.
 
-**Owner CYCLE 096:** ninguno para 12.1. No reciclarlo en una superficie incapaz de ejecutar navegador real.
+**Owner CYCLE 097:** ninguno para 12.1. No reciclarlo en una superficie incapaz de ejecutar navegador real.
 
 ### 13.1 — `[ 🟡 ] IN PROGRESS / FROZEN`
 
@@ -32,15 +32,15 @@ No revivir #69/#70 automáticamente. Reuse helper-level solo dentro de assignmen
 Evidencia reusable:
 - `NIGHT-AAA-071`: auditoría READ-ONLY; gap de exhaustive executable Web/Tauri proof + Save All no-silent-loss.
 - Issue #41 `5478129410`: gap concreto en `src/App.tsx`: Review single Save y Save All pueden cerrar/avanzar antes de durable cloud completion/failure.
-- `NIGHT-AAA-091`: sin resultado final/handoff/candidate material al preflight CYCLE 096; superseded; NOT_PASS.
+- `NIGHT-AAA-092`: sin resultado final/handoff/candidate material al preflight CYCLE 097; superseded; NOT_PASS.
 
-**Owner CYCLE 096:** `NIGHT-AAA-092`.
+**Owner CYCLE 097:** `NIGHT-AAA-093`.
 - PRIMARY: mínimo corrective slice Review Save/Save All: esperar durable Web persistence, distinguir `saved/conflict/failed`, retry/no-silent-loss y focused executable tests + Tauri/Desktop call-spies.
 - Puede reutilizar semantics/helper de #69 sin revivir ni apropiarse del PR.
 - Nueva branch/PR AAA bounded solo si duplicate-check sigue limpio; fresh exact-head CI; NO MERGE.
 - CI-FALLBACK: NONE.
 
-13.2 permanece OPEN aunque AAA092 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles.
+13.2 permanece OPEN aunque AAA093 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles.
 
 ## Día 14
 
@@ -68,8 +68,8 @@ PR #81 conserva trabajo material limitado de playback Web, pero su historia/base
 - current AccountGate/session surface inspeccionado no expone una bounded reusable recent-reauth seam para SettingsPanel sin cambios auth/session.
 - Issue #41 `5483612373`.
 
-**Owner CYCLE 096:** ninguno para implementación 15.1.  
-**Blocker exacto:** proper auth/session owner debe exponer/reusar una seam bounded de recent reauth; después se puede reasignar la mínima wiring de strong confirmation + recent reauth + non-optimistic deterministic purge result. No cruzar BBB091 mientras éste sea owner de la corrective Windows auth actual.
+**Owner CYCLE 097:** ninguno para implementación 15.1.  
+**Blocker exacto:** proper auth/session owner debe exponer/reusar una seam bounded de recent reauth; después se puede reasignar la mínima wiring de strong confirmation + recent reauth + non-optimistic deterministic purge result. No cruzar BBB092 mientras éste sea owner de la investigación Windows auth actual.
 
 Esta evidencia no cierra 15.1 completo.
 
