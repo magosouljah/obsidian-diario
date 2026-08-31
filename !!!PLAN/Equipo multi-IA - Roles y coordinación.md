@@ -2,27 +2,29 @@
 
 > GitHub + `!!!PLAN` son memoria compartida. Modelo: ROMPECABEZAS CON OWNER FIJO. GitHub/runtime vivo prevalece.
 
-## Roles y ownership actual — CYCLE 062
+## Roles y ownership actual — CYCLE 063
 
 | Rol | Owner actual | PRIMARY | CI-FALLBACK |
 |---|---|---|---|
 | JOBS | coordinación | `!!!PLAN`, prioridades, handoffs, gates; no código/infra | n/a |
-| AAA | F2 / 14.1 | `NIGHT-AAA-058`: REUSE-FIRST media streaming/memory slice mínimo; no merge | F2/14.2 read-only player-control gap map solo mientras PRIMARY espera CI/review |
-| BBB | F3 / 20.2 | `NIGHT-BBB-057`: runtime capacity proof con target canónico 80 expected / 160 validation | F4/25.2 SAME #79 docs-only refresh + fresh CI solo durante WAITING_EXTERNAL/RUNTIME; no merge |
-| WOZ | F3 / 20.1 | `NIGHT-WOZ-061`: SAME #75 exact-head merge retry after fresh race-check | NONE |
+| AAA | F2 / 14.1 | `NIGHT-AAA-059`: REUSE-FIRST media streaming/memory slice mínimo; no merge | F2/14.2 read-only player-control gap map solo mientras PRIMARY espera CI/review |
+| BBB | F3 / 20.2 | `NIGHT-BBB-058`: runtime capacity proof con target canónico 80 expected / 160 validation | F4/25.2 SAME #79 docs-only refresh + fresh CI solo durante WAITING_EXTERNAL/RUNTIME; no merge |
+| WOZ | F3 / 20.1 | `NIGHT-WOZ-062`: SAME #75 exact-head merge transaction after fresh race-check | NONE |
 
-**Baseline canónico CYCLE 062:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
+**Baseline canónico CYCLE 063:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
 
 ## Handoffs/resultados procesados
 
-- AAA057: no RESULTADO DEL TURNO / Issue #41 handoff / artifact verificable → `NO_RESULT / SUPERSEDED_BY_JOBS`.
-- BBB056: no RESULTADO DEL TURNO / Issue #41 handoff / #79 head change → `NO_RESULT / SUPERSEDED_BY_JOBS`.
-- WOZ060: `BLOCKED / MERGE_FLOW_UNAVAILABLE`; #75 exact-head, four-file delta y CI aplicable verde verificados; merge no llegó a GitHub y no existe merge claim.
-- RO/OWNER `5472774681`: F3/20.2 target canónico = **80 simultaneous expected / 160 validation**. No equivale a PASS.
+- AAA058: no RESULTADO DEL TURNO / Issue #41 handoff / branch/PR/head change → `NO_RESULT / SUPERSEDED_BY_JOBS`.
+- BBB057: no RESULTADO DEL TURNO / Issue #41 handoff / runtime evidence / artifact → `NO_RESULT / SUPERSEDED_BY_JOBS`.
+- WOZ061: no RESULTADO DEL TURNO / Issue #41 handoff / accepted merge → `NO_RESULT / SUPERSEDED_BY_JOBS`.
+- GitHub factual: #75 remains OPEN/non-draft/mergeable at `40e39393247dbdd506ac01edefa84fd0b0add94c`, base SHA exactly `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`, 4 files; applicable exact-head workflows are complete/green.
+- #79 remains OPEN/non-draft/mergeable at `c6ec2910522370f2506beb71ad5e0fa0317d6a61`, historical base `a306e3b3...`, exactly one docs-only file.
+- RO/OWNER `5472774681`: F3/20.2 target remains **80 simultaneous expected / 160 validation**; not PASS.
 
 ## Serialización de integración
 
-Integration sigue en #78. CYCLE 062 autoriza una sola mutación de integration: **WOZ/#75**. AAA no mergea. BBB057 hace evidencia runtime; su fallback #79 tampoco mergea.
+Integration remains #78. CYCLE 063 authorizes a single integration mutation: **WOZ/#75**. AAA does not merge. BBB058 does runtime evidence; its #79 fallback also cannot merge.
 
 ## Holding / blocked items
 
@@ -31,11 +33,11 @@ Integration sigue en #78. CYCLE 062 autoriza una sola mutación de integration: 
 - F2/12.1: cold/warm real browser runtime.
 - F2/13.1 #69/#70: frozen.
 - F3/19.2 #76: stale/frozen.
-- F3/20.1: #75 merge-flow transaction pendiente; external observability tails siguen después.
-- F3/20.2: target aprobado 80/160; runtime 160 + latency/error/queue/recovery + safety margin + durable user waitlist faltan.
+- F3/20.1: #75 integration transaction pendiente; external observability tails remain after software integration.
+- F3/20.2: target 80/160 fixed; runtime 160 + latency/error/queue/recovery + safety margin + durable user waitlist faltan.
 - F4/windows-auth #74/#71: frozen.
 - F4/windows-review #72: frozen.
-- F4/25.1: Web/auth y múltiples journeys siguen NOT_COVERED.
+- F4/25.1: Web/auth and multiple journeys remain NOT_COVERED.
 - F4/25.2: #79 stale; fallback preparation only.
 - F4 D22/D23: signing/notarization/hardware externos.
 
@@ -60,17 +62,17 @@ Integration sigue en #78. CYCLE 062 autoriza una sola mutación de integration: 
 - Worker nunca inventa fallback.
 - Tras fallback, worker vuelve a comprobar PRIMARY antes de cerrar turno.
 
-## Night Shift Ledger — CYCLE 062
+## Night Shift Ledger — CYCLE 063
 
 ```text
 JOBS: baseline 63c9f8c948b1e05c30b12378ab1f31ceb04259c2
-AAA057: NO_RESULT -> SUPERSEDED_BY_JOBS
-AAA058: ASSIGNED F2/14.1 minimum media streaming/memory slice; NO MERGE
-BBB056: NO_RESULT -> SUPERSEDED_BY_JOBS
-BBB057: ASSIGNED F3/20.2 runtime proof @ 80 expected / 160 validation
-BBB057 FALLBACK: SAME #79 refresh + fresh CI; NO MERGE
-WOZ060: BLOCKED / MERGE_FLOW_UNAVAILABLE; no merge accepted
-WOZ061: ASSIGNED SAME #75 exact-head merge retry; only integration mutation authorized
+AAA058: NO_RESULT -> SUPERSEDED_BY_JOBS
+AAA059: ASSIGNED F2/14.1 minimum media streaming/memory slice; NO MERGE
+BBB057: NO_RESULT -> SUPERSEDED_BY_JOBS
+BBB058: ASSIGNED F3/20.2 runtime proof @ 80 expected / 160 validation
+BBB058 FALLBACK: SAME #79 refresh + fresh CI; NO MERGE
+WOZ061: NO_RESULT -> SUPERSEDED_BY_JOBS
+WOZ062: ASSIGNED SAME #75 exact-head merge transaction; only integration mutation authorized
 DUPLICATE_WORK: prevented
 RELEASE: NO-GO
 ```
@@ -79,7 +81,7 @@ RELEASE: NO-GO
 
 - F0: técnico habilitado; 1.2/2.2 externos.
 - F1: D6–D9 PASS; D10.1 external-only; D10.2 RO.
-- F2: 12.1 runtime residual; #69/#70 frozen; 14.1 active AAA058.
-- F3: 17.1/17.2/18.1 integrated; #73 partial 18.2 integrated; #78 harness integrated; target 80/160 approved; #75 exact-head green but merge-flow blocked, active WOZ061.
+- F2: 12.1 runtime residual; #69/#70 frozen; 14.1 active AAA059.
+- F3: 17.1/17.2/18.1 integrated; #73 partial 18.2 integrated; #78 harness integrated; target 80/160 approved; #75 exact-base/exact-head green but unmerged, active WOZ062.
 - F4: windows/import integrated; auth/review frozen; #79 fallback-only; remaining rows/external gates open.
 - JOBS: coordinación/plan; no producto/infra.
