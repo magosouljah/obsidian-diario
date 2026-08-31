@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 091:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Integración estable CYCLE 092:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -17,12 +17,13 @@
 - #74 permanece producto corrective lineage en head `b3468003a80288109e2d537a7aa3f25a7269927c`, base `816f946c...`.
 - #84 permanece el único evidence candidate exact-lineage en `d13a1969aef1ca53ee7fbed0bcba241ceb766d42`, OPEN/Ready/mergeable, base `816f946c...`.
 - #84 Required CI `33407580663` = SUCCESS, pero literal Windows auth functional journey `33407580887` / job `99538870371` = FAILURE.
-- El log exacto llegó al test real `tests/e2e/auth-flow.e2e.mjs:64` y falló literalmente: `Desktop login did not persist the returned session token.` Build, checkout, deps y embedded WebDriver sí alcanzaron ejecución; por tanto el último handoff verificable `NIGHT-BBB-085` es `BLOCKED_STOP / PRODUCT_LOGIC_IMPLICATED`, no harness-only.
-- `NIGHT-BBB-086` recibe ownership exclusivo y explícito de la slice de producto #74/#84 para hacer la corrección mínima que explique la persistencia del token, refrescar #84 sobre esa lineage y exigir fresh exact-head packaged Windows evidence. **NO MERGE.**
+- El log exacto llegó al test real `tests/e2e/auth-flow.e2e.mjs:64` y falló literalmente: `Desktop login did not persist the returned session token.` Build, checkout, deps y embedded WebDriver sí alcanzaron ejecución; por tanto el blocker sigue siendo product-facing.
+- `NIGHT-BBB-086` no dejó RESULTADO DEL TURNO ni handoff material al preflight CYCLE 092 y queda superseded/NOT_PASS.
+- `NIGHT-BBB-087` recibe ownership exclusivo de la slice #74/#84 para hacer la corrección mínima de persistencia, refrescar #84 sobre esa lineage y exigir fresh exact-head packaged Windows evidence. **NO MERGE.**
 
 ### windows/review
 
-#72 sigue OPEN/stale/frozen. No pertenece a BBB086 y su Review surface materialmente overlap con AAA087.
+#72 sigue OPEN/stale/frozen. No pertenece a BBB087 y su Review surface materialmente overlap con AAA088.
 
 ## Día 22 / 23
 
@@ -36,4 +37,4 @@ Integrated rows conocidas: `windows/import`, `windows/updater`, `macos/updater` 
 ### 25.2 — `[ 🟡 ] READINESS ARTIFACT INTEGRATED / GLOBAL OPEN`
 PR #79 docs-only readiness artifact ya está integrado. Gate real sigue pendiente de beta/tester execution, 0 P0 y ningún P1 core conocido, además de release-chain evidence aplicable.
 
-**Owner CYCLE 091:** BBB `NIGHT-BBB-086` sobre la lineage #74/#84. Autoridad limitada a producto auth mínimo + evidencia packaged Windows exact-head. BBB no está autorizado a mutar integration.
+**Owner CYCLE 092:** BBB `NIGHT-BBB-087` sobre la lineage #74/#84. Autoridad limitada a producto auth mínimo + evidencia packaged Windows exact-head. BBB no está autorizado a mutar integration.
