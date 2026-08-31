@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 068:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
+**Integración estable CYCLE 080:** `integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc`.
 
 ## Estado actual
 
@@ -21,7 +21,7 @@ PR #74 permanece OPEN/Ready sobre snapshot anterior pero frozen. #71 solo se rev
 #51.
 
 ### 21.2 — `[x] DONE / INTEGRATED`
-#51 merge `5b05ca845...`.
+#51.
 
 ## Día 22
 ### 22.1 / 22.2
@@ -45,18 +45,19 @@ Apple Developer/certificados/notarization/hardware permanecen externos/deferred.
 Integrated rows: `windows/import`, `windows/updater`, `macos/updater` = `AUTOMATED_PASS`.
 Web/auth y múltiples journeys siguen `NOT_COVERED`; iPhone sigue `PENDING_EXTERNAL`.
 
-### 25.2 — `[ 🟡 ] PR #79 STALE / CONDITIONAL FALLBACK BBB063`
+### 25.2 — `[ 🟡 ] EXACT CANDIDATE / BBB075`
 
-GitHub CYCLE 068 confirma PR #79 OPEN/non-draft/mergeable:
-- branch `bbb/f4-25.2-beta-readiness @ c6ec2910522370f2506beb71ad5e0fa0317d6a61`;
-- historical base SHA `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`;
-- live integration = `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`;
-- artifact docs-only `docs/beta/0.9.0-beta.1-readiness.md`.
+GitHub CYCLE 080 confirma PR #79 OPEN/non-draft/mergeable:
+- branch `bbb/f4-25.2-beta-readiness @ a3c4d56e8317d7711832154ecc72afe581d2b309`;
+- exact base SHA `957f97771b7a15554cf6e002fe9eb215c71a65cc` = live integration al preflight;
+- changed_files = 1; scope docs-only `docs/beta/0.9.0-beta.1-readiness.md`;
+- exact-head workflow runs observados: Test - Desktop Portability SUCCESS; D6 SUCCESS; D7 SUCCESS; Upgrade 21.2 Staging SKIPPED.
 
-`NIGHT-BBB-062` no produjo resultado final antes de CYCLE 068 y queda superseded. BBB063 tiene PRIMARY en F3/20.2 runtime capacity porque el target 80/160 hace ese carril más crítico para cierre.
+`NIGHT-BBB-074` no dejó resultado verificable antes de CYCLE 080 y queda superseded, no PASS.
 
-#79 está preautorizado únicamente como **CI-FALLBACK de BBB063** si PRIMARY entra de verdad en `WAITING_EXTERNAL/WAITING_RUNTIME`: history-preserving narrow refresh sobre live integration, verificar delta docs-only y fresh exact-head CI. **NO MERGE CYCLE 068** y no cerrar 25.2.
+**Owner CYCLE 080:** `NIGHT-BBB-075`.
+PRIMARY: fresh race-check de integration/base/head/file-delta/CI y, solo si todo sigue exacto, expected-head merge de SAME #79 + verify merge SHA/parents. BBB/#79 es la única integración mutation autorizada del ciclo. CI-FALLBACK: NONE.
 
-Incluso si #79 se integra en un ciclo posterior, 25.2 permanece abierto por beta/tester/signing evidence real.
+Incluso si #79 se integra, 25.2 permanece abierto por beta/tester/signing evidence real. El readiness document no cierra el gate por sí solo.
 
-**Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido. 25.2 no se cierra con el readiness document por sí solo.
+**Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido; tester execution y release-chain evidence aplicable siguen pendientes.
