@@ -6,13 +6,13 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-089`
+- `ASSIGNMENT_ID: NIGHT-WOZ-090`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 12.1 — real-browser cold/warm startup evidence`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-WOZ-088 = BLOCKED_STOP; PR #83 remained OPEN/DRAFT after dedicated Draft→Ready action failed with connector Repository.fullDatabaseId error; no merge.`
-- `SERIALIZATION: PR #83 is parked/tooling-blocked. WOZ089 has NO integration mutation authorization.`
-- `DISTINCT_OWNERSHIP: AAA086 owns F2/13.2 product wiring; BBB085 owns F4/windows-auth. WOZ089 is read-only runtime evidence on 12.1.`
+- `PREDECESSOR: NIGHT-WOZ-089 had no final RESULTADO DEL TURNO nor matching material Issue #41 handoff at JOBS CYCLE 091 preflight; superseded, NOT_PASS.`
+- `SERIALIZATION: PR #83 remains PARKED/TOOLING_BLOCKED; WOZ090 has NO integration mutation authorization.`
+- `DISTINCT_OWNERSHIP: AAA087 owns F2/13.2 product wiring; BBB086 owns F4/#74+#84 product-auth slice; WOZ090 is read-only F2/12.1 runtime evidence.`
 
 ### PRIMARY
 
@@ -28,14 +28,14 @@
 8. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
 
 **Required evidence:** exact integration SHA; browser/runtime/build identity; command/harness; cold/warm timing outputs; attributable runtime logs; limitations.  
-**STOP:** browser/runtime unavailable, evidence synthetic/non-attributable, any code change required, integration moves during measurement without attribution, provider credentials required, or overlap with AAA086.
+**STOP:** browser/runtime unavailable, evidence synthetic/non-attributable, any code change required, integration moves during measurement without attribution, provider credentials required, or overlap with AAA087.
 
 ### CI-FALLBACK
 
-`CI-FALLBACK: NONE` — PRIMARY is itself independent read-only runtime work; no secondary lane is necessary.
+`CI-FALLBACK: NONE` — PRIMARY is itself independent read-only runtime work; no safe secondary lane is necessary.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
+- `NIGHT-WOZ-089`: NO_RESULT at CYCLE 091 preflight; superseded; NOT_PASS.
 - `NIGHT-WOZ-088`: BLOCKED_STOP. #83 exact/green remained OPEN/DRAFT; dedicated Draft→Ready action failed with connector GraphQL `Repository.fullDatabaseId`; no workaround/bypass, no merge. Issue #41 `5481554738`.
-- `NIGHT-WOZ-087`: NO_RESULT at CYCLE 089 preflight; superseded; NOT_PASS.
-- #83 remains parked until the dedicated Ready path is actually usable; runtime 160 remains UNVERIFIED and materially depends on integration of the durable waitlist candidate.
+- #83 remains parked until the dedicated Ready path materially changes; runtime 160 remains UNVERIFIED and materially depends on integration of the durable waitlist candidate.
