@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas. GitHub/runtime vivo prevalece.
 
-**Baseline vivo CYCLE 090:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 091:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -14,7 +14,9 @@
 - [x] lazy artwork + pagination/window/memory — #58/#66;
 - [ 🟡 ] cold/warm startup Web real cuantificado — harness localizado (`npm run test:web:smoke`), falta evidencia runtime real aplicable.
 
-**Owner CYCLE 090:** `NIGHT-WOZ-089` READ-ONLY. Debe obtener evidencia real-browser cold/warm atribuible sobre el baseline vivo, con browser/runtime/build identity y timings. No cambios de código, rama, PR, infra ni integración. No cerrar 12.1 con benchmark sintético.
+`NIGHT-WOZ-089` no dejó resultado final verificable antes de CYCLE 091 y queda superseded/NOT_PASS.
+
+**Owner CYCLE 091:** `NIGHT-WOZ-090` READ-ONLY. Debe obtener evidencia real-browser cold/warm atribuible sobre el baseline vivo, con browser/runtime/build identity y timings. No cambios de código, rama, PR, infra ni integración. No cerrar 12.1 con benchmark sintético.
 
 ### 13.1 — `[ 🟡 ] IN PROGRESS / FROZEN`
 
@@ -30,15 +32,15 @@ No revivir #69/#70 automáticamente. Reuse helper-level solo dentro de assignmen
 Evidencia reusable:
 - `NIGHT-AAA-071`: auditoría READ-ONLY; gap de exhaustive executable Web/Tauri proof + Save All no-silent-loss.
 - Issue #41 `5478129410`: gap concreto en `src/App.tsx`: Review single Save y Save All pueden cerrar/avanzar antes de durable cloud completion/failure.
-- `NIGHT-AAA-085`: no resultado final verificable al inicio de CYCLE 090; superseded; NOT_PASS.
+- `NIGHT-AAA-086`: no resultado final verificable al inicio de CYCLE 091; superseded; NOT_PASS.
 
-**Owner CYCLE 090:** `NIGHT-AAA-086`.
+**Owner CYCLE 091:** `NIGHT-AAA-087`.
 - PRIMARY: mínimo corrective slice Review Save/Save All: esperar durable Web persistence, distinguir `saved/conflict/failed`, retry/no-silent-loss y focused executable tests + Tauri/Desktop call-spies.
 - Puede reutilizar semantics/helper de #69 sin revivir ni apropiarse del PR.
 - Nueva branch/PR AAA bounded solo si duplicate-check sigue limpio; fresh exact-head CI; NO MERGE.
-- CI-FALLBACK: NONE porque 12.1 pertenece a WOZ089.
+- CI-FALLBACK: NONE porque 12.1 pertenece a WOZ090.
 
-13.2 permanece OPEN aunque AAA086 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles.
+13.2 permanece OPEN aunque AAA087 produzca candidate: cierre global requiere cobertura literal suficiente de las familias Web visibles.
 
 ## Día 14
 
