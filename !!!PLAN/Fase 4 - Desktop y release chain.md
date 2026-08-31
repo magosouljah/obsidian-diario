@@ -2,7 +2,7 @@
 
 > Leer `Plan Maestro.md`. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 066:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
+**Integración estable CYCLE 067:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
 
 ## Estado actual
 
@@ -45,18 +45,18 @@ Apple Developer/certificados/notarization/hardware permanecen externos/deferred.
 Integrated rows: `windows/import`, `windows/updater`, `macos/updater` = `AUTOMATED_PASS`.
 Web/auth y múltiples journeys siguen `NOT_COVERED`; iPhone sigue `PENDING_EXTERNAL`.
 
-### 25.2 — `[ 🟡 ] PR #79 STALE / CONDITIONAL FALLBACK BBB061`
+### 25.2 — `[ 🟡 ] PR #79 STALE / CONDITIONAL FALLBACK BBB062`
 
-GitHub CYCLE 066 confirms PR #79 remains OPEN/non-draft/mergeable:
+GitHub CYCLE 067 confirma PR #79 OPEN/non-draft/mergeable:
 - branch `bbb/f4-25.2-beta-readiness @ c6ec2910522370f2506beb71ad5e0fa0317d6a61`;
 - historical base SHA `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`;
 - live integration = `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`;
-- exactly one intended docs-only file `docs/beta/0.9.0-beta.1-readiness.md` (+84).
+- artifact docs-only `docs/beta/0.9.0-beta.1-readiness.md`.
 
-`NIGHT-BBB-060` did not produce a final result before CYCLE 066 and is superseded. BBB061 has PRIMARY in F3/20.2 runtime capacity because the approved 80/160 target makes that lane more closure-critical.
+`NIGHT-BBB-061` no produjo resultado final antes de CYCLE 067 y queda superseded. BBB062 tiene PRIMARY en F3/20.2 runtime capacity porque el target 80/160 hace ese carril más crítico para cierre.
 
-#79 is preauthorized only as **CI-FALLBACK of BBB061** if PRIMARY truly enters `WAITING_EXTERNAL/WAITING_RUNTIME`: history-preserving narrow refresh onto live integration, verify one-file docs-only delta, fresh exact-head CI. **NO MERGE CYCLE 066** and do not close 25.2.
+#79 está preautorizado únicamente como **CI-FALLBACK de BBB062** si PRIMARY entra de verdad en `WAITING_EXTERNAL/WAITING_RUNTIME`: history-preserving narrow refresh sobre live integration, verificar delta docs-only y fresh exact-head CI. **NO MERGE CYCLE 067** y no cerrar 25.2.
 
-Even if #79 later merges, 25.2 remains open for real beta/tester/signing evidence.
+Incluso si #79 se integra en un ciclo posterior, 25.2 permanece abierto por beta/tester/signing evidence real.
 
-**Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido. 25.2 is not closed by the readiness document alone.
+**Gate:** beta candidate `0.9.0-beta.1`, 0 P0 y ningún P1 core conocido. 25.2 no se cierra con el readiness document por sí solo.
