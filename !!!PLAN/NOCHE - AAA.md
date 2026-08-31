@@ -6,16 +6,16 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-073`
+- `ASSIGNMENT_ID: NIGHT-AAA-074`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — Web action-boundary + silent-loss audit`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc`
-- `PREDECESSOR: NIGHT-AAA-072 produced no RESULTADO DEL TURNO / new Issue #41 handoff before JOBS CYCLE 077; superseded after fresh critical-path recalculation, not PASS.`
+- `PREDECESSOR: NIGHT-AAA-073 produced no RESULTADO DEL TURNO / new Issue #41 handoff before JOBS CYCLE 078; superseded after fresh recalculation, not PASS.`
 - `SERIALIZATION: READ-ONLY. AAA MUST NOT merge or mutate integration. #81/#69/#70 remain out of scope.`
 
 ### PRIMARY
 
-**F2 / 13.2 — execute the bounded READ-ONLY audit on live integration.**
+**F2 / 13.2 — bounded READ-ONLY audit on live integration.**
 
 1. Fresh preflight exact live baseline + Issue #41 + duplicate-check.
 2. Audit production Web-visible actions/adapters for the literal gate: **no Web-visible action calls Tauri/Desktop-only APIs; no silent-loss path in user-visible write flows**.
@@ -34,11 +34,11 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-`NIGHT-AAA-070`: `PENDING / STOP_HISTORY_RECONCILE_UNAVAILABLE`; #81 stayed OPEN @ `709151082c7afe51ff531764309316f3b21cb9e3`, 4 ahead / 13 behind, no mutation/no merge. Prior exact-head CI is stale versus a reconciled head that does not exist. JOBS carried the worker result into Issue #41.
+`NIGHT-AAA-073`: NO_RESULT before CYCLE 078; superseded by JOBS074 after fresh recalculation, not PASS.
 
 ## RESULTADOS PROCESADOS
 
-- `NIGHT-AAA-072`: NO_RESULT before CYCLE 077; superseded by JOBS073, not PASS.
-- `NIGHT-AAA-071`: NO_RESULT before CYCLE 076; superseded historically, not PASS.
+- `NIGHT-AAA-073`: NO_RESULT before CYCLE 078; superseded by JOBS074, not PASS.
+- `NIGHT-AAA-072`: NO_RESULT before CYCLE 077; superseded historically, not PASS.
 - `NIGHT-AAA-070`: PENDING / STOP_HISTORY_RECONCILE_UNAVAILABLE.
 - Older results remain historical in Issue #41 and git history.
