@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE 102:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.  
+**Baseline vivo CYCLE 103:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.  
 **Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[ 🟡 ] RO / ALPHA DECISION`.  
 **Release público:** 🔴 `NO-GO`.
 
@@ -37,11 +37,15 @@ Evidencia técnica reusable ya aceptada:
 
 Owner aprobó como intención una alpha interna 3–5 cuentas invite-only, sin release público ni tester charges, condicionada a gates D2–D10/P0 y evidencia aplicable. La autorización final sigue siendo decisión RO independiente.
 
+Estado factual nuevo a incluir en readiness:
+- infraestructura Web pública está probada por owner Issue #41 `5485984669`, pero `https://beatgaler.com` queda detenido en `Loading Galer`; es bloqueo funcional F2, no fallo de deploy;
+- F4 Windows Auth sigue rojo en exact #84 `f53d46f...`, run `33449587244` / job `99676242317`.
+
 - [ ] reconciliar gates D2–D10/P0 actuales contra evidencia viva;
 - [ ] clasificar blockers externos/RO restantes;
 - [ ] ejecutar alpha solo tras autorización RO explícita y prerequisitos satisfechos;
 - [ ] si no pasa, mantener demo/local sin scope creep.
 
-**Owner CYCLE 102: `NIGHT-WOZ-101` READ-ONLY.** Debe producir un mapa fila-por-fila `PROVEN / BLOCKED_EXTERNAL / RO_DECISION_REQUIRED / BLOCKED_BY_F2/F3/F4`, con evidencia exacta. No puede lanzar alpha, mutar provider/infra, usar credenciales, crear usuarios ni cobrar testers. Maximum claim: `D10.2 READY_FOR_RO_DECISION` si la evidencia realmente lo soporta.
+**Owner CYCLE 103: `NIGHT-WOZ-102` READ-ONLY.** Debe producir mapa fila-por-fila `PROVEN / BLOCKED_EXTERNAL / RO_DECISION_REQUIRED / BLOCKED_BY_F2/F3/F4`, con evidencia exacta y distinguiendo alpha interna de release público. No puede lanzar alpha, mutar provider/infra, usar credenciales, crear usuarios ni cobrar testers. Maximum claim: `D10.2 READY_FOR_RO_DECISION` solo si los prerequisitos no-RO pasan factual.
 
 **Principio:** cierre de F1 no equivale a release público; F5 permanece cerrado hasta que F0–F4 cumplan sus gates reales.
