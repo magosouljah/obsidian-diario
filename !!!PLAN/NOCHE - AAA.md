@@ -6,14 +6,14 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-083`
+- `ASSIGNMENT_ID: NIGHT-AAA-084`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — Review Save/Save All durable action-boundary corrective slice`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-AAA-082 has no final RESULTADO DEL TURNO nor matching material Issue #41 handoff at JOBS CYCLE 087; superseded, NOT_PASS.`
+- `PREDECESSOR: NIGHT-AAA-083 has no final RESULTADO DEL TURNO nor matching material Issue #41 handoff at JOBS CYCLE 088; superseded, NOT_PASS.`
 - `REUSE_EVIDENCE: Issue #41 5478129410 + NIGHT-AAA-071 + #69 helper semantics only.`
-- `DUPLICATE_CHECK: no newer open AAA candidate observed; do not create a duplicate if one appears during preflight.`
-- `SERIALIZATION: AAA MUST NOT merge or mutate integration; no integration mutation is authorized in CYCLE 087.`
+- `DUPLICATE_CHECK: no newer open AAA 13.2 candidate observed at JOBS preflight; re-check before mutation.`
+- `SERIALIZATION: AAA MUST NOT merge or mutate integration. WOZ087 alone owns the #83 integration transaction.`
 
 ### PRIMARY
 
@@ -43,7 +43,7 @@ Execute ONLY while PRIMARY is genuinely `WAITING_CI` / remote-build wait. Do not
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
+- `NIGHT-AAA-083`: NO_RESULT at CYCLE 088; superseded; NOT_PASS.
 - `NIGHT-AAA-082`: NO_RESULT at CYCLE 087; superseded; NOT_PASS.
-- `NIGHT-AAA-081`: NO_RESULT at CYCLE 086; superseded; NOT_PASS.
 - Late `NIGHT-AAA-074` Issue #41 `5478129410`: reusable current-baseline finding only.
 - `NIGHT-AAA-071`: DONE / AUDIT_ONLY; reusable context.
