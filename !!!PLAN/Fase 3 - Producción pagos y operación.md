@@ -2,26 +2,22 @@
 
 > Antes de trabajar aquí: leer completo `Plan Maestro.md`.
 
-**Baseline vivo CYCLE 068:** `integration-v0.8.0-alpha.1 @ 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`.
+**Baseline vivo CYCLE 080:** `integration-v0.8.0-alpha.1 @ 957f97771b7a15554cf6e002fe9eb215c71a65cc`.
 
 ## Estado owner / candidates
 
-- PR #68 / 18.1 MERGED como `a9d35a3d69dd9127029fb851d189f9bd3079d03b`.
-- PR #73 / 18.2 reconciliation MERGED como `a306e3b3f6b4a6cf9d678e325b6e529b5344fffe`; cierra solo software reconciliation/exception-queue slice.
-- PR #78 / 20.2 capacity harness MERGED como `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; claim máximo `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
-- PR #76 sigue OPEN/stale/frozen. Canonical Privacy/Terms + public routes existen; Settings canonical sync sigue pendiente.
-- PR #75 `woz/night-20.1-observability @ 40e39393247dbdd506ac01edefa84fd0b0add94c` sigue OPEN/non-draft/mergeable. CYCLE 068 confirma `base_sha = 63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; exact-head Required CI y checks aplicables observados completos/verdes; Upgrade 21.2 Staging SKIPPED. `NIGHT-WOZ-066` no dejó resultado; `NIGHT-WOZ-067` posee la única transacción exact-head autorizada.
-- PR #77 CLOSED/unmerged; superseded por #78.
+- PR #68 / 18.1 MERGED.
+- PR #73 / 18.2 software reconciliation MERGED; no cierra escenarios provider/payment globales.
+- PR #75 / 20.1 software observability MERGED; external observability tails permanecen.
+- PR #78 / 20.2 capacity harness MERGED; claim máximo histórico `HARNESS_READY / RUNTIME_CAPACITY_UNVERIFIED`.
+- PR #83 / durable waitlist: OPEN/DRAFT/mergeable, exact base `957f9777...`, exact head `52b58f56...`, 3-file bounded scope. Exact-head F3 20.2 Durable Waitlist + Test Desktop Portability + D6/D7/temp-auth compile observados SUCCESS. `NIGHT-WOZ-078` intentó Draft→Ready y el conector falló antes de mutar por `Repository.fullDatabaseId`; #83 queda parked, no integrado.
+- PR #76 legal/public routes sigue OPEN/stale/frozen.
 
-## Owners actuales
+## Owner CYCLE 080
 
-**WOZ — `NIGHT-WOZ-067` — F3 / 20.1 SAME #75.**  
-PRIMARY: fresh race-check + exact-head merge transaction de #75; sin workaround ni reimplementación. Solo si GitHub acepta, verificar merge SHA + parents.  
-CI-FALLBACK: F3/18.2 READ-ONLY scenario gap map solo mientras PRIMARY espera merge/review/queue equivalente; sin writes/provider calls y sin cerrar 18.2.
-
-**BBB — `NIGHT-BBB-063` — F3 / 20.2 runtime capacity.**  
-PRIMARY: reutilizar harness #78 integrado con target canónico **80 usuarios esperados / 160 usuarios de validación**; obtener evidencia runtime materialmente aplicable a 160 para requisitos literales.  
-CI-FALLBACK: #79/F4-25.2 refresh docs-only + fresh CI, únicamente si PRIMARY queda esperando runtime/external; no merge.
+**WOZ — `NIGHT-WOZ-079` — F3 / 20.2 runtime capacity evidence.**  
+PRIMARY: REUSE #78 ya integrado; obtener evidencia runtime materialmente aplicable al target canónico **80 usuarios esperados / 160 usuarios de validación**, incluyendo latency/error/queue/recovery/no-loss/no-cross-tenant + measured safety margin. Sin code/infra/provider mutation y sin tocar #83.  
+CI-FALLBACK: F3/19.1 READ-ONLY evidence map solo si PRIMARY entra genuinamente en `WAITING_EXTERNAL_RUNTIME` tras iniciar una espera externa verificable.
 
 ## Día 16
 
@@ -37,19 +33,17 @@ Health/readiness/shutdown/timeouts/proxy trust integrado por #59. Separación f�
 #65.
 
 ### 17.2 — `[x] SOFTWARE DONE / INTEGRATED`
-#67 merge `3ad8f55a...`.
+#67.
 
 ## Día 18
 
 ### 18.1 — `[x] SOFTWARE DONE / INTEGRATED`
-PR #68.
+#68.
 
 ### 18.2 — `[ 🟡 ] RECONCILIATION SOFTWARE INTEGRATED / GLOBAL OPEN`
-- [x] software reconciliation provider↔BeatGaler + exception queue slice: PR #73 merged;
+- [x] software reconciliation provider↔BeatGaler + exception queue slice: #73 merged;
 - [ ] 3DS/rechazo/pago tardío/renewal/cancel/upgrade/downgrade/refund con evidencia aplicable;
 - [ ] grace periods/productive billing behavior verificados donde corresponda.
-
-`NIGHT-WOZ-067` puede auditar estos escenarios solo en modo READ-ONLY como CI-FALLBACK si #75 queda esperando una operación externa. Esa auditoría no sustituye evidencia provider/payment ni cierra 18.2.
 
 ## Día 19
 
@@ -57,6 +51,8 @@ PR #68.
 - [ ] dominio/API/status/support URLs/sender domains con evidencia productiva;
 - [ ] DNS/TLS/redirects/callbacks OAuth exactos;
 - [ 🟡 ] public legal routes `/privacy` y `/terms` existen en #76 pero no están integrados/deployed.
+
+`NIGHT-WOZ-079` puede mapear evidencia solo READ-ONLY como fallback condicional; no cierra 19.1.
 
 ### 19.2 — `[ 🟡 ] CANONICAL LEGAL CANDIDATE / FROZEN ON SAFE REFRESH`
 - [ 🟡 ] Privacy Policy v1.0 + Terms v1.0 owner-approved están en #76;
@@ -68,19 +64,19 @@ PR #68.
 
 ## Día 20
 
-### 20.1 — `[ 🟡 ] EXACT-BASE / EXACT-HEAD / ASSIGNED WOZ067`
-PR #75 contiene structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno. CYCLE 068 verificó GitHub real: OPEN/non-draft/mergeable; exact head `40e39393247dbdd506ac01edefa84fd0b0add94c`; `base_sha` exactamente igual al live integration `63c9f8c948b1e05c30b12378ab1f31ceb04259c2`; exact-head CI aplicable verde. No existe merge aceptado todavía. WOZ067 posee únicamente la transacción exact-head. External observability tails no se cierran con este PR.
+### 20.1 — `[x] SOFTWARE DONE / INTEGRATED`
+Structured redacted events, bounded counters, condition→route mapping, kill switches, tests y runbook interno integrados por #75. External observability tails no se cierran con ese merge.
 
-### 20.2 — `[ 🟡 ] HARNESS SOFTWARE INTEGRATED / TARGET APPROVED / RUNTIME CAPACITY UNVERIFIED`
-- [x] deterministic local/synthetic parameterized harness: PR #78 merged;
-- [x] **approved expected peak: 80 simultaneous users** — RO/OWNER Issue #41 `5472774681`;
-- [ ] **required validation: 160 simultaneous users (2×)** con runtime evidence aplicable;
+### 20.2 — `[ 🟡 ] HARNESS INTEGRATED / DURABLE WAITLIST CANDIDATE / RUNTIME CAPACITY UNVERIFIED`
+- [x] deterministic parameterized harness: #78 merged;
+- [x] approved expected peak: **80 simultaneous users** — RO/OWNER Issue #41 `5472774681`;
+- [ ] required validation: **160 simultaneous users (2×)** con runtime evidence aplicable;
 - [ ] latency target/result aplicable;
 - [ ] error/queue/recovery behavior demostrado en la prueba aplicable;
 - [x] admission control + per-bot ceiling software exists;
 - [ ] safety margin medida contra 80 expected;
-- [ ] durable user waitlist.
+- [ 🟡 ] durable user waitlist candidate #83 exact/scoped/CI-green pero Draft y no integrado; Draft→Ready tooling blocker confirmado por WOZ078.
 
-`NIGHT-BBB-062` no produjo resultado verificable antes de CYCLE 068 y queda superseded. `NIGHT-BBB-063` fue recalculado desde cero porque el target 80/160 sigue fijado y la evidencia runtime continúa siendo blocker directo. Synthetic/local-only no cierra capacidad. 20.2 solo puede cerrar con evidencia aplicable de 160 + latency/error/queue/recovery + safety margin + durable admission/waitlist, sin data loss ni cross-tenant unauthorized behavior.
+**Owner runtime CYCLE 080:** WOZ079. Local/synthetic-only no cierra capacidad si no es materialmente aplicable. Incluso un runtime PASS no cierra 20.2 mientras #83 siga sin integrar. Si #79 mueve integration, #83 requerirá futura reconciliation history-preserving + fresh exact-head CI antes de readiness/integration.
 
 **Principio:** no falsear proveedor, capacidad, pagos, DNS, legal review o staging real sin evidencia externa/productiva.
