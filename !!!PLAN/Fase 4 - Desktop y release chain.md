@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE119:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
+**Integración estable CYCLE120:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
 
 ## Estado actual
 
@@ -16,13 +16,13 @@
 - BBB105 probó `HARNESS_ONLY_PROVEN`: broad fetch interceptor consumía WDIO/Tauri service plugin IPC.
 - PR #93 reconstruyó harness/evidence-only sobre base histórica `134a293985c314eb09c238115e3bcb71e79f1810`, head `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, 3 files, sin product mutation.
 - Exact-head Windows Auth `33468863393` SUCCESS y checks aplicables observados en ese head fueron verdes.
-- **GitHub vivo CYCLE119:** #93 sigue OPEN/Ready y ahora reporta `mergeable=true`, pero recorded base `134a293...` continúa stale contra integration `43fdf70e...` después de #92/#94/#95.
+- **GitHub vivo CYCLE120:** #93 sigue OPEN/Ready y reporta `mergeable=true`, pero recorded base `134a293...` continúa stale contra integration `43fdf70e...` después de #92/#94/#95.
 
-`mergeable=true` solo significa que GitHub puede construir un merge mecánico; no convierte la evidencia vieja en exact-head canonical evidence. #93 queda `PARKED / UNASSIGNED` CYCLE119 y requiere refresh/revalidation futuro si sigue `IN_ALPHA` tras F1/1.7.
+`mergeable=true` solo significa que GitHub puede construir un merge mecánico; no convierte la evidencia vieja en exact-head canonical evidence. #93 queda `PARKED / NO MUTATION OWNER` CYCLE120. WOZ119 puede hacer únicamente un inventario READ-ONLY de aplicabilidad como CI-FALLBACK mientras #89 esté genuinamente esperando CI; no puede mutar #93 ni promover 25.1.
 
 ## windows/review
 
-Durable Review product gap pertenece F2/13.2. AAA114 lo revalidó y paró por write-surface unsafe; CYCLE119 queda `BLOCKED_WRITE_SURFACE / UNASSIGNED`, sin mezclarlo con F4.
+Durable Review product gap pertenece F2/13.2. AAA114 lo revalidó y paró por write-surface unsafe; CYCLE120 queda `BLOCKED_WRITE_SURFACE / UNASSIGNED`, sin mezclarlo con F4.
 
 ## Signing Windows / macOS
 
