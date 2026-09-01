@@ -2,41 +2,41 @@
 
 > GitHub + `!!!PLAN` son memoria compartida. GitHub/runtime vivo prevalece.
 
-## Roles y ownership actual — CYCLE 112
+## Roles y ownership actual — CYCLE 113
 
 | Rol | Owner actual | PRIMARY | CI-FALLBACK |
 |---|---|---|---|
 | JOBS | coordinación | `!!!PLAN`, prioridades, handoffs, gates; no BeatGaler code/infra | n/a |
-| AAA | F2 / 13.2 | `NIGHT-AAA-108`: minimum durable Review Save/Save All completion/no-silent-loss corrective; focused Web/no-Tauri tests; candidate only, NO MERGE | NONE |
-| BBB | F4 / 25.1 / #84 | `NIGHT-BBB-107`: reconstruct current harness evidence lineage from live base; minimum proven WDIO/Tauri IPC bypass; literal packaged Auth + exact-head CI; NO PRODUCT MUTATION / NO MERGE | NONE |
-| WOZ | F2 / 12.1 / #92 | `NIGHT-WOZ-111`: REUSE #92; final semantic/exact-head CI/race recheck; expected-head merge #92 only if exact/green/race-free | NONE |
+| AAA | F2 / 13.2 | `NIGHT-AAA-109`: minimum durable Review Save/Save All completion/no-silent-loss corrective; focused Web/no-Tauri tests; candidate only, NO MERGE | NONE |
+| BBB | F2 / 15.1 | `NIGHT-BBB-108`: Empty Trash recent-reauth + strong confirmation + durable deterministic purge; candidate only, NO MERGE | only during genuine WAITING_CI: F1/1.7 blocker classification READ-ONLY |
+| WOZ | F4 / 25.1 / #93 | `NIGHT-WOZ-112`: REUSE #93; final exact semantic/CI/race recheck; expected-head merge #93 only if exact/green/race-free | NONE |
 
-**Baseline canónico CYCLE 112:** `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`.
+**Baseline canónico CYCLE 113:** `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`.
 
-## Handoffs/resultados procesados — CYCLE 112
+## Handoffs/resultados procesados — CYCLE 113
 
-- AAA107: no final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- BBB106: no final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`; prior BBB105 `HARNESS_ONLY_PROVEN` evidence remains reusable.
-- WOZ110: no final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- PR #92 remains OPEN/Ready/mergeable on exact live base `134a293...`, head `9947380...`; observed exact-head workflows Web build, D6, D7, Desktop Portability and secret scan completed SUCCESS. Upgrade 21.2 Staging skipped/non-applicable.
+- AAA108: no final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- BBB107: PR #93 exact-head candidate @ `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, exact base `134a293...`; only three harness/evidence files; Windows Auth run `33468863393` SUCCESS, job `99734302105` SUCCESS including isolated auth assertions; D6/D7/Desktop Portability/Windows Import/secret scan SUCCESS. Result processed as `CANDIDATE_EXACT_GREEN / NO_MERGE`.
+- WOZ111: no final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- PR #92 remains OPEN/Ready/mergeable @ `9947380...`, exact base `134a293...`, exact-head workflows observed green; parked CYCLE113 because the higher-priority integration lane is #93.
 
 ## Serialización
 
-AAA108 owns only durable Review. BBB107 owns only #84 harness/evidence. WOZ111 owns only #92 review/integration. #89 has **no owner and no merge authority CYCLE112**. #85 remains external-owned; #76/#83 remain parked unless a material condition changes.
+AAA109 owns only durable Review. BBB108 owns only Trash/recent-reauth. WOZ112 owns only #93 review/integration. #92 and #89 have **no owner and no merge authority CYCLE113**. #85 remains external-owned; #76/#83 remain parked unless a material condition changes.
 
-**Only integration mutation authorized CYCLE112: WOZ111 / PR #92, conditional on exact base/head, all applicable required CI SUCCESS and race-free expected-head check.**
+**Only integration mutation authorized CYCLE113: WOZ112 / PR #93, conditional on exact base/head, all applicable required CI SUCCESS and race-free expected-head check.**
 
 ## Holding / blocked items
 
 - F0/1.2 + 2.2 external/admin tails remain; F0/0.8 administrative review closure does not close legal P0/P1 implementation/compliance.
-- F0/0.9 #89 remains reusable/stale and must be refreshed/revalidated after current #92 lane; AI-assisted audit ≠ independent pentest.
+- F0/0.9 #89 remains reusable/stale and must be refreshed/revalidated after current integration lane; AI-assisted audit ≠ independent pentest.
 - Productive signing remains external despite #88 technical seam.
-- F0/0.20 actual OAuth rotation is closed by owner-side verified evidence; do not repeat.
+- F0/0.20 actual OAuth rotation is closed; do not repeat.
 - F1/D10.2 map complete, result `ALPHA CANDIDATE NOT READY`; governing steps are 1.7 then 1.8.
-- F2/12.1: #91 integrated; #92 remains exact-base corrective candidate; deployment/runtime proof still required after canonical code settles.
-- F2/13.2 = AAA108. F2/15.1 remains open unless explicit RO alpha exclusion.
+- F2/12.1: #91 integrated; #92 remains exact-base signed-out corrective candidate but parked CYCLE113; deployment/runtime proof still required after canonical code settles.
+- F2/13.2 = AAA109. F2/15.1 = BBB108.
 - F3/18.2 provider/payment external; F3/19.2 legal implementation open; F3/20.2 runtime160 pending.
-- F4/25.1 #84 = BBB107; productive signing/notarization/hardware/tester execution external.
+- F4/25.1: Windows Auth now has exact-green successor #93, but global 25.1 stays open until all journey evidence is complete; #93 integration = WOZ112.
 
 ## Reglas
 
@@ -48,20 +48,20 @@ AAA108 owns only durable Review. BBB107 owns only #84 harness/evidence. WOZ111 o
 6. Worker never invents fallback/next task.
 7. `READY_TO_WORK` ≠ `READY_TO_CLOSE` ≠ `READY_TO_RELEASE`.
 
-## Night Shift Ledger — CYCLE 112
+## Night Shift Ledger — CYCLE 113
 
 ```text
 JOBS: baseline 134a293985c314eb09c238115e3bcb71e79f1810
-AAA107: NO_RESULT_VISIBLE -> SUPERSEDED / NOT_PASS
-AAA108: ASSIGNED F2/13.2 durable Review; NO MERGE; FALLBACK NONE
-BBB106: NO_RESULT_VISIBLE -> SUPERSEDED / NOT_PASS
-BBB107: ASSIGNED #84 clean reconstruction + harness-only IPC correction + literal packaged Auth; NO PRODUCT MUTATION / NO MERGE
-WOZ110: NO_RESULT_VISIBLE -> SUPERSEDED / NOT_PASS
-WOZ111: ASSIGNED #92 exact semantic/CI/race review + conditional merge
-PR92: OPEN READY exact base 134a293 / head 9947380 / observed exact-head workflows green
-PR89: OPEN READY STALE / PARKED CYCLE112
-PR84: OPEN READY STALE / WINDOWS_AUTH_NOT_PASS
-INTEGRATION_MUTATION: WOZ111 PR92 ONLY IF EXACT_GREEN_RACE_FREE
+AAA108: NO_RESULT_VISIBLE -> SUPERSEDED / NOT_PASS
+AAA109: ASSIGNED F2/13.2 durable Review; NO MERGE; FALLBACK NONE
+BBB107: PR93 EXACT_GREEN / NO_MERGE
+BBB108: ASSIGNED F2/15.1 Trash/recent-reauth; NO MERGE; FALLBACK F1/1.7 READ_ONLY only during WAITING_CI
+WOZ111: NO_RESULT_VISIBLE -> SUPERSEDED / NOT_PASS
+WOZ112: ASSIGNED PR93 exact semantic/CI/race review + conditional merge
+PR93: OPEN READY exact base 134a293 / head b2c4eb4 / Windows Auth + applicable exact-head CI green
+PR92: OPEN READY exact base 134a293 / PARKED CYCLE113
+PR89: OPEN READY STALE / PARKED CYCLE113
+INTEGRATION_MUTATION: WOZ112 PR93 ONLY IF EXACT_GREEN_RACE_FREE
 RELEASE: NO-GO
 F5: CLOSED
 ```
