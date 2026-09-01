@@ -3,7 +3,7 @@
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
 **Estado CYCLE 108:** `[ 🟡 ]` residual/administrativo + security/release tails. El núcleo técnico necesario para avanzar terminó; 5.1 y 5.2 están `[x]`. 1.2 y 2.2 conservan tails reales.  
-**Baseline vivo:** `integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`.  
+**Baseline vivo:** `integration-v0.8.0-alpha.1 @ 1dbf60e58ca970c47d387b303e141e30e2b8eef5`.  
 **Release:** 🔴 `NO-GO`.
 
 ## Tablero
@@ -13,7 +13,7 @@
 | 0.1 Congelar evidencia | [x] | baseline + NO-GO registrados |
 | 0.2 Checkpoint interno | [x] | no equivale a release público |
 | 1.1 Negocio | [x] | v1 comercial; mercados/distribución decididos |
-| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + public operations runtime closed; signing/provider/reviews/testers tails |
+| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + public operations runtime + Authenticode seam integrated; production signing/provider/reviews/testers tails |
 | 2.1 Contención inmediata | [x] | auth/ownership/límites |
 | 2.2 Historial Git | [ 🟡 ] tail externo | GitHub Support + fresh inaccessibility verification |
 | 3.1 Integración | [x] | integration-v0.8.0-alpha.1 |
@@ -31,6 +31,7 @@ Decisiones fijas: v1 paid/commercial; Web + Windows NSIS + macOS DMG; MX/US/CA/E
 
 - PR #86 release/provenance governance integrado como `b85723e1b3016d24bdb943393e796ccdb744247d`.
 - PR #87 public security/status software slice integrado como `38517c8065063206fed530028e4e8d20208f3807`; exact parents `b85723e...` + `ba0d7b...` y applicable exact-head CI SUCCESS.
+- PR #88 F0/0.7 Authenticode + RFC3161 technical/preparatory seam integrado como `1dbf60e58ca970c47d387b303e141e30e2b8eef5`; candidate `dcf3e138...` sobre baseline exacto `38517c...`, Authenticode seam SUCCESS y Required CI SUCCESS.
 
 ### F0/0.6 — `[x]` public operations
 
@@ -42,17 +43,19 @@ Cerrado con evidencia runtime pública el `2026-09-01`:
 
 F0/0.6 no es ya un tail de 1.2. Esta evidencia no prueba signing/notarization/tester/legal/security restantes ni autoriza release.
 
+### F0/0.7 — `[x]` Authenticode / RFC3161 technical-preparatory seam
+
+PR #88 quedó integrado el `2026-09-01` como `1dbf60e58ca970c47d387b303e141e30e2b8eef5` tras exact-head CI verde. El seam separa Tauri updater signing de Windows Authenticode, exige SHA-256 + RFC3161, verifica installer/app y mantiene fail-closed la intención `public` mientras falten inputs production.
+
+**F0/0.7 queda DONE únicamente para la parte técnica/preparatoria.** Owner = RO; provider permanece `PENDING_OWNER_PROVIDER`; **PRODUCTION SIGNING = NO-GO**. Siguen pendientes como release-chain externo: provider, certificado, publisher legal, key custody, CI auth, selector/config o `signCommand`, endpoint HTTPS RFC3161, expected subject, renovación/expiración, outage procedure, rotation/emergency disable y un controlled `release_intent=public` con evidencia real.
+
 ### F0/0.9 — security audit + P1 DNS-rebinding
 
-PR #89 continúa OPEN/Ready al preflight CYCLE 108, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, base_sha `816f946c...` stale contra `38517c...`. Sus checks old-head, incluido Required CI, están verdes, pero esa evidencia no autoriza integración contra el baseline actual.
+PR #89 continúa OPEN/Ready al preflight CYCLE 108, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, base_sha `816f946c...` stale contra `1dbf60e...`. Sus checks old-head, incluido Required CI, están verdes, pero esa evidencia no autoriza integración contra el baseline actual.
 
 El candidate declara audit AI-assisted, no independent pentest. P1 software observado: DNS-rebinding SSRF hardening; Authenticode queda separado en #88.
 
 **Owner CYCLE 108: `NIGHT-WOZ-107`.** REUSE #89; review + refresh history-preserving al baseline vivo + fresh exact-head CI. Puede mergear únicamente #89 si queda exact-base/head, applicable CI green y race-free. No external-pentest claim.
-
-### Authenticode / RFC3161 — external owner inputs
-
-PR #88 ahora está sobre base exacta `38517c...`, pero su contrato mantiene **PRODUCTION SIGNING = NO-GO** y exige autorización/inputs RO: provider, certificado, publisher legal, custody, CI auth, selector/config, RFC3161 endpoint, renewal/outage/rotation y controlled public build. Exact base no elimina ese gate. No nocturnal merge authorization.
 
 ### OAuth secret rotation readiness
 
