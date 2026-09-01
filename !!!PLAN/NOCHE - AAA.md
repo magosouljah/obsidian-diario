@@ -6,12 +6,12 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-139`
+- `ASSIGNMENT_ID: NIGHT-AAA-140`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 12.1 — post-#96 public runtime proof READ-ONLY / evidence classification`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`
-- `PREDECESSOR: NIGHT-AAA-138 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE143.`
-- `SERIALIZATION: AAA139 owns only F2/12.1 runtime-proof/evidence lane. BBB138 owns recent-reauth seam. WOZ142 owns #89. F2/13.2 remains BLOCKED_WRITE_SURFACE / UNASSIGNED. #93 remains mutation-unassigned.`
+- `PREDECESSOR: NIGHT-AAA-139 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE144.`
+- `SERIALIZATION: AAA140 owns only F2/12.1 runtime-proof/evidence lane. BBB139 owns recent-reauth seam. WOZ143 owns #89. F2/13.2 remains BLOCKED_WRITE_SURFACE / UNASSIGNED. #93 remains mutation-unassigned.`
 
 ### PRIMARY
 
@@ -26,7 +26,7 @@
 7. Write RESULTADO DEL TURNO here + Issue #41 handoff only, then STOP.
 
 **Required evidence:** live integration SHA; PR #96 merged_at/merge SHA/head/base; exact-head CI; deployment identity/version where available; per-item evidence table; explicit `UNVERIFIED`.  
-**STOP:** any code/branch/PR/provider/infra/canonical-plan mutation, deployment change, unsupported inference, duplicate work, or overlap with BBB138/WOZ142.
+**STOP:** any code/branch/PR/provider/infra/canonical-plan mutation, deployment change, unsupported inference, duplicate work, or overlap with BBB139/WOZ143.
 
 ### CI-FALLBACK
 
@@ -34,5 +34,5 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-138`: no matching final result/handoff verified by JOBS CYCLE143 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-AAA-139`: no matching final result/handoff verified by JOBS CYCLE144 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-AAA-114`: `PENDING / STOP_WRITE_SURFACE / NOT_PASS`; durable Review gap remains reusable blocker evidence only.
