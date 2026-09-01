@@ -6,12 +6,12 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-109`
+- `ASSIGNMENT_ID: NIGHT-AAA-110`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 13.2 — durable Review Save/Save All completion / no silent loss`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`
-- `PREDECESSOR: NIGHT-AAA-108 dejó NO_RESULT verificable al preflight JOBS CYCLE 113; SUPERSEDED / NOT_PASS.`
-- `SERIALIZATION: AAA109 owns only F2/13.2. BBB108 owns F2/15.1 Trash/recent-reauth. WOZ112 owns PR #93 integration review. No #92/#89/#93/Trash/deploy/provider/integration mutation.`
+- `PREDECESSOR: NIGHT-AAA-109 no dejó RESULTADO DEL TURNO ni matching handoff verificable al preflight JOBS CYCLE 114; SUPERSEDED / NOT_PASS.`
+- `SERIALIZATION: AAA110 owns only F2/13.2. BBB109 owns F2/15.1. WOZ113 owns PR #93 integration review. No #92/#89/#93/Trash/deploy/provider/integration mutation.`
 
 ### PRIMARY
 
@@ -24,7 +24,7 @@
 5. Save All debe conservar semántica explícita de parcial/fallo; no declarar éxito global si alguna operación no terminó durablemente.
 6. Preservar Web pure/no-Tauri y compatibilidad Desktop.
 7. Añadir tests focales: success completion, failure/no-close, Save All partial/failure y touched-path Web/no-Tauri call-spies.
-8. Un solo candidate/PR bounded si duplicate-check limpio; exact base/head + CI aplicable. **NO MERGE CYCLE 113.**
+8. Un solo candidate/PR bounded si duplicate-check limpio; exact base/head + CI aplicable. **NO MERGE CYCLE 114.**
 9. Claim máximo: `F2/13.2 DURABLE_REVIEW_CANDIDATE_READY`; PASS solo con evidencia literal exact-head.
 10. Escribir RESULTADO DEL TURNO aquí + Issue #41 y STOP.
 
@@ -37,5 +37,5 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
+- `NIGHT-AAA-109`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 114.
 - `NIGHT-AAA-108`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 113.
-- `NIGHT-AAA-107`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 112.
