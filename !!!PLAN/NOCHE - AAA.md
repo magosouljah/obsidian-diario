@@ -6,55 +6,42 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-114`
-- `ASSIGNMENT_STATUS: PENDING`
-- `AREA: F2 / 13.2 — durable Review Save/Save All completion / no silent loss`
+- `ASSIGNMENT_ID: NIGHT-AAA-115`
+- `ASSIGNMENT_STATUS: ASSIGNED`
+- `AREA: F1 / 1.7 — alpha blocker classification READ-ONLY`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`
-- `PREDECESSOR: NIGHT-AAA-113 SUPERSEDED / NOT_PASS por CYCLE118 antes del matching result; el handoff tardío 5490196892 queda como evidencia auxiliar, no como resultado autoritativo.`
-- `SERIALIZATION: AAA114 owns only F2/13.2. BBB113 owns only D8/recent-reauth seam. WOZ117 owns only #89. #93 parked. AAA has NO integration mutation authority.`
+- `PREDECESSOR: NIGHT-AAA-114 = PENDING / STOP_WRITE_SURFACE / NOT_PASS; no branch, PR, tests or CI. Its factual Review finding remains valid, but the same write-surface-blocked implementation is not reassigned this cycle.`
+- `SERIALIZATION: AAA115 owns only F1/1.7 classification. BBB114 owns only recent-reauth seam. WOZ118 owns only #89. F2/13.2 Review is BLOCKED_WRITE_SURFACE / UNASSIGNED. #93 parked.`
 
 ### PRIMARY
 
-**F2 / 13.2 — cerrar el gap probado de durable completion/no-silent-loss con el mínimo corrective Web-safe.**
+**F1 / 1.7 — convertir el mapa de blockers de alpha 3–5 cuentas en una clasificación factual, sin decidir por RO ni promover ningún gate. READ-ONLY.**
+
+1. Fresh preflight live integration + Issue #41 + F0–F4.
+2. Classify each materially relevant blocker as exactly one of: `MUST_CLOSE`, `RO_EXCLUDE_CANDIDATE`, `RELEASE_ONLY_EXTERNAL`.
+3. Include at minimum: F2/12.1 runtime post-#95; F0/0.9 #89; F2/13.2 Review; D8 seam→F2/15.1 Trash; F4/25.1 #93/remaining journeys; F3/18.2 payments/provider; F3/19.2 legal implementation; F3/20.2 runtime160/capacity; signing/notarization/testers/hardware and F0/1.2/2.2 where applicable.
+4. For every row cite concrete PR/SHA/runtime/plan evidence and explain why the classification follows from current alpha scope; do not infer a RO exclusion.
+5. Explicitly state the minimal RO decision still required before F1/1.8 and which blockers cannot be excluded without changing the alpha gate.
+6. Write only this nocturnal markdown result + Issue #41 handoff; no canonical plan mutation by AAA.
+7. Maximum claim: `F1_1.7_CLASSIFICATION_READY_FOR_JOBS_RO_REVIEW`; never PASS 1.8/1.9.
+
+**Required evidence:** live baseline; exact open PR base/head/mergeability where relevant; runtime evidence status; blocker table with rationale and `UNVERIFIED`; no claims based on old-head green alone.  
+**STOP:** any code/branch/PR/provider/infra/canonical-plan mutation, any RO GO/NO-GO decision, any attempt to exclude a blocker without explicit gate basis, or materially unverifiable fact.
 
 ### CI-FALLBACK
 
 `CI-FALLBACK: NONE`.
 
-## RESULTADO DEL TURNO — NIGHT-AAA-114
+## RESULTADO DEL TURNO MÁS RECIENTE
 
-### PRIMARY
+### `NIGHT-AAA-114` — `PENDING / STOP_WRITE_SURFACE / NOT_PASS`
 
-- `STATUS: PENDING / STOP_WRITE_SURFACE`
-- `baseline: integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3.`
-- `branch/head: NONE.`
-- `PR: NONE nuevo.`
-- `cambios: ninguno. REUSE-FIRST: #69 es el único Save All coordinator abierto/reutilizable; sigue stale desde 3ad8f55a... y no está product-wired. #72 es F4 test-only/out of scope.`
-- `tests: no ejecutados; no se creó candidate incompleto.`
-- `CI: N/A sin head nuevo.`
-- `evidencia: compare 08e5802d...→43fdf70e... muestra que PR #95 solo tocó webTransport/session paths; no alteró App Review boundary. En App.tsx actual, handleReviewedBeatSaved actualiza/avanza Review y luego ejecuta cloudifyImportedBeats fire-and-forget. handleReviewedSaveAll cierra Review inmediatamente y cloudifica current/committed beats en background. WebAdapter ya expone platform.cloudData.commitImportedBeat(), que await-ea durable transport/CAS y conserva failure retry-safe. #69 aporta semantics saved/conflict/failed + retry/idempotence reutilizables.`
-- `UNVERIFIED: corrective product wiring; focused success, failure/no-close, conflict/partial Save All, retry/idempotence; touched-path no-Tauri proof; exact-head CI.`
-- `blockers: la superficie GitHub disponible permite whole-file replacement pero no patch parcial seguro del App.tsx grande. Reconstruir el archivo entero desde esta interfaz introduce riesgo de corrupción/scope widening y viola STOP. No se abrió PR ceremonial.`
+- Baseline: `43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
+- Branch/head/PR: none.
+- Reuse-first: #69 remains the only Save All coordinator lineage; stale and not product-wired.
+- Factual finding: current Review handlers can advance/close before durable cloud completion; `platform.cloudData.commitImportedBeat()` already provides an awaitable durable boundary and retry-safe failures.
+- Missing: corrective wiring; focused success/failure/conflict/partial/retry/idempotence tests; touched-path no-Tauri proof; exact-head CI.
+- STOP reason: available GitHub surface could only replace the large `src/App.tsx` whole-file; doing so for a small patch would create corruption/scope-widening risk. No ceremonial candidate was opened.
+- Issue #41 handoff: `5490203080`.
 
-### CI-FALLBACK
-
-- `STATUS: NOT_EXECUTED — NONE explícito por JOBS.`
-- `branch/head: N/A.`
-- `PR: N/A.`
-- `cambios: ninguno.`
-- `tests: ninguno.`
-- `evidencia: CI-FALLBACK = NONE.`
-- `UNVERIFIED: N/A.`
-- `blockers: fallback no autorizado.`
-- `STOP alcanzado: sí; PRIMARY no llegó a WAITING_CI/WAITING_EXTERNAL.`
-
-**Recomendación para JOBS:** conservar F2/13.2 y ejecutar el corrective en una superficie patch/worktree-capable desde `43fdf70e...`: reutilizar semantics de #69; Web Review Save debe esperar `platform.cloudData.commitImportedBeat` antes de advance/close; Save All debe usar commits durables per-item con summary partial/conflict/failure + retry/idempotence; añadir focused Web/no-Tauri tests y fresh exact-head CI. Mantener NO MERGE CYCLE118 salvo autoridad nueva.
-
-**Issue #41 handoff autoritativo:** `5490203080`.
-
-`TURN_FINISHED_AT: 2026-09-01T01:01-06:00`
-
-## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
-
-- `NIGHT-AAA-113`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE118; handoff tardío auxiliar `5490196892`.
-- `NIGHT-AAA-112`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE117.
+**JOBS processing:** result accepted as blocker evidence only. No DONE/PASS/INTEGRATED claim.
