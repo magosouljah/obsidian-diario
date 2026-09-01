@@ -20,7 +20,7 @@
 - **F2/12.1:** #92 y #94 están integrados. #94 preserva el invariant de no exponer permanent application API ID/hash al browser y corrige deploy/bound-temp worker seam. **12.1 sigue NOT_PASS** hasta deployment exacto post-#94 + signed-out/authenticated startup + worker initialize/activate/verify + authoritative library reload + cold/warm proof y robustez residual aplicable.
 - **F2/13.2:** durable Review gap sigue abierto; owner `NIGHT-AAA-113`.
 - **F2/15.1:** BBB110 probó `RECENT_REAUTH_PRODUCT_SEAM_REQUIRED`; Trash UI no debe corregirse antes de exponer la seam D8. Owner actual `NIGHT-BBB-112` solo para la seam productiva mínima; Trash queda después.
-- **F0/0.9:** #89 OPEN @ `daf87da6...`, recorded base `816f946c...`, stale/non-mergeable contra live baseline. Owner `NIGHT-WOZ-116` para bounded refresh/revalidation + conditional expected-head merge de #89 solamente.
+- **F0/0.9:** #89 OPEN @ `daf87da6...`, recorded base `816f946c...`; final race-check reporta `mergeable=true`, pero el base registrado sigue stale contra `08e5802d...`. Owner `NIGHT-WOZ-116` para bounded refresh/revalidation + conditional expected-head merge de #89 solamente.
 - **F4/Windows Auth:** #93 permanece OPEN @ `b2c4eb441...`, recorded base `134a293...`, stale/non-mergeable; exact-green evidence histórica sigue reusable pero no autoriza integración contra `08e5802d...`. PARKED / no owner CYCLE117.
 - **F1:** D6–D10.1 PASS; D10.2 map complete / alpha candidate NOT_READY. 1.7/1.8/1.9 siguen pendientes.
 - **F3:** provider/payment real, legal implementation y runtime160/capacity siguen abiertos/external o RO-applicability.
