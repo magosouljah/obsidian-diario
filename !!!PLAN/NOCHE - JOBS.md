@@ -66,7 +66,7 @@ Leídos/reconciliados completos: Plan Maestro; F0, F1, F2, F3, F4; Equipo; proto
 
 ## PLAN SYNC CYCLE137
 
-Se emitieron IDs consecutivos nuevos en AAA/BBB/WOZ. Plan Maestro, F0–F4, coordinación y los cuatro markdowns nocturnos deben quedar sincronizados con CYCLE137. `Registro de avances.md` se conserva sin promoción porque no hubo merge/PASS/runtime nuevo. `Plan Maestro 2208 copy DONT TOUCH .md` permanece untouched.
+Se emitieron IDs consecutivos nuevos en AAA/BBB/WOZ. Plan Maestro, F0–F4, coordinación y los cuatro markdowns nocturnos quedaron sincronizados con CYCLE137. `Registro de avances.md` se conserva sin promoción porque no hubo merge/PASS/runtime nuevo. `Plan Maestro 2208 copy DONT TOUCH .md` permanece untouched.
 
 ## NEXT
 
