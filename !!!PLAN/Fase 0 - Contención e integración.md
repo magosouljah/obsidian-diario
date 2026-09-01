@@ -2,8 +2,8 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE117:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales. 0.20 OAuth secret rotation está `[x]`.  
-**Baseline vivo:** `integration-v0.8.0-alpha.1 @ 08e5802d27ad81977b1c2f63ceb0fce398d41e42`.  
+**Estado CYCLE118:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales. 0.20 OAuth secret rotation está `[x]`.  
+**Baseline vivo:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.  
 **Release:** 🔴 `NO-GO`.
 
 ## Tablero
@@ -31,7 +31,7 @@ Evidence canónica: `Legal launch review - AI-assisted 2026-08-31.md`. No ocurri
 
 ## 1.2 — `[ 🟡 ]` release dependencies
 
-Software integrado relevante: #86 provenance, #87 public security/status, #88 technical Authenticode/RFC3161, #90 OAuth rotation readiness, #91/#92/#94 Web startup/runtime corrective lineage. Ninguno sustituye productive signing/notarization/tester/legal/security release evidence.
+Software integrado relevante: #86 provenance, #87 public security/status, #88 technical Authenticode/RFC3161, #90 OAuth rotation readiness, #91/#92/#94/#95 Web startup/runtime corrective lineage. Ninguno sustituye productive signing/notarization/tester/legal/security release evidence.
 
 ### F0/0.6 — `[x]` public operations
 
@@ -43,9 +43,9 @@ Owner runtime evidence previo mantiene security.txt/status HTTPS/SAN/contactos p
 
 ### F0/0.9 — `[ 🟡 ]` AI-assisted security slice / DNS rebinding
 
-PR #89 sigue OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; ahora stale/non-mergeable contra `08e5802d...`. Exact changed files = `.github/workflows/f0-0.9-security-audit.yml`, `cloud-server/outbound-dns-pinning.js`, `cloud-server/server.js`, `cloud-server/tests/outbound-dns-pinning.test.cjs` y dos docs de audit. Old-head green no autoriza integración.
+PR #89 sigue OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, base registrada `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; GitHub CYCLE118 reporta `mergeable=false` contra integración `43fdf70e...`. Old-head green no autoriza integración.
 
-**Owner CYCLE117: `NIGHT-WOZ-116`.** Debe duplicate-check, refresh/reconcile bounded sobre live baseline, correr exact-head security + applicable CI y solo entonces puede expected-head mergear #89 si exact/green/race-free. Maximum claim = DNS-rebinding SSRF P1 corrective integrado; AI-assisted audit ≠ independent pentest.
+**Owner CYCLE118: `NIGHT-WOZ-117`.** Debe duplicate-check, refresh/reconcile bounded sobre live baseline, correr exact-head security + applicable CI y solo entonces puede expected-head mergear #89 si exact/green/race-free. Maximum claim = DNS-rebinding SSRF P1 corrective integrado; AI-assisted audit ≠ independent pentest.
 
 ### F0/0.20 — `[x]` OAuth secret rotation
 
