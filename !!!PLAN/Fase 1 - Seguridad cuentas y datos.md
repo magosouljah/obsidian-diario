@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE118:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.  
+**Baseline vivo CYCLE119:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.  
 **Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[x] MAP COMPLETE / ALPHA CANDIDATE NOT READY`.  
 **Release público:** 🔴 `NO-GO`.
 
@@ -14,25 +14,30 @@ Authorization/tenant controls, temp-auth/capabilities, lifecycle/RO decisions, P
 
 Blockers de alpha interna 3–5 cuentas se consolidan en 1.7; autorización final = 1.8; ejecución = 1.9.
 
-### PROVEN / nuevo estado
+### PROVEN / estado vivo
 
 - #92, #94 y #95 están integrados en F2/12.1; #95 corrige el bound temporary Web session id, pero falta public runtime proof post-#95.
-- Windows Auth #93 conserva exact-green evidence histórica en old baseline, pero sigue OPEN/base `134a293...`/`mergeable=false` contra `43fdf70e...`; no cuenta como canonical evidence integration.
-- BBB110 probó un blocker concreto para F2/15.1: la decisión D8 de recent reauth existe, pero no hay aún una seam productiva consumible por Settings/Trash sin widening.
+- Windows Auth #93 conserva exact-green evidence histórica en old baseline. GitHub CYCLE119 reporta `mergeable=true`, pero `base_sha=134a293...` sigue stale contra `43fdf70e...`; no cuenta como canonical integration evidence.
+- AAA114 revalidó el F2/13.2 durable Review gap, pero STOP correcto por write surface: no branch/PR/tests/CI; 13.2 sigue abierto.
+- La decisión D8 de recent reauth existe, pero sigue faltando una seam productiva consumible por Settings/Trash; owner BBB114.
 
 ### HARD / ACTIVE BLOCKERS para alpha
 
 1. **F2/12.1 runtime post-#95:** deployment exacto + signed-out/authenticated worker/library + cold/warm evidence.
-2. **F0/0.9 security P1:** #89 stale/non-mergeable; owner WOZ117 para refresh/revalidation/integration.
-3. **F2/13.2 durable Review:** owner AAA114.
-4. **F1/D8 product seam → F2/15.1:** owner BBB113 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
+2. **F0/0.9 security P1:** #89 `mergeable=true` pero base `816f...` stale; owner WOZ118 para refresh/revalidation/integration.
+3. **F2/13.2 durable Review:** `BLOCKED_WRITE_SURFACE / UNASSIGNED` CYCLE119; factual gap remains.
+4. **F1/D8 product seam → F2/15.1:** owner BBB114 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
 5. **F4/25.1 Windows Auth canonicalization:** #93 requiere future refresh/revalidation contra live baseline; global 25.1 además conserva otros journeys.
+
+### 1.7 — `[ 🟡 ] OWNER AAA115 / READ-ONLY CLASSIFICATION`
+
+AAA115 debe clasificar cada blocker material como `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` con evidencia concreta. Debe cubrir explícitamente F3 18.2/19.2/20.2, F2/12.1, #89, Review, recent-reauth→Trash, #93/25.1 y release-only externals. Esta clasificación no toma decisiones RO, no excluye nada por sí sola y no promueve 1.8.
 
 ### F3 — decisión explícita de aplicabilidad al alpha
 
-- 18.2 provider/payment real scenarios: `UNVERIFIED_EXTERNAL`; excluir si alpha no cobra.
+- 18.2 provider/payment real scenarios: `UNVERIFIED_EXTERNAL`; excluir si alpha no cobra solo mediante decisión explícita.
 - 19.2 legal implementation/release backlog: sigue abierto.
-- 20.2 runtime160/capacity: no probado; release/scale gate, no representativo de 3–5 cuentas.
+- 20.2 runtime160/capacity: no probado; release/scale gate, no representativo de 3–5 cuentas, pero su exclusión del alpha debe quedar explícita.
 
 ### Release-only / external tails
 
@@ -40,11 +45,12 @@ Production signing/notarization, hardware matrix amplia, 12–20 testers, public
 
 ## Orden mínimo hacia 1.8
 
-1. obtener public runtime proof post-#95 o dejar blocker owner/runtime exacto;
-2. integrar/procesar #89 P1 con exact-head evidence;
-3. cerrar F2/13.2 o preparar exclusión RO;
-4. exponer seam recent-reauth y luego cerrar F2/15.1 o preparar exclusión RO;
-5. refresh/revalidar #93 Windows Auth evidence;
-6. clasificar F3 18.2/19.2/20.2 `IN_ALPHA` / `EXCLUDED_FROM_ALPHA`.
+1. completar 1.7 factual classification sin rebajar gates;
+2. obtener public runtime proof post-#95 o dejar blocker owner/runtime exacto;
+3. integrar/procesar #89 P1 con exact-head evidence;
+4. cerrar F2/13.2 o elevar una exclusión RO explícita sustentada;
+5. exponer seam recent-reauth y luego cerrar F2/15.1 o elevar exclusión RO explícita;
+6. refresh/revalidar #93 Windows Auth evidence si permanece `IN_ALPHA`;
+7. registrar explícitamente aplicabilidad F3 18.2/19.2/20.2.
 
 Solo después corresponde **1.8 — decisión RO final**.
