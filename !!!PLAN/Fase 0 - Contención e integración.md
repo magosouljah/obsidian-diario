@@ -2,8 +2,8 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE 105:** `[ 🟡 ]` residual/administrativo. El núcleo técnico necesario para avanzar terminó; 5.1 y 5.2 están `[x]`. 1.2 y 2.2 conservan tails reales, por lo que F0 no se marca `[x]` globalmente.  
-**Baseline vivo:** `integration-v0.8.0-alpha.1 @ b85723e1b3016d24bdb943393e796ccdb744247d`.  
+**Estado CYCLE 106:** `[ 🟡 ]` residual/administrativo + security/release tails. El núcleo técnico necesario para avanzar terminó; 5.1 y 5.2 están `[x]`. 1.2 y 2.2 conservan tails reales, por lo que F0 no se marca `[x]` globalmente.  
+**Baseline vivo:** `integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`.  
 **Release:** 🔴 `NO-GO`.
 
 ## Tablero
@@ -13,7 +13,7 @@
 | 0.1 Congelar evidencia | [x] | baseline + NO-GO registrados |
 | 0.2 Checkpoint interno | [x] | no equivale a release público |
 | 1.1 Negocio | [x] | v1 comercial; mercados/distribución decididos |
-| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance software integrated; dominio/support/status + signing/reviews/testers tails |
+| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + security/status software integrated; signing/provider/runtime/reviews/testers tails |
 | 2.1 Contención inmediata | [x] | auth/ownership/límites |
 | 2.2 Historial Git | [ 🟡 ] tail externo | GitHub Support + fresh inaccessibility verification |
 | 3.1 Integración | [x] | integration-v0.8.0-alpha.1 |
@@ -29,30 +29,47 @@ Decisiones fijas: v1 paid/commercial; Web + Windows NSIS + macOS DMG; MX/US/CA/E
 
 ### Release/provenance governance — implementation slice integrated
 
-PR #86 `fix(release): close F0/0.4 provenance and stable/latest governance` fue integrado factual y verificablemente:
-- candidate head `200474d061c63406774da8d21bd22460a8bd0312`;
-- previous integration `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`;
-- merge `b85723e1b3016d24bdb943393e796ccdb744247d`, con esos dos parents;
-- implementación preserva alpha/beta/rc como prerelease, stable-only `latest`, no-clobber/immutable publication, Draft-before-publish, provenance source/build/target metadata y kill-switch de publicación.
+PR #86 `fix(release): close F0/0.4 provenance and stable/latest governance` fue integrado como `b85723e1b3016d24bdb943393e796ccdb744247d`, con candidate head `200474d061c63406774da8d21bd22460a8bd0312` sobre el baseline anterior `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
-**Promoción CYCLE 105:** solo la **implementation slice** de release/provenance governance = `PASS / INTEGRATED`. Esto NO cierra 1.2 global, no publica release y no demuestra signing/notarization/tester/legal/security external evidence.
+La promoción sigue limitada a la **implementation slice** de release/provenance governance. No demuestra signing/notarization/tester/legal/security external evidence.
 
-### Public security/status candidate
+### Public security/status — software slice integrated
 
-PR #87 `F0/0.6: publish security.txt and status surface` está OPEN/Ready/mergeable sobre el baseline exacto `b85723e...`, head `ba0d7b689e587da42cc8105b22d0ed0c206bc064`. Workflows observados exact-head: D6 SUCCESS, D7 SUCCESS, Public Operations SUCCESS, Web Production Build SUCCESS, Desktop Portability SUCCESS; Upgrade 21.2 skipped/no aplicable. Runtime/DNS/deploy sigue explícitamente UNVERIFIED.
+PR #87 `F0/0.6: publish security.txt and status surface` fue integrado factual por `NIGHT-WOZ-104`:
+- candidate head `ba0d7b689e587da42cc8105b22d0ed0c206bc064`;
+- base exacta `b85723e1b3016d24bdb943393e796ccdb744247d`;
+- merge `38517c8065063206fed530028e4e8d20208f3807`;
+- parents exactos `b85723e...` + `ba0d7b...`;
+- exact-head Required CI y workflows aplicables observados SUCCESS.
 
-**Owner CYCLE 105: `NIGHT-WOZ-104`.** REUSE #87; puede mergear únicamente #87 si recheck exact-base/head/scope + applicable CI green + expected-head race-free. Maximum claim: software slice; DNS/TLS/deploy/runtime externos quedan abiertos.
+**Promoción CYCLE 106:** F0/0.6 + F3/19.1 **software implementation slice = PASS / INTEGRATED**. Status DNS, certificate SAN, production deployment, public runtime, support/legal/provider tails permanecen `UNVERIFIED/OPEN`.
+
+### F0/0.9 — security audit + P1 DNS-rebinding
+
+PR #89 está OPEN/Ready/mergeable al preflight, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, pero su `base_sha` es `816f946c...` y por tanto está stale contra `38517c...`. Su scope observado son 6 archivos: workflow de audit, DNS pinning/server path, focused regression y dos audit docs.
+
+El candidate declara audit AI-assisted, no independent pentest. P1 software observado: DNS-rebinding SSRF hardening; el P1 Authenticode queda separado en #88.
+
+**Owner CYCLE 106: `NIGHT-WOZ-105`.** REUSE #89; review + refresh history-preserving al baseline vivo + exact-head CI. Puede mergear únicamente #89 si queda exact-base/head, applicable CI green y race-free. No external-pentest claim.
+
+### Authenticode / RFC3161 — external owner inputs
+
+PR #88 prepara un seam fail-closed, pero su propio contrato mantiene **PRODUCTION SIGNING = NO-GO** hasta que RO provea/autorice provider, certificado, publisher legal, custody, CI auth, selector/config, RFC3161 endpoint, renewal/outage/rotation y un controlled public build. No worker nocturno lo integra por inferencia.
+
+### OAuth secret rotation readiness
+
+PR #90 @ `70a903c69864f275a9bbd4c00c3a5c9e3099640f` es readiness software/documental; al snapshot estaba OPEN/Ready/non-mergeable y stale contra el baseline vivo. Rotar/desplegar/verificar/revocar la credencial sigue siendo acción owner externa. `NIGHT-WOZ-105` puede inspeccionarlo READ-ONLY solo si #89 espera CI.
 
 ### Tails aún requeridos para 1.2 `[x]`
 - dominio/DNS/TLS/support/security-abuse/status con runtime/owners aplicables;
-- Windows Authenticode + RFC3161 plan/owner y evidencia cuando corresponda;
-- revisión legal independiente;
-- revisión de seguridad independiente;
+- Windows Authenticode + RFC3161 productivo y evidencia cuando corresponda;
+- rotación real del OAuth secret afectado y verificación/revocación owner-side;
+- revisión legal/seguridad independiente donde siga siendo gate real;
 - matriz 12–20 testers + hardware/plataformas/DAWs/fechas.
 
 ## 2.2 — `[ 🟡 ]` historial Git
 
-Trabajo técnico de rewrite y Required CI post-rewrite ya completado. Baseline histórico de salida `b9c2317297ff3c0f7a6246ac97517fa978f6caea`; run `33148873459` SUCCESS. Tail restante, no bloqueante para trabajo interno por decisión RO:
+Trabajo técnico de rewrite y Required CI post-rewrite ya completado. Baseline histórico de salida `b9c2317297ff3c0f7a6246ac97517fa978f6caea`; run `33148873459` SUCCESS. Tail restante:
 - [ ] GitHub Support cleanup server-side aplicable;
 - [ ] fresh independent verification de inaccesibilidad posterior.
 
