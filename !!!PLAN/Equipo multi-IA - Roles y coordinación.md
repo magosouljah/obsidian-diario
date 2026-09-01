@@ -2,33 +2,33 @@
 
 > GitHub + `!!!PLAN` son memoria compartida. GitHub/runtime vivo prevalece.
 
-## Roles y ownership actual — CYCLE145
+## Roles y ownership actual — CYCLE146
 
 | Rol | Owner actual | PRIMARY | CI-FALLBACK |
 |---|---|---|---|
 | JOBS | coordinación | `!!!PLAN`, prioridades, handoffs, gates; no BeatGaler code/infra | n/a |
-| AAA | F2 / 12.1 runtime proof | `NIGHT-AAA-141`: READ-ONLY exact-deployment runtime evidence inventory post-#96; no deploy/code/infra | NONE |
-| BBB | F1/D8 follow-up | `NIGHT-BBB-140`: minimum productive recent-reauth seam bound to user/session; no Trash UI; candidate only, NO MERGE | F3/18.2 READ-ONLY evidence inventory only while PRIMARY genuinely waits external CI/build/review |
-| WOZ | F0 / 0.9 / #89 | `NIGHT-WOZ-144`: diagnose live F0 audit failure, REUSE #89, bounded refresh/revalidate; expected-head merge #89 only if exact/green/race-free | READ-ONLY PR #93 stale-evidence inventory only while #89 genuinely waits external CI after clean refresh |
+| AAA | F2 / 12.1 runtime proof | `NIGHT-AAA-142`: READ-ONLY exact-deployment runtime evidence inventory post-#96; no deploy/code/infra | NONE |
+| BBB | F1/D8 follow-up | `NIGHT-BBB-141`: minimum productive recent-reauth seam bound to user/session; no Trash UI; candidate only, NO MERGE | F3/18.2 READ-ONLY evidence inventory only while PRIMARY genuinely waits external CI/build/review |
+| WOZ | F0 / 0.9 / #89 | `NIGHT-WOZ-145`: diagnose live F0 audit failure, REUSE #89, bounded refresh/revalidate; expected-head merge #89 only if exact/green/race-free | READ-ONLY PR #93 stale-evidence inventory only while #89 genuinely waits external CI after clean refresh |
 
-**Baseline canónico CYCLE145:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
+**Baseline canónico CYCLE146:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
 
-## Handoffs/resultados procesados — CYCLE145
+## Handoffs/resultados procesados — CYCLE146
 
-- AAA140: no matching final result/handoff verified after CYCLE144 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- BBB139: no matching final result/handoff verified after CYCLE144 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- WOZ143: no matching final result/handoff verified after CYCLE144 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- Issue #41 fue leído completo; 402 comentarios en preflight y el último era JOBS CYCLE144 (`5499727216`); no había worker handoff posterior.
+- AAA141: no matching final result/handoff verified after CYCLE145 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- BBB140: no matching final result/handoff verified after CYCLE145 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- WOZ144: no matching final result/handoff verified after CYCLE145 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- Issue #41 fue leído completo; 403 comentarios en preflight y el último era JOBS CYCLE145 (`5500057664`); no había worker handoff posterior.
 - PR #96 sigue siendo el último merge material: merge `aa445095...`; final head `6247173...`; Required CI exact-head SUCCESS. Sigue faltando public runtime proof exacto para cerrar F2/12.1.
-- PR #89 permanece OPEN/Ready/mergeable @ `daf87da6...`, recorded base `816f946c...`; stale vs live `aa445095...`. F0/0.9 workflow run `33454881387` permanece FAILURE en ese exact head. WOZ144 owns diagnosis + bounded refresh/revalidation/integration; current head is not merge-eligible.
-- PR #93 permanece OPEN/Ready/mergeable @ `b2c4eb441...`, base `134a293...`; stale. No mutation owner CYCLE145.
-- Duplicate-check de PRs abiertos no mostró un candidate verificable nuevo de recent-reauth que vuelva redundante BBB140.
+- PR #89 permanece OPEN/Ready/mergeable @ `daf87da6...`, recorded base `816f946c...`; stale vs live `aa445095...`. F0/0.9 workflow run `33454881387` permanece FAILURE en ese exact head. WOZ145 owns diagnosis + bounded refresh/revalidation/integration; current head is not merge-eligible.
+- PR #93 permanece OPEN/Ready/mergeable @ `b2c4eb441...`, base `134a293...`; stale. No mutation owner CYCLE146.
+- Duplicate-check de PRs abiertos no mostró un candidate verificable nuevo de recent-reauth que vuelva redundante BBB141.
 
 ## Serialización
 
-AAA141 owns only F2/12.1 runtime-proof/evidence READ-ONLY. BBB140 owns only recent-reauth product seam; su fallback F3/18.2 es READ-ONLY y solo existe durante espera externa real. WOZ144 owns only #89 mutation/integration. F2/13.2 Review is `BLOCKED_WRITE_SURFACE / UNASSIGNED`; #93 no tiene mutation owner y solo puede ser inspeccionado READ-ONLY bajo fallback explícito de WOZ144.
+AAA142 owns only F2/12.1 runtime-proof/evidence READ-ONLY. BBB141 owns only recent-reauth product seam; su fallback F3/18.2 es READ-ONLY y solo existe durante espera externa real. WOZ145 owns only #89 mutation/integration. F2/13.2 Review is `BLOCKED_WRITE_SURFACE / UNASSIGNED`; #93 no tiene mutation owner y solo puede ser inspeccionado READ-ONLY bajo fallback explícito de WOZ145.
 
-**Only integration mutation authorized CYCLE145: WOZ144 / PR #89, conditional on exact refreshed base/head, applicable required CI SUCCESS and race-free expected-head check. #93 no tiene autorización de merge.**
+**Only integration mutation authorized CYCLE146: WOZ145 / PR #89, conditional on exact refreshed base/head, applicable required CI SUCCESS and race-free expected-head check. #93 no tiene autorización de merge.**
 
 ## Holding / blocked items
 
@@ -38,7 +38,7 @@ AAA141 owns only F2/12.1 runtime-proof/evidence READ-ONLY. BBB140 owns only rece
 - F1/D10.2 map complete, result `ALPHA CANDIDATE NOT READY`; 1.7 se reemitirá con facts frescos tras resultados 12.1/#89/recent-reauth y luego 1.8 RO decision.
 - F2/12.1: #92/#94/#95/#96 integrated; exact public runtime proof remains open.
 - F2/13.2: factual gap, blocked on safe patch/worktree surface.
-- F2/15.1: blocked behind BBB140 recent-reauth seam.
+- F2/15.1: blocked behind BBB141 recent-reauth seam.
 - F3/18.2 provider/payment external; F3/19.2 legal implementation open; F3/20.2 runtime160 pending; alpha applicability remains explicit-decision territory.
 - F4/25.1: #93 needs future refresh/revalidation if in alpha; global 25.1 stays open.
 
