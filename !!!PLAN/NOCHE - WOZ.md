@@ -6,41 +6,42 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-109`
+- `ASSIGNMENT_ID: NIGHT-WOZ-110`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F0 / 0.9 — REUSE PR #89 security candidate, refresh + exact-head validation + conditional integration`
-- `LIVE_BASE_AT_ASSIGNMENT_REBASED: integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`
-- `PREDECESSOR: NIGHT-WOZ-108 no final result/handoff verified; SUPERSEDED / NOT_PASS.`
-- `NEW_FACT: PR #91 landed during JOBS CYCLE 110 as 134a293... after exact-head CI. #89 remains OPEN/Ready @ daf87da6... on stale base 816f946c... and must now reconcile #88/#90/#91.`
-- `SERIALIZATION: WOZ109 exclusively owns #89 review/refresh/integration. AAA106 owns F2/13.2 and NO MERGE. BBB105 owns #84 and NO MERGE. WOZ109 is the only integration mutation owner after the #91 concurrent merge.`
+- `AREA: F2 / 12.1 — REUSE PR #92 signed-out startup-loader corrective; exact-head validation + conditional integration`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`
+- `PREDECESSOR: NIGHT-WOZ-109 no dejó RESULTADO DEL TURNO/matching handoff verificable al CYCLE 111 preflight; SUPERSEDED / NOT_PASS. #89 remains OPEN/stale and unowned this cycle.`
+- `NEW_FACT: PR #92 OPEN/Ready/mergeable @ 9947380ce8095b718a400d1e7781d21e67b29be9 is directly based on live 134a293... and addresses observed deployed signed-out runtime: AccountGate rendered while static Loading Galer loader remained above it.`
+- `SERIALIZATION: WOZ110 exclusively owns #92 review/integration. AAA107 owns F2/13.2 and NO MERGE. BBB106 owns #84 and NO MERGE. #89 is parked/unassigned during CYCLE111.`
 
 ### PRIMARY
 
-**F0 / 0.9 — make #89 current and integrate only if exact/race-free.**
+**F2 / 12.1 — REUSE #92 and integrate only if the candidate is exact, bounded and green.**
 
-1. Fresh preflight integration HEAD (`134a293...` or newer), #89 base/head/mergeability/changed files, Issue #41 and ownership.
-2. REUSE #89; verify exact DNS-pinning/rebinding semantics and regression coverage.
-3. Reconcile audit/docs with #88 technical signing seam, #90 OAuth readiness software and #91 Web bootstrap corrective already integrated. Preserve: AI-assisted audit ≠ independent pentest; productive signing and actual OAuth rotation remain external.
-4. History-preserving refresh/rebase/union #89 onto the live integration head only if clean and scope-bounded. Conflict/unrelated scope drift => STOP.
-5. Run/recheck exact-head F0/0.9 security workflow + Required CI and all applicable checks.
-6. Immediately before merge recheck integration head, #89 head/base/mergeability and owner collision. If exact-base/head, all applicable CI SUCCESS and race-free, WOZ109 is authorized to merge **PR #89 only** with expected-head protection.
-7. Verify merge SHA + parents. Maximum claim = `F0/0.9 AI_ASSISTED_SECURITY_SLICE PASS/INTEGRATED + DNS_REBINDING_P1_FIXED`; no independent-pentest/F0-global/release claim.
-8. Write RESULTADO DEL TURNO here + Issue #41 and STOP.
+1. Fresh preflight integration HEAD, #92 base/head/mergeability/changed files, Issue #41 and ownership.
+2. Duplicate-check/reuse #92; verify the delta is limited to dismissing `#beatgaler-startup-loader` only when signed-out `.bg-account-gate` is actually rendered, and does not alter authenticated bootstrap/data-plane semantics.
+3. Verify the runtime finding is represented accurately: DOM contains AccountGate while `Loading Galer...` remains visible; do not claim authenticated startup fixed from signed-out evidence alone.
+4. Verify exact-head applicable CI for `9947380...`, including Web/shared and Required CI/portability gates actually required by repo policy. Skipped non-applicable jobs are not PASS claims.
+5. Immediately before integration, recheck integration HEAD, #92 head/base/mergeability, scope and owner collision.
+6. If base=head relation remains exact, all applicable required checks SUCCESS and race-free, WOZ110 is authorized to merge **PR #92 only** using expected-head protection.
+7. Verify resulting merge SHA + parents.
+8. Maximum claim: `F2/12.1 SIGNED_OUT_LOADER_CORRECTIVE_INTEGRATED`; **12.1 remains NOT_PASS** until the deployed resulting baseline is tested for applicable signed-out/authenticated startup and cold/warm behavior.
+9. Write RESULTADO DEL TURNO here + Issue #41 and STOP.
 
-**Required evidence:** live pre/post integration; old/new #89 base/head; changed files; refresh method; semantic proof; exact-head workflow names/conclusions; merge SHA/parents if merged; residual security/signing/OAuth external state.  
-**STOP:** conflict/scope drift, unrelated auth/Web/provider/deploy changes, external credentials/signing, failed required CI, base/head race, or any integration mutation other than expected-head #89.
+**Required evidence:** pre/post integration SHA; #92 exact base/head; changed files; semantic proof; exact check names/conclusions; merge SHA/parents if merged; runtime items still UNVERIFIED.  
+**STOP:** changed baseline requiring unsafe refresh, unrelated scope drift, failed required CI, ambiguous candidate semantics, owner collision, or any integration mutation other than expected-head #92.
 
 ### CI-FALLBACK
 
-**Trigger:** only if refreshed #89 reaches genuine `WAITING_CI`.
+**Trigger:** only while #92 is genuinely `WAITING_CI` / waiting equivalent external check.
 
 `CI-FALLBACK: READ-ONLY F1/1.7 blocker-classification prep.`
 
-- **Scope:** using current Plan/GitHub only, map remaining alpha blockers after #91 integration into `HARD_BLOCKER`, `CLOSE_OR_RO_EXCLUDE`, `EXTERNAL/RO_DECISION`; no code, branch, PR, provider or plan mutation.
-- **Evidence required:** exact blocker → current evidence → missing evidence/decision; no fabricated PASS.
-- **STOP:** no implementation, no owner reassignment, no F1 closure claim. Return to #89 as soon as CI resolves.
+- **Scope:** classify current alpha blockers from live Plan/GitHub as `HARD_BLOCKER`, `CLOSE_OR_RO_EXCLUDE`, or `EXTERNAL/RO_DECISION`; no implementation, branch, PR, provider or plan mutation.
+- **Evidence required:** blocker → current evidence → missing evidence/decision, with #92 status clearly separated.
+- **STOP:** no gate closure, no owner reassignment, no code/infra, no #89 mutation. Return to PRIMARY when #92 CI resolves.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-WOZ-108`: `NO_RESULT / SUPERSEDED / NOT_PASS` at JOBS CYCLE 110.
-- #90 readiness software and #91 Web bootstrap corrective are now integrated; #89 remains reusable/stale until WOZ109 refreshes it.
+- `NIGHT-WOZ-109`: `NO_RESULT / SUPERSEDED / NOT_PASS` at JOBS CYCLE 111.
+- #89 remains reusable but stale; CYCLE111 prioritizes the exact-base, already-existing #92 runtime corrective and grants no #89 integration authority.
