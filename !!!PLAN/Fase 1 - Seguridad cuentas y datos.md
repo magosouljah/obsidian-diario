@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE138:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.  
+**Baseline vivo CYCLE139:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.  
 **Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[x] MAP COMPLETE / ALPHA CANDIDATE NOT READY`.  
 **Release público:** 🔴 `NO-GO`.
 
@@ -16,22 +16,22 @@ Blockers de alpha interna 3–5 cuentas se consolidan en 1.7; autorización fina
 
 ### PROVEN / estado vivo
 
-- #92, #94 y #95 están integrados en F2/12.1; falta public runtime proof post-#95.
+- #92, #94 y #95 están integrados en F2/12.1. Después de CYCLE138 apareció PR #96 sobre la base viva `43fdf70e...`; su head avanzó durante el preflight CYCLE139 hasta `7e7bd5449361b2031c29271e8875de7683ed5af4`. No se observaron check-runs en ese exact head y no existe handoff matching; se trata como `ACTIVE_EXTERNAL_CANDIDATE`, no como PASS ni runtime proof.
 - Windows Auth #93 conserva exact-green evidence histórica en old baseline; su base `134a293...` stale contra `43fdf70e...` no cuenta como canonical integration evidence.
 - AAA114 revalidó F2/13.2 durable Review gap y paró correctamente por write surface; sigue abierto.
-- La decisión D8 de recent reauth existe, pero falta seam productiva consumible por Settings/Trash; owner BBB133.
+- La decisión D8 de recent reauth existe, pero falta seam productiva consumible por Settings/Trash; owner BBB134.
 
 ### HARD / ACTIVE BLOCKERS para alpha
 
-1. **F2/12.1 runtime post-#95:** deployment exacto + signed-out/authenticated worker/library + cold/warm evidence.
-2. **F0/0.9 security P1:** #89 stale-base + current F0 audit FAILURE; owner WOZ137 para diagnosis/refresh/revalidation/integration.
+1. **F2/12.1:** PR #96 debe estabilizarse/entregar handoff y exact-head CI antes de cualquier integración; después sigue siendo obligatorio public runtime proof del exact deployment resultante.
+2. **F0/0.9 security P1:** #89 stale-base + current F0 audit FAILURE; owner WOZ138 para diagnosis/refresh/revalidation/integration.
 3. **F2/13.2 durable Review:** `BLOCKED_WRITE_SURFACE / UNASSIGNED`; factual gap remains.
-4. **F1/D8 product seam → F2/15.1:** owner BBB133 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
+4. **F1/D8 product seam → F2/15.1:** owner BBB134 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
 5. **F4/25.1 Windows Auth canonicalization:** #93 requiere future refresh/revalidation si sigue IN_ALPHA; global 25.1 además conserva otros journeys.
 
-### 1.7 — `[ 🟡 ] OWNER AAA134 / READ-ONLY CLASSIFICATION`
+### 1.7 — `[ 🟡 ] OWNER AAA135 / READ-ONLY CLASSIFICATION`
 
-AAA134 debe clasificar cada blocker material como `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` con evidencia concreta. Debe cubrir explícitamente F3 18.2/19.2/20.2, F2/12.1, #89, Review, recent-reauth→Trash, #93/25.1 y release-only externals. Esta clasificación no toma decisiones RO, no excluye nada por sí sola y no promueve 1.8.
+AAA135 debe clasificar cada blocker material como `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` con evidencia concreta. Debe cubrir explícitamente F3 18.2/19.2/20.2, F2/12.1 incluyendo el nuevo estado de #96, #89, Review, recent-reauth→Trash, #93/25.1 y release-only externals. Esta clasificación no toma decisiones RO, no excluye nada por sí sola y no promueve 1.8.
 
 ### F3 — decisión explícita de aplicabilidad al alpha
 
@@ -46,7 +46,7 @@ Production signing/notarization, hardware matrix amplia, 12–20 testers, public
 ## Orden mínimo hacia 1.8
 
 1. completar 1.7 factual classification sin rebajar gates;
-2. obtener public runtime proof post-#95 o dejar blocker owner/runtime exacto;
+2. estabilizar/procesar #96 con exact-head evidence y obtener public runtime proof del deployment resultante;
 3. integrar/procesar #89 P1 con exact-head evidence;
 4. cerrar F2/13.2 o elevar una exclusión RO explícita sustentada;
 5. exponer seam recent-reauth y luego cerrar F2/15.1 o elevar exclusión RO explícita;
