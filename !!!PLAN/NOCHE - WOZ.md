@@ -11,7 +11,7 @@
 - `AREA: F0 / 0.9 — REUSE PR #89 DNS-rebinding SSRF P1; refresh/revalidate + conditional integration`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 08e5802d27ad81977b1c2f63ceb0fce398d41e42`
 - `PREDECESSOR: NIGHT-WOZ-115 fue emitido en Issue #41 por CYCLE116 sin matching result. PR #94 fue posteriormente integrado como 08e5802d... por owner/external action; no se atribuye a WOZ115.`
-- `LIVE_PR_FACT: #89 OPEN @ daf87da6ffd604ccac991311036919ae2de9bd7a, recorded base 816f946c...; stale/non-mergeable contra 08e5802d...; exact changed files = workflow + outbound DNS pinning/server/tests + 2 audit docs.`
+- `LIVE_PR_FACT: #89 OPEN @ daf87da6ffd604ccac991311036919ae2de9bd7a, recorded base 816f946c...; final race-check reports mergeable=true, but recorded base remains stale versus 08e5802d... and exact refresh/revalidation is mandatory; exact changed files = workflow + outbound DNS pinning/server/tests + 2 audit docs.`
 - `SERIALIZATION: WOZ116 exclusively owns #89 refresh/revalidation/integration. AAA113 owns Review; BBB112 owns recent-reauth product seam. #93 is parked/unassigned.`
 
 ### PRIMARY
