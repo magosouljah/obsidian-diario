@@ -2,7 +2,7 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE 107:** `[ 🟡 ]` residual/administrativo + security/release tails. El núcleo técnico necesario para avanzar terminó; 5.1 y 5.2 están `[x]`. 1.2 y 2.2 conservan tails reales, por lo que F0 no se marca `[x]` globalmente.  
+**Estado CYCLE 108:** `[ 🟡 ]` residual/administrativo + security/release tails. El núcleo técnico necesario para avanzar terminó; 5.1 y 5.2 están `[x]`. 1.2 y 2.2 conservan tails reales.  
 **Baseline vivo:** `integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`.  
 **Release:** 🔴 `NO-GO`.
 
@@ -27,38 +27,28 @@
 
 Decisiones fijas: v1 paid/commercial; Web + Windows NSIS + macOS DMG; MX/US/CA/EU/UK; eligibility **18+**. Apple Developer sigue deferred y no puede describirse macOS como public-signed/notarized sin evidencia.
 
-### Release/provenance governance — implementation slice integrated
+### Software ya integrado
 
-PR #86 `fix(release): close F0/0.4 provenance and stable/latest governance` fue integrado como `b85723e1b3016d24bdb943393e796ccdb744247d`, con candidate head `200474d061c63406774da8d21bd22460a8bd0312` sobre el baseline anterior `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+- PR #86 release/provenance governance integrado como `b85723e1b3016d24bdb943393e796ccdb744247d`.
+- PR #87 public security/status software slice integrado como `38517c8065063206fed530028e4e8d20208f3807`; exact parents `b85723e...` + `ba0d7b...` y applicable exact-head CI SUCCESS.
 
-La promoción sigue limitada a la **implementation slice** de release/provenance governance. No demuestra signing/notarization/tester/legal/security external evidence.
-
-### Public security/status — software slice integrated
-
-PR #87 `F0/0.6: publish security.txt and status surface` fue integrado factual por `NIGHT-WOZ-104`:
-- candidate head `ba0d7b689e587da42cc8105b22d0ed0c206bc064`;
-- base exacta `b85723e1b3016d24bdb943393e796ccdb744247d`;
-- merge `38517c8065063206fed530028e4e8d20208f3807`;
-- parents exactos `b85723e...` + `ba0d7b...`;
-- exact-head Required CI y workflows aplicables observados SUCCESS.
-
-**Promoción aceptada:** F0/0.6 + F3/19.1 **software implementation slice = PASS / INTEGRATED**. Status DNS, certificate SAN, production deployment, public runtime, support/legal/provider tails permanecen `UNVERIFIED/OPEN`.
+Estas promociones no prueban signing/notarization/tester/legal/security external evidence ni status DNS/public runtime.
 
 ### F0/0.9 — security audit + P1 DNS-rebinding
 
-PR #89 continúa OPEN/Ready al preflight CYCLE 107, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, pero su `base_sha` sigue `816f946c...` y por tanto está stale contra `38517c...`.
+PR #89 continúa OPEN/Ready al preflight CYCLE 108, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, base_sha `816f946c...` stale contra `38517c...`. Sus checks old-head, incluido Required CI, están verdes, pero esa evidencia no autoriza integración contra el baseline actual.
 
-El candidate declara audit AI-assisted, no independent pentest. P1 software observado: DNS-rebinding SSRF hardening; el P1 Authenticode queda separado en #88.
+El candidate declara audit AI-assisted, no independent pentest. P1 software observado: DNS-rebinding SSRF hardening; Authenticode queda separado en #88.
 
-**Owner CYCLE 107: `NIGHT-WOZ-106`.** REUSE #89; review + refresh history-preserving al baseline vivo + exact-head CI. Puede mergear únicamente #89 si queda exact-base/head, applicable CI green y race-free. No external-pentest claim.
+**Owner CYCLE 108: `NIGHT-WOZ-107`.** REUSE #89; review + refresh history-preserving al baseline vivo + fresh exact-head CI. Puede mergear únicamente #89 si queda exact-base/head, applicable CI green y race-free. No external-pentest claim.
 
 ### Authenticode / RFC3161 — external owner inputs
 
-PR #88 prepara un seam fail-closed, pero su propio contrato mantiene **PRODUCTION SIGNING = NO-GO** hasta que RO provea/autorice provider, certificado, publisher legal, custody, CI auth, selector/config, RFC3161 endpoint, renewal/outage/rotation y un controlled public build. No worker nocturno lo integra por inferencia.
+PR #88 ahora está sobre base exacta `38517c...`, pero su contrato mantiene **PRODUCTION SIGNING = NO-GO** y exige autorización/inputs RO: provider, certificado, publisher legal, custody, CI auth, selector/config, RFC3161 endpoint, renewal/outage/rotation y controlled public build. Exact base no elimina ese gate. No nocturnal merge authorization.
 
 ### OAuth secret rotation readiness
 
-PR #90 es readiness software/documental; rotar/desplegar/verificar/revocar la credencial sigue siendo acción owner externa. `NIGHT-WOZ-106` puede inspeccionarlo READ-ONLY solo si #89 espera CI.
+PR #90 es readiness software/documental; rotar/desplegar/verificar/revocar la credencial sigue siendo acción owner externa. `NIGHT-WOZ-107` puede inspeccionarlo READ-ONLY solo si #89 espera CI.
 
 ### Tails aún requeridos para 1.2 `[x]`
 - dominio/DNS/TLS/support/security-abuse/status con runtime/owners aplicables;
@@ -79,4 +69,4 @@ No repetir rewrite ni borrar evidencia para recrear proof.
 
 5.1 y 5.2 permanecen `[x]` con evidencia previamente aceptada. No repetir drills sin invalidación.
 
-**Regla de salida:** F0 no es `[x]` global mientras 1.2/2.2 sigan abiertos. Esto no retrocede F1–F4 ni autoriza release. `Plan Maestro.md` conserva el baseline vivo canónico.
+**Regla de salida:** F0 no es `[x]` global mientras 1.2/2.2 sigan abiertos. Esto no retrocede F1–F4 ni autoriza release.
