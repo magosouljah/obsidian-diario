@@ -2,45 +2,38 @@
 
 > GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE 115:** `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810` al preflight JOBS.
+**Integración estable CYCLE117:** `integration-v0.8.0-alpha.1 @ 08e5802d27ad81977b1c2f63ceb0fce398d41e42`.
 
 ## Estado actual
 
 - 21.1 / 21.2 `[x]`.
 - 24.1 / 24.2 `[x]`.
 - 25.1 `[ 🟡 ]`.
-- #79 / 25.2 readiness docs integrado históricamente; no demuestra tester execution, signing/notarization ni cierre global 25.2.
+- 25.2 readiness docs integrados históricamente; tester execution/signing/notarization/global closure siguen abiertos.
 
-## windows/auth — `[ 🟡 ] EXACT-GREEN CANDIDATE / GLOBAL 25.1 STILL OPEN`
+## windows/auth — `[ 🟡 ] OLD-BASE EXACT-GREEN EVIDENCE / REFRESH REQUIRED`
 
-- #71 conserva fail-before histórico.
-- #74 es la product-corrective lineage histórica; CYCLE115 no autoriza product mutation.
-- #84 queda como evidence lineage histórica stale @ `f53d46f...`; no usar su old-head failure como estado actual después de la evidencia #93.
-- BBB105 probó `HARNESS_ONLY_PROVEN`: el broad fetch interceptor consumía tráfico WDIO/Tauri service como `POST /plugin%3Awdio%7Cget_window_states`.
-- `NIGHT-BBB-107` reconstruyó successor limpio directamente sobre live baseline y abrió PR #93 `bbb/night-25.1-auth-live-rebuild @ b2c4eb441280343c4b9c39d57851c6d3da33abaa`, exact base `134a293...`.
-- #93 cambia únicamente tres archivos de harness/evidence: `.github/workflows/f4-25.1-windows-auth.yml`, `scripts/run-auth-e2e.mjs`, `tests/e2e/auth-flow.e2e.mjs`; no product files.
-- Corrección bounded: auth mock delega `/plugin%3Awdio%7C...` a native fetch; `/auth/health` y `/auth/login` siguen stubbed; assertions literales token persistence + AccountGate exit permanecen.
-- Exact-head Windows Auth run `33468863393` = **SUCCESS**.
-- Exact-head D6 `33468863373`, D7 `33468863387`, Desktop Portability `33468863399`, Windows Import `33468863402` y F0/0.20 secret scan `33468863418` = SUCCESS; Upgrade 21.2 Staging skipped/no aplicable.
+- BBB105 probó `HARNESS_ONLY_PROVEN`: broad fetch interceptor consumía WDIO/Tauri service plugin IPC.
+- PR #93 reconstruyó harness/evidence-only sobre base exacta histórica `134a293985c314eb09c238115e3bcb71e79f1810`, head `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, 3 files, sin product mutation.
+- Exact-head Windows Auth `33468863393` SUCCESS y los checks aplicables observados en ese head fueron verdes.
+- **GitHub vivo CYCLE117:** #93 sigue OPEN pero `mergeable=false`; recorded base `134a293...` quedó stale contra integration `08e5802d...` después de #92/#94.
 
-**Resultado preflight CYCLE115:** #93 sigue OPEN/Ready/mergeable, exact-base, exact-green y no integrado. Esto sustituye factual y operacionalmente el antiguo estado “Windows Auth literal rojo” para este candidate, pero **no cierra global 25.1**.
-
-**Owner CYCLE115: `NIGHT-WOZ-114`.** Puede revisar/mergear **#93 solamente** si base/head siguen exactos, checks aplicables siguen SUCCESS y no hay race. Maximum claim post-merge: `WINDOWS_PACKAGED_AUTH_LITERAL_PASS_EVIDENCE_INTEGRATED`; no cerrar 25.1 sin el resto de journeys.
+Por exact-head/evidence-before-claim, la evidencia histórica sigue útil para causalidad y diseño del harness, pero **no autoriza canonical integration** contra el baseline actual. #93 queda `PARKED / UNASSIGNED` CYCLE117 y requiere future history-preserving refresh/revalidation antes de cualquier merge. Global 25.1 continúa abierto.
 
 ## windows/review
 
-#72 sigue OPEN/stale/frozen. Durable Review product gap pertenece F2/13.2 y es owner AAA111; no mezclar con WOZ114.
+Durable Review product gap pertenece F2/13.2 y es owner AAA113; no mezclar con F4.
 
 ## Signing Windows / macOS
 
-PR #88 quedó MERGED como `1dbf60e58ca970c47d387b303e141e30e2b8eef5`, candidate `dcf3e138...`. Claim máximo: technical/preparatory Authenticode + RFC3161 seam integrado. Production signing continúa `NO-GO` hasta inputs/authorization RO y evidencia real; macOS signing/notarization/hardware siguen externos.
+#88 permanece integrado como technical/preparatory Authenticode + RFC3161 seam. Production signing continúa `NO-GO` hasta inputs/authorization RO y evidencia real; macOS signing/notarization/hardware siguen externos.
 
 ## 25.1 — `[ 🟡 ] IN PROGRESS`
 
-Integrated rows conocidas incluyen windows/import, windows/updater y macos/updater automated evidence. Windows Auth tiene candidate exact-green #93 pendiente de integration review. Otros journeys aún carecen de evidencia actual completa; iPhone external. Por eso 25.1 global permanece abierto.
+Windows Auth conserva candidate evidence histórica pero necesita refresh al live baseline. Otros journeys aún carecen de evidencia actual completa; iPhone external. No cerrar 25.1 por un solo journey.
 
 ## 25.2 — `[ 🟡 ] READINESS ARTIFACT INTEGRATED / GLOBAL OPEN`
 
-#79 docs-only readiness integrado. Gate real requiere beta/tester execution, 0 P0, ningún P1 core conocido y release-chain evidence aplicable. #89 conserva P1 software candidate y legal audit conserva P0/P1 release blockers; no existe base factual para cerrar 25.2.
+Gate real requiere beta/tester execution, 0 P0, ningún P1 core conocido y release-chain evidence aplicable. #89 todavía contiene el P1 SSRF corrective pendiente; legal audit conserva P0/P1 release blockers. No existe base factual para cerrar 25.2.
 
 **Principio:** exact-head evidence-before-claim; un journey verde no sustituye el resto de 25.1 ni signing/notarization/tester execution.
