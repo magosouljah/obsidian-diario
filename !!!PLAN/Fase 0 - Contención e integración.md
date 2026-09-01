@@ -12,6 +12,7 @@
 |---|---|---|
 | 0.1 Congelar evidencia | [x] | baseline + NO-GO registrados |
 | 0.2 Checkpoint interno | [x] | no equivale a release público |
+| 0.9 Security review | [ 🟡 ] | AI-assisted adversarial audit; external pentest deferred; RO accepts residual risk; PR #89/CI pendientes |
 | 1.1 Negocio | [x] | v1 comercial; mercados/distribución decididos |
 | 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + dominio/support/status + signing/reviews/testers |
 | 2.1 Contención inmediata | [x] | auth/ownership/límites |
@@ -22,6 +23,18 @@
 | 4.2 Supply chain | [x] | scans/SBOM/checksums/provenance base |
 | 5.1 Trust boundary / Direct | [x] | temporary auth + media directa |
 | 5.2 Datos/recovery/secrets | [x] | PostgreSQL + RPO/RTO + rotation + observability |
+
+## 0.9 — Security review
+
+**Descripción canónica:** `0.9 Security review — AI-assisted adversarial security audit; external pentest deferred; RO accepts residual risk.`
+
+Decisión RO:
+- la revisión de seguridad externa/independiente originalmente prevista queda sustituida en esta etapa por una auditoría adversarial **AI-assisted**;
+- el pentest/auditor externo queda **deferred**;
+- RO acepta explícitamente el riesgo residual de no contratar un pentest/auditor externo en esta etapa;
+- **no ocurrió ni debe registrarse una revisión externa**;
+- la evidencia técnica de la auditoría vive en BeatGaler PR #89 y su informe F0/0.9;
+- 0.9 solo pasa a `[x]` cuando no queden P0 abiertos, todo P1 tenga fix o aceptación explícita RO, el CI de seguridad relevante esté verde y los riesgos residuales estén documentados.
 
 ## 1.2 — `[ 🟡 ]` release dependencies
 
@@ -47,7 +60,7 @@ Nuevo candidate observado #87 `F0/0.6: publish security.txt and status surface` 
 - dominio/DNS/TLS/support/security-abuse/status con runtime/owners aplicables;
 - Windows Authenticode + RFC3161 plan/owner y evidencia cuando corresponda;
 - revisión legal independiente;
-- revisión de seguridad independiente;
+- **security review 0.9 según la decisión RO anterior; no exigir ni afirmar revisión de seguridad externa en esta etapa**;
 - matriz 12–20 testers + hardware/plataformas/DAWs/fechas.
 
 ## 2.2 — `[ 🟡 ]` historial Git
