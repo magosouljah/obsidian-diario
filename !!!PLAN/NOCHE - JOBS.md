@@ -67,15 +67,15 @@ Plan Maestro, F0, F1, F2, F3, F4, coordinación y NOCHE AAA/BBB/WOZ/JOBS quedaro
 
 ## ISSUE #41
 
-Handoff JOBS CYCLE144 publicado como comentario `5499727216`.
+Handoff JOBS CYCLE144 publicado como comentario `5499727216`. Tras ese handoff, Issue #41 pasó a 402 comentarios; no apareció un handoff worker adicional antes del cierre.
 
 ## RACE-CHECK FINAL
 
-Pendiente del último readback de la rama integrada al cierre de este archivo; si GitHub hubiera avanzado, el branch vivo prevalece sobre este snapshot y debe procesarse en el siguiente ciclo.
+Readback final de GitHub después de publicar el handoff y sincronizar `!!!PLAN`: `integration-v0.8.0-alpha.1` continúa exactamente en `aa4450956579de381e82acf06c660b658c703cd1`. No hubo carrera ni merge material durante el cierre del ciclo.
 
 ```text
 CYCLE_ID: NIGHT-JOBS-144
-INTEGRATION_HEAD_PREFLIGHT: aa4450956579de381e82acf06c660b658c703cd1
+INTEGRATION_HEAD_FINAL: aa4450956579de381e82acf06c660b658c703cd1
 AAA_NEW: NIGHT-AAA-140
 BBB_NEW: NIGHT-BBB-139
 WOZ_NEW: NIGHT-WOZ-143
@@ -88,4 +88,4 @@ RELEASE: NO-GO
 F5: CLOSED
 ```
 
-**STOP:** ciclo JOBS 144 termina aquí tras race-check final factual.
+**STOP:** ciclo JOBS 144 termina aquí.
