@@ -6,21 +6,21 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-101`
+- `ASSIGNMENT_ID: NIGHT-AAA-102`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 12.1 — public Web bootstrap runtime blocker (Loading Galer)`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ b85723e1b3016d24bdb943393e796ccdb744247d`
-- `PREDECESSOR: NIGHT-AAA-100 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff al preflight JOBS CYCLE 105; SUPERSEDED / NOT_PASS.`
-- `WHY_ASSIGNED: el startup público sigue siendo el blocker funcional más directo para tester/browser use; el merge #86 no toca esta ownership.`
-- `SERIALIZATION: AAA101 owns only F2/12.1 Web bootstrap/runtime. BBB100 owns #84 auth evidence/harness. WOZ104 owns #87 review/integration. Do not touch #74/#84/#87/#83/#76/#85, integration, deploy/provider infra or shared auth/session internals.`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`
+- `PREDECESSOR: NIGHT-AAA-101 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff al preflight JOBS CYCLE 106; SUPERSEDED / NOT_PASS.`
+- `WHY_ASSIGNED: sigue siendo el blocker funcional más directo para uso tester/browser; los merges #86/#87 no demostraron resolver el startup normal.`
+- `SERIALIZATION: AAA102 owns only F2/12.1 Web bootstrap/runtime. BBB101 owns #84 auth evidence/harness. WOZ105 owns #89 security candidate. Do not touch #74/#84/#89/#90/#88/#83/#76/#85, integration, deploy/provider infra or shared auth/session internals.`
 
 ### PRIMARY
 
 **F2 / 12.1 — reproducir y corregir mínimamente el stall público `Loading Galer`.**
 
-1. Fresh preflight del nuevo baseline `b85723e...`, Issue #41, public symptom y open PRs; duplicate-check antes de mutar.
+1. Fresh preflight del baseline `38517c...`, Issue #41, public symptom y open PRs; duplicate-check antes de mutar.
 2. Reproducir el stall en Web y aislar el primer bootstrap phase que no resuelve.
-3. Preservar como PROVEN DNS/TLS/deploy público; no reabrir infraestructura.
+3. Preservar como PROVEN DNS/TLS/deploy público; no reabrir infraestructura por este síntoma.
 4. Aplicar solo el corrective Web mínimo que haga que startup termine determinísticamente en estado válido o error recuperable explícito.
 5. No debilitar auth/cloud failure semantics, no timeout cosmético, no Tauri/Desktop dependency.
 6. Focused tests para causa + success/failure termination + Web/no-Tauri touched paths.
@@ -37,6 +37,6 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-100`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 105; no final result/handoff observado.
+- `NIGHT-AAA-101`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 106; no final result/handoff observado.
 - Issue #41 `5485984669`: public infra works; normal Web startup stalls at `Loading Galer`.
-- Baseline avanzó por merge #86 a `b85723e...`; revalidar desde ese head antes de cualquier candidate.
+- Baseline avanzó por #86 y #87 hasta `38517c...`; revalidar desde ese head antes de cualquier candidate.
