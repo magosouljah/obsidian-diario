@@ -78,11 +78,11 @@ Handoff JOBS CYCLE149 publicado como comentario `5501376377` con baseline, resul
 
 ## RACE-CHECK FINAL
 
-Pendiente de readback final posterior a las escrituras; CYCLE149 solo puede cerrarse si integration sigue en `aa445095...` y no apareció un worker handoff/merge material concurrente.
+Readback posterior a las escrituras: `integration-v0.8.0-alpha.1` continúa exactamente en `aa4450956579de381e82acf06c660b658c703cd1`; #96 sigue siendo el último merge material. El Issue #41 readback contiene el handoff CYCLE149 `5501376377` y no mostró un worker handoff posterior en la captura final. No apareció merge material durante el cierre. CYCLE149 queda race-free bajo la evidencia disponible.
 
 ```text
 CYCLE_ID: NIGHT-JOBS-149
-INTEGRATION_HEAD_EXPECTED: aa4450956579de381e82acf06c660b658c703cd1
+INTEGRATION_HEAD_FINAL: aa4450956579de381e82acf06c660b658c703cd1
 AAA_NEW: NIGHT-AAA-145
 BBB_NEW: NIGHT-BBB-144
 WOZ_NEW: NIGHT-WOZ-148
@@ -93,3 +93,5 @@ ISSUE41_HANDOFF: 5501376377
 RELEASE: NO-GO
 F5: CLOSED
 ```
+
+**STOP:** ciclo JOBS 149 termina aquí.
