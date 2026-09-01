@@ -6,37 +6,42 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-105`
+- `ASSIGNMENT_ID: NIGHT-AAA-106`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F2 / 12.1 — public Web bootstrap runtime blocker (Loading Galer)`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 1dbf60e58ca970c47d387b303e141e30e2b8eef5`
-- `PREDECESSOR: NIGHT-AAA-104 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff verificable al preflight JOBS CYCLE 109; SUPERSEDED / NOT_PASS.`
-- `WHY_ASSIGNED: camino crítico recalculado desde cero: normal Web startup sigue sin evidencia de terminación válida y bloquea browser/tester evidence y D10.2.`
-- `SERIALIZATION: AAA105 owns only F2/12.1 Web bootstrap/runtime. BBB104 owns #84 auth evidence/harness. WOZ108 owns #89 security candidate. No tocar #74/#84/#89/#90/#83/#76/#85, integration, deploy/provider infra o shared auth/session internals.`
+- `AREA: F2 / 12.1 — REUSE PR #91, exact-head validation + conditional integration`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 78dd55b72142e69ea32ba6c1ba6d43e246ac6843`
+- `PREDECESSOR: NIGHT-AAA-105 = CODE_FIX_PROVEN / NO_MERGE / PUBLIC_RUNTIME_PENDING; matching Issue #41 handoff verified. Candidate PR #91 @ 35d44a0dd5ee380f802b3a80b139ca1ca741d5f9.`
+- `WHY_ASSIGNED: F2/12.1 remains the first hard blocker for alpha readiness. #91 is the existing bounded corrective and is exact-base against the live integration head at JOBS CYCLE 110 preflight.`
+- `SERIALIZATION: AAA106 owns PR #91 and is the only integration mutation owner in CYCLE 110. BBB105 owns #84 evidence/harness. WOZ109 owns #89 review/refresh only. Do not touch #84/#89/#76/#83/#85/provider/deploy/shared auth internals.`
 
 ### PRIMARY
 
-**F2 / 12.1 — reproducir y corregir mínimamente el stall público `Loading Galer`.**
+**F2 / 12.1 — finish REUSE-first validation of #91 and integrate only if exact/race-free.**
 
-1. Fresh preflight del baseline `1dbf60e...`, Issue #41, síntoma público y open PRs; duplicate-check antes de mutar.
-2. Reproducir el stall y aislar el primer bootstrap phase que no resuelve.
-3. Preservar como PROVEN DNS/TLS/deploy/security-status ya evidenciado; no reabrir infraestructura por este síntoma.
-4. Aplicar solo corrective Web mínimo para terminar determinísticamente en estado válido o error recuperable explícito.
-5. No debilitar auth/cloud-failure semantics, no timeout cosmético y cero Tauri/Desktop dependency.
-6. Focused tests para causa + success/failure termination + Web/no-Tauri touched paths.
-7. Un solo candidate/PR bounded si duplicate-check sigue limpio; exact base/head + fresh exact-head CI. **NO MERGE.**
-8. Maximum claim: `F2/12.1 PUBLIC_WEB_BOOTSTRAP_CANDIDATE_READY`; cold/warm timing real queda separado.
-9. Escribir RESULTADO DEL TURNO aquí + Issue #41 y STOP.
+1. Fresh preflight integration HEAD, PR #91 base/head/mergeability, changed files and Issue #41; duplicate-check.
+2. Preserve the bounded semantics already proven by AAA105: 30 s deadline only for bootstrap-critical Worker requests `initialize`, `verify`, `get_index`; no generic loader timeout; long transfers unaffected; Web/no-Tauri invariant preserved.
+3. Recheck all applicable exact-head workflows for `35d44a0d...`. At assignment time Web Production Build, D6, D7, temp-auth compile and F0/0.20 scan were successful; `Test - Desktop Portability` was still in progress. Do not infer final green until every applicable required check is complete.
+4. If integration HEAD changed before merge, STOP and history-preserving refresh/re-run exact-head applicable CI; no stale-green merge.
+5. If #91 remains exact-base, scope-bounded, mergeable and all applicable exact-head CI is SUCCESS, AAA106 is authorized to merge **PR #91 only** with expected-head/race protection and verify merge SHA + parents.
+6. Maximum claim after merge: `F2/12.1 CODE_FIX_INTEGRATED / PUBLIC_RUNTIME_PENDING`. Do **not** mark 12.1 PASS until authenticated public Web on the deployed artifact containing the fix proves deterministic exit from `Loading Galer` or existing recoverable fallback, plus cold/warm timing evidence as applicable.
+7. Record RESULTADO DEL TURNO here + Issue #41 and STOP.
 
-**Required evidence:** reproducción; primer phase irresuelto; archivos/funciones exactos; before/after termination; tests; Web/no-Tauri proof; base/head; PR/CI exact-head; UNVERIFIED explícito.  
-**STOP:** shared auth/session product mutation, backend/provider/infra/deploy, secrets, architecture redesign, owner/candidate collision, baseline race o integration mutation.
+**Required evidence:** live integration before/after; #91 exact base/head; changed files; applicable workflow names/conclusions; merge SHA/parents if merged; public runtime explicitly UNVERIFIED unless actually observed.  
+**STOP:** failed/pending required CI at turn close, base/head race, scope drift, shared auth/backend/provider/deploy mutation, duplicate candidate, or any integration mutation other than #91.
 
 ### CI-FALLBACK
 
-`CI-FALLBACK: NONE`.
+**Trigger:** only while PRIMARY is genuinely `WAITING_CI` on unchanged exact head `35d44a0d...`.
+
+`CI-FALLBACK: READ-ONLY F2/13.2 durable Review closure map.`
+
+- **Scope:** inspect current integrated Review Save/Save All paths and existing #72/evidence only to identify the minimum durable-completion/no-silent-loss acceptance seam. No branch, PR, code or integration mutation.
+- **Evidence required:** exact files/functions involved; existing reusable tests/candidates; smallest closure criterion; Web/no-Tauri boundary; explicit conflicts/owners.
+- **STOP:** no implementation, no #72 refresh, no auth/session/backend mutation, no claim of PASS. As soon as #91 CI resolves, return to PRIMARY before closing.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-104`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 109; no final result/handoff verificable observado al preflight.
-- Última evidencia reusable: public infra funciona; normal Web startup fue observado en `Loading Galer`.
-- Baseline vivo avanzó por merge #88 a `1dbf60e...`; revalidar desde ese head antes de cualquier candidate.
+- `NIGHT-AAA-105`: `CODE_FIX_PROVEN / NO_MERGE / PUBLIC_RUNTIME_PENDING`.
+- Root cause: `WebTransportWorkerClient.request()` could remain pending forever when the data-plane Worker neither replied nor crashed during bootstrap-critical operations.
+- Candidate: PR #91 `aaa/12.1-web-bootstrap-deadline` @ `35d44a0dd5ee380f802b3a80b139ca1ca741d5f9`, base `78dd55b72142e69ea32ba6c1ba6d43e246ac6843`.
+- Public runtime remains pending; no PASS claim yet.
