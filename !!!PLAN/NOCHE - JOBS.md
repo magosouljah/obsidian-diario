@@ -7,11 +7,11 @@
 
 ## BASELINE VIVO
 
-- Final preflight: `integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`.
+- Final preflight/race-check: `integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`.
 - #86 release/provenance software slice ya integrado como `b85723e1b3016d24bdb943393e796ccdb744247d`.
 - #87 public security/status software slice integrado por WOZ104 como `38517c8065063206fed530028e4e8d20208f3807`; parents exactos `b85723e...` + `ba0d7b...`.
-- #84: OPEN/Ready pero stale/no-mergeable contra live baseline; head `f53d46f39ece94f6de74f2f21a508ce01497ac41`; Windows Auth `33449587244` / job `99676242317` = FAILURE.
-- #89: OPEN/Ready, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, stale base; candidate F0/0.9 AI-assisted audit + DNS-rebinding SSRF hardening.
+- #84: OPEN/Ready @ `f53d46f39ece94f6de74f2f21a508ce01497ac41`, stale contra live baseline; Windows Auth `33449587244` / job `99676242317` = FAILURE.
+- #89: OPEN/Ready/mergeable, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, stale base `816f946c...`; candidate F0/0.9 AI-assisted audit + DNS-rebinding SSRF hardening.
 - #88 Authenticode/RFC3161: production NO-GO hasta inputs/authorization RO.
 - #90 OAuth secret-rotation readiness: software/readiness only; real rotation owner/deployment external.
 - #85 external/owner-owned; #76/#83 remain parked/stale/tooling constrained.
@@ -26,7 +26,7 @@ Leídos/reconciliados: Plan Maestro; F0–F4; Equipo; protocolo; JOBS/AAA/BBB/WO
 - `NIGHT-BBB-100`: no RESULTADO DEL TURNO ni matching handoff => `NO_RESULT / SUPERSEDED / NOT_PASS`. Último resultado factual de esa línea: BBB099 `BLOCKED_STOP / AMBIGUOUS`, Issue #41 `5486566941`.
 - `NIGHT-WOZ-104`: `DONE / INTEGRATED`; Issue #41 `5486854786`. #87 merge confirmado con expected-head y parents exactos. Promotion limitada a F0/0.6 + F3/19.1 software implementation slice; DNS/SAN/deploy/public runtime siguen UNVERIFIED.
 - Duplicate-check: AAA102 startup; BBB101 #84; WOZ105 #89. #85 external-owned. #88 y #90 no se mezclan con PRIMARYs.
-- Carrera documental detectada: archivos de CYCLE 106 aparecieron mientras JOBS trabajaba. Se adoptaron las escrituras más nuevas y se evitó overwrite; un intento F0 recibió 409 y fue abandonado correctamente.
+- Carrera documental detectada durante CYCLE 106: otra escritura del mismo ciclo apareció concurrentemente con baseline/assignments equivalentes. Se preservó el contenido más nuevo y no se creó CYCLE 107 ni assignments duplicados.
 - JOBS no modificó código BeatGaler ni infraestructura.
 
 ## CAMINO CRÍTICO GLOBAL — RECALCULADO CYCLE 106
@@ -61,15 +61,18 @@ Leídos/reconciliados: Plan Maestro; F0–F4; Equipo; protocolo; JOBS/AAA/BBB/WO
 - **F4:** Windows Auth literal remains red and owned BBB101; signing/notarization/hardware/tester execution remain external/open.
 - **F5:** CLOSED / NO ABRIR.
 
-## PLAN SYNC / NEXT
+## PLAN SYNC / ISSUE #41 / NEXT
 
-Plan Maestro and worker ledgers reflect CYCLE 106. Concurrent plan writes were preserved rather than overwritten. JOBS ledger is now synchronized to live baseline `38517c...`. `Plan Maestro 2208 copy DONT TOUCH .md` untouched.
+Plan Maestro, F0, F1, F2, F3, F4, roles y worker ledgers reflejan CYCLE 106 y baseline `38517c...`. `Registro de avances.md` fue leído completo pero no reescrito: permanece como ledger histórico compacto; el estado autoritativo actual queda en Plan Maestro/fases/NOCHE + Issue #41. `Plan Maestro 2208 copy DONT TOUCH .md` untouched.
+
+Issue #41 handoff de cierre CYCLE 106: `5486981771`.
 
 Next cycle: process AAA102 only from reproducible startup evidence; BBB101 only from bounded causal attribution/literal packaged evidence; WOZ105 only from exact #89 refresh/CI/integration evidence and #90 READ-ONLY fallback while genuinely waiting CI. If #89 merges, recalculate all candidates against the new integration head before any later integration. F5 stays closed.
 
 ```text
 CYCLE_ID: NIGHT-JOBS-106
 INTEGRATION_HEAD_FINAL_PREFLIGHT: 38517c8065063206fed530028e4e8d20208f3807
+LATEST_MATERIAL_MERGE: PR87 -> 38517c8065063206fed530028e4e8d20208f3807
 AAA_RESULT_PROCESSED: NIGHT-AAA-101 NO_RESULT / SUPERSEDED / NOT_PASS
 BBB_RESULT_PROCESSED: NIGHT-BBB-100 NO_RESULT / SUPERSEDED / NOT_PASS
 WOZ_RESULT_PROCESSED: NIGHT-WOZ-104 DONE / INTEGRATED
@@ -77,7 +80,11 @@ AAA_NEW: NIGHT-AAA-102
 BBB_NEW: NIGHT-BBB-101
 WOZ_NEW: NIGHT-WOZ-105
 CI_FALLBACKS: NONE / NONE / WOZ105 READ_ONLY_PR90_WHEN_WAITING_CI
+PR89: OPEN READY MERGEABLE STALE_BASE @ daf87da6ffd604ccac991311036919ae2de9bd7a / REFRESH_REQUIRED
+PR88: PRODUCTION_SIGNING_NO_GO / RO_INPUTS_REQUIRED
+PR90: READINESS_ONLY / OWNER_ROTATION_EXTERNAL
 INTEGRATION_MUTATION_AUTHORIZED: WOZ105 PR89 ONLY IF REFRESHED_EXACT_GREEN_RACE_FREE
+ISSUE41_HANDOFF: 5486981771
 DUPLICATE_WORK: prevented
 DOCUMENT_RACE: detected_and_preserved
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
