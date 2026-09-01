@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE142:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.  
+**Baseline vivo CYCLE143:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.  
 **Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[x] MAP COMPLETE / ALPHA CANDIDATE NOT READY`.  
 **Release público:** 🔴 `NO-GO`.
 
@@ -19,19 +19,19 @@ Blockers de alpha interna 3–5 cuentas se consolidan en 1.7; autorización fina
 - #92, #94, #95 y #96 están integrados en F2/12.1. PR #96 final head `6247173ead703f831801fa103ca465fea04e5793`, base `43fdf70e...`, merge `aa445095...`; Required CI exact-head SUCCESS. Esto es software evidence, no public runtime proof.
 - Windows Auth #93 conserva exact-green evidence histórica en old baseline; su base `134a293...` stale contra `aa445095...` no cuenta como canonical integration evidence.
 - AAA114 revalidó F2/13.2 durable Review gap y paró correctamente por write surface; sigue abierto.
-- La decisión D8 de recent reauth existe, pero falta seam productiva consumible por Settings/Trash; owner BBB137.
+- La decisión D8 de recent reauth existe, pero falta seam productiva consumible por Settings/Trash; owner BBB138.
 
 ### HARD / ACTIVE BLOCKERS para alpha
 
-1. **F2/12.1:** software lineage integrada; public runtime proof exacto post-`aa445095...` sigue pendiente. Owner AAA138 READ-ONLY para evidencia/clasificación.
-2. **F0/0.9 security P1:** #89 stale-base + current F0 audit FAILURE; owner WOZ141 para diagnosis/refresh/revalidation/integration.
+1. **F2/12.1:** software lineage integrada; public runtime proof exacto post-`aa445095...` sigue pendiente. Owner AAA139 READ-ONLY para evidencia/clasificación.
+2. **F0/0.9 security P1:** #89 stale-base + current F0 audit FAILURE; owner WOZ142 para diagnosis/refresh/revalidation/integration.
 3. **F2/13.2 durable Review:** `BLOCKED_WRITE_SURFACE / UNASSIGNED`; factual gap remains.
-4. **F1/D8 product seam → F2/15.1:** owner BBB137 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
+4. **F1/D8 product seam → F2/15.1:** owner BBB138 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
 5. **F4/25.1 Windows Auth canonicalization:** #93 requiere future refresh/revalidation si sigue IN_ALPHA; global 25.1 además conserva otros journeys.
 
 ### 1.7 — `[ 🟡 ] REQUEUE AFTER FRESH FACTS`
 
-`NIGHT-AAA-137`, `NIGHT-BBB-136` y `NIGHT-WOZ-140` no produjeron RESULTADO DEL TURNO verificable. JOBS CYCLE142 recalculó desde cero y mantiene primero los tres reducers factuales/productivos de mayor impacto: 12.1 runtime, #89 y recent-reauth. Después se reemitirá 1.7 para clasificación `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` antes de 1.8.
+`NIGHT-AAA-138`, `NIGHT-BBB-137` y `NIGHT-WOZ-141` no produjeron RESULTADO DEL TURNO verificable. JOBS CYCLE143 recalculó desde cero y mantiene primero los tres reducers factuales/productivos de mayor impacto: 12.1 runtime, #89 y recent-reauth. Después se reemitirá 1.7 para clasificación `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` antes de 1.8.
 
 ### F3 — decisión explícita de aplicabilidad al alpha
 
