@@ -2,7 +2,7 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE127:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales. 0.20 OAuth secret rotation está `[x]`.  
+**Estado CYCLE128:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales. 0.20 OAuth secret rotation está `[x]`.  
 **Baseline vivo:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.  
 **Release:** 🔴 `NO-GO`.
 
@@ -43,11 +43,11 @@ Owner runtime evidence previo mantiene security.txt/status HTTPS/SAN/contactos p
 
 ### F0/0.9 — `[ 🟡 ]` AI-assisted security slice / DNS rebinding
 
-PR #89 sigue OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`. GitHub CYCLE127 mantiene `mergeable=true`, pero integración vive en `43fdf70e...`; la base sigue materialmente stale.
+PR #89 sigue OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`. GitHub CYCLE128 mantiene `mergeable=true`, pero integración vive en `43fdf70e...`; la base sigue materialmente stale.
 
 **Gate vivo:** F0/0.9 workflow run `33454881387` = **FAILURE**. Los pasos de DNS pinning/DNS-rebinding, security boundary JS/cloud y dependency audit pasaron; `Rust unit contracts` falló porque `tauri::generate_context!()` encontró `frontendDist` configurado como `../dist` y esa ruta no existía. Por tanto, el head actual NO está verde y cualquier old-head-green claim queda invalidado para integración.
 
-**Owner CYCLE127: `NIGHT-WOZ-126`.** Debe diagnosticar el failure sin rebajarlo, duplicate-check, refresh/reconcile bounded sobre live baseline, correr exact-head security + applicable CI y solo entonces puede expected-head mergear #89 si exact/green/race-free. Maximum claim = DNS-rebinding SSRF P1 corrective integrado; AI-assisted audit ≠ independent pentest.
+**Owner CYCLE128: `NIGHT-WOZ-127`.** Debe diagnosticar el failure sin rebajarlo, duplicate-check, refresh/reconcile bounded sobre live baseline, correr exact-head security + applicable CI y solo entonces puede expected-head mergear #89 si exact/green/race-free. Maximum claim = DNS-rebinding SSRF P1 corrective integrado; AI-assisted audit ≠ independent pentest.
 
 ### F0/0.20 — `[x]` OAuth secret rotation
 
