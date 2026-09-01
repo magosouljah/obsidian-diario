@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE117:** `integration-v0.8.0-alpha.1 @ 08e5802d27ad81977b1c2f63ceb0fce398d41e42`.
+**Integración estable CYCLE118:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
 
 ## Estado actual
 
@@ -16,13 +16,13 @@
 - BBB105 probó `HARNESS_ONLY_PROVEN`: broad fetch interceptor consumía WDIO/Tauri service plugin IPC.
 - PR #93 reconstruyó harness/evidence-only sobre base exacta histórica `134a293985c314eb09c238115e3bcb71e79f1810`, head `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, 3 files, sin product mutation.
 - Exact-head Windows Auth `33468863393` SUCCESS y los checks aplicables observados en ese head fueron verdes.
-- **GitHub vivo CYCLE117:** #93 sigue OPEN pero `mergeable=false`; recorded base `134a293...` quedó stale contra integration `08e5802d...` después de #92/#94.
+- **GitHub vivo CYCLE118:** #93 sigue OPEN/Ready pero `mergeable=false`; recorded base `134a293...` quedó stale contra integration `43fdf70e...` después de #92/#94/#95.
 
-Por exact-head/evidence-before-claim, la evidencia histórica sigue útil para causalidad y diseño del harness, pero **no autoriza canonical integration** contra el baseline actual. #93 queda `PARKED / UNASSIGNED` CYCLE117 y requiere future history-preserving refresh/revalidation antes de cualquier merge. Global 25.1 continúa abierto.
+Por exact-head/evidence-before-claim, la evidencia histórica sigue útil para causalidad y diseño del harness, pero **no autoriza canonical integration** contra el baseline actual. #93 queda `PARKED / UNASSIGNED` CYCLE118. Solo el CI-FALLBACK READ-ONLY de WOZ117 puede clasificar su blocker mientras #89 esté genuinamente esperando CI; no puede refrescar ni mutar #93.
 
 ## windows/review
 
-Durable Review product gap pertenece F2/13.2 y es owner AAA113; no mezclar con F4.
+Durable Review product gap pertenece F2/13.2 y es owner AAA114; no mezclar con F4.
 
 ## Signing Windows / macOS
 
