@@ -52,7 +52,7 @@ STOP: cualquier mutation/rerun/review/merge/new PR/gate promotion/owner overlap/
 
 ## PLAN SYNC
 
-Plan Maestro, F2, coordinación y NOCHE AAA/BBB/WOZ/JOBS sincronizados a CYCLE140. Registro de avances debe registrar el merge material #96; F0/F1/F3/F4 conservan gates previos y su baseline textual puede quedar detrás hasta el siguiente sync si no se actualiza en esta misma transacción; GitHub live prevalece. `Plan Maestro 2208 copy DONT TOUCH .md` untouched. JOBS no modificó código BeatGaler ni infraestructura.
+Plan Maestro, F0, F1, F2, F3, F4, coordinación y NOCHE AAA/BBB/WOZ/JOBS quedaron sincronizados a CYCLE140. `Registro de avances.md` fue leído completo; sigue siendo un ledger histórico ya atrasado respecto de varios ciclos y no se hizo un whole-file rewrite destructivo solo para agregar #96. El merge material #96 queda registrado de forma verificable en Plan Maestro/F2/NOCHE JOBS e Issue #41 handoff `5498220192`; una futura compactación segura del ledger puede reconciliar el histórico sin perder entradas. `Plan Maestro 2208 copy DONT TOUCH .md` untouched. JOBS no modificó código BeatGaler ni infraestructura.
 
 ```text
 CYCLE_ID: NIGHT-JOBS-140
@@ -64,6 +64,7 @@ PR96: MERGED / HEAD 6247173ead703f831801fa103ca465fea04e5793 / MERGE aa445095657
 PR89_F0_AUDIT: 33454881387 FAILURE
 F2_12.1: NOT_PASS / PUBLIC_RUNTIME_OPEN
 F2_13.2: BLOCKED_WRITE_SURFACE / UNASSIGNED
+ISSUE41_HANDOFF: 5498220192
 RELEASE: NO-GO
 F5: CLOSED
 ```
