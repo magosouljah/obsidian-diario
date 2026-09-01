@@ -12,7 +12,7 @@
 - [ ] Cero vulnerabilidad critical/high conocida en producción o build/release; excepciones solo con owner, compensación y expiración aprobada.
 - [ ] Artefactos no se sobrescriben y la procedencia es verificable.
 
-**Nota de gobernanza GitHub:** BeatGaler tiene un solo maintainer. El ruleset de integración usa `Required approvals = 0` para no crear un bloqueo imposible de auto-review, pero mantiene PR + CI/checks. Esto no elimina revisiones independientes donde security/legal/firma/release las exigen como gate.
+**Nota de gobernanza GitHub:** BeatGaler tiene un solo maintainer. El ruleset de integración usa `Required approvals = 0` para no crear un bloqueo imposible de auto-review, pero mantiene PR + CI/checks. Esto no elimina revisiones independientes donde security/firma/release las exigen como gate. **Legal se rige por la excepción RO-approved documentada en el RACI: el review F0/0.8 puede cerrarse mediante auditoría AI-assisted y aceptación explícita de riesgo, sin afirmar independent counsel review.**
 
 ### Seguridad
 
@@ -81,6 +81,8 @@
 - [ ] LICENSE/EULA/notices/codec y subprocesadores revisados.
 - [ ] Soporte, seguridad/abuso, recovery y finanzas tienen escalación y cobertura.
 
+**Estado del review F0/0.8:** `[x]` **AI-assisted review completed 2026-08-31; independent counsel deferred by explicit RO decision; residual legal risk accepted by RO.** Este `[x]` solo cierra la actividad de review. **No marca los checks legales anteriores como completados, no certifica compliance y no cierra los 12 P0/14 P1.** El backlog canónico está en [`Legal launch review - AI-assisted 2026-08-31.md`](./Legal%20launch%20review%20-%20AI-assisted%202026-08-31.md).
+
 ## Regla de publicación
 
 > **NO PUBLICAR** mientras exista un P0 o P1; un owner confirmation launch-critical sin evidencia; un pago no reconciliado; una migración/restore/rollback no demostrado; o una plataforma/navegador anunciado sin prueba.
@@ -142,7 +144,11 @@ Los siguientes valores son **targets propuestos** para aprobar por RO/owners; no
 | Soporte/status | Support/LF | Support owner | OP, QA, Finance | RO |
 | Lanzamiento/rollback | OP, DE | RO | Todos los approvers | Usuarios |
 
-Si una sola persona cubre `R` y `A`, se requiere un reviewer externo para security, legal y firma/release; la fecha usa la ruta conservadora.
+Si una sola persona cubre `R` y `A`, se requiere un reviewer externo para security y firma/release; la fecha usa la ruta conservadora. Para legal, aplica exclusivamente la excepción RO-approved siguiente; cerrar el review por esta excepción no cierra findings de compliance.
+
+**LEGAL EXCEPTION — RO-APPROVED:** For the initial launch gate, independent external legal review may be deferred by explicit RO decision when an AI-assisted legal audit, legal-risk register, jurisdiction-specific findings and explicit residual-risk acceptance are recorded. This does not represent or certify independent counsel review.
+
+Para F0/0.8, RO ejerció explícitamente esta excepción respecto de la auditoría AI-assisted del **2026-08-31**. Los findings sustantivos continúan sujetos a la regla `NO PUBLICAR` y a los gates de implementación aplicables.
 
 ## Registro de riesgos
 
@@ -156,8 +162,8 @@ Si una sola persona cubre `R` y `A`, se requiere un reviewer externo para securi
 | Bot/master se satura o shared-bot aparece con demasiada frecuencia | Media | Crítico | bots libres=0, shared leases/queue/error suben | sobredimensionar pool, exclusividad preferida, reparto justo, telemetría, admission/waitlist y capacidad de revoke de seguridad | BE/OP |
 | Safari/iPhone consume RAM | Alta | Alto | memory/crash archivo grande | streaming/límites/copy soporte | FE/QA |
 | Firma/notarización rompe runtimes | Media | Alto | codesign/notary/app falla | orden firma/entitlements/clean device | DE |
-| Legal/copy no coincide | Media | Crítico | claim falso/placeholder | revisión post-implementación | LF/RO |
-| Solo developer es cuello de botella | Alta | Alto | gates sin reviewer/tareas atrasadas | ruta 30 Oct, reviewers externos, WIP limit | RO |
+| Legal/copy no coincide | Media | Crítico | claim falso/placeholder | revisión post-implementación + backlog AI-assisted; no afirmar compliance | LF/RO |
+| Solo developer es cuello de botella | Alta | Alto | gates sin reviewer/tareas atrasadas | ruta 30 Oct, reviewers externos donde gate los exige, excepciones RO explícitas, WIP limit | RO |
 | Tooling vulnerable compromete build | Media | Alto | critical/high/action mutable | upgrade/pin/scan/SBOM | OP/QA |
 | P0 durante beta/soft launch | Media | Crítico | anomalía datos/security/payment | stop/kill switch/rollback/nueva RC | Incident owner |
 | Regresión carga inicial librería | Alta | Alto | espera mayor que optimización previa | medir cold/warm por fases y budget | FE/BE/QA |
