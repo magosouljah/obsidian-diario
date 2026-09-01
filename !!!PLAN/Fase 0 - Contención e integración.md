@@ -2,7 +2,7 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE 110:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales.  
+**Estado CYCLE 110:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales. **0.20 OAuth secret rotation está `[x]` con rotación/deploy/E2E/revocación owner-side verificadas.**  
 **Baseline vivo:** `integration-v0.8.0-alpha.1 @ 78dd55b72142e69ea32ba6c1ba6d43e246ac6843`.  
 **Release:** 🔴 `NO-GO`.
 
@@ -13,9 +13,9 @@
 | 0.1 Congelar evidencia | [x] | baseline + NO-GO registrados |
 | 0.2 Checkpoint interno | [x] | no equivale a release público |
 | 0.8 Legal launch review | [x] | AI-assisted review completed; independent counsel deferred by explicit RO decision; residual legal risk accepted |
-| 0.20 OAuth secret rotation | [ 🟡 ] | readiness software integrated; `READY_FOR_OWNER_ROTATION / NOT DONE`; falta rotación real + deploy/E2E/revoke |
+| 0.20 OAuth secret rotation | [x] | readiness integrated + credential reemplazado/desplegado + OAuth E2E exitoso + secreto anterior eliminado |
 | 1.1 Negocio | [x] | v1 comercial; mercados/distribución decididos |
-| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + public ops + technical Authenticode seam + OAuth readiness integrated; productive signing/OAuth/security/testers/legal implementation tails |
+| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + public ops + technical Authenticode seam + OAuth rotation integrated/completed; productive signing/security/testers/legal implementation tails |
 | 2.1 Contención inmediata | [x] | auth/ownership/límites |
 | 2.2 Historial Git | [ 🟡 ] | GitHub Support + fresh inaccessibility verification |
 | 3.1 Integración | [x] | `integration-v0.8.0-alpha.1` |
@@ -53,16 +53,20 @@ PR #89 live: OPEN/Ready, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, base `
 
 **Owner CYCLE 110: `NIGHT-WOZ-109`.** REUSE #89; reconciliar audit con #88/#90 integrados; history-preserving refresh al live head observado en su turno; fresh exact-head F0/0.9 + Required CI. **NO MERGE CYCLE 110** porque AAA106 posee la única integration mutation lane sobre #91.
 
-### F0/0.20 — `[ 🟡 ]` OAuth rotation readiness
+### F0/0.20 — `[x]` OAuth secret rotation
 
-PR #90 quedó integrado el `2026-09-01` como `78dd55b72142e69ea32ba6c1ba6d43e246ac6843` con F0/0.20 Secret Scan y Required CI verdes. La parte software/readiness está integrada, pero estado funcional permanece **`READY_FOR_OWNER_ROTATION / NOT DONE`**.
+PR #90 quedó integrado el `2026-09-01` como `78dd55b72142e69ea32ba6c1ba6d43e246ac6843` con F0/0.20 Secret Scan y Required CI verdes. Posteriormente RO completó la rotación real owner-side sin exponer valores secretos:
+- nuevo Google OAuth client secret creado y el anterior eliminado en Google;
+- nuevo `GOOGLE_CLIENT_SECRET` desplegado en `/etc/beatgaler-google-oauth.env`, consumido por `beatgaler-cloud.service` mediante su `EnvironmentFile`;
+- `beatgaler-cloud.service` reiniciado y verificado `active`;
+- `https://api.beatgaler.com/auth/health` respondió `ok=true` y `account_auth=true` tras el cambio;
+- login Google fresco en producción completado exitosamente de extremo a extremo usando el credential nuevo.
 
-Para cerrar 0.20 faltan acciones owner-side con evidencia: crear/reemplazar credential de Google OAuth, desplegarlo en secret storage/runtime real de producción, verificar OAuth E2E usando el nuevo credential y deshabilitar/eliminar el secreto anterior. No copiar valores secretos a GitHub, PRs, docs o chat.
+Con creación/reemplazo, deploy, OAuth E2E y revocación/eliminación del credential anterior verificadas, **F0/0.20 = DONE**. No registrar valores secretos en repo, docs, issues, PRs o chat.
 
 ### Tails reales restantes
 
 - production Authenticode/RFC3161 evidence;
-- actual OAuth secret rotation + deploy/E2E/revoke;
 - legal P0/P1 implementation backlog pese a cierre administrativo 0.8;
 - independent security review donde siga siendo gate;
 - 12–20 testers + hardware/plataformas/DAWs/fechas;
