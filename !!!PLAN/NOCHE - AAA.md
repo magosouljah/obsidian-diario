@@ -6,13 +6,13 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-102`
+- `ASSIGNMENT_ID: NIGHT-AAA-103`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 12.1 — public Web bootstrap runtime blocker (Loading Galer)`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`
-- `PREDECESSOR: NIGHT-AAA-101 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff al preflight JOBS CYCLE 106; SUPERSEDED / NOT_PASS.`
-- `WHY_ASSIGNED: sigue siendo el blocker funcional más directo para uso tester/browser; los merges #86/#87 no demostraron resolver el startup normal.`
-- `SERIALIZATION: AAA102 owns only F2/12.1 Web bootstrap/runtime. BBB101 owns #84 auth evidence/harness. WOZ105 owns #89 security candidate. Do not touch #74/#84/#89/#90/#88/#83/#76/#85, integration, deploy/provider infra or shared auth/session internals.`
+- `PREDECESSOR: NIGHT-AAA-102 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff al preflight JOBS CYCLE 107; SUPERSEDED / NOT_PASS.`
+- `WHY_ASSIGNED: recalculado desde GitHub vivo: sigue siendo el blocker funcional más directo para uso tester/browser y no hay candidate/handoff nuevo que lo haya cerrado.`
+- `SERIALIZATION: AAA103 owns only F2/12.1 Web bootstrap/runtime. BBB102 owns #84 auth evidence/harness. WOZ106 owns #89 security candidate. Do not touch #74/#84/#89/#90/#88/#83/#76/#85, integration, deploy/provider infra or shared auth/session internals.`
 
 ### PRIMARY
 
@@ -37,6 +37,6 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-101`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 106; no final result/handoff observado.
+- `NIGHT-AAA-102`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 107; no final result/handoff observado.
 - Issue #41 `5485984669`: public infra works; normal Web startup stalls at `Loading Galer`.
-- Baseline avanzó por #86 y #87 hasta `38517c...`; revalidar desde ese head antes de cualquier candidate.
+- Baseline permanece `38517c...`; revalidar desde ese head antes de cualquier candidate.
