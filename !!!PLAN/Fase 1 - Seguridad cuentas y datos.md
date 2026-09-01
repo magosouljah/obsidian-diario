@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE120:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.  
+**Baseline vivo CYCLE121:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.  
 **Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[x] MAP COMPLETE / ALPHA CANDIDATE NOT READY`.  
 **Release público:** 🔴 `NO-GO`.
 
@@ -16,22 +16,22 @@ Blockers de alpha interna 3–5 cuentas se consolidan en 1.7; autorización fina
 
 ### PROVEN / estado vivo
 
-- #92, #94 y #95 están integrados en F2/12.1; #95 corrige el bound temporary Web session id, pero falta public runtime proof post-#95.
-- Windows Auth #93 conserva exact-green evidence histórica en old baseline. GitHub CYCLE120 reporta `mergeable=true`, pero `base_sha=134a293...` sigue stale contra `43fdf70e...`; no cuenta como canonical integration evidence.
-- AAA114 revalidó el F2/13.2 durable Review gap, pero STOP correcto por write surface: no branch/PR/tests/CI; 13.2 sigue abierto.
-- La decisión D8 de recent reauth existe, pero sigue faltando una seam productiva consumible por Settings/Trash; owner BBB115.
+- #92, #94 y #95 están integrados en F2/12.1; falta public runtime proof post-#95.
+- Windows Auth #93 conserva exact-green evidence histórica en old baseline; `mergeable=true` con `base_sha=134a293...` stale contra `43fdf70e...` no cuenta como canonical integration evidence.
+- AAA114 revalidó F2/13.2 durable Review gap y paró correctamente por write surface; sigue abierto.
+- La decisión D8 de recent reauth existe, pero falta seam productiva consumible por Settings/Trash; owner BBB116.
 
 ### HARD / ACTIVE BLOCKERS para alpha
 
 1. **F2/12.1 runtime post-#95:** deployment exacto + signed-out/authenticated worker/library + cold/warm evidence.
-2. **F0/0.9 security P1:** #89 `mergeable=true` pero base `816f...` stale; owner WOZ119 para refresh/revalidation/integration.
-3. **F2/13.2 durable Review:** `BLOCKED_WRITE_SURFACE / UNASSIGNED` CYCLE120; factual gap remains.
-4. **F1/D8 product seam → F2/15.1:** owner BBB115 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
-5. **F4/25.1 Windows Auth canonicalization:** #93 requiere future refresh/revalidation contra live baseline; global 25.1 además conserva otros journeys.
+2. **F0/0.9 security P1:** #89 stale-base; owner WOZ120 para refresh/revalidation/integration.
+3. **F2/13.2 durable Review:** `BLOCKED_WRITE_SURFACE / UNASSIGNED`; factual gap remains.
+4. **F1/D8 product seam → F2/15.1:** owner BBB116 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
+5. **F4/25.1 Windows Auth canonicalization:** #93 requiere future refresh/revalidation si sigue IN_ALPHA; global 25.1 además conserva otros journeys.
 
-### 1.7 — `[ 🟡 ] OWNER AAA116 / READ-ONLY CLASSIFICATION`
+### 1.7 — `[ 🟡 ] OWNER AAA117 / READ-ONLY CLASSIFICATION`
 
-AAA116 debe clasificar cada blocker material como `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` con evidencia concreta. Debe cubrir explícitamente F3 18.2/19.2/20.2, F2/12.1, #89, Review, recent-reauth→Trash, #93/25.1 y release-only externals. Esta clasificación no toma decisiones RO, no excluye nada por sí sola y no promueve 1.8.
+AAA117 debe clasificar cada blocker material como `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` con evidencia concreta. Debe cubrir explícitamente F3 18.2/19.2/20.2, F2/12.1, #89, Review, recent-reauth→Trash, #93/25.1 y release-only externals. Esta clasificación no toma decisiones RO, no excluye nada por sí sola y no promueve 1.8.
 
 ### F3 — decisión explícita de aplicabilidad al alpha
 
