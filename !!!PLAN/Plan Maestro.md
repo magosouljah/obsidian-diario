@@ -17,10 +17,10 @@
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 - **Último merge material:** #79 → `816f946c...`.
-- **F0:** núcleo técnico interno cerrado; 1.2/2.2 conservan tails externos/administrativos. Eligibility v1 canónica: **18+**. Nuevo candidate #86 exact-base @ `200474d...` aborda release/provenance governance; no PASS mientras exact-head CI no termine. Nuevo #87 exact-base @ `d5d129c...` aborda security.txt/status software, pero runtime/DNS permanecen UNVERIFIED.
+- **F0:** núcleo técnico interno cerrado; 1.2/2.2 conservan tails externos/administrativos. Eligibility v1 canónica: **18+**. **0.8 Legal launch review = `[x]` administrativamente: AI-assisted review completed 2026-08-31; independent counsel deferred by explicit RO decision; residual legal risk accepted by RO. Esto cierra la tarea de review, no compliance ni P0/P1.** Nuevo candidate #86 exact-base @ `200474d...` aborda release/provenance governance; no PASS mientras exact-head CI no termine. Nuevo #87 exact-base @ `d5d129c...` aborda security.txt/status software, pero runtime/DNS permanecen UNVERIFIED.
 - **F1:** D6–D10.1 PASS. `NIGHT-WOZ-102` terminó `BLOCKED_STOP / D10.2 NOT_READY_FOR_RO_DECISION`; blockers mínimos = F2/12.1, F4/25.1 y cierre/RO applicability de F2/13.2 + 15.1.
 - **F2:** 11.1/11.2/12.2 cerrados. Public infra probada por owner, pero apex sigue en `Loading Galer`; `NIGHT-AAA-100` owns F2/12.1. 13.2 durable Review y 15.1 Trash siguen abiertos.
-- **F3:** 17.1/17.2/18.1 cerrados; 18.2 provider/payment external. 19.1 public infra principal PROVEN; legal/support/OAuth/status runtime tails parciales. #76 stale/13+ tooling-blocked; #83 OPEN/DRAFT tooling-blocked, runtime 160 UNVERIFIED; #85 external/owner-owned; #87 observed candidate, no runtime claim.
+- **F3:** 17.1/17.2/18.1 cerrados; 18.2 provider/payment external. 19.1 public infra principal PROVEN; legal/support/OAuth/status runtime tails parciales. #76 stale/13+ tooling-blocked. **AI legal review evidence is recorded, but 19.2 remains OPEN with 12 P0 + 14 P1 + P2/P3 + UNVERIFIED implementation/risk backlog.** #83 OPEN/DRAFT tooling-blocked, runtime 160 UNVERIFIED; #85 external/owner-owned; #87 observed candidate, no runtime claim.
 - **F4:** 21.1/21.2/24.1/24.2 cerrados; 25.1 incompleto. #84 exact `f53d46f...`; Windows Auth run `33449587244` / job `99676242317` = FAILURE. `NIGHT-BBB-099` owns evidence/harness-only causal trace.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 - **F5:** `NO ABRIR`.
@@ -58,11 +58,11 @@ CI-FALLBACK: solo si PRIMARY entra genuinamente `WAITING_CI`, inspección READ-O
 3. **F2/13.2 Review:** durable Save/Save All completion/no-silent-loss + executable Web/no-Tauri evidence.
 4. **F2/15.1 Empty Trash:** recent-reauth seam + strong confirmation + deterministic purge o decisión RO explícita de exclusión para alpha.
 5. **F0/1.2 release governance:** #86 exact candidate puede cerrar implementación provenance/stable-prerelease si CI + review + merge exactos pasan; external tails siguen.
-6. **F3/19.x public/legal:** #76 requiere refresh-capable surface + 18+; #87 puede cubrir software security/status, pero DNS/deploy/runtime y support/OAuth/legal review siguen externos.
+6. **F3/19.x public/legal:** #76 requiere refresh-capable surface + 18+; #87 puede cubrir software security/status, pero DNS/deploy/runtime y support/OAuth siguen externos. F0/0.8 review ya está `[x]` por excepción AI-assisted RO-approved; **los 12 P0/14 P1 legales sustantivos siguen release-blocking y se rastrean en `Legal launch review - AI-assisted 2026-08-31.md`.**
 7. **F3/20.2:** #83 supported Ready tooling debe cambiar materialmente; luego runtime 160 + latency/error/queue/recovery/no-loss/no-cross-tenant + safety margin.
 8. **F3/18.2:** provider/staging/payment scenarios reales.
 9. **F1/D10.2:** reconsiderar readiness solo después de blockers técnicos aplicables y decisiones RO de alcance.
-10. **External tails:** GitHub historical cleanup, signing/notarization/hardware/tester execution, independent legal/security review.
+10. **External tails:** GitHub historical cleanup, signing/notarization/hardware/tester execution y revisión de seguridad independiente. **Independent legal counsel is deferred under the explicit F0/0.8 RO governance exception; no attorney review/compliance claim is implied.**
 
 ## Invariantes
 
