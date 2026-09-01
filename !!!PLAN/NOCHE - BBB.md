@@ -6,69 +6,39 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-110`
+- `ASSIGNMENT_ID: NIGHT-BBB-112`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F2 / 15.1 — Empty Trash recent-reauth + strong confirmation + durable purge boundary`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`
-- `PREDECESSOR: NIGHT-BBB-109 no dejó RESULTADO DEL TURNO ni matching handoff verificable al preflight JOBS CYCLE 115; SUPERSEDED / NOT_PASS.`
-- `SERIALIZATION: BBB110 owns only F2/15.1 Trash/recent-reauth. AAA111 owns F2/13.2. WOZ114 owns PR #93. PR #92/#89 parked/unassigned. No integration mutation.`
+- `AREA: F1/D8 follow-up → minimal recent-reauth product seam for F2/15.1`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 08e5802d27ad81977b1c2f63ceb0fce398d41e42`
+- `PREDECESSOR: NIGHT-BBB-111 fue emitido en Issue #41 por CYCLE116 pero no dejó matching result. El late handoff de NIGHT-BBB-110 sí probó RECENT_REAUTH_PRODUCT_SEAM_REQUIRED y se procesa como input factual, no como BBB111 result.`
+- `SERIALIZATION: BBB112 owns only the recent-reauth product seam. AAA113 owns Review. WOZ116 owns #89. No Trash UI/purge implementation this turn and no integration mutation.`
 
 ### PRIMARY
 
-**F2 / 15.1 — cerrar o reducir el gap de “Vaciar Trash” con el mínimo corrective, reutilizando la recent-reauth seam canónica.**
+**Exponer la seam productiva mínima de recent reauth ya decidida en D8, sin rediseñar auth/session ni implementar todavía Empty Trash.**
 
-1. Fresh preflight sobre live integration, Issue #41, D8 recent-reauth decision y paths Trash/Settings/delete lifecycle; REUSE-FIRST + duplicate-check.
-2. Verificar qué existe hoy para purge durable y dónde la UI puede limpiar optimistamente antes de completion.
-3. Reutilizar D8: recent reauth = fresh same-provider authorization ligada a user/session; no inventar password/MFA nuevo ni rediseñar auth.
-4. Implementar únicamente si el gap y los paths son claros: strong confirmation + recent-reauth gate + visible success solo después de durable deterministic purge; failure visible/reintentable y sin false success.
-5. Preservar delete-retention 0 días / no recoverable tombstone y tenant isolation existentes.
-6. Añadir tests focales de confirmation, recent-reauth required/expired, durable success, failure/no-false-success y Web/no-Tauri cuando aplique.
-7. Un solo candidate/PR bounded si duplicate-check limpio; **NO MERGE CYCLE 115**.
-8. Si falta seam productiva indispensable o tocar auth/session core sería necesario, STOP `RECENT_REAUTH_PRODUCT_SEAM_REQUIRED`.
-9. Escribir RESULTADO DEL TURNO aquí + Issue #41 y STOP.
+1. Fresh preflight live integration + Issue #41 + D8/#53 lineage; REUSE-FIRST + duplicate-check.
+2. Reutilizar literalmente la decisión D8: fresh same-provider authorization ligada a user/session. No password/MFA inventado y no nuevo proveedor.
+3. Encontrar el punto productivo mínimo donde auth/session puede emitir/verificar un estado `recently reauthenticated` consumible por un caller destructivo.
+4. Si existe una primitive interna suficiente, exponer un contrato bounded para Settings/Trash; no tocar SettingsPanel/Trash purge UI en este assignment.
+5. La seam debe quedar ligada a la sesión/usuario correctos, expirar/requerir fresh authorization según la semántica ya existente y fallar cerrado.
+6. Añadir focused tests para fresh authorization success, wrong user/session, expired/not-fresh y failure/no-grant; preservar Web/Desktop y D6/D7.
+7. Un solo candidate/PR bounded si duplicate-check limpio; **NO MERGE CYCLE117**.
+8. Si cumplir esto exige rediseñar account lifecycle, provider auth o storage/session architecture, STOP `RECENT_REAUTH_SEAM_REDESIGN_REQUIRED` con evidencia exacta.
+9. Claim máximo: `RECENT_REAUTH_PRODUCT_SEAM_CANDIDATE_READY`; no cerrar F2/15.1 todavía.
+10. Escribir RESULTADO DEL TURNO aquí + Issue #41 y STOP.
 
-**Required evidence:** exact files/functions; existing purge semantics; exact recent-reauth seam reused; before/after UI durability; tests; branch/base/head/PR; exact-head CI; UNVERIFIED.  
-**STOP:** auth/session core redesign, Review, #89/#92/#93, provider/deploy, integration mutation, ambiguous destructive semantics o duplicate candidate.
+**Required evidence:** exact existing D8 primitive reused; exact files/functions; contract semantics; tests; branch/base/head/PR; exact-head applicable CI; UNVERIFIED.  
+**STOP:** Trash UI/purge behavior, Review, #89/#93, provider/deploy, integration mutation, duplicate candidate o architectural redesign.
 
 ### CI-FALLBACK
 
-Solo si PRIMARY entra genuinamente en `WAITING_CI` por CI/build remoto:
-- **Scope:** F1/1.7 blocker classification **READ-ONLY** sobre estado vivo; matriz `PROVEN / MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` para alpha interna 3–5 cuentas.
-- **Evidence required:** cada fila ligada a evidencia existente; no cerrar gates, no tomar decisión RO, no editar Plan Maestro/fases, no tocar provider/infra/código.
-- **STOP:** implementación, decisión RO, plan mutation, provider call o fin de `WAITING_CI`; después recheck PRIMARY antes de cerrar.
+Solo si PRIMARY entra genuinamente en `WAITING_CI`:
+- **Scope:** F1/1.7 blocker classification READ-ONLY sobre live state.
+- **Evidence required:** cada blocker enlazado a PR/Issue/runtime evidence y clasificado `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` sin promover gate.
+- **STOP:** cualquier code/branch/PR/plan/provider mutation, decisión RO o fin de WAITING_CI; después recheck PRIMARY.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-BBB-109`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 115.
-- `NIGHT-BBB-108`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 114.
-
-## RESULTADO DEL TURNO — NIGHT-BBB-110
-
-### PRIMARY
-
-- `STATUS: BLOCKED_STOP / RECENT_REAUTH_PRODUCT_SEAM_REQUIRED`
-- `baseline: integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`
-- `branch/head: none; read-only preflight, no candidate created`
-- `PR: none`
-- `cambios: none. STOP antes de implementación porque el recent-reauth gate productivo indispensable no está expuesto en los paths inspeccionados y crear uno exigiría tocar/rediseñar auth/session core, explícitamente fuera de autoridad.`
-- `tests: no tests ejecutados; no hubo corrective autorizado que probar.`
-- `CI: N/A; PRIMARY no entró en WAITING_CI.`
-- `evidencia: src/components/SettingsPanel.tsx::emptyTrash en live integration hoy hace one-click enqueue, limpia setTrashItems([]) optimistamente antes de completion, no pide strong confirmation y reporta éxito como queued tras purgeBeats()+listBeats(). La búsqueda live no encontró una API/seam reutilizable de recent reauth en UI/product; la única coincidencia reAuth recuperada fue pre-auth HTTP containment, no una fresh same-provider authorization ligada a user/session consumible por Settings/Trash.`
-- `UNVERIFIED: D8 puede tener una decisión documental fuera del código recuperado, pero no se encontró una seam productiva consumible; no se infirió ni inventó.`
-- `blockers: recent-reauth product seam requerida para cumplir 15.1 sin auth/session core redesign.`
-
-### CI-FALLBACK
-
-- `STATUS: NOT_RUN`
-- `branch/head si aplica: N/A`
-- `PR si aplica: N/A`
-- `cambios: none`
-- `tests: none`
-- `evidencia: PRIMARY terminó en STOP por seam faltante; no entró en WAITING_CI, condición obligatoria del fallback.`
-- `UNVERIFIED: none`
-- `blockers: fallback no autorizado fuera de WAITING_CI.`
-- `STOP alcanzado: sí; CI-FALLBACK no elegible.`
-
-### Recomendación para JOBS
-
-Asignar primero un bounded owner de auth/session para exponer la seam D8 de fresh same-provider authorization ligada a user/session, con contrato consumible por Settings/Trash y sin inventar password/MFA. Después reasignar 15.1 a BBB para strong confirmation + durable completion/no-false-success sobre esa seam. No merge ni candidate de Trash hasta entonces.
+- `NIGHT-BBB-111`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE117.
+- `NIGHT-BBB-110`: `BLOCKED_STOP / RECENT_REAUTH_PRODUCT_SEAM_REQUIRED`; evidence reutilizada para esta asignación.
