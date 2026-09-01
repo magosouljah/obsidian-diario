@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE142:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
+**Baseline vivo CYCLE143:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
 
 ## Estado compacto
 
@@ -41,6 +41,6 @@ Para alpha 3–5 cuentas, 1.7 debe clasificar explícitamente 20.2; no se fabric
 
 ## Cross-phase security tail
 
-PR #89 F0/0.9 contiene P1 DNS-rebinding SSRF corrective + audit AI-assisted. **Owner CYCLE142: `NIGHT-WOZ-141` bajo F0.** #89 sigue OPEN @ `daf87da6...`, recorded base `816f946c...`; base stale frente a live `aa445095...`. Su exact-head F0/0.9 run `33454881387` sigue `completed/failure`; old-head green no sustituye diagnosis + refresh/exact-head. WOZ141 posee la única conditional integration lane sobre #89.
+PR #89 F0/0.9 contiene P1 DNS-rebinding SSRF corrective + audit AI-assisted. **Owner CYCLE143: `NIGHT-WOZ-142` bajo F0.** #89 sigue OPEN @ `daf87da6...`, recorded base `816f946c...`; base stale frente a live `aa445095...`. Su exact-head F0/0.9 run `33454881387` sigue `completed/failure`; old-head green no sustituye diagnosis + refresh/exact-head. WOZ142 posee la única conditional integration lane sobre #89.
 
 **Principio:** no falsear provider, capacity, payments, DNS, deployment, staging, legal compliance ni independent counsel review sin evidencia aplicable.
