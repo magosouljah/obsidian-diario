@@ -3,86 +3,87 @@
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** JOBS — jefe de la noche.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.  
-**Ciclo:** `CYCLE 104`.
+**Ciclo:** `CYCLE 106`.
 
 ## BASELINE VIVO
 
-- Final preflight baseline: `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
-- PR #79 sigue siendo el último merge material.
-- #84: OPEN/Ready/mergeable @ `f53d46f39ece94f6de74f2f21a508ce01497ac41`, exact live base; Windows Auth `33449587244` / job `99676242317` = FAILURE.
-- #85: OPEN/Ready external/owner-owned; do not collide.
-- #86: OPEN/Ready/mergeable, exact base live, head `200474d061c63406774da8d21bd22460a8bd0312`; exact-head `Required CI` seguía `in_progress` en final preflight, por lo que NO PASS aún.
-- #87: OPEN/Ready/mergeable, exact base live, head `d5d129c578355ca2ff6399bd2e6ec752c9f81618`; software candidate, DNS/deploy/runtime explícitamente UNVERIFIED.
-- #83 OPEN/DRAFT tooling-blocked; #76 stale/13+ tooling-blocked.
-- Public Web infra PROVEN por owner; normal apex sigue `Loading Galer`.
+- Final preflight: `integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`.
+- #86 release/provenance software slice ya integrado como `b85723e1b3016d24bdb943393e796ccdb744247d`.
+- #87 public security/status software slice integrado por WOZ104 como `38517c8065063206fed530028e4e8d20208f3807`; parents exactos `b85723e...` + `ba0d7b...`.
+- #84: OPEN/Ready pero stale/no-mergeable contra live baseline; head `f53d46f39ece94f6de74f2f21a508ce01497ac41`; Windows Auth `33449587244` / job `99676242317` = FAILURE.
+- #89: OPEN/Ready, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, stale base; candidate F0/0.9 AI-assisted audit + DNS-rebinding SSRF hardening.
+- #88 Authenticode/RFC3161: production NO-GO hasta inputs/authorization RO.
+- #90 OAuth secret-rotation readiness: software/readiness only; real rotation owner/deployment external.
+- #85 external/owner-owned; #76/#83 remain parked/stale/tooling constrained.
+- Public Web infra principal probada; functional apex sigue observado en `Loading Galer` hasta evidencia nueva.
 - Release público: 🔴 `NO-GO`; F5 `NO ABRIR`.
 
 ## PREFLIGHT / RESULTADOS PROCESADOS
 
-Leídos completos para este ciclo: Plan Maestro; Fases 0–4; Equipo; protocolo nocturno; JOBS/AAA/BBB/WOZ; Registro de avances; Issue #41 y latest handoffs; integración/PRs/checks vivos. GitHub/runtime real prevalece.
+Leídos/reconciliados: Plan Maestro; F0–F4; Equipo; protocolo; JOBS/AAA/BBB/WOZ; Registro; Issue #41 completo disponible y latest handoffs; integración, PRs y branches vivos. GitHub/runtime real prevalece.
 
-- `NIGHT-AAA-099`: no RESULTADO DEL TURNO ni matching Issue #41 handoff => `NO_RESULT / SUPERSEDED / NOT_PASS`. PR #86 apareció en rama `aaa/...` fuera del assignment F2/12.1; no se procesa como completion de AAA099. Para limpiar ownership, JOBS lo transfiere explícitamente a WOZ103.
-- `NIGHT-BBB-098`: no RESULTADO DEL TURNO ni matching handoff => `NO_RESULT / SUPERSEDED / NOT_PASS`. #84/head/failure permanecen materialmente iguales.
-- `NIGHT-WOZ-102`: Issue #41 `5486382155` + ledger = `BLOCKED_STOP / D10.2 NOT_READY_FOR_RO_DECISION / READ_ONLY_COMPLETE`. D6–D10.1 permanecen PROVEN. Blockers mínimos: F2/12.1 startup, F4/25.1 packaged auth y resolución/RO applicability de F2/13.2 + F2/15.1.
-- Duplicate-check: #84 sigue única evidence lineage auth; #74 única product-auth lineage; #76 único legal candidate; #83 único durable-waitlist candidate; #85 external deploy candidate; #86 único release-governance candidate observado; #87 único public security/status candidate observado.
-- No BeatGaler merge ni integration mutation realizada por JOBS.
+- `NIGHT-AAA-101`: no RESULTADO DEL TURNO ni matching handoff => `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-BBB-100`: no RESULTADO DEL TURNO ni matching handoff => `NO_RESULT / SUPERSEDED / NOT_PASS`. Último resultado factual de esa línea: BBB099 `BLOCKED_STOP / AMBIGUOUS`, Issue #41 `5486566941`.
+- `NIGHT-WOZ-104`: `DONE / INTEGRATED`; Issue #41 `5486854786`. #87 merge confirmado con expected-head y parents exactos. Promotion limitada a F0/0.6 + F3/19.1 software implementation slice; DNS/SAN/deploy/public runtime siguen UNVERIFIED.
+- Duplicate-check: AAA102 startup; BBB101 #84; WOZ105 #89. #85 external-owned. #88 y #90 no se mezclan con PRIMARYs.
+- Carrera documental detectada: archivos de CYCLE 106 aparecieron mientras JOBS trabajaba. Se adoptaron las escrituras más nuevas y se evitó overwrite; un intento F0 recibió 409 y fue abandonado correctamente.
+- JOBS no modificó código BeatGaler ni infraestructura.
 
-## CAMINO CRÍTICO GLOBAL — RECALCULADO CYCLE 104
+## CAMINO CRÍTICO GLOBAL — RECALCULADO CYCLE 106
 
 1. **F2/12.1:** resolver `Loading Galer` para uso tester/browser real.
-2. **F4/25.1:** obtener causal trace sanitizado y conseguir literal packaged Windows Auth PASS.
+2. **F4/25.1:** atribución harness/service + literal packaged Windows Auth PASS.
 3. **F2/13.2:** durable Review Save/Save All completion/no-silent-loss + Web/no-Tauri evidence.
 4. **F2/15.1:** recent-reauth + strong confirmation + deterministic purge o decisión RO explícita de exclusión para alpha.
-5. **F0/1.2 governance/provenance:** #86 ya existe y debe reutilizarse; exact-head green + review + merge puede cerrar esa implementation slice, no los tails externos.
-6. **F3/19.x:** #76 refresh/18+ + public legal; #87 software security/status puede reducir tails, pero runtime/DNS/support/OAuth/legal review siguen externos.
-7. **F3/20.2:** #83 tooling + runtime 160/latency/error/queue/recovery/safety margin.
-8. **F3/18.2:** real provider/payment/staging scenarios.
-9. **F1/D10.2:** reconsiderar solo después de blockers técnicos aplicables y RO scope decisions.
-10. **External:** F0 historical cleanup; signing/notarization/hardware/testers; independent legal/security review.
+5. **F0/0.9:** refresh/revalidar #89 y cerrar solo el P1 DNS-rebinding/software audit slice si exact-head verde.
+6. **F0 external/admin:** #88 signing inputs; #90 owner rotation; 2.2 GitHub historical cleanup.
+7. **F3/19.x:** #87 software integrated; runtime/DNS/SAN/deploy/support/legal/OAuth tails siguen abiertos; #76 stale/18+ reconciliation pendiente.
+8. **F3/20.2:** #83 + runtime real 160, latency/error/queue/recovery/no-loss/no-cross-tenant + safety margin.
+9. **F3/18.2:** provider/staging/payment scenarios reales.
+10. **F1/D10.2:** reconsiderar solo después de blockers técnicos aplicables y decisiones RO de alcance.
 
 ## TABLERO / ASIGNACIONES EMITIDAS
 
 | Worker | Resultado procesado | PRIMARY nuevo | CI-FALLBACK |
 |---|---|---|---|
-| AAA | `NIGHT-AAA-099 NO_RESULT / SUPERSEDED / NOT_PASS` | `NIGHT-AAA-100` — F2/12.1 public Loading Galer; reproduce/isolate/minimum Web-only corrective + focused tests/no-Tauri/exact-head CI; NO MERGE | `NONE` |
-| BBB | `NIGHT-BBB-098 NO_RESULT / SUPERSEDED / NOT_PASS` | `NIGHT-BBB-099` — #84 sanitized first-request causal trace; one diagnostic-only rerun if tuple missing; harness fix only if HARNESS_ONLY; NO PRODUCT MUTATION / NO MERGE | `NONE` |
-| WOZ | `NIGHT-WOZ-102 BLOCKED_STOP / NOT_READY_FOR_RO_DECISION` | `NIGHT-WOZ-103` — REUSE #86; exact review + applicable exact-head CI; expected-head merge #86 only if green/race-free | READ-ONLY #87 evidence map only while #86 genuinely WAITING_CI; no mutation/merge/DNS/deploy |
+| AAA | `NIGHT-AAA-101 NO_RESULT / SUPERSEDED / NOT_PASS` | `NIGHT-AAA-102` — F2/12.1 `Loading Galer`; mínimo corrective Web-only + focused tests/no-Tauri/exact-head CI; **NO MERGE** | `NONE` |
+| BBB | `NIGHT-BBB-100 NO_RESULT / SUPERSEDED / NOT_PASS` | `NIGHT-BBB-101` — #84 consume tuple `POST /plugin%3Awdio%7Cget_window_states`; prove attribution; harness/service fix only if demonstrated; refresh safely; literal packaged Windows Auth; **NO PRODUCT MUTATION / NO MERGE** | `NONE` |
+| WOZ | `NIGHT-WOZ-104 DONE / INTEGRATED` | `NIGHT-WOZ-105` — REUSE #89; semantic review + history-preserving refresh + exact-head security/Required CI; expected-head merge #89 only if green/race-free | READ-ONLY #90 readiness map only while #89 genuinely `WAITING_CI`; no mutation/rotation/merge |
 
-Ownership distinto. **INTEGRATION_MUTATION CYCLE 104: WOZ103 / PR #86 ONLY, conditional on exact-head applicable CI SUCCESS + race-free expected head.**
+**INTEGRATION_MUTATION CYCLE 106: WOZ105 / PR #89 ONLY, conditional on exact-base refresh + applicable exact-head CI SUCCESS + race-free expected head.**
 
 ## PROGRESO F0–F4 / BLOCKERS
 
-- **F0:** technical core closed; 2.2 external/admin remains. 1.2 now has executable #86 candidate for governance/provenance and observed #87 candidate for security/status software, but neither closes external tails by existence alone.
-- **F1:** D6–D10.1 PASS. D10.2 reduced by WOZ102 and remains NOT_READY_FOR_RO_DECISION; no repeated recovery drills.
-- **F2:** public infra itself proven; normal startup blocked and owned AAA100. 13.2 Review + 15.1 Trash remain open.
-- **F3:** public infra core proven; #76/#83 tooling-blocked; provider/payment external; #87 cannot fabricate status runtime/DNS evidence.
-- **F4:** Windows Auth literal remains red and owned BBB099; signing/notarization/hardware/tester tails external.
+- **F0:** #86 + #87 software slices integrated. Global F0 remains open on release/admin/external tails; #89 is next executable security slice; #88/#90 retain owner/external constraints.
+- **F1:** D6–D10.1 PASS. D10.2 remains NOT_READY_FOR_RO_DECISION, blocked principally by F2/12.1, F4/25.1 and applicability/cierre de 13.2 + 15.1.
+- **F2:** startup owned AAA102; durable Review + Trash remain open.
+- **F3:** #87 software security/status integrated; runtime/DNS/deploy/legal/payment/capacity tails remain real.
+- **F4:** Windows Auth literal remains red and owned BBB101; signing/notarization/hardware/tester execution remain external/open.
 - **F5:** CLOSED / NO ABRIR.
 
 ## PLAN SYNC / NEXT
 
-CYCLE 104 written to AAA/BBB/WOZ ledgers. Plan Maestro, F0, F1, F2, F3, F4, roles and JOBS synchronized. Registro de avances no recibió una nueva entrada porque este ciclo no cerró ningún gate/merge factual todavía; el handoff vive en Issue #41 y el ledger nocturno. `Plan Maestro 2208 copy DONT TOUCH .md` untouched. JOBS changed no BeatGaler code or infrastructure.
+Plan Maestro and worker ledgers reflect CYCLE 106. Concurrent plan writes were preserved rather than overwritten. JOBS ledger is now synchronized to live baseline `38517c...`. `Plan Maestro 2208 copy DONT TOUCH .md` untouched.
 
-Next cycle: process AAA100 only from reproducible startup evidence; BBB099 only from sanitized causal trace/literal packaged evidence; WOZ103 from exact #86 CI/review and, if waiting CI, #87 READ-ONLY fallback. If WOZ103 merges #86, rebase/recalculate all candidates from the new integration head before any later integration. F5 stays closed.
+Next cycle: process AAA102 only from reproducible startup evidence; BBB101 only from bounded causal attribution/literal packaged evidence; WOZ105 only from exact #89 refresh/CI/integration evidence and #90 READ-ONLY fallback while genuinely waiting CI. If #89 merges, recalculate all candidates against the new integration head before any later integration. F5 stays closed.
 
 ```text
-CYCLE_ID: NIGHT-JOBS-104
-INTEGRATION_HEAD_FINAL_PREFLIGHT: 816f946c09d998ee5a045b3e70b2fe4f3a4160d0
-AAA_RESULT_PROCESSED: NIGHT-AAA-099 NO_RESULT / SUPERSEDED / NOT_PASS
-BBB_RESULT_PROCESSED: NIGHT-BBB-098 NO_RESULT / SUPERSEDED / NOT_PASS
-WOZ_RESULT_PROCESSED: NIGHT-WOZ-102 BLOCKED_STOP / D10.2 NOT_READY_FOR_RO_DECISION / READ_ONLY_COMPLETE
-PR86: OPEN READY EXACT_BASE @ 200474d061c63406774da8d21bd22460a8bd0312 / REQUIRED_CI_IN_PROGRESS
-PR87: OPEN READY EXACT_BASE @ d5d129c578355ca2ff6399bd2e6ec752c9f81618 / RUNTIME_UNVERIFIED
-AAA_NEW: NIGHT-AAA-100
-BBB_NEW: NIGHT-BBB-099
-WOZ_NEW: NIGHT-WOZ-103
-CI_FALLBACKS: NONE / NONE / WOZ103 READ_ONLY_PR87_WHEN_WAITING_CI
-INTEGRATION_MUTATION_AUTHORIZED: WOZ103 PR86 ONLY IF EXACT_GREEN_RACE_FREE
+CYCLE_ID: NIGHT-JOBS-106
+INTEGRATION_HEAD_FINAL_PREFLIGHT: 38517c8065063206fed530028e4e8d20208f3807
+AAA_RESULT_PROCESSED: NIGHT-AAA-101 NO_RESULT / SUPERSEDED / NOT_PASS
+BBB_RESULT_PROCESSED: NIGHT-BBB-100 NO_RESULT / SUPERSEDED / NOT_PASS
+WOZ_RESULT_PROCESSED: NIGHT-WOZ-104 DONE / INTEGRATED
+AAA_NEW: NIGHT-AAA-102
+BBB_NEW: NIGHT-BBB-101
+WOZ_NEW: NIGHT-WOZ-105
+CI_FALLBACKS: NONE / NONE / WOZ105 READ_ONLY_PR90_WHEN_WAITING_CI
+INTEGRATION_MUTATION_AUTHORIZED: WOZ105 PR89 ONLY IF REFRESHED_EXACT_GREEN_RACE_FREE
 DUPLICATE_WORK: prevented
+DOCUMENT_RACE: detected_and_preserved
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
 CODE_OR_INFRA_MUTATION_BY_JOBS: none
 RELEASE: NO-GO
 F5: CLOSED
 ```
 
-**STOP:** ciclo JOBS 104 terminado.
+**STOP:** ciclo JOBS 106 terminado.
