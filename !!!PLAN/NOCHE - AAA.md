@@ -6,12 +6,12 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-137`
+- `ASSIGNMENT_ID: NIGHT-AAA-138`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 12.1 — post-#96 public runtime proof READ-ONLY / evidence classification`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`
-- `PREDECESSOR: NIGHT-AAA-136 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE141.`
-- `SERIALIZATION: AAA137 owns only F2/12.1 runtime-proof/evidence lane. BBB136 owns recent-reauth seam. WOZ140 owns #89. F2/13.2 remains BLOCKED_WRITE_SURFACE / UNASSIGNED. #93 remains mutation-unassigned.`
+- `PREDECESSOR: NIGHT-AAA-137 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE142.`
+- `SERIALIZATION: AAA138 owns only F2/12.1 runtime-proof/evidence lane. BBB137 owns recent-reauth seam. WOZ141 owns #89. F2/13.2 remains BLOCKED_WRITE_SURFACE / UNASSIGNED. #93 remains mutation-unassigned.`
 
 ### PRIMARY
 
@@ -26,7 +26,7 @@
 7. Write RESULTADO DEL TURNO here + Issue #41 handoff only, then STOP.
 
 **Required evidence:** live integration SHA; PR #96 merged_at/merge SHA/head/base; exact-head CI conclusions; runtime deployment identity/version where available; per-item evidence table; explicit `UNVERIFIED`.  
-**STOP:** any code/branch/PR/provider/infra/canonical-plan mutation, deployment change, unsupported inference from CI to runtime, duplicate work, or overlap with BBB136/WOZ140.
+**STOP:** any code/branch/PR/provider/infra/canonical-plan mutation, deployment change, unsupported inference from CI to runtime, duplicate work, or overlap with BBB137/WOZ141.
 
 ### CI-FALLBACK
 
@@ -34,5 +34,5 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-136`: no matching final result/handoff verified by JOBS CYCLE141 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-AAA-137`: no matching final result/handoff verified by JOBS CYCLE142 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-AAA-114`: `PENDING / STOP_WRITE_SURFACE / NOT_PASS`; durable Review gap remains reusable blocker evidence only.
