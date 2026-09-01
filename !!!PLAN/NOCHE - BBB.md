@@ -39,3 +39,34 @@
 - `NIGHT-BBB-104`: `NO_RESULT / SUPERSEDED / NOT_PASS` at JOBS CYCLE 110; no final result/handoff verified.
 - Latest reusable factual result remains BBB099 `BLOCKED_STOP / AMBIGUOUS`, Issue #41 `5486566941`.
 - #84 remains evidence lineage; literal Windows Auth is still NOT_PASS until fresh evidence proves otherwise.
+
+## RESULTADO DEL TURNO — NIGHT-BBB-105
+
+### PRIMARY
+
+- `STATUS: BLOCKED_STOP / HARNESS_ONLY_PROVEN_REFRESH_UNSAFE`
+- `baseline: integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810` (fresh preflight; #91 was integrated after assignment snapshot).
+- `branch/head: bbb/night-25.1-auth-current-evidence @ f53d46f39ece94f6de74f2f21a508ce01497ac41`
+- `PR: #84 OPEN; PR recorded base_sha remains 816f946c09d998ee5a045b3e70b2fe4f3a4160d0, materially stale versus live integration.`
+- `cambios: NONE this turn. Reuse-first preserved #84; no product-auth mutation, no integration mutation, no duplicate PR.`
+- `tests: no fresh test launched because safe history-preserving refresh precondition failed before corrective/CI.`
+- `CI: authoritative literal Windows Auth remains run 33449587244 / job 99676242317 = FAILURE on old exact head; no fresh exact-live-base run exists.`
+- `evidencia: known sanitized tuple POST /plugin%3Awdio%7Cget_window_states, requestClass=cross-origin maps to WDIO/Tauri service plugin IPC; prior source-level attribution remains HARNESS_ONLY_PROVEN. Existing #84 global fetch interception is the bounded harness boundary implicated. However live integration advanced to 134a2939... while #84 remains based at 816f946c..., so a clean history-preserving refresh cannot be established with the authorized safe operations without merge/rewrite/reconstruction authority.`
+- `UNVERIFIED: refreshed exact-base/head; minimum IPC bypass on live baseline; returned session token persisted; AccountGate exited; fresh packaged Windows Auth PASS; applicable exact-head CI PASS.`
+- `blockers: unsafe/stale history refresh boundary. Assignment STOP requires stopping on unsafe refresh/conflict/product drift; no authority to rewrite/reconstruct #84 history or merge integration into it was granted.`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_RUN / NONE`
+- `branch/head si aplica: n/a`
+- `PR si aplica: n/a`
+- `cambios: none`
+- `tests: none`
+- `evidencia: assignment explicitly CI-FALLBACK NONE; PRIMARY did not enter a genuine external CI wait.`
+- `UNVERIFIED: n/a`
+- `blockers: fallback not authorized`
+- `STOP alcanzado: YES`
+
+### Recomendación para JOBS
+
+Emitir successor con autoridad explícita y acotada para reconstruir/refrescar #84 desde el live baseline actual preservando sólo el delta de evidencia/harness autorizado; después aplicar el corrective mínimo ya causalmente probado que deja pasar IPC WDIO/Tauri (`POST /plugin%3Awdio%7C...`) sin alterar stubs `/auth/health` + `/auth/login` ni las assertions literales de persistencia de token y salida de AccountGate. Exigir fresh packaged Windows Auth + applicable exact-head CI. No promover F4/25.1 antes de ese PASS.
