@@ -2,7 +2,7 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE 106:** `[ 🟡 ]` residual/administrativo + security/release tails. El núcleo técnico necesario para avanzar terminó; 5.1 y 5.2 están `[x]`. 1.2 y 2.2 conservan tails reales, por lo que F0 no se marca `[x]` globalmente.  
+**Estado CYCLE 107:** `[ 🟡 ]` residual/administrativo + security/release tails. El núcleo técnico necesario para avanzar terminó; 5.1 y 5.2 están `[x]`. 1.2 y 2.2 conservan tails reales, por lo que F0 no se marca `[x]` globalmente.  
 **Baseline vivo:** `integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`.  
 **Release:** 🔴 `NO-GO`.
 
@@ -42,15 +42,15 @@ PR #87 `F0/0.6: publish security.txt and status surface` fue integrado factual p
 - parents exactos `b85723e...` + `ba0d7b...`;
 - exact-head Required CI y workflows aplicables observados SUCCESS.
 
-**Promoción CYCLE 106:** F0/0.6 + F3/19.1 **software implementation slice = PASS / INTEGRATED**. Status DNS, certificate SAN, production deployment, public runtime, support/legal/provider tails permanecen `UNVERIFIED/OPEN`.
+**Promoción aceptada:** F0/0.6 + F3/19.1 **software implementation slice = PASS / INTEGRATED**. Status DNS, certificate SAN, production deployment, public runtime, support/legal/provider tails permanecen `UNVERIFIED/OPEN`.
 
 ### F0/0.9 — security audit + P1 DNS-rebinding
 
-PR #89 está OPEN/Ready/mergeable al preflight, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, pero su `base_sha` es `816f946c...` y por tanto está stale contra `38517c...`. Su scope observado son 6 archivos: workflow de audit, DNS pinning/server path, focused regression y dos audit docs.
+PR #89 continúa OPEN/Ready al preflight CYCLE 107, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, pero su `base_sha` sigue `816f946c...` y por tanto está stale contra `38517c...`.
 
 El candidate declara audit AI-assisted, no independent pentest. P1 software observado: DNS-rebinding SSRF hardening; el P1 Authenticode queda separado en #88.
 
-**Owner CYCLE 106: `NIGHT-WOZ-105`.** REUSE #89; review + refresh history-preserving al baseline vivo + exact-head CI. Puede mergear únicamente #89 si queda exact-base/head, applicable CI green y race-free. No external-pentest claim.
+**Owner CYCLE 107: `NIGHT-WOZ-106`.** REUSE #89; review + refresh history-preserving al baseline vivo + exact-head CI. Puede mergear únicamente #89 si queda exact-base/head, applicable CI green y race-free. No external-pentest claim.
 
 ### Authenticode / RFC3161 — external owner inputs
 
@@ -58,7 +58,7 @@ PR #88 prepara un seam fail-closed, pero su propio contrato mantiene **PRODUCTIO
 
 ### OAuth secret rotation readiness
 
-PR #90 @ `70a903c69864f275a9bbd4c00c3a5c9e3099640f` es readiness software/documental; al snapshot estaba OPEN/Ready/non-mergeable y stale contra el baseline vivo. Rotar/desplegar/verificar/revocar la credencial sigue siendo acción owner externa. `NIGHT-WOZ-105` puede inspeccionarlo READ-ONLY solo si #89 espera CI.
+PR #90 es readiness software/documental; rotar/desplegar/verificar/revocar la credencial sigue siendo acción owner externa. `NIGHT-WOZ-106` puede inspeccionarlo READ-ONLY solo si #89 espera CI.
 
 ### Tails aún requeridos para 1.2 `[x]`
 - dominio/DNS/TLS/support/security-abuse/status con runtime/owners aplicables;
