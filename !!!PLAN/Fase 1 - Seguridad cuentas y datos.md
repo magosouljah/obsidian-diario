@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE117:** `integration-v0.8.0-alpha.1 @ 08e5802d27ad81977b1c2f63ceb0fce398d41e42`.  
+**Baseline vivo CYCLE118:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.  
 **Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[x] MAP COMPLETE / ALPHA CANDIDATE NOT READY`.  
 **Release público:** 🔴 `NO-GO`.
 
@@ -16,16 +16,16 @@ Blockers de alpha interna 3–5 cuentas se consolidan en 1.7; autorización fina
 
 ### PROVEN / nuevo estado
 
-- #92 y #94 están integrados en F2/12.1; code/runtime seam avanzó, pero falta public runtime proof post-#94.
-- Windows Auth #93 conserva exact-green evidence histórica en su old baseline, pero está stale/non-mergeable contra `08e5802d...`; no cuenta como canonical evidence integration.
-- BBB110 probó un blocker concreto para F2/15.1: la decisión D8 de recent reauth existe, pero no hay hoy una seam productiva consumible por Settings/Trash sin tocar auth/session core.
+- #92, #94 y #95 están integrados en F2/12.1; #95 corrige el bound temporary Web session id, pero falta public runtime proof post-#95.
+- Windows Auth #93 conserva exact-green evidence histórica en old baseline, pero sigue OPEN/base `134a293...`/`mergeable=false` contra `43fdf70e...`; no cuenta como canonical evidence integration.
+- BBB110 probó un blocker concreto para F2/15.1: la decisión D8 de recent reauth existe, pero no hay aún una seam productiva consumible por Settings/Trash sin widening.
 
 ### HARD / ACTIVE BLOCKERS para alpha
 
-1. **F2/12.1 runtime post-#94:** deployment exacto + signed-out/authenticated worker/library + cold/warm evidence.
-2. **F0/0.9 security P1:** #89 stale; owner WOZ116 para refresh/revalidation/integration.
-3. **F2/13.2 durable Review:** owner AAA113.
-4. **F1/D8 product seam → F2/15.1:** owner BBB112 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
+1. **F2/12.1 runtime post-#95:** deployment exacto + signed-out/authenticated worker/library + cold/warm evidence.
+2. **F0/0.9 security P1:** #89 stale/non-mergeable; owner WOZ117 para refresh/revalidation/integration.
+3. **F2/13.2 durable Review:** owner AAA114.
+4. **F1/D8 product seam → F2/15.1:** owner BBB113 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
 5. **F4/25.1 Windows Auth canonicalization:** #93 requiere future refresh/revalidation contra live baseline; global 25.1 además conserva otros journeys.
 
 ### F3 — decisión explícita de aplicabilidad al alpha
@@ -40,7 +40,7 @@ Production signing/notarization, hardware matrix amplia, 12–20 testers, public
 
 ## Orden mínimo hacia 1.8
 
-1. obtener public runtime proof post-#94 o dejar blocker owner/runtime exacto;
+1. obtener public runtime proof post-#95 o dejar blocker owner/runtime exacto;
 2. integrar/procesar #89 P1 con exact-head evidence;
 3. cerrar F2/13.2 o preparar exclusión RO;
 4. exponer seam recent-reauth y luego cerrar F2/15.1 o preparar exclusión RO;
