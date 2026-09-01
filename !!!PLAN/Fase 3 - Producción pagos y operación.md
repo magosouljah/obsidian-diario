@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE138:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3` al preflight JOBS.
+**Baseline vivo CYCLE139:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3` al preflight JOBS.
 
 ## Estado compacto
 
@@ -17,11 +17,11 @@
 
 Software reconciliation + durable exception queue está probado. 3DS, rejection, late payment, renewal failure, cancel E2E, plan changes, refund, provider webhooks/financial outcomes y full sandbox reconciliation permanecen `UNVERIFIED_EXTERNAL`.
 
-Para una alpha 3–5 cuentas sin cobros, F1/1.7 debe clasificar explícitamente este gate como `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión automáticamente. Owner de clasificación CYCLE138: `NIGHT-AAA-134` READ-ONLY. Release público sigue sujeto al gate completo.
+Para una alpha 3–5 cuentas sin cobros, F1/1.7 debe clasificar explícitamente este gate como `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión automáticamente. Owner de clasificación CYCLE139: `NIGHT-AAA-135` READ-ONLY.
 
 ## 19.1 — `[ 🟡 ] PUBLIC SOFTWARE IMPROVED / EXTERNAL TAILS OPEN`
 
-Owner evidence previo mantiene `/web-health`, auth-health, www→apex y TLS probados en evidencia aplicable. #87 software slice, #88 technical signing seam y #90 OAuth readiness están integrados. Ninguno cierra por sí solo F3 ni sustituye deploy/runtime actual de F2/12.1 post-#95.
+Owner evidence previo mantiene `/web-health`, auth-health, www→apex y TLS probados en evidencia aplicable. #87 software slice, #88 technical signing seam y #90 OAuth readiness están integrados. Ninguno cierra por sí solo F3 ni sustituye deploy/runtime actual de F2/12.1. PR #96 es un candidate F2 activo, no evidencia runtime pública.
 
 ## 19.2 — `[ 🟡 ] LEGAL IMPLEMENTATION OPEN / REVIEW TASK COMPLETE`
 
@@ -41,6 +41,6 @@ Para alpha 3–5 cuentas, F1/1.7 debe clasificar explícitamente 20.2; no se fab
 
 ## Cross-phase security tail
 
-PR #89 F0/0.9 contiene P1 DNS-rebinding SSRF corrective + audit AI-assisted. **Owner CYCLE138: `NIGHT-WOZ-137` bajo F0.** #89 sigue OPEN @ `daf87da6...`, recorded base `816f946c...`; base stale frente a live `43fdf70e...`. Además, su exact-head F0/0.9 run `33454881387` está en FAILURE; old-head green no sustituye diagnosis + refresh/exact-head. WOZ137 posee la única conditional integration lane sobre #89.
+PR #89 F0/0.9 contiene P1 DNS-rebinding SSRF corrective + audit AI-assisted. **Owner CYCLE139: `NIGHT-WOZ-138` bajo F0.** #89 sigue OPEN @ `daf87da6...`, recorded base `816f946c...`; base stale frente a live `43fdf70e...`. Su exact-head F0/0.9 run `33454881387` fue reconsultado y sigue `completed/failure`; old-head green no sustituye diagnosis + refresh/exact-head. WOZ138 posee la única conditional integration lane sobre #89.
 
 **Principio:** no falsear provider, capacity, payments, DNS, deployment, staging, legal compliance ni independent counsel review sin evidencia aplicable.
