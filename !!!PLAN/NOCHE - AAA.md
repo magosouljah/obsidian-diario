@@ -8,40 +8,34 @@
 
 - `ASSIGNMENT_ID: NIGHT-AAA-106`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F2 / 12.1 — REUSE PR #91, exact-head validation + conditional integration`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 78dd55b72142e69ea32ba6c1ba6d43e246ac6843`
-- `PREDECESSOR: NIGHT-AAA-105 = CODE_FIX_PROVEN / NO_MERGE / PUBLIC_RUNTIME_PENDING; matching Issue #41 handoff verified. Candidate PR #91 @ 35d44a0dd5ee380f802b3a80b139ca1ca741d5f9.`
-- `WHY_ASSIGNED: F2/12.1 remains the first hard blocker for alpha readiness. #91 is the existing bounded corrective and is exact-base against the live integration head at JOBS CYCLE 110 preflight.`
-- `SERIALIZATION: AAA106 owns PR #91 and is the only integration mutation owner in CYCLE 110. BBB105 owns #84 evidence/harness. WOZ109 owns #89 review/refresh only. Do not touch #84/#89/#76/#83/#85/provider/deploy/shared auth internals.`
+- `AREA: F2 / 13.2 — durable Review Save/Save All completion / no silent loss`
+- `LIVE_BASE_AT_ASSIGNMENT_REBASED: integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`
+- `PREDECESSOR: NIGHT-AAA-105 produced PR #91. During JOBS CYCLE 110, #91 was independently merged with exact-head CI as 134a293985c314eb09c238115e3bcb71e79f1810; therefore the original AAA106/#91 PRIMARY became duplicate and was replaced before worker execution.`
+- `WHY_ASSIGNED: after #91 integration, F2/12.1 code is integrated but public deploy/auth runtime is owner-key external. The next executable product blocker is F2/13.2 durable Review.`
+- `SERIALIZATION: AAA106 owns only F2/13.2 Review durability. BBB105 owns #84. WOZ109 owns #89/integration lane. No #91/deploy/provider/auth-internals/Trash/#89/#84.`
 
 ### PRIMARY
 
-**F2 / 12.1 — finish REUSE-first validation of #91 and integrate only if exact/race-free.**
+**F2 / 13.2 — close the proven durable-completion/no-silent-loss gap with the minimum Web-safe corrective.**
 
-1. Fresh preflight integration HEAD, PR #91 base/head/mergeability, changed files and Issue #41; duplicate-check.
-2. Preserve the bounded semantics already proven by AAA105: 30 s deadline only for bootstrap-critical Worker requests `initialize`, `verify`, `get_index`; no generic loader timeout; long transfers unaffected; Web/no-Tauri invariant preserved.
-3. Recheck all applicable exact-head workflows for `35d44a0d...`. At assignment time Web Production Build, D6, D7, temp-auth compile and F0/0.20 scan were successful; `Test - Desktop Portability` was still in progress. Do not infer final green until every applicable required check is complete.
-4. If integration HEAD changed before merge, STOP and history-preserving refresh/re-run exact-head applicable CI; no stale-green merge.
-5. If #91 remains exact-base, scope-bounded, mergeable and all applicable exact-head CI is SUCCESS, AAA106 is authorized to merge **PR #91 only** with expected-head/race protection and verify merge SHA + parents.
-6. Maximum claim after merge: `F2/12.1 CODE_FIX_INTEGRATED / PUBLIC_RUNTIME_PENDING`. Do **not** mark 12.1 PASS until authenticated public Web on the deployed artifact containing the fix proves deterministic exit from `Loading Galer` or existing recoverable fallback, plus cold/warm timing evidence as applicable.
-7. Record RESULTADO DEL TURNO here + Issue #41 and STOP.
+1. Fresh preflight live integration `134a293...` or newer, Issue #41, existing Review paths/tests and any reusable #72 evidence; duplicate-check before mutation.
+2. Identify exact Save/Save All path where UI can advance/close before durable cloud completion/failure is known.
+3. REUSE existing durable operation/result semantics; do not redesign backend or auth/session.
+4. Implement the smallest product correction so visible success/close/advance occurs only after durable completion; failures remain visible/recoverable and no silent loss is possible.
+5. Preserve Web pure/no-Tauri behavior. Desktop compatibility may not be weakened.
+6. Add focused tests for success completion, failure/no-close, Save All partial/failure semantics and Web/no-Tauri touched paths.
+7. One bounded candidate/PR only if duplicate-check is clean; exact base/head + applicable CI. **NO MERGE CYCLE 110.**
+8. Maximum claim: `F2/13.2 DURABLE_REVIEW_CANDIDATE_READY`; no PASS until exact-head evidence satisfies the literal gate.
+9. Write RESULTADO DEL TURNO here + Issue #41 and STOP.
 
-**Required evidence:** live integration before/after; #91 exact base/head; changed files; applicable workflow names/conclusions; merge SHA/parents if merged; public runtime explicitly UNVERIFIED unless actually observed.  
-**STOP:** failed/pending required CI at turn close, base/head race, scope drift, shared auth/backend/provider/deploy mutation, duplicate candidate, or any integration mutation other than #91.
+**Required evidence:** exact files/functions; before/after completion semantics; tests; Web/no-Tauri proof; branch/base/head/PR; exact-head applicable CI; explicit UNVERIFIED.  
+**STOP:** shared auth/session/backend redesign, provider/deploy, Trash, #84/#89, integration mutation, duplicate candidate, or baseline race requiring unsafe refresh.
 
 ### CI-FALLBACK
 
-**Trigger:** only while PRIMARY is genuinely `WAITING_CI` on unchanged exact head `35d44a0d...`.
-
-`CI-FALLBACK: READ-ONLY F2/13.2 durable Review closure map.`
-
-- **Scope:** inspect current integrated Review Save/Save All paths and existing #72/evidence only to identify the minimum durable-completion/no-silent-loss acceptance seam. No branch, PR, code or integration mutation.
-- **Evidence required:** exact files/functions involved; existing reusable tests/candidates; smallest closure criterion; Web/no-Tauri boundary; explicit conflicts/owners.
-- **STOP:** no implementation, no #72 refresh, no auth/session/backend mutation, no claim of PASS. As soon as #91 CI resolves, return to PRIMARY before closing.
+`CI-FALLBACK: NONE`.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-105`: `CODE_FIX_PROVEN / NO_MERGE / PUBLIC_RUNTIME_PENDING`.
-- Root cause: `WebTransportWorkerClient.request()` could remain pending forever when the data-plane Worker neither replied nor crashed during bootstrap-critical operations.
-- Candidate: PR #91 `aaa/12.1-web-bootstrap-deadline` @ `35d44a0dd5ee380f802b3a80b139ca1ca741d5f9`, base `78dd55b72142e69ea32ba6c1ba6d43e246ac6843`.
-- Public runtime remains pending; no PASS claim yet.
+- `NIGHT-AAA-105`: corrective #91 was subsequently integrated as `134a293985c314eb09c238115e3bcb71e79f1810` with exact-head CI.
+- F2/12.1 now = `INTEGRATED / PUBLIC_DEPLOY + AUTH RUNTIME PENDING`; not PASS because deployed authenticated runtime and cold/warm evidence remain external/unverified.
