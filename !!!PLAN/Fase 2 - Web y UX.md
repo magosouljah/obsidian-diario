@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE 103:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
+**Baseline vivo CYCLE 104:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.
 
 ## Estado actual
 
@@ -15,54 +15,26 @@
 - [ ] public Web startup termina normalmente;
 - [ 🟡 ] cold/warm startup Web real cuantificado.
 
-Harness canónico: `npm run test:web:smoke` → Vite/WebdriverIO/headless Chrome. `NIGHT-WOZ-090` probó que la superficie conectada usada entonces no podía lanzar checkout/Vite/WebdriverIO/Chrome; no fabricar timings con inspección estática.
+Owner runtime Issue #41 `5485984669` prueba infraestructura pública (`/web-health`, auth-health, www→apex, TLS), pero `https://beatgaler.com` queda en `Loading Galer`; no reabrir deploy/DNS/TLS por ese síntoma.
 
-**Nuevo hecho productivo CYCLE 103 — Issue #41 `5485984669`:** infraestructura pública está funcional (`/web-health` ok, `/beatgaler-api/auth/health` reachable con `account_auth:true`, www→apex, TLS reissued), pero abrir `https://beatgaler.com` se queda en `Loading Galer`. Este síntoma es bug funcional Web bootstrap/runtime separado; no reabre DNS/TLS/deploy.
-
-**Owner CYCLE 103: `NIGHT-AAA-099`.** Reproducir, localizar el primer bootstrap phase que no resuelve y aplicar solo corrective Web mínimo, con success/failure termination, tests enfocados, Web/no-Tauri proof y exact-head CI; NO MERGE. Si la causa requiere shared auth/session product mutation, backend/provider/infra/deploy o #85, STOP y devolver ownership.
+`NIGHT-AAA-099` no dejó final result/handoff al preflight CYCLE 104. **Owner nuevo: `NIGHT-AAA-100`.** Debe reproducir el stall, identificar el primer bootstrap phase irresuelto y aplicar solo corrective Web mínimo con termination semantics, focused tests, Web/no-Tauri proof y exact-head CI; **NO MERGE**. Shared auth/session/backend/provider/deploy => STOP.
 
 ### 13.1 — `[ 🟡 ] FROZEN`
-#69 Web y #70 Server son candidates históricos stale/frozen. Helper/semantics de #69 pueden reutilizarse solo bajo scope explícito; no revivir PRs automáticamente.
+#69 Web y #70 Server siguen candidates históricos stale/frozen. Reuse semantics solo bajo scope explícito.
 
-### 13.2 — `[ 🟡 ] EXECUTABLE EVIDENCE + PROVEN PRODUCT GAP`
-
-**Gate literal:** ninguna acción Web visible llama Tauri/Desktop; 0 pérdida silenciosa.
-
-Evidencia reusable:
-- `NIGHT-AAA-071`: audit READ-ONLY; falta exhaustive executable Web/Tauri proof + Save All no-silent-loss.
-- Issue #41 `5478129410`: `src/App.tsx` Review single Save / Save All pueden cerrar o avanzar antes de durable cloud completion/failure.
-- `NIGHT-AAA-098`: no resultado final/handoff/candidate material al preflight CYCLE 103; `SUPERSEDED / NOT_PASS`.
-
-13.2 sigue OPEN. El gap durable Review permanece válido, pero CYCLE 103 prioriza el bloqueo productivo `Loading Galer`; no hay owner material de 13.2 en este ciclo.
-
-## Día 14
+### 13.2 — `[ 🟡 ] PROVEN PRODUCT GAP`
+Gate literal: ninguna acción Web visible llama Tauri/Desktop; 0 pérdida silenciosa. Issue #41 `5478129410` revalidó que Review Save/Save All pueden avanzar/cerrar antes de durable cloud completion/failure. Sigue OPEN y sin owner material CYCLE 104 mientras AAA100 ataca startup.
 
 ### 14.1 — `[ 🟡 ] PARKED / #81 STALE`
-#81 conserva material playback Web pero está stale. No mutar mientras camino crítico superior siga abierto.
+Playback candidate stale; no priorizar frente a P1 startup/auth/durability.
 
 ### 14.2 — `[ ]`
-- [ ] índice activo/shortcuts/seek/shuffle/repeat/error recoverable;
-- [ ] queue/volumen responsive;
-- [ ] Safari/Firefox/Chrome/iPhone, red degradada.
-
-## Día 15
+Queue/seek/shuffle/repeat/error recoverable, responsive volume y Safari/Firefox/Chrome/iPhone/degraded-network evidence pendientes.
 
 ### 15.1 — `[ 🟡 ] BLOCKED ON RECENT-REAUTH SEAM`
+Evidence reusable `NIGHT-WOZ-094`: purge lifecycle existe, pero faltan strong confirmation, recent-reauth seam y deterministic durable action boundary; UI actualmente puede limpiar optimistamente antes de purge completion. Sigue sin owner CYCLE 104 y entra también en blockers D10.2 salvo decisión RO explícita de exclusión para alpha.
 
-`NIGHT-WOZ-094` probó:
-- `SettingsPanel.emptyTrash()` ya reutiliza purge/list lifecycle;
-- falta strong confirmation;
-- UI se limpia optimistamente antes de `platform.trash.purgeBeats()` completion;
-- `PlatformTrashPort` no expone recent reauth;
-- AccountGate/session inspeccionado no expone bounded reusable recent-reauth seam para SettingsPanel.
+### 15.2 / 15.3
+A11y baseline visual y YouTube Web pure siguen pendientes. Web YouTube nunca depende de Tauri/helper Desktop.
 
-Sin owner CYCLE 103. No cruzar BBB098 mientras éste conserva ownership exclusivo de #84 auth evidence/harness. Después, asignar seam auth/session bounded bajo owner correcto y recién entonces wiring Trash mínimo.
-
-### 15.2
-- [ ] dialog/focus/live regions/labels/contraste/zoom/reduced motion;
-- [ ] baseline visual S01–S59 alcanzables.
-
-### 15.3 — YouTube Web sin Tauri
-Pendiente contrato compartido, backend OAuth/jobs server-side, Web adapter puro, upload/schedule durable y evidencia real. Web nunca depende de Tauri/helper Desktop.
-
-**Principio:** evidence-before-claim; `READY_TO_WORK` ≠ `READY_TO_CLOSE`; no falsear browser/runtime coverage.
+**Principio:** evidence-before-claim; no falsear browser/runtime coverage.
