@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE 113:** `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`.  
+**Baseline vivo CYCLE 114:** `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`.  
 **Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[x] MAP COMPLETE / ALPHA CANDIDATE NOT READY`.  
 **Release público:** 🔴 `NO-GO`.
 
@@ -21,18 +21,18 @@ D10.2 es el mapa de readiness para alpha interna 3–5 cuentas. Los blockers pas
 - #88 = technical/preparatory Authenticode seam only; production signing sigue externo.
 - F0/0.20 OAuth secret rotation está `[x]` con owner-side replacement/deploy/fresh OAuth E2E/removal del credential anterior.
 - #91 Web bootstrap corrective está integrado como `134a293...`; 12.1 aún necesita #92 o resolución equivalente + deploy/runtime/cold-warm evidence.
-- Windows Auth dejó de tener solo evidencia roja: PR #93 exact-base `134a293...` @ `b2c4eb4...` produjo Windows Auth run `33468863393` SUCCESS y job `99734302105` SUCCESS con assertions de token persistence + AccountGate exit. #93 es harness/evidence-only y está pendiente de integration review por WOZ112.
+- Windows Auth PR #93 exact-base `134a293...` @ `b2c4eb4...` produjo Windows Auth run `33468863393` SUCCESS. #93 es harness/evidence-only y sigue pendiente de integration review por WOZ113.
 
 ### HARD / ACTIVE BLOCKERS para alpha
 
-1. **F4/25.1 evidence integration:** el journey Windows Auth tiene candidate exact-green #93, pero todavía no está integrado/procesado en baseline canónico; WOZ112 posee esa lane. Global 25.1 además sigue abierto para release por journeys restantes.
-2. **F2/12.1 runtime:** #92 signed-out loader corrective sigue OPEN/Ready exact-base pero parked CYCLE113; después de canonical code aún falta deploy público + authenticated startup + cold/warm evidence.
+1. **F4/25.1 evidence integration:** #93 exact-green pero todavía no integrado/procesado en baseline canónico; WOZ113 posee esa lane. Global 25.1 además sigue abierto para release por journeys restantes.
+2. **F2/12.1 runtime:** #92 signed-out loader/Express corrective sigue OPEN/Ready exact-base pero parked CYCLE114; después de canonical code aún falta deploy público + authenticated startup + cold/warm evidence.
 3. **F0/0.9 security P1:** #89 DNS-rebinding/SSRF corrective sigue stale/no integrado; debe revalidarse antes de 1.8.
 
 ### CLOSE OR RO-EXCLUDE antes de 1.8
 
-- **F2/13.2 durable Review:** gap probado de completion/no-silent-loss. Owner CYCLE113 = AAA109.
-- **F2/15.1 Empty Trash:** recent-reauth + strong confirmation + durable deterministic purge. Owner CYCLE113 = BBB108; alternativa sigue siendo exclusión RO explícita.
+- **F2/13.2 durable Review:** gap probado de completion/no-silent-loss. Owner CYCLE114 = AAA110.
+- **F2/15.1 Empty Trash:** recent-reauth + strong confirmation + durable deterministic purge. Owner CYCLE114 = BBB109; alternativa sigue siendo exclusión RO explícita.
 
 ### F3 — decisión explícita de aplicabilidad al alpha
 
