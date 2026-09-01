@@ -17,7 +17,7 @@
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable final:** `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`.
 - **Último merge material:** PR #91 → `134a293985c314eb09c238115e3bcb71e79f1810`, parents `78dd55b72142e69ea32ba6c1ba6d43e246ac6843` + `35d44a0dd5ee380f802b3a80b139ca1ca741d5f9`. Exact-head portability/Required CI PASS. Claim máximo: F2/12.1 code corrective integrado; **public deploy + authenticated runtime + cold/warm evidence siguen pendientes**.
-- **Merge anterior #90:** `78dd55b...`; F0/0.20 software/readiness + HEAD secret scan integrated; actual OAuth credential rotation/deploy/E2E/revoke sigue externo y NOT DONE.
+- **F0/0.20 OAuth rotation:** `[x] DONE`. #90 readiness software está integrado y RO registró owner-side credential replacement, deploy, fresh production OAuth E2E y eliminación del credential anterior. No se expusieron valores secretos.
 - **F0:** núcleo técnico principal cerrado; 1.2/2.2 conservan tails externos/administrativos. Eligibility v1 = **18+**. 0.8 legal review `[x]` administrativamente por AI-assisted review + decisión RO; no implica compliance ni cierre de P0/P1 legales. #88 technical Authenticode seam integrado; production signing `NO-GO`. #89 OPEN/Ready @ `daf87da6...`, stale base `816f946c...`; requiere refresh a `134a293...` o HEAD posterior + exact-head security CI.
 - **F1:** D6–D10.1 PASS. D10.2 `[x] MAP COMPLETE` con resultado `ALPHA CANDIDATE NOT READY`. 1.7 debe resolver/clasificar blockers; 1.8 decisión RO final pendiente; 1.9 solo después de GO.
 - **F2:** 11.1/11.2/12.2 cerrados. 12.1 code integrado vía #91; deploy público vigente requiere owner SSH key y luego runtime autenticado/cold-warm evidence. 13.2 durable Review y 15.1 Trash siguen abiertos.
@@ -31,12 +31,12 @@
 - `NIGHT-AAA-105`: handoff verificable → bounded startup corrective #91. Durante el mismo ciclo, #91 completó CI y quedó integrado concurrentemente como `134a293...`; por tanto F2/12.1 pasó a `INTEGRATED / PUBLIC DEPLOY + AUTH RUNTIME PENDING`, no PASS.
 - `NIGHT-BBB-104`: sin RESULTADO DEL TURNO/matching handoff → `NO_RESULT / SUPERSEDED / NOT_PASS`; último factual BBB099 `BLOCKED_STOP / AMBIGUOUS`.
 - `NIGHT-WOZ-108`: sin RESULTADO DEL TURNO/matching handoff → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- PR #90 fue merge material independiente antes de #91; su claim sigue readiness software, no rotación real.
+- Cambio owner-side independiente: F0/0.20 OAuth rotation completada y sincronizada en F0 con credential replacement/deploy/E2E/revocation verificados. No se atribuye a worker nocturno.
 - JOBS no modificó código BeatGaler ni infraestructura.
 
 ## D10.2 — mapa de readiness de alpha interna
 
-- `PROVEN`: D6–D10.1 y prerequisites internos aceptados.
+- `PROVEN`: D6–D10.1, prerequisites internos y F0/0.20 OAuth rotation cerrada.
 - `EXTERNAL_RUNTIME_BLOCKER`: F2/12.1 deploy del baseline `134a293...` + authenticated public runtime/cold-warm proof; requiere owner key, no worker sin credential.
 - `HARD_BLOCKER`: F4/25.1 packaged Windows auth literal PASS.
 - `CLOSE_OR_RO_EXCLUDE`: F2/13.2 durable Review y F2/15.1 recent-reauth/Empty Trash.
@@ -60,7 +60,7 @@ CI-FALLBACK: solo durante genuine `WAITING_CI`: **READ-ONLY F1/1.7 blocker-class
 
 **Integration mutation authorization CYCLE 110 final: WOZ109 / PR #89 ONLY, después de refresh exact-base/head + all applicable CI SUCCESS + race-free expected-head.**
 
-## Camino crítico global — recalculado tras merge concurrente #91
+## Camino crítico global — recalculado tras merge #91 y cierre OAuth
 
 1. **F4/25.1 / #84:** causalidad harness/service → literal packaged Windows Auth PASS.
 2. **F2/13.2 Review:** durable completion/no-silent-loss + Web/no-Tauri evidence, o exclusión RO explícita de alpha.
@@ -70,7 +70,7 @@ CI-FALLBACK: solo durante genuine `WAITING_CI`: **READ-ONLY F1/1.7 blocker-class
 6. **F1/1.7:** consolidar blockers y clasificar F3/18.2, 19.2, 20.2 `IN_ALPHA` / `EXCLUDED_FROM_ALPHA`.
 7. **F1/1.8:** decisión RO final GO/NO-GO para 3–5 cuentas.
 8. **F1/1.9:** ejecutar alpha solo después del GO.
-9. **Release path paralelo:** F0 release/admin tails, actual OAuth rotation, F3 public/legal/provider/capacity, production signing/notarization/hardware/12–20 tester execution siguen abiertos.
+9. **Release path paralelo:** F0 release/admin tails, F3 public/legal/provider/capacity, production signing/notarization/hardware/12–20 tester execution siguen abiertos.
 
 ## Invariantes
 
@@ -85,4 +85,4 @@ CI-FALLBACK: solo durante genuine `WAITING_CI`: **READ-ONLY F1/1.7 blocker-class
 
 ## NEXT
 
-AAA ejecuta `NIGHT-AAA-106` sobre F2/13.2; BBB `NIGHT-BBB-105` sobre #84; WOZ `NIGHT-WOZ-109` sobre #89 y posee la única conditional integration lane. F2/12.1 runtime queda como owner-key external tail, no se falsea PASS. #85 sigue external-owned; #76/#83 no se reintentan sin cambio material. F5 sigue CLOSED / NO-GO. `PLAN_HEALTH`: synced CYCLE 110 final; GitHub live prevalece si cambia después.
+AAA ejecuta `NIGHT-AAA-106` sobre F2/13.2; BBB `NIGHT-BBB-105` sobre #84; WOZ `NIGHT-WOZ-109` sobre #89 y posee la única conditional integration lane. F2/12.1 runtime queda como owner-key external tail. F0/0.20 está cerrado y no se repite. #85 sigue external-owned; #76/#83 no se reintentan sin cambio material. F5 sigue CLOSED / NO-GO. `PLAN_HEALTH`: synced CYCLE 110 final; GitHub live prevalece si cambia después.
