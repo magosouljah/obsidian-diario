@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE119:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
+**Baseline vivo CYCLE120:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
 
 ## Estado actual
 
@@ -37,7 +37,7 @@ AAA114 revalidó en baseline `43fdf70e...` que `handleReviewedBeatSaved` y `hand
 
 AAA114 no abrió candidate: la superficie disponible solo permitía whole-file replacement del `src/App.tsx` grande y el cambio mínimo no podía aplicarse de forma segura sin riesgo de corrupción/scope widening. Resultado: `PENDING / STOP_WRITE_SURFACE / NOT_PASS`; Issue #41 `5490203080`.
 
-**CYCLE119: UNASSIGNED.** No duplicar la misma orden hasta existir una superficie patch/worktree-capable o una primitive alternativa bounded. Gate requerido sigue siendo success/close/advance solo después de durable completion; failure/conflict/retry visible; Save All partial per-item; focused Web/no-Tauri tests + exact-head CI.
+**CYCLE120: UNASSIGNED.** No duplicar la misma orden hasta existir una superficie patch/worktree-capable o una primitive alternativa bounded. Gate requerido sigue siendo success/close/advance solo después de durable completion; failure/conflict/retry visible; Save All partial per-item; focused Web/no-Tauri tests + exact-head CI.
 
 ### 14.1 / 14.2
 Playback y queue/browser evidence permanecen secundarios frente a startup/durability/security alpha blockers.
@@ -46,7 +46,7 @@ Playback y queue/browser evidence permanecen secundarios frente a startup/durabi
 
 La decisión D8 existe, pero falta seam bounded de fresh same-provider authorization ligada a user/session y consumible por destructive callers.
 
-**Owner CYCLE119: `NIGHT-BBB-114` únicamente para la seam D8 mínima.** No Trash UI/purge en ese assignment. Después se reasigna 15.1 para strong confirmation + durable deterministic completion/failure sin false success.
+**Owner CYCLE120: `NIGHT-BBB-115` únicamente para la seam D8 mínima.** No Trash UI/purge en ese assignment. Después se reasigna 15.1 para strong confirmation + durable deterministic completion/failure sin false success.
 
 ### 15.2 / 15.3
 A11y baseline visual y YouTube Web pure siguen pendientes. Web YouTube nunca depende de Tauri/helper Desktop.
