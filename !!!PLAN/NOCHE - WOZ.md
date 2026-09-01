@@ -6,44 +6,35 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-103`
+- `ASSIGNMENT_ID: NIGHT-WOZ-104`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F0 / 1.2 — REUSE PR #86 release/provenance governance candidate`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `CANDIDATE: PR #86 OPEN/Ready/mergeable, base exact live, head 200474d061c63406774da8d21bd22460a8bd0312.`
-- `PREDECESSOR: NIGHT-WOZ-102 = BLOCKED_STOP / D10.2 NOT_READY_FOR_RO_DECISION / READ_ONLY_COMPLETE; Issue #41 5486382155.`
-- `WHY_ASSIGNED: D10.2 fue reducido hasta blockers pertenecientes a otros owners/RO. #86 apareció como candidate reusable capaz de cerrar una porción real del tail F0/1.2 sin duplicar trabajo.`
-- `SERIALIZATION: WOZ103 exclusively owns #86 review/integration path. AAA100 owns F2/12.1. BBB099 owns #84. PR #85 remains external/owner-owned. PR #87 may only be inspected READ-ONLY under fallback. Do not touch #74/#84/#85/#76/#83 or provider/DNS/deploy infra.`
+- `AREA: F0/0.6 + F3/19.1 — REUSE PR #87 public security/status software candidate`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ b85723e1b3016d24bdb943393e796ccdb744247d`
+- `CANDIDATE: PR #87 OPEN/Ready/mergeable, exact base live, head ba0d7b689e587da42cc8105b22d0ed0c206bc064.`
+- `PREDECESSOR: NIGHT-WOZ-103 no final ledger/handoff observado al preflight, pero GitHub real prueba que su candidate #86 fue merged como b85723e...; JOBS procesa la integración por evidencia GitHub, no inventa worker result.`
+- `WHY_ASSIGNED: #86 ya cerró su implementation slice. #87 está refresh-synced al nuevo baseline y sus seis workflows observados en exact head terminaron SUCCESS; es el siguiente candidate reusable que reduce tails F0/F3 sin fabricar runtime.`
+- `SERIALIZATION: WOZ104 exclusively owns #87 review/integration path. AAA101 owns F2/12.1. BBB100 owns #84. PR #85 remains external/owner-owned. Do not touch #74/#84/#85/#76/#83 or DNS/TLS/deploy/provider infra.`
 
 ### PRIMARY
 
-**F0 / 1.2 — verify and, only if exact and green, integrate PR #86.**
+**F0/0.6 + F3/19.1 — verify and, only if exact/race-free, integrate PR #87 software slice.**
 
-1. Fresh preflight integration and #86 base/head/scope; duplicate-check and changed-files review.
-2. Verify candidate semantics literally: alpha/beta/rc prerelease separation; stable-only `latest`; immutable/no-clobber publication; Draft-before-publish; provenance ties BeatGaler source SHA, real `magosouljah/galer` target commit and build run IDs; publication kill switch remains engaged.
-3. Confirm no existing historical release is mutated and no public release is enabled merely by merging this implementation.
-4. Require all applicable exact-head checks on `200474d...` to complete SUCCESS. Generic partial green does not suffice.
-5. If PRIMARY is genuinely `WAITING_CI`, CI-FALLBACK below is authorized once, then return to #86 and recheck.
-6. If base/head changes materially, refresh/revalidate history-preserving or STOP if safe exact-head proof cannot be restored.
-7. If exact base/head/scope + applicable CI remain green and race-free, WOZ is the **only** worker authorized this cycle to merge **PR #86 only** into `integration-v0.8.0-alpha.1`; verify resulting integration SHA/parents.
-8. Maximum claim: F0/1.2 release/provenance **implementation slice** PASS/INTEGRATED. Do not mark F0/1.2 or F0 globally `[x]`; external/admin tails remain.
-9. Write RESULTADO DEL TURNO here + Issue #41 and STOP.
+1. Fresh preflight integration and #87 base/head/scope; duplicate-check and changed-files review.
+2. Verify exact semantics: RFC9116 security.txt source/expiry/canonical; exact non-SPA serving; low-maintenance status surface; no internal health leakage; deploy script remains fail-safe when status DNS is absent.
+3. Separate `PROVEN_SOFTWARE` from `UNVERIFIED_RUNTIME/EXTERNAL`: status DNS, certificate SAN, production deployment and public runtime are not implied by merge.
+4. Recheck all applicable exact-head workflows at `ba0d7b...`; observed pre-assignment: D6, D7, Public Operations, Web Production Build, Desktop Portability SUCCESS; Upgrade 21.2 skipped/non-applicable.
+5. Recheck base/head immediately before integration. If candidate remains exact `base=b85723e...`, expected head `ba0d7b...`, mergeable and applicable CI green, WOZ is the **only** worker authorized this cycle to merge **PR #87 only**.
+6. Verify resulting integration SHA/parents and no race. Maximum claim: F0/0.6 + F3/19.1 **software implementation slice PASS/INTEGRATED**; runtime/DNS/support/legal external tails remain OPEN.
+7. Escribir RESULTADO DEL TURNO aquí + Issue #41 and STOP.
 
-**Required evidence:** base/head; changed files; semantics review; exact-head check names/conclusions; kill-switch/no-publication proof; merge SHA/parents if merge occurs; remaining F0 tails; UNVERIFIED.  
-**STOP:** scope drift, release publication enabled, destructive/history mutation, exact-head CI failure, race, external credentials/provider action, conflict with owner, or any integration mutation other than expected-head #86.
+**Required evidence:** base/head; changed files; exact-head workflow names/conclusions; semantics/no-leak review; expected-head merge result + parents if merged; explicit runtime/DNS/deploy UNVERIFIED.  
+**STOP:** scope drift, owner collision with #85, DNS/TLS/deploy/credentials action, failed/non-applicable ambiguity in required checks, base/head race, or any integration mutation other than expected-head #87.
 
 ### CI-FALLBACK
 
-**READ-ONLY — PR #87 public security/status candidate. Execute ONLY while PRIMARY #86 is genuinely WAITING_CI.**
-
-- **Scope:** inspect #87 only: exact base/head, changed files, CI state, mapping to public security/status/support tails, and external DNS/deploy/runtime dependencies. No mutation, merge, DNS, TLS, deploy or credentials.
-- **Required evidence:** PR #87 base/head; relevant file list; exact CI observed; explicit separation `PROVEN_SOFTWARE` vs `UNVERIFIED_RUNTIME/EXTERNAL`; collision check with #85/#86.
-- **STOP:** any mutation required; owner collision; DNS/provider/deploy/credential action; scope crosses #85/#86; evidence cannot be verified.
-- Maximum claim: `PR87 READ_ONLY_EVIDENCE_MAP_COMPLETE`.
+`CI-FALLBACK: NONE` — PRIMARY is already exact-head green at assignment; no independent fallback is needed or safe.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-WOZ-102`: `BLOCKED_STOP / D10.2 NOT_READY_FOR_RO_DECISION / READ_ONLY_COMPLETE`; blockers mínimos = F2/12.1, F4/25.1 y resolución/RO applicability de F2/13.2 + 15.1.
-- Issue #41 `5486382155` contiene el handoff exacto; no hubo mutation.
-- PR #86 apareció después de CYCLE 103: exact-base candidate, head `200474d...`; CI estaba todavía parcialmente in-progress en el preflight JOBS CYCLE 104, por lo que no se promovió PASS.
-- PR #87 apareció como candidate separado, exact-base head `d5d129c...`, runtime/DNS explícitamente UNVERIFIED; solo fallback READ-ONLY.
+- `NIGHT-WOZ-103`: no final ledger/handoff observed, so no worker-completion claim. GitHub independently proves PR #86 merged as `b85723e1b3016d24bdb943393e796ccdb744247d` with parents old baseline `816f946c...` and candidate `200474d...`.
+- JOBS CYCLE 105 promotes only the #86 release/provenance **implementation slice** from that verifiable integration; external/admin release tails remain open.
