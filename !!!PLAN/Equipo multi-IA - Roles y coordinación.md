@@ -2,33 +2,33 @@
 
 > GitHub + `!!!PLAN` son memoria compartida. GitHub/runtime vivo prevalece.
 
-## Roles y ownership actual — CYCLE150
+## Roles y ownership actual — CYCLE151
 
 | Rol | Owner actual | PRIMARY | CI-FALLBACK |
 |---|---|---|---|
 | JOBS | coordinación | `!!!PLAN`, prioridades, handoffs, gates; no BeatGaler code/infra | n/a |
-| AAA | F2 / 12.1 runtime proof | `NIGHT-AAA-146`: READ-ONLY exact-deployment runtime evidence inventory post-#96; no deploy/code/infra | NONE |
-| BBB | F1/D8 follow-up | `NIGHT-BBB-145`: minimum productive recent-reauth seam bound to user/session; no Trash UI; candidate only, NO MERGE | F3/18.2 READ-ONLY evidence inventory only while PRIMARY genuinely waits external CI/build/review |
-| WOZ | F0 / 0.9 / #89 | `NIGHT-WOZ-149`: diagnose current F0 audit failure, REUSE #89, bounded refresh/revalidate; expected-head merge #89 only if exact/green/race-free | READ-ONLY #93 stale-evidence inventory only while #89 genuinely waits external CI after clean refresh |
+| AAA | F2 / 12.1 runtime proof | `NIGHT-AAA-147`: READ-ONLY exact-deployment runtime evidence inventory post-#96; no deploy/code/infra | NONE |
+| BBB | F1/D8 follow-up | `NIGHT-BBB-146`: minimum productive recent-reauth seam bound to user/session; no Trash UI; candidate only, NO MERGE | F3/18.2 READ-ONLY evidence inventory only while PRIMARY genuinely waits external CI/build/review |
+| WOZ | F0 / 0.9 / #89 | `NIGHT-WOZ-150`: diagnose current F0 audit failure, REUSE #89, bounded refresh/revalidate; expected-head merge #89 only if exact/green/race-free | READ-ONLY #93 stale-evidence inventory only while #89 genuinely waits external CI after clean refresh |
 
-**Baseline canónico CYCLE150:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
+**Baseline canónico CYCLE151:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
 
-## Handoffs/resultados procesados — CYCLE150
+## Handoffs/resultados procesados — CYCLE151
 
-- AAA145: no matching final result/handoff verified after CYCLE149 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- BBB144: no matching final result/handoff verified after CYCLE149 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- WOZ148: no matching final result/handoff verified after CYCLE149 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- Issue #41 fue leído completo y refrescado; el último handoff previo al ciclo seguía siendo JOBS CYCLE149 `5501376377`.
+- AAA146: no matching final result/handoff verified after CYCLE150 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- BBB145: no matching final result/handoff verified after CYCLE150 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- WOZ149: no matching final result/handoff verified after CYCLE150 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- Issue #41 delta since CYCLE150 contiene únicamente el handoff JOBS CYCLE150 `5501722127`; no worker handoff posterior.
 - PR #96 sigue siendo el último merge material; F2/12.1 permanece `PUBLIC_RUNTIME_OPEN`.
 - PR #89 sigue OPEN @ `daf87da6...`, recorded base `816f946c...`, stale vs live; run F0/0.9 `33454881387` sigue FAILURE exact-head. Current head is not merge-eligible.
 - PR #93 sigue OPEN @ `b2c4eb441...`, base `134a293...`, stale; no mutation owner.
-- Duplicate-check no mostró PR nuevo de recent-reauth.
+- Duplicate-check de PRs abiertos no mostró candidate nuevo de recent-reauth.
 
 ## Serialización
 
-AAA146 owns only F2/12.1 runtime-proof evidence READ-ONLY. BBB145 owns only recent-reauth product seam; its F3/18.2 fallback is READ-ONLY and exists only during genuine external wait. WOZ149 exclusively owns #89 mutation/integration. F2/13.2 remains `BLOCKED_WRITE_SURFACE / UNASSIGNED`; #93 remains mutation-unassigned.
+AAA147 owns only F2/12.1 runtime-proof evidence READ-ONLY. BBB146 owns only recent-reauth product seam; its F3/18.2 fallback is READ-ONLY and exists only during genuine external wait. WOZ150 exclusively owns #89 mutation/integration. F2/13.2 remains `BLOCKED_WRITE_SURFACE / UNASSIGNED`; #93 remains mutation-unassigned.
 
-**Only integration mutation authorized CYCLE150: WOZ149 / PR #89, conditional on exact refreshed base/head, applicable security/required CI SUCCESS and race-free expected-head check. #93 has no merge authorization.**
+**Only integration mutation authorized CYCLE151: WOZ150 / PR #89, conditional on exact refreshed base/head, applicable security/required CI SUCCESS and race-free expected-head check. #93 has no merge authorization.**
 
 ## Holding / blocked items
 
