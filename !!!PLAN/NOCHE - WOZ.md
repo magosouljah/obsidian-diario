@@ -34,6 +34,40 @@
 
 `CI-FALLBACK: NONE` — PRIMARY is already exact-head green at assignment; no independent fallback is needed or safe.
 
+## RESULTADO DEL TURNO — NIGHT-WOZ-104
+
+### PRIMARY
+
+- `Assignment ID:` NIGHT-WOZ-104
+- `STATUS:` DONE / INTEGRATED — F0/0.6 + F3/19.1 software implementation slice only.
+- `baseline:` integration-v0.8.0-alpha.1 @ `b85723e1b3016d24bdb943393e796ccdb744247d` before merge; after merge `38517c8065063206fed530028e4e8d20208f3807`.
+- `branch/head:` `f0-0.6-public-ops` @ exact head `ba0d7b689e587da42cc8105b22d0ed0c206bc064`.
+- `PR:` #87 — OPEN/Ready/mergeable at final race-check, then merged with expected-head protection; merge SHA `38517c8065063206fed530028e4e8d20208f3807`.
+- `cambios:` REUSE-FIRST; no new product edit by WOZ. Reviewed 9 changed files: `.github/workflows/public-operations-validation.yml`, `.github/workflows/web-production-build.yml`, `deploy/web/beatgaler.com.bootstrap.conf`, `deploy/web/beatgaler.com.conf`, `deploy/web/install-web-production.sh`, `docs/operations/public-status-and-security.md`, `public/.well-known/security.txt`, `public/status/index.html`, `scripts/test-public-operations-pages.mjs`. Exact security.txt path uses text/plain + `=404` rather than SPA fallback; status surface is static and bounded; status host serves static root and 404 otherwise; deploy remains fail-safe when status DNS is absent and requests status SAN only after DNS resolves to production origin. No internal health endpoint leakage observed in candidate scope.
+- `tests:` reused candidate/source validation; no test rerun invented by WOZ. Candidate reports `node scripts/test-public-operations-pages.mjs`, dist validation, `bash -n deploy/web/install-web-production.sh`, archive smoke PASS.
+- `CI:` exact head `ba0d7b...`: Required CI SUCCESS at check run `99694399735`; applicable assignment-preflight D6, D7, Public Operations, Web Production Build, Desktop Portability SUCCESS; Upgrade 21.2 skipped/non-applicable. No failed applicable check promoted.
+- `evidencia:` pre-merge PR #87 exact base `b85723e...`, exact head `ba0d7b...`, mergeable=true, draft=false; expected-head merge succeeded. Result commit `38517c...` is verified and has exact parents `b85723e1b3016d24bdb943393e796ccdb744247d` + `ba0d7b689e587da42cc8105b22d0ed0c206bc064`. Handoff Issue #41 comment `5486854786`.
+- `UNVERIFIED:` status DNS; certificate SAN for `status.beatgaler.com`; production deployment; public runtime for `/.well-known/security.txt` and status host; broader support/legal/provider external tails. Merge does not prove any of these.
+- `blockers:` external/runtime tails above remain outside this assignment; no blocker prevented the authorized software integration.
+- `condición de STOP alcanzada:` YES — expected-head #87 integrated and post-merge parents verified; no further integration or external action authorized.
+- `recomendación para JOBS:` process #87 as F0/0.6 + F3/19.1 SOFTWARE IMPLEMENTATION SLICE PASS/INTEGRATED only; keep DNS/TLS/deploy/public-runtime/support/legal tails OPEN/UNVERIFIED and assign them only to an explicitly authorized owner/surface.
+
+### CI-FALLBACK
+
+- `Assignment ID:` NIGHT-WOZ-104 / CI-FALLBACK
+- `STATUS:` NOT_TRIGGERED / NONE.
+- `baseline:` `b85723e1b3016d24bdb943393e796ccdb744247d`.
+- `branch/head:` NONE.
+- `PR:` NONE.
+- `cambios:` none.
+- `tests:` none.
+- `CI:` PRIMARY was exact-head green; fallback condition never applied.
+- `evidencia:` assignment explicitly says `CI-FALLBACK: NONE`.
+- `UNVERIFIED:` N/A beyond PRIMARY external/runtime tails.
+- `blockers:` none; fallback prohibited by assignment.
+- `condición de STOP alcanzada:` YES — no fallback invented.
+- `recomendación para JOBS:` no fallback follow-up; process PRIMARY result only.
+
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
 - `NIGHT-WOZ-103`: no final ledger/handoff observed, so no worker-completion claim. GitHub independently proves PR #86 merged as `b85723e1b3016d24bdb943393e796ccdb744247d` with parents old baseline `816f946c...` and candidate `200474d...`.
