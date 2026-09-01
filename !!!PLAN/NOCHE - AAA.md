@@ -6,31 +6,30 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-099`
+- `ASSIGNMENT_ID: NIGHT-AAA-100`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 12.1 — public Web bootstrap runtime blocker (Loading Galer)`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`
-- `PREDECESSOR: NIGHT-AAA-098 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff al preflight JOBS CYCLE 103; SUPERSEDED / NOT_PASS.`
-- `NEW_FACT: owner Issue #41 comment 5485984669 demuestra infraestructura Web pública funcional (web-health ok, auth health reachable, www→apex, TLS válido), pero https://beatgaler.com queda detenido en Loading Galer. Es un bug funcional separado del deploy.`
-- `WHY_ASSIGNED: el stall impide uso normal por testers y bloquea evidencia Web real; es más crítico ahora que continuar 13.2 en este ciclo.`
-- `SERIALIZATION: AAA owns only the Web bootstrap/runtime functional slice. BBB098 owns #84 Windows auth evidence/harness. WOZ102 is READ-ONLY D10.2. PR #85 remains external/owner-owned. Do not touch #74/#84/#83/#76/#85, deploy scripts/infra, provider config, shared auth/session internals unless STOP condition below is reached.`
+- `PREDECESSOR: NIGHT-AAA-099 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff al preflight JOBS CYCLE 104; SUPERSEDED / NOT_PASS.`
+- `WHY_ASSIGNED: Loading Galer continúa siendo el blocker funcional más directo para uso normal de testers y browser evidence.`
+- `SERIALIZATION: AAA100 owns only F2/12.1 Web bootstrap/runtime. BBB099 owns #84 auth evidence/harness. WOZ103 owns #86 release/provenance. PR #85 remains external/owner-owned. PR #87 is observed but not owned by AAA. Do not touch #74/#84/#86/#87/#83/#76/#85, integration, deploy/provider infra or shared auth/session internals.`
 
 ### PRIMARY
 
-**F2 / 12.1 — diagnose and minimally correct the public `Loading Galer` startup stall.**
+**F2 / 12.1 — reproducir y corregir mínimamente el stall público `Loading Galer`.**
 
-1. Fresh preflight integration, Issue #41, public symptom and open PRs; duplicate-check before mutation.
-2. Reproduce the startup stall on an applicable Web execution surface and identify the first bounded bootstrap phase that never resolves (settings/session/library/transport/index/render or equivalent).
-3. Preserve the owner-proven deployment/infrastructure state; do **not** reopen DNS/TLS/deploy as the bug.
-4. Apply only the minimum Web-side corrective required to make startup terminate deterministically into a valid user state or an explicit recoverable product state.
-5. Do not weaken auth/cloud failure handling, do not hide an unresolved promise with a timeout-only cosmetic workaround, and do not introduce Tauri/Desktop dependency into Web.
-6. Focused tests must cover the demonstrated stall cause plus success/failure termination and Web-no-Tauri behavior for touched paths.
-7. One bounded candidate/PR only if duplicate-check stays clean; exact base/head + fresh exact-head CI. **NO MERGE.**
-8. Maximum claim: `F2/12.1 PUBLIC_WEB_BOOTSTRAP_CANDIDATE_READY`; cold/warm performance gate remains separate until real timings exist.
-9. Write RESULTADO DEL TURNO here + Issue #41 handoff and STOP.
+1. Fresh preflight de integration, Issue #41, public symptom y open PRs; duplicate-check antes de mutar.
+2. Reproducir el stall en una superficie Web aplicable e identificar el primer bootstrap phase que no resuelve.
+3. Preservar como PROVEN la infraestructura pública del owner; no reabrir DNS/TLS/deploy.
+4. Aplicar solo el corrective Web mínimo que haga que startup termine determinísticamente en estado válido o error recuperable explícito.
+5. No debilitar auth/cloud failure semantics, no timeout cosmético para ocultar una promesa colgada, no Tauri/Desktop dependency.
+6. Focused tests para la causa demostrada + success/failure termination + Web/no-Tauri touched paths.
+7. Un solo candidate/PR bounded si duplicate-check sigue limpio; exact base/head + fresh exact-head CI. **NO MERGE.**
+8. Maximum claim: `F2/12.1 PUBLIC_WEB_BOOTSTRAP_CANDIDATE_READY`; cold/warm timing real sigue separado.
+9. Escribir RESULTADO DEL TURNO aquí + Issue #41 y STOP.
 
-**Required evidence:** reproduction; first unresolved bootstrap phase; exact changed files/functions; before/after termination semantics; focused tests; Web/no-Tauri proof; exact base/head; PR and exact-head CI; explicit UNVERIFIED.  
-**STOP:** cause requires shared auth/session product mutation owned by BBB-related auth boundary, backend/provider/infra/deploy mutation, secrets, material architecture redesign, existing owner/candidate collision, baseline race invalidating scope, or integration mutation.
+**Required evidence:** reproducción; primer phase irresuelto; archivos/funciones exactos; before/after termination; tests; Web/no-Tauri proof; base/head; PR/CI exact-head; UNVERIFIED explícito.  
+**STOP:** shared auth/session product mutation, backend/provider/infra/deploy, secrets, architecture redesign, owner/candidate collision, baseline race o integration mutation.
 
 ### CI-FALLBACK
 
@@ -38,6 +37,7 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-098`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 103; no final result, matching Issue #41 handoff ni candidate material observado.
-- Issue #41 `5485984669`: public infrastructure works; functional Web startup stalls at `Loading Galer`.
-- Issue #41 `5478129410`: reusable proven Review durable-completion gap; remains OPEN but is not AAA099 PRIMARY.
+- `NIGHT-AAA-099`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 104; no final result/handoff observado.
+- Issue #41 `5485984669`: public infra works; normal Web startup stalls at `Loading Galer`.
+- PR #86 apareció en rama `aaa/f0-0.4-release-provenance-governance` fuera del scope AAA099; JOBS lo reasignó explícitamente a WOZ103 para evitar ownership ambiguo.
+- Issue #41 `5478129410`: durable Review gap reusable, sigue OPEN pero no es PRIMARY AAA100.
