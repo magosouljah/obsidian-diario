@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE118:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
+**Integración estable CYCLE119:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
 
 ## Estado actual
 
@@ -14,15 +14,15 @@
 ## windows/auth — `[ 🟡 ] OLD-BASE EXACT-GREEN EVIDENCE / REFRESH REQUIRED`
 
 - BBB105 probó `HARNESS_ONLY_PROVEN`: broad fetch interceptor consumía WDIO/Tauri service plugin IPC.
-- PR #93 reconstruyó harness/evidence-only sobre base exacta histórica `134a293985c314eb09c238115e3bcb71e79f1810`, head `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, 3 files, sin product mutation.
-- Exact-head Windows Auth `33468863393` SUCCESS y los checks aplicables observados en ese head fueron verdes.
-- **GitHub vivo CYCLE118:** #93 sigue OPEN/Ready pero `mergeable=false`; recorded base `134a293...` quedó stale contra integration `43fdf70e...` después de #92/#94/#95.
+- PR #93 reconstruyó harness/evidence-only sobre base histórica `134a293985c314eb09c238115e3bcb71e79f1810`, head `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, 3 files, sin product mutation.
+- Exact-head Windows Auth `33468863393` SUCCESS y checks aplicables observados en ese head fueron verdes.
+- **GitHub vivo CYCLE119:** #93 sigue OPEN/Ready y ahora reporta `mergeable=true`, pero recorded base `134a293...` continúa stale contra integration `43fdf70e...` después de #92/#94/#95.
 
-Por exact-head/evidence-before-claim, la evidencia histórica sigue útil para causalidad y diseño del harness, pero **no autoriza canonical integration** contra el baseline actual. #93 queda `PARKED / UNASSIGNED` CYCLE118. Solo el CI-FALLBACK READ-ONLY de WOZ117 puede clasificar su blocker mientras #89 esté genuinamente esperando CI; no puede refrescar ni mutar #93.
+`mergeable=true` solo significa que GitHub puede construir un merge mecánico; no convierte la evidencia vieja en exact-head canonical evidence. #93 queda `PARKED / UNASSIGNED` CYCLE119 y requiere refresh/revalidation futuro si sigue `IN_ALPHA` tras F1/1.7.
 
 ## windows/review
 
-Durable Review product gap pertenece F2/13.2 y es owner AAA114; no mezclar con F4.
+Durable Review product gap pertenece F2/13.2. AAA114 lo revalidó y paró por write-surface unsafe; CYCLE119 queda `BLOCKED_WRITE_SURFACE / UNASSIGNED`, sin mezclarlo con F4.
 
 ## Signing Windows / macOS
 
@@ -30,7 +30,7 @@ Durable Review product gap pertenece F2/13.2 y es owner AAA114; no mezclar con F
 
 ## 25.1 — `[ 🟡 ] IN PROGRESS`
 
-Windows Auth conserva candidate evidence histórica pero necesita refresh al live baseline. Otros journeys aún carecen de evidencia actual completa; iPhone external. No cerrar 25.1 por un solo journey.
+Windows Auth conserva candidate evidence histórica pero necesita refresh al live baseline si aplica al alpha. Otros journeys aún carecen de evidencia actual completa; iPhone external. No cerrar 25.1 por un solo journey.
 
 ## 25.2 — `[ 🟡 ] READINESS ARTIFACT INTEGRATED / GLOBAL OPEN`
 
