@@ -6,15 +6,15 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-102`
+- `ASSIGNMENT_ID: NIGHT-BBB-103`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F4 / 25.1 — #84 Windows auth harness/service causal correction`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`
 - `EVIDENCE_CANDIDATE: PR #84 OPEN/Ready @ f53d46f39ece94f6de74f2f21a508ce01497ac41; base_sha 816f946c...; stale against live integration.`
-- `PREDECESSOR: NIGHT-BBB-101 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff al preflight JOBS CYCLE 107; SUPERSEDED / NOT_PASS. Último resultado factual procesado: NIGHT-BBB-099 = BLOCKED_STOP / AMBIGUOUS; Issue #41 5486566941.`
-- `AUTHORITATIVE_FAILURE: Windows Auth Journey 33449587244 / job 99676242317 @ f53d46f... = FAILURE.`
+- `PREDECESSOR: NIGHT-BBB-102 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff verificable al preflight JOBS CYCLE 108; SUPERSEDED / NOT_PASS. Último resultado factual de la línea: NIGHT-BBB-099 = BLOCKED_STOP / AMBIGUOUS; Issue #41 5486566941.`
+- `AUTHORITATIVE_FAILURE: Windows Auth Journey 33449587244 / job 99676242317 @ f53d46f... = FAILURE. Required CI verde en el mismo old head no sustituye el journey literal.`
 - `KNOWN_CAUSAL_TUPLE: POST /plugin%3Awdio%7Cget_window_states, requestClass=cross-origin; followed by WDIO plugin traffic and /get_settings; Tauri service also logged Failed to get window states.`
-- `SERIALIZATION: BBB102 owns #84 evidence/harness only. AAA103 owns F2/12.1. WOZ106 owns #89. Do not touch #74 product logic, Review, Trash, #88/#89/#90/#83/#76/#85/provider/deploy/integration.`
+- `SERIALIZATION: BBB103 owns #84 evidence/harness only. AAA104 owns F2/12.1. WOZ107 owns #89. Do not touch #74 product logic, Review, Trash, #88/#89/#90/#83/#76/#85/provider/deploy/integration.`
 
 ### PRIMARY
 
@@ -39,6 +39,6 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-BBB-101`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 107; no final result/handoff observado.
+- `NIGHT-BBB-102`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 108; no final result/handoff verificable observado al preflight.
 - `NIGHT-BBB-099`: `BLOCKED_STOP / AMBIGUOUS`; Issue #41 `5486566941`.
-- Exact tuple ya recuperado por JOBS desde el failed job log; ahora el trabajo permitido sigue siendo atribución causal bounded + harness-only correction si se demuestra.
+- Old-head Required CI is SUCCESS, pero Windows Auth literal sigue FAILURE y #84 está stale; no promoción.
