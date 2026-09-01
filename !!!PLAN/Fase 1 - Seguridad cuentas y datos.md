@@ -2,59 +2,49 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE 115:** `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`.  
+**Baseline vivo CYCLE117:** `integration-v0.8.0-alpha.1 @ 08e5802d27ad81977b1c2f63ceb0fce398d41e42`.  
 **Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[x] MAP COMPLETE / ALPHA CANDIDATE NOT READY`.  
 **Release público:** 🔴 `NO-GO`.
 
 ## D6–D10.1 — CLOSED
 
-Authorization/tenant controls, temp-auth/capabilities, lifecycle/RO decisions, PostgreSQL durability/migrations y restore/recovery permanecen PASS. No factual invalidation observada. D10.1 conserva RPO ~7 min, RTO `3643 s` y off-provider encrypted readback/SHA match. **No repetir PITR/restore/cutover/restart/migrations/rotation.**
+Authorization/tenant controls, temp-auth/capabilities, lifecycle/RO decisions, PostgreSQL durability/migrations y restore/recovery permanecen PASS. D10.1 conserva RPO ~7 min, RTO `3643 s` y off-provider encrypted readback/SHA match. No repetir drills sin invalidación.
 
-## D10.2 — `[x] MAP COMPLETE / ALPHA CANDIDATE NOT READY`
+## D10.2 — MAP COMPLETE / NOT READY
 
-D10.2 es el mapa de readiness para alpha interna 3–5 cuentas. Los blockers pasan a **1.7**; autorización final = **1.8**; ejecución = **1.9**.
+Blockers de alpha interna 3–5 cuentas se consolidan en 1.7; autorización final = 1.8; ejecución = 1.9.
 
-### PROVEN
+### PROVEN / nuevo estado
 
-- D6–D10.1 permanecen cerrados.
-- Infra Web pública básica tiene health/TLS previo; no sustituye startup autenticado sobre el nuevo deploy.
-- #88 = technical/preparatory Authenticode seam only; production signing sigue externo.
-- F0/0.20 OAuth secret rotation está `[x]` con owner-side replacement/deploy/fresh OAuth E2E/removal del credential anterior.
-- #91 Web bootstrap corrective está integrado como `134a293...`; 12.1 aún necesita #92 o resolución equivalente + deploy/runtime/cold-warm evidence.
-- Windows Auth PR #93 exact-base `134a293...` @ `b2c4eb4...` produjo Windows Auth run `33468863393` SUCCESS y sigue pendiente de integration review por WOZ114.
-- PR #92 live head avanzó a `bb67f611...` sobre exact base `134a293...`; Web Production Build/D6/D7/Desktop Portability/Temp Auth Compile/secret scan exact-head = SUCCESS, pero permanece parked mientras #93 posee la integration lane.
+- #92 y #94 están integrados en F2/12.1; code/runtime seam avanzó, pero falta public runtime proof post-#94.
+- Windows Auth #93 conserva exact-green evidence histórica en su old baseline, pero está stale/non-mergeable contra `08e5802d...`; no cuenta como canonical evidence integration.
+- BBB110 probó un blocker concreto para F2/15.1: la decisión D8 de recent reauth existe, pero no hay hoy una seam productiva consumible por Settings/Trash sin tocar auth/session core.
 
 ### HARD / ACTIVE BLOCKERS para alpha
 
-1. **F4/25.1 evidence integration:** #93 exact-green pero todavía no integrado/procesado en baseline canónico; WOZ114 posee esa lane. Global 25.1 además sigue abierto para release por journeys restantes.
-2. **F2/12.1 runtime:** #92 sigue OPEN/Ready/mergeable exact-base con head vivo `bb67f611...`; después de canonical code aún falta deploy público + authenticated startup + cold/warm evidence.
-3. **F0/0.9 security P1:** #89 DNS-rebinding/SSRF corrective sigue stale/no integrado; debe revalidarse antes de 1.8.
-
-### CLOSE OR RO-EXCLUDE antes de 1.8
-
-- **F2/13.2 durable Review:** gap probado de completion/no-silent-loss. Owner CYCLE115 = AAA111.
-- **F2/15.1 Empty Trash:** recent-reauth + strong confirmation + durable deterministic purge. Owner CYCLE115 = BBB110; alternativa sigue siendo exclusión RO explícita.
+1. **F2/12.1 runtime post-#94:** deployment exacto + signed-out/authenticated worker/library + cold/warm evidence.
+2. **F0/0.9 security P1:** #89 stale; owner WOZ116 para refresh/revalidation/integration.
+3. **F2/13.2 durable Review:** owner AAA113.
+4. **F1/D8 product seam → F2/15.1:** owner BBB112 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
+5. **F4/25.1 Windows Auth canonicalization:** #93 requiere future refresh/revalidation contra live baseline; global 25.1 además conserva otros journeys.
 
 ### F3 — decisión explícita de aplicabilidad al alpha
 
-- **18.2 provider/payment real scenarios:** `UNVERIFIED_EXTERNAL`; excluir si alpha no cobra.
-- **19.2 legal implementation/release backlog:** sigue abierto; decidir superficies obligatorias para cuentas internas.
-- **20.2 runtime160/capacity:** no probado; release/scale gate, no representativo de 3–5 cuentas.
+- 18.2 provider/payment real scenarios: `UNVERIFIED_EXTERNAL`; excluir si alpha no cobra.
+- 19.2 legal implementation/release backlog: sigue abierto.
+- 20.2 runtime160/capacity: no probado; release/scale gate, no representativo de 3–5 cuentas.
 
 ### Release-only / external tails
 
 Production signing/notarization, hardware matrix amplia, 12–20 testers, public release governance y demás tails continúan `NO-GO`.
 
-## Salida D10.2 → 1.7
+## Orden mínimo hacia 1.8
 
-**D10.2 queda cerrado como mapa. Estado resultante: `NOT_READY`.**
-
-Orden mínimo actualizado:
-1. integrar/procesar #93 con exact-head/race proof;
-2. cerrar F2/13.2 o preparar exclusión RO;
-3. cerrar F2/15.1 o preparar exclusión RO;
-4. refresh/revalidar #89/F0 security P1;
-5. resolver/integrar #92/F2/12.1 y desplegar/probar runtime público autenticado + cold/warm;
+1. obtener public runtime proof post-#94 o dejar blocker owner/runtime exacto;
+2. integrar/procesar #89 P1 con exact-head evidence;
+3. cerrar F2/13.2 o preparar exclusión RO;
+4. exponer seam recent-reauth y luego cerrar F2/15.1 o preparar exclusión RO;
+5. refresh/revalidar #93 Windows Auth evidence;
 6. clasificar F3 18.2/19.2/20.2 `IN_ALPHA` / `EXCLUDED_FROM_ALPHA`.
 
-Solo después corresponde **1.8 — decisión RO final**. No crear testers, cobrar o ejecutar alpha desde D10.2.
+Solo después corresponde **1.8 — decisión RO final**.
