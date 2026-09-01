@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE130:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3` al preflight JOBS.
+**Baseline vivo CYCLE131:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3` al preflight JOBS.
 
 ## Estado compacto
 
@@ -17,7 +17,7 @@
 
 Software reconciliation + durable exception queue está probado. 3DS, rejection, late payment, renewal failure, cancel E2E, plan changes, refund, provider webhooks/financial outcomes y full sandbox reconciliation permanecen `UNVERIFIED_EXTERNAL`.
 
-Para una alpha 3–5 cuentas sin cobros, F1/1.7 debe clasificar explícitamente este gate como `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión automáticamente. Owner de clasificación CYCLE130: `NIGHT-AAA-126` READ-ONLY. Release público sigue sujeto al gate completo.
+Para una alpha 3–5 cuentas sin cobros, F1/1.7 debe clasificar explícitamente este gate como `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión automáticamente. Owner de clasificación CYCLE131: `NIGHT-AAA-127` READ-ONLY. Release público sigue sujeto al gate completo.
 
 ## 19.1 — `[ 🟡 ] PUBLIC SOFTWARE IMPROVED / EXTERNAL TAILS OPEN`
 
@@ -41,6 +41,6 @@ Para alpha 3–5 cuentas, F1/1.7 debe clasificar explícitamente 20.2; no se fab
 
 ## Cross-phase security tail
 
-PR #89 F0/0.9 contiene P1 DNS-rebinding SSRF corrective + audit AI-assisted. **Owner CYCLE130: `NIGHT-WOZ-129` bajo F0.** #89 sigue OPEN @ `daf87da6...`, recorded base `816f946c...`; `mergeable=true` no cura la base stale frente a live `43fdf70e...`. Además, su exact-head F0/0.9 run `33454881387` está en FAILURE por Rust unit contracts / missing `../dist`; old-head green no sustituye diagnosis + refresh/exact-head. WOZ129 posee la única conditional integration lane sobre #89.
+PR #89 F0/0.9 contiene P1 DNS-rebinding SSRF corrective + audit AI-assisted. **Owner CYCLE131: `NIGHT-WOZ-130` bajo F0.** #89 sigue OPEN @ `daf87da6...`, recorded base `816f946c...`; base stale frente a live `43fdf70e...`. Además, su exact-head F0/0.9 run `33454881387` está en FAILURE; old-head green no sustituye diagnosis + refresh/exact-head. WOZ130 posee la única conditional integration lane sobre #89.
 
 **Principio:** no falsear provider, capacity, payments, DNS, deployment, staging, legal compliance ni independent counsel review sin evidencia aplicable.
