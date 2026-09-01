@@ -2,41 +2,41 @@
 
 > GitHub + `!!!PLAN` son memoria compartida. GitHub/runtime vivo prevalece.
 
-## Roles y ownership actual — CYCLE124
+## Roles y ownership actual — CYCLE125
 
 | Rol | Owner actual | PRIMARY | CI-FALLBACK |
 |---|---|---|---|
 | JOBS | coordinación | `!!!PLAN`, prioridades, handoffs, gates; no BeatGaler code/infra | n/a |
-| AAA | F1 / 1.7 | `NIGHT-AAA-120`: alpha blocker classification READ-ONLY; no RO decision, no gate promotion | NONE |
-| BBB | F1/D8 follow-up | `NIGHT-BBB-119`: minimal productive recent-reauth seam bound to user/session; no Trash UI; candidate only, NO MERGE | NONE |
-| WOZ | F0 / 0.9 / #89 | `NIGHT-WOZ-123`: REUSE #89, bounded refresh/revalidate; expected-head merge #89 only if exact/green/race-free | READ-ONLY #93 applicability inventory only while #89 genuinely waits CI |
+| AAA | F1 / 1.7 | `NIGHT-AAA-121`: alpha blocker classification READ-ONLY; no RO decision, no gate promotion | NONE |
+| BBB | F1/D8 follow-up | `NIGHT-BBB-120`: minimum productive recent-reauth seam bound to user/session; no Trash UI; candidate only, NO MERGE | NONE |
+| WOZ | F0 / 0.9 / #89 | `NIGHT-WOZ-124`: REUSE #89, bounded refresh/revalidate; expected-head merge #89 only if exact/green/race-free | READ-ONLY #93 applicability inventory only while #89 genuinely waits external CI |
 
-**Baseline canónico CYCLE124:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
+**Baseline canónico CYCLE125:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
 
-## Handoffs/resultados procesados — CYCLE124
+## Handoffs/resultados procesados — CYCLE125
 
-- AAA119: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- BBB118: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- WOZ122: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- PR #89 remains OPEN @ `daf87da6...`, base `816f946c...`, `mergeable=true`; stale vs live `43fdf70e...`. WOZ123 owns bounded refresh/revalidation/integration.
-- PR #93 remains OPEN @ `b2c4eb441...`, base `134a293...`, `mergeable=true`; stale. No mutation owner; WOZ123 may inspect READ-ONLY only under fallback condition.
+- AAA120: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- BBB119: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- WOZ123: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- PR #89 remains OPEN @ `daf87da6...`, base `816f946c...`, `mergeable=true`; stale vs live `43fdf70e...`. WOZ124 owns bounded refresh/revalidation/integration.
+- PR #93 remains OPEN @ `b2c4eb441...`, base `134a293...`, `mergeable=true`; stale. No mutation owner; WOZ124 may inspect READ-ONLY only under fallback condition.
 
 ## Serialización
 
-AAA120 owns only F1/1.7 READ-ONLY classification. BBB119 owns only the recent-reauth product seam. WOZ123 owns only #89 mutation/integration. F2/13.2 Review is `BLOCKED_WRITE_SURFACE / UNASSIGNED`; #93 has no mutation owner.
+AAA121 owns only F1/1.7 READ-ONLY classification. BBB120 owns only the recent-reauth product seam. WOZ124 owns only #89 mutation/integration. F2/13.2 Review is `BLOCKED_WRITE_SURFACE / UNASSIGNED`; #93 has no mutation owner.
 
-**Only integration mutation authorized CYCLE124: WOZ123 / PR #89, conditional on exact refreshed base/head, applicable required CI SUCCESS and race-free expected-head check.**
+**Only integration mutation authorized CYCLE125: WOZ124 / PR #89, conditional on exact refreshed base/head, applicable required CI SUCCESS and race-free expected-head check.**
 
 ## Holding / blocked items
 
 - F0/1.2 + 2.2 external/admin tails remain.
 - F0/0.9 #89 is the active software P1 lane.
 - Productive signing remains external despite #88 technical seam.
-- F1/D10.2 map complete, result `ALPHA CANDIDATE NOT READY`; 1.7=AAA120 then 1.8 RO decision.
+- F1/D10.2 map complete, result `ALPHA CANDIDATE NOT READY`; 1.7=AAA121 then 1.8 RO decision.
 - F2/12.1: #92/#94/#95 integrated; deployment/runtime proof after #95 still required.
 - F2/13.2: factual gap, blocked on safe patch/worktree surface.
-- F2/15.1: blocked behind BBB119 recent-reauth seam.
-- F3/18.2 provider/payment external; F3/19.2 legal implementation open; F3/20.2 runtime160 pending; AAA120 classifies alpha applicability only.
+- F2/15.1: blocked behind BBB120 recent-reauth seam.
+- F3/18.2 provider/payment external; F3/19.2 legal implementation open; F3/20.2 runtime160 pending; AAA121 classifies alpha applicability only.
 - F4/25.1: #93 needs future refresh/revalidation if in alpha; global 25.1 stays open.
 
 ## Reglas
