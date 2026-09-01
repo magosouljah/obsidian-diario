@@ -15,8 +15,8 @@
 ## Estado vivo — NIGHT-JOBS-139
 
 - **Release público:** 🔴 `NO-GO`.
-- **Integración estable al preflight:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`; #95 continúa como último merge material verificable.
-- **F2/12.1:** #92/#94/#95 integrados; apareció PR #96 `F2/12.1: continue bound Web MTProto session state`, OPEN/Ready sobre base exacta `43fdf70e...`. Durante este ciclo su head avanzó hasta `7e7bd5449361b2031c29271e8875de7683ed5af4`; no se observaron check-runs sobre ese exact head. Se trata como `ACTIVE_EXTERNAL_CANDIDATE / NOT_PASS`, no como runtime proof ni cierre. No se asigna mutation owner nocturno mientras el head siga cambiando sin handoff.
+- **Integración estable, incluido race-check final:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`; #95 continúa como último merge material verificable.
+- **F2/12.1:** #92/#94/#95 integrados. PR #96 `F2/12.1: continue bound Web MTProto session state` apareció después de CYCLE138, OPEN/Ready sobre base exacta `43fdf70e...`, head estable en race-check final `7e7bd5449361b2031c29271e8875de7683ed5af4`. Durante el preflight inicial todavía no había check-runs; en el race-check final ya existen **14 check-runs** sobre ese exact head y `Test - Desktop Portability` run `33538653800` sigue **in_progress**. Por tanto #96 = `WAITING_CI / ACTIVE_EXTERNAL_CANDIDATE / NOT_PASS`; no hay autorización nocturna de mutation/merge. Incluso si CI queda verde y luego se integra por un owner válido, sigue faltando public runtime proof del exact deployment resultante.
 - **F2/13.2:** durable Review gap confirmado; `BLOCKED_WRITE_SURFACE / UNASSIGNED`.
 - **F2/15.1:** recent-reauth product seam sigue prerequisito; owner `NIGHT-BBB-134` solo para seam mínima, no Trash UI todavía.
 - **F0/0.9:** #89 OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; stale frente a live. F0 audit run `33454881387` reconsultado = `completed/failure` sobre ese exact head. Owner `NIGHT-WOZ-138` para diagnóstico bounded + refresh/revalidation + conditional expected-head merge de #89 solamente.
@@ -31,14 +31,14 @@
 - `NIGHT-AAA-134`: sin matching RESULTADO DEL TURNO/handoff verificable → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-BBB-133`: sin matching RESULTADO DEL TURNO/handoff verificable → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-WOZ-137`: sin matching RESULTADO DEL TURNO/handoff verificable → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- GitHub vivo sí cambió después de CYCLE138: apareció PR #96 en F2/12.1. Su existencia invalida el claim anterior de “sin candidate nuevo”, pero no satisface ningún gate: sigue OPEN, su head cambió durante el preflight y exact-head CI/runtime continúan no demostrados.
+- GitHub vivo sí cambió después de CYCLE138: apareció PR #96 en F2/12.1. Su existencia invalida el claim anterior de “sin candidate nuevo”, pero no satisface ningún gate. El race-check final lo deja con exact-head CI en progreso, no verde/mergeado/runtime-proven.
 - #89 conserva gate rojo exacto; old-head-green no cuenta. #93 conserva evidencia histórica old-base únicamente.
 - JOBS no modificó código BeatGaler ni infraestructura.
 
 ## OWNERS — CYCLE139
 
 ### AAA — `NIGHT-AAA-135` — F1 / 1.7
-PRIMARY: blocker classification READ-ONLY para alpha 3–5 cuentas; clasificar evidencia como `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL`, incorporando el estado vivo de #96 sin adjudicarse ese PR, el F0/0.9 failure vivo de #89 y el resto de blockers materiales. Sin decisión RO ni promoción de gates.  
+PRIMARY: blocker classification READ-ONLY para alpha 3–5 cuentas; clasificar evidencia como `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL`, incorporando #96 como `WAITING_CI` sin adjudicarse ese PR, el F0/0.9 failure vivo de #89 y el resto de blockers materiales. Sin decisión RO ni promoción de gates.  
 CI-FALLBACK: NONE.
 
 ### BBB — `NIGHT-BBB-134` — F1/D8 follow-up seam
@@ -53,7 +53,7 @@ CI-FALLBACK: mientras PRIMARY esté genuinamente `WAITING_CI/WAITING_EXTERNAL` d
 
 ## Camino crítico global — recalculado desde cero contra GitHub vivo
 
-1. **F2/12.1 / PR #96 + runtime:** #96 es el nuevo candidate material más cercano al gap de startup/session continuity, pero está activo/cambiando y sin exact-head CI observado; primero requiere estabilización/handoff verificable. Incluso integrado, 12.1 seguirá necesitando public runtime proof del exact deployment resultante.
+1. **F2/12.1 / PR #96 + runtime:** #96 está en `WAITING_CI` sobre exact head `7e7bd544...`; requiere conclusión exact-head + handoff/ownership válido antes de cualquier integración. Incluso integrado, 12.1 seguirá necesitando public runtime proof del exact deployment resultante.
 2. **F0/0.9 / #89:** P1 software conocido; current security gate rojo + base stale. Diagnóstico, refresh y exact-head green son obligatorios antes de integración.
 3. **F1/1.7:** clasificación factual necesaria antes de una decisión RO real 1.8; debe incorporar #96 como candidate, no como PASS.
 4. **F1/D8→F2/15.1:** exponer seam recent-reauth bounded; luego strong confirmation + durable Trash purge/no-false-success.
@@ -74,4 +74,4 @@ CI-FALLBACK: mientras PRIMARY esté genuinamente `WAITING_CI/WAITING_EXTERNAL` d
 
 ## NEXT
 
-AAA ejecuta `NIGHT-AAA-135`; BBB `NIGHT-BBB-134`; WOZ `NIGHT-WOZ-138` y posee la única conditional integration lane sobre #89. PR #96 queda `ACTIVE_EXTERNAL_CANDIDATE / NO NIGHT MUTATION OWNER` hasta handoff/estabilización factual; WOZ solo puede inspeccionarlo READ-ONLY bajo su fallback. F2/13.2 queda `BLOCKED_WRITE_SURFACE / UNASSIGNED`. #93 no tiene mutation owner. F5 sigue CLOSED / NO-GO. `PLAN_HEALTH`: synced CYCLE139; GitHub live prevalece si cambia después.
+AAA ejecuta `NIGHT-AAA-135`; BBB `NIGHT-BBB-134`; WOZ `NIGHT-WOZ-138` y posee la única conditional integration lane sobre #89. PR #96 queda `WAITING_CI / ACTIVE_EXTERNAL_CANDIDATE / NO NIGHT MUTATION OWNER`; WOZ solo puede inspeccionarlo READ-ONLY bajo su fallback. F2/13.2 queda `BLOCKED_WRITE_SURFACE / UNASSIGNED`. #93 no tiene mutation owner. F5 sigue CLOSED / NO-GO. `PLAN_HEALTH`: synced CYCLE139 final race-check; GitHub live prevalece si cambia después.
