@@ -36,7 +36,35 @@
 
 `CI-FALLBACK: NONE`.
 
+## RESULTADO DEL TURNO — NIGHT-BBB-107
+
+PRIMARY:
+- STATUS: `WAITING_CI`
+- baseline: `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`
+- branch/head: `bbb/night-25.1-auth-live-rebuild @ b2c4eb441280343c4b9c39d57851c6d3da33abaa`
+- PR: `#93` OPEN/Ready; clean successor on live base; NO MERGE.
+- cambios: reconstruction from live baseline with exactly three harness/evidence files: `.github/workflows/f4-25.1-windows-auth.yml`, `scripts/run-auth-e2e.mjs`, `tests/e2e/auth-flow.e2e.mjs`. Minimum proven correction: auth fetch stub delegates `/plugin%3Awdio%7C...` IPC and all non-auth traffic to native fetch; `/auth/health` and `/auth/login` remain stubbed. Literal token persistence + AccountGate-exit assertions preserved. No product files changed.
+- tests: fresh packaged Windows Auth requested by PR #93; immediate exact-head query returned no workflow runs yet.
+- CI: `WAITING_CI`; exact head `b2c4eb441280343c4b9c39d57851c6d3da33abaa`; no PASS claimed.
+- evidencia: #84 source `f53d46f...` was stale on base `816f946c...`; live integration verified `134a293...`; prior HARNESS_ONLY_PROVEN boundary reused; successor #93 is based directly on live head and contains only the bounded harness/evidence reconstruction.
+- UNVERIFIED: literal packaged Windows Auth result/job; returned token persistence on Windows; AccountGate exit on Windows; applicable exact-head CI green status; `F4/25.1 WINDOWS_AUTH_CANDIDATE_EXACT_GREEN` NOT claimed.
+- blockers: external GitHub Actions scheduling/execution only at close of turn.
+
+CI-FALLBACK:
+- STATUS: `NONE / NOT_EXECUTED`
+- branch/head si aplica: n/a
+- PR si aplica: n/a
+- cambios: none
+- tests: none
+- evidencia: JOBS explicitly wrote `CI-FALLBACK: NONE` for NIGHT-BBB-107.
+- UNVERIFIED: n/a
+- blockers: fallback not authorized.
+- STOP alcanzado: yes; PRIMARY entered genuine `WAITING_CI`, fallback is NONE, one final immediate CI recheck still showed no runs.
+
+RECOMENDACIÓN PARA JOBS: recheck PR #93 exact head. Promote only if the literal packaged Windows Auth job proves both unchanged assertions and all applicable exact-head CI is SUCCESS; otherwise assign attribution/corrective on the same bounded successor. Do not merge from BBB107.
+
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
+- `NIGHT-BBB-107`: `WAITING_CI` / PR #93 @ `b2c4eb441280343c4b9c39d57851c6d3da33abaa`.
 - `NIGHT-BBB-106`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 112.
 - `NIGHT-BBB-105`: `BLOCKED_STOP / HARNESS_ONLY_PROVEN_REFRESH_UNSAFE`; reusable causal evidence preserved.
