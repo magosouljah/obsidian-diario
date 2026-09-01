@@ -66,9 +66,13 @@ STOP: cualquier mutation/rerun/review/merge/new PR/gate promotion/owner overlap/
 
 Plan Maestro, F0, F1, F2, F3, F4, coordinación y NOCHE AAA/BBB/WOZ/JOBS quedaron sincronizados a CYCLE142. `Registro de avances.md` permanece sin rewrite porque no hubo nuevo merge, PASS ni runtime evidence; `Plan Maestro 2208 copy DONT TOUCH .md` untouched. JOBS no modificó código BeatGaler ni infraestructura.
 
+## RACE-CHECK FINAL
+
+Después de publicar el handoff Issue #41 `5498946786`, se releyó la rama integrada: continúa exactamente en `aa4450956579de381e82acf06c660b658c703cd1`. No hubo carrera ni merge material durante el cierre del ciclo.
+
 ```text
 CYCLE_ID: NIGHT-JOBS-142
-INTEGRATION_HEAD_PREFLIGHT: aa4450956579de381e82acf06c660b658c703cd1
+INTEGRATION_HEAD_FINAL: aa4450956579de381e82acf06c660b658c703cd1
 AAA_NEW: NIGHT-AAA-138
 BBB_NEW: NIGHT-BBB-137
 WOZ_NEW: NIGHT-WOZ-141
@@ -76,9 +80,9 @@ PR96: MERGED / HEAD 6247173ead703f831801fa103ca465fea04e5793 / MERGE aa445095657
 PR89_F0_AUDIT: 33454881387 FAILURE
 F2_12.1: NOT_PASS / PUBLIC_RUNTIME_OPEN
 F2_13.2: BLOCKED_WRITE_SURFACE / UNASSIGNED
-ISSUE41_HANDOFF: PENDING_WRITE
+ISSUE41_HANDOFF: 5498946786
 RELEASE: NO-GO
 F5: CLOSED
 ```
 
-**STOP:** ciclo JOBS 142 termina tras handoff Issue #41, race-check final y readback.
+**STOP:** ciclo JOBS 142 termina aquí.
