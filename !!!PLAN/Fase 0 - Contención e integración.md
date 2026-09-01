@@ -2,8 +2,8 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE 104:** `[ 🟡 ]` residual/administrativo. El núcleo técnico necesario para avanzar terminó; 5.1 y 5.2 están `[x]`. 1.2 y 2.2 conservan tails reales, por lo que F0 no se marca `[x]` globalmente.  
-**Baseline vivo:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.  
+**Estado CYCLE 105:** `[ 🟡 ]` residual/administrativo. El núcleo técnico necesario para avanzar terminó; 5.1 y 5.2 están `[x]`. 1.2 y 2.2 conservan tails reales, por lo que F0 no se marca `[x]` globalmente.  
+**Baseline vivo:** `integration-v0.8.0-alpha.1 @ b85723e1b3016d24bdb943393e796ccdb744247d`.  
 **Release:** 🔴 `NO-GO`.
 
 ## Tablero
@@ -13,7 +13,7 @@
 | 0.1 Congelar evidencia | [x] | baseline + NO-GO registrados |
 | 0.2 Checkpoint interno | [x] | no equivale a release público |
 | 1.1 Negocio | [x] | v1 comercial; mercados/distribución decididos |
-| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + dominio/support/status + signing/reviews/testers |
+| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance software integrated; dominio/support/status + signing/reviews/testers tails |
 | 2.1 Contención inmediata | [x] | auth/ownership/límites |
 | 2.2 Historial Git | [ 🟡 ] tail externo | GitHub Support + fresh inaccessibility verification |
 | 3.1 Integración | [x] | integration-v0.8.0-alpha.1 |
@@ -27,23 +27,23 @@
 
 Decisiones fijas: v1 paid/commercial; Web + Windows NSIS + macOS DMG; MX/US/CA/EU/UK; eligibility **18+**. Apple Developer sigue deferred y no puede describirse macOS como public-signed/notarized sin evidencia.
 
-### Release/provenance governance
+### Release/provenance governance — implementation slice integrated
 
-Nuevo candidate reusable CYCLE 104:
-- PR #86 `fix(release): close F0/0.4 provenance and stable/latest governance`;
-- OPEN/Ready/mergeable;
-- exact base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`;
-- head `200474d061c63406774da8d21bd22460a8bd0312`;
-- candidate declara separación alpha/beta/rc/stable, stable-only latest, immutable/no-clobber publication, Draft-before-publish y provenance source/build/target metadata;
-- exact-head checks estaban **parcialmente in-progress** al preflight JOBS; no se promueve PASS todavía.
+PR #86 `fix(release): close F0/0.4 provenance and stable/latest governance` fue integrado factual y verificablemente:
+- candidate head `200474d061c63406774da8d21bd22460a8bd0312`;
+- previous integration `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`;
+- merge `b85723e1b3016d24bdb943393e796ccdb744247d`, con esos dos parents;
+- implementación preserva alpha/beta/rc como prerelease, stable-only `latest`, no-clobber/immutable publication, Draft-before-publish, provenance source/build/target metadata y kill-switch de publicación.
 
-**Owner CYCLE 104: `NIGHT-WOZ-103`.** REUSE #86, review semantics + exact-head applicable CI; solo si exact/race-free/green puede mergear #86. Ese merge, si ocurre, solo cierra la **implementation slice** de governance/provenance; no cierra 1.2 global.
+**Promoción CYCLE 105:** solo la **implementation slice** de release/provenance governance = `PASS / INTEGRATED`. Esto NO cierra 1.2 global, no publica release y no demuestra signing/notarization/tester/legal/security external evidence.
 
-Nuevo candidate observado #87 `F0/0.6: publish security.txt and status surface` @ `d5d129c578355ca2ff6399bd2e6ec752c9f81618`, exact base live. Su body deja DNS/deploy/runtime explícitamente UNVERIFIED. WOZ103 puede inspeccionarlo READ-ONLY únicamente como CI-FALLBACK mientras #86 espera CI; no mutar/mergear #87 en este ciclo.
+### Public security/status candidate
+
+PR #87 `F0/0.6: publish security.txt and status surface` está OPEN/Ready/mergeable sobre el baseline exacto `b85723e...`, head `ba0d7b689e587da42cc8105b22d0ed0c206bc064`. Workflows observados exact-head: D6 SUCCESS, D7 SUCCESS, Public Operations SUCCESS, Web Production Build SUCCESS, Desktop Portability SUCCESS; Upgrade 21.2 skipped/no aplicable. Runtime/DNS/deploy sigue explícitamente UNVERIFIED.
+
+**Owner CYCLE 105: `NIGHT-WOZ-104`.** REUSE #87; puede mergear únicamente #87 si recheck exact-base/head/scope + applicable CI green + expected-head race-free. Maximum claim: software slice; DNS/TLS/deploy/runtime externos quedan abiertos.
 
 ### Tails aún requeridos para 1.2 `[x]`
-- governance/provenance implementation integrada y verificada;
-- alphas/betas separadas correctamente del stable/latest real;
 - dominio/DNS/TLS/support/security-abuse/status con runtime/owners aplicables;
 - Windows Authenticode + RFC3161 plan/owner y evidencia cuando corresponda;
 - revisión legal independiente;
@@ -60,6 +60,6 @@ No repetir rewrite ni borrar evidencia para recrear proof.
 
 ## 5.1 / 5.2 — CLOSED
 
-5.1 y 5.2 permanecen `[x]` con evidencia previamente aceptada: temporary auth/control-side secrets, direct 1.9GB media proof, cross-platform coverage; PostgreSQL authority, PITR RPO ~7m/RTO 3643s, multiversion keyring y observability/on-call. No repetir drills sin invalidación.
+5.1 y 5.2 permanecen `[x]` con evidencia previamente aceptada. No repetir drills sin invalidación.
 
 **Regla de salida:** F0 no es `[x]` global mientras 1.2/2.2 sigan abiertos. Esto no retrocede F1–F4 ni autoriza release. `Plan Maestro.md` conserva el baseline vivo canónico.
