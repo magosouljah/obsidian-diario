@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE146:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
+**Baseline vivo CYCLE148:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
 
 ## Estado actual
 
@@ -18,7 +18,7 @@ Evidence factual:
 
 **12.1 permanece NOT_PASS.** La integración software de #96 no sustituye verificación sobre el deployment público exacto descendiente de `aa445095...`: `/web-health` y auth-health; signed-out startup; authenticated temporary auth + worker initialize/activate/verify; authoritative library reload o error recuperable; cold/warm startup; pool behavior si aplica; cookie/marker/CSRF restore robustness y terminología pública residual aplicable.
 
-**Owner CYCLE146: `NIGHT-AAA-142` READ-ONLY** para inventariar evidencia runtime exacta existente y reducir el gap literal; no deploy/code/infra mutation ni claim PASS.
+**Owner CYCLE148: `NIGHT-AAA-144` READ-ONLY** para inventariar evidencia runtime exacta existente y reducir el gap literal; no deploy/code/infra mutation ni claim PASS.
 
 ### 13.1 — `[ 🟡 ] FROZEN`
 #69 Web y #70 Server siguen candidates históricos stale/frozen. REUSE semantics solo bajo scope explícito.
@@ -27,7 +27,7 @@ Evidence factual:
 
 AAA114 revalidó que `handleReviewedBeatSaved` y `handleReviewedSaveAll` pueden advance/close antes de durable cloud completion. `platform.cloudData.commitImportedBeat()` aporta un boundary awaitable/retry-safe y #69 conserva semantics de coordinación reutilizables.
 
-AAA114 no abrió candidate porque la superficie disponible exigía whole-file replacement de `src/App.tsx`, con riesgo de corrupción/scope widening. Resultado: `PENDING / STOP_WRITE_SURFACE / NOT_PASS`. **CYCLE146: UNASSIGNED.** No duplicar hasta existir patch/worktree-capable surface o primitive bounded alternativa.
+AAA114 no abrió candidate porque la superficie disponible exigía whole-file replacement de `src/App.tsx`, con riesgo de corrupción/scope widening. Resultado: `PENDING / STOP_WRITE_SURFACE / NOT_PASS`. **CYCLE148: UNASSIGNED.** No duplicar hasta existir patch/worktree-capable surface o primitive bounded alternativa.
 
 ### 14.1 / 14.2
 Playback y queue/browser evidence permanecen secundarios frente a startup/durability/security alpha blockers.
@@ -36,7 +36,7 @@ Playback y queue/browser evidence permanecen secundarios frente a startup/durabi
 
 La decisión D8 existe, pero falta seam bounded de fresh same-provider authorization ligada a user/session y consumible por destructive callers.
 
-**Owner CYCLE146: `NIGHT-BBB-141` únicamente para la seam D8 mínima.** No Trash UI/purge en ese assignment. Después se reasigna 15.1 para strong confirmation + durable deterministic completion/failure sin false success.
+**Owner CYCLE148: `NIGHT-BBB-143` únicamente para la seam D8 mínima.** No Trash UI/purge en ese assignment. Después se reasigna 15.1 para strong confirmation + durable deterministic completion/failure sin false success.
 
 ### 15.2 / 15.3
 A11y baseline visual y YouTube Web pure siguen pendientes. Web YouTube nunca depende de Tauri/helper Desktop.
