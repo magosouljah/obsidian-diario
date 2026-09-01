@@ -2,8 +2,8 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE 110:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales. **0.20 OAuth secret rotation está `[x]` con rotación/deploy/E2E/revocación owner-side verificadas.**  
-**Baseline vivo:** `integration-v0.8.0-alpha.1 @ 78dd55b72142e69ea32ba6c1ba6d43e246ac6843`.  
+**Estado CYCLE 111:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales. **0.20 OAuth secret rotation está `[x]` con rotación/deploy/E2E/revocación owner-side verificadas.**  
+**Baseline vivo autoritativo al preflight:** `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`.  
 **Release:** 🔴 `NO-GO`.
 
 ## Tablero
@@ -15,7 +15,7 @@
 | 0.8 Legal launch review | [x] | AI-assisted review completed; independent counsel deferred by explicit RO decision; residual legal risk accepted |
 | 0.20 OAuth secret rotation | [x] | readiness integrated + credential reemplazado/desplegado + OAuth E2E exitoso + secreto anterior eliminado |
 | 1.1 Negocio | [x] | v1 comercial; mercados/distribución decididos |
-| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + public ops + technical Authenticode seam + OAuth rotation integrated/completed; productive signing/security/testers/legal implementation tails |
+| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + public ops + technical Authenticode seam + OAuth rotation completed; productive signing/security/testers/legal tails |
 | 2.1 Contención inmediata | [x] | auth/ownership/límites |
 | 2.2 Historial Git | [ 🟡 ] | GitHub Support + fresh inaccessibility verification |
 | 3.1 Integración | [x] | `integration-v0.8.0-alpha.1` |
@@ -36,8 +36,9 @@ Decisiones fijas: v1 paid/commercial; Web + Windows NSIS + macOS DMG; MX/US/CA/E
 Software integrado relevante:
 - #86 release/provenance → `b85723e1b3016d24bdb943393e796ccdb744247d`.
 - #87 public security/status software → `38517c8065063206fed530028e4e8d20208f3807`.
-- #88 F0/0.7 Authenticode + RFC3161 technical/preparatory seam → `1dbf60e58ca970c47d387b303e141e30e2b8eef5`; exact candidate `dcf3e13864d02cd4ffc958dc3a31b7411af6145a`; relevant CI SUCCESS.
-- #90 F0/0.20 OAuth secret-rotation readiness + HEAD secret scan → `78dd55b72142e69ea32ba6c1ba6d43e246ac6843`; exact candidate `3f2063cf16fe63913dced6d57dc8a6cb46e12169`; F0/0.20 Secret Scan + Required CI SUCCESS.
+- #88 F0/0.7 Authenticode + RFC3161 technical/preparatory seam → `1dbf60e58ca970c47d387b303e141e30e2b8eef5`.
+- #90 F0/0.20 OAuth secret-rotation readiness → `78dd55b72142e69ea32ba6c1ba6d43e246ac6843`; owner-side actual rotation later completed.
+- #91 Web bootstrap corrective → `134a293985c314eb09c238115e3bcb71e79f1810`; F2 evidence, does not close F0 tails.
 
 ### F0/0.6 — `[x]` public operations
 
@@ -49,20 +50,13 @@ Owner runtime evidence del `2026-09-01` mantiene security.txt/status HTTPS/SAN/c
 
 ### F0/0.9 — `[ 🟡 ]` AI-assisted security slice / DNS rebinding
 
-PR #89 live: OPEN/Ready, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, base `816f946c...` stale contra `78dd55b...`. Old-head green evidence no autoriza integración. Candidate = AI-assisted audit + DNS-rebinding SSRF hardening; no independent-pentest claim. La narrativa original de #89 está stale respecto de #88/#90 ya integrados.
+PR #89 live sigue OPEN/Ready, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c...`, stale contra `134a293...`. Old-head green evidence no autoriza integración. Candidate = AI-assisted audit + DNS-rebinding SSRF hardening; no independent-pentest claim.
 
-**Owner CYCLE 110: `NIGHT-WOZ-109`.** REUSE #89; reconciliar audit con #88/#90 integrados; history-preserving refresh al live head observado en su turno; fresh exact-head F0/0.9 + Required CI. **NO MERGE CYCLE 110** porque AAA106 posee la única integration mutation lane sobre #91.
+**CYCLE 111: `PARKED / UNASSIGNED`.** `NIGHT-WOZ-109` no dejó resultado verificable y fue superseded. WOZ110 posee exclusivamente #92/F2 y la única integration lane del ciclo. #89 no puede mutarse ni mergearse en CYCLE111; debe retomarse con Assignment ID nuevo después de liberar #92 y refrescar/revalidar contra el live baseline de ese futuro turno.
 
 ### F0/0.20 — `[x]` OAuth secret rotation
 
-PR #90 quedó integrado el `2026-09-01` como `78dd55b72142e69ea32ba6c1ba6d43e246ac6843` con F0/0.20 Secret Scan y Required CI verdes. Posteriormente RO completó la rotación real owner-side sin exponer valores secretos:
-- nuevo Google OAuth client secret creado y el anterior eliminado en Google;
-- nuevo `GOOGLE_CLIENT_SECRET` desplegado en `/etc/beatgaler-google-oauth.env`, consumido por `beatgaler-cloud.service` mediante su `EnvironmentFile`;
-- `beatgaler-cloud.service` reiniciado y verificado `active`;
-- `https://api.beatgaler.com/auth/health` respondió `ok=true` y `account_auth=true` tras el cambio;
-- login Google fresco en producción completado exitosamente de extremo a extremo usando el credential nuevo.
-
-Con creación/reemplazo, deploy, OAuth E2E y revocación/eliminación del credential anterior verificadas, **F0/0.20 = DONE**. No registrar valores secretos en repo, docs, issues, PRs o chat.
+#90 quedó integrado como `78dd55b...` con secret scan/Required CI. Posteriormente RO completó la rotación real owner-side sin exponer valores secretos: replacement desplegado, servicio reiniciado/sano, auth-health sano, fresh production OAuth E2E exitoso y credential anterior eliminado. **F0/0.20 = DONE.** No repetir ni registrar valores secretos.
 
 ### Tails reales restantes
 
@@ -70,7 +64,8 @@ Con creación/reemplazo, deploy, OAuth E2E y revocación/eliminación del creden
 - legal P0/P1 implementation backlog pese a cierre administrativo 0.8;
 - independent security review donde siga siendo gate;
 - 12–20 testers + hardware/plataformas/DAWs/fechas;
-- F0/2.2 GitHub Support cleanup + fresh inaccessibility verification.
+- F0/2.2 GitHub Support cleanup + fresh inaccessibility verification;
+- #89 refresh/revalidation/integration en un ciclo posterior.
 
 ## 5.1 / 5.2 — CLOSED
 
