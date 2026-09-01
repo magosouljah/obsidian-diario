@@ -6,14 +6,14 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-129`
+- `ASSIGNMENT_ID: NIGHT-WOZ-130`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F0 / 0.9 — REUSE PR #89 DNS-rebinding SSRF P1; diagnose live gate failure, refresh/revalidate + conditional integration`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`
-- `PREDECESSOR: NIGHT-WOZ-128 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE130.`
-- `LIVE_PR_FACT: #89 remains OPEN @ daf87da6ffd604ccac991311036919ae2de9bd7a with recorded base 816f946c09d998ee5a045b3e70b2fe4f3a4160d0 and mergeable=true; stale base does NOT authorize merge.`
-- `LIVE_CI_FACT: F0/0.9 workflow run 33454881387 = FAILURE on exact head daf87da6...; Rust unit contracts failed because Tauri generate_context found frontendDist ../dist missing. This is NOT a green head.`
-- `SERIALIZATION: WOZ129 exclusively owns #89 refresh/revalidation/integration. AAA126 owns F1/1.7 READ-ONLY classification. BBB125 owns recent-reauth seam. #93 remains mutation-unassigned.`
+- `PREDECESSOR: NIGHT-WOZ-129 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE131.`
+- `LIVE_PR_FACT: #89 remains OPEN @ daf87da6ffd604ccac991311036919ae2de9bd7a with recorded base 816f946c09d998ee5a045b3e70b2fe4f3a4160d0; stale base does NOT authorize merge.`
+- `LIVE_CI_FACT: F0/0.9 workflow run 33454881387 = FAILURE on exact head daf87da6...; this is NOT a green head.`
+- `SERIALIZATION: WOZ130 exclusively owns #89 refresh/revalidation/integration. AAA127 owns F1/1.7 READ-ONLY classification. BBB126 owns recent-reauth seam. #93 remains mutation-unassigned.`
 
 ### PRIMARY
 
@@ -26,7 +26,7 @@
 5. Scope stays exactly audit docs + DNS-rebinding SSRF hardening/regression/security workflow needed to execute that gate; no unrelated cleanup.
 6. Run exact-head F0/0.9 security gate + applicable required CI after refresh. Old-head results are non-authoritative.
 7. Immediately before integration, recheck live integration HEAD, refreshed #89 exact base/head, changed files, mergeability, CI and owner collision.
-8. If exact/green/race-free, WOZ129 is authorized to expected-head merge **PR #89 only** and verify merge SHA + parents.
+8. If exact/green/race-free, WOZ130 is authorized to expected-head merge **PR #89 only** and verify merge SHA + parents.
 9. Maximum claim: `F0/0.9 DNS_REBINDING_SSRF_P1_CORRECTIVE_INTEGRATED`; AI-assisted audit is not an independent pentest and F0 global remains open.
 10. Do not touch Review, recent-reauth/Trash or production deploy/runtime. Write RESULTADO DEL TURNO here + Issue #41 and STOP.
 
@@ -39,9 +39,9 @@
 
 - **Scope:** inspect #93 current base/head/changed files, historical Windows Auth exact-green evidence and delta from live integration; identify exactly what would need refresh/revalidation if F1/1.7 keeps Windows Auth `MUST_CLOSE` for alpha.
 - **Evidence required:** current #93 base/head/mergeability; old exact-green run IDs/SHA; current live baseline delta; explicit `UNVERIFIED`; no claims of canonical coverage.
-- **STOP:** any mutation of #93/branch/workflow/product, any new PR, any CI rerun, any 25.1 promotion, any overlap with BBB125/AAA126, or the moment PRIMARY stops waiting externally. Return to PRIMARY and recheck #89 before closing.
+- **STOP:** any mutation of #93/branch/workflow/product, any new PR, any CI rerun, any 25.1 promotion, any overlap with BBB126/AAA127, or the moment PRIMARY stops waiting externally. Return to PRIMARY and recheck #89 before closing.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
+- `NIGHT-WOZ-129`: no matching final result/handoff verified by JOBS CYCLE131 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-WOZ-128`: no matching final result/handoff verified by JOBS CYCLE130 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- `NIGHT-WOZ-127`: no matching final result/handoff verified by JOBS CYCLE129 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
