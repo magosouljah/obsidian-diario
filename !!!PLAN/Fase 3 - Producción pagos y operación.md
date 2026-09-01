@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE140:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
+**Baseline vivo CYCLE141:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
 
 ## Estado compacto
 
@@ -17,7 +17,7 @@
 
 Software reconciliation + durable exception queue está probado. 3DS, rejection, late payment, renewal failure, cancel E2E, plan changes, refund, provider webhooks/financial outcomes y full sandbox reconciliation permanecen `UNVERIFIED_EXTERNAL`.
 
-Para una alpha 3–5 cuentas sin cobros, 1.7 debe clasificar explícitamente este gate como `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión automáticamente. JOBS reemitirá 1.7 después de incorporar facts frescos de CYCLE140.
+Para una alpha 3–5 cuentas sin cobros, 1.7 debe clasificar explícitamente este gate como `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión automáticamente. JOBS reemitirá 1.7 después de incorporar facts frescos de 12.1/#89/recent-reauth.
 
 ## 19.1 — `[ 🟡 ] PUBLIC SOFTWARE IMPROVED / EXTERNAL TAILS OPEN`
 
@@ -41,6 +41,6 @@ Para alpha 3–5 cuentas, 1.7 debe clasificar explícitamente 20.2; no se fabric
 
 ## Cross-phase security tail
 
-PR #89 F0/0.9 contiene P1 DNS-rebinding SSRF corrective + audit AI-assisted. **Owner CYCLE140: `NIGHT-WOZ-139` bajo F0.** #89 sigue OPEN @ `daf87da6...`, recorded base `816f946c...`; base stale frente a live `aa445095...`. Su exact-head F0/0.9 run `33454881387` sigue siendo el conocido `completed/failure`; old-head green no sustituye diagnosis + refresh/exact-head. WOZ139 posee la única conditional integration lane sobre #89.
+PR #89 F0/0.9 contiene P1 DNS-rebinding SSRF corrective + audit AI-assisted. **Owner CYCLE141: `NIGHT-WOZ-140` bajo F0.** #89 sigue OPEN @ `daf87da6...`, recorded base `816f946c...`; base stale frente a live `aa445095...`. Su exact-head F0/0.9 run `33454881387` sigue `completed/failure`; old-head green no sustituye diagnosis + refresh/exact-head. WOZ140 posee la única conditional integration lane sobre #89.
 
 **Principio:** no falsear provider, capacity, payments, DNS, deployment, staging, legal compliance ni independent counsel review sin evidencia aplicable.
