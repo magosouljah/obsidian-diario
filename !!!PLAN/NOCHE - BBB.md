@@ -6,13 +6,13 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-145`
+- `ASSIGNMENT_ID: NIGHT-BBB-146`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F1/D8 follow-up → minimum productive recent-reauth seam for F2/15.1`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`
-- `PREDECESSOR: NIGHT-BBB-144 = NO_RESULT / SUPERSEDED / NOT_PASS; no RESULTADO DEL TURNO nor Issue #41 handoff verified before JOBS CYCLE150.`
-- `DUPLICATE_CHECK: no live/open PR matching recent-reauth found in CYCLE150 preflight; merged #53 remains the D8 authority/reuse lineage.`
-- `SERIALIZATION: BBB145 owns only recent-reauth product seam. AAA146 owns F2/12.1 evidence. WOZ149 owns #89. No Trash UI/purge, Review, #93 mutation or integration mutation.`
+- `PREDECESSOR: NIGHT-BBB-145 = NO_RESULT / SUPERSEDED / NOT_PASS; no RESULTADO DEL TURNO nor Issue #41 handoff verified after JOBS CYCLE150.`
+- `DUPLICATE_CHECK: no live/open PR matching recent-reauth found in CYCLE151 preflight; merged #53 remains the D8 authority/reuse lineage.`
+- `SERIALIZATION: BBB146 owns only recent-reauth product seam. AAA147 owns F2/12.1 evidence. WOZ150 owns #89. No Trash UI/purge, Review, #93 mutation or integration mutation.`
 
 ### PRIMARY
 
@@ -24,12 +24,12 @@ Expose/reuse the minimum productive D8 recent-reauth seam already decided, witho
 4. If a real gap remains, expose the smallest productive boundary granting/verifying `recently reauthenticated` for a destructive caller.
 5. Fail closed for wrong user/session, expired/not-fresh authorization and provider failure.
 6. Add focused success/wrong-user/wrong-session/expired/failure tests and preserve D6/D7 + Web/Desktop contracts.
-7. One candidate/PR only if duplicate-check is clean; exact-head applicable CI; **NO MERGE CYCLE150**.
+7. One candidate/PR only if duplicate-check is clean; exact-head applicable CI; **NO MERGE CYCLE151**.
 8. Maximum claim: `RECENT_REAUTH_PRODUCT_SEAM_CANDIDATE_READY`; F2/15.1 remains open.
 9. Do not touch SettingsPanel Trash UI/purge, Review, F2/12.1, #89 or #93.
 10. Write RESULTADO DEL TURNO here + Issue #41 handoff, then STOP.
 
-**Required evidence:** reused D8 primitive/decision; exact files/functions; contract semantics; tests; branch/base/head/PR; exact-head applicable CI; explicit `UNVERIFIED`; no overlap with AAA146/WOZ149/#93.  
+**Required evidence:** reused D8 primitive/decision; exact files/functions; contract semantics; tests; branch/base/head/PR; exact-head applicable CI; explicit `UNVERIFIED`; no overlap with AAA147/WOZ150/#93.  
 **STOP:** architectural redesign, provider mutation, Trash implementation, Review, F2/12.1, #89/#93 mutation, integration mutation, duplicate candidate or unsafe whole-file rewrite.
 
 ### CI-FALLBACK
@@ -38,9 +38,9 @@ Expose/reuse the minimum productive D8 recent-reauth seam already decided, witho
 
 - **Scope:** inventory existing provider/payment evidence and unresolved real-provider scenarios; classify only `SOFTWARE_PROVEN`, `UNVERIFIED_EXTERNAL`, or `NOT_REPRESENTATIVE_OF_3_5_ACCOUNT_ALPHA`. No exclusion decision and no billing/provider mutation.
 - **Evidence required:** exact existing PR/merge/runtime refs; unresolved 3DS/rejection/late payment/renewal failure/cancel/plan-change/refund/webhook/reconciliation list; explicit statement that 1.7/1.8 decides applicability.
-- **STOP:** any mutation, provider state change/payment execution, new PR, gate promotion, overlap with AAA146/WOZ149, or PRIMARY leaves external wait. Return to PRIMARY immediately.
+- **STOP:** any mutation, provider state change/payment execution, new PR, gate promotion, overlap with AAA147/WOZ150, or PRIMARY leaves external wait. Return to PRIMARY immediately.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-BBB-144`: no matching final result/handoff verified by JOBS CYCLE150 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-BBB-145`: no matching final result/handoff verified by JOBS CYCLE151 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-BBB-110`: `BLOCKED_STOP / RECENT_REAUTH_PRODUCT_SEAM_REQUIRED`; causal evidence remains reusable.
