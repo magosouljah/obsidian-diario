@@ -6,13 +6,13 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-103`
+- `ASSIGNMENT_ID: NIGHT-AAA-104`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F2 / 12.1 — public Web bootstrap runtime blocker (Loading Galer)`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`
-- `PREDECESSOR: NIGHT-AAA-102 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff al preflight JOBS CYCLE 107; SUPERSEDED / NOT_PASS.`
-- `WHY_ASSIGNED: recalculado desde GitHub vivo: sigue siendo el blocker funcional más directo para uso tester/browser y no hay candidate/handoff nuevo que lo haya cerrado.`
-- `SERIALIZATION: AAA103 owns only F2/12.1 Web bootstrap/runtime. BBB102 owns #84 auth evidence/harness. WOZ106 owns #89 security candidate. Do not touch #74/#84/#89/#90/#88/#83/#76/#85, integration, deploy/provider infra or shared auth/session internals.`
+- `PREDECESSOR: NIGHT-AAA-103 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff verificable al preflight JOBS CYCLE 108; SUPERSEDED / NOT_PASS.`
+- `WHY_ASSIGNED: camino crítico recalculado de cero: F2/12.1 sigue siendo el blocker funcional #1 para browser/tester real; GitHub no contiene candidate/handoff nuevo que lo cierre.`
+- `SERIALIZATION: AAA104 owns only F2/12.1 Web bootstrap/runtime. BBB103 owns #84 auth evidence/harness. WOZ107 owns #89 security candidate. Do not touch #74/#84/#89/#90/#88/#83/#76/#85, integration, deploy/provider infra or shared auth/session internals.`
 
 ### PRIMARY
 
@@ -20,7 +20,7 @@
 
 1. Fresh preflight del baseline `38517c...`, Issue #41, public symptom y open PRs; duplicate-check antes de mutar.
 2. Reproducir el stall en Web y aislar el primer bootstrap phase que no resuelve.
-3. Preservar como PROVEN DNS/TLS/deploy público; no reabrir infraestructura por este síntoma.
+3. Preservar como PROVEN DNS/TLS/deploy público ya evidenciado; no reabrir infraestructura por este síntoma.
 4. Aplicar solo el corrective Web mínimo que haga que startup termine determinísticamente en estado válido o error recuperable explícito.
 5. No debilitar auth/cloud failure semantics, no timeout cosmético, no Tauri/Desktop dependency.
 6. Focused tests para causa + success/failure termination + Web/no-Tauri touched paths.
@@ -37,6 +37,6 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-102`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 107; no final result/handoff observado.
+- `NIGHT-AAA-103`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 108; no final result/handoff verificable observado al preflight.
 - Issue #41 `5485984669`: public infra works; normal Web startup stalls at `Loading Galer`.
 - Baseline permanece `38517c...`; revalidar desde ese head antes de cualquier candidate.
