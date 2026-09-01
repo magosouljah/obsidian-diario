@@ -2,50 +2,31 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE 103:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.  
-**Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[ 🟡 ] RO / ALPHA DECISION`.  
+**Baseline vivo CYCLE 104:** `integration-v0.8.0-alpha.1 @ 816f946c09d998ee5a045b3e70b2fe4f3a4160d0`.  
+**Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[ 🟡 ] NOT_READY_FOR_RO_DECISION`.  
 **Release público:** 🔴 `NO-GO`.
 
-## D6 — `[x] PASS`
-PR #43 integrado `23bded948c4377b28fc48a72378816968d4cd413`; PR #44 integrado `9dd76a9d43e72c2295667a3661ce5a1cff7a4826`; D6 cross-process + compile + Required CI aceptados. WOZ gate Issue #41 `5455677550`.
+## D6–D10.1 — CLOSED
 
-## D7 — `[x] PASS`
-PR #46 exact tested head `6477fa6f6c4f04813acbbe5dbd43302347072adb`; merge `e25c60429e453d7b8cb8ef294d89a01ef7511103`; D7/D6/temp-auth/Required CI SUCCESS. WOZ gate `5457172823`.
+D6 authorization/tenant controls, D7 temp-auth/capabilities, D8 lifecycle/RO decisions, D9 PostgreSQL durability/migrations and D10.1 restore/recovery remain PASS. No factual invalidation observed. Canonical evidence remains PRs #43/#44/#46/#49/#52/#53/#56 and Issue #41 gates `5455677550`, `5457172823`, `5460381842`, `5460959369`, `5470149521`. D10.1 retains RPO ~7 min and RTO `3643 s` plus encrypted off-provider readback/SHA match.
 
-## D8 — `[x] PASS / CLOSED`
-8.1 PR #49 integrado `14002b29c5101232c0ca8f8b85d808c8214975fb`; 8.2 PR #52 integrado `c25ec6a824bc0ae60fbf65858d53be26d453f205`; RO resolutions PR #53 integrado `6c4499d124a64d138e791ea4abf0091766dde7e9`. Gate D8 PASS Issue #41 `5460381842`.
+**No repetir PITR/restore/cutover/restart/migrations/rotation.**
 
-Follow-up fuera de D8: F2/15.1 Vaciar Trash sigue requiriendo confirmación fuerte + recent reauth + action boundary determinista.
+## D10.2 — `[ 🟡 ] NOT_READY_FOR_RO_DECISION`
 
-## D9 — `[x] PASS / CLOSED`
-WOZ cerró D9 REUSE-FIRST en Issue #41 `5460959369`. PostgreSQL sigue autoridad durable; migraciones/checksums/idempotencia/quarantine/rollback y protección de secretos/sesiones fueron aceptados. No reabrir por ceremonia.
+`NIGHT-WOZ-102` terminó factual y READ-ONLY; Issue #41 `5486382155`:
+- `PROVEN`: D6–D10.1 y línea técnica interna aplicable;
+- `BLOCKED_BY_F2`: public Web normal startup sigue `Loading Galer`; 13.2 durable Review abierto; 15.1 recent-reauth/confirmation/deterministic Trash abierto;
+- `BLOCKED_BY_F4`: packaged Windows Auth exact #84 `f53d46f...`, run `33449587244` / job `99676242317` = FAILURE;
+- `BLOCKED_BY_F3`: provider/payment real scenarios y release/public/runtime-160 tails siguen sin evidencia global;
+- `BLOCKED_EXTERNAL`: F0 historical cleanup y release/admin tails, explícitamente no bloqueantes para trabajo interno pero no cerrados para release;
+- `RO_DECISION_REQUIRED`: autorización final de alpha interna 3–5 cuentas y decisiones explícitas de aplicabilidad/exclusión de features/gates no esenciales al alpha.
 
-## D10 — Restore y alpha
+Conjunto mínimo antes de reconsiderar `READY_FOR_RO_DECISION`:
+1. resolver F2/12.1 normal Web startup;
+2. obtener PASS literal F4/25.1 Windows packaged auth;
+3. cerrar o recibir decisión RO explícita de exclusión para F2/13.2 y F2/15.1 dentro del scope de alpha.
 
-### 10.1 — `[x] PASS / CLOSED`
+**CYCLE 104:** D10.2 queda sin owner material mientras AAA100 y BBB099 atacan sus blockers; WOZ103 se reasigna a F0/#86. No lanzar alpha, crear testers, cobrar, usar credenciales ni mutar provider/infra desde este gate.
 
-Evidencia técnica reusable ya aceptada:
-- restore aislado real + RPO ~7 min <=15 min + RTO `3643 s` <=7200 s;
-- access/retention aceptados;
-- PR #56 exact tested head `0abe39e096d10d992764a2d24874e46529109a70`, integrado como `f0d65aa66988e3e1a026e237b65c65a56b098aa9`;
-- strategy control-config + index + media y backup-failure condition/routing contract = PASS;
-- Issue #41 `5470149521`: encrypted off-provider Google Drive copy privado/owner-only con download/readback y exact SHA-256 match.
-
-**No repetir PITR/restore/cutover/restart/migrations/rotation.** D10.1 PASS no autoriza alpha ni release público.
-
-### 10.2 — `[ 🟡 ] RO / ALPHA DECISION`
-
-Owner aprobó como intención una alpha interna 3–5 cuentas invite-only, sin release público ni tester charges, condicionada a gates D2–D10/P0 y evidencia aplicable. La autorización final sigue siendo decisión RO independiente.
-
-Estado factual nuevo a incluir en readiness:
-- infraestructura Web pública está probada por owner Issue #41 `5485984669`, pero `https://beatgaler.com` queda detenido en `Loading Galer`; es bloqueo funcional F2, no fallo de deploy;
-- F4 Windows Auth sigue rojo en exact #84 `f53d46f...`, run `33449587244` / job `99676242317`.
-
-- [ ] reconciliar gates D2–D10/P0 actuales contra evidencia viva;
-- [ ] clasificar blockers externos/RO restantes;
-- [ ] ejecutar alpha solo tras autorización RO explícita y prerequisitos satisfechos;
-- [ ] si no pasa, mantener demo/local sin scope creep.
-
-**Owner CYCLE 103: `NIGHT-WOZ-102` READ-ONLY.** Debe producir mapa fila-por-fila `PROVEN / BLOCKED_EXTERNAL / RO_DECISION_REQUIRED / BLOCKED_BY_F2/F3/F4`, con evidencia exacta y distinguiendo alpha interna de release público. No puede lanzar alpha, mutar provider/infra, usar credenciales, crear usuarios ni cobrar testers. Maximum claim: `D10.2 READY_FOR_RO_DECISION` solo si los prerequisitos no-RO pasan factual.
-
-**Principio:** cierre de F1 no equivale a release público; F5 permanece cerrado hasta que F0–F4 cumplan sus gates reales.
+**Principio:** readiness de alpha interna ≠ release público; F5 permanece cerrado hasta F0–F4 gates reales.
