@@ -13,7 +13,7 @@
 | 0.1 Congelar evidencia | [x] | baseline + NO-GO registrados |
 | 0.2 Checkpoint interno | [x] | no equivale a release público |
 | 1.1 Negocio | [x] | v1 comercial; mercados/distribución decididos |
-| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + security/status software integrated; signing/provider/runtime/reviews/testers tails |
+| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + public operations runtime closed; signing/provider/reviews/testers tails |
 | 2.1 Contención inmediata | [x] | auth/ownership/límites |
 | 2.2 Historial Git | [ 🟡 ] tail externo | GitHub Support + fresh inaccessibility verification |
 | 3.1 Integración | [x] | integration-v0.8.0-alpha.1 |
@@ -32,7 +32,15 @@ Decisiones fijas: v1 paid/commercial; Web + Windows NSIS + macOS DMG; MX/US/CA/E
 - PR #86 release/provenance governance integrado como `b85723e1b3016d24bdb943393e796ccdb744247d`.
 - PR #87 public security/status software slice integrado como `38517c8065063206fed530028e4e8d20208f3807`; exact parents `b85723e...` + `ba0d7b...` y applicable exact-head CI SUCCESS.
 
-Estas promociones no prueban signing/notarization/tester/legal/security external evidence ni status DNS/public runtime.
+### F0/0.6 — `[x]` public operations
+
+Cerrado con evidencia runtime pública el `2026-09-01`:
+- `https://beatgaler.com/.well-known/security.txt` → HTTP 200, `Content-Type: text/plain; charset=utf-8`, contactos Security/Abuse, idiomas `en, es`, canonical correcto y `Expires: 2027-02-28T23:59:59Z`;
+- `https://status.beatgaler.com/` → HTTP 200 sobre HTTPS y superficie pública de estado para Web, API, Authentication y Galer Cloud / Storage;
+- certificado servido por Nginx cubre `beatgaler.com`, `www.beatgaler.com` y `status.beatgaler.com`;
+- soporte/security/abuse permanecen como contactos públicos operativos.
+
+F0/0.6 no es ya un tail de 1.2. Esta evidencia no prueba signing/notarization/tester/legal/security restantes ni autoriza release.
 
 ### F0/0.9 — security audit + P1 DNS-rebinding
 
@@ -51,7 +59,6 @@ PR #88 ahora está sobre base exacta `38517c...`, pero su contrato mantiene **PR
 PR #90 es readiness software/documental; rotar/desplegar/verificar/revocar la credencial sigue siendo acción owner externa. `NIGHT-WOZ-107` puede inspeccionarlo READ-ONLY solo si #89 espera CI.
 
 ### Tails aún requeridos para 1.2 `[x]`
-- dominio/DNS/TLS/support/security-abuse/status con runtime/owners aplicables;
 - Windows Authenticode + RFC3161 productivo y evidencia cuando corresponda;
 - rotación real del OAuth secret afectado y verificación/revocación owner-side;
 - revisión legal/seguridad independiente donde siga siendo gate real;
