@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE 113:** `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810` al preflight JOBS.
+**Baseline vivo CYCLE 114:** `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810` al preflight JOBS.
 
 ## Estado actual
 
@@ -17,15 +17,14 @@ Evidence ya cerrada:
 - [x] silent Worker bootstrap seam acotado por #91: deadline de 30 s solo para `initialize`, `verify`, `get_index`, con fresh Worker on retry;
 - [x] #91 exact-head Web/portability/Required CI aplicable PASS e integrado como `134a293985c314eb09c238115e3bcb71e79f1810`.
 
-Nuevo hecho live después de #91:
-- [x] deployed signed-out surface mostró `.bg-account-gate` en DOM mientras el static `#beatgaler-startup-loader` seguía encima mostrando `Loading Galer...`;
-- [ 🟡 ] PR #92 `F2/12.1: dismiss signed-out Web startup loader` sigue OPEN/Ready/mergeable, head `9947380ce8095b718a400d1e7781d21e67b29be9`, exact base `134a293...`;
-- exact-head Web Production Build, D6, D7, Desktop Portability y secret scan están SUCCESS; Upgrade staging skipped/no aplicable;
-- candidate #92 observa `#root` y retira el loader solo cuando el signed-out `.bg-account-gate` realmente aparece; no altera authenticated bootstrap.
+Live candidate:
+- [ 🟡 ] PR #92 `F2/12.1: fix Web startup loader and Express 5 transport auth` sigue OPEN/Ready/mergeable, head `9947380ce8095b718a400d1e7781d21e67b29be9`, exact base `134a293...`;
+- candidate corrige signed-out loader y el fallo Express 5 de asignación a `req.query`, preservando fail-closed ownership;
+- exact-head Web Production Build, D6, D7, Desktop Portability y secret scan observados SUCCESS; staging skipped/no aplicable.
 
-**CYCLE113: #92 PARKED / UNASSIGNED.** No se conserva la integration lane por inercia: PR #93 Windows Auth se volvió exact-green y es el blocker alpha más fuerte, por lo que WOZ112 posee la única mutation lane sobre #93. #92 deberá revalidarse/refresh si el baseline cambia.
+**CYCLE114: #92 PARKED / UNASSIGNED.** PR #93 mantiene la única integration lane por ser evidencia directa del blocker Windows Auth alpha. Si el baseline cambia, #92 debe refresh/revalidate antes de integración.
 
-**12.1 permanece NOT_PASS.** Tras integrar #92 o equivalente todavía falta probar el deployment del resulting canonical baseline con evidencia aplicable:
+**12.1 permanece NOT_PASS.** Tras integrar #92 o equivalente todavía falta probar el resulting canonical deployment:
 1. `/web-health` sano;
 2. auth-health sano;
 3. signed-out startup no queda tapado por loader;
@@ -35,11 +34,11 @@ Nuevo hecho live después de #91:
 ### 13.1 — `[ 🟡 ] FROZEN`
 #69 Web y #70 Server siguen candidates históricos stale/frozen. REUSE semantics solo bajo scope explícito.
 
-### 13.2 — `[ 🟡 ] PROVEN PRODUCT GAP / OWNER AAA109`
+### 13.2 — `[ 🟡 ] PROVEN PRODUCT GAP / OWNER AAA110`
 
 Gate literal: ninguna acción Web visible llama Tauri/Desktop; 0 pérdida silenciosa. Evidence reusable demuestra que Review Save/Save All pueden avanzar/cerrar antes de durable cloud completion/failure.
 
-**Owner CYCLE113: `NIGHT-AAA-109`.** Minimum corrective: visible success/close/advance solo después de durable completion; failure/retry visible; Save All partial/failure semantics; focused Web/no-Tauri tests; bounded candidate; **NO MERGE**.
+**Owner CYCLE114: `NIGHT-AAA-110`.** Minimum corrective: visible success/close/advance solo después de durable completion; failure/retry visible; Save All partial/failure semantics; focused Web/no-Tauri tests; bounded candidate; **NO MERGE**.
 
 ### 14.1 — `[ 🟡 ] PARKED / #81 STALE`
 Playback candidate stale; no priorizar frente a startup/auth/durability.
@@ -47,11 +46,11 @@ Playback candidate stale; no priorizar frente a startup/auth/durability.
 ### 14.2 — `[ ]`
 Queue/seek/shuffle/repeat/error recoverable, responsive volume y Safari/Firefox/Chrome/iPhone/degraded-network evidence pendientes.
 
-### 15.1 — `[ 🟡 ] OWNER BBB108 / RECENT-REAUTH + DURABLE PURGE GAP`
+### 15.1 — `[ 🟡 ] OWNER BBB109 / RECENT-REAUTH + DURABLE PURGE GAP`
 
 Purge lifecycle existe, pero faltan strong confirmation, recent-reauth seam y deterministic durable action boundary; UI puede limpiar optimistamente antes de purge completion.
 
-**Owner CYCLE113: `NIGHT-BBB-108`.** Debe REUSE la decisión D8 de fresh same-provider authorization ligada a user/session, sin rediseñar auth. Minimum corrective solo si seam existente es suficiente: strong confirmation + recent reauth + visible success después de durable purge + failure/retry/no-false-success. **NO MERGE.** Si la seam productiva indispensable no existe, STOP `RECENT_REAUTH_PRODUCT_SEAM_REQUIRED` en vez de ampliar scope.
+**Owner CYCLE114: `NIGHT-BBB-109`.** Debe REUSE la decisión D8 de fresh same-provider authorization ligada a user/session, sin rediseñar auth. Minimum corrective solo si seam existente es suficiente: strong confirmation + recent reauth + visible success después de durable purge + failure/retry/no-false-success. **NO MERGE.** Si la seam productiva indispensable no existe, STOP `RECENT_REAUTH_PRODUCT_SEAM_REQUIRED`.
 
 ### 15.2 / 15.3
 A11y baseline visual y YouTube Web pure siguen pendientes. Web YouTube nunca depende de Tauri/helper Desktop.
