@@ -2,7 +2,7 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE 109:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales.  
+**Estado CYCLE 110:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales.  
 **Baseline vivo:** `integration-v0.8.0-alpha.1 @ 78dd55b72142e69ea32ba6c1ba6d43e246ac6843`.  
 **Release:** 🔴 `NO-GO`.
 
@@ -13,7 +13,7 @@
 | 0.1 Congelar evidencia | [x] | baseline + NO-GO registrados |
 | 0.2 Checkpoint interno | [x] | no equivale a release público |
 | 0.8 Legal launch review | [x] | AI-assisted review completed; independent counsel deferred by explicit RO decision; residual legal risk accepted |
-| 0.20 OAuth secret rotation | [ 🟡 ] | readiness software integrated; `READY_FOR_OWNER_ROTATION / NOT DONE`; falta rotación real + verify/revoke |
+| 0.20 OAuth secret rotation | [ 🟡 ] | readiness software integrated; `READY_FOR_OWNER_ROTATION / NOT DONE`; falta rotación real + deploy/E2E/revoke |
 | 1.1 Negocio | [x] | v1 comercial; mercados/distribución decididos |
 | 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + public ops + technical Authenticode seam + OAuth readiness integrated; productive signing/OAuth/security/testers/legal implementation tails |
 | 2.1 Contención inmediata | [x] | auth/ownership/límites |
@@ -45,24 +45,24 @@ Owner runtime evidence del `2026-09-01` mantiene security.txt/status HTTPS/SAN/c
 
 ### F0/0.7 — `[x]` technical/preparatory Authenticode + RFC3161
 
-#88 quedó integrado el `2026-09-01`. Separa updater signing de Windows Authenticode, exige SHA-256 + RFC3161 y falla cerrado para `release_intent=public` sin inputs. **PRODUCTION SIGNING = NO-GO** hasta provider, certificado, publisher legal, key custody, CI auth, selector/signCommand, HTTPS RFC3161 endpoint, expected subject, renewal/outage/rotation procedures y un controlled public build con evidencia real.
+#88 quedó integrado el `2026-09-01`. Separa updater signing de Windows Authenticode, exige SHA-256 + RFC3161 y falla cerrado para `release_intent=public` sin inputs. **PRODUCTION SIGNING = NO-GO** hasta provider, certificado, publisher legal, key custody, CI auth, selector/signCommand, HTTPS RFC3161 endpoint, expected subject, renewal/outage/rotation procedures y controlled public build con evidencia real.
 
 ### F0/0.9 — `[ 🟡 ]` AI-assisted security slice / DNS rebinding
 
-PR #89 live: OPEN/Ready, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, base `816f946c...` stale contra `78dd55b...`. Old-head green evidence no autoriza integración. Candidate = AI-assisted audit + DNS-rebinding SSRF hardening; no independent-pentest claim. La afirmación interna de #89 de que #88 no estaba integrado quedó factualmentе stale.
+PR #89 live: OPEN/Ready, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, base `816f946c...` stale contra `78dd55b...`. Old-head green evidence no autoriza integración. Candidate = AI-assisted audit + DNS-rebinding SSRF hardening; no independent-pentest claim. La narrativa original de #89 está stale respecto de #88/#90 ya integrados.
 
-**Owner CYCLE 109: `NIGHT-WOZ-108`.** REUSE #89; reconciliar audit con #88 y #90 ya integrados; history-preserving refresh a `78dd55b...`; fresh exact-head F0/0.9 + Required CI. Solo WOZ108 puede mergear #89 y solo si exact/race-free/green.
+**Owner CYCLE 110: `NIGHT-WOZ-109`.** REUSE #89; reconciliar audit con #88/#90 integrados; history-preserving refresh al live head observado en su turno; fresh exact-head F0/0.9 + Required CI. **NO MERGE CYCLE 110** porque AAA106 posee la única integration mutation lane sobre #91.
 
 ### F0/0.20 — `[ 🟡 ]` OAuth rotation readiness
 
-PR #90 quedó integrado el `2026-09-01` como `78dd55b72142e69ea32ba6c1ba6d43e246ac6843` con F0/0.20 Secret Scan y Required CI verdes. La parte software/readiness está integrada, pero el estado funcional permanece **`READY_FOR_OWNER_ROTATION / NOT DONE`**.
+PR #90 quedó integrado el `2026-09-01` como `78dd55b72142e69ea32ba6c1ba6d43e246ac6843` con F0/0.20 Secret Scan y Required CI verdes. La parte software/readiness está integrada, pero estado funcional permanece **`READY_FOR_OWNER_ROTATION / NOT DONE`**.
 
-Para cerrar 0.20 todavía faltan acciones owner-side con evidencia: crear/reemplazar el credential de Google OAuth, desplegarlo en el secret storage/runtime real de producción, verificar OAuth E2E usando el nuevo credential y deshabilitar/eliminar el secreto anterior. No copiar valores secretos a GitHub, PRs, docs o chat.
+Para cerrar 0.20 faltan acciones owner-side con evidencia: crear/reemplazar credential de Google OAuth, desplegarlo en secret storage/runtime real de producción, verificar OAuth E2E usando el nuevo credential y deshabilitar/eliminar el secreto anterior. No copiar valores secretos a GitHub, PRs, docs o chat.
 
 ### Tails reales restantes
 
 - production Authenticode/RFC3161 evidence;
-- actual OAuth secret rotation + verify/revoke;
+- actual OAuth secret rotation + deploy/E2E/revoke;
 - legal P0/P1 implementation backlog pese a cierre administrativo 0.8;
 - independent security review donde siga siendo gate;
 - 12–20 testers + hardware/plataformas/DAWs/fechas;
