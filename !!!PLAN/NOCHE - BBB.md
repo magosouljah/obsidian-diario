@@ -41,3 +41,34 @@ Solo si PRIMARY entra genuinamente en `WAITING_CI` por CI/build remoto:
 
 - `NIGHT-BBB-109`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 115.
 - `NIGHT-BBB-108`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 114.
+
+## RESULTADO DEL TURNO — NIGHT-BBB-110
+
+### PRIMARY
+
+- `STATUS: BLOCKED_STOP / RECENT_REAUTH_PRODUCT_SEAM_REQUIRED`
+- `baseline: integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`
+- `branch/head: none; read-only preflight, no candidate created`
+- `PR: none`
+- `cambios: none. STOP antes de implementación porque el recent-reauth gate productivo indispensable no está expuesto en los paths inspeccionados y crear uno exigiría tocar/rediseñar auth/session core, explícitamente fuera de autoridad.`
+- `tests: no tests ejecutados; no hubo corrective autorizado que probar.`
+- `CI: N/A; PRIMARY no entró en WAITING_CI.`
+- `evidencia: src/components/SettingsPanel.tsx::emptyTrash en live integration hoy hace one-click enqueue, limpia setTrashItems([]) optimistamente antes de completion, no pide strong confirmation y reporta éxito como queued tras purgeBeats()+listBeats(). La búsqueda live no encontró una API/seam reutilizable de recent reauth en UI/product; la única coincidencia reAuth recuperada fue pre-auth HTTP containment, no una fresh same-provider authorization ligada a user/session consumible por Settings/Trash.`
+- `UNVERIFIED: D8 puede tener una decisión documental fuera del código recuperado, pero no se encontró una seam productiva consumible; no se infirió ni inventó.`
+- `blockers: recent-reauth product seam requerida para cumplir 15.1 sin auth/session core redesign.`
+
+### CI-FALLBACK
+
+- `STATUS: NOT_RUN`
+- `branch/head si aplica: N/A`
+- `PR si aplica: N/A`
+- `cambios: none`
+- `tests: none`
+- `evidencia: PRIMARY terminó en STOP por seam faltante; no entró en WAITING_CI, condición obligatoria del fallback.`
+- `UNVERIFIED: none`
+- `blockers: fallback no autorizado fuera de WAITING_CI.`
+- `STOP alcanzado: sí; CI-FALLBACK no elegible.`
+
+### Recomendación para JOBS
+
+Asignar primero un bounded owner de auth/session para exponer la seam D8 de fresh same-provider authorization ligada a user/session, con contrato consumible por Settings/Trash y sin inventar password/MFA. Después reasignar 15.1 a BBB para strong confirmation + durable completion/no-false-success sobre esa seam. No merge ni candidate de Trash hasta entonces.
