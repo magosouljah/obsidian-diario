@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Integración estable CYCLE139:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
+**Integración estable CYCLE140:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
 
 ## Estado actual
 
@@ -16,13 +16,13 @@
 - BBB105 probó `HARNESS_ONLY_PROVEN`: broad fetch interceptor consumía WDIO/Tauri service plugin IPC.
 - PR #93 reconstruyó harness/evidence-only sobre base histórica `134a293985c314eb09c238115e3bcb71e79f1810`, head `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, 3 files, sin product mutation.
 - Exact-head Windows Auth `33468863393` SUCCESS y checks aplicables observados en ese head fueron verdes.
-- **GitHub vivo CYCLE139:** #93 sigue OPEN/Ready con el mismo head/base; recorded base `134a293...` continúa stale contra integration `43fdf70e...`.
+- **GitHub vivo CYCLE140:** #93 sigue OPEN/Ready con el mismo head/base; recorded base `134a293...` continúa stale contra integration `aa445095...`.
 
-La mergeabilidad mecánica no convierte evidencia vieja en exact-head canonical evidence. #93 queda `PARKED / NO MUTATION OWNER` CYCLE139. El fallback de WOZ138 se redirige al nuevo PR #96 por mayor criticidad; no existe owner nocturno autorizado para mutar, rerunear CI o integrar #93.
+La mergeabilidad mecánica no convierte evidencia vieja en exact-head canonical evidence. #93 queda `PARKED / NO MUTATION OWNER` CYCLE140. Solo WOZ139 puede inspeccionarlo READ-ONLY como CI-FALLBACK mientras #89 esté genuinamente esperando CI externo tras clean refresh; no existe owner autorizado para mutar, rerunear CI o integrar #93.
 
 ## windows/review
 
-Durable Review product gap pertenece F2/13.2. AAA114 lo revalidó y paró por write-surface unsafe; CYCLE139 queda `BLOCKED_WRITE_SURFACE / UNASSIGNED`, sin mezclarlo con F4.
+Durable Review product gap pertenece F2/13.2. AAA114 lo revalidó y paró por write-surface unsafe; CYCLE140 queda `BLOCKED_WRITE_SURFACE / UNASSIGNED`, sin mezclarlo con F4.
 
 ## Signing Windows / macOS
 
