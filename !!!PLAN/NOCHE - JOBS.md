@@ -82,11 +82,11 @@ Handoff JOBS CYCLE151 publicado como comentario `5502014720` con baseline, resul
 
 ## RACE-CHECK FINAL
 
-Pendiente únicamente del readback final inmediatamente posterior a esta escritura; cualquier movimiento material invalida este cierre y debe prevalecer sobre el markdown.
+Readback posterior al handoff y a la escritura del tablero: `integration-v0.8.0-alpha.1` continúa exactamente en `aa4450956579de381e82acf06c660b658c703cd1`; #96 sigue siendo el último merge material. No apareció merge material durante el cierre. CYCLE151 queda race-free bajo la evidencia disponible.
 
 ```text
 CYCLE_ID: NIGHT-JOBS-151
-INTEGRATION_HEAD_PREFLIGHT: aa4450956579de381e82acf06c660b658c703cd1
+INTEGRATION_HEAD_FINAL: aa4450956579de381e82acf06c660b658c703cd1
 AAA_NEW: NIGHT-AAA-147
 BBB_NEW: NIGHT-BBB-146
 WOZ_NEW: NIGHT-WOZ-150
@@ -98,4 +98,4 @@ RELEASE: NO-GO
 F5: CLOSED
 ```
 
-**STOP:** ciclo JOBS 151 termina tras race-check final.
+**STOP:** ciclo JOBS 151 termina aquí.
