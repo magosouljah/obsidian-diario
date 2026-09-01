@@ -17,10 +17,10 @@
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable:** `integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`.
 - **Último merge material:** #87 → `38517c8065063206fed530028e4e8d20208f3807`, parents exactos `b85723e1b3016d24bdb943393e796ccdb744247d` + `ba0d7b689e587da42cc8105b22d0ed0c206bc064`.
-- **F0:** núcleo técnico principal cerrado; 1.2/2.2 conservan tails externos/administrativos. Eligibility v1 canónica: **18+**. #86/#87 software slices integrados. #89 OPEN/Ready @ `daf87da6...`, stale base `816f946c...`; old-head CI verde no sustituye refresh exact-head. #88 está exact-base `38517c...` pero production signing sigue NO-GO pending RO inputs/authorization. #90 readiness no equivale a rotación real.
+- **F0:** núcleo técnico principal cerrado; 1.2/2.2 conservan tails externos/administrativos. Eligibility v1 canónica: **18+**. **0.8 Legal launch review = `[x]` administrativamente: AI-assisted review completed 2026-08-31; independent counsel deferred by explicit RO decision; residual legal risk accepted by RO. Esto cierra la tarea de review, no compliance ni P0/P1.** #86/#87 software slices integrados. #89 OPEN/Ready @ `daf87da6...`, stale base `816f946c...`; old-head CI verde no sustituye refresh exact-head. #88 está exact-base `38517c...` pero production signing sigue NO-GO pending RO inputs/authorization. #90 readiness no equivale a rotación real.
 - **F1:** D6–D10.1 PASS. D10.2 sigue `NOT_READY_FOR_RO_DECISION`; blockers mínimos = F2/12.1, F4/25.1 y cierre/decisión explícita sobre F2/13.2 + 15.1.
 - **F2:** 11.1/11.2/12.2 cerrados. Infra pública principal probada por owner, pero normal apex sigue observado en `Loading Galer`; `NIGHT-AAA-104` owns F2/12.1. 13.2 durable Review y 15.1 Trash siguen abiertos.
-- **F3:** 17.1/17.2/18.1 cerrados; 18.2 provider/payment external. #87 security/status software integrated; DNS/SAN/deployment/public runtime/support/legal/OAuth tails siguen `UNVERIFIED/OPEN`. #76 stale/13+ contradice 18+; #83 OPEN/DRAFT y runtime160 no probado.
+- **F3:** 17.1/17.2/18.1 cerrados; 18.2 provider/payment external. #87 security/status software integrated; DNS/SAN/deployment/public runtime/support/legal/OAuth tails siguen `UNVERIFIED/OPEN`. #76 stale/13+ contradice 18+. **AI legal review evidence is recorded, but 19.2 remains OPEN with 12 P0 + 14 P1 + P2/P3 + UNVERIFIED implementation/risk backlog.** #83 OPEN/DRAFT y runtime160 no probado.
 - **F4:** 21.1/21.2/24.1/24.2 cerrados; 25.1 incompleto. #84 evidence lineage @ `f53d46f...`, stale; Required CI old-head verde, pero Windows Auth run `33449587244` / job `99676242317` = FAILURE. `NIGHT-BBB-103` owns evidence/harness-only causal correction.
 - **5.1:** `[x]`. **5.2:** `[x]`.
 - **F5:** `NO ABRIR`.
@@ -60,11 +60,11 @@ CI-FALLBACK: solo si PRIMARY entra genuinamente `WAITING_CI`: inspección **READ
 4. **F2/15.1 Empty Trash:** recent-reauth seam + strong confirmation + deterministic purge o decisión RO explícita de exclusión para alpha.
 5. **F0/0.9 security:** #89 debe refresh/revalidar e integrar el P1 DNS-rebinding sin falsear external pentest.
 6. **F0 release/admin tails:** #88 Authenticode/RFC3161 requiere provider/cert/publisher/custody/CI/RFC3161/authorization RO; #90 requiere rotación owner real; 2.2 GitHub historical cleanup externo.
-7. **F3/19.x public/legal:** #87 software integrated, pero runtime/DNS/SAN/deploy/support/legal/OAuth tails siguen; #76 requiere refresh-capable surface + 18+.
+7. **F3/19.x public/legal:** #87 software integrated, pero runtime/DNS/SAN/deploy/support/legal/OAuth tails siguen; #76 requiere refresh-capable surface + 18+. F0/0.8 review ya está `[x]` por excepción AI-assisted RO-approved; **los 12 P0/14 P1 legales sustantivos siguen release-blocking y se rastrean en `Legal launch review - AI-assisted 2026-08-31.md`.**
 8. **F3/20.2:** #83 tooling + runtime real 160, latency/error/queue/recovery/no-loss/no-cross-tenant + safety margin.
 9. **F3/18.2:** provider/staging/payment scenarios reales.
 10. **F1/D10.2:** reconsiderar readiness solo después de blockers técnicos aplicables y decisiones RO de alcance.
-11. **External tails:** signing/notarization/hardware/tester execution e independent review donde siga requerido.
+11. **External tails:** signing/notarization/hardware/tester execution e independent review donde siga requerido. **Independent legal counsel is deferred under the explicit F0/0.8 RO governance exception; no attorney review/compliance claim is implied.**
 
 La secuencia coincide en gran parte con CYCLE 107 porque los hechos vivos relevantes no cambiaron; no se conservó por inercia, se rederivó desde los gates y GitHub actuales.
 

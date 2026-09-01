@@ -2,7 +2,7 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE 108:** `[ 🟡 ]` residual/administrativo + security/release tails. El núcleo técnico necesario para avanzar terminó; 5.1 y 5.2 están `[x]`. 1.2 y 2.2 conservan tails reales.  
+**Estado CYCLE 108:** `[ 🟡 ]` residual/administrativo + security/release tails. El núcleo técnico necesario para avanzar terminó; 5.1 y 5.2 están `[x]`. **0.8 legal launch review está `[x]` bajo la excepción RO-approved AI-assisted; esto cierra la tarea de review, no compliance.** 1.2 y 2.2 conservan tails reales.  
 **Baseline vivo:** `integration-v0.8.0-alpha.1 @ 1dbf60e58ca970c47d387b303e141e30e2b8eef5`.  
 **Release:** 🔴 `NO-GO`.
 
@@ -12,8 +12,9 @@
 |---|---|---|
 | 0.1 Congelar evidencia | [x] | baseline + NO-GO registrados |
 | 0.2 Checkpoint interno | [x] | no equivale a release público |
+| 0.8 Legal launch review | [x] | AI-assisted review completed; independent counsel deferred by explicit RO decision; residual legal risk accepted by RO |
 | 1.1 Negocio | [x] | v1 comercial; mercados/distribución decididos |
-| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + public operations runtime + Authenticode seam integrated; production signing/provider/reviews/testers tails |
+| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + public operations runtime + Authenticode seam integrated; production signing/provider/security-review/testers tails; legal implementation backlog remains |
 | 2.1 Contención inmediata | [x] | auth/ownership/límites |
 | 2.2 Historial Git | [ 🟡 ] tail externo | GitHub Support + fresh inaccessibility verification |
 | 3.1 Integración | [x] | integration-v0.8.0-alpha.1 |
@@ -22,6 +23,18 @@
 | 4.2 Supply chain | [x] | scans/SBOM/checksums/provenance base |
 | 5.1 Trust boundary / Direct | [x] | temporary auth + media directa |
 | 5.2 Datos/recovery/secrets | [x] | PostgreSQL + RPO/RTO + rotation + observability |
+
+## 0.8 — `[x]` Legal launch review — AI-assisted administrative closure
+
+`0.8 Legal launch review — AI-assisted review completed; independent counsel deferred by explicit RO decision; residual legal risk accepted by RO.`
+
+**Evidence:** [`Legal launch review - AI-assisted 2026-08-31.md`](./Legal%20launch%20review%20-%20AI-assisted%202026-08-31.md).
+
+**RO decision:** for F0/0.8 only, the originally required independent external legal review is replaced by the AI-assisted launch-readiness review completed on **2026-08-31**. RO expressly accepts the residual legal risk of deferring independent counsel at this stage. No attorney review occurred or is implied.
+
+**Meaning of `[x]`:** the **review activity** is complete under the new governance policy. It does **not** mean BeatGaler is legally compliant, does not close substantive legal implementation work, and does not authorize public release.
+
+The audit's **12 P0 + 14 P1** remain open implementation/release gates. P2/P3 and all `UNVERIFIED` items remain in the legal risk/backlog record. `Gates - Publicación y contingencias.md` still requires zero applicable P0/P1 for public release, and F3/19.2 remains open for product/legal implementation.
 
 ## 1.2 — `[ 🟡 ]` release dependencies
 
@@ -64,7 +77,8 @@ PR #90 es readiness software/documental; rotar/desplegar/verificar/revocar la cr
 ### Tails aún requeridos para 1.2 `[x]`
 - Windows Authenticode + RFC3161 productivo y evidencia cuando corresponda;
 - rotación real del OAuth secret afectado y verificación/revocación owner-side;
-- revisión legal/seguridad independiente donde siga siendo gate real;
+- **F0/0.8 review está cerrado por excepción AI-assisted RO-approved; los P0/P1 legales sustantivos permanecen abiertos bajo F3/19.2 + gate canónico**;
+- revisión de seguridad independiente donde siga siendo gate real;
 - matriz 12–20 testers + hardware/plataformas/DAWs/fechas.
 
 ## 2.2 — `[ 🟡 ]` historial Git
@@ -79,4 +93,4 @@ No repetir rewrite ni borrar evidencia para recrear proof.
 
 5.1 y 5.2 permanecen `[x]` con evidencia previamente aceptada. No repetir drills sin invalidación.
 
-**Regla de salida:** F0 no es `[x]` global mientras 1.2/2.2 sigan abiertos. Esto no retrocede F1–F4 ni autoriza release.
+**Regla de salida:** F0 no es `[x]` global mientras 1.2/2.2 sigan abiertos. Cerrar administrativamente 0.8 no cambia esa regla, no retrocede F1–F4 y no autoriza release.
