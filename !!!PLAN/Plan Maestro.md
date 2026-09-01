@@ -12,45 +12,45 @@
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-121
+## Estado vivo — NIGHT-JOBS-122
 
 - **Release público:** 🔴 `NO-GO`.
 - **Integración estable al preflight y race-check:** `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
 - **Últimos merges materiales procesados:** #92 → `ada77811059a3319b271dcc98dd5d95efe807dec`; #94 → `08e5802d27ad81977b1c2f63ceb0fce398d41e42`; #95 → `43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`, parents `08e5802d... + 66f6b18e...`.
 - **F2/12.1:** #92/#94/#95 integrados. Sigue `NOT_PASS` hasta deploy público exacto post-#95 + signed-out/authenticated startup + worker initialize/activate/verify + authoritative library reload + cold/warm proof y robustness residual aplicable.
 - **F2/13.2:** durable Review gap confirmado por AAA114. `BLOCKED_WRITE_SURFACE / UNASSIGNED`: no candidate, tests, CI ni PASS.
-- **F2/15.1:** recent-reauth product seam sigue prerequisito; owner `NIGHT-BBB-116` solo para seam mínima, no Trash UI todavía.
-- **F0/0.9:** #89 OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c...`, mechanical `mergeable=true`; base materialmente stale frente a `43fdf70e...`. Owner `NIGHT-WOZ-120` para bounded refresh/revalidation + conditional expected-head merge de #89 solamente.
-- **F4/Windows Auth:** #93 OPEN @ `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, base `134a293...`, `mergeable=true`; stale y old-head exact-green evidence no es canonical integration evidence. No mutation owner CYCLE121.
-- **F1:** D6–D10.1 PASS; D10.2 map complete / alpha candidate NOT_READY. 1.7 owner `NIGHT-AAA-117` READ-ONLY; 1.8/1.9 pendientes.
+- **F2/15.1:** recent-reauth product seam sigue prerequisito; owner `NIGHT-BBB-117` solo para seam mínima, no Trash UI todavía.
+- **F0/0.9:** #89 OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c...`, mechanical `mergeable=true`; base materialmente stale frente a `43fdf70e...`. Owner `NIGHT-WOZ-121` para bounded refresh/revalidation + conditional expected-head merge de #89 solamente.
+- **F4/Windows Auth:** #93 OPEN @ `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, base `134a293...`, `mergeable=true`; stale y old-head exact-green evidence no es canonical integration evidence. No mutation owner CYCLE122.
+- **F1:** D6–D10.1 PASS; D10.2 map complete / alpha candidate NOT_READY. 1.7 owner `NIGHT-AAA-118` READ-ONLY; 1.8/1.9 pendientes.
 - **F3:** provider/payment real, legal implementation y runtime160/capacity siguen abiertos/external o requieren clasificación explícita de aplicabilidad al alpha.
 - **F4:** 21.1/21.2/24.1/24.2 cerrados; 25.1 global sigue abierto; production signing/notarization/hardware/tester execution externos.
 - **F5:** `NO ABRIR`.
 
-## RESULTADOS PROCESADOS — CYCLE121
+## RESULTADOS PROCESADOS — CYCLE122
 
-- `NIGHT-AAA-116`: sin matching RESULTADO DEL TURNO/handoff verificable posterior a CYCLE120 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- `NIGHT-BBB-115`: sin matching RESULTADO DEL TURNO/handoff verificable posterior a CYCLE120 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- `NIGHT-WOZ-119`: sin matching RESULTADO DEL TURNO/handoff verificable posterior a CYCLE120 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-AAA-117`: sin matching RESULTADO DEL TURNO/handoff verificable → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-BBB-116`: sin matching RESULTADO DEL TURNO/handoff verificable → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-WOZ-120`: sin matching RESULTADO DEL TURNO/handoff verificable → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - Issue #41 completo fue reconciliado; no apareció candidate nuevo para recent-reauth ni resultado final nuevo de esos Assignment IDs.
 - Live GitHub mantiene integration en #95; #89/#93 siguen OPEN y stale-base. Mechanical mergeability no sustituye refresh/exact-head evidence.
 - JOBS no modificó código BeatGaler ni infraestructura.
 
-## OWNERS — CYCLE121
+## OWNERS — CYCLE122
 
-### AAA — `NIGHT-AAA-117` — F1 / 1.7
+### AAA — `NIGHT-AAA-118` — F1 / 1.7
 PRIMARY: blocker classification READ-ONLY para alpha 3–5 cuentas; clasificar evidencia como `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL`, incluyendo F2/F0/F4/F3 blockers, sin tomar decisión RO ni promover gates.  
 CI-FALLBACK: NONE.
 
-### BBB — `NIGHT-BBB-116` — F1/D8 follow-up seam
+### BBB — `NIGHT-BBB-117` — F1/D8 follow-up seam
 PRIMARY: expose/reuse the minimum productive fresh same-provider recent-reauth contract bound to user/session, fail-closed and consumable later by destructive callers; focused tests; bounded candidate. **No Trash UI/purge. NO MERGE.**  
 CI-FALLBACK: NONE.
 
-### WOZ — `NIGHT-WOZ-120` — F0 / 0.9 / #89
+### WOZ — `NIGHT-WOZ-121` — F0 / 0.9 / #89
 PRIMARY: REUSE #89; duplicate-check, history-preserving bounded refresh onto live baseline, exact-head F0/0.9 + applicable CI; if exact/green/race-free, expected-head merge **#89 only** and verify SHA/parents. Maximum claim = bounded DNS-rebinding SSRF P1 corrective integrated; no independent-pentest claim.  
 CI-FALLBACK: while PRIMARY is genuinely WAITING_CI/WAITING_EXTERNAL only, perform READ-ONLY #93 applicability/evidence inventory; no mutation, CI rerun, new PR or gate promotion; STOP fallback immediately when PRIMARY ceases waiting and return to #89 recheck.
 
-**Integration mutation authorization CYCLE121: WOZ120 / PR #89 ONLY, after exact refreshed base/head + applicable CI SUCCESS + race-free expected-head.**
+**Integration mutation authorization CYCLE122: WOZ121 / PR #89 ONLY, after exact refreshed base/head + applicable CI SUCCESS + race-free expected-head.**
 
 ## Camino crítico global — recalculado desde cero contra GitHub vivo
 
@@ -75,4 +75,4 @@ CI-FALLBACK: while PRIMARY is genuinely WAITING_CI/WAITING_EXTERNAL only, perfor
 
 ## NEXT
 
-AAA ejecuta `NIGHT-AAA-117`; BBB `NIGHT-BBB-116`; WOZ `NIGHT-WOZ-120` y posee la única conditional integration lane sobre #89. F2/13.2 queda `BLOCKED_WRITE_SURFACE / UNASSIGNED` hasta cambiar materialmente la superficie de ejecución. #93 no tiene mutation owner; solo puede ser inspeccionado READ-ONLY bajo el fallback de WOZ120 mientras #89 espera CI. F5 sigue CLOSED / NO-GO. `PLAN_HEALTH`: synced CYCLE121; GitHub live prevalece si cambia después.
+AAA ejecuta `NIGHT-AAA-118`; BBB `NIGHT-BBB-117`; WOZ `NIGHT-WOZ-121` y posee la única conditional integration lane sobre #89. F2/13.2 queda `BLOCKED_WRITE_SURFACE / UNASSIGNED` hasta cambiar materialmente la superficie de ejecución. #93 no tiene mutation owner; solo puede ser inspeccionado READ-ONLY bajo el fallback de WOZ121 mientras #89 espera CI. F5 sigue CLOSED / NO-GO. `PLAN_HEALTH`: synced CYCLE122; GitHub live prevalece si cambia después.
