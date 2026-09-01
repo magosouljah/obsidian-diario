@@ -6,14 +6,14 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-147`
+- `ASSIGNMENT_ID: NIGHT-WOZ-148`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F0 / 0.9 — REUSE PR #89 DNS-rebinding SSRF P1; diagnose live gate failure, refresh/revalidate + conditional integration`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`
-- `PREDECESSOR: NIGHT-WOZ-146 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff exists after JOBS CYCLE147.`
+- `PREDECESSOR: NIGHT-WOZ-147 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff exists after JOBS CYCLE148.`
 - `LIVE_PR_FACT: #89 remains OPEN/Ready/mergeable=true @ daf87da6ffd604ccac991311036919ae2de9bd7a, recorded base 816f946c09d998ee5a045b3e70b2fe4f3a4160d0; stale behind live aa445095...; mechanical mergeability does not authorize merge.`
-- `LIVE_CI_FACT: F0/0.9 workflow run 33454881387 remains completed/FAILURE on exact head daf87da6...; Required CI success on that stale head does not override the failed security gate.`
-- `SERIALIZATION: WOZ147 exclusively owns #89 refresh/revalidation/integration. AAA144 owns F2/12.1 runtime evidence READ-ONLY. BBB143 owns recent-reauth seam. #93 remains mutation-unassigned.`
+- `LIVE_CI_FACT: F0/0.9 run 33454881387 remains completed/FAILURE. Fresh JOBS log diagnosis: the failing step is Rust unit contracts; tauri::generate_context! panics because frontendDist ../dist does not exist. Earlier audit/dependency/DNS/TS/cloud steps pass. This is not a waiver: refresh + exact-head rerun is still required.`
+- `SERIALIZATION: WOZ148 exclusively owns #89 refresh/revalidation/integration. AAA145 owns F2/12.1 runtime evidence READ-ONLY. BBB144 owns recent-reauth seam. #93 remains mutation-unassigned.`
 
 ### PRIMARY
 
@@ -21,16 +21,16 @@
 
 1. Fresh preflight integration HEAD, #89 base/head/mergeability/changed files, Issue #41 and owner collisions.
 2. Duplicate-check any equivalent DNS-pinning/SSRF corrective integrated after #89 creation, including all changes through #96; if already resolved equivalently, STOP with evidence.
-3. Inspect run `33454881387` and its jobs; determine whether the known `frontendDist ../dist` failure is workflow/harness ordering inside #89 audit scope or already resolved by live integration. Do not hide, waive or bypass the failure.
+3. Reproduce/confirm the known run `33454881387` failure: Rust unit contracts fail before substantive Rust tests because `frontendDist ../dist` is absent. Determine the smallest history-preserving workflow/harness ordering correction within #89 audit scope, or prove live integration already supplies it. Do not hide, waive or bypass the gate.
 4. History-preserving reconcile #89 onto current live integration `aa4450956579de381e82acf06c660b658c703cd1`, preserving unrelated later integration changes.
 5. Scope stays exactly audit docs + DNS-rebinding SSRF hardening/regression/security workflow needed to execute that gate; no unrelated cleanup.
 6. Run exact-head F0/0.9 security gate + applicable required CI after refresh. Old-head results are non-authoritative.
 7. Immediately before integration, recheck live integration HEAD, refreshed #89 exact base/head, changed files, mergeability, CI and owner collision.
-8. If exact/green/race-free, WOZ147 is authorized to expected-head merge **PR #89 only** and verify merge SHA + parents.
+8. If exact/green/race-free, WOZ148 is authorized to expected-head merge **PR #89 only** and verify merge SHA + parents.
 9. Maximum claim: `F0/0.9 DNS_REBINDING_SSRF_P1_CORRECTIVE_INTEGRATED`; AI-assisted audit is not an independent pentest and F0 global remains open.
 10. Do not touch Review, recent-reauth/Trash, F2/12.1 runtime deployment or production provider state. Write RESULTADO DEL TURNO here + Issue #41 and STOP.
 
-**Required evidence:** duplicate-check; diagnosis of run 33454881387; live integration SHA before/after; refreshed #89 base/head; changed-file inventory; exact-head security/required CI conclusions; merge SHA/parents if merged; residual P0/P1/P2/P3 and independent-review `UNVERIFIED`.  
+**Required evidence:** duplicate-check; exact diagnosis of run 33454881387; live integration SHA before/after; refreshed #89 base/head; changed-file inventory; exact-head security/required CI conclusions; merge SHA/parents if merged; residual P0/P1/P2/P3 and independent-review `UNVERIFIED`.  
 **STOP:** unsafe refresh, scope drift, failed/cancelled required CI, baseline race, newer duplicate, auth/F2 collision, or any integration mutation other than expected-head #89.
 
 ### CI-FALLBACK
@@ -39,9 +39,9 @@
 
 - **Scope:** inspect #93 current base/head/changed files/commits, exact-head historical checks and divergence from live `aa445095...`; determine only `REUSE_REFRESHABLE`, `STALE_INVALIDATED`, or `NO_LONGER_APPLICABLE`. This is independent of #89: no #89 files/branch/PR/lock/ownership are touched. Do not mutate or adjudicate global 25.1 closure.
 - **Evidence required:** live integration SHA; #93 exact base/head at start/end; changed-file inventory; existing exact-head check conclusions; divergence/material-conflict notes; explicit runtime/packaged-current-baseline `UNVERIFIED`.
-- **STOP:** any mutation/rerun/review/merge/new PR/gate promotion, overlap with AAA144/BBB143, head movement during inspection, or PRIMARY no longer waiting. Return to #89 immediately when PRIMARY ceases waiting.
+- **STOP:** any mutation/rerun/review/merge/new PR/gate promotion, overlap with AAA145/BBB144, head movement during inspection, or PRIMARY no longer waiting. Return to #89 immediately when PRIMARY ceases waiting.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-WOZ-146`: no matching RESULTADO DEL TURNO or Issue #41 handoff verified by JOBS CYCLE148 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- `NIGHT-WOZ-145`: prior superseded no-result remains historical only.
+- `NIGHT-WOZ-147`: no matching RESULTADO DEL TURNO or Issue #41 handoff verified by JOBS CYCLE149 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-WOZ-146`: prior superseded no-result remains historical only.
