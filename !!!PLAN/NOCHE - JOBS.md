@@ -12,7 +12,7 @@
 - PR #94 MERGED → `08e5802d27ad81977b1c2f63ceb0fce398d41e42`, parents `ada77811059a3319b271dcc98dd5d95efe807dec + b245aea738ab111992b1efd874ae7db25cd91aac`.
 - F2/12.1 remains NOT_PASS: post-#94 public deployment/authenticated worker/library + cold/warm proof is still required.
 - PR #93 OPEN @ `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, recorded base `134a293...`, now stale/non-mergeable; PARKED.
-- PR #89 OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c...`, stale/non-mergeable; owner WOZ116 for refresh/revalidation.
+- PR #89 OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c...`; GitHub currently reports `mergeable=true`, but its recorded base is stale versus `08e5802d...`, so exact refresh/revalidation remains mandatory. Owner WOZ116.
 - Release público: 🔴 `NO-GO`; F5 `NO ABRIR`.
 
 ## PREFLIGHT / RESULTADOS PROCESADOS
@@ -77,7 +77,7 @@ BBB_NEW: NIGHT-BBB-112 D8_RECENT_REAUTH_SEAM
 WOZ_NEW: NIGHT-WOZ-116 F0_0.9_PR89
 PR94: MERGED 08e5802d / runtime proof still pending
 PR93: OPEN STALE / PARKED
-PR89: OPEN STALE / WOZ116 refresh lane
+PR89: OPEN STALE_BASE; mergeable=true at final race-check / WOZ116 refresh lane
 INTEGRATION_MUTATION_AUTHORIZED: WOZ116 PR89 ONLY IF REFRESHED_EXACT_GREEN_RACE_FREE
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
 CODE_OR_INFRA_MUTATION_BY_JOBS: none
