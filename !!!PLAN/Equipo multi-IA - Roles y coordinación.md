@@ -2,32 +2,33 @@
 
 > GitHub + `!!!PLAN` son memoria compartida. GitHub/runtime vivo prevalece.
 
-## Roles y ownership actual — CYCLE141
+## Roles y ownership actual — CYCLE142
 
 | Rol | Owner actual | PRIMARY | CI-FALLBACK |
 |---|---|---|---|
 | JOBS | coordinación | `!!!PLAN`, prioridades, handoffs, gates; no BeatGaler code/infra | n/a |
-| AAA | F2 / 12.1 runtime proof | `NIGHT-AAA-137`: READ-ONLY exact-deployment runtime evidence inventory post-#96; no deploy/code/infra | NONE |
-| BBB | F1/D8 follow-up | `NIGHT-BBB-136`: minimum productive recent-reauth seam bound to user/session; no Trash UI; candidate only, NO MERGE | NONE |
-| WOZ | F0 / 0.9 / #89 | `NIGHT-WOZ-140`: diagnose live F0 audit failure, REUSE #89, bounded refresh/revalidate; expected-head merge #89 only if exact/green/race-free | READ-ONLY PR #93 stale-evidence inventory only while #89 genuinely waits external CI after clean refresh |
+| AAA | F2 / 12.1 runtime proof | `NIGHT-AAA-138`: READ-ONLY exact-deployment runtime evidence inventory post-#96; no deploy/code/infra | NONE |
+| BBB | F1/D8 follow-up | `NIGHT-BBB-137`: minimum productive recent-reauth seam bound to user/session; no Trash UI; candidate only, NO MERGE | NONE |
+| WOZ | F0 / 0.9 / #89 | `NIGHT-WOZ-141`: diagnose live F0 audit failure, REUSE #89, bounded refresh/revalidate; expected-head merge #89 only if exact/green/race-free | READ-ONLY PR #93 stale-evidence inventory only while #89 genuinely waits external CI after clean refresh |
 
-**Baseline canónico CYCLE141:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
+**Baseline canónico CYCLE142:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
 
-## Handoffs/resultados procesados — CYCLE141
+## Handoffs/resultados procesados — CYCLE142
 
-- AAA136: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- BBB135: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- WOZ139: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- Issue #41 no tenía comentario posterior al JOBS CYCLE140 (`5498220192`) durante el preflight de CYCLE141.
+- AAA137: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- BBB136: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- WOZ140: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- Issue #41 no tenía comentario posterior al JOBS CYCLE141 (`5498598173`) durante el preflight de CYCLE142.
 - PR #96 sigue siendo el último merge material: merge `aa445095...`; final head `6247173...`; Required CI exact-head SUCCESS. Sigue faltando public runtime proof exacto para cerrar F2/12.1.
-- PR #89 permanece OPEN @ `daf87da6...`, recorded base `816f946c...`; stale vs live `aa445095...`. F0/0.9 workflow run `33454881387` permanece FAILURE en ese exact head. WOZ140 owns diagnosis + bounded refresh/revalidation/integration; current head is not merge-eligible.
-- PR #93 permanece OPEN @ `b2c4eb441...`, base `134a293...`; stale. No mutation owner CYCLE141.
+- PR #89 permanece OPEN @ `daf87da6...`, recorded base `816f946c...`; stale vs live `aa445095...`. F0/0.9 workflow run `33454881387` permanece FAILURE en ese exact head. WOZ141 owns diagnosis + bounded refresh/revalidation/integration; current head is not merge-eligible.
+- PR #93 permanece OPEN @ `b2c4eb441...`, base `134a293...`; stale. No mutation owner CYCLE142.
+- Duplicate-check no encontró rama/PR reciente de recent-reauth que invalide BBB137.
 
 ## Serialización
 
-AAA137 owns only F2/12.1 runtime-proof/evidence READ-ONLY. BBB136 owns only recent-reauth product seam. WOZ140 owns only #89 mutation/integration. F2/13.2 Review is `BLOCKED_WRITE_SURFACE / UNASSIGNED`; #93 no tiene mutation owner y solo puede ser inspeccionado READ-ONLY bajo fallback explícito de WOZ140.
+AAA138 owns only F2/12.1 runtime-proof/evidence READ-ONLY. BBB137 owns only recent-reauth product seam. WOZ141 owns only #89 mutation/integration. F2/13.2 Review is `BLOCKED_WRITE_SURFACE / UNASSIGNED`; #93 no tiene mutation owner y solo puede ser inspeccionado READ-ONLY bajo fallback explícito de WOZ141.
 
-**Only integration mutation authorized CYCLE141: WOZ140 / PR #89, conditional on exact refreshed base/head, applicable required CI SUCCESS and race-free expected-head check. #93 no tiene autorización de merge.**
+**Only integration mutation authorized CYCLE142: WOZ141 / PR #89, conditional on exact refreshed base/head, applicable required CI SUCCESS and race-free expected-head check. #93 no tiene autorización de merge.**
 
 ## Holding / blocked items
 
@@ -37,7 +38,7 @@ AAA137 owns only F2/12.1 runtime-proof/evidence READ-ONLY. BBB136 owns only rece
 - F1/D10.2 map complete, result `ALPHA CANDIDATE NOT READY`; 1.7 se reemitirá con facts frescos tras resultados 12.1/#89/recent-reauth y luego 1.8 RO decision.
 - F2/12.1: #92/#94/#95/#96 integrated; exact public runtime proof remains open.
 - F2/13.2: factual gap, blocked on safe patch/worktree surface.
-- F2/15.1: blocked behind BBB136 recent-reauth seam.
+- F2/15.1: blocked behind BBB137 recent-reauth seam.
 - F3/18.2 provider/payment external; F3/19.2 legal implementation open; F3/20.2 runtime160 pending; alpha applicability remains explicit-decision territory.
 - F4/25.1: #93 needs future refresh/revalidation if in alpha; global 25.1 stays open.
 
