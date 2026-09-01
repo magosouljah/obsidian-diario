@@ -6,12 +6,12 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-123`
+- `ASSIGNMENT_ID: NIGHT-AAA-124`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F1 / 1.7 — alpha blocker classification READ-ONLY`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`
-- `PREDECESSOR: NIGHT-AAA-122 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE127.`
-- `SERIALIZATION: AAA123 owns only F1/1.7 classification. BBB122 owns only recent-reauth seam. WOZ126 owns #89. F2/13.2 Review remains BLOCKED_WRITE_SURFACE / UNASSIGNED. #93 remains mutation-unassigned.`
+- `PREDECESSOR: NIGHT-AAA-123 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE128.`
+- `SERIALIZATION: AAA124 owns only F1/1.7 classification. BBB123 owns only recent-reauth seam. WOZ127 owns #89. F2/13.2 Review remains BLOCKED_WRITE_SURFACE / UNASSIGNED. #93 remains mutation-unassigned.`
 
 ### PRIMARY
 
@@ -35,5 +35,5 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-122`: no matching final result/handoff verified by JOBS CYCLE127 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-AAA-123`: no matching final result/handoff verified by JOBS CYCLE128 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-AAA-114`: `PENDING / STOP_WRITE_SURFACE / NOT_PASS`; durable Review gap remains valid blocker evidence only.
