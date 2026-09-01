@@ -74,15 +74,15 @@ Plan Maestro, F0, F1, F2, F3, F4, coordinación y NOCHE AAA/BBB/WOZ/JOBS quedaro
 
 ## ISSUE #41
 
-Handoff JOBS CYCLE146: pendiente de publicación al momento de esta escritura; el comment ID se añadirá solo si la publicación devuelve evidencia verificable.
+Handoff JOBS CYCLE146 publicado como comentario `5500433250`. No se procesó ningún worker handoff posterior dentro de este ciclo.
 
 ## RACE-CHECK FINAL
 
-Debe revalidarse después de publicar el handoff. La autoridad actual de pre-cierre es `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
+Readback final de GitHub después de publicar el handoff y sincronizar el plan operativo: `integration-v0.8.0-alpha.1` continúa exactamente en `aa4450956579de381e82acf06c660b658c703cd1`. No hubo carrera ni merge material durante el cierre del ciclo.
 
 ```text
 CYCLE_ID: NIGHT-JOBS-146
-INTEGRATION_HEAD_PREFINAL: aa4450956579de381e82acf06c660b658c703cd1
+INTEGRATION_HEAD_FINAL: aa4450956579de381e82acf06c660b658c703cd1
 AAA_NEW: NIGHT-AAA-142
 BBB_NEW: NIGHT-BBB-141
 WOZ_NEW: NIGHT-WOZ-145
@@ -90,9 +90,9 @@ PR96: MERGED / HEAD 6247173ead703f831801fa103ca465fea04e5793 / MERGE aa445095657
 PR89_F0_AUDIT: 33454881387 FAILURE
 F2_12.1: NOT_PASS / PUBLIC_RUNTIME_OPEN
 F2_13.2: BLOCKED_WRITE_SURFACE / UNASSIGNED
-ISSUE41_HANDOFF: PENDING_PUBLICATION
+ISSUE41_HANDOFF: 5500433250
 RELEASE: NO-GO
 F5: CLOSED
 ```
 
-**STOP:** ciclo JOBS 146 termina después de handoff + race-check final.
+**STOP:** ciclo JOBS 146 termina aquí.
