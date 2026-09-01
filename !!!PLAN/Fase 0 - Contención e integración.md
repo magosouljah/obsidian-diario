@@ -2,8 +2,8 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE 111:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales. **0.20 OAuth secret rotation está `[x]` con rotación/deploy/E2E/revocación owner-side verificadas.**  
-**Baseline vivo autoritativo al preflight:** `integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`.  
+**Estado CYCLE117:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales. 0.20 OAuth secret rotation está `[x]`.  
+**Baseline vivo:** `integration-v0.8.0-alpha.1 @ 08e5802d27ad81977b1c2f63ceb0fce398d41e42`.  
 **Release:** 🔴 `NO-GO`.
 
 ## Tablero
@@ -12,10 +12,10 @@
 |---|---|---|
 | 0.1 Congelar evidencia | [x] | baseline + NO-GO registrados |
 | 0.2 Checkpoint interno | [x] | no equivale a release público |
-| 0.8 Legal launch review | [x] | AI-assisted review completed; independent counsel deferred by explicit RO decision; residual legal risk accepted |
+| 0.8 Legal launch review | [x] | AI-assisted review completed; independent counsel deferred by explicit RO decision |
 | 0.20 OAuth secret rotation | [x] | readiness integrated + credential reemplazado/desplegado + OAuth E2E exitoso + secreto anterior eliminado |
 | 1.1 Negocio | [x] | v1 comercial; mercados/distribución decididos |
-| 1.2 Dependencias externas | [ 🟡 ] | governance/provenance + public ops + technical Authenticode seam + OAuth rotation completed; productive signing/security/testers/legal tails |
+| 1.2 Dependencias externas | [ 🟡 ] | productive signing/security/testers/legal tails |
 | 2.1 Contención inmediata | [x] | auth/ownership/límites |
 | 2.2 Historial Git | [ 🟡 ] | GitHub Support + fresh inaccessibility verification |
 | 3.1 Integración | [x] | `integration-v0.8.0-alpha.1` |
@@ -27,48 +27,37 @@
 
 ## 0.8 — `[x]` review administrativo, no compliance
 
-Evidence canónica: `Legal launch review - AI-assisted 2026-08-31.md`. RO reemplazó para F0/0.8 el counsel externo por revisión AI-assisted y aceptó el riesgo residual. No ocurrió attorney review. Los **12 P0 + 14 P1**, P2/P3 y `UNVERIFIED` del audit siguen abiertos como implementation/release backlog; `Gates - Publicación y contingencias.md` sigue exigiendo cero P0/P1 aplicables para publicación y F3/19.2 permanece abierto.
+Evidence canónica: `Legal launch review - AI-assisted 2026-08-31.md`. No ocurrió attorney review. Los **12 P0 + 14 P1**, P2/P3 y `UNVERIFIED` del audit siguen abiertos como implementation/release backlog; F3/19.2 permanece abierto.
 
 ## 1.2 — `[ 🟡 ]` release dependencies
 
-Decisiones fijas: v1 paid/commercial; Web + Windows NSIS + macOS DMG; MX/US/CA/EU/UK; eligibility **18+**. Apple Developer sigue deferred.
-
-Software integrado relevante:
-- #86 release/provenance → `b85723e1b3016d24bdb943393e796ccdb744247d`.
-- #87 public security/status software → `38517c8065063206fed530028e4e8d20208f3807`.
-- #88 F0/0.7 Authenticode + RFC3161 technical/preparatory seam → `1dbf60e58ca970c47d387b303e141e30e2b8eef5`.
-- #90 F0/0.20 OAuth secret-rotation readiness → `78dd55b72142e69ea32ba6c1ba6d43e246ac6843`; owner-side actual rotation later completed.
-- #91 Web bootstrap corrective → `134a293985c314eb09c238115e3bcb71e79f1810`; F2 evidence, does not close F0 tails.
+Software integrado relevante: #86 provenance, #87 public security/status, #88 technical Authenticode/RFC3161, #90 OAuth rotation readiness, #91/#92/#94 Web startup/runtime corrective lineage. Ninguno sustituye productive signing/notarization/tester/legal/security release evidence.
 
 ### F0/0.6 — `[x]` public operations
 
-Owner runtime evidence del `2026-09-01` mantiene security.txt/status HTTPS/SAN/contactos públicos probados. No equivale a signing/notarization/tester/legal/security release readiness.
+Owner runtime evidence previo mantiene security.txt/status HTTPS/SAN/contactos públicos probados. No equivale a signing/notarization/tester/legal/security release readiness.
 
 ### F0/0.7 — `[x]` technical/preparatory Authenticode + RFC3161
 
-#88 quedó integrado el `2026-09-01`. Separa updater signing de Windows Authenticode, exige SHA-256 + RFC3161 y falla cerrado para `release_intent=public` sin inputs. **PRODUCTION SIGNING = NO-GO** hasta provider, certificado, publisher legal, key custody, CI auth, selector/signCommand, HTTPS RFC3161 endpoint, expected subject, renewal/outage/rotation procedures y controlled public build con evidencia real.
+#88 integrado. **PRODUCTION SIGNING = NO-GO** hasta provider/certificado/publisher/key custody/CI auth/RFC3161/renewal/outage/rotation y controlled public build con evidencia real.
 
 ### F0/0.9 — `[ 🟡 ]` AI-assisted security slice / DNS rebinding
 
-PR #89 live sigue OPEN/Ready, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c...`, stale contra `134a293...`. Old-head green evidence no autoriza integración. Candidate = AI-assisted audit + DNS-rebinding SSRF hardening; no independent-pentest claim.
+PR #89 sigue OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; ahora stale/non-mergeable contra `08e5802d...`. Exact changed files = `.github/workflows/f0-0.9-security-audit.yml`, `cloud-server/outbound-dns-pinning.js`, `cloud-server/server.js`, `cloud-server/tests/outbound-dns-pinning.test.cjs` y dos docs de audit. Old-head green no autoriza integración.
 
-**CYCLE 111: `PARKED / UNASSIGNED`.** `NIGHT-WOZ-109` no dejó resultado verificable y fue superseded. WOZ110 posee exclusivamente #92/F2 y la única integration lane del ciclo. #89 no puede mutarse ni mergearse en CYCLE111; debe retomarse con Assignment ID nuevo después de liberar #92 y refrescar/revalidar contra el live baseline de ese futuro turno.
+**Owner CYCLE117: `NIGHT-WOZ-116`.** Debe duplicate-check, refresh/reconcile bounded sobre live baseline, correr exact-head security + applicable CI y solo entonces puede expected-head mergear #89 si exact/green/race-free. Maximum claim = DNS-rebinding SSRF P1 corrective integrado; AI-assisted audit ≠ independent pentest.
 
 ### F0/0.20 — `[x]` OAuth secret rotation
 
-#90 quedó integrado como `78dd55b...` con secret scan/Required CI. Posteriormente RO completó la rotación real owner-side sin exponer valores secretos: replacement desplegado, servicio reiniciado/sano, auth-health sano, fresh production OAuth E2E exitoso y credential anterior eliminado. **F0/0.20 = DONE.** No repetir ni registrar valores secretos.
+Closed. No repetir ni registrar valores secretos.
 
 ### Tails reales restantes
 
+- #89 P1 refresh/revalidation/integration;
 - production Authenticode/RFC3161 evidence;
-- legal P0/P1 implementation backlog pese a cierre administrativo 0.8;
+- legal P0/P1 implementation backlog;
 - independent security review donde siga siendo gate;
 - 12–20 testers + hardware/plataformas/DAWs/fechas;
-- F0/2.2 GitHub Support cleanup + fresh inaccessibility verification;
-- #89 refresh/revalidation/integration en un ciclo posterior.
-
-## 5.1 / 5.2 — CLOSED
-
-Permanecen `[x]` con evidencia aceptada. No repetir drills sin invalidación.
+- F0/2.2 GitHub Support cleanup + fresh inaccessibility verification.
 
 **Regla de salida:** F0 no es `[x]` global mientras 1.2/2.2 sigan abiertos. F5 y release siguen cerrados.
