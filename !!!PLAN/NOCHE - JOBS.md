@@ -7,7 +7,7 @@
 
 ## BASELINE VIVO
 
-- Final preflight/race-check inicial: `integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`.
+- Final preflight/race-check: `integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`.
 - #87 sigue siendo el último merge material; parents exactos `b85723e1b3016d24bdb943393e796ccdb744247d` + `ba0d7b689e587da42cc8105b22d0ed0c206bc064`.
 - #84: OPEN/Ready @ `f53d46f39ece94f6de74f2f21a508ce01497ac41`, stale contra live baseline; Windows Auth `33449587244` / job `99676242317` = FAILURE.
 - #89: OPEN/Ready, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, stale base `816f946c...`; candidate F0/0.9 AI-assisted audit + DNS-rebinding SSRF hardening.
@@ -64,13 +64,13 @@ Leídos/reconciliados completos: Plan Maestro; F0–F4; Equipo; protocolo; JOBS/
 
 Plan Maestro, F0, F2, F4, roles y worker ledgers reflejan CYCLE 107 y baseline `38517c...`. F1/F3 y Registro fueron releídos completos; no recibieron cambio material que justificara reescritura. `Plan Maestro 2208 copy DONT TOUCH .md` untouched.
 
-Issue #41 debe recibir el handoff de cierre CYCLE 107 tras final race-check.
+Issue #41 handoff de cierre CYCLE 107: `5487311815`. Final race-check posterior confirmó integración todavía en `38517c8065063206fed530028e4e8d20208f3807`.
 
 Next cycle: process AAA103 only from reproducible startup evidence; BBB102 only from bounded causal attribution/literal packaged evidence; WOZ106 only from exact #89 refresh/CI/integration evidence and #90 READ-ONLY fallback while genuinely waiting CI. If #89 merges, recalculate all candidates against the new integration head before any later integration. F5 stays closed.
 
 ```text
 CYCLE_ID: NIGHT-JOBS-107
-INTEGRATION_HEAD_INITIAL_PREFLIGHT: 38517c8065063206fed530028e4e8d20208f3807
+INTEGRATION_HEAD_FINAL_RACECHECK: 38517c8065063206fed530028e4e8d20208f3807
 LATEST_MATERIAL_MERGE: PR87 -> 38517c8065063206fed530028e4e8d20208f3807
 AAA_RESULT_PROCESSED: NIGHT-AAA-102 NO_RESULT / SUPERSEDED / NOT_PASS
 BBB_RESULT_PROCESSED: NIGHT-BBB-101 NO_RESULT / SUPERSEDED / NOT_PASS
@@ -84,6 +84,7 @@ PR84: OPEN READY STALE_BASE @ f53d46f39ece94f6de74f2f21a508ce01497ac41 / WINDOWS
 PR88: PRODUCTION_SIGNING_NO_GO / RO_INPUTS_REQUIRED
 PR90: READINESS_ONLY / OWNER_ROTATION_EXTERNAL
 INTEGRATION_MUTATION_AUTHORIZED: WOZ106 PR89 ONLY IF REFRESHED_EXACT_GREEN_RACE_FREE
+ISSUE41_HANDOFF: 5487311815
 DUPLICATE_WORK: prevented
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
 CODE_OR_INFRA_MUTATION_BY_JOBS: none
@@ -91,4 +92,4 @@ RELEASE: NO-GO
 F5: CLOSED
 ```
 
-**STOP:** ciclo JOBS 107 terminado tras handoff/final race-check.
+**STOP:** ciclo JOBS 107 terminado.
