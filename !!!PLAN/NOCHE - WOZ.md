@@ -6,38 +6,40 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-114`
+- `ASSIGNMENT_ID: NIGHT-WOZ-116`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F4 / 25.1 — REUSE PR #93 exact-green Windows Auth evidence candidate; final exact-head validation + conditional integration`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`
-- `PREDECESSOR: NIGHT-WOZ-113 no dejó RESULTADO DEL TURNO ni matching handoff verificable al preflight JOBS CYCLE 115; SUPERSEDED / NOT_PASS.`
-- `LIVE_PR_FACT: #93 OPEN/Ready/mergeable @ b2c4eb441280343c4b9c39d57851c6d3da33abaa, exact base 134a293985c314eb09c238115e3bcb71e79f1810; changed files remain 3 harness/evidence files.`
-- `CI_FACT_AT_ASSIGNMENT: Windows Auth 33468863393 SUCCESS; D6 33468863373 SUCCESS; D7 33468863387 SUCCESS; Desktop Portability 33468863399 SUCCESS; Windows Import 33468863402 SUCCESS; secret scan 33468863418 SUCCESS; Upgrade staging skipped/non-applicable.`
-- `SERIALIZATION: WOZ114 exclusively owns #93 review/integration. AAA111 owns F2/13.2; BBB110 owns F2/15.1. #92 and #89 are parked/unassigned during CYCLE115.`
+- `AREA: F0 / 0.9 — REUSE PR #89 DNS-rebinding SSRF P1; refresh/revalidate + conditional integration`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 08e5802d27ad81977b1c2f63ceb0fce398d41e42`
+- `PREDECESSOR: NIGHT-WOZ-115 fue emitido en Issue #41 por CYCLE116 sin matching result. PR #94 fue posteriormente integrado como 08e5802d... por owner/external action; no se atribuye a WOZ115.`
+- `LIVE_PR_FACT: #89 OPEN @ daf87da6ffd604ccac991311036919ae2de9bd7a, recorded base 816f946c...; stale/non-mergeable contra 08e5802d...; exact changed files = workflow + outbound DNS pinning/server/tests + 2 audit docs.`
+- `SERIALIZATION: WOZ116 exclusively owns #89 refresh/revalidation/integration. AAA113 owns Review; BBB112 owns recent-reauth product seam. #93 is parked/unassigned.`
 
 ### PRIMARY
 
-**F4 / 25.1 — REUSE #93 and integrate only if the evidence candidate remains exact, bounded and green at execution time.**
+**F0 / 0.9 — REUSE #89; preserve only the bounded SSRF P1/audit slice, refresh safely onto live integration and integrate only under exact evidence.**
 
-1. Fresh preflight integration HEAD, #93 base/head/mergeability/changed files, Issue #41 and ownership.
-2. Verify #93 contains only bounded harness/evidence reconstruction; no product-auth/session mutation. Confirm literal assertions still require returned session token persistence and AccountGate exit.
-3. Recheck exact-head Windows Auth run/job and all applicable required CI for `b2c4eb...`; do not inherit stale green if head/base changed.
-4. Verify the successful run is on exact PR head and the auth job actually executed the isolated Windows auth assertions.
-5. Immediately before integration, recheck integration HEAD, #93 head/base/mergeability, scope and owner collision.
-6. If base relation remains exact, all applicable checks are SUCCESS and race-free, WOZ114 is authorized to merge **PR #93 only** using expected-head protection.
-7. Verify resulting merge SHA + parents and integration HEAD.
-8. Maximum claim: `WINDOWS_PACKAGED_AUTH_LITERAL_PASS_EVIDENCE_INTEGRATED`. **Do not close global F4/25.1** without all remaining journeys.
-9. #92 remains parked despite new exact-head green `bb67f611...`; do not refresh or merge it this turn. #89 remains stale/parked.
+1. Fresh preflight integration HEAD, #89 base/head/mergeability/changed files, Issue #41 and owner collision.
+2. Duplicate-check for any newer SSRF/DNS-pinning candidate already integrated after #89 creation. If duplicate/resolved, STOP with evidence instead of refreshing.
+3. Reconcile #89 history-preserving onto `08e5802d...` or current live baseline; preserve current F2/12.1 (#92/#94), auth/session and release changes.
+4. Scope must remain exactly the AI-assisted audit docs + DNS-rebinding SSRF hardening/regression/workflow. No unrelated security cleanup.
+5. Run exact-head F0/0.9 security gate + all applicable required CI after refresh. Old-head green evidence is non-authoritative.
+6. Immediately before integration, recheck integration HEAD, #89 exact refreshed head/base, changed files, mergeability, CI and owner collisions.
+7. If exact/green/race-free, WOZ116 is authorized to expected-head merge **PR #89 only** and verify resulting merge SHA + parents.
+8. Maximum claim: `F0/0.9 DNS_REBINDING_SSRF_P1_CORRECTIVE_INTEGRATED`; AI-assisted audit is not an independent pentest and F0 global remains open.
+9. Do not touch #93, Review, recent-reauth/Trash or production deploy/runtime.
 10. Write RESULTADO DEL TURNO here + Issue #41 and STOP.
 
-**Required evidence:** pre/post integration SHA; #93 exact base/head; exact changed files; Windows Auth run/job and step conclusions; applicable CI; merge SHA/parents if merged; residual 25.1 UNVERIFIED list.  
-**STOP:** changed baseline requiring unsafe refresh, unrelated scope drift, failed required CI, product mutation discovered, owner collision, or any integration mutation other than expected-head #93.
+**Required evidence:** duplicate-check; pre/post integration SHA; exact refreshed #89 base/head; changed-file inventory; exact-head security/required CI conclusions; merge SHA/parents if merged; residual P0/P1/P2/P3 and independent-review UNVERIFIED.  
+**STOP:** unsafe refresh, scope drift, failed/cancelled required CI, mergeability/race change, newer duplicate, auth/F2 collision or any integration mutation other than expected-head #89.
 
 ### CI-FALLBACK
 
-`CI-FALLBACK: NONE` — #93 CI is already completed; do not invent secondary work.
+Solo si PRIMARY entra genuinamente en `WAITING_CI`:
+- **Scope:** F1/1.7 alpha blocker classification READ-ONLY only.
+- **Evidence required:** current GitHub/Issue/plan evidence for remaining software/runtime/external blockers; no gate promotion.
+- **STOP:** code/branch/PR/provider/plan mutation, RO decision, or PRIMARY CI leaves WAITING_CI; then recheck #89 before closing.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-WOZ-113`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 115.
-- `NIGHT-WOZ-112`: `NO_RESULT / SUPERSEDED / NOT_PASS` en JOBS CYCLE 114.
+- `NIGHT-WOZ-115`: `NO_RESULT / SUPERSEDED / NOT_PASS` in JOBS CYCLE117; PR #94 merge processed as external factual integration, not WOZ115 result.
+- `NIGHT-WOZ-114`: `NO_RESULT / SUPERSEDED / NOT_PASS` in JOBS CYCLE116.
