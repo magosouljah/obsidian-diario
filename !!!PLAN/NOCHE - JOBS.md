@@ -3,13 +3,13 @@
 **Sesión:** `NIGHT-2026-08-29`  
 **Rol:** JOBS — jefe de la noche.  
 **Protocolo:** `!!!PLAN/NOCHE - Protocolo de orquestación.md`.  
-**Ciclo:** `CYCLE 133`.
+**Ciclo:** `CYCLE 134`.
 
 ## BASELINE VIVO
 
 - Preflight GitHub: `integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`.
 - PR #95 continúa como último merge material verificable al preflight.
-- Issue #41 completo fue reconciliado; no contiene matching final handoff para AAA128, BBB127 o WOZ131.
+- Issue #41 completo fue reconciliado; no contiene matching final handoff para AAA129, BBB128 o WOZ132.
 - F2/12.1 sigue `NOT_PASS`: falta public runtime proof exacto post-#95.
 - #89: OPEN, mergeable, head `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; materialmente stale frente al baseline vivo.
 - #89 F0/0.9 audit run `33454881387` = **FAILURE** sobre exact head `daf87da6...`; el head actual NO está verde.
@@ -18,16 +18,16 @@
 
 ## PREFLIGHT / RESULTADOS PROCESADOS
 
-Leídos/reconciliados completos: Plan Maestro; F0, F1, F2, F3, F4; Equipo; protocolo; JOBS/AAA/BBB/WOZ; Registro de avances; Issue #41 completo y GitHub vivo. GitHub/runtime prevalece.
+Leídos/reconciliados completos: Plan Maestro; F0, F1, F2, F3, F4; Equipo; protocolo; JOBS/AAA/BBB/WOZ; Registro de avances; Issue #41 y GitHub vivo. GitHub/runtime prevalece.
 
-- `NIGHT-AAA-128`: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- `NIGHT-BBB-127`: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- `NIGHT-WOZ-131`: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-AAA-129`: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-BBB-128`: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-WOZ-132`: no matching final result/handoff verified → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - Duplicate-check no encontró candidate nuevo matching para 1.7, recent-reauth seam o #89 refreshed; no PR nuevo verificable posterior a #95 que cambie el camino crítico.
 - No DONE/PASS/integration promoted without evidence.
 - JOBS no modificó código BeatGaler ni infraestructura.
 
-## CAMINO CRÍTICO GLOBAL — RECALCULADO DESDE CERO CYCLE133
+## CAMINO CRÍTICO GLOBAL — RECALCULADO DESDE CERO CYCLE134
 
 1. **F2/12.1 public runtime post-#95:** mayor gap factual de cierre. No existe prueba runtime pública aplicable observada ni owner con acceso productivo verificable; no se asigna trabajo ficticio.
 2. **F0/0.9 / #89:** P1 software conocido e independiente; base stale + security gate rojo. Requiere diagnóstico, refresh y exact-head green; no se rebaja el gate.
@@ -37,57 +37,57 @@ Leídos/reconciliados completos: Plan Maestro; F0, F1, F2, F3, F4; Equipo; proto
 6. **F4/25.1 / #93:** solo future refresh si 1.7 lo mantiene dentro del alpha; actualmente mutation-unassigned.
 7. **Release tails:** F0/1.2 + 2.2, signing/notarization, provider/payment, legal implementation, runtime160/capacity, testers/hardware.
 
-## TABLERO / ASIGNACIONES EMITIDAS — CYCLE133
+## TABLERO / ASIGNACIONES EMITIDAS — CYCLE134
 
 | Worker | Resultado procesado | PRIMARY nuevo | CI-FALLBACK |
 |---|---|---|---|
-| AAA | `NIGHT-AAA-128 NO_RESULT / SUPERSEDED / NOT_PASS` | `NIGHT-AAA-129` — F1/1.7 blocker classification READ-ONLY, incluyendo failure vivo de #89 | `NONE` |
-| BBB | `NIGHT-BBB-127 NO_RESULT / SUPERSEDED / NOT_PASS` | `NIGHT-BBB-128` — minimum productive D8 recent-reauth seam; candidate only, NO MERGE | `NONE` |
-| WOZ | `NIGHT-WOZ-131 NO_RESULT / SUPERSEDED / NOT_PASS` | `NIGHT-WOZ-132` — diagnose F0 audit failure; REUSE #89; bounded refresh/revalidate + conditional exact-head merge | READ-ONLY #93 inventory only while PRIMARY genuinely waits external CI after clean refresh |
+| AAA | `NIGHT-AAA-129 NO_RESULT / SUPERSEDED / NOT_PASS` | `NIGHT-AAA-130` — F1/1.7 blocker classification READ-ONLY, incluyendo failure vivo de #89 | `NONE` |
+| BBB | `NIGHT-BBB-128 NO_RESULT / SUPERSEDED / NOT_PASS` | `NIGHT-BBB-129` — minimum productive D8 recent-reauth seam; candidate only, NO MERGE | `NONE` |
+| WOZ | `NIGHT-WOZ-132 NO_RESULT / SUPERSEDED / NOT_PASS` | `NIGHT-WOZ-133` — diagnose F0 audit failure; REUSE #89; bounded refresh/revalidate + conditional exact-head merge | READ-ONLY #93 inventory only while PRIMARY genuinely waits external CI after clean refresh |
 
-**INTEGRATION_MUTATION CYCLE133: WOZ132 / PR #89 ONLY, and only after refreshed exact base/head + all applicable CI SUCCESS + race-free expected-head. Current head `daf87da6...` is NOT eligible.**
+**INTEGRATION_MUTATION CYCLE134: WOZ133 / PR #89 ONLY, and only after refreshed exact base/head + all applicable CI SUCCESS + race-free expected-head. Current head `daf87da6...` is NOT eligible.**
 
 ## CI-FALLBACK CONTRACTS
 
-- AAA129: `CI-FALLBACK: NONE`.
-- BBB128: `CI-FALLBACK: NONE`.
-- WOZ132 fallback: READ-ONLY #93 current base/head/changed-files + historical exact-green evidence + delta from live integration; available only while a clean refreshed #89 PRIMARY genuinely waits CI/external. Required evidence: current #93 facts, old run/SHA, explicit `UNVERIFIED`, exact future refresh need if IN_ALPHA. STOP: any #93 mutation, CI rerun, new PR, 25.1 promotion, owner overlap, or immediately when #89 ceases external waiting; then return to #89 and recheck.
+- AAA130: `CI-FALLBACK: NONE`.
+- BBB129: `CI-FALLBACK: NONE`.
+- WOZ133 fallback: READ-ONLY #93 current base/head/changed-files + historical exact-green evidence + delta from live integration; available only while a clean refreshed #89 PRIMARY genuinely waits CI/external. Required evidence: current #93 facts, old run/SHA, explicit `UNVERIFIED`, exact future refresh need if IN_ALPHA. STOP: any #93 mutation, CI rerun, new PR, 25.1 promotion, owner overlap, or immediately when #89 ceases external waiting; then return to #89 and recheck.
 
 ## PROGRESO F0–F4 / BLOCKERS
 
-- **F0:** #89 active P1 lane, current audit gate red; owner WOZ132 must diagnose/revalidate. 1.2/2.2 + signing/legal/tester/admin tails mantienen F0 global abierto.
-- **F1:** D6–D10.1 PASS; D10.2 map complete/NOT_READY. 1.7=AAA129; 1.8 sigue decisión RO posterior; 1.9 solo tras GO.
-- **F2:** #92/#94/#95 integrados; 12.1 sigue NOT_PASS pendiente runtime proof. 13.2 `BLOCKED_WRITE_SURFACE / UNASSIGNED`. 15.1 bloqueado detrás de BBB128 seam.
+- **F0:** #89 active P1 lane, current audit gate red; owner WOZ133 must diagnose/revalidate. 1.2/2.2 + signing/legal/tester/admin tails mantienen F0 global abierto.
+- **F1:** D6–D10.1 PASS; D10.2 map complete/NOT_READY. 1.7=AAA130; 1.8 sigue decisión RO posterior; 1.9 solo tras GO.
+- **F2:** #92/#94/#95 integrados; 12.1 sigue NOT_PASS pendiente runtime proof. 13.2 `BLOCKED_WRITE_SURFACE / UNASSIGNED`. 15.1 bloqueado detrás de BBB129 seam.
 - **F3:** provider/payment real, legal implementation y runtime160/capacity siguen abiertos/external o pendientes de clasificación alpha.
 - **F4:** #93 stale-base y mutation-unassigned; 25.1 global abierto. Production signing/notarization/hardware externos.
 - **F5:** CLOSED / NO ABRIR.
 
-## PLAN SYNC CYCLE133
+## PLAN SYNC CYCLE134
 
-Se emitieron IDs consecutivos nuevos en AAA/BBB/WOZ. Plan Maestro, F0–F4, coordinación y los cuatro markdowns nocturnos fueron sincronizados con CYCLE133. `Registro de avances.md` fue leído completo y se conserva sin promoción porque no hubo merge/PASS/runtime nuevo. `Plan Maestro 2208 copy DONT TOUCH .md` permanece untouched.
+Se emitieron IDs consecutivos nuevos en AAA/BBB/WOZ. Plan Maestro, F0–F4, coordinación y los cuatro markdowns nocturnos fueron sincronizados con CYCLE134. `Registro de avances.md` fue leído y se conserva sin promoción porque no hubo merge/PASS/runtime nuevo. `Plan Maestro 2208 copy DONT TOUCH .md` permanece untouched.
 
 ## NEXT
 
-AAA129 produce clasificación factual. BBB128 trabaja solo seam recent-reauth. WOZ132 consume #89, primero diagnostica el F0 audit failure y conserva la única integration lane condicional. Review queda bloqueado hasta surface segura. Runtime post-#95 sigue como mayor closure gap factual. Release permanece NO-GO y F5 cerrado.
+AAA130 produce clasificación factual. BBB129 trabaja solo seam recent-reauth. WOZ133 consume #89, primero diagnostica el F0 audit failure y conserva la única integration lane condicional. Review queda bloqueado hasta surface segura. Runtime post-#95 sigue como mayor closure gap factual. Release permanece NO-GO y F5 cerrado.
 
 ```text
-CYCLE_ID: NIGHT-JOBS-133
+CYCLE_ID: NIGHT-JOBS-134
 INTEGRATION_HEAD_PREFLIGHT: 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3
-AAA_RESULT_PROCESSED: NIGHT-AAA-128 NO_RESULT_SUPERSEDED_NOT_PASS
-BBB_RESULT_PROCESSED: NIGHT-BBB-127 NO_RESULT_SUPERSEDED_NOT_PASS
-WOZ_RESULT_PROCESSED: NIGHT-WOZ-131 NO_RESULT_SUPERSEDED_NOT_PASS
-AAA_NEW: NIGHT-AAA-129 F1_1.7_READ_ONLY
-BBB_NEW: NIGHT-BBB-128 D8_RECENT_REAUTH_SEAM
-WOZ_NEW: NIGHT-WOZ-132 F0_0.9_PR89_DIAGNOSE_REFRESH
+AAA_RESULT_PROCESSED: NIGHT-AAA-129 NO_RESULT_SUPERSEDED_NOT_PASS
+BBB_RESULT_PROCESSED: NIGHT-BBB-128 NO_RESULT_SUPERSEDED_NOT_PASS
+WOZ_RESULT_PROCESSED: NIGHT-WOZ-132 NO_RESULT_SUPERSEDED_NOT_PASS
+AAA_NEW: NIGHT-AAA-130 F1_1.7_READ_ONLY
+BBB_NEW: NIGHT-BBB-129 D8_RECENT_REAUTH_SEAM
+WOZ_NEW: NIGHT-WOZ-133 F0_0.9_PR89_DIAGNOSE_REFRESH
 PR89_HEAD: daf87da6ffd604ccac991311036919ae2de9bd7a
 PR89_F0_AUDIT_RUN: 33454881387 FAILURE
 F2_12.1: NOT_PASS / PUBLIC_RUNTIME_POST_95_UNVERIFIED
 F2_13.2: BLOCKED_WRITE_SURFACE / UNASSIGNED
-INTEGRATION_MUTATION_AUTHORIZED: WOZ132 PR89 ONLY IF REFRESHED_EXACT_GREEN_RACE_FREE
+INTEGRATION_MUTATION_AUTHORIZED: WOZ133 PR89 ONLY IF REFRESHED_EXACT_GREEN_RACE_FREE
 CLAIMS_PROMOTED_WITHOUT_EVIDENCE: none
 CODE_OR_INFRA_MUTATION_BY_JOBS: none
 RELEASE: NO-GO
 F5: CLOSED
 ```
 
-**STOP:** ciclo JOBS 133 termina tras Issue #41 handoff, readback y race-check final.
+**STOP:** ciclo JOBS 134 termina tras Issue #41 handoff, readback y race-check final.
