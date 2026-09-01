@@ -6,12 +6,12 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-141`
+- `ASSIGNMENT_ID: NIGHT-BBB-142`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F1/D8 follow-up → minimum productive recent-reauth seam for F2/15.1`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`
-- `PREDECESSOR: NIGHT-BBB-140 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff exists after JOBS CYCLE145.`
-- `SERIALIZATION: BBB141 owns only the recent-reauth product seam. AAA142 owns F2/12.1 evidence. WOZ145 owns #89. No Trash UI/purge, Review, #93 mutation or integration mutation.`
+- `PREDECESSOR: NIGHT-BBB-141 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff exists after JOBS CYCLE146.`
+- `SERIALIZATION: BBB142 owns only the recent-reauth product seam. AAA143 owns F2/12.1 evidence. WOZ146 owns #89. No Trash UI/purge, Review, #93 mutation or integration mutation.`
 
 ### PRIMARY
 
@@ -23,12 +23,12 @@
 4. If a real gap remains, expose the smallest productive boundary capable of granting/verifying `recently reauthenticated` for a destructive caller.
 5. Fail closed for wrong user/session, expired/not-fresh authorization and provider failure.
 6. Add focused success/wrong-user/wrong-session/expired/failure tests and preserve D6/D7 + Web/Desktop contracts.
-7. One candidate/PR only if duplicate-check is clean; exact-head applicable CI; **NO MERGE CYCLE146**.
+7. One candidate/PR only if duplicate-check is clean; exact-head applicable CI; **NO MERGE CYCLE147**.
 8. Maximum claim: `RECENT_REAUTH_PRODUCT_SEAM_CANDIDATE_READY`; F2/15.1 remains open.
 9. Do not touch SettingsPanel Trash UI/purge behavior, Review, F2/12.1, #89 or #93.
 10. Write RESULTADO DEL TURNO here + Issue #41 handoff, then STOP.
 
-**Required evidence:** reused D8 primitive/decision; exact files/functions; contract semantics; tests; branch/base/head/PR; exact-head applicable CI; explicit `UNVERIFIED`; proof of no overlap with AAA142/WOZ145/#93.  
+**Required evidence:** reused D8 primitive/decision; exact files/functions; contract semantics; tests; branch/base/head/PR; exact-head applicable CI; explicit `UNVERIFIED`; proof of no overlap with AAA143/WOZ146/#93.  
 **STOP:** architectural redesign, provider mutation, Trash implementation, Review, F2/12.1, #89/#93 mutation, integration mutation, duplicate candidate or unsafe whole-file rewrite.
 
 ### CI-FALLBACK
@@ -37,9 +37,9 @@
 
 - **Scope:** inventory existing provider/payment evidence and unresolved real-provider scenarios; classify each item only as `SOFTWARE_PROVEN`, `UNVERIFIED_EXTERNAL`, or `NOT_REPRESENTATIVE_OF_3_5_ACCOUNT_ALPHA`. Do not make the RO exclusion decision and do not edit billing/provider code or infrastructure.
 - **Evidence required:** exact existing PR/merge/runtime references; list of unverified 3DS/rejection/late payment/renewal failure/cancel/plan-change/refund/webhook/reconciliation scenarios; explicit statement that exclusion from alpha still requires JOBS/RO classification in 1.7/1.8.
-- **STOP:** any mutation, provider call that changes state, payment execution, new PR, gate promotion, overlap with AAA142/WOZ145, or PRIMARY leaves external wait. Return to PRIMARY immediately.
+- **STOP:** any mutation, provider call that changes state, payment execution, new PR, gate promotion, overlap with AAA143/WOZ146, or PRIMARY leaves external wait. Return to PRIMARY immediately.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-BBB-140`: no matching RESULTADO DEL TURNO or Issue #41 handoff verified by JOBS CYCLE146 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-BBB-141`: no matching RESULTADO DEL TURNO or Issue #41 handoff verified by JOBS CYCLE147 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-BBB-110`: `BLOCKED_STOP / RECENT_REAUTH_PRODUCT_SEAM_REQUIRED`; causal evidence remains reusable.
