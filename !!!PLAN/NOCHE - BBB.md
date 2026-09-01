@@ -6,12 +6,12 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-122`
+- `ASSIGNMENT_ID: NIGHT-BBB-123`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F1/D8 follow-up → minimum productive recent-reauth seam for F2/15.1`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`
-- `PREDECESSOR: NIGHT-BBB-121 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE127.`
-- `SERIALIZATION: BBB122 owns only recent-reauth product seam. AAA123 owns F1/1.7 READ-ONLY classification. WOZ126 owns #89. No Trash UI/purge, Review, #93 mutation or integration mutation.`
+- `PREDECESSOR: NIGHT-BBB-122 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE128.`
+- `SERIALIZATION: BBB123 owns only recent-reauth product seam. AAA124 owns F1/1.7 READ-ONLY classification. WOZ127 owns #89. No Trash UI/purge, Review, #93 mutation or integration mutation.`
 
 ### PRIMARY
 
@@ -24,7 +24,7 @@
 5. Expose only that bounded caller contract; do not touch SettingsPanel Trash UI/purge behavior.
 6. Fail closed for wrong user/session, expired/not-fresh authorization and provider failure.
 7. Add focused success/wrong-user/wrong-session/expired/failure tests and preserve D6/D7 + Web/Desktop contracts.
-8. One candidate/PR only if duplicate-check is clean; exact-head applicable CI; **NO MERGE CYCLE127**.
+8. One candidate/PR only if duplicate-check is clean; exact-head applicable CI; **NO MERGE CYCLE128**.
 9. Maximum claim: `RECENT_REAUTH_PRODUCT_SEAM_CANDIDATE_READY`; F2/15.1 remains open.
 
 **Required evidence:** reused D8 primitive/decision; exact files/functions; contract semantics; tests; branch/base/head/PR; exact-head applicable CI; explicit `UNVERIFIED`.  
@@ -36,5 +36,5 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-BBB-121`: no matching final result/handoff verified by JOBS CYCLE127 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-BBB-122`: no matching final result/handoff verified by JOBS CYCLE128 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-BBB-110`: `BLOCKED_STOP / RECENT_REAUTH_PRODUCT_SEAM_REQUIRED`; causal evidence remains reusable.
