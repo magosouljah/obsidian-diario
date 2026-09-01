@@ -2,32 +2,28 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE 108:** `integration-v0.8.0-alpha.1 @ 38517c8065063206fed530028e4e8d20208f3807`.  
+**Baseline vivo CYCLE 109:** `integration-v0.8.0-alpha.1 @ 1dbf60e58ca970c47d387b303e141e30e2b8eef5`.  
 **Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[ 🟡 ] NOT_READY_FOR_RO_DECISION`.  
 **Release público:** 🔴 `NO-GO`.
 
 ## D6–D10.1 — CLOSED
 
-D6 authorization/tenant controls, D7 temp-auth/capabilities, D8 lifecycle/RO decisions, D9 PostgreSQL durability/migrations and D10.1 restore/recovery remain PASS. No factual invalidation observed. Canonical evidence remains PRs #43/#44/#46/#49/#52/#53/#56 and Issue #41 gates `5455677550`, `5457172823`, `5460381842`, `5460959369`, `5470149521`. D10.1 retains RPO ~7 min and RTO `3643 s` plus encrypted off-provider readback/SHA match.
-
-**No repetir PITR/restore/cutover/restart/migrations/rotation.**
+Authorization/tenant controls, temp-auth/capabilities, lifecycle/RO decisions, PostgreSQL durability/migrations y restore/recovery permanecen PASS. No factual invalidation observada. D10.1 conserva RPO ~7 min, RTO `3643 s` y off-provider encrypted readback/SHA match. **No repetir PITR/restore/cutover/restart/migrations/rotation.**
 
 ## D10.2 — `[ 🟡 ] NOT_READY_FOR_RO_DECISION`
 
-Mapa factual vigente:
+Mapa factual CYCLE 109:
 - `PROVEN`: D6–D10.1 y línea técnica interna aplicable;
-- `BLOCKED_BY_F2`: public Web normal startup sigue `Loading Galer`; 13.2 durable Review abierto; 15.1 recent-reauth/confirmation/deterministic Trash abierto;
-- `BLOCKED_BY_F4`: packaged Windows Auth #84 @ `f53d46f...`; old-head Required CI SUCCESS pero journey literal `33449587244` / job `99676242317` = FAILURE;
-- `BLOCKED_BY_F3/F0`: provider/payment real scenarios, release/admin/signing/runtime tails siguen sin evidencia global;
-- `RO_DECISION_REQUIRED`: autorización final de alpha interna 3–5 cuentas y decisiones explícitas de aplicabilidad/exclusión de features/gates no esenciales al alpha.
+- `BLOCKED_BY_F2`: normal Web startup sigue sin PASS de salida de `Loading Galer`; 13.2 durable Review abierto; 15.1 recent-reauth/confirmation/deterministic Trash abierto;
+- `BLOCKED_BY_F4`: #84 @ `f53d46f...` stale; generic old-head CI SUCCESS pero literal Windows Auth `33449587244` = FAILURE;
+- `BLOCKED_BY_F3/F0`: provider/payment real scenarios y release/admin/signing/capacity/legal implementation tails siguen;
+- `RO_DECISION_REQUIRED`: autorización final de alpha interna y decisiones explícitas de aplicabilidad/exclusión de features/gates no esenciales al alpha.
 
-Los merges #86 y #87 mejoran governance/provenance y public security/status software, pero no resuelven los blockers mínimos de D10.2.
+El merge #88 a `1dbf60e...` cierra únicamente el seam técnico/preparatorio Authenticode/RFC3161; no resuelve D10.2 ni production signing.
 
 Conjunto mínimo antes de reconsiderar `READY_FOR_RO_DECISION`:
 1. resolver F2/12.1 normal Web startup;
 2. obtener PASS literal F4/25.1 Windows packaged auth;
 3. cerrar o recibir decisión RO explícita de exclusión para F2/13.2 y F2/15.1 dentro del scope de alpha.
 
-**CYCLE 108:** AAA104 ataca F2/12.1; BBB103 ataca F4/25.1; WOZ107 trabaja el P1 software #89 sin sustituir estos blockers. D10.2 no tiene owner material independiente. No lanzar alpha, crear testers, cobrar, usar credenciales ni mutar provider/infra desde este gate.
-
-**Principio:** readiness de alpha interna ≠ release público; F5 permanece cerrado hasta F0–F4 gates reales.
+**CYCLE 109:** AAA105 ataca F2/12.1; BBB104 ataca F4/25.1; WOZ108 trabaja #89 sin sustituir estos blockers. F5 permanece cerrado.
