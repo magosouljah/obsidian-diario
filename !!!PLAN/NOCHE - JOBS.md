@@ -77,11 +77,11 @@ Handoff JOBS CYCLE148 publicado como comentario `5501088499`. No se procesó nin
 
 ## RACE-CHECK FINAL
 
-Pendiente de readback final posterior a esta escritura. El ciclo solo puede cerrarse si GitHub sigue confirmando el baseline y no apareció un merge/handoff material durante la sincronización.
+Readback final posterior a la sincronización: `integration-v0.8.0-alpha.1` continúa exactamente en `aa4450956579de381e82acf06c660b658c703cd1`. Issue #41 quedó en 406 comentarios, incremento explicado únicamente por el handoff JOBS CYCLE148 `5501088499`; no apareció worker handoff, merge ni cambio material durante el cierre. CYCLE148 queda race-free.
 
 ```text
 CYCLE_ID: NIGHT-JOBS-148
-INTEGRATION_HEAD_PREFLIGHT: aa4450956579de381e82acf06c660b658c703cd1
+INTEGRATION_HEAD_FINAL: aa4450956579de381e82acf06c660b658c703cd1
 AAA_NEW: NIGHT-AAA-144
 BBB_NEW: NIGHT-BBB-143
 WOZ_NEW: NIGHT-WOZ-147
@@ -93,4 +93,4 @@ RELEASE: NO-GO
 F5: CLOSED
 ```
 
-**STOP:** ciclo JOBS 148 termina después del race-check final factual.
+**STOP:** ciclo JOBS 148 termina aquí.
