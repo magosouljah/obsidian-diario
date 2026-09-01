@@ -8,33 +8,39 @@
 
 - `ASSIGNMENT_ID: NIGHT-WOZ-109`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F0 / 0.9 — REUSE PR #89 security candidate, reconcile + refresh + exact-head validation`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 78dd55b72142e69ea32ba6c1ba6d43e246ac6843`
-- `PREDECESSOR: NIGHT-WOZ-108 no dejó RESULTADO DEL TURNO ni matching Issue #41 handoff verificable al CYCLE 110 preflight; SUPERSEDED / NOT_PASS.`
-- `NEW_FACT: PR #90 was merged after CYCLE 109 as 78dd55b72142e69ea32ba6c1ba6d43e246ac6843, candidate 3f2063cf16fe63913dced6d57dc8a6cb46e12169. #89 remains OPEN/Ready @ daf87da6ffd604ccac991311036919ae2de9bd7a on stale base 816f946c... and its narrative is stale regarding #88/#90.`
-- `SERIALIZATION: AAA106 owns #91 and is the only integration mutation owner CYCLE 110. BBB105 owns #84. WOZ109 owns #89 branch/review only. No integration merge in WOZ109.`
+- `AREA: F0 / 0.9 — REUSE PR #89 security candidate, refresh + exact-head validation + conditional integration`
+- `LIVE_BASE_AT_ASSIGNMENT_REBASED: integration-v0.8.0-alpha.1 @ 134a293985c314eb09c238115e3bcb71e79f1810`
+- `PREDECESSOR: NIGHT-WOZ-108 no final result/handoff verified; SUPERSEDED / NOT_PASS.`
+- `NEW_FACT: PR #91 landed during JOBS CYCLE 110 as 134a293... after exact-head CI. #89 remains OPEN/Ready @ daf87da6... on stale base 816f946c... and must now reconcile #88/#90/#91.`
+- `SERIALIZATION: WOZ109 exclusively owns #89 review/refresh/integration. AAA106 owns F2/13.2 and NO MERGE. BBB105 owns #84 and NO MERGE. WOZ109 is the only integration mutation owner after the #91 concurrent merge.`
 
 ### PRIMARY
 
-**F0 / 0.9 — make #89 a clean, current, exact-head security candidate without racing #91.**
+**F0 / 0.9 — make #89 current and integrate only if exact/race-free.**
 
-1. Fresh preflight integration HEAD, #89 base/head/mergeability/changed files, Issue #41 and ownership. AAA106 may have integrated #91 earlier; use the actual live head at WOZ turn.
-2. REUSE #89; review exact security semantics: public DNS validation/pinning into outbound artwork request path, private/reserved rebinding rejection, regression coverage and audit docs.
-3. Reconcile documentation truth: #88 technical Authenticode seam and #90 OAuth rotation readiness are now integrated; production signing and actual OAuth rotation remain external/not done. AI-assisted audit ≠ independent pentest.
-4. History-preserving refresh/rebase/union #89 onto the live integration head only if clean and scope-bounded. Conflict or unrelated scope drift => STOP.
-5. Run/recheck F0/0.9 security workflow + Required CI and all applicable exact-head checks on the refreshed head.
-6. **NO MERGE in CYCLE 110.** AAA106 owns the sole integration mutation lane. Maximum result: `F0/0.9 CANDIDATE_REFRESHED_EXACT_GREEN` or factual blocker. Do not mark F0 global PASS, independent pentest complete, signing complete or release ready.
-7. Write RESULTADO DEL TURNO here + Issue #41 and STOP.
+1. Fresh preflight integration HEAD (`134a293...` or newer), #89 base/head/mergeability/changed files, Issue #41 and ownership.
+2. REUSE #89; verify exact DNS-pinning/rebinding semantics and regression coverage.
+3. Reconcile audit/docs with #88 technical signing seam, #90 OAuth readiness software and #91 Web bootstrap corrective already integrated. Preserve: AI-assisted audit ≠ independent pentest; productive signing and actual OAuth rotation remain external.
+4. History-preserving refresh/rebase/union #89 onto the live integration head only if clean and scope-bounded. Conflict/unrelated scope drift => STOP.
+5. Run/recheck exact-head F0/0.9 security workflow + Required CI and all applicable checks.
+6. Immediately before merge recheck integration head, #89 head/base/mergeability and owner collision. If exact-base/head, all applicable CI SUCCESS and race-free, WOZ109 is authorized to merge **PR #89 only** with expected-head protection.
+7. Verify merge SHA + parents. Maximum claim = `F0/0.9 AI_ASSISTED_SECURITY_SLICE PASS/INTEGRATED + DNS_REBINDING_P1_FIXED`; no independent-pentest/F0-global/release claim.
+8. Write RESULTADO DEL TURNO here + Issue #41 and STOP.
 
-**Required evidence:** live integration before refresh; old/new #89 base/head; changed files; refresh method; DNS-pinning/rebinding semantic proof; exact-head workflow names/conclusions; residual security/signing/OAuth external state.  
-**STOP:** conflict/scope drift, auth/Web/provider/deploy changes, secrets/credential action, failed required CI, owner collision, or any integration mutation.
+**Required evidence:** live pre/post integration; old/new #89 base/head; changed files; refresh method; semantic proof; exact-head workflow names/conclusions; merge SHA/parents if merged; residual security/signing/OAuth external state.  
+**STOP:** conflict/scope drift, unrelated auth/Web/provider/deploy changes, external credentials/signing, failed required CI, base/head race, or any integration mutation other than expected-head #89.
 
 ### CI-FALLBACK
 
-`CI-FALLBACK: NONE`.
+**Trigger:** only if refreshed #89 reaches genuine `WAITING_CI`.
+
+`CI-FALLBACK: READ-ONLY F1/1.7 blocker-classification prep.`
+
+- **Scope:** using current Plan/GitHub only, map remaining alpha blockers after #91 integration into `HARD_BLOCKER`, `CLOSE_OR_RO_EXCLUDE`, `EXTERNAL/RO_DECISION`; no code, branch, PR, provider or plan mutation.
+- **Evidence required:** exact blocker → current evidence → missing evidence/decision; no fabricated PASS.
+- **STOP:** no implementation, no owner reassignment, no F1 closure claim. Return to #89 as soon as CI resolves.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-WOZ-108`: `NO_RESULT / SUPERSEDED / NOT_PASS` at JOBS CYCLE 110; no final result/handoff verified.
-- PR #90 independently advanced integration to `78dd55b...`; actual credential rotation remains owner-side external.
-- #89 remains reusable but stale and must be refreshed/revalidated before any future integration claim.
+- `NIGHT-WOZ-108`: `NO_RESULT / SUPERSEDED / NOT_PASS` at JOBS CYCLE 110.
+- #90 readiness software and #91 Web bootstrap corrective are now integrated; #89 remains reusable/stale until WOZ109 refreshes it.
