@@ -6,29 +6,27 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-135`
+- `ASSIGNMENT_ID: NIGHT-AAA-136`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F1 / 1.7 — alpha blocker classification READ-ONLY`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ 43fdf70efe6d12f47f0cd08f6eaaf6440e32f1d3`
-- `PREDECESSOR: NIGHT-AAA-134 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE139.`
-- `SERIALIZATION: AAA135 owns only F1/1.7 classification. BBB134 owns only recent-reauth seam. WOZ138 owns #89. PR #96 is ACTIVE_EXTERNAL_CANDIDATE with no night mutation owner. F2/13.2 remains BLOCKED_WRITE_SURFACE / UNASSIGNED. #93 remains mutation-unassigned.`
+- `AREA: F2 / 12.1 — post-#96 public runtime proof READ-ONLY / evidence classification`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`
+- `PREDECESSOR: NIGHT-AAA-135 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching RESULTADO DEL TURNO or Issue #41 handoff verified before CYCLE140.`
+- `SERIALIZATION: AAA136 owns only F2/12.1 runtime-proof/evidence lane. BBB135 owns recent-reauth seam. WOZ139 owns #89. F2/13.2 remains BLOCKED_WRITE_SURFACE / UNASSIGNED. #93 remains mutation-unassigned.`
 
 ### PRIMARY
 
-**F1 / 1.7 — produce the factual blocker classification needed for JOBS/RO to decide 1.8; READ-ONLY. Recalculate from live facts, including new PR #96.**
+**F2 / 12.1 — determine exactly what public-runtime evidence still exists after PR #96 merged, without code/infra mutation.**
 
-1. Fresh preflight live integration + Issue #41 + F0–F4; do not inherit prior classification without rechecking.
-2. Classify every material blocker exactly as `MUST_CLOSE`, `RO_EXCLUDE_CANDIDATE`, or `RELEASE_ONLY_EXTERNAL`.
-3. Cover at minimum: F2/12.1 including PR #96 and remaining runtime proof; F0/0.9 #89; F2/13.2 durable Review; D8 seam→F2/15.1 Trash; F4/25.1 #93/remaining journeys; F3/18.2 provider/payment; F3/19.2 legal implementation; F3/20.2 runtime160/capacity; production signing/notarization/testers/hardware; F0/1.2 and 2.2.
-4. PR #96 facts at assignment unless GitHub changes: OPEN/Ready, base `43fdf70e...`, head observed advancing to `7e7bd5449361b2031c29271e8875de7683ed5af4`, 0 check-runs observed on that exact head during JOBS preflight. Treat it as candidate/activity evidence only. Do not mutate, review-as-owner, rerun CI, merge, or infer runtime success.
-5. #89 facts unless GitHub changes: head `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`, F0/0.9 run `33454881387` `completed/failure`. Never describe that head as green.
-6. For each blocker provide concrete evidence, owner/status, `UNVERIFIED`, and representativeness for internal alpha 3–5 accounts.
-7. Identify minimum explicit RO decisions still needed before 1.8; do not take them.
-8. Write RESULTADO DEL TURNO here + Issue #41 handoff only; no canonical-plan mutation.
-9. Maximum claim: `F1_1.7_CLASSIFICATION_READY_FOR_JOBS_RO_REVIEW`; never PASS 1.8/1.9.
+1. Fresh preflight live integration + Issue #41 + PR #96 merge/CI evidence.
+2. Treat PR #96 as `MERGED_SOFTWARE_EVIDENCE`, not runtime PASS. Confirm merge SHA/parents and exact tested head.
+3. Search existing public-runtime evidence before requesting/repeating anything: `/web-health`, auth-health, signed-out startup, authenticated temporary auth, worker initialize/activate/verify, authoritative library reload/recoverable error, cold/warm startup, pool behavior if applicable, cookie/marker/CSRF restore robustness and public terminology residual applicable to the exact deployment descended from `aa445095...`.
+4. Classify each item `PROVEN_EXACT_DEPLOYMENT`, `PROVEN_OLDER_DEPLOYMENT_ONLY`, `UNVERIFIED`, or `NOT_APPLICABLE` with evidence links/IDs/timestamps.
+5. If all literal 12.1 runtime evidence is already exact and representative, report `F2_12.1_READY_FOR_JOBS_CLOSE_REVIEW`; do not mark PASS or edit canonical plan.
+6. If evidence is missing, reduce to the minimum concrete runtime actions needed; do not deploy, mutate provider/infra, rerun unrelated CI or invent evidence.
+7. Write RESULTADO DEL TURNO here + Issue #41 handoff only.
 
-**Required evidence:** live integration SHA; current #96/#89/#93 base/head/activity/mergeability where applicable; exact #89 F0 gate conclusion; runtime evidence status; blocker table with rationale + `UNVERIFIED`.  
-**STOP:** any code/branch/PR/provider/infra/canonical-plan mutation, RO decision, unsupported exclusion, ownership collision with active #96, or materially unverifiable fact.
+**Required evidence:** live integration SHA; PR #96 merged_at/merge SHA/head/base; exact-head CI conclusions; runtime deployment identity/version where available; per-item evidence table; explicit `UNVERIFIED`.  
+**STOP:** any code/branch/PR/provider/infra/canonical-plan mutation, deployment change, unsupported inference from CI to runtime, or overlap with BBB135/WOZ139.
 
 ### CI-FALLBACK
 
@@ -36,5 +34,5 @@
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-134`: no matching final result/handoff verified by JOBS CYCLE139 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-AAA-135`: no matching final result/handoff verified by JOBS CYCLE140 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-AAA-114`: `PENDING / STOP_WRITE_SURFACE / NOT_PASS`; durable Review gap remains reusable blocker evidence only.
