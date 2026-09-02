@@ -2,36 +2,36 @@
 
 > GitHub + `!!!PLAN` son memoria compartida. GitHub/runtime vivo prevalece.
 
-## Roles y ownership actual — CYCLE155
+## Roles y ownership actual — CYCLE156
 
 | Rol | Owner actual | PRIMARY | CI-FALLBACK |
 |---|---|---|---|
 | JOBS | coordinación | `!!!PLAN`, prioridades, handoffs, gates; no BeatGaler code/infra | n/a |
-| AAA | F0 / 0.9 | `NIGHT-AAA-151`: REUSE #89, refresh/revalidate exact-head; conditional merge #89 only if exact/green/race-free | NONE |
-| BBB | F1/D8 follow-up | `NIGHT-BBB-150`: minimum productive recent-reauth seam bound to user/session; candidate only; NO MERGE; no Trash/#97/#89 | F3/18.2 READ-ONLY inventory only while PRIMARY genuinely waits external CI/build/review |
-| WOZ | Issue #97 | `NIGHT-WOZ-154`: exclusive pre-Beta startup/reveal Web+Desktop implementation/integration; conditional merge candidate #97 only | NONE |
+| AAA | F0 / 0.9 | `NIGHT-AAA-152`: REUSE #89, refresh/revalidate exact-head; conditional merge #89 only if exact/green/race-free | NONE |
+| BBB | F1/D8 follow-up | `NIGHT-BBB-151`: minimum productive recent-reauth seam bound to user/session; candidate only; NO MERGE; no Trash/#97/#89 | F3/18.2 READ-ONLY inventory only while PRIMARY genuinely waits external CI/build/review |
+| WOZ | Issue #97 | `NIGHT-WOZ-155`: exclusive pre-Beta startup/reveal Web+Desktop implementation/integration; conditional merge candidate #97 only | NONE |
 
-**Baseline canónico CYCLE155:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
+**Baseline canónico CYCLE156:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
 
-## Handoffs/resultados procesados — CYCLE155
+## Handoffs/resultados procesados — CYCLE156
 
-- AAA150, BBB149 y WOZ153: sin matching worker final result/handoff posterior a CYCLE154 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- GitHub independientemente avanzó la línea mediante PR #99: exact candidate head `6e253c815515624dcfc70cb5d447befa38f19566`, Required CI `33578074388` SUCCESS, merge/current integration `c2766fb...`.
-- #99 integra el mecanismo de binding de Web runtime a exact source SHA; no prueba por sí solo una clean production deployment desde ese current canonical SHA. F2/12.1 sigue NOT_PASS.
+- AAA151, BBB150 y WOZ154: sin RESULTADO DEL TURNO en sus ledgers y sin matching worker handoff en Issue #41 antes del nuevo ciclo → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- No aparece PR/candidate nuevo posterior a #99 para #97 o recent-reauth.
+- #99 sigue integrado y solo aporta el mecanismo de source binding; no prueba por sí mismo clean canonical production deployment desde current SHA. F2/12.1 sigue NOT_PASS.
 - Issue #97 continúa OPEN / pre-Beta blocker, cero comments.
-- #89 sigue OPEN @ `daf87da6...`, stale base `816f946c...`, F0/0.9 `33454881387` FAILURE; ahora owner exclusivo AAA151.
+- #89 sigue OPEN @ `daf87da6...`, stale base `816f946c...`, F0/0.9 `33454881387` FAILURE; owner exclusivo AAA152.
 - #93 sigue OPEN/stale @ `b2c4eb441...`; sin mutation owner.
 
 ## Serialización
 
-- AAA151: único owner de mutation/integration de #89.
-- BBB150: recent-reauth product seam solamente; NO MERGE.
-- WOZ154: único owner de mutation/integration de Issue #97.
+- AAA152: único owner de mutation/integration de #89.
+- BBB151: recent-reauth product seam solamente; NO MERGE.
+- WOZ155: único owner de mutation/integration de Issue #97.
 - #93: sin owner/mutation/fallback.
 - F2/13.2: `BLOCKED_WRITE_SURFACE / UNASSIGNED` mientras #97 ocupe superficies compartidas.
-- F2/12.1 exact production deployment/source proof queda como blocker factual; no se asigna fallback SHA-dependent que pueda ser invalidado por merges de AAA/WOZ.
+- F2/12.1 exact production deployment/source proof queda como blocker factual/SHA-dependent; no se asigna fallback que pueda ser invalidado por merges de AAA/WOZ.
 
-**Integration mutations authorized CYCLE155: AAA151 / PR #89 and WOZ154 / Issue #97 candidate, each only on exact scope + applicable CI SUCCESS + no required review blocker + race-free expected-head. BBB150 and #93 have no merge authorization.**
+**Integration mutations authorized CYCLE156: AAA152 / PR #89 and WOZ155 / Issue #97 candidate, each only on exact scope + applicable CI SUCCESS + no required review blocker + race-free expected-head. If either merge moves integration, the other must refresh/revalidate before merge. BBB151 and #93 have no merge authorization.**
 
 ## Critical path
 
