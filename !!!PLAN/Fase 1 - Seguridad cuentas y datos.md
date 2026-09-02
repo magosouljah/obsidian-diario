@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE155:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.  
+**Baseline vivo CYCLE156:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.  
 **Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[x] MAP COMPLETE / ALPHA CANDIDATE NOT READY`.  
 **Release público:** 🔴 `NO-GO`.
 
@@ -14,12 +14,12 @@ Authorization/tenant controls, temp-auth/capabilities, lifecycle/RO decisions, P
 
 ### PROVEN / delta vivo
 
-- #92/#94/#95/#96/#98 y ahora **#99** están integrados en la línea F2/12.1. #99 exact candidate head `6e253c815515624dcfc70cb5d447befa38f19566`; Required CI `33578074388` SUCCESS; integration `c2766fb...`.
-- #99 integra el mecanismo fail-closed para ligar Web production package/runtime/public marker a un exact source SHA. Aun falta observar una clean production deployment desde el canonical integration HEAD con marker público igual al SHA integrado; F2/12.1 permanece `NOT_PASS`.
-- Issue #97 sigue OPEN y `Must be addressed before Beta 1`; owner CYCLE155 = WOZ154.
-- #89 sigue stale + security gate FAILURE; owner exclusivo CYCLE155 = AAA151 para refresh/exact-green/integration condicional.
+- #92/#94/#95/#96/#98/#99 están integrados en la línea F2/12.1; integration actual `c2766fb...`.
+- #99 integra mecanismo fail-closed para ligar Web production package/runtime/public marker a exact source SHA. Falta observar clean production deployment desde canonical integration HEAD con marker público igual al SHA integrado; F2/12.1 permanece `NOT_PASS`.
+- Issue #97 sigue OPEN y `Must be addressed before Beta 1`; owner CYCLE156 = WOZ155.
+- #89 sigue stale + security gate FAILURE; owner exclusivo CYCLE156 = AAA152 para refresh/exact-green/integration condicional.
 - F2/13.2 durable Review sigue `BLOCKED_WRITE_SURFACE / UNASSIGNED`.
-- D8 recent-reauth decision existe; falta seam productiva consumible por destructive callers. Owner = BBB150.
+- D8 recent-reauth decision existe; falta seam productiva consumible por destructive callers. Owner = BBB151.
 - #93 conserva old-base Windows Auth evidence; refresh solo si 1.7 lo mantiene IN_ALPHA.
 
 ### HARD / ACTIVE BLOCKERS hacia apertura real de F5
@@ -33,11 +33,11 @@ Authorization/tenant controls, temp-auth/capabilities, lifecycle/RO decisions, P
 
 ### 1.7 — `[ 🟡 ] REQUEUE AFTER FRESH FACTS`
 
-CYCLE155 no emite 1.7 aún: primero 12.1/#97/#89/recent-reauth deben producir facts frescos. Después clasificar `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` antes de 1.8.
+CYCLE156 no emite 1.7 aún: primero 12.1/#97/#89/recent-reauth deben producir facts frescos. Después clasificar `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` antes de 1.8.
 
 ### F3 — aplicabilidad explícita al alpha
 
-- 18.2 real provider/payment: `UNVERIFIED_EXTERNAL`; exclusión de alpha sin cobros requiere decisión explícita 1.7→1.8. BBB150 puede inventariar READ-ONLY solo como fallback durante espera externa de su PRIMARY.
+- 18.2 real provider/payment: `UNVERIFIED_EXTERNAL`; exclusión de alpha sin cobros requiere decisión explícita 1.7→1.8. BBB151 puede inventariar READ-ONLY solo como fallback durante espera externa real de su PRIMARY.
 - 19.2 legal implementation/release backlog abierto.
 - 20.2 runtime160/capacity no probado; clasificación explícita requerida.
 
