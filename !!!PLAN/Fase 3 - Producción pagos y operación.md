@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE156:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
+**Baseline vivo CYCLE157:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
 
 ## Estado compacto
 
@@ -17,11 +17,11 @@
 
 Software reconciliation + durable exception queue probado. 3DS, rejection, late payment, renewal failure, cancel E2E, plan changes, refund, provider webhooks/financial outcomes y full sandbox reconciliation = `UNVERIFIED_EXTERNAL`.
 
-Para alpha 3–5 cuentas sin cobros, 1.7 debe clasificar explícitamente `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión. BBB151 puede usar un fallback READ-ONLY para inventario solo durante espera externa real de su recent-reauth PRIMARY; no ejecuta pagos/provider mutation ni decide exclusión.
+Para alpha 3–5 cuentas sin cobros, 1.7 debe clasificar explícitamente `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión. BBB152 puede usar fallback READ-ONLY para inventario solo durante espera externa real de recent-reauth PRIMARY; no ejecuta pagos/provider mutation ni decide exclusión.
 
 ## 19.1 — `[ 🟡 ] PUBLIC SOFTWARE/RUNTIME IMPROVED / CLEAN CANONICAL SOURCE PROOF OPEN`
 
-#98 está integrado y reportó production health/library/artwork/playback funcional. #99 está integrado en `c2766fb...` y aporta el mecanismo fail-closed de source binding. Falta evidencia literal de una clean production deployment desde canonical integration HEAD donde el marker público leído de vuelta sea exactamente ese SHA. CYCLE156 no obtuvo esa prueba nueva.
+#98 está integrado y reportó production health/library/artwork/playback funcional. #99 está integrado en `c2766fb...` y aporta mecanismo fail-closed de source binding. Falta evidencia literal de clean production deployment desde canonical integration HEAD donde el marker público leído de vuelta sea exactamente ese SHA. CYCLE157 no obtuvo esa prueba nueva.
 
 ## 19.2 — `[ 🟡 ] LEGAL IMPLEMENTATION OPEN / REVIEW TASK COMPLETE`
 
@@ -35,8 +35,9 @@ Structured redacted events, counters, routes, kill switches, tests/runbook integ
 
 #78 harness integrado; expected peak 80. Falta runtime aplicable a **160 concurrent users**, latency/error/queue/recovery/no-loss/no-cross-tenant + safety margin. #83 sigue OPEN/DRAFT/stale. Para alpha 3–5 cuentas, 1.7 debe clasificar explícitamente aplicabilidad.
 
-## Cross-phase security tail
+## Cross-phase security / pre-Beta tails
 
-PR #89 sigue OPEN @ `daf87da6...`, stale base `816f946c...`, security run `33454881387` FAILURE. CYCLE156 owner exclusivo de mutation/integration = AAA152; no waiver.
+- PR #89 sigue OPEN @ `daf87da6...`, stale base `816f946c...`, dedicated security gate FAILURE. CYCLE157 owner exclusivo de mutation/integration = AAA153; no waiver.
+- Issue #97 sigue pre-Beta OPEN. PR #100 apareció como instrumentation-only; WOZ156 lo posee y debe producir factual Web/Desktop measurements + actual correction antes de claim/merge de cierre.
 
-**Principio:** no falsear provider, capacity, payments, DNS, deployment, staging, legal compliance ni independent counsel review sin evidencia aplicable.
+**Principio:** no falsear provider, capacity, payments, deployment, staging, legal compliance ni independent counsel review sin evidencia aplicable.
