@@ -2,8 +2,8 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE154:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 `[x]`; 0.8 review administrativo `[x]` bajo excepción RO-approved AI-assisted; 0.20 OAuth secret rotation `[x]`.  
-**Baseline vivo:** `integration-v0.8.0-alpha.1 @ c4e203cf5e44cf93c0c017c0120f097473fe91b2`.  
+**Estado CYCLE155:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 `[x]`; 0.8 review administrativo `[x]` bajo excepción RO-approved AI-assisted; 0.20 OAuth secret rotation `[x]`.  
+**Baseline vivo:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.  
 **Release:** 🔴 `NO-GO`.
 
 ## Tablero
@@ -27,19 +27,19 @@
 
 ## 1.2 — release dependencies
 
-Software integrado relevante incluye #86 provenance, #87 public ops, #88 Authenticode/RFC3161 seam, #90 OAuth readiness, #91/#92/#94/#95/#96 Web corrective lineage y ahora **#98 integrado** en merge head `c4e203cf...`. Nada de esto sustituye productive signing/notarization/tester/legal/security release evidence.
+Software integrado relevante incluye #86 provenance, #87 public ops, #88 Authenticode/RFC3161 seam, #90 OAuth readiness, #91/#92/#94/#95/#96/#98 Web corrective lineage y ahora **#99** Web runtime source binding, merge/current integration `c2766fb...`. Nada de esto sustituye productive signing/notarization/tester/legal/security release evidence.
 
 ### F0/0.9 — `[ 🟡 ]` AI-assisted security slice / DNS rebinding
 
-PR #89 sigue OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`, stale frente a `c4e203cf...`.
+PR #89 sigue OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`, stale frente a `c2766fb...`.
 
-**Gate vivo:** run `33454881387` = `completed/failure` sobre exact head `daf87da6...`; el fallo no se rebaja ni se sustituye por CI viejo.
+**Gate vivo:** run `33454881387` = `completed/failure` sobre exact head `daf87da6...`; dependency audit, DNS pinning, TS/cloud security passed before Rust unit contracts failed porque `frontendDist ../dist` estaba ausente. El fallo no se rebaja.
 
-**CYCLE154:** #89 no tiene mutation owner. WOZ153 puede inspeccionarlo estrictamente READ-ONLY únicamente como CI-FALLBACK mientras Issue #97 esté genuinamente esperando CI/review/build, con duplicate-check/divergence/refresh-readiness. No rerun, review, merge ni new PR.
+**CYCLE155:** `NIGHT-AAA-151` es owner exclusivo de #89: REUSE/history-preserving refresh, mínimo gate-precondition correction, exact-head revalidation y conditional expected-head merge solo si exact/green/race-free. No duplicate PR. WOZ154 no toca #89.
 
 ### Tails reales restantes
 
-- #89 P1 diagnosis/refresh/revalidation/integration con owner explícito futuro;
+- #89 P1 refresh/revalidation/integration;
 - production Authenticode/RFC3161 evidence;
 - legal P0/P1 implementation backlog;
 - independent security review donde sea gate;
