@@ -12,56 +12,55 @@
 - No se marca `[x]` sin evidencia verificable.
 - `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-## Estado vivo — NIGHT-JOBS-148
+## Estado vivo — NIGHT-JOBS-153
 
 - **Release público:** 🔴 `NO-GO`.
-- **Integración estable:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`; PR #96 sigue siendo el último merge material verificable.
-- **F2/12.1:** #92/#94/#95/#96 integrados. #96 final head `6247173ead703f831801fa103ca465fea04e5793`, merge `aa445095...`; Required CI exact-head SUCCESS. 12.1 sigue `NOT_PASS` porque falta public runtime proof del deployment exacto descendiente de `aa445095...`. Owner `NIGHT-AAA-144` READ-ONLY para inventario/clasificación factual; sin deploy/code/infra mutation.
+- **Integración estable:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`; PR #96 sigue siendo el último merge material al preflight de CYCLE153.
+- **Nuevo candidato F2/12.1:** PR #98 `fix(web): finalize production MTProto transport` = OPEN/Ready/mergeable, base exacta `aa445095...`, head `00da0ab7716242bbd2c7cb8b8cfdea1ca8b3930c`, 1 commit / 6 files. D6, D7, Web Production Build, Productive Temp Auth Compile y F0 secret scan están SUCCESS; `Test - Desktop Portability` / Required CI run `33575511576` seguía `IN_PROGRESS` al emitir assignments. Production behavior fue reportado como library/artwork/playback funcional, pero deployment-source identity debe clasificarse literalmente antes de cerrar 12.1.
+- **Issue #97:** `Pre-Beta 1: make library reveal near-instant across Web/Desktop` está OPEN y dice explícitamente que debe resolverse antes de Beta 1. No se mezcla con #98 porque overlap en `src/App.tsx` y #97 pide arquitectura/performance cross-platform separada tras cleanup.
+- **F2/12.1:** sigue `NOT_PASS`; AAA149 posee evidencia runtime/deployment READ-ONLY; WOZ152 posee exclusivamente PR #98 mutation/integration.
 - **F2/13.2:** durable Review gap confirmado; `BLOCKED_WRITE_SURFACE / UNASSIGNED`.
-- **F2/15.1:** recent-reauth product seam sigue prerequisito; owner `NIGHT-BBB-143` solo para seam mínima, no Trash UI todavía.
-- **F0/0.9:** #89 OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; stale frente a live `aa445095...`. F0 audit run `33454881387` permanece `completed/failure` sobre ese exact head. Owner `NIGHT-WOZ-147` para diagnosis bounded + refresh/revalidation + conditional expected-head merge de #89 solamente.
-- **F4/Windows Auth:** #93 OPEN @ `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, base `134a293985c314eb09c238115e3bcb71e79f1810`; stale. No mutation owner CYCLE148; solo READ-ONLY fallback de WOZ147 mientras #89 espera CI externo tras clean refresh.
-- **F1:** D6–D10.1 PASS; D10.2 map complete / alpha candidate NOT_READY. La clasificación 1.7 sigue pendiente de facts frescos suficientes.
-- **F3:** provider/payment real, legal implementation y runtime160/capacity siguen abiertos/external o pendientes de decisión explícita de aplicabilidad al alpha. BBB143 puede inventariar 18.2 READ-ONLY únicamente como CI-FALLBACK durante espera externa real de su PRIMARY; no decide exclusión.
+- **F2/15.1:** recent-reauth product seam sigue prerequisito; BBB148 posee solo la seam mínima, no Trash UI/purge.
+- **F0/0.9:** #89 sigue OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, base registrada `816f946c...` stale; security run `33454881387` sigue FAILURE. CYCLE153 no le da mutation owner: WOZ152 puede inventariarlo READ-ONLY únicamente como fallback mientras #98 espera external CI/review/build.
+- **F4/Windows Auth:** #93 sigue OPEN @ `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, base `134a293...` stale; sin mutation owner.
+- **F1:** D6–D10.1 PASS; D10.2 map complete / alpha candidate NOT_READY. 1.7 espera facts frescos de #98/runtime, #89, recent-reauth y ahora #97.
+- **F3:** provider/payment real, legal implementation y runtime160/capacity siguen abiertos/external o pendientes de clasificación explícita 1.7→1.8.
 - **F4:** 21.1/21.2/24.1/24.2 cerrados; 25.1 global sigue abierto; production signing/notarization/hardware/tester execution externos.
 - **F5:** `NO ABRIR`.
 
-## RESULTADOS PROCESADOS — CYCLE148
+## RESULTADOS PROCESADOS — CYCLE153
 
-- `NIGHT-AAA-143`: sin matching RESULTADO DEL TURNO/handoff verificable posterior a JOBS CYCLE147 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- `NIGHT-BBB-142`: sin matching RESULTADO DEL TURNO/handoff verificable posterior a JOBS CYCLE147 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- `NIGHT-WOZ-146`: sin matching RESULTADO DEL TURNO/handoff verificable posterior a JOBS CYCLE147 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
-- Issue #41 fue leído completo; 405 comentarios en preflight y el último era JOBS CYCLE147 `5500755003`, sin worker handoff posterior.
-- GitHub vivo no presenta merge material posterior a #96; integration HEAD permanece `aa445095...`.
-- #89 conserva gate rojo exacto y base stale. #93 conserva evidencia histórica old-base únicamente.
-- Duplicate-check de PRs abiertos no mostró candidate verificable nuevo de recent-reauth.
-- No se promovió DONE/PASS/integration sin evidencia. JOBS no modificó código BeatGaler ni infraestructura.
+- Issue #41 ya contenía JOBS CYCLE152 (`5502310629`) aunque los markdowns nocturnos del vault seguían en CYCLE151; GitHub/Issue prevaleció y se corrigió la deriva documental.
+- `NIGHT-AAA-148`, `NIGHT-BBB-147` y `NIGHT-WOZ-151`: sin matching RESULTADO DEL TURNO/handoff worker posterior a CYCLE152 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- PR #98 apareció después de CYCLE152 y cambió el camino crítico; no se preservó la asignación WOZ sobre #89 por inercia.
+- No se promovió DONE/PASS/integration sin evidencia. `Registro de avances.md` no recibe promoción: #98 aún no está integrado y Required CI estaba en progreso al assignment.
 
-## OWNERS — CYCLE148
+## OWNERS — CYCLE153
 
-### AAA — `NIGHT-AAA-144` — F2 / 12.1 runtime proof
-PRIMARY: READ-ONLY inventory/classification de evidencia pública exacta post-#96; distinguir exact-deployment vs older-deployment vs UNVERIFIED y reducir acciones faltantes mínimas. Sin deploy, code, infra ni canonical-plan mutation.  
+### AAA — `NIGHT-AAA-149` — F2 / 12.1 runtime proof
+PRIMARY: READ-ONLY exact production evidence around PR #98; bind behavior to immutable deployment/source identity where possible; classify every literal runtime item and keep #97 separate. No deploy/code/PR/infra mutation.  
 CI-FALLBACK: NONE.
 
-### BBB — `NIGHT-BBB-143` — F1/D8 follow-up seam
-PRIMARY: REUSE/expose minimum productive fresh same-provider recent-reauth contract bound to user/session, fail-closed and consumable later by destructive callers; focused tests; bounded candidate. **No Trash UI/purge. NO MERGE. No tocar #89/#93 ni F2/12.1 runtime lane.**  
-CI-FALLBACK: solo durante espera externa real de CI/build/review después de candidate limpio, inventario READ-ONLY F3/18.2: clasificar evidencia como `SOFTWARE_PROVEN / UNVERIFIED_EXTERNAL / NOT_REPRESENTATIVE_OF_3_5_ACCOUNT_ALPHA`; no provider/payment mutation ni decisión RO; volver al PRIMARY cuando deje de esperar.
+### BBB — `NIGHT-BBB-148` — F1/D8 follow-up seam
+PRIMARY: REUSE/expose minimum productive fresh same-provider recent-reauth contract bound to user/session, fail-closed and consumable later by destructive callers; focused tests; bounded candidate; **NO MERGE / no Trash UI / no PR #98 files**.  
+CI-FALLBACK: only during genuine external wait after clean candidate, F3/18.2 READ-ONLY evidence inventory; no provider/payment mutation or exclusion decision.
 
-### WOZ — `NIGHT-WOZ-147` — F0 / 0.9 / #89
-PRIMARY: REUSE #89; diagnose run `33454881387`, duplicate-check incluyendo cambios hasta #96 merge, history-preserving bounded refresh onto `aa445095...`, exact-head F0/0.9 + applicable CI; if exact/green/race-free, expected-head merge **#89 only** and verify SHA/parents. El fallo actual no puede omitirse ni rebajarse.  
-CI-FALLBACK: mientras PRIMARY esté genuinamente `WAITING_CI/WAITING_EXTERNAL` después de clean refresh, inventario **READ-ONLY de #93**: current base/head/files/check evidence/divergence; clasificar `REUSE_REFRESHABLE / STALE_INVALIDATED / NO_LONGER_APPLICABLE`. No mutation/rerun/merge/promotion. Volver a #89 en cuanto PRIMARY deje de esperar.
+### WOZ — `NIGHT-WOZ-152` — F2/12.1 / PR #98
+PRIMARY: exclusive mutation/integration owner of #98. Verify exact six-file scope, exact-head Required CI, review/security requirements and deployment-source evidence; expected-head merge #98 only if exact/green/race-free. Do not absorb #97.  
+CI-FALLBACK: only while #98 genuinely waits external CI/review/build, #89 strictly READ-ONLY refresh-readiness inventory. #89 files are disjoint from #98; no mutation/rerun/review/merge.
 
-**Integration mutation authorization CYCLE148: WOZ147 / PR #89 ONLY, after exact refreshed base/head + applicable CI SUCCESS + race-free expected-head. #93 no tiene autorización de integración.**
+**Only integration mutation authorized CYCLE153: WOZ152 / PR #98, conditional on exact base/head + applicable Required CI SUCCESS + no required review blocker + race-free expected-head. #89 and #93 have no mutation/merge authorization.**
 
-## Camino crítico global — recalculado desde cero contra GitHub vivo
+## Camino crítico global — recalculado desde cero
 
-1. **F2/12.1 public runtime proof:** software corrective lineage #92/#94/#95/#96 ya integrada; falta verificar deployment exacto post-`aa445095...`. AAA144 reduce este gate factual sin mutación.
-2. **F0/0.9 / #89:** P1 software conocido; current security gate rojo + base muy stale. Diagnóstico, refresh y exact-head green son obligatorios antes de integración.
-3. **F1/D8→F2/15.1:** exponer seam recent-reauth bounded; luego strong confirmation + durable Trash purge/no-false-success.
-4. **F2/13.2:** hard product gap, pero sigue bloqueado por write surface unsafe; no se fabrica owner inútil.
-5. **F1/1.7→1.8:** reemitir clasificación factual con resultados frescos de 12.1/#89/recent-reauth; decisión RO solo después.
-6. **F4/25.1 / #93:** future refresh/revalidation solo si 1.7 lo mantiene dentro del alpha; ahora mutation-unassigned.
-7. **Release path paralelo:** F0 1.2/2.2, productive signing/notarization, provider/payment, legal implementation, runtime160/capacity, testers/hardware.
+1. **PR #98 / F2/12.1:** exact-head CI + bounded integration + exact production runtime/source proof.
+2. **Issue #97 pre-Beta performance:** after #98 cleanup because it overlaps App/startup surfaces; must close before Beta 1.
+3. **F0/0.9 / #89:** P1 DNS-rebinding SSRF corrective still stale with red security gate; refresh/exact-green before integration.
+4. **F1/D8→F2/15.1:** product recent-reauth seam, then Trash strong confirmation + durable purge/no-false-success.
+5. **F2/13.2:** durable Review product gap; remains blocked by safe write surface.
+6. **F1/1.7→1.8:** classify remaining alpha blockers with fresh facts; RO decision only afterward.
+7. **F4/25.1 / #93:** refresh/revalidate only if 1.7 keeps Windows Auth canonicalization in alpha.
+8. **Parallel external/release tails:** F0 1.2/2.2, production signing/notarization, provider/payment, legal implementation, runtime160/capacity, testers/hardware.
 
 ## Invariantes
 
@@ -76,4 +75,4 @@ CI-FALLBACK: mientras PRIMARY esté genuinamente `WAITING_CI/WAITING_EXTERNAL` d
 
 ## NEXT
 
-AAA ejecuta `NIGHT-AAA-144`; BBB `NIGHT-BBB-143`; WOZ `NIGHT-WOZ-147` y posee la única conditional integration lane sobre #89. F2/13.2 queda `BLOCKED_WRITE_SURFACE / UNASSIGNED`. #93 no tiene mutation owner. F5 sigue CLOSED / NO-GO. `PLAN_HEALTH`: synced CYCLE148; GitHub live prevalece si cambia después.
+AAA ejecuta `NIGHT-AAA-149`; BBB `NIGHT-BBB-148`; WOZ `NIGHT-WOZ-152`. #98 es la única integration lane. #89/#93 no tienen mutation owner. #97 queda explícitamente next-after-#98, no mezclado. F2/13.2 continúa `BLOCKED_WRITE_SURFACE / UNASSIGNED`. F5 sigue CLOSED / NO-GO. `PLAN_HEALTH`: synced CYCLE153; GitHub live prevalece si cambia después.
