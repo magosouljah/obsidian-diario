@@ -6,41 +6,40 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-BBB-148`
+- `ASSIGNMENT_ID: NIGHT-BBB-149`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: F1/D8 follow-up → minimum productive recent-reauth seam for F2/15.1`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`
-- `PREDECESSOR: NIGHT-BBB-147 = NO_RESULT / SUPERSEDED / NOT_PASS; no RESULTADO DEL TURNO nor Issue #41 worker handoff verified after JOBS CYCLE152.`
-- `DUPLICATE_CHECK: no current open PR discovered for the recent-reauth product seam; merged #53 remains the D8 authority/reuse lineage.`
-- `SERIALIZATION: BBB148 owns only recent-reauth product seam. AAA149 owns runtime evidence. WOZ152 exclusively owns PR #98. Do not touch PR #98 six files, #89, #93, Trash UI/purge or Review.`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ c4e203cf5e44cf93c0c017c0120f097473fe91b2`
+- `PREDECESSOR: NIGHT-BBB-148 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching worker RESULTADO/handoff after CYCLE153.`
+- `DUPLICATE_CHECK_START: no verified open PR for this product seam at JOBS preflight; merged #53 remains D8 authority/reuse lineage.`
+- `SERIALIZATION: BBB149 owns only recent-reauth seam. WOZ153 owns Issue #97 startup/reveal. AAA150 is runtime evidence READ-ONLY. Do not touch #89/#93, Trash implementation, Review, or Issue #97 surfaces.`
 
 ### PRIMARY
 
-Expose/reuse the minimum productive D8 recent-reauth seam already decided, without redesigning auth/session and without implementing Empty Trash yet.
+REUSE D8/#53 and expose only the minimum productive same-provider recent-reauth contract required by destructive callers.
 
-1. Fresh preflight live integration + Issue #41 + D8/#53 lineage; REUSE-FIRST + duplicate-check.
-2. Reuse literally D8: fresh same-provider authorization bound to the correct BeatGaler user/session; no password/MFA/new-provider invention.
-3. If existing primitives already satisfy a bounded destructive-caller contract, STOP with exact reusable evidence rather than duplicating implementation.
-4. If a real gap remains, expose the smallest productive boundary granting/verifying `recently reauthenticated` for a destructive caller.
-5. Fail closed for wrong user, wrong session, expired/not-fresh authorization, replay where applicable, and provider failure.
-6. Add focused success/wrong-user/wrong-session/expired/failure tests and preserve D6/D7 + Web/Desktop contracts.
-7. One candidate/PR only if duplicate-check stays clean; exact-head applicable CI. **NO MERGE CYCLE153.**
-8. Maximum claim: `RECENT_REAUTH_PRODUCT_SEAM_CANDIDATE_READY`; F2/15.1 remains open.
-9. Do not touch any PR #98 file (`cloud-server/productive-temp-auth-boundary.js`, `src/App.tsx`, `src/features/cloud/webTransport.worker.ts`, `src/platform/contracts.ts`, `src/platform/desktopAdapter.ts`, `src/platform/webAdapter.ts`), #89/#93, Trash implementation, Review or runtime deployment evidence.
-10. Write RESULTADO DEL TURNO here + Issue #41 handoff, then STOP.
+1. Fresh preflight live integration + Issue #41 + #53/D8 lineage + duplicate-check.
+2. Reuse the decided invariant literally: fresh same-provider authorization bound to the correct BeatGaler user/session; no password/MFA/new-provider redesign.
+3. If an existing production primitive already satisfies the bounded caller contract, STOP with exact reusable evidence rather than duplicate implementation.
+4. If a gap remains, expose the smallest fail-closed boundary granting/verifying recent reauth for destructive callers.
+5. Cover wrong user, wrong session, expired/not-fresh authorization, replay where applicable, and provider failure.
+6. Add focused tests. Preserve D6/D7 and Web/Desktop auth contracts.
+7. One candidate/PR only if duplicate-check remains clean; exact-head applicable CI. **NO MERGE CYCLE154.**
+8. Maximum claim: `RECENT_REAUTH_PRODUCT_SEAM_CANDIDATE_READY`; do not implement Empty Trash yet.
+9. Write RESULTADO DEL TURNO here + Issue #41 handoff, then STOP.
 
-**Required evidence:** reused D8 primitive/decision; exact files/functions; contract semantics; tests; branch/base/head/PR; exact-head applicable CI; explicit `UNVERIFIED`; duplicate-check and no overlap with AAA149/WOZ152.  
-**STOP:** architectural redesign, provider mutation, PR #98 overlap, Trash implementation, Review, #89/#93 mutation, integration mutation, duplicate candidate or unsafe whole-file rewrite.
+**Evidence required:** reused D8 primitive/decision; exact functions/files; semantics; focused tests; base/head/branch/PR; exact-head CI; explicit `UNVERIFIED`; clean duplicate-check.  
+**STOP:** architecture redesign, provider/payment mutation, Trash, Review, Issue #97 overlap, #89/#93 mutation, merge, duplicate candidate, or widened scope.
 
 ### CI-FALLBACK
 
-**F3 / 18.2 alpha-applicability evidence inventory — READ-ONLY, only while PRIMARY genuinely waits on external CI/build/review after a clean candidate exists.**
+**F3 / 18.2 alpha-applicability inventory — READ-ONLY, only while PRIMARY genuinely waits on external CI/build/review after a clean candidate exists.**
 
-- **Scope:** inventory existing provider/payment reconciliation evidence and unresolved real-provider scenarios; classify only `SOFTWARE_PROVEN`, `UNVERIFIED_EXTERNAL`, or `NOT_REPRESENTATIVE_OF_3_5_ACCOUNT_ALPHA`. No exclusion decision and no billing/provider mutation.
-- **Evidence required:** exact existing PR/merge/runtime refs; unresolved 3DS/rejection/late payment/renewal failure/cancel/plan-change/refund/webhook/reconciliation list; explicit statement that F1/1.7→1.8 decides applicability.
-- **STOP:** any mutation, provider state change/payment execution, new PR, gate promotion, overlap with AAA149/WOZ152, or PRIMARY leaves external wait. Return to PRIMARY immediately and recheck it before closing.
+- **Scope:** inventory existing reconciliation/provider evidence and unresolved 3DS/rejection/late-payment/renewal/cancel/plan-change/refund/webhook/reconciliation scenarios. Classify only `SOFTWARE_PROVEN`, `UNVERIFIED_EXTERNAL`, `NOT_REPRESENTATIVE_OF_3_5_ACCOUNT_ALPHA`.
+- **Evidence required:** exact PR/merge/runtime refs and explicit unresolved scenario list; state that F1/1.7→1.8 owns the eventual applicability decision.
+- **STOP:** any mutation, payment/provider state change, new PR, gate promotion, overlap, or PRIMARY leaves external wait. Return to PRIMARY and recheck before closing.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-BBB-147`: no matching final result/handoff verified by JOBS CYCLE153 preflight → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-BBB-148`: no matching worker final result/handoff after CYCLE153 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-BBB-110`: `BLOCKED_STOP / RECENT_REAUTH_PRODUCT_SEAM_REQUIRED`; causal evidence remains reusable.
