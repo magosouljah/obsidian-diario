@@ -6,12 +6,13 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-153`
+- `ASSIGNMENT_ID: NIGHT-WOZ-154`
 - `ASSIGNMENT_STATUS: ASSIGNED`
 - `AREA: Issue #97 — Pre-Beta 1 near-instant library reveal across Web/Desktop`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ c4e203cf5e44cf93c0c017c0120f097473fe91b2`
-- `PREDECESSOR: NIGHT-WOZ-152 has no written worker RESULTADO/handoff, but GitHub independently proves its authorized PR #98 integration goal completed: #98 MERGED, exact head 00da0ab7716242bbd2c7cb8b8cfdea1ca8b3930c, Required CI 33575511576 SUCCESS, integration advanced to c4e203cf5e44cf93c0c017c0120f097473fe91b2.`
-- `SERIALIZATION: WOZ153 exclusively owns Issue #97 mutation/integration. AAA150 is READ-ONLY F2/12.1 evidence. BBB149 owns recent-reauth. #89 has NO mutation owner and is fallback READ-ONLY only. #93 remains unassigned.`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`
+- `PREDECESSOR: NIGHT-WOZ-153 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching worker RESULTADO/handoff after CYCLE154.`
+- `LIVE_FACT: Issue #97 remains OPEN with zero comments and literal Must be addressed before Beta 1 acceptance. PR #99 has since merged and moved integration to c2766fb..., but it is deployment-provenance plumbing, not a #97 closure.`
+- `SERIALIZATION: WOZ154 exclusively owns Issue #97 mutation/integration. AAA151 owns PR #89. BBB150 owns recent-reauth. #93 remains unassigned.`
 
 ### PRIMARY
 
@@ -19,7 +20,7 @@ Close the smallest real pre-Beta startup/reveal architecture gap from Issue #97 
 
 1. Fresh preflight live integration, Issue #97, Issue #41, open PRs/branches, changed surfaces and CI; REUSE-FIRST + duplicate-check.
 2. Measure/establish current causal path for time-to-first-usable-cards and time-to-full-visible-library on normal library startup. Preserve artwork-first presentation and playback readiness semantics.
-3. Reuse #98's now-integrated authoritative INDEX / Web media platform behavior; do not regress temp-auth, Web playback/artwork, D6/D7, Desktop behavior or cloud correctness.
+3. Reuse integrated #98 Web media/index behavior and #99 provenance plumbing; do not regress temp-auth, Web playback/artwork, D6/D7, Desktop behavior, deployment provenance, or cloud correctness.
 4. Implement the minimum shared/cross-platform architectural correction that materially removes sequential/progressive reveal latency. Do not solve it with a Web-only blank-card/hydrate-later hack.
 5. Add focused deterministic tests/metrics where feasible; require Web + Desktop validation appropriate to the changed surface. Any unavailable real runtime evidence remains `UNVERIFIED`.
 6. One candidate/PR only after duplicate-check; keep scope bounded to #97. Do not absorb #89, recent-reauth, Trash or Review.
@@ -28,17 +29,15 @@ Close the smallest real pre-Beta startup/reveal architecture gap from Issue #97 
 9. Write RESULTADO DEL TURNO here + Issue #41 handoff, then STOP.
 
 **Evidence required:** duplicate-check; causal measurement/baseline; exact files; branch/base/head/PR; tests; Web+Desktop evidence; exact-head CI; review state; race-check; merge SHA/parents if merged; explicit `UNVERIFIED`.  
-**STOP:** scope drift, unavailable acceptance evidence misrepresented as PASS, overlap with AAA150/BBB149, any #89/#93 mutation, or merge without exact-green/race-free evidence.
+**STOP:** scope drift, unavailable acceptance evidence misrepresented as PASS, overlap with AAA151/BBB150, any #89/#93 mutation, or merge without exact-green/race-free evidence.
 
 ### CI-FALLBACK
 
-**PR #89 / F0 0.9 strictly READ-ONLY refresh-readiness inventory — only while PRIMARY #97 genuinely waits on external CI/review/build after a clean candidate exists.**
+`CI-FALLBACK: NONE`.
 
-- **Independence:** #89 owns security workflow/DNS pinning/server/security docs; separate branch/PR from #97. If preflight discovers actual file/lock/dependency overlap, fallback becomes NONE immediately.
-- **Scope:** inspect #89 exact base/head, failed F0/0.9 run `33454881387`, divergence versus live `c4e203cf...`, duplicate-check whether DNS-pinning corrective is already integrated elsewhere, and classify `REUSE_REFRESHABLE / SUPERSEDED / SCOPE_CHANGED`. No mutation/rerun/review/merge/new PR.
-- **Evidence required:** live integration SHA; #89 start/end head/base; failed run/cause; changed-file inventory; divergence/duplicate evidence; classification.
-- **STOP:** any mutation, rerun, review, merge, new PR, gate promotion, head movement, dependency overlap, or PRIMARY leaves external wait. Return to #97 and recheck before closing.
+Reason: #93 may overlap Desktop harness/auth surfaces and F2/12.1 production-source proof is materially dependent on the canonical integration SHA that a #97 merge would change. No independent fallback is safe enough to preauthorize this cycle.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-WOZ-152`: no written worker final handoff; authorized integration outcome independently verified as `PR98_PRODUCTION_WEB_MTProto_CLEANUP_INTEGRATED`. This does **not** close F2/12.1 runtime-source proof.
+- `NIGHT-WOZ-153`: no matching worker final result/handoff after CYCLE154 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-WOZ-152`: previous authorized #98 integration outcome remains independently verified historical evidence only.
