@@ -2,7 +2,7 @@
 
 > Leer primero `Plan Maestro.md`. GitHub/runtime vivo prevalece. No reabrir trabajo técnico cerrado sin invalidación factual.
 
-**Estado CYCLE148:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales. 0.20 OAuth secret rotation está `[x]`.  
+**Estado CYCLE153:** `[ 🟡 ]` residual/administrativo + security/release tails. 5.1 y 5.2 están `[x]`. 0.8 legal launch review está `[x]` bajo excepción RO-approved AI-assisted; esto cierra la actividad de review, no compliance ni P0/P1 legales. 0.20 OAuth secret rotation está `[x]`.  
 **Baseline vivo:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.  
 **Release:** 🔴 `NO-GO`.
 
@@ -31,7 +31,7 @@ Evidence canónica: `Legal launch review - AI-assisted 2026-08-31.md`. No ocurri
 
 ## 1.2 — `[ 🟡 ]` release dependencies
 
-Software integrado relevante: #86 provenance, #87 public security/status, #88 technical Authenticode/RFC3161, #90 OAuth rotation readiness, #91/#92/#94/#95/#96 Web startup/runtime corrective lineage. Ninguno sustituye productive signing/notarization/tester/legal/security release evidence.
+Software integrado relevante: #86 provenance, #87 public security/status, #88 technical Authenticode/RFC3161, #90 OAuth rotation readiness y #91/#92/#94/#95/#96 Web corrective lineage. PR #98 es un candidate nuevo exact-base para producción Web, todavía OPEN en CYCLE153. Ninguno sustituye productive signing/notarization/tester/legal/security release evidence.
 
 ### F0/0.6 — `[x]` public operations
 
@@ -43,11 +43,11 @@ Owner runtime evidence previo mantiene security.txt/status HTTPS/SAN/contactos p
 
 ### F0/0.9 — `[ 🟡 ]` AI-assisted security slice / DNS rebinding
 
-PR #89 sigue OPEN/Ready/mergeable @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`. Integración vive en `aa445095...`; la base está stale.
+PR #89 sigue OPEN/Ready/mergeable @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c09d998ee5a045b3e70b2fe4f3a4160d0`; stale frente a live `aa445095...`.
 
-**Gate vivo conocido:** F0/0.9 workflow run `33454881387` = `completed/failure` sobre exact head `daf87da6...`. Required CI en ese stale head fue SUCCESS, pero no sustituye el security gate fallido. El failure conocido debe diagnosticarse/refrescarse; old-head-green claims no autorizan integración.
+**Gate vivo:** F0/0.9 workflow run `33454881387` = `completed/failure` sobre exact head `daf87da6...`. Required CI viejo no sustituye el security gate fallido.
 
-**Owner CYCLE148: `NIGHT-WOZ-147`.** Debe diagnosticar el failure sin rebajarlo, duplicate-check incluyendo cambios ya integrados hasta #96, refresh/reconcile bounded sobre live baseline, correr exact-head security + applicable CI y solo entonces puede expected-head mergear #89 si exact/green/race-free. Maximum claim = DNS-rebinding SSRF P1 corrective integrado; AI-assisted audit ≠ independent pentest.
+**CYCLE153:** #89 no tiene mutation owner porque WOZ152 fue movido al gate más crítico #98. Mientras #98 esté genuinamente `WAITING_CI/WAITING_EXTERNAL`, WOZ152 puede inspeccionar #89 estrictamente READ-ONLY para duplicate-check, divergence y refresh-readiness. No puede mutarlo, rerunearlo, revisarlo ni mergearlo en ese fallback. Próximo ciclo puede reabrir mutation ownership únicamente si #98 deja de ser la prioridad y JOBS lo asigna explícitamente.
 
 ### F0/0.20 — `[x]` OAuth secret rotation
 
@@ -55,7 +55,7 @@ Closed. No repetir ni registrar valores secretos.
 
 ### Tails reales restantes
 
-- #89 P1 diagnosis + refresh/revalidation/integration;
+- #89 P1 diagnosis + refresh/revalidation/integration en un ciclo con mutation owner explícito;
 - production Authenticode/RFC3161 evidence;
 - legal P0/P1 implementation backlog;
 - independent security review donde siga siendo gate;
