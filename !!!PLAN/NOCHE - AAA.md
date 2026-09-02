@@ -6,35 +6,37 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-150`
+- `ASSIGNMENT_ID: NIGHT-AAA-151`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F2 / 12.1 — post-#98 exact public runtime/deployment-source close review, READ-ONLY`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ c4e203cf5e44cf93c0c017c0120f097473fe91b2`
-- `PREDECESSOR: NIGHT-AAA-149 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching worker RESULTADO/handoff after CYCLE153.`
-- `LIVE_FACT: PR #98 is MERGED; exact candidate head 00da0ab7716242bbd2c7cb8b8cfdea1ca8b3930c; Required CI 33575511576 / check 100081022125 = SUCCESS; merge advanced integration to c4e203cf5e44cf93c0c017c0120f097473fe91b2.`
-- `SERIALIZATION: AAA150 is READ-ONLY evidence only. WOZ153 owns Issue #97 implementation/integration. BBB149 owns recent-reauth. Do not mutate #89/#93 or any product/deploy surface.`
+- `AREA: F0 / 0.9 — REUSE PR #89, refresh/revalidate DNS-rebinding corrective on live baseline`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`
+- `PREDECESSOR: NIGHT-AAA-150 = NO_RESULT / SUPERSEDED / NOT_PASS; no matching worker RESULTADO/handoff after CYCLE154.`
+- `LIVE_FACT: PR #99 is now MERGED and integration advanced to c2766fb...; PR #89 remains OPEN @ daf87da6ffd604ccac991311036919ae2de9bd7a on recorded base 816f946c..., with F0/0.9 run 33454881387 FAILURE. Prior exact diagnosis: DNS/security/dependency portions passed; Rust unit contracts failed because Tauri frontendDist=../dist was absent.`
+- `SERIALIZATION: AAA151 exclusively owns #89 mutation/integration. BBB150 owns recent-reauth. WOZ154 owns Issue #97. Do not touch #93, #97, recent-reauth/Trash/Review, or deployment/runtime source proof.`
 
 ### PRIMARY
 
-Reduce F2/12.1 to a literal close/no-close decision after #98 integration, without mutating anything.
+Close the smallest real F0/0.9 P1 lane by reusing #89 rather than creating a duplicate.
 
-1. Fresh preflight live integration, PR #98 merge/head/CI, Issue #41 and all existing production/runtime evidence.
-2. REUSE-FIRST: do not rerun or request evidence already present.
-3. Establish whether the production build that produced the reported successful behavior can be bound to an immutable source/deployment identity descending from #98 head / merge `c4e203cf...`.
-4. Classify each literal item: `/web-health`, auth health, signed-out startup, login, productive second-stage temp auth, Worker initialize/activate/verify, authoritative INDEX/library materialization, artwork, playback, cold restart, warm restart, recoverable failure, pool behavior if applicable, cookie/marker/CSRF restore, public terminology.
-5. Allowed classifications: `PROVEN_EXACT_DEPLOYMENT`, `PROVEN_SOURCE_UNBOUND`, `PROVEN_OLDER_DEPLOYMENT_ONLY`, `UNVERIFIED`, `NOT_APPLICABLE`.
-6. If every required 12.1 item plus immutable deployment identity is literal, report `F2_12.1_READY_FOR_JOBS_CLOSE_REVIEW`. Otherwise report the smallest exact missing evidence/action; never infer PASS from PR body text alone.
-7. Issue #97 is separate and now owned by WOZ153; do not inspect/modify its implementation beyond noting overlap-free evidence implications.
+1. Fresh preflight live integration, PR #89 base/head/files/checks, Issue #41, and duplicate-check whether its DNS-pinning corrective is already integrated elsewhere.
+2. REUSE-FIRST: preserve #89 lineage and its six-file security scope; do not open a duplicate PR.
+3. Reconcile #89 history-preservingly onto live `c2766fb...` only if the corrective is still needed. Preserve current integration behavior.
+4. The red gate is not waived. Address only the minimum in-scope test/gate precondition for the known `frontendDist ../dist` failure, or prove the refreshed live baseline already supplies that precondition. Do not redesign Tauri/product behavior.
+5. Re-run applicable exact-head CI/security gate after refresh. DNS rebinding regression, dependency/security checks, TS/cloud tests and Rust contracts must be green where applicable.
+6. Conditional expected-head merge of #89 is authorized only if refreshed scope remains exact, applicable CI is SUCCESS, no required review blocker exists, and live integration race-check is clean.
+7. After merge, verify resulting integration SHA/parents. Maximum claim: `F0_0.9_PR89_INTEGRATED`; do not claim external pentest or public-release readiness.
 8. Write RESULTADO DEL TURNO here + Issue #41 handoff, then STOP.
 
-**Evidence required:** exact integration SHA; #98 exact head/merge and Required CI; immutable deployment/source ID if found; per-item evidence references/timestamps; explicit `UNVERIFIED`.  
-**STOP:** any code/branch/PR/deploy/provider/infra/gate mutation, unsupported inference, or overlap with WOZ153/BBB149.
+**Evidence required:** live integration SHA; #89 start/end base+head; duplicate/divergence classification; exact changed files; exact-head run/check IDs; failure resolution; review/merge state; merge SHA/parents if merged; explicit `UNVERIFIED`.  
+**STOP:** duplicate PR, scope drift outside #89/security gate, any #93/#97/recent-reauth/Trash/Review mutation, merge without exact-green/race-free evidence, or unsupported gate promotion.
 
 ### CI-FALLBACK
 
 `CI-FALLBACK: NONE`.
 
+Reason: F2/12.1 deployment-source proof is materially SHA-dependent on integration and would be invalidated by a successful #89 merge; #93 and #97 also have separate ownership/dependency risk. No safe independent fallback is preauthorized.
+
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-149`: no matching worker final result/handoff after CYCLE153 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-AAA-150`: no matching worker final result/handoff after CYCLE154 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-AAA-114`: durable Review gap remains reusable evidence only; F2/13.2 stays open.
