@@ -6,43 +6,39 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-WOZ-152`
+- `ASSIGNMENT_ID: NIGHT-WOZ-153`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F2 / 12.1 — REUSE PR #98 production Web MTProto cleanup; exact-head validation + conditional integration`
-- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`
-- `PREDECESSOR: NIGHT-WOZ-151 = NO_RESULT / SUPERSEDED / NOT_PASS; no RESULTADO DEL TURNO nor Issue #41 worker handoff verified after JOBS CYCLE152.`
-- `LIVE_PR_FACT: #98 OPEN/Ready/mergeable, exact base aa4450956579de381e82acf06c660b658c703cd1, head 00da0ab7716242bbd2c7cb8b8cfdea1ca8b3930c, one commit / six changed files.`
-- `LIVE_CI_FACT_AT_ASSIGNMENT: D6 33575511574 SUCCESS; D7 33575511573 SUCCESS; Web Production Build 33575511615 SUCCESS; Productive Temp Auth Compile 33575511604 SUCCESS; F0 secret scan 33575511622 SUCCESS; Test - Desktop Portability / Required CI run 33575511576 IN_PROGRESS.`
-- `SERIALIZATION: WOZ152 exclusively owns PR #98 mutation/integration. AAA149 owns runtime evidence only. BBB148 owns recent-reauth. PR #89 has NO mutation owner this cycle and may only be inspected READ-ONLY as the explicit fallback below. #93 remains mutation-unassigned.`
+- `AREA: Issue #97 — Pre-Beta 1 near-instant library reveal across Web/Desktop`
+- `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ c4e203cf5e44cf93c0c017c0120f097473fe91b2`
+- `PREDECESSOR: NIGHT-WOZ-152 has no written worker RESULTADO/handoff, but GitHub independently proves its authorized PR #98 integration goal completed: #98 MERGED, exact head 00da0ab7716242bbd2c7cb8b8cfdea1ca8b3930c, Required CI 33575511576 SUCCESS, integration advanced to c4e203cf5e44cf93c0c017c0120f097473fe91b2.`
+- `SERIALIZATION: WOZ153 exclusively owns Issue #97 mutation/integration. AAA150 is READ-ONLY F2/12.1 evidence. BBB149 owns recent-reauth. #89 has NO mutation owner and is fallback READ-ONLY only. #93 remains unassigned.`
 
 ### PRIMARY
 
-REUSE PR #98 and integrate it only if exact evidence remains sufficient; do not mix startup-performance #97 into the cleanup PR.
+Close the smallest real pre-Beta startup/reveal architecture gap from Issue #97 without Web-only presentation hacks.
 
-1. Fresh preflight integration HEAD, PR #98 base/head/mergeability/changed files, Issue #41, reviews/threads and current exact-head workflow results.
-2. Duplicate-check equivalent production MTProto fixes integrated after #96 or newer competing candidate. If equivalent/newer work supersedes #98, STOP with evidence.
-3. Verify scope remains exactly the six intended production files: `cloud-server/productive-temp-auth-boundary.js`, `src/App.tsx`, `src/features/cloud/webTransport.worker.ts`, `src/platform/contracts.ts`, `src/platform/desktopAdapter.ts`, `src/platform/webAdapter.ts`; one bounded commit unless factual head movement is justified and revalidated.
-4. Treat production claims as evidence requiring exact identity: confirm what can be tied to #98 head versus source-unbound runtime observation. Do not infer a deployed SHA from a successful behavior alone.
-5. Wait for exact-head applicable Required CI. Run `33575511576` must finish SUCCESS or be superseded by an exact-head applicable successful run. Existing D6/D7/Web build/temp-auth compile/secret-scan successes remain supporting evidence only.
-6. The Strix billing comment is an external auxiliary review failure; do not silently waive a canonical required security gate. Determine whether it is actually required by repository policy. If required, STOP; if not required, record it as `UNVERIFIED_EXTERNAL/AUXILIARY` rather than calling it green.
-7. Do **not** implement Issue #97 in PR #98. #97 explicitly requires post-cleanup cross-platform startup/reveal performance work and overlaps `src/App.tsx`; keep it a separate next blocker.
-8. Immediately before integration recheck live integration HEAD, exact #98 base/head, changed files, mergeability, review blockers and exact-head applicable CI.
-9. If exact/green/race-free and runtime evidence is sufficient for the candidate's claimed functional slice, WOZ152 is authorized to expected-head merge **PR #98 only**, then verify merge SHA + parents + new integration HEAD.
-10. Maximum claim after merge: `PR98_PRODUCTION_WEB_MTProto_CLEANUP_INTEGRATED`; F2/12.1 PASS still requires JOBS close review of exact runtime evidence and #97 remains a separate pre-Beta blocker.
-11. Write RESULTADO DEL TURNO here + Issue #41 handoff, then STOP.
+1. Fresh preflight live integration, Issue #97, Issue #41, open PRs/branches, changed surfaces and CI; REUSE-FIRST + duplicate-check.
+2. Measure/establish current causal path for time-to-first-usable-cards and time-to-full-visible-library on normal library startup. Preserve artwork-first presentation and playback readiness semantics.
+3. Reuse #98's now-integrated authoritative INDEX / Web media platform behavior; do not regress temp-auth, Web playback/artwork, D6/D7, Desktop behavior or cloud correctness.
+4. Implement the minimum shared/cross-platform architectural correction that materially removes sequential/progressive reveal latency. Do not solve it with a Web-only blank-card/hydrate-later hack.
+5. Add focused deterministic tests/metrics where feasible; require Web + Desktop validation appropriate to the changed surface. Any unavailable real runtime evidence remains `UNVERIFIED`.
+6. One candidate/PR only after duplicate-check; keep scope bounded to #97. Do not absorb #89, recent-reauth, Trash or Review.
+7. Exact-head applicable CI required. Conditional expected-head merge is authorized **for the #97 candidate only** if scope is exact, tests/CI applicable are green, no required review blocker exists and live integration race-check is clean.
+8. Maximum claim after merge: `ISSUE97_SOFTWARE_INTEGRATED`; Issue #97 may close only if its literal Web+Desktop acceptance evidence is satisfied. Do not infer Beta readiness from merge alone.
+9. Write RESULTADO DEL TURNO here + Issue #41 handoff, then STOP.
 
-**Required evidence:** duplicate-check; #98 exact start/end base/head; exact six-file inventory; workflow run IDs/conclusions; review/thread state; deployment-source binding classification; race-check; merge SHA/parents if merged; explicit `UNVERIFIED`.  
-**STOP:** Required CI failure/cancel, unresolved required review/security gate, source/head movement not revalidated, baseline race, scope drift into #97/recent-reauth/#89/#93, or any integration mutation other than expected-head #98.
+**Evidence required:** duplicate-check; causal measurement/baseline; exact files; branch/base/head/PR; tests; Web+Desktop evidence; exact-head CI; review state; race-check; merge SHA/parents if merged; explicit `UNVERIFIED`.  
+**STOP:** scope drift, unavailable acceptance evidence misrepresented as PASS, overlap with AAA150/BBB149, any #89/#93 mutation, or merge without exact-green/race-free evidence.
 
 ### CI-FALLBACK
 
-**PR #89 / F0 0.9 strictly READ-ONLY refresh-readiness inventory — only while PRIMARY #98 genuinely waits on external CI/review/build.**
+**PR #89 / F0 0.9 strictly READ-ONLY refresh-readiness inventory — only while PRIMARY #97 genuinely waits on external CI/review/build after a clean candidate exists.**
 
-- **Independence:** #89 files are disjoint from #98: `.github/workflows/f0-0.9-security-audit.yml`, `cloud-server/outbound-dns-pinning.js`, `cloud-server/server.js`, `cloud-server/tests/outbound-dns-pinning.test.cjs`, and two security audit docs. No shared branch/PR/lock with #98.
-- **Scope:** inspect #89 exact base/head/current failed F0/0.9 gate, duplicate-check whether its DNS-pinning fix is already present elsewhere, and prepare a factual minimal refresh/revalidation plan. **No mutation, no rerun, no review, no merge.**
-- **Evidence required:** live integration SHA; #89 start/end head; base divergence; current failed run and causal evidence; changed-file inventory; classification `REUSE_REFRESHABLE / SUPERSEDED / SCOPE_CHANGED`.
-- **STOP:** any mutation/rerun/review/merge/new PR/gate promotion/head movement/overlap, or as soon as #98 PRIMARY leaves external wait. Return to #98 and recheck PRIMARY before closing.
+- **Independence:** #89 owns security workflow/DNS pinning/server/security docs; separate branch/PR from #97. If preflight discovers actual file/lock/dependency overlap, fallback becomes NONE immediately.
+- **Scope:** inspect #89 exact base/head, failed F0/0.9 run `33454881387`, divergence versus live `c4e203cf...`, duplicate-check whether DNS-pinning corrective is already integrated elsewhere, and classify `REUSE_REFRESHABLE / SUPERSEDED / SCOPE_CHANGED`. No mutation/rerun/review/merge/new PR.
+- **Evidence required:** live integration SHA; #89 start/end head/base; failed run/cause; changed-file inventory; divergence/duplicate evidence; classification.
+- **STOP:** any mutation, rerun, review, merge, new PR, gate promotion, head movement, dependency overlap, or PRIMARY leaves external wait. Return to #97 and recheck before closing.
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-WOZ-151`: no matching final result/handoff verified by JOBS CYCLE153 preflight → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-WOZ-152`: no written worker final handoff; authorized integration outcome independently verified as `PR98_PRODUCTION_WEB_MTProto_CLEANUP_INTEGRATED`. This does **not** close F2/12.1 runtime-source proof.
