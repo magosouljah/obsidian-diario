@@ -6,27 +6,29 @@
 
 ## ASIGNACIÓN VIGENTE
 
-- `ASSIGNMENT_ID: NIGHT-AAA-147`
+- `ASSIGNMENT_ID: NIGHT-AAA-149`
 - `ASSIGNMENT_STATUS: ASSIGNED`
-- `AREA: F2 / 12.1 — exact public runtime proof READ-ONLY`
+- `AREA: F2 / 12.1 — exact public runtime/deployment evidence for PR #98, READ-ONLY`
 - `LIVE_BASE_AT_ASSIGNMENT: integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`
-- `PREDECESSOR: NIGHT-AAA-146 = NO_RESULT / SUPERSEDED / NOT_PASS; no RESULTADO DEL TURNO nor Issue #41 handoff verified after JOBS CYCLE150.`
-- `SERIALIZATION: AAA147 owns only F2/12.1 runtime-proof evidence. BBB146 owns recent-reauth seam. WOZ150 owns #89. F2/13.2 remains BLOCKED_WRITE_SURFACE / UNASSIGNED. #93 has no mutation owner.`
+- `PREDECESSOR: NIGHT-AAA-148 = NO_RESULT / SUPERSEDED / NOT_PASS; no RESULTADO DEL TURNO nor Issue #41 worker handoff verified after JOBS CYCLE152.`
+- `LIVE_CANDIDATE: PR #98 OPEN/Ready/mergeable, base aa4450956579de381e82acf06c660b658c703cd1, head 00da0ab7716242bbd2c7cb8b8cfdea1ca8b3930c; six-file production cleanup candidate.`
+- `SERIALIZATION: AAA149 owns only runtime/deployment evidence. WOZ152 exclusively owns PR #98 mutation/integration. BBB148 owns recent-reauth. #89 is WOZ152 fallback READ-ONLY only; #93 has no mutation owner.`
 
 ### PRIMARY
 
-Close the factual uncertainty in F2/12.1 without mutating code, deployment or infrastructure.
+Close the factual runtime uncertainty around F2/12.1 without mutating code, PRs, deployment or infrastructure.
 
-1. Fresh preflight: live integration, Issue #41, PR #96 lineage, and any runtime/deploy evidence newer than CYCLE150.
-2. Treat #96 only as merged software evidence: final head `6247173ead703f831801fa103ca465fea04e5793`, merge `aa4450956579de381e82acf06c660b658c703cd1`, exact-head Required CI SUCCESS.
-3. REUSE-FIRST: inventory exact public evidence for `/web-health`, auth-health, signed-out startup, authenticated temporary auth, worker initialize/activate/verify, authoritative library reload or recoverable error, cold/warm startup, pool behavior if applicable, cookie/marker/CSRF restore robustness and public terminology residual.
-4. Classify every literal item `PROVEN_EXACT_DEPLOYMENT`, `PROVEN_OLDER_DEPLOYMENT_ONLY`, `UNVERIFIED`, or `NOT_APPLICABLE`, with evidence ID/URL/timestamp and deployment identity where known.
-5. If all literal runtime evidence is exact and representative, report `F2_12.1_READY_FOR_JOBS_CLOSE_REVIEW`; do not mark PASS or edit canonical plan.
-6. Otherwise reduce the blocker to the minimum concrete runtime actions still needed. No deploy/code/infra/provider mutation and no inference from software CI.
-7. Write RESULTADO DEL TURNO here + Issue #41 handoff, then STOP.
+1. Fresh preflight: integration HEAD, PR #98 exact base/head, Issue #41, current CI and any public/owner runtime evidence created during the September 1 production diagnosis.
+2. Treat PR #98 body claims as leads, not automatic proof. Establish whether the deployed production build can be bound to exact source/head `00da0ab7716242bbd2c7cb8b8cfdea1ca8b3930c` or another exact immutable SHA.
+3. REUSE-FIRST inventory/classification for: public `/web-health` and auth health; signed-out startup; login; productive second-stage temporary auth; Worker initialize/activate/verify; authoritative INDEX/library materialization; artwork; Web playback; cold/warm restart; recoverable failure behavior; pool behavior if applicable; cookie/marker/CSRF restore; public terminology residual.
+4. Classify each literal item as `PROVEN_EXACT_DEPLOYMENT`, `PROVEN_BUT_SOURCE_UNBOUND`, `PROVEN_OLDER_DEPLOYMENT_ONLY`, `UNVERIFIED`, or `NOT_APPLICABLE`, with evidence ID/URL/timestamp/source identity where available.
+5. Record Issue #97 separately: it is a newly explicit pre-Beta startup/reveal performance blocker, but **do not implement or optimize it** while #98 owns overlapping `src/App.tsx`/platform surfaces. Only state what runtime observation already proves and what remains for post-#98 work.
+6. If runtime evidence plus immutable deployment identity literally closes the functional 12.1 checklist, report `F2_12.1_READY_FOR_JOBS_CLOSE_REVIEW`; do not mark PASS or edit canonical plan.
+7. Otherwise reduce the blocker to the minimum exact missing runtime actions/evidence. No deployment, provider, code, branch, PR, review, rerun or gate mutation.
+8. Write RESULTADO DEL TURNO here + Issue #41 handoff, then STOP.
 
-**Required evidence:** live integration SHA; #96 head/base/merge; exact-head CI; deployment identity/version if available; per-item evidence table; explicit `UNVERIFIED`.  
-**STOP:** any code/branch/PR/provider/infra/canonical-plan mutation, deployment change, unsupported inference, duplicate work or overlap with BBB146/WOZ150.
+**Required evidence:** live integration SHA; #98 exact base/head; current exact-head CI snapshot; immutable deployment identity if available; per-item evidence table; explicit `UNVERIFIED`; #97 separation.  
+**STOP:** any code/branch/PR/provider/infra/canonical-plan mutation, deployment change, unsupported inference, overlap with WOZ152 PR #98 ownership or BBB148.
 
 ### CI-FALLBACK
 
@@ -34,5 +36,5 @@ Close the factual uncertainty in F2/12.1 without mutating code, deployment or in
 
 ## RESULTADO DEL TURNO MÁS RECIENTE PROCESADO
 
-- `NIGHT-AAA-146`: no matching final result/handoff verified by JOBS CYCLE151 → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-AAA-148`: no matching final result/handoff verified by JOBS CYCLE153 preflight → `NO_RESULT / SUPERSEDED / NOT_PASS`.
 - `NIGHT-AAA-114`: `PENDING / STOP_WRITE_SURFACE / NOT_PASS`; durable Review gap remains reusable blocker evidence only.
