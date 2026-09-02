@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Trabajo cross-phase solo con owner explícito y dependencias reales satisfechas.
 
-**Baseline vivo CYCLE156:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
+**Baseline vivo CYCLE157:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
 
 ## Estado actual
 
@@ -10,17 +10,17 @@
 
 ### 12.1 — `[ 🟡 ] #92/#94/#95/#96/#98/#99 INTEGRATED / CLEAN CANONICAL PRODUCTION DEPLOYMENT PROOF OPEN`
 
-- #99 `bind Web runtime to exact source SHA` está **MERGED**. Exact candidate head `6e253c815515624dcfc70cb5d447befa38f19566`; merge/current integration `c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
-- Exact-head Required CI `33578074388` = SUCCESS.
-- #99 integra fail-closed source/deployment provenance: exact git SHA, dirty-tree rejection, `.well-known/source-sha.txt`, expected-SHA activation/readback y `WEB_RUNTIME_SOURCE_PROOF_OK`.
-- #98 había reportado production health/library/artwork/playback success, pero era source-unbound. #99 corrige el mecanismo; su exit condition exige una clean production deployment desde canonical integration HEAD donde el marker público sea exactamente el integrated SHA.
-- CYCLE156 no obtuvo evidencia literal nueva de esa ejecución/readback para `c2766fb...`; la resolución externa tampoco fue verificable desde JOBS. **12.1 sigue NOT_PASS**. No se infiere deployment por merge/CI.
+- #99 `bind Web runtime to exact source SHA` está MERGED; source-binding mechanism integrado en `c2766fb...` y exact-head Required CI fue SUCCESS.
+- Exit condition exige clean production deployment desde canonical integration HEAD donde el public marker sea exactamente el integrated SHA.
+- CYCLE157 no obtuvo evidencia literal nueva de esa ejecución/readback. **12.1 sigue NOT_PASS**. No se infiere deployment por merge/CI.
 
-### Issue #97 — `[ 🟡 ] PRE-BETA BLOCKER / ACTIVE OWNER WOZ155`
+### Issue #97 / PR #100 — `[ 🟡 ] PRE-BETA BLOCKER / ACTIVE OWNER WOZ156`
 
-Issue #97 sigue OPEN, cero comments, y dice `Must be addressed before Beta 1`. Requiere medir first usable cards/full visible library, near-instant normal startup, preservar artwork/playback readiness y validar Desktop + Web.
+Issue #97 sigue OPEN y `Must be addressed before Beta 1`.
 
-`NIGHT-WOZ-155` es owner exclusivo: mínimo correction arquitectónico cross-platform, no Web-only blank-card/hydrate-later hack, exact-head CI y conditional merge del candidate #97 only si exact/green/race-free.
+Durante CYCLE157 apareció PR #100 `F2/97: instrument startup and library reveal surfaces`, OPEN/Ready, exact base `c2766fb...`, head `5f0a0727edacbcb404eb4e31571468262744ec95`. El delta es observational instrumentation: timeline Web/Desktop, visible startup-surface taxonomy y beat-card counts. Su propio scope declara que no cambia startup UX, routing, library truth ni performance behavior. CI exact-head está en curso.
+
+`NIGHT-WOZ-156` posee #97/#100 exclusivamente: REUSE #100, obtener measurements Web+Desktop, aislar causal bottleneck y convertir esa misma lineage en la correction mínima shared/cross-platform; instrumentation-only no puede marcar #97 PASS ni integrarse como si fuera cierre. Conditional merge #100 only después de actual correction + exact applicable evidence/CI + race-free expected-head.
 
 ### 13.1 — `[ 🟡 ] FROZEN`
 
@@ -28,7 +28,7 @@ Issue #97 sigue OPEN, cero comments, y dice `Must be addressed before Beta 1`. R
 
 ### 13.2 — `[ 🟡 ] PROVEN PRODUCT GAP / BLOCKED_WRITE_SURFACE`
 
-AAA114 probó que Review puede avanzar/cerrar antes de durable cloud completion. `platform.cloudData.commitImportedBeat()` aporta boundary awaitable/retry-safe y #69 conserva semantics reutilizables. CYCLE156 sigue `UNASSIGNED`; no abrir concurrentemente mientras #97 ocupe App/startup surface.
+AAA114 probó que Review puede avanzar/cerrar antes de durable cloud completion. `platform.cloudData.commitImportedBeat()` aporta boundary awaitable/retry-safe y #69 conserva semantics reutilizables. CYCLE157 sigue `UNASSIGNED`; no abrir concurrentemente mientras #97/#100 ocupe App/startup/shared surfaces.
 
 ### 14.1 / 14.2
 
@@ -36,10 +36,10 @@ AAA114 probó que Review puede avanzar/cerrar antes de durable cloud completion.
 
 ### 15.1 — `[ 🟡 ] BLOCKED ON RECENT-REAUTH PRODUCT SEAM`
 
-D8 decidió fresh same-provider authorization ligada a user/session; falta boundary productiva consumible por destructive callers. `NIGHT-BBB-151` posee únicamente esa seam mínima, candidate-only, **NO MERGE / no Trash**. Después se reasigna 15.1 para strong confirmation + durable deterministic purge/no-false-success.
+D8 decidió fresh same-provider authorization ligada a user/session; falta boundary productiva consumible por destructive callers. `NIGHT-BBB-152` posee únicamente esa seam mínima, candidate-only, **NO MERGE / no Trash**. Después se reasigna 15.1 para strong confirmation + durable deterministic purge/no-false-success.
 
 ### 15.2 / 15.3
 
 A11y baseline visual y YouTube Web pure siguen pendientes. Web YouTube nunca depende de Tauri/helper Desktop.
 
-**Principio:** evidence-before-claim; CI software/PR body/source-binding mechanism no sustituyen una clean production deployment exacta probada.
+**Principio:** evidence-before-claim; instrumentation/CI/PR body/source-binding mechanism no sustituyen runtime correction ni clean production deployment exacta probada.
