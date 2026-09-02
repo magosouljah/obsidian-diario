@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Baseline vivo CYCLE148:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.  
+**Baseline vivo CYCLE153:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.  
 **Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[x] MAP COMPLETE / ALPHA CANDIDATE NOT READY`.  
 **Release público:** 🔴 `NO-GO`.
 
@@ -16,26 +16,28 @@ Blockers de alpha interna 3–5 cuentas se consolidan en 1.7; autorización fina
 
 ### PROVEN / estado vivo
 
-- #92, #94, #95 y #96 están integrados en F2/12.1. PR #96 final head `6247173ead703f831801fa103ca465fea04e5793`, merge `aa445095...`; Required CI exact-head SUCCESS. Esto es software evidence, no public runtime proof.
-- Windows Auth #93 conserva exact-green evidence histórica en old baseline; su base `134a293...` stale contra `aa445095...` no cuenta como canonical integration evidence.
+- #92, #94, #95 y #96 están integrados en F2/12.1. #98 apareció después de CYCLE152 como candidate exact-base `aa445095...`, head `00da0ab7716242bbd2c7cb8b8cfdea1ca8b3930c`; está OPEN y aún no convierte runtime/candidate en canonical integrated evidence.
+- Issue #97 está OPEN y explícitamente marcado `Must be addressed before Beta 1`; startup/reveal performance cross-platform pasa a blocker pre-Beta separado, después del cleanup #98 por overlap de superficies.
+- Windows Auth #93 conserva exact-green evidence histórica en old baseline; base `134a293...` stale contra `aa445095...`.
 - AAA114 revalidó F2/13.2 durable Review gap y paró correctamente por write surface; sigue abierto.
-- La decisión D8 de recent reauth existe, pero falta seam productiva consumible por Settings/Trash; owner BBB143.
+- La decisión D8 de recent reauth existe; falta seam productiva consumible por Settings/Trash. Owner CYCLE153 = BBB148.
 
-### HARD / ACTIVE BLOCKERS para alpha
+### HARD / ACTIVE BLOCKERS para alpha / apertura real de F5
 
-1. **F2/12.1:** software lineage integrada; public runtime proof exacto post-`aa445095...` sigue pendiente. Owner AAA144 READ-ONLY para evidencia/clasificación.
-2. **F0/0.9 security P1:** #89 stale-base + current F0 audit FAILURE; owner WOZ147 para diagnosis/refresh/revalidation/integration.
-3. **F2/13.2 durable Review:** `BLOCKED_WRITE_SURFACE / UNASSIGNED`; factual gap remains.
-4. **F1/D8 product seam → F2/15.1:** owner BBB143 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
-5. **F4/25.1 Windows Auth canonicalization:** #93 requiere future refresh/revalidation si sigue IN_ALPHA; global 25.1 además conserva otros journeys.
+1. **F2/12.1 / PR #98:** candidate funcional productivo nuevo; necesita exact-head Required CI/integration y runtime-source proof. AAA149 = evidence READ-ONLY; WOZ152 = exclusive PR #98 mutation/integration.
+2. **Issue #97:** pre-Beta startup/reveal performance; no implementación concurrente con #98 por overlap `src/App.tsx`/startup/platform. Se asigna después del cleanup.
+3. **F0/0.9 security P1:** #89 stale-base + F0 audit FAILURE; CYCLE153 queda sin mutation owner, solo fallback READ-ONLY de WOZ152 mientras #98 espera.
+4. **F2/13.2 durable Review:** `BLOCKED_WRITE_SURFACE / UNASSIGNED`; factual gap remains.
+5. **F1/D8 product seam → F2/15.1:** BBB148 expone seam mínima recent-reauth; después debe volver Trash strong confirmation + durable purge.
+6. **F4/25.1 Windows Auth canonicalization:** #93 future refresh/revalidation solo si 1.7 lo mantiene en alpha; global 25.1 conserva otros journeys.
 
 ### 1.7 — `[ 🟡 ] REQUEUE AFTER FRESH FACTS`
 
-`NIGHT-AAA-143`, `NIGHT-BBB-142` y `NIGHT-WOZ-146` no produjeron RESULTADO DEL TURNO verificable posterior a JOBS CYCLE147. JOBS CYCLE148 recalculó desde cero y mantiene primero los tres reducers factuales/productivos de mayor impacto: 12.1 runtime, #89 y recent-reauth. Después se reemitirá 1.7 para clasificación `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` antes de 1.8.
+CYCLE153 procesa AAA148/BBB147/WOZ151 como `NO_RESULT / SUPERSEDED / NOT_PASS`. No se emite 1.7 todavía: primero #98/runtime, luego #97, #89 y recent-reauth deben producir facts suficientemente frescos. Después 1.7 clasifica `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` antes de 1.8.
 
 ### F3 — decisión explícita de aplicabilidad al alpha
 
-- 18.2 provider/payment real scenarios: `UNVERIFIED_EXTERNAL`; excluir si alpha no cobra solo mediante decisión explícita. BBB143 puede hacer inventario READ-ONLY durante espera externa real de su PRIMARY, sin decidir exclusión.
+- 18.2 provider/payment real scenarios: `UNVERIFIED_EXTERNAL`; excluir si alpha no cobra solo mediante decisión explícita. BBB148 puede inventariar READ-ONLY durante espera externa real de su PRIMARY, sin decidir exclusión.
 - 19.2 legal implementation/release backlog: sigue abierto.
 - 20.2 runtime160/capacity: no probado; release/scale gate, no representativo de 3–5 cuentas, pero su exclusión del alpha debe quedar explícita.
 
@@ -45,11 +47,12 @@ Production signing/notarization, hardware matrix amplia, 12–20 testers, public
 
 ## Orden mínimo hacia 1.8
 
-1. cerrar/reducir 12.1 public runtime proof con evidencia exacta;
-2. integrar/procesar #89 P1 con exact-head evidence;
-3. cerrar seam recent-reauth y luego F2/15.1 o elevar exclusión RO explícita;
-4. cerrar F2/13.2 o elevar una exclusión RO explícita sustentada;
-5. refresh/revalidar #93 Windows Auth evidence si permanece `IN_ALPHA`;
-6. reemitir 1.7 factual classification con facts frescos y registrar aplicabilidad F3 18.2/19.2/20.2.
+1. procesar #98 con exact-head CI/integration + exact runtime-source evidence;
+2. cerrar #97 pre-Beta performance con Web + Desktop evidence;
+3. integrar/procesar #89 P1 con exact-head evidence;
+4. cerrar seam recent-reauth y luego F2/15.1 o elevar exclusión RO explícita;
+5. cerrar F2/13.2 o elevar una exclusión RO explícita sustentada;
+6. refresh/revalidar #93 Windows Auth si permanece `IN_ALPHA`;
+7. reemitir 1.7 factual classification y registrar aplicabilidad F3 18.2/19.2/20.2.
 
 Solo después corresponde **1.8 — decisión RO final**.
