@@ -2,13 +2,13 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE154:** `integration-v0.8.0-alpha.1 @ c4e203cf5e44cf93c0c017c0120f097473fe91b2`.
+**Baseline vivo CYCLE155:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
 
 ## Estado compacto
 
 - 17.1 / 17.2 / 18.1 `[x]`.
 - 18.2 reconciliation core/exception queue `PROVEN_SOFTWARE`; provider/payment scenarios reales abiertos.
-- 19.1 infraestructura pública principal `PROVEN_OWNER_RUNTIME`; external/provider tails parciales.
+- 19.1 infraestructura pública principal `PROVEN_OWNER_RUNTIME`; exact canonical source/deployment proof post-#99 aún abierto.
 - 19.2 legal implementation sustantiva abierta: 12 P0 + 14 P1 + P2/P3 + UNVERIFIED; v1 canónico = **18+**.
 - 20.1 software observability integrado; external observability tails abiertos.
 - #78 capacity harness integrado; #83 durable waitlist OPEN/DRAFT; runtime160 UNVERIFIED.
@@ -17,11 +17,11 @@
 
 Software reconciliation + durable exception queue probado. 3DS, rejection, late payment, renewal failure, cancel E2E, plan changes, refund, provider webhooks/financial outcomes y full sandbox reconciliation = `UNVERIFIED_EXTERNAL`.
 
-Para alpha 3–5 cuentas sin cobros, 1.7 debe clasificar explícitamente `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión. BBB149 puede usar un fallback READ-ONLY para inventario solo durante espera externa real de su recent-reauth PRIMARY; no ejecuta pagos/provider mutation ni decide exclusión.
+Para alpha 3–5 cuentas sin cobros, 1.7 debe clasificar explícitamente `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión. BBB150 puede usar un fallback READ-ONLY para inventario solo durante espera externa real de su recent-reauth PRIMARY; no ejecuta pagos/provider mutation ni decide exclusión.
 
-## 19.1 — `[ 🟡 ] PUBLIC SOFTWARE/RUNTIME IMPROVED / EXACT SOURCE BINDING OPEN`
+## 19.1 — `[ 🟡 ] PUBLIC SOFTWARE/RUNTIME IMPROVED / CLEAN CANONICAL SOURCE PROOF OPEN`
 
-#98 ya está **integrado** en `c4e203cf...`, con Required CI exact-head SUCCESS. Su body reporta clean production deployment, public/local health PASS, library materialization, artwork y playback success. AAA150 debe clasificar si esa evidencia puede ligarse a exact deployment/source antes de cerrar F2/12.1 o promover más allá de lo literal.
+#98 está integrado y reportó production health/library/artwork/playback funcional. #99 también está integrado en `c2766fb...`, con Required CI exact-head SUCCESS, y aporta el mecanismo fail-closed de source binding. Falta evidencia literal de una clean production deployment desde el canonical integration HEAD donde el marker público leído de vuelta sea exactamente ese SHA. No se promueve más allá de lo literal.
 
 ## 19.2 — `[ 🟡 ] LEGAL IMPLEMENTATION OPEN / REVIEW TASK COMPLETE`
 
@@ -37,6 +37,6 @@ Structured redacted events, counters, routes, kill switches, tests/runbook integ
 
 ## Cross-phase security tail
 
-PR #89 sigue OPEN @ `daf87da6...`, stale base `816f946c...`, security run `33454881387` FAILURE. CYCLE154 no le asigna mutation owner; WOZ153 solo puede inventariarlo READ-ONLY como fallback mientras Issue #97 espera externamente.
+PR #89 sigue OPEN @ `daf87da6...`, stale base `816f946c...`, security run `33454881387` FAILURE. CYCLE155 owner exclusivo de mutation/integration = AAA151; no waiver.
 
 **Principio:** no falsear provider, capacity, payments, DNS, deployment, staging, legal compliance ni independent counsel review sin evidencia aplicable.
