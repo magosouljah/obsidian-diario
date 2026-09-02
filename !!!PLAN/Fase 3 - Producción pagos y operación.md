@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE148:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
+**Baseline vivo CYCLE153:** `integration-v0.8.0-alpha.1 @ aa4450956579de381e82acf06c660b658c703cd1`.
 
 ## Estado compacto
 
@@ -19,11 +19,11 @@ Software reconciliation + durable exception queue está probado. 3DS, rejection,
 
 Para una alpha 3–5 cuentas sin cobros, 1.7 debe clasificar explícitamente este gate como `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión automáticamente.
 
-**CYCLE148:** `NIGHT-BBB-143` puede, únicamente si su PRIMARY recent-reauth queda genuinamente esperando CI/build/review externo, usar CI-FALLBACK READ-ONLY para inventariar esta evidencia y clasificarla `SOFTWARE_PROVEN / UNVERIFIED_EXTERNAL / NOT_REPRESENTATIVE_OF_3_5_ACCOUNT_ALPHA`. No ejecuta pagos/provider mutation y no toma la decisión RO de exclusión.
+**CYCLE153:** `NIGHT-BBB-148` puede, únicamente si su PRIMARY recent-reauth queda genuinamente esperando CI/build/review externo, usar CI-FALLBACK READ-ONLY para inventariar esta evidencia y clasificarla `SOFTWARE_PROVEN / UNVERIFIED_EXTERNAL / NOT_REPRESENTATIVE_OF_3_5_ACCOUNT_ALPHA`. No ejecuta pagos/provider mutation y no toma la decisión RO de exclusión.
 
-## 19.1 — `[ 🟡 ] PUBLIC SOFTWARE IMPROVED / EXTERNAL TAILS OPEN`
+## 19.1 — `[ 🟡 ] PUBLIC SOFTWARE/RUNTIME IMPROVED / EXACT SOURCE BINDING OPEN`
 
-Owner evidence previo mantiene `/web-health`, auth-health, www→apex y TLS probados en evidencia aplicable. #87 software slice, #88 technical signing seam y #90 OAuth readiness están integrados. #96 también está integrado en F2, pero ninguno de estos hechos sustituye deploy/runtime exacto requerido para cerrar F2/12.1.
+Owner evidence previo mantiene `/web-health`, auth-health, www→apex y TLS probados en evidencia aplicable. #87, #88 y #90 están integrados. PR #98 reporta clean deployment productivo con public/local health PASS, library materialization, artwork y playback funcional; sin embargo #98 sigue OPEN y CYCLE153 exige distinguir runtime exact-source-bound de behavior source-unbound antes de cerrar F2/12.1 o promover 19.1 más allá de lo literal.
 
 ## 19.2 — `[ 🟡 ] LEGAL IMPLEMENTATION OPEN / REVIEW TASK COMPLETE`
 
@@ -43,6 +43,6 @@ Para alpha 3–5 cuentas, 1.7 debe clasificar explícitamente 20.2; no se fabric
 
 ## Cross-phase security tail
 
-PR #89 F0/0.9 contiene P1 DNS-rebinding SSRF corrective + audit AI-assisted. **Owner CYCLE148: `NIGHT-WOZ-147` bajo F0.** #89 sigue OPEN @ `daf87da6...`, recorded base `816f946c...`; base stale frente a live `aa445095...`. Su exact-head F0/0.9 run `33454881387` sigue `completed/failure`; old-head green no sustituye diagnosis + refresh/exact-head. WOZ147 posee la única conditional integration lane sobre #89.
+PR #89 F0/0.9 contiene P1 DNS-rebinding SSRF corrective + audit AI-assisted. CYCLE153 no le asigna mutation owner porque WOZ152 fue movido a PR #98. #89 sigue OPEN @ `daf87da6...`, base `816f946c...` stale y security run `33454881387` FAILURE. Solo puede recibir inventario READ-ONLY como fallback de WOZ152 durante espera externa real de #98.
 
 **Principio:** no falsear provider, capacity, payments, DNS, deployment, staging, legal compliance ni independent counsel review sin evidencia aplicable.
