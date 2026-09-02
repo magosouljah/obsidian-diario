@@ -2,7 +2,7 @@
 
 > GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
 
-**Baseline vivo CYCLE155:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
+**Baseline vivo CYCLE156:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
 
 ## Estado compacto
 
@@ -17,11 +17,11 @@
 
 Software reconciliation + durable exception queue probado. 3DS, rejection, late payment, renewal failure, cancel E2E, plan changes, refund, provider webhooks/financial outcomes y full sandbox reconciliation = `UNVERIFIED_EXTERNAL`.
 
-Para alpha 3–5 cuentas sin cobros, 1.7 debe clasificar explícitamente `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión. BBB150 puede usar un fallback READ-ONLY para inventario solo durante espera externa real de su recent-reauth PRIMARY; no ejecuta pagos/provider mutation ni decide exclusión.
+Para alpha 3–5 cuentas sin cobros, 1.7 debe clasificar explícitamente `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión. BBB151 puede usar un fallback READ-ONLY para inventario solo durante espera externa real de su recent-reauth PRIMARY; no ejecuta pagos/provider mutation ni decide exclusión.
 
 ## 19.1 — `[ 🟡 ] PUBLIC SOFTWARE/RUNTIME IMPROVED / CLEAN CANONICAL SOURCE PROOF OPEN`
 
-#98 está integrado y reportó production health/library/artwork/playback funcional. #99 también está integrado en `c2766fb...`, con Required CI exact-head SUCCESS, y aporta el mecanismo fail-closed de source binding. Falta evidencia literal de una clean production deployment desde el canonical integration HEAD donde el marker público leído de vuelta sea exactamente ese SHA. No se promueve más allá de lo literal.
+#98 está integrado y reportó production health/library/artwork/playback funcional. #99 está integrado en `c2766fb...` y aporta el mecanismo fail-closed de source binding. Falta evidencia literal de una clean production deployment desde canonical integration HEAD donde el marker público leído de vuelta sea exactamente ese SHA. CYCLE156 no obtuvo esa prueba nueva.
 
 ## 19.2 — `[ 🟡 ] LEGAL IMPLEMENTATION OPEN / REVIEW TASK COMPLETE`
 
@@ -37,6 +37,6 @@ Structured redacted events, counters, routes, kill switches, tests/runbook integ
 
 ## Cross-phase security tail
 
-PR #89 sigue OPEN @ `daf87da6...`, stale base `816f946c...`, security run `33454881387` FAILURE. CYCLE155 owner exclusivo de mutation/integration = AAA151; no waiver.
+PR #89 sigue OPEN @ `daf87da6...`, stale base `816f946c...`, security run `33454881387` FAILURE. CYCLE156 owner exclusivo de mutation/integration = AAA152; no waiver.
 
 **Principio:** no falsear provider, capacity, payments, DNS, deployment, staging, legal compliance ni independent counsel review sin evidencia aplicable.
