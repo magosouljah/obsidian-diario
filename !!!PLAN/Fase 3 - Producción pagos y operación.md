@@ -1,43 +1,106 @@
 # Fase 3 — Producción, pagos, legal y operación
 
-> GitHub/runtime vivo prevalece. Leer `Plan Maestro.md` antes de actuar.
+> Antes de trabajar aquí: leer completo [`Plan Maestro.md`](./Plan%20Maestro.md).
 
-**Baseline vivo CYCLE157:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
+**Fechas:** 14–18 de septiembre  
+**Objetivo:** crear un servicio operable, cobrable y restaurable con verdad legal.
 
-## Estado compacto
+## Día 16 — 14 de septiembre — Staging y producción reproducibles
 
-- 17.1 / 17.2 / 18.1 `[x]`.
-- 18.2 reconciliation core/exception queue `PROVEN_SOFTWARE`; provider/payment scenarios reales abiertos.
-- 19.1 infraestructura pública principal `PROVEN_OWNER_RUNTIME`; exact canonical source/deployment proof post-#99 aún abierto.
-- 19.2 legal implementation sustantiva abierta: 12 P0 + 14 P1 + P2/P3 + UNVERIFIED; v1 canónico = **18+**.
-- 20.1 software observability integrado; external observability tails abiertos.
-- #78 capacity harness integrado; #83 durable waitlist OPEN/DRAFT; runtime160 UNVERIFIED.
+**Resultado:** el mismo SHA se despliega de forma aislada y reversible.
 
-## 18.2 — `[ 🟡 ] GLOBAL PROVIDER/PAYMENT EVIDENCE OPEN`
+### Tarea 16.1 [P0 · OP/BE] — Entornos
 
-Software reconciliation + durable exception queue probado. 3DS, rejection, late payment, renewal failure, cancel E2E, plan changes, refund, provider webhooks/financial outcomes y full sandbox reconciliation = `UNVERIFIED_EXTERNAL`.
+- [ ] Crear proyectos separados, base de datos, buckets/volúmenes, bots, OAuth callbacks y secretos para staging/producción.
+- [ ] Si se mantiene la propuesta del usuario: Cloudflare Pages para Web y Railway para API/PostgreSQL; documentar alternativa y ownership.
+- [ ] Health, readiness y dependency checks; graceful shutdown, timeouts y proxy trust.
 
-Para alpha 3–5 cuentas sin cobros, 1.7 debe clasificar explícitamente `RO_EXCLUDE_CANDIDATE` o `MUST_CLOSE`; no se infiere exclusión. BBB152 puede usar fallback READ-ONLY para inventario solo durante espera externa real de recent-reauth PRIMARY; no ejecuta pagos/provider mutation ni decide exclusión.
+### Tarea 16.2 [P0 · OP/QA] — Pipeline de promoción
 
-## 19.1 — `[ 🟡 ] PUBLIC SOFTWARE/RUNTIME IMPROVED / CLEAN CANONICAL SOURCE PROOF OPEN`
+- [ ] PR → preview; tag candidato → staging; aprobación → producción.
+- [ ] Inyectar API origin público, TLS y headers; eliminar Tailscale/local fallbacks de release.
+- [ ] Smoke post-deploy y rollback al último artefacto/DB compatible.
 
-#98 está integrado y reportó production health/library/artwork/playback funcional. #99 está integrado en `c2766fb...` y aporta mecanismo fail-closed de source binding. Falta evidencia literal de clean production deployment desde canonical integration HEAD donde el marker público leído de vuelta sea exactamente ese SHA. CYCLE157 no obtuvo esa prueba nueva.
+**Dependencias:** rama integrada y migraciones.  
+**Evidencia:** deploy desde cero, smoke y rollback con mismo SHA.  
+**Gate de salida:** no existe paso manual irrepetible ni secreto compartido entre entornos.
 
-## 19.2 — `[ 🟡 ] LEGAL IMPLEMENTATION OPEN / REVIEW TASK COMPLETE`
+## Día 17 — 15 de septiembre — Stripe Checkout y webhooks
 
-PR #76 sigue stale; 13+ contradice v1 **18+**. F0/0.8 `[x]` significa solo AI-assisted review activity completada por excepción RO, no attorney review/compliance. Los 12 P0 + 14 P1 y demás backlog siguen gates de implementation/release y 1.7 debe clasificar alpha applicability sin declararlos resueltos.
+**Resultado:** compra sandbox crea estado comercial verificable, no un cambio DEV.
 
-## 20.1 — `[x] SOFTWARE DONE / INTEGRATED`
+### Tarea 17.1 [P0 · BE/LF] — Catálogo y checkout
 
-Structured redacted events, counters, routes, kill switches, tests/runbook integrados. External provider/on-call/status/retention proof no se infiere.
+- [ ] Definir productos/precios/trial/currency/tax y mapearlos a IDs internos estables.
+- [ ] Checkout Session server-side; customer linkage y success/cancel URLs sin confiar en query params.
+- [ ] Idempotency keys en mutaciones Stripe y sin precios decididos por cliente.
 
-## 20.2 — `[ 🟡 ] RUNTIME UNVERIFIED`
+### Tarea 17.2 [P0 · BE/QA] — Webhook seguro
 
-#78 harness integrado; expected peak 80. Falta runtime aplicable a **160 concurrent users**, latency/error/queue/recovery/no-loss/no-cross-tenant + safety margin. #83 sigue OPEN/DRAFT/stale. Para alpha 3–5 cuentas, 1.7 debe clasificar explícitamente aplicabilidad.
+- [ ] Verificar firma sobre raw body, guardar event ID y procesar asíncrono/reintentable.
+- [ ] Manejar duplicados, desorden, timeout y eventos desconocidos.
+- [ ] Cubrir checkout complete, invoice paid/failed, subscription updated/deleted y dispute/refund relevantes.
 
-## Cross-phase security / pre-Beta tails
+**Dependencias:** cuenta/productos Stripe confirmados y entorno staging.  
+**Evidencia:** matriz sandbox, replay/duplicate test y ledger consistente.  
+**Gate de salida:** la UI nunca concede plan por redirect; solo estado server-side reconciliado. Si falla este gate, v1 se retrasa.
 
-- PR #89 sigue OPEN @ `daf87da6...`, stale base `816f946c...`, dedicated security gate FAILURE. CYCLE157 owner exclusivo de mutation/integration = AAA153; no waiver.
-- Issue #97 sigue pre-Beta OPEN. PR #100 apareció como instrumentation-only; WOZ156 lo posee y debe producir factual Web/Desktop measurements + actual correction antes de claim/merge de cierre.
+## Día 18 — 16 de septiembre — Entitlements, portal y reconciliación
 
-**Principio:** no falsear provider, capacity, payments, deployment, staging, legal compliance ni independent counsel review sin evidencia aplicable.
+**Resultado:** planes se aplican atómicamente y el usuario puede gestionar/cancelar.
+
+### Tarea 18.1 [P1 · BE/FE] — Enforcement
+
+- [ ] Aplicar beats/storage/project/device/session/YouTube limits antes de reservar recursos.
+- [ ] Transacción o reserva evita carreras; errores incluyen uso, límite y acción posible.
+- [ ] Billing Portal/cancelación y estado `active/trialing/past_due/canceled` en Settings.
+
+### Tarea 18.2 [P0 · LF/BE/QA] — Dinero y ledger
+
+- [ ] Job de reconciliación Stripe↔BeatGaler y cola de excepciones con owner.
+- [ ] Probar 3DS, rechazo, pago tardío, renewal failed, cancel, upgrade/downgrade y refund.
+- [ ] Separar accesos inmediatamente peligrosos de grace periods aprobados.
+
+**Dependencias:** Día 17.  
+**Evidencia:** 100% de escenarios de billing esperados reconciliados en sandbox.  
+**Gate de salida:** no existe pago sin plan correcto ni plan pagado sin evento/ledger justificable; v1 no tiene fallback free-only.
+
+## Día 19 — 17 de septiembre — Dominio, identidad, legal y soporte
+
+**Resultado:** una persona real sabe quién opera BeatGaler, qué acepta y dónde pedir ayuda.
+
+### Tarea 19.1 [P0/P1 · LF/RO] — Identidad pública
+
+- [ ] Fijar nombre, bundle ID, dominio, API/status/support URLs y sender domains.
+- [ ] Configurar DNS/TLS, redirects canónicos y callbacks OAuth exactos.
+- [ ] Registrar versión/fecha de Terms/Privacy aceptada en signup.
+
+### Tarea 19.2 [P0/P1 · LF/FE] — Legal y soporte operable
+
+- [ ] Privacy describe Telegram, pagos, providers, retención, export/delete y transferencias reales.
+- [ ] Terms/refund/cancelación/renewal y contacto sin placeholders, aprobados por owner legal.
+- [ ] Soporte con intake, severidad, SLA propuesto, recuperación, abuso/seguridad, refund y escalación.
+
+**Dependencias:** flujos reales de cuenta/datos/pago ya definidos.  
+**Evidencia:** URLs versionadas, aceptación E2E y prueba de ticket/escalación.  
+**Gate de salida:** copy y comportamiento coinciden; ningún placeholder o promesa ausente.
+
+## Día 20 — 18 de septiembre — Observabilidad, capacidad y recovery
+
+**Resultado:** fallos se detectan, limitan y recuperan antes de afectar a todos.
+
+### Tarea 20.1 [P1 · OP/BE] — Operación
+
+- [ ] Logs estructurados/redactados, métricas, tracing/error reporting y retention.
+- [ ] Dashboards/alerts para auth, API, DB, Stripe, Telegram, lease pool, queue, backup y release.
+- [ ] On-call, runbook, status page, severidad y kill switches de registro/pagos/uploads.
+
+### Tarea 20.2 [P1 · OP/QA] — Capacity envelope
+
+- [ ] Definir pico esperado y probar al doble durante 60 minutos como target propuesto.
+- [ ] Medir lease/upload/index latency, errores Telegram, queue depth y recuperación.
+- [ ] Añadir admission control, per-bot ceiling, 30% de margen propuesto y waitlist; no exigir “80 bots” sin necesidad medida.
+
+**Dependencias:** staging production-shaped.  
+**Evidencia:** dashboard, alert delivery, load report y dependency-loss drill.  
+**Gate de salida:** alertas accionables y capacidad medida; 0 fuga cross-tenant bajo carga.
