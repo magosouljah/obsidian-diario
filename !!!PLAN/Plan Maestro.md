@@ -1,123 +1,77 @@
-# BeatGaler — Plan Maestro para terminar y publicar Web, Windows y macOS
+# BeatGaler — Plan Maestro OPERATIVO
 
-> **ESTE ARCHIVO SE LEE COMPLETO SIEMPRE ANTES DE TRABAJAR EN BEATGALER.**
-> Después se lee completa la fase activa indicada en `Estado vivo del plan`. Los demás archivos solo se abren cuando la tarea actual los requiere.
+> **Objetivo:** terminar BeatGaler lo más rápido posible sin rebajar gates reales.
 
-#### ignorar*
-```powershell
-# Limpia y compacta manualmente la base interna de Git
-git gc
-```
+## Reglas de autoridad
 
-```powershell
-# Baja cambios de GitHub usando rebase
-git pull --rebase origin main
-```
+- GitHub/runtime vivo prevalece sobre snapshots viejos.
+- `READY_TO_WORK` ≠ `READY_TO_CLOSE` ≠ `READY_TO_RELEASE`.
+- Evidence-before-claim, REUSE-FIRST, duplicate-check y exact-head son obligatorios.
+- Cada pieza material tiene un solo owner.
+- JOBS dirige/sincroniza; no modifica código BeatGaler ni infraestructura.
+- No se marca `[x]` sin evidencia verificable.
+- `Plan Maestro 2208 copy DONT TOUCH .md` permanece protegido.
 
-```powershell
-# Sube tus cambios locales
-git push origin main
-```
+## Estado vivo — NIGHT-JOBS-157
 
-## REGLAS DE ORO
+- **Release público:** 🔴 `NO-GO`.
+- **Integración estable:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
+- **PR #99:** `MERGED`; mecanismo fail-closed Web source/runtime binding integrado. F2/12.1 sigue `NOT_PASS / CLEAN_CANONICAL_PRODUCTION_DEPLOYMENT_PROOF_OPEN` porque no existe evidencia literal nueva de clean deployment desde canonical integration HEAD con public marker igual al exact SHA.
+- **Issue #97 / PR #100:** #97 sigue OPEN / pre-Beta blocker. Durante CYCLE157 apareció #100 `F2/97: instrument startup and library reveal surfaces`, OPEN/Ready, exact base `c2766fb...`, head `5f0a0727edacbcb404eb4e31571468262744ec95`. Es instrumentation-only: mide startup surfaces/card counts y no cambia performance/startup behavior. CI está en curso; WOZ156 debe REUSE #100, obtener Web+Desktop measurements y convertir esa misma lineage en la correction mínima antes de cualquier merge de cierre.
+- **F0/0.9:** PR #89 sigue OPEN @ `daf87da6ffd604ccac991311036919ae2de9bd7a`, recorded base `816f946c...`, stale; dedicated F0/0.9 gate sigue FAILURE. AAA153 posee REUSE/refresh/revalidate e integración condicional.
+- **F2/15.1:** bloqueada por seam productiva recent-reauth; BBB152 posee únicamente esa seam mínima, candidate-only, NO MERGE/no Trash.
+- **F2/13.2:** durable Review gap confirmado; `BLOCKED_WRITE_SURFACE / UNASSIGNED` mientras #97/#100 ocupa startup/App surfaces.
+- **F4/25.1:** PR #93 sigue OPEN/stale @ `b2c4eb441280343c4b9c39d57851c6d3da33abaa`; sin mutation owner; refresh solo si 1.7 lo mantiene `IN_ALPHA`.
+- **F1:** D6–D10.1 PASS; D10.2 `MAP COMPLETE / ALPHA CANDIDATE NOT READY`; 1.7 espera facts frescos de 12.1/#97/#89/recent-reauth.
+- **F3:** provider/payment real, legal implementation y runtime160/capacity siguen abiertos/external o pendientes de clasificación explícita 1.7→1.8.
+- **F4:** 21.1/21.2/24.1/24.2 cerrados; 25.1 global abierto; signing/notarization/hardware/tester execution externos.
+- **F5:** `NO ABRIR`.
 
-1. **LEE `Plan Maestro.md` COMPLETO SIEMPRE.**
-2. **LEE COMPLETA LA FASE ACTIVA ANTES DE MODIFICAR CÓDIGO.**
-3. **SIGUE EL PLAN ESTRICTAMENTE.** No adelantar una tarea saltándose dependencias o gates.
-4. **ANTES DE MODIFICAR:** hacer auditoría solo lectura y explicar exactamente qué se cambiará y por qué.
-5. **DESPUÉS DE CADA CAMBIO RELEVANTE:** ejecutar las pruebas afectadas y revisar CI antes de seguir.
-6. **NO MARCAR `[x]` SIN EVIDENCIA.** `[x]` significa terminado y con gate satisfecho.
-7. **NO OLVIDAR ANOTAR CADA AVANCE.** Cada avance relevante actualiza obligatoriamente:
-   - este archivo: `Estado vivo del plan`;
-   - la tarea/checklist dentro de su archivo de fase;
-   - `Registro de avances.md` con evidencia fechada.
-8. Si una tarea afecta publicación/go-no-go, leer también `Gates - Publicación y contingencias.md`.
-9. No cambiar comportamiento de producto no relacionado para “aprovechar” una tarea.
+## RESULTADOS PROCESADOS — CYCLE157
 
-## Repos
+- `NIGHT-AAA-152`: sin RESULTADO DEL TURNO y sin matching worker handoff antes del nuevo ciclo; GitHub #89 no cambió → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-BBB-151`: sin RESULTADO DEL TURNO y sin matching worker handoff; no apareció recent-reauth candidate → `NO_RESULT / SUPERSEDED / NOT_PASS`.
+- `NIGHT-WOZ-155`: sin resultado terminal, pero GitHub produjo PR #100 durante el preflight → `ACTIVE_PROGRESS / SUPERSEDED_BY_WOZ156 / NOT_PASS`. #100 no cierra #97 porque es observational instrumentation only.
+- No se promueve DONE/PASS/integration sin evidencia.
 
-- Plan: https://github.com/magosouljah/obsidian-diario
-- BeatGaler: https://github.com/magosouljah/BeatGaler
+## OWNERS — CYCLE157
 
-**Versión del plan:** 1.2  
-**Fecha de auditoría base:** 22 de agosto de 2026, `America/Mexico_City`  
-**Última reorganización:** 23 de agosto de 2026, `America/Mexico_City`  
-**Hito original:** 4 de septiembre de 2026  
-**Fecha pública recomendada:** 9 de octubre de 2026, condicionada a todos los gates  
-**Ruta conservadora si una persona concentra la ejecución:** 30 de octubre de 2026  
-**Alcance:** lanzamiento público directo desde la web, con aplicación Web y descargas firmadas para Windows y macOS.
+### AAA — `NIGHT-AAA-153` — F0/0.9 / PR #89
+PRIMARY: REUSE #89; history-preserving refresh sobre live baseline; mínimo gate-precondition correction; exact-head F0/0.9 revalidation; conditional expected-head merge solo si exact/green/race-free.  
+CI-FALLBACK: NONE.
 
-## Estado vivo del plan
+### BBB — `NIGHT-BBB-152` — recent-reauth seam
+PRIMARY: REUSE D8/#53; mínima seam productiva same-provider bound to user/session, fail-closed, focused tests; candidate-only; **NO MERGE / no Trash / no #97/#100/#89**.  
+CI-FALLBACK: F3/18.2 READ-ONLY inventory solo durante genuine external wait después de candidate limpio; no provider/payment mutation ni decisión RO.
 
-- **Fase actual:** Fase 0 — Contener, decidir y crear una sola línea de release.
-- **Día/tarea actual:** Día 4 — Tarea 4.2 — Cerrar supply chain conocida; Tarea 1.2 y 2.2 continúan en paralelo según sus gates.
-- **Estado general:** 🔴 `NO-GO` para lanzamiento público. Tarea 4.1 queda cerrada con un pipeline obligatorio reproducible y `Required CI` protegido; siguen abiertos P0/P1 posteriores y dependencias externas.
-- **Último avance:** Tarea 4.1 completada. PR BeatGaler #9 integró el pipeline requerido en `integration-v0.8.0-alpha.1`: Web build real + Chrome smoke, frontend/shared/backend/regresiones/packaging, Rust nativo en Windows + macOS arm64 + x86_64, Node/Rust/actions fijados, lockfiles obligatorios, `version:check` y agregador estable `Required CI`. El ruleset exige `Required CI`, exige rama actualizada antes de merge y mantiene `Required approvals = 0` por ser un repo de un solo maintainer.
-- **Próximo paso principal:** Tarea 4.2 — cerrar supply chain conocida: vulnerabilidades critical/high o excepciones fechadas, advisories/licencias/secret scan/SBOM/checksums y procedencia/digest de runtimes.
-- **Trabajo paralelo vigente:** Tarea 1.2 (dominio, Apple Developer, Authenticode, revisiones/hardware) y reauditoría diferida de Tarea 2.2.
-- **Bloqueos actuales:** historial Git antiguo de información operacional aún pendiente de decisión de purga; dominio, Apple Developer, Authenticode y revisiones externas de 1.2 pendientes; regresión de tiempo de carga inicial de librería registrada para 12.1.
-- **BeatGaler integración:** rama `integration-v0.8.0-alpha.1`; merge 4.1 `c7894ad3c2b3e296e3d2939d73953b159e48852f`; versión `0.8.0-alpha.1`.
-- **Evidencia 3.2:** PR #8; commit de trabajo `818214889ef3c6f97a262a91046f7df0e4f723fe`; CI PR #64 PASS Windows + macOS arm64 + macOS x86_64; merge `32a38c490a53650a0e9d6435c50cd009ef1b5123`; CI post-merge #65 PASS.
-- **Evidencia 4.1:** PR #9; commits de trabajo `e86ab19a7f3eef3a7036a50f8cb083add94c2292`, `a4f58943f222ef8f6a5c85a3e72142353fdf0a72` y `71a559dc4cdcb8e16159c709a7c2d0f64e61e5a0`; CI PR #68 PASS 5/5 incluido `Required CI`; merge `c7894ad3c2b3e296e3d2939d73953b159e48852f`; CI post-merge #70 PASS 5/5 incluido `Required CI`.
-- **Regla GitHub de integración:** PR obligatorio; `Required CI` es el único status check requerido y agrega Web/shared + Windows + macOS arm64/x86_64; la rama debe estar actualizada antes de merge; `Required approvals = 0` porque existe un solo maintainer. Esto **no elimina** los reviewers independientes exigidos más adelante por gates de security/legal/firma/release.
+### WOZ — `NIGHT-WOZ-156` — Issue #97 / PR #100
+PRIMARY: REUSE #100; finish instrumentation CI, collect Web+Desktop startup traces/measurements, isolate causal bottleneck, amend/reconstruct same lineage with minimum shared correction, exact-head CI; conditional expected-head merge #100 only after it contains actual bounded correction + literal applicable evidence. Instrumentation-only is not merge-as-closure.  
+CI-FALLBACK: NONE.
 
-### Estados de seguimiento
+**Integration mutations autorizadas CYCLE157: AAA153 / #89 y WOZ156 / #100, cada una solo dentro de scope disjunto y condicionada a exact applicable CI SUCCESS + no required review blocker + race-free expected-head. BBB152 NO MERGE. #93 no tiene mutation/merge authorization. Si un merge mueve integración, el otro owner debe refresh/revalidar antes de integrar.**
 
-- [ ] Pendiente.
-- [ 🟡 ] En progreso.
-- [ ⚠️ ] Terminado técnicamente, pero falta evidencia o gate.
-- [ 🔴 ] Bloqueado.
-- [ ⏸️ ] Pausado.
-- [x] Terminado y con evidencia/gate satisfecho.
+## Camino crítico global — recalculado desde cero
 
-Cuando una tarea cambie de estado, se actualiza aquí y en su checkbox original. Los estados con emoji son marcadores visuales; `[x]` se reserva para trabajo realmente terminado y sustentado por la evidencia exigida por el plan.
+1. **F2/12.1:** clean canonical production deployment/source proof del live integration SHA; blocker factual externo/SHA-dependent.
+2. **Issue #97 / #100:** Web+Desktop factual measurements → minimum shared correction → exact evidence/integration.
+3. **F0/0.9 / #89:** P1 DNS-rebinding corrective; refresh + exact-green + integration.
+4. **F1/D8→F2/15.1:** productive recent-reauth seam, luego Trash strong confirmation + durable deterministic purge/no-false-success.
+5. **F2/13.2:** durable Review write-surface gap cuando #97 libere superficies compartidas.
+6. **F1/1.7→1.8:** clasificación factual de remaining alpha blockers y decisión RO.
+7. **F4/25.1 / #93:** refresh/revalidate solo si 1.7 lo mantiene IN_ALPHA.
+8. **Parallel external/release tails:** F0 1.2/2.2, production signing/notarization, provider/payment, legal implementation, runtime160/capacity, testers/hardware.
 
-## Reglas inmutables de publicación
+## Invariantes
 
-1. Ningún P0 ni P1 abierto al publicar.
-2. Ninguna plataforma se declara soportada sin instalación y flujo crítico en equipo limpio.
-3. Ningún pago se acepta sin reconciliación, reembolso y entitlement server-side demostrados.
-4. Ninguna evidencia externa se marca como lista sin propietario, fecha y enlace verificable.
-5. **BeatGaler v1 nunca se publica como free-only.** Si billing no supera sus gates, v1 se retrasa. Betas y promociones pueden otorgar suscripciones reales sin costo mediante códigos o grants temporales.
-6. Web debe funcionar como aplicación Web pura: nunca depender de Tauri, helper local ni BeatGaler Desktop.
-7. YouTube es parte del objetivo de producto en **Desktop y Web**. `youtubePublishing: false` en Web describe únicamente el estado actual; solo cambia a `true` cuando el flujo Web real pase sus gates.
+- UI: Cloud / Galer Cloud / Storage / Library; internals ocultos.
+- Schema: **Galer T-Library Schema v2**.
+- Web pure: no Tauri/Desktop helper.
+- Media: device ↔ provider direct; Galer Cloud no relaya payloads.
+- Permanent auth/control secrets control-side; clients use temporary auth.
+- Shared-bot fallback only when no bot free; normal exclusivity per vault.
+- v1 no free-only; eligibility v1 = **18+**.
+- YouTube Desktop/Web; Web no llama Tauri.
 
-## Protocolo de lectura por tarea
+## NEXT
 
-1. Leer **este archivo completo**.
-2. Abrir el archivo indicado como **fase actual** y leerlo completo.
-3. Localizar la tarea exacta, sus dependencias, evidencia y gate de salida.
-4. Si la decisión toca release/publicación, abrir `Gates - Publicación y contingencias.md`.
-5. Hacer auditoría read-only del código/estado real.
-6. Explicar cambio exacto y razón antes de modificar.
-7. Ejecutar cambio mínimo.
-8. Ejecutar suites afectadas y revisar CI.
-9. Solo con evidencia: actualizar fase + este estado vivo + `Registro de avances.md`.
-
-## Mapa de archivos del plan
-
-| Archivo | Cuándo se lee | Contenido |
-|---|---|---|
-| **`Plan Maestro.md`** | **SIEMPRE, completo** | reglas, estado vivo, orden de trabajo y mapa |
-| `00 - Contexto global y criterios.md` | cuando una decisión necesita contexto global/auditoría/diseño/prioridad | veredicto, evidencia, fechas, inventario, diseño, prioridades y roles |
-| `Fase 0 - Contención e integración.md` | mientras Fase 0 esté activa | Días 0–5, incluida integración/CI/ADR |
-| `Fase 1 - Seguridad cuentas y datos.md` | Fase 1 | Días 6–10 |
-| `Fase 2 - Web y UX.md` | Fase 2 | Días 11–15, incluido el plan completo de YouTube Web en Tarea 15.3 |
-| `Fase 3 - Producción pagos y operación.md` | Fase 3 | Días 16–20 |
-| `Fase 4 - Desktop y release chain.md` | Fase 4 | Días 21–25 |
-| `Fase 5 - Betas y RC.md` | Fase 5 | Días 26–30 |
-| `Fase 6 - Lanzamiento.md` | Fase 6 | Días 31–35 |
-| `Fase 7 - Estabilización.md` | Fase 7 | Días 36–41 |
-| `Gates - Publicación y contingencias.md` | gates, go/no-go, riesgos o contingencias | condiciones obligatorias, métricas, RACI, riesgos, contingencias y criterios |
-| `Registro de avances.md` | al cerrar/actualizar trabajo | historial cronológico de evidencia |
-
-## Fuente de verdad y precedencia
-
-Si dos textos parecen contradecirse, aplicar este orden:
-
-1. Reglas inmutables y `Estado vivo` de `Plan Maestro.md`.
-2. Gate/checklist de la fase activa.
-3. `Gates - Publicación y contingencias.md` para condiciones de publicación.
-4. `00 - Contexto global y criterios.md` como contexto histórico/estático.
-
-Ningún archivo secundario puede rebajar un gate del principal. Una nueva decisión de producto debe actualizar primero el principal y después los archivos afectados.
+AAA ejecuta `NIGHT-AAA-153`; BBB `NIGHT-BBB-152`; WOZ `NIGHT-WOZ-156`. F2/12.1 espera evidencia productiva exacta; #93 queda sin owner; F2/13.2 sigue `BLOCKED_WRITE_SURFACE / UNASSIGNED`. F5 sigue CLOSED / NO-GO. `PLAN_HEALTH: synced CYCLE157`; GitHub/runtime live prevalece si cambia después.

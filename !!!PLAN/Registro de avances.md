@@ -1,16 +1,232 @@
 # Registro de avances — BeatGaler
 
-> Historial cronológico. Antes de trabajar: leer completo [`Plan Maestro.md`](./Plan%20Maestro.md). Cada avance relevante debe quedar aquí además de actualizar el estado vivo y la tarea de su fase.
+> Ledger compacto. Diffs/logs/handoffs extensos viven en GitHub, Actions e Issue #41.
 
-- **2026-08-22 — Sistema de seguimiento del Plan Maestro.** Se añade `Estado vivo del plan`, la convención visual (`[ ]`, `[ 🟡 ]`, `[ ⚠️ ]`, `[ 🔴 ]`, `[ ⏸️ ]`, `[x]`) y este registro cronológico. No cambia el alcance técnico.
-- **2026-08-22 — Tarea 0.1 completada: congelar evidencia.** Se creó `docs/RELEASE-LEDGER.md` en `magosouljah/BeatGaler`, rama `galer-cloud-v0.7.4`, con SHAs auditados Cloud `131df88753c812c0fdf440a5558fff46b2a83f57` y Web `e79728642839493326df706aba993a4cde2bdc02`, conteos de builds/pruebas, warnings, vulnerabilidades y límites no verificados. Estado `NO-GO`; sin tag público. Evidencia BeatGaler `712331a60ef5e04ca4c57fcb5c52ad13e2ea279b`.
-- **2026-08-22 — Tarea 0.2 completada: checkpoint interno y backlog P0/P1.** El 4 de septiembre de 2026 queda como checkpoint interno sin cobros ni usuarios reales de producción. RO tiene autoridad final de stop-release y `0 P0/P1` sigue obligatorio. Backlog maestro: BeatGaler Issue #3, con owners por rol y evidencia de salida.
-- **2026-08-22 — Tarea 1.1 completada: decisiones de negocio.** BeatGaler v1 será comercial/pagada y nunca tendrá fallback free-only; si billing falla, v1 se retrasa. Official Beta/promociones usan entitlements reales regalados. Mercados iniciales: México, EE. UU., Canadá, UE y Reino Unido; edad 18+; monedas MXN/USD/CAD/EUR/GBP; refund comercial base 14 días sujeto a derechos superiores; operación inicial desde México bajo estructura fiscal válida a confirmar; distribución directa Web + Windows NSIS + macOS DMG.
-- **2026-08-22 — Tarea 1.2 iniciada: dependencias con lead time.** Sin dominio ni Apple Developer todavía; GitHub Releases previsto; support/status dependen del dominio. Objetivo macOS Intel + Apple Silicon; testers disponibles. Pendientes Authenticode, revisión legal, revisión independiente de seguridad y matriz física. Permanece `[ 🟡 ]`.
-- **2026-08-22 — Tarea 2.1 completada con evidencia.** En Cloud se añadió contención HTTP: auth antes de Multer, ownership, límites de tamaño/rate/concurrencia, retirada de `/library/upsert` antes de multipart y registro público cerrado por defecto en producción. Límite técnico efectivo **1.99 GB = 1,990,000,000 bytes**. `npm run test:containment` → **PASS regression-http-containment**.
-- **2026-08-22 — Tarea 2.2 en progreso: saneamiento de estado operacional rastreado.** Se confirmó información operacional concreta y se retiraron del HEAD `transport-pool-state.backup.json`, `transport-bots.json` y `transport-bots.local.json`. Configuración real queda privada/ignorada; `transport-bots.example.json` sanitizado. Historia Git aún requiere reauditoría y decisión de purga. No se rotaron/revocaron tokens sin evidencia de token en claro; revocación operativa sigue siendo requisito antes de escalar hacia ~80 bots o ante compromiso confirmado. Cloud hasta `626efe933cb61130d5f7d20bcdd398f53b61d434`.
-- **2026-08-23 — Tarea 3.1 completada: base integrada Web/Desktop.** Se creó `integration-v0.8.0-alpha.1` desde Cloud `626efe933cb61130d5f7d20bcdd398f53b61d434`, se portó Web por capacidades, se reconciliaron conscientemente `App.tsx`, `Drawer.tsx`, `libraryStateManager.ts` y tests compartidos, se conservaron fixes Desktop/macOS, se fijó versión `0.8.0-alpha.1` y se limpió el árbol público. HEAD validado previo `4662a109bcc769774e33fe53182088c605846002`; CI #63 PASS Windows + macOS arm64 + x86_64; rama protegida.
-- **2026-08-23 — Tarea 3.2 completada: contrato de plataforma.** Se corrigió un hueco del runner: `platformCapabilities.test.ts` existía pero no se ejecutaba. `src/platform/capabilities.ts` queda como matriz compartida e incluye `youtubePublishing`; Desktop queda protegido para Direct, Offline y YouTube. Se añadió guard DOM que falla si flujos Web invocan Tauri. Web mantiene Direct/Offline/YouTube en `false` como estado actual, no como exclusión permanente. PR BeatGaler #8, commit de trabajo `818214889ef3c6f97a262a91046f7df0e4f723fe`; CI PR #64 PASS Windows + macOS arm64 + x86_64; merge a `integration-v0.8.0-alpha.1` en `32a38c490a53650a0e9d6435c50cd009ef1b5123`; CI post-merge #65 PASS Windows + macOS arm64 + x86_64 antes del cierre. El ruleset quedó con `Required approvals = 0` porque existe un solo maintainer; se conservan PR + CI/checks y esto no elimina reviewers independientes exigidos por gates posteriores.
-- **2026-08-23 — Plan Maestro dividido por unidades de decisión.** El monolito se divide en `Plan Maestro.md` como entrada obligatoria, contexto global, Fases 0–7, gates/contingencias y registro. El protocolo vigente queda: principal completo → fase activa completa → gates cuando aplique → auditoría read-only → cambio mínimo → tests/CI → actualización triple (principal + fase + registro). La reorganización no rebaja ni elimina gates.
-- **2026-08-23 — YouTube Web incorporado directamente a Fase 2.** Tras revisar el plan completo, YouTube Web se mantiene en **Fase 2 — Flujos Web completos y rediseño de alto impacto**, porque es una capacidad funcional Web y no una tarea de producción/billing. La **Tarea 15.3 [P1 · FE/BE/QA] — Implementar YouTube Web sin Tauri** contiene ahora íntegramente contrato compartido, Desktop adapter, backend Web/OAuth, Web adapter, job/upload, UI y tests. Se elimina `Modulos/YouTube Web.md` y la carpeta `Modulos/`. Fase 3 conserva los gates posteriores que le corresponden: entorno productivo y quotas/entitlements; Fase 4 conserva la validación cross-platform. `youtubePublishing` Web solo pasa a `true` tras el gate funcional de 15.3 y v1 sigue bloqueada hasta superar también los gates posteriores de producción/release.
-- **2026-08-23 — Tarea 4.1 completada: pipeline obligatorio.** PR BeatGaler #9 convirtió `Test - Desktop Portability` en un gate reproducible con Web build real + Chrome headless smoke, frontend/shared/backend/regresiones/packaging, Rust nativo en Windows + macOS arm64 + x86_64, Node `22.23.2`, Rust `1.98.0`, Actions fijadas por SHA, `npm ci`, Cargo `--locked`, `version:check` y un agregador estable `Required CI`. CI PR #68 terminó PASS 5/5; merge `c7894ad3c2b3e296e3d2939d73953b159e48852f`; CI post-merge #70 terminó PASS 5/5 incluido `Required CI`. El ruleset quedó confirmado con PR obligatorio, `Required CI` como único status check requerido, rama actualizada antes de merge y `Required approvals = 0` por existir un solo maintainer. Gate 4.1 satisfecho; siguiente tarea principal: 4.2.
+## 2026-08-22 a 2026-08-24 — base
+
+- 0.1 `[x]` Baseline/NO-GO y release ledger.
+- 0.2 `[x]` checkpoint interno; no release público.
+- 1.1 `[x]` negocio v1 comercial; no free-only.
+- 1.2 `[ 🟡 ]` dependencias externas/release.
+- 2.1 `[x]` contención auth/ownership/límites.
+- 2.2 `[ 🟡 ]` incidente Git: HEAD sanitizado, tail externo/histórico pendiente.
+- 3.1 `[x]` integración `integration-v0.8.0-alpha.1`, versión `0.8.0-alpha.1`.
+- 3.2 `[x]` contrato plataforma PR #8 / merge `32a38c490a53650a0e9d6435c50cd009ef1b5123`.
+- 4.1 `[x]` Required CI PR #9 / merge `c7894ad3c2b3e296e3d2939d73953b159e48852f`.
+- 4.2 `[x]` supply chain PR #10 / merge `f6d1f998bd63589ec2ddad7ee4d5818e9b85f016`; deuda GPL separada.
+
+## 2026-08-24 a 2026-08-25 — 5.1
+
+- PRs #13–#18: temporary auth + transferencia directa **1,992,294,400 bytes**, `galer_cloud_file_bytes=0`; permanent auth/token/API hash no llegan al cliente.
+- PRs #23–#27: plataformas/pool/delete/expiry/recovery.
+- 5.1 `[x]`: PR #28 / merge `d9ae76f42faee3a7207b9232b7421a0bec20b090` + CI + RO.
+
+## 2026-08-25 a 2026-08-28 — 5.2
+
+- PRs #29–#42: PostgreSQL/migrations, encryption/keyring, importer, durable ops/reconciliation/rollback/recovery, fail-closed cutover y AWS boundary.
+- PostgreSQL autoridad productiva + restart durable + rollback dry-run CURRENT PG.
+- PITR: RPO ~7 min; RTO `3643 s`.
+- Key activa 2, versiones 1/2; lectura ciphertext v1.
+- Alarmas RDS + on-call/rotation/rollback authority.
+- 5.2 `[x]`: WOZ/RO Issue #41 `5448976400`. No repetir drills aceptados sin invalidación.
+- Follow-up release: rotación OAuth client secret visible durante troubleshooting antes de release; no registrar valor.
+
+## 2026-08-28 — D6
+
+- PR #44 / 6.2 integrado `9dd76a9d43e72c2295667a3661ce5a1cff7a4826`.
+- PR #43 / 6.1 integrado `23bded948c4377b28fc48a72378816968d4cd413`.
+- compile #128 `33194215442` SUCCESS; D6 cross-process #4 `33194215463` SUCCESS; Required CI #363 `33194215450` SUCCESS.
+- D6 `[x] / PASS`: WOZ `5455677550`.
+
+## 2026-08-28 — D7 / CLOSED
+
+- WOZ PR #46 final tested head `6477fa6f6c4f04813acbbe5dbd43302347072adb`.
+- PR #46 merge a integración: `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
+- D7 `33205320953` SUCCESS; D6 `33205320957` SUCCESS; temp-auth compile `33205321000` SUCCESS; Required CI #402 `33205320950` SUCCESS.
+- D7 `[x] / PASS`: WOZ gate transaction `5457172823`.
+- Architecture note: PASS aplica a capability mediation BeatGaler bajo Direct/shared-bot aceptado; no afirma primitive provider-native object-scoped.
+
+## 2026-08-28 — DECISIÓN RO / ROMPECABEZAS + OWNER FIJO
+
+- Trabajo cross-phase permitido por dependencia real.
+- Cada owner conserva su área hasta cierre o reasignación explícita.
+- Findings se consumen como input por el owner; no hopping automático.
+- Owner hace self-test + exact-head CI.
+- JOBS coordina/actualiza `!!!PLAN`; no código BeatGaler ni merges técnicos.
+
+## 2026-08-28 — JOBS preflight anterior / WAVE #47 #50 #48 #49
+
+Baseline entonces: `integration-v0.8.0-alpha.1` @ `e25c60429e453d7b8cb8ef294d89a01ef7511103`.
+
+- #49 / WOZ / 8.1 era candidate directamente encima del baseline con Required CI #406 verde; se secuenció primero.
+- #47 / AAA / 11.1 y #50 / 12.2 estaban divergidos; dependencia obligatoria #47 → #50.
+- #48 / BBB / 21.1 estaba técnico completo pero OPEN/DRAFT; BBB ya reasignado a 21.2 por `5458104890`.
+- Ningún checkbox se adelantó en ese preflight.
+
+## 2026-08-28 — WOZ 8.1 / PR #49 — CLOSED
+
+- PR #49 `woz/task-8.1-session-security` exact tested head `f8ae2d1dedf0b4f977b4aedcaef5ac4ea83acdff`.
+- Required CI #406 / `33208687131` SUCCESS; D6 `33208687050` SUCCESS; D7 `33208687027` SUCCESS; temp-auth compile #159 SUCCESS.
+- Integrado como `14002b29c5101232c0ca8f8b85d808c8214975fb`.
+- WOZ structured handoff Issue #41 `5458273984` = `STATUS: DONE`.
+- 8.1 `[x]`. Gate D8 siguió `[ 🟡 ] / PENDING` porque 8.2 faltaba.
+
+## 2026-08-28 — AAA 11.1 / PR #47 — CLOSED
+
+- AAA reutilizó PR #47 después de #49; no artifact duplicado.
+- Refreshed exact head `fdc6463e6b81efedc547c97595529d28e0ba2d83` sobre `14002b29...`.
+- Resolución preservó la seguridad Web de #49 en `AccountGate`/tests y reaplicó únicamente foundations UI/a11y.
+- Required CI #429 `33216364174` SUCCESS; D6 #68 `33216364104` SUCCESS; D7 #39 `33216364074` SUCCESS.
+- PR #47 integrado como merge `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
+- 11.1 `[x] / DONE / INTEGRATED`.
+
+## 2026-08-28 — WOZ 8.2 / PR #52 — snapshot pre-refresh
+
+- PR #52 `woz/task-8.2-account-lifecycle` @ `ef0d6b142a92cdb88b2a3111e144ba6a9f15df9c` era OPEN/no mergeado en este snapshot.
+- Candidate implementaba verification/reset hash-only one-shot/expiry/anti-enumeración; MFA recovery; reauth; notifications; export secret-free; delete/cleanup/receipt; revocación fail-closed.
+- Required CI / Test Desktop Portability `33216990412` = SUCCESS sobre ese exact head.
+- Como el baseline había avanzado por #47, este snapshot exigía refresh/revalidación antes de integración.
+
+## 2026-08-28 — AAA 12.2 / PR #50 — snapshot pre-refresh
+
+- PR #50 `aaa/f2-12.2-library` @ `258017fbd03e2a8edf0a93f7af2c7acb7ddf1a7c` era OPEN/no mergeado en este snapshot.
+- Required CI #416 `33213031905` SUCCESS; D6 `33213031958` SUCCESS sobre el stack anterior.
+- Evidence-before-claim exigía actualización/revalidación después de #47/#52 antes de `[x]`.
+
+## 2026-08-28 — BBB 21.1+21.2 / PR #51 — snapshot temprano
+
+- BBB consolidó manifest 21.1 + Upgrade Matrix 21.2 en PR #51 `bbb/task-21.2-upgrade-matrix`.
+- En este snapshot: OPEN/DRAFT, head `f70f17ea41cd26bd833bf7ee91949a3e4d752d4e`; CI todavía en curso.
+- 21.1 y 21.2 permanecieron `[ 🟡 ]`.
+
+## 2026-08-28 — JOBS sync intermedio post-#47
+
+**Baseline entonces:** `integration-v0.8.0-alpha.1` @ `489d81b05d5bde338cb7f5b8408b20c1c78d4404`.
+
+Secuencia fijada entonces:
+1. #52 / 8.2 refresh + integración;
+2. #50 / 12.2 después de #52;
+3. #51 / 21.1+21.2 en paralelo con baseline vigente.
+
+Ese estado queda como ledger histórico y fue superado por los cierres siguientes.
+
+## 2026-08-28 — WOZ 8.2 / PR #52 — CLOSED
+
+- WOZ reutilizó PR #52 y lo refrescó contra integración que ya contenía #47.
+- Exact tested head final: `f5ae901fb48444b6ea845048fb86f4dd482d75ec`.
+- Required CI #443 / `33219253446` SUCCESS.
+- D6 #81 / `33219253348` SUCCESS.
+- D7 #53 / `33219253320` SUCCESS.
+- Productive Temp Auth Compile #171 / `33219253332` SUCCESS.
+- PR #52 integrado como `c25ec6a824bc0ae60fbf65858d53be26d453f205`.
+- 8.2 técnico `[x] / DONE / INTEGRATED`.
+- Gate D8 siguió PENDING en ese momento únicamente por las tres decisiones RO/provider/legal todavía abiertas.
+
+## 2026-08-28 — BBB #51 — EXACT-HEAD VERDE, PROCESS BLOCKER
+
+- PR #51 exact head `e9fc4e68fc555357ee470996c51544b879cbae93`, base `c25ec6a824bc0ae60fbf65858d53be26d453f205`.
+- Required CI #451 / `33220523143` SUCCESS.
+- Upgrade 21.2 Staging #8 / `33220523159` SUCCESS.
+- D6 #88 / `33220523127` SUCCESS; D7 #61 / `33220523155` SUCCESS.
+- Windows literal 0.7.4 → Galer PASS; macOS arm64/x86_64 identity/migration PASS.
+- DRAFT → ready falló antes de mutar por error del connector GraphQL `Repository.fullDatabaseId`; merge rechazado correctamente con HTTP 405 mientras seguía draft.
+- Handoff BBB Issue #41 `5460283021`: `STOP / PENDING_PROCESS_BLOCKER`; no bypass usado.
+- Resultado: evidencia técnica integration-ready para ese baseline, pero 21.1/21.2 siguieron `[ 🟡 ]` porque #51 no se integró.
+
+## 2026-08-28 — AAA 12.2 / PR #50 — CLOSED
+
+- AAA reutilizó PR #50; no artifact duplicado.
+- Rebuilt exact tested head `b7a31d686a361f559783b5dc7cb8bebc5aa04e8e` directamente sobre post-#52 baseline `c25ec6a824bc0ae60fbf65858d53be26d453f205`.
+- Delta final: 1 commit / 4 files; sin auth/session/backend/data-plane/infra.
+- Required CI #452 / `33233250213` SUCCESS.
+- D6 #89 / `33233250229` SUCCESS; D7 #62 / `33233250210` SUCCESS; compile #173 / `33233250206` SUCCESS.
+- PR #50 integrado como `39e894c0fcefffa5d3222e3c135a086937a10a8e`.
+- AAA handoff Issue #41 `5460303449` = `STATUS: DONE`, `NEXT_WITHIN_AREA: none`.
+- 12.2 `[x] / DONE / INTEGRATED`.
+
+## 2026-08-28 — WOZ D8 RO resolutions / PR #53 — CLOSED + GATE PASS
+
+- PR #53 `woz/d8-ro-resolutions` exact tested head `ab952c464f351aac736405c8559f5b85f421bc0c` sobre baseline `39e894c...`.
+- Resoluciones RO integradas:
+  - Amazon SES para delivery de verification/reset con templates `VERIFY_EMAIL` y `RESET_PASSWORD`;
+  - account deletion retention = `0` días, cleanup inmediato, sin tombstone recuperable;
+  - provider-only/OAuth-only recent reauth mediante fresh same-provider authorization ligada a user/session.
+- Required CI #455 / `33234071878` SUCCESS.
+- D6 #91 / `33234071860` SUCCESS; D7 #65 / `33234071863` SUCCESS; compile #175 / `33234071871` SUCCESS.
+- PR #53 integrado como `6c4499d124a64d138e791ea4abf0091766dde7e9`.
+- WOZ gate transaction Issue #41 `5460381842`: **GATE D8 = PASS**.
+- D8 `[x] / PASS`; D9 queda dependency-ready, pero WOZ no lo inicia sin asignación separada.
+- Follow-up fuera de D8 registrado para F2/15.1: acción visible **“Vaciar Trash”** con borrado permanente, confirmación fuerte y recent reauth.
+
+## 2026-08-28 — JOBS sync factual post-D8 / post-12.2
+
+**Baseline canónico entonces:** `integration-v0.8.0-alpha.1` @ `6c4499d124a64d138e791ea4abf0091766dde7e9`.
+
+- D8/8.2 y resoluciones RO cerradas con evidencia verificable; Gate D8 `[x] / PASS`.
+- F2/12.2 cerrado/integrado.
+- WOZ terminó D8; D9 dependency-ready.
+- F2/11.2 y 12.1 dependency-ready.
+- F2/15.1 “Vaciar Trash” `QUEUED / UNASSIGNED`.
+- BBB conservaba F4/21.2; #51 aún no integrado en ese snapshot.
+- `Plan Maestro 2208 copy DONT TOUCH .md` permaneció untouched.
+- Release público 🔴 `NO-GO`.
+
+## 2026-08-29 — Turno nocturno hasta CYCLE 003
+
+- D9 `[x] / PASS` por WOZ REUSE-FIRST; Issue #41 `5460959369`.
+- F2/11.2 `[x] / DONE / INTEGRATED`: PR #54 exact head `e5aefa9fb6bda8a3f0e44c15ec7ae13084502ab5`; Required CI `33239731204` SUCCESS; merge `3560dc844fbe6a56b5c2a29008a629f05a9125ce`; Issue #41 `5461257322`.
+- D10.1 sigue `[ 🟡 ] / PENDING`: restore/RPO/RTO/core flows PASS; gaps literales = config+índice/media backup strategy, off-provider copy y backup-failure alert; Issue #41 `5461379758`.
+- F2/12.1 sigue `[ 🟡 ]`: `NIGHT-AAA-003` confirmó gaps reales; `NIGHT-AAA-004` continuó implementación.
+- F4/21.1+21.2 `[x] / DONE / INTEGRATED`: PR #51 exact tested head `0fd9bee8117ca92fb9f713f0d55089f5707a2917`; D7 `33243436937`, D6 `33243436890`, Required CI `33243436894`, Upgrade Staging `33243436914` SUCCESS; merge `5b05ca8450bc3fe6bb8e9baaaca0c4a2d836d858`; Issue #41 `5461557463`.
+- BBB reasignado explícitamente a F4/24.1.
+- Ningún gate de release fue rebajado.
+
+## 2026-08-29 — Turno nocturno CYCLE 005
+
+**Baseline canónico:** `integration-v0.8.0-alpha.1` @ `672e133bc9cb8a47a29d4b34e13fc535290e5681`.
+
+- F4/24.1 `[x] / DONE / INTEGRATED`: PR #55 exact head `ba83c87dab8a56163601e913f7764c7f8682b7a6`; Required CI `33248059804`, F4 Release Controls `33248059891`, D6 `33248059823`, D7 `33248059990` SUCCESS; merge `672e133bc9cb8a47a29d4b34e13fc535290e5681`. Publication fail-closed; signing/notarization siguen externos.
+- F2/12.1 `[ 🟡 ]`: `NIGHT-AAA-005` produjo commit `51232744a6cd4bc2af67de901e09beb70c91f4fc` retirando eager artwork hydration; taxonomy, startup instrumentation, tests/CI y atomic empty-index siguen abiertos. Nueva orden `NIGHT-AAA-006` sobre la misma rama.
+- F1/D10.1 `[ 🟡 ] / PENDING`: `NIGHT-WOZ-005` produjo PR #56 exact head `0abe39e096d10d992764a2d24874e46529109a70`; self-test `PASS_LOCAL_CONTRACT`; strategy config+index+media y backup-failure condition/routing PASS en candidate. Exact-head Test - Desktop Portability `33250824435`, D7 `33250824401`, D6 `33250824418`, compile `33250824441` SUCCESS. Único blocker literal restante: copia real fuera del primary provider/account failure domain. Nueva orden `NIGHT-WOZ-006` para race-check + integración; no repetir drills.
+- BBB pasa a `NIGHT-BBB-006` / F4/24.2 updater recovery/rollback REUSE-FIRST.
+- F3 D16–D20 sigue siendo el mayor volumen abierto; WOZ debe moverse explícitamente a F3 cuando D10.1 quede external-only integrado.
+- Release público permanece 🔴 `NO-GO`; ningún gate externo fue rebajado.
+
+## 2026-08-29 — Turno nocturno CYCLE 006
+
+**Baseline canónico:** `integration-v0.8.0-alpha.1` @ `f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
+
+- F1/D10.1: PR #56 exact tested head `0abe39e096d10d992764a2d24874e46529109a70` quedó **DONE / INTEGRATED** como merge `f0d65aa66988e3e1a026e237b65c65a56b098aa9`. Strategy config+index+media y backup-failure condition/routing están integrados; restore/RPO/RTO/core/access/retention permanecen PASS REUSED. Gate completo sigue `[ 🟡 ] / PENDING_EXTERNAL_PROOF` únicamente por copia real fuera del primary provider/account failure domain + read/checksum verification. WOZ no repite drills.
+- F2/12.1: `NIGHT-AAA-006` avanzó `aaa/night-12.1-bootstrap-load` a `d7cc93f9c4318be7f993bd033483c4e7f1834a55` con taxonomy mínima, startup timing y tests sobre lazy artwork; ejecución real/CI/PR seguían UNVERIFIED en ese snapshot. `NIGHT-AAA-007` exigió candidate verificable.
+- F4/24.2: PR #57 head histórico `5c74c0948c43d53b2f8d075cd66ba70c953da3c5` tenía Test - Desktop Portability `33252718637`, D6 `33252718614` y D7 `33252718625` SUCCESS; como fue probado contra `672e133...` y #56 movió baseline, `NIGHT-BBB-007` exigió refresh exact-head.
+- Owner change explícito: WOZ dejó F1 técnico external-only y pasó a F3/16.1 bajo `NIGHT-WOZ-007`.
+- Issue #41: JOBS handoff CYCLE 006 `5462589883`.
+- Release público permaneció 🔴 `NO-GO`.
+
+## 2026-08-29 — Turno nocturno CYCLE 007
+
+**Baseline factual durante preflight:** `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`.
+
+- **AAA / F2 12.1:** `NIGHT-AAA-007` cerró como STALLED, pero GitHub posterior superó ese snapshot. PR #58 `aaa/night-12.1-bootstrap-load` está OPEN/Ready/mergeable=true, exact head `d7cc93f9c4318be7f993bd033483c4e7f1834a55`, base `f0d65aa...`; Required CI `33254699647` SUCCESS. No se marca 12.1 `[x]`: #58 solo cubre lazy artwork + taxonomy + startup timing/tests. `NIGHT-AAA-008` ordena race-check/merge y luego atomic empty-index únicamente.
+- **BBB / F4 24.2:** PR #57 fue refrescado a exact head `4e251cae84ff55116c89c8398e78f04aecb78e3c` sobre base `f0d65aa...`; OPEN/Ready/mergeable=true; Required CI exact-head SUCCESS, D6 `33255401544` SUCCESS, D7 `33255401512` SUCCESS. El blocker transitorio de CI de BBB-007 desapareció. `NIGHT-BBB-008` ordena race-check/merge protegido; después 25.1 matrix audit dependency-safe. 24.2 no se marca `[x]` hasta merge SHA verificable.
+- **WOZ / F3 16.1:** PR #59 `woz/night-16.1-runtime-operability` OPEN/Ready/mergeable=true, exact head `292a7706bc4f6c21eccc60f2838cda0cd8ed4adc`, base `f0d65aa...`; local self-test 7/7 PASS; D6 `33256145573`, D7 `33256145614`, productive temp-auth compile `33256145521` y Test - Desktop Portability `33256145531` SUCCESS. `NIGHT-WOZ-008` ordena race-check/merge; aun integrado, 16.1 conserva `PENDING_EXTERNAL` por separación física staging/prod. Después WOZ avanza 16.2 software-only/dependency-safe.
+- Asignaciones activas: `NIGHT-AAA-008`, `NIGHT-BBB-008`, `NIGHT-WOZ-008`; sin overlap material.
+- JOBS sincronizó `Plan Maestro.md`, Fase 2, Fase 3, Fase 4, roles y los cuatro markdowns nocturnos; no tocó código BeatGaler ni infraestructura.
+- Issue #41 JOBS handoff CYCLE 007: `5462857248`.
+- F0/1.2, F0/2.2, D10.1 off-provider, D10.2 RO, F3 physical staging/prod y D22/D23 continúan como blockers externos/decisión donde corresponde. Ningún gate fue rebajado.
+- Release público permanece 🔴 `NO-GO`.
+
+---
+
+## Estado actual
+
+- Integración estable conocida: `integration-v0.8.0-alpha.1 @ f0d65aa66988e3e1a026e237b65c65a56b098aa9`; GitHub real prevalece si cambió después de este registro.
+- AAA: **F2/12.1** bajo `NIGHT-AAA-008`; #58 exact-head CI verde, merge pendiente; después atomic empty-index.
+- BBB: **F4/24.2→25.1** bajo `NIGHT-BBB-008`; #57 exact-head CI verde, merge pendiente.
+- WOZ: **F3/16.1→16.2** bajo `NIGHT-WOZ-008`; #59 exact-head CI verde, merge pendiente; physical separation external.
+- JOBS: coordinación/plan/handoffs; no código BeatGaler ni merges técnicos.
+- 5.1/5.2: `[x]`.
+- 2.2/1.2: tails externos `[ 🟡 ]`.
+- D10.1: external-only `[ 🟡 ]` por off-provider proof; D10.2 RO.
+- F3 D16–D20 sigue siendo el mayor volumen restante.
+- Release público: 🔴 `NO-GO`.

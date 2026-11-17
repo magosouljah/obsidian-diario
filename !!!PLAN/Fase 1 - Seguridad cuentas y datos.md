@@ -1,107 +1,54 @@
 # Fase 1 — Seguridad, cuentas y datos durables
 
-> Antes de trabajar aquí: leer completo [`Plan Maestro.md`](./Plan%20Maestro.md).
+> GitHub/runtime vivo prevalece. No repetir drills aceptados sin invalidación factual.
 
-**Fechas:** 31 de agosto–4 de septiembre  
-**Objetivo:** cerrar los P0 de confianza y alcanzar un alpha interno restaurable.
+**Baseline vivo CYCLE157:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.  
+**Estado:** D6 `[x] PASS`; D7 `[x] PASS`; D8 `[x] PASS`; D9 `[x] PASS`; D10.1 `[x] PASS`; D10.2 `[x] MAP COMPLETE / ALPHA CANDIDATE NOT READY`.  
+**Release público:** 🔴 `NO-GO`.
 
-## Día 6 — 31 de agosto — Autorización tenant y abuso
+## D6–D10.1 — CLOSED
 
-**Resultado:** cada operación usa identidad derivada del servidor y límites previos al trabajo costoso.
+Authorization/tenant controls, temp-auth/capabilities, lifecycle/RO decisions, PostgreSQL durability/migrations y restore/recovery permanecen PASS. D10.1 conserva RPO ~7 min, RTO `3643 s` y off-provider encrypted readback/SHA match. No repetir sin invalidación.
 
-### Tarea 6.1 [P0 · BE] — Unificar middleware de autorización
+## D10.2 — MAP COMPLETE / NOT READY
 
-- [ ] Derivar user/installation/tenant solo de sesión validada; ignorar IDs de cuerpo para autorización.
-- [ ] Autenticar y autorizar antes de Multer, Telegram, lookup de artwork o creación de topic.
-- [ ] Añadir ownership por objeto y borrar endpoints legacy no usados.
+### PROVEN / delta vivo
 
-### Tarea 6.2 [P0 · BE/QA] — Abuse controls
+- #92/#94/#95/#96/#98/#99 están integrados en la línea F2/12.1; integration actual `c2766fb...`.
+- #99 integra mecanismo fail-closed para ligar Web production package/runtime/public marker a exact source SHA. Falta observar clean production deployment desde canonical integration HEAD con marker público igual al SHA integrado; F2/12.1 permanece `NOT_PASS`.
+- Issue #97 sigue OPEN y `Must be addressed before Beta 1`; PR #100 apareció durante CYCLE157 como instrumentation-only exact-base candidate. Owner exclusivo = WOZ156; #100 todavía no corrige startup/performance.
+- #89 sigue stale + dedicated security gate FAILURE; owner exclusivo CYCLE157 = AAA153 para refresh/exact-green/integration condicional.
+- F2/13.2 durable Review sigue `BLOCKED_WRITE_SURFACE / UNASSIGNED` mientras #97/#100 ocupa shared surfaces.
+- D8 recent-reauth decision existe; falta seam productiva consumible por destructive callers. Owner = BBB152.
+- #93 conserva old-base Windows Auth evidence; refresh solo si 1.7 lo mantiene IN_ALPHA.
 
-- [ ] Rate limit por IP/cuenta/tenant, delays progresivos y límites de upload/concurrencia.
-- [ ] Mover scrypt síncrono fuera del event loop o usar implementación asíncrona controlada.
-- [ ] Probar credential stuffing, IDs ajenos, bodies inválidos, **1.99 GB exactos + justo por encima del límite** y race conditions sin ejecutar cargas destructivas.
+### HARD / ACTIVE BLOCKERS hacia apertura real de F5
 
-**Dependencias:** ADR de Día 5.  
-**Evidencia:** matriz 401/403/413/429 y pruebas cross-tenant.  
-**Gate de salida:** cero acceso o mutación cross-tenant en suite adversarial.
+1. F2/12.1 clean canonical production deployment/source proof post-#99.
+2. Issue #97 near-instant reveal Web+Desktop; #100 es measurement plumbing, no closure.
+3. F0/0.9 #89 P1 refresh/exact-green/integration.
+4. recent-reauth product seam → F2/15.1 durable Trash.
+5. F2/13.2 durable Review safe write surface.
+6. #93 Windows Auth canonicalization si sigue IN_ALPHA.
 
-## Día 7 — 1 de septiembre — Data plane seguro
+### 1.7 — `[ 🟡 ] REQUEUE AFTER FRESH FACTS`
 
-**Resultado:** navegador y desktop ya no reciben una identidad Telegram compartida.
+CYCLE157 no emite 1.7 aún: primero 12.1/#97/#89/recent-reauth deben producir facts frescos. Después clasificar `MUST_CLOSE / RO_EXCLUDE_CANDIDATE / RELEASE_ONLY_EXTERNAL` antes de 1.8.
 
-### Tarea 7.1 [P0 · BE] — Implementar mediación/capabilities
+### F3 — aplicabilidad explícita al alpha
 
-- [ ] Emitir capacidades cortas limitadas por usuario, vault, operación y objeto.
-- [ ] Rotar/revocar al terminar lease, logout, password change, delete o incidente.
-- [ ] Implementar y validar revocación operativa antes de escalar la flota hacia ~80 bots; no forzar revocaciones durante las pruebas actuales salvo compromiso confirmado.
-- [ ] Añadir ceilings por bot/tenant y deny-by-default.
+- 18.2 real provider/payment: `UNVERIFIED_EXTERNAL`; exclusión de alpha sin cobros requiere decisión explícita 1.7→1.8. BBB152 puede inventariar READ-ONLY solo como fallback durante espera externa real de su PRIMARY.
+- 19.2 legal implementation/release backlog abierto.
+- 20.2 runtime160/capacity no probado; clasificación explícita requerida.
 
-### Tarea 7.2 [P0 · QA/Security reviewer] — Validar aislamiento
+## Orden mínimo hacia 1.8
 
-- [ ] Intentar usar capability de A contra vault/objeto de B.
-- [ ] Probar replay, expiración, clock skew, sesión cerrada y bot quarantined.
-- [ ] Verificar que bundles, workers, logs y memoria serializada no contienen bot token/API hash.
+1. exact production deployment/source proof F2/12.1;
+2. cerrar #97 con Web+Desktop evidence y actual correction, no instrumentation-only;
+3. procesar/integrar #89 P1 exact-green;
+4. cerrar recent-reauth y luego F2/15.1 o elevar exclusión RO explícita;
+5. cerrar F2/13.2 o elevar exclusión RO sustentada;
+6. refresh #93 si permanece IN_ALPHA;
+7. reemitir 1.7 + aplicabilidad F3.
 
-**Dependencias:** Día 6.  
-**Evidencia:** threat tests y escaneo de artefactos.  
-**Gate de salida:** 0 secretos de infraestructura en cliente y 0 operaciones fuera del scope.
-
-## Día 8 — 2 de septiembre — Sesión y ciclo de cuenta
-
-**Resultado:** sesiones Web endurecidas y cuentas recuperables/controlables.
-
-### Tarea 8.1 [P0/P1 · BE/FE] — Sesión Web
-
-- [ ] Migrar a cookie HttpOnly/Secure/SameSite o mecanismo equivalente revisado; CSRF explícito.
-- [ ] Distinguir 401/expiry de offline/timeout; no borrar una sesión válida por error transitorio.
-- [ ] Session inventory, revoke-one/revoke-all y rotación tras eventos sensibles.
-
-### Tarea 8.2 [P1 · BE/FE/LF] — Lifecycle completo
-
-- [ ] Email verification, forgot/reset con tokens one-shot/expiry y respuesta anti-enumeración.
-- [ ] MFA recovery codes, reautenticación para email/password/delete y notificaciones.
-- [ ] Export y delete con revocación, provider cleanup, retención/tombstone y recibo.
-
-**Dependencias:** email provider/plantillas y decisiones legales.  
-**Evidencia:** E2E de happy/abuse/replay y auditoría de sesión.  
-**Gate de salida:** usuario puede verificar, recuperar, exportar y borrar sin intervención manual insegura.
-
-## Día 9 — 3 de septiembre — PostgreSQL y migración reversible
-
-**Resultado:** el backend deja de depender de JSON monolítico.
-
-### Tarea 9.1 [P0 · BE/OP] — Esquema y migrador
-
-- [ ] Crear migrations versionadas, constraints, índices y transacciones.
-- [ ] Importador JSON con dry-run, checksums, idempotencia, quarantine y reporte por registro.
-- [ ] Cifrar/proteger MFA/OAuth; hashes de sesión siguen no reversibles.
-
-### Tarea 9.2 [P0 · QA/OP] — Cutover ensayado
-
-- [ ] Snapshot antes, migración staging, comparación de conteos y checks funcionales.
-- [ ] Simular fallo a mitad y ejecutar rollback sin perder datos.
-- [ ] Desactivar fallback que convierte corrupción en servicio vacío.
-
-**Dependencias:** PostgreSQL staging y ADR de datos.  
-**Evidencia:** reporte de migración, diff lógico y rollback exitoso.  
-**Gate de salida:** migración repetible y reversible; ningún JSON actúa como autoridad de producción.
-
-## Día 10 — 4 de septiembre — Restore y alpha interna
-
-**Resultado:** checkpoint original convertido en evidencia, no marketing.
-
-### Tarea 10.1 [P0 · OP/QA] — Backup y restore
-
-- [ ] Backup cifrado de Postgres/configuración y estrategia para índice/media Telegram.
-- [ ] Restaurar en entorno aislado, medir RPO/RTO y ejecutar core flows.
-- [ ] Verificar acceso, retention, off-provider copy y alerta por backup fallido.
-
-### Tarea 10.2 [P0 · RO/Security reviewer] — Decidir alpha
-
-- [ ] Revisar gates D2–D10, P0 nuevos y evidencia independiente.
-- [ ] Si pasa: 3–5 usuarios internos, datos sintéticos, invitación, sin pagos; cualquier acceso de plan se concede como suscripción/entitlement real regalado, no como plan free-only.
-- [ ] Si falla: demo local; comunicar deslizamiento sin ampliar alcance.
-
-**Dependencias:** Días 2–9.  
-**Evidencia:** video/log de restore, checklist P0 y decisión firmada.  
-**Gate de salida:** servicio restaurable y alpha contenida; esto no autoriza lanzamiento público.
+Solo después corresponde **1.8 — decisión RO final**.

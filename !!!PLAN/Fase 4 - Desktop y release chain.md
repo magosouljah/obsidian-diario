@@ -1,106 +1,43 @@
 # Fase 4 — Artefactos desktop confiables y release chain
 
-> Antes de trabajar aquí: leer completo [`Plan Maestro.md`](./Plan%20Maestro.md).
+> GitHub/runtime vivo prevalece. Trabajo F4 puede avanzar en paralelo si respeta dependencias y gates reales.
 
-**Fechas:** 21–25 de septiembre  
-**Objetivo:** instaladores reconocidos por Windows/macOS y updater reversible desde un SHA único.
+**Integración estable CYCLE157:** `integration-v0.8.0-alpha.1 @ c2766fb23de5bb837a7fef4080a6aa7a6716f15e`.
 
-## Día 21 — 21 de septiembre — Manifest e identidad únicos
+## Estado actual
 
-**Resultado:** Web, backend y desktop comparten versión, endpoints y matriz de capabilities.
+- 21.1 / 21.2 `[x]`.
+- 24.1 / 24.2 `[x]`.
+- 25.1 `[ 🟡 ]`.
+- 25.2 readiness docs integrados; tester execution/signing/notarization/global closure abiertos.
+- Issue #97 es blocker literal pre-Beta y exige validación startup/reveal Desktop + Web; owner CYCLE157 = WOZ156 sobre PR #100.
 
-### Tarea 21.1 [P1 · DE/RO] — Release manifest
+## windows/auth — `[ 🟡 ] OLD-BASE EXACT-GREEN EVIDENCE / REFRESH REQUIRED IF IN_ALPHA`
 
-- [ ] Fijar bundle ID final antes de migrar app-data/updater.
-- [ ] Unificar VERSION/npm/Cargo/Tauri/Settings, endpoint y channel.
-- [ ] Incluir runtimes Windows presentes en Cloud y recursos universales macOS con digests.
+PR #93 sigue OPEN @ `b2c4eb441280343c4b9c39d57851c6d3da33abaa`, base histórica `134a293985c314eb09c238115e3bcb71e79f1810`; harness/evidence-only, sin product mutation. Windows Auth histórica fue exact-green para ese baseline, no canónica para live `c2766fb...`.
 
-### Tarea 21.2 [P1 · DE/QA] — Migración y compatibilidad
+CYCLE157: #93 = `PARKED / NO MUTATION OWNER`; refresh/revalidation solo si F1/1.7 lo mantiene `IN_ALPHA`.
 
-- [ ] Probar upgrade desde 0.7.4 y preservar settings/SQLite/offline/cache.
-- [ ] Probar instalación limpia y datos corruptos/incompletos con recovery seguro.
-- [ ] Generar artefactos de staging desde el mismo SHA.
+## windows/review
 
-**Dependencias:** release branch y app identity del Día 19.  
-**Evidencia:** manifest diff, version check y upgrade test.  
-**Gate de salida:** no hay versión/endpoints divergentes ni runtime omitido.
+Durable Review pertenece F2/13.2. AAA114 probó el gap y paró por write-surface unsafe. CYCLE157 sigue `BLOCKED_WRITE_SURFACE / UNASSIGNED`; no abrir owner concurrente mientras #97/#100 ocupe App/startup/shared surfaces.
 
-## Día 22 — 22 de septiembre — Windows firmado
+## Startup/reveal cross-platform — Issue #97 / PR #100
 
-**Resultado:** instalador y binarios Windows tienen publisher verificable.
+#97 sigue OPEN y `Must be addressed before Beta 1`. PR #100 apareció durante CYCLE157: OPEN/Ready, exact base `c2766fb...`, head `5f0a0727edacbcb404eb4e31571468262744ec95`, instrumentation-only para la misma timeline Web/Desktop; CI está en curso. No cambia startup/performance behavior y no es evidencia de cierre.
 
-### Tarea 22.1 [P0 · DE/OP] — Authenticode
+WOZ156 posee #97/#100 exclusivamente: usar traces para medir first usable cards/full visible library y false-empty sequencing, aislar causa, convertir la misma lineage en correction mínima shared/cross-platform, preservar artwork/playback semantics y validar Desktop + Web. Conditional merge #100 únicamente cuando contenga actual correction + exact-green/race-free evidence; instrumentation-only no se integra como cierre.
 
-- [ ] Integrar certificado/servicio de firma sin exponer private key.
-- [ ] Firmar binarios e instalador NSIS con timestamp; verificar cadena tras descarga.
-- [ ] Conservar firma Tauri de updater como capa separada.
+## Signing Windows / macOS
 
-### Tarea 22.2 [P1 · QA/DE] — Matriz limpia
+#88 sigue integrado como technical/preparatory Authenticode + RFC3161 seam. Production signing = `NO-GO` hasta inputs/authorization RO + evidencia real; macOS signing/notarization/hardware externos.
 
-- [ ] Instalación/upgrade/uninstall como usuario estándar y UAC esperado.
-- [ ] SmartScreen/antivirus, paths no ASCII/largos, offline/poor network y sleep/wake.
-- [ ] DAWs y versiones Windows declaradas por product owner; updater válido e inválido.
+## 25.1 — `[ 🟡 ] IN PROGRESS`
 
-**Dependencias:** certificado disponible y manifest Día 21.  
-**Evidencia:** `signtool verify`, timestamp, screenshots/logs clean-machine.  
-**Gate de salida:** Windows no muestra publisher desconocido y core flows pasan tras instalar.
+Windows Auth necesita refresh si aplica al alpha. #97 añade obligación Web+Desktop pre-Beta. Otros journeys carecen de evidencia actual completa; iPhone external. No cerrar 25.1 por un journey verde ni por instrumentation #100.
 
-## Día 23 — 23 de septiembre — macOS firmado y notarizado
+## 25.2 — `[ 🟡 ] READINESS ARTIFACT INTEGRATED / GLOBAL OPEN`
 
-**Resultado:** DMG/app aceptados por Gatekeeper en Intel y Apple Silicon soportados.
+Gate real requiere beta/tester execution, 0 P0, ningún P1 core conocido y release-chain evidence. #89 conserva P1 corrective pendiente bajo AAA153; legal audit conserva P0/P1 release blockers; #97 debe resolverse antes de Beta 1. #99 mejora provenance Web pero no sustituye signing/notarization/testers.
 
-### Tarea 23.1 [P0 · DE/OP] — Developer ID
-
-- [ ] Revisar entitlements/hardened runtime y firmar nested binaries en orden correcto.
-- [ ] Enviar con `notarytool`, esperar Accepted, staple ticket a app/DMG y verificar offline.
-- [ ] Custodiar/rotar certificado y credenciales mediante secretos de entorno protegido.
-
-### Tarea 23.2 [P1 · QA/DE] — Matriz física
-
-- [ ] Instalar desde descarga en cuenta limpia, verificar Gatekeeper/Finder y first run.
-- [ ] Intel + Apple Silicon, macOS mínimo 12 y versiones declaradas; sleep/wake/firewall/disk pressure.
-- [ ] DAWs declarados, updater válido/inválido y preservación de app-data.
-
-**Dependencias:** membership/certificado y binarios universales.  
-**Evidencia:** codesign/notary/stapler/spctl y logs físicos.  
-**Gate de salida:** artefacto notarizado/stapled y core flows pasan en ambas arquitecturas prometidas.
-
-## Día 24 — 24 de septiembre — Updater, procedencia y rollback
-
-**Resultado:** una mala versión puede detenerse o revertirse sin sobrescribir evidencia.
-
-### Tarea 24.1 [P0/P1 · DE/OP] — Cadena inmutable
-
-- [ ] Tag protegido debe resolver exactamente al SHA de los runs consumidos.
-- [ ] Checksums, SBOM y provenance por artefacto; eliminar selección arbitraria y `--clobber` final.
-- [ ] Canales internal/beta/stable, porcentaje/rings, minimum version y kill switch.
-
-### Tarea 24.2 [P1 · QA/DE] — Lifecycle updater
-
-- [ ] Update desde N-1, cancelación, red cortada, disco lleno, firma inválida y manifest alterado.
-- [ ] Reinicio/recovery y rollback a la versión compatible anterior.
-- [ ] Ensayar retiro de `latest.json`/artefacto malo y comunicación de incidente.
-
-**Dependencias:** artefactos firmados.  
-**Evidencia:** release ledger, attestation y rollback rehearsal.  
-**Gate de salida:** tag→SHA→artefacto es demostrable y rollback cumple runbook.
-
-## Día 25 — 25 de septiembre — Matriz cross-platform y freeze estructural
-
-**Resultado:** candidato beta conserva funciones y el rediseño deja de cambiar estructura.
-
-### Tarea 25.1 [P1 · QA/FE/DE] — Suite completa
-
-- [ ] Web Chrome/Safari/Firefox/iPhone; Windows y macOS físicos; cuenta limpia y upgrade.
-- [ ] Auth/import/Review/playback/edit/Trash/offline/YouTube/updater/billing por capability.
-- [ ] Comparar datos al refresh/restart y confirmar cero llamadas de plataforma inválida.
-
-### Tarea 25.2 [P1/P2 · DL/RO] — Design freeze
-
-- [ ] Aprobar tokens, navegación, library, drawer, player, settings y wizard.
-- [ ] Registrar P2/P3 restantes; solo a11y/copy/error/regresión entra antes de RC.
-- [ ] Preparar guion beta, formulario y criterios P0/P1/P2.
-
-**Dependencias:** Fases 2–4.  
-**Evidencia:** matriz firmada, snapshots y backlog triage.  
-**Gate de salida:** beta candidate `0.9.0-beta.1`, 0 P0 conocido y ningún P1 core conocido.
+**Principio:** exact-head evidence-before-claim; un journey verde o measurement instrumentation no sustituye 25.1 ni signing/notarization/tester execution.
