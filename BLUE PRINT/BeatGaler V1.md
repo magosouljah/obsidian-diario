@@ -1,0 +1,70 @@
+# BeatGaler V1
+
+> **Stupid Simple.**
+
+Este archivo describe el alma de BeatGaler V1: qué queremos construir, qué priorizamos y qué no queremos sacrificar.
+
+No describe el estado diario del proyecto, PRs, commits, CI ni implementaciones temporales. GitHub conserva esa realidad.
+
+
+## Principios
+1. Stupid Simple. 
+	1. para el usuario
+	2. para nuestro backend y front end
+
+
+## Qué queremos que sea BeatGaler
+BeatGaler debe hacer que trabajar con beats, canciones y proyectos sea simple, rápido y confiable.
+
+
+Queremos que el usuario pueda abrir BeatGaler, encontrar su biblioteca, escuchar, organizar, editar, guardar, recuperar su trabajo.
+
+
+## Prioridades
+En orden general:
+
+1. No perder ni corromper el trabajo del usuario.
+2. Que los flujos principales sean rápidos y confiables.
+3. Mantener la experiencia simple.
+4. Mantener Web y Desktop coherentes donde deban compartir comportamiento.
+5. Poder desplegar, recuperar y actualizar BeatGaler de forma confiable.
+6. Pulido y funciones secundarias después de que el núcleo sea sólido.
+
+
+## Features para el cliente
+- subir y guardar beats/proyectos de musica en la nube
+- editar metadata y portada de beats
+- subir beats/audios/canciones a youtube
+
+
+## Arquitecturas canónicas
+
+Las arquitecturas viven en `ARCHITECTURE/`.
+
+Solo se documentan cuando Bruno decide que esa es la forma en la que queremos que BeatGaler funcione.
+
+### Arquitecturas actuales
+
+
+Por agregar:
+- **MASTER** — mapa general de cómo se conectan todas las arquitecturas.
+- **STARTUP** — cómo BeatGaler pasa de abrirse a mostrar la biblioteca y estar listo para reproducir.
+- **LIBRARY** — cómo se organiza y representa la biblioteca.
+- **BEAT** — qué es un beat y qué archivos/datos lo componen.
+- **CLOUD-STORAGE** — dónde viven los datos y cómo se organiza el almacenamiento.
+- **SYNC** — cómo se sincronizan cache local, Cloud y Telegram.
+- **UPLOAD** — cómo entran beats, proyectos y archivos a BeatGaler.
+- **PLAYBACK** — cómo se prepara, transmite y reproduce audio.
+- **METADATA** — cómo funcionan metadata, artwork, tags, rating y edición.
+- **PROJECTS** — cómo funcionan proyectos de producción y samples.
+- **EXPORT-OFFLINE** — descargas, exportación y disponibilidad offline.
+- **YOUTUBE** — cómo BeatGaler publica audio en YouTube.
+- **AUTH** — cuentas, sesiones, dispositivos y acceso.
+- **DIRECT** — comunicación directa con Telegram y transporte de archivos.
+- **PLATFORMS** — relación entre Web, Desktop y lógica compartida.
+- **RECOVERY** — cómo BeatGaler se recupera de fallos sin perder trabajo.
+
+No es obligatorio que todas existan desde ahora.
+
+Se crean cuando una arquitectura deja de ser experimento y pasa a ser una decisión canónica de BeatGaler.
+

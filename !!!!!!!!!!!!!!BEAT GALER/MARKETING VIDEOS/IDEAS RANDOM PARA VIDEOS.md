@@ -1,0 +1,1 @@
+cuarto tirado, beats tirados

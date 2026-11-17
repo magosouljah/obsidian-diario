@@ -1,0 +1,1 @@
+Task 11: PARTIAL, pero con renovación financiera real PASS.

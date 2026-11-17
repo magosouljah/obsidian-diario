@@ -1,0 +1,2 @@
+###### Missing Vault limita restart de Cloud/AWS
+si un vault/chat de Telegram registrado en PostgreSQL deja de existir o `Master01` pierde acceso, `recoverAll()` hace fallar todo el startup de Cloud. Debemos cambiar el arranque para que un vault inaccesible quede marcado/degradado y se omita, sin impedir que `/healthz` ni el resto del backend levanten. Añadir tests para este caso.
