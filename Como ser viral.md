@@ -1,2 +1,2 @@
 
-la verdad noi tengo idea pero  se quie para ser viral tengo q primero llegar a la gente q hace musica y lo q creo q seria mas facil es simple simplemente dar el mayor valor possible y yo puedo dar mucho valor porq se muchas 
+la verdad noi tengo idea pero  se quie para ser viral tengo q primero llegar a la gente q hace musica y lo q creo q seria mas facil es simple simplemente dar el mayor valor possible y yo puedo dar mucho valor porq se muchas cosas pero q es lo q mas importa talvez mezclas
