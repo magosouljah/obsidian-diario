@@ -18,6 +18,7 @@
 | ---------------------------------------------------------------------------------------- | ---------- | ------ |
 | tener protadas reales en la landing page<br><br>                                         | 2026-11-20 |        |
 | la barra de tags no esta bien delimitada y creo q solo es en Beatgaler.com no en estudio | 2026-11-20 |        |
+|                                                                                          |            |        |
 
 
 ## features
