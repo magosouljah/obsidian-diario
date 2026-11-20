@@ -1,5 +1,7 @@
-# base
 
+
+
+# bugs
 
 | BUGS                                                                                   | fecha  | estado |
 | -------------------------------------------------------------------------------------- | ------ | ------ |
@@ -10,6 +12,7 @@
 
 
 
+# Visual
 
 | VISUAL                                                                                   | fecha  | Estado |
 | ---------------------------------------------------------------------------------------- | ------ | ------ |
@@ -17,3 +20,8 @@
 | la barra de tags no esta bien delimitada y creo q solo es en Beatgaler.com no en estudio | 19 nov |        |
 
 
+# features
+
+|     |     |
+| --- | --- |
+|     |     |
