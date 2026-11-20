@@ -9,4 +9,4 @@
 - TAMPOCO SE SI RESTYABLECER contraseña funciona
 - creo q el error es otro y no es q ya haya cuenta sino esto: This BeatGaler installation already belongs to another account. creo q es q la session es de otra cuenta y eso no tiene sentido porq entonces porq no estoy logeado? 
 - y creo q estaba en lo correcto porq cuando borre cache y entre ya me dejo crear cuenta
-- NO PUEDO SUBIR BEATSError: CATALOG_UNAVAILABLE: library has no Galer Cloud storage session assigned
+- NO PUEDO SUBIR BEATS: Error: CATALOG_UNAVAILABLE: library has no Galer Cloud storage session assigned
