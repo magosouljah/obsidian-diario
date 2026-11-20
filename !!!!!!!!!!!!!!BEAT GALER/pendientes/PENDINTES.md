@@ -8,6 +8,6 @@
 | agregar todos los bots a produccion, actualmente tenemos solo 3 creo |        | falta    |        |
 | tener protadas reales en la landing page                             |        | estetico |        |
 | This installation belongs to another BeatGaler account.              |        |          |        |
-|                                                                      |        |          |        |
+| Too many authentication attempts. Please retry later.                |        |          |        |
 |                                                                      |        |          |        |
 |                                                                      |        |          |        |
