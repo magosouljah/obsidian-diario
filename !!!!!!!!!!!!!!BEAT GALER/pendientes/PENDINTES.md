@@ -22,6 +22,7 @@
 
 # features
 
-|     |     |
-| --- | --- |
-|     |     |
+| fature                                                                                                                                              | fecha      | Estado |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------ |
+| subir muchos beats al mismo tiempo                                                                                                                  | 2026-11-20 |        |
+| mejorar subir beats para poder seleccionar varias carpetas con proyectos adentro esto hay q pensalo muy bien para no confundir y subir mal archivos | 2026-11-20 |        |
