@@ -10,8 +10,7 @@
 - creo q el error es otro y no es q ya haya cuenta sino esto: This BeatGaler installation already belongs to another account. creo q es q la session es de otra cuenta y eso no tiene sentido porq entonces porq no estoy logeado? 
 - y creo q estaba en lo correcto porq cuando borre cache y entre ya me dejo crear cuenta
 - NO PUEDO SUBIR BEATS: Error: CATALOG_UNAVAILABLE: library has no Galer Cloud storage session assigned
-- seccion de planes no funciona 
-	```
+- seccion de planes no funciona 	```
 	Plan
 
 Manage your BeatGaler access.
@@ -32,3 +31,4 @@ Changing to a lower plan does not delete existing beats or PROJECT files. Existi
 
 <html> <head><title>502 Bad Gateway</title></head> <body> <center><h1>502 Bad Gateway</h1></center> <hr><center>nginx</center> </body> </html> <!-- a padding to disable MSIE and Chrome friendly error page --> <!-- a padding to disable MSIE and Chrome friendly error page --> <!-- a padding to disable MSIE and Chrome friendly error page --> <!-- a padding to disable MSIE and Chrome friendly error page --> <!-- a padding to disable MSIE and Chrome friendly error page --> <!-- a padding to disable MSIE and Chrome friendly error page -->
 	```
+
