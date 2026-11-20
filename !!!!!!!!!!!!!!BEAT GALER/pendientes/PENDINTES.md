@@ -12,6 +12,6 @@
 |                                                                                        |        |        |
 |                                                                                        |        |        |
 
-| VISUAL                                   | fecha |
-| ---------------------------------------- | ----- |
-| tener protadas reales en la landing page |       |
+| VISUAL                                   | fecha  |
+| ---------------------------------------- | ------ |
+| tener protadas reales en la landing page | 19 nov |
