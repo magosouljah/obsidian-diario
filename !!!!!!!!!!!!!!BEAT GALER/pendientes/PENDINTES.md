@@ -1,5 +1,4 @@
 # base
-## 19 noviembre
 
 
 | BUGS                                                                                   | estado | fecha  |
