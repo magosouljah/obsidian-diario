@@ -4,6 +4,6 @@
 - tener protadas reales en la landing page
 - TAMPOCO SE SI RESTABLECER contraseña funciona
 
-|     |     |
-| --- | --- |
-|     |     |
+| bugs |     |
+| ---- | --- |
+|      |     |
