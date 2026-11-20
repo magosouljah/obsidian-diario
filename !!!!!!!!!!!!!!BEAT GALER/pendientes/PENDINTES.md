@@ -2,7 +2,7 @@
 ## 19 noviembre
 
 
-| Pendientes                                                                             | estado | tipo     | fecha  |
+| BUGS                                                                                   | estado | tipo     | fecha  |
 | -------------------------------------------------------------------------------------- | ------ | -------- | ------ |
 | no SE SI RESTABLECER contraseña funciona                                               |        | bug      | 19-nov |
 | agregar todos los bots a produccion, actualmente tenemos solo 3 creo                   |        | falta    |        |
