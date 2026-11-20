@@ -5,7 +5,6 @@
 - en crear cuenta no aparece X o Google y creo q deberia apercer para q la puedan crear aunq creo q si se puede desde iniciar
 - TAMPOCO SE SI RESTYABLECER contraseña funciona
 - NO PUEDO SUBIR BEATS: Error: CATALOG_UNAVAILABLE: library has no Galer Cloud storage session assigned
-- seccion de planes no funciona 
 	```
 	Plan
 	
