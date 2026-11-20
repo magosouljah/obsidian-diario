@@ -4,4 +4,4 @@
 - agregar x para iniciar session
 - tener protadas reales en la landing page
 - ### tener codigo limpio
-- en crear cuenta no aparece X o Google y creo q deberia apercer para q la puedan
+- en crear cuenta no aparece X o Google y creo q deberia apercer para q la puedan crear aunq creo q si se puede desde iniciar
