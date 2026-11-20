@@ -12,7 +12,7 @@
 - NO PUEDO SUBIR BEATS: Error: CATALOG_UNAVAILABLE: library has no Galer Cloud storage session assigned
 - seccion de planes no funciona 
 	```
-		Plan
+	Plan
 
 Manage your BeatGaler access.
 
