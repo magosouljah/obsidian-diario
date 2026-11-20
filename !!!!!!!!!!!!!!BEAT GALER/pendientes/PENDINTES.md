@@ -11,7 +11,6 @@
 | Too many authentication attempts. Please retry later. (se corrigio al limpiar cache)   | 2026-11-20 |        |
 
 
-
 ## Visual
 
 | VISUAL                                                                                   | fecha      | Estado |
