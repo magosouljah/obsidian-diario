@@ -12,6 +12,6 @@
 |                                                                                        |        |        |
 |                                                                                        |        |        |
 
-| VISUAL                                                            | fecha  |
-| ----------------------------------------------------------------- | ------ |
-| tener protadas reales en la landing page<br>la barra de tags no e | 19 nov |
+| VISUAL                                                                                                | fecha  |
+| ----------------------------------------------------------------------------------------------------- | ------ |
+| tener protadas reales en la landing page<br>la barra de tags no esta bien delimitada y creo q solo es | 19 nov |
