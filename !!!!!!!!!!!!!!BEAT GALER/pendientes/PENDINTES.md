@@ -8,7 +8,7 @@
 | agregar todos los bots a produccion, actualmente tenemos solo 3 creo                     | 2026-11-20 |        |
 | This installation belongs to another BeatGaler account. (se corrigio al limpiar cache)   | 2026-11-20 |        |
 | Too many authentication attempts. Please retry later. (se corrigio al limpiar cache)<br> | 2026-11-20 |        |
-| regresar cuando esta en aleatorio pone una cancion random en vez de la anterior          |            |        |
+| regresar cuando esta en aleatorio pone una cancion random en vez de la anterior          | 2026-11-20 |        |
 
 
 ## Visual
