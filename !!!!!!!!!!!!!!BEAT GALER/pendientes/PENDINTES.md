@@ -2,12 +2,12 @@
 # V1
 ## bugs
 
-| BUGS                                                                                   | fecha      | estado |
-| -------------------------------------------------------------------------------------- | ---------- | ------ |
-| no SE SI RESTABLECER contraseña funciona                                               | 2026-11-20 |        |
-| agregar todos los bots a produccion, actualmente tenemos solo 3 creo                   | 2026-11-20 |        |
-| This installation belongs to another BeatGaler account. (se corrigio al limpiar cache) | 2026-11-20 |        |
-| Too many authentication attempts. Please retry later. (se corrigio al limpiar cache)   | 2026-11-20 |        |
+| BUGS                                                                                                                                                                                  | fecha      | estado |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------ |
+| no SE SI RESTABLECER contraseña funciona                                                                                                                                              | 2026-11-20 |        |
+| agregar todos los bots a produccion, actualmente tenemos solo 3 creo                                                                                                                  | 2026-11-20 |        |
+| This installation belongs to another BeatGaler account. (se corrigio al limpiar cache)                                                                                                | 2026-11-20 |        |
+| Too many authentication attempts. Please retry later. (se corrigio al limpiar cache)<br>regresar a la cancion anterior cuando esta en random pone una cancion random y no la anterior | 2026-11-20 |        |
 
 
 ## Visual
